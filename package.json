@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/content": "^3.5.1",
     "nuxt": "^3.17.3",
     "vuetify": "^3.8.5"
   },
