@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config'
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   
   css: [
     'vuetify/lib/styles/main.sass',
@@ -13,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts','@nuxt/content'
   ],
   
+  // @ts-ignore - Known module configuration
   googleFonts: {
     families: {
       'Inter': [300, 400, 500, 600, 700],
