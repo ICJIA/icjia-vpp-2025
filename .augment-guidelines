@@ -2,130 +2,65 @@
 
 You are an expert in JavaScript, Node.js, NuxtJS, Vue 3, Vuetify, and VueUse.
 
-## Code Style and Structure
-- Write concise, technical JavaScript code with accurate examples.
-- Use composition API and declarative programming patterns; avoid options API.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Structure files: exported component, composables, helpers, static content.
+## Core Principles
+- Write concise, technical JavaScript code (not TypeScript)
+- Use Vue 3 Composition API with `<script setup>` syntax
+- Follow mobile-first responsive design with Vuetify 3
+- Maintain the Nuxt Content 3 directory structure (/content inside /components)
 
-## Naming Conventions
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Use PascalCase for component names (e.g., AuthWizard.vue).
-- Use camelCase for composables (e.g., useAuthState.js).
+## Code Structure & Naming
+- **Files**: Structure as exported component → composables → helpers → static content
+- **Directories**: lowercase-with-dashes (e.g., `components/auth-wizard`)
+- **Components**: PascalCase (e.g., `AuthWizard.vue`)
+- **Composables**: camelCase (e.g., `useAuthState.js`)
+- **Variables**: Descriptive with auxiliary verbs (e.g., `isLoading`, `hasError`)
 
-## Important Notes
-- Use JavaScript instead of TypeScript.
-- The directory structure of the components is correctly based on Nuxt Content 3. The /content folder should be inside of the components folder so that Nuxt Content can find the components. Do not change this directory structure.
+## Vue & Nuxt Best Practices
+- Use Composition API patterns: `ref`, `reactive`, `computed`, `watch`, `provide/inject`
+- Leverage Nuxt 3 auto-imports for components and composables
+- Use `useFetch`/`useAsyncData` for data fetching
+- Implement SEO with `useHead` and `useSeoMeta`
+- Handle SSR limitations (e.g., localStorage unavailable during SSR)
+- Use Suspense for async components and lazy loading for routes
 
-## Syntax and Formatting
-- Use arrow functions for methods and computed properties.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-- Use template syntax for declarative rendering.
-
-## UI and Styling
-- Use Vuetify 3 and vanilla CSS for components and styling.
-- Implement responsive design with Vuetify; use a mobile-first approach.
-
-## Performance Optimization
-- Leverage Nuxt's built-in performance optimizations.
-- Use Suspense for asynchronous components.
-- Implement lazy loading for routes and components.
-- Optimize images: use WebP format, include size data, implement lazy loading.
-
-## Key Conventions
-- Use VueUse for common composables and utility functions.
-- Optimize Web Vitals (LCP, CLS, FID).
-- Utilize Nuxt's auto-imports feature for components and composables.
-
-## Nuxt-specific Guidelines
-- Follow Nuxt 3 directory structure (e.g., pages/, components/, composables/).
-- Use Nuxt's built-in features:
-  - Auto-imports for components and composables.
-  - File-based routing in the pages/ directory.
-  - Server routes in the server/ directory.
-  - Leverage Nuxt plugins for global functionality.
-- Use useFetch and useAsyncData for data fetching.
-- Implement SEO best practices using Nuxt's useHead and useSeoMeta.
-
-## Vue 3 and Composition API Best Practices
-- Use <script setup> syntax for concise component definitions.
-- Leverage ref, reactive, and computed for reactive state management.
-- Use provide/inject for dependency injection when appropriate.
-- Implement custom composables for reusable logic.
-
-Follow the official Nuxt.js, Vue.js, and Vuetify 3 documentation for up-to-date best practices on Data Fetching, Rendering, and Routing.
-
-
+## Performance & UI
+- Optimize Core Web Vitals (LCP, CLS, FID)
+- Use Vuetify 3 components with vanilla CSS for custom styling
+- Optimize images: WebP format, size attributes, lazy loading
+- Use VueUse utilities for common functionality
+- Implement proper loading states and error handling
 
 # Audit Log Rules
 
 ## Purpose and Overview
-
-This document defines the rules and guidelines for maintaining an audit log in any software project. The audit log serves as a chronological record of all significant changes made to a project, providing transparency and accountability for external reviewers and future developers.
-
-For each major change to this codebase, please create (if it doesn't already exist) an audit log at the root of the project called 'audit-log-vpp.md' and update this audit log with each major code update according to the rules below. Please also indicate that the audit log has, indeed, been updated where appropriate.
-
-## Distinction from CHANGELOG
-An audit log is distinct from a CHANGELOG in several important ways:
-
-- **Purpose**: The audit log is primarily for external review and audit purposes, not for end-users or developers tracking version changes
-- **Detail Level**: Audit logs contain more granular details about specific files changed and exact modifications made
-- **Structure**: While CHANGELOGs are typically organized by version numbers, audit logs are strictly chronological
-- **Audience**: Audit logs are designed for auditors, compliance officers, and external reviewers who need to verify exactly what changed and when
-- **Completeness**: Audit logs must document ALL significant changes, not just features or fixes that would appear in a CHANGELOG
+This document defines rules for maintaining an audit log ('audit-log-vpp.md') as a chronological record of all significant changes, providing transparency for reviewers and developers.
 
 ## Required Format
+Each entry must include:
+1. **Date and Title**: YYYY-MM-DD format with descriptive title
+2. **Summary**: 1-2 sentence overview of what changed and why
+3. **Files Modified/Created**: List with specific changes to each file
+4. **Technical Notes**: Implementation details helpful for developers
 
-Each audit log entry must include:
-
-1. **Date and Title**: Date of change in YYYY-MM-DD format followed by a brief descriptive title in parentheses
-2. **Summary**: 1-2 sentence summary of the change that clearly states what was modified and why
-3. **Files Modified/Created**: A list of all files modified or created with brief descriptions of the specific changes made to each file
-4. **Technical Notes**: A section with general implementation details that would help new developers understand the changes without revealing security-sensitive information
+## Guidelines
+- Entries in reverse chronological order (newest at top)
+- Be specific about changes and rationale
+- Include ALL significant changes
+- Generate dates based on current date when creating entries
+- Maintain consistent formatting across entries
+- Focus on information helpful for new developers
+- Avoid revealing security vulnerabilities
 
 ## Sample Entry
-
-Below is a complete sample entry showing exactly how each audit log entry should be structured:
-
 ```markdown
-### YYYY-MM-DD (Security Enhancement and Bug Fix)
-- Implemented enhanced password hashing and fixed user authentication bypass vulnerability.
+### YYYY-MM-DD (Feature Implementation)
+- Implemented user authentication system with email verification.
 - Files modified/created:
-  - `src/auth/password.js`: Updated password hashing algorithm from MD5 to bcrypt with 12 rounds of salting
-  - `src/auth/login.js`: Fixed authentication bypass vulnerability in the login verification process
-  - `src/config/security.js`: Added new configuration parameters for bcrypt implementation
-  - `tests/auth/password.test.js`: Updated tests to verify new hashing implementation
-  - `docs/security.md`: Updated documentation to reflect new password security measures
+  - `components/auth/LoginForm.vue`: Created login form with validation
+  - `composables/useAuth.js`: Implemented authentication logic
+  - `server/api/auth/login.js`: Added server endpoint for authentication
 - Technical Notes:
-  - Bcrypt was chosen for its adaptive nature and built-in salt generation
-  - Implementation follows OWASP password storage recommendations
-  - Tests verify both successful hashing and timing attack resistance
-  - Configuration parameters are environment-specific with secure defaults
-  - The fix addresses CVE-2025-XXXXX without breaking API compatibility
+  - Uses JWT for stateless authentication
+  - Implements rate limiting to prevent brute force attacks
+  - Stores tokens in httpOnly cookies for security
 ```
-
-This sample demonstrates the exact format, level of detail, and structure required for each audit log entry.
-
-## Guidelines for Creating Entries
-
-- **Chronological Order**: Entries should be in reverse chronological order (newest at top)
-- **Specificity**: Be specific about what was changed and why, avoiding vague descriptions
-- **Comprehensiveness**: Include all modified files with concise descriptions of the changes made to each
-- **Security Awareness**: Keep Technical Notes general enough to avoid revealing security vulnerabilities or sensitive implementation details
-- **Developer Focus**: Focus on information that would help a new developer understand the codebase and the rationale behind changes
-- **Completeness**: Document ALL significant changes, including refactoring, security updates, and documentation improvements
-- **Accuracy**: Use the actual date when creating entries, not placeholder dates
-- **Current Date Generation**: ALWAYS generate dates based on the current date when creating new entries. Each new entry should first get the current date, and then use that date for the log entry. Never use hardcoded dates.
-- **Consistency**: Maintain consistent formatting and level of detail across all entries
-
-## Implementation in Projects
-
-To implement an audit log in a project:
-
-1. Create an `audit-log-vpp.md` file in the project root directory
-2. Add a brief introduction explaining the purpose of the audit log
-3. Create a section titled "## Audit Log Entries" where all entries will be added
-4. Add new entries at the top of this section as changes are made
-
-Finally, if the change is very minor, you can just add a note to the audit log that the change was made.
