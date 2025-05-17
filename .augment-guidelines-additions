@@ -1,0 +1,108 @@
+# Additional Development Guidelines
+
+The following sections should be added to the existing `.augment-guidelines` file to make it more comprehensive.
+
+## Testing Guidelines
+- Write tests for all new features and significant changes
+- Use Vitest for unit and component testing
+- Follow the AAA pattern (Arrange, Act, Assert) for test structure
+- Mock external dependencies and API calls
+- Test components with Vue Test Utils, focusing on:
+  - Component rendering and props validation
+  - Event handling and emissions
+  - Conditional rendering and state changes
+- Aim for >80% test coverage for critical application paths
+- Run tests before committing code: `yarn test`
+- Write tests for error scenarios and edge cases
+
+## Accessibility Standards
+- Follow WCAG 2.1 AA compliance standards
+- Ensure proper keyboard navigation for all interactive elements
+- Maintain color contrast ratios of at least 4.5:1 for normal text
+- Provide ARIA labels for all interactive elements without visible text
+- Implement focus states for all interactive elements
+- Test with screen readers periodically
+- Use semantic HTML elements appropriately
+- Ensure all form elements have associated labels
+- Provide text alternatives for non-text content
+
+## Git Workflow
+- Branch naming: `feature/short-description`, `bugfix/issue-description`
+- Commit messages: Use present tense with clear descriptions
+- Create PRs with detailed descriptions of changes
+- Require at least one code review before merging
+- Squash commits when merging to maintain clean history
+- Keep PRs focused on a single feature or fix
+- Reference issue numbers in commit messages and PR descriptions
+- Run tests locally before pushing code
+
+## Error Handling Strategy
+- Use try/catch blocks for async operations
+- Implement consistent error feedback for users
+- Log errors to console in development, consider a logging service in production
+- Create reusable error components for common error scenarios
+- Handle API errors with appropriate HTTP status codes
+- Provide fallback UI for failed component loading
+- Use error boundaries where appropriate
+- Validate user input before submission
+
+## Documentation Requirements
+- Add JSDoc comments for all functions and composables
+- Document component props with descriptions and types
+- Keep README updated with new features and changes
+- Document API endpoints with request/response examples
+- Include usage examples for reusable components
+- Document state management patterns and data flow
+- Add comments for complex logic or algorithms
+- Update documentation when changing existing functionality
+
+## State Management Approach
+- Use component-local state (`ref`, `reactive`) for UI-specific state
+- Use composables for shared state between related components
+- Consider Pinia for global application state
+- Use `provide`/`inject` for prop drilling avoidance
+- Keep state close to where it's used
+- Implement state immutability patterns
+- Document state management decisions
+- Use `useState` for Nuxt-specific shared state
+
+## Environment Configuration
+- Store environment variables in `.env` files (not committed to git)
+- Provide `.env.sample` files with required variables
+- Use `runtimeConfig` in `nuxt.config.ts` for server-side variables
+- Use `publicRuntimeConfig` for client-side variables
+- Never expose API keys or secrets in client-side code
+- Document all required environment variables
+- Use different environment files for development/staging/production
+
+## Performance Budgets
+- Total bundle size: <250KB (compressed)
+- First Contentful Paint: <1.8s on 4G connections
+- Time to Interactive: <3.5s on 4G connections
+- Largest Contentful Paint: <2.5s
+- First Input Delay: <100ms
+- Cumulative Layout Shift: <0.1
+- Optimize images and use WebP format
+- Implement code splitting for routes
+- Lazy load off-screen components
+- Monitor performance in production
+
+## Deployment Strategy
+- Use CI/CD pipeline for automated testing and deployment
+- Implement staging environment for pre-production testing
+- Use semantic versioning for releases
+- Create release notes for significant updates
+- Implement feature flags for gradual rollouts
+- Have rollback plan for failed deployments
+- Monitor application performance and errors post-deployment
+- Perform database migrations safely
+
+## Security Guidelines
+- Implement Content Security Policy
+- Sanitize all user inputs
+- Use HTTPS for all connections
+- Implement proper authentication and authorization
+- Regularly update dependencies
+- Follow OWASP security best practices
+- Avoid exposing sensitive information in client-side code
+- Use secure cookies with appropriate flags

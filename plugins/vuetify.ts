@@ -21,13 +21,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         light: {
           dark: false,
           colors: {
-            primary: '#0962E8',
-            secondary: '#06B6D4',
-            accent: '#7C3AED',
-            success: '#10B981',
-            warning: '#F59E0B',
-            error: '#EF4444',
-            info: '#3B82F6',
+            primary: '#0747A6', // Darker blue for better contrast (>8:1)
+            secondary: '#057A8C', // Darker teal for better contrast
+            accent: '#5B21B6', // Darker purple for better contrast
+            success: '#047857', // Darker green for better contrast
+            warning: '#B45309', // Darker amber for better contrast
+            error: '#B91C1C', // Darker red for better contrast
+            info: '#1E40AF', // Darker blue for better contrast
             background: '#F8FAFC',
             surface: '#FFFFFF',
             'on-surface': '#1E293B',
@@ -37,13 +37,13 @@ export default defineNuxtPlugin((nuxtApp) => {
         dark: {
           dark: true,
           colors: {
-            primary: '#3B82F6',
-            secondary: '#0891B2',
-            accent: '#8B5CF6',
-            success: '#10B981',
-            warning: '#F59E0B',
-            error: '#EF4444',
-            info: '#60A5FA',
+            primary: '#93C5FD', // Lighter blue for better contrast (>8:1)
+            secondary: '#67E8F9', // Lighter teal for better contrast
+            accent: '#C4B5FD', // Lighter purple for better contrast
+            success: '#6EE7B7', // Lighter green for better contrast
+            warning: '#FCD34D', // Lighter amber for better contrast
+            error: '#FCA5A5', // Lighter red for better contrast
+            info: '#BFDBFE', // Lighter blue for better contrast
             background: '#0F172A',
             surface: '#1E293B',
             'on-surface': '#F1F5F9',

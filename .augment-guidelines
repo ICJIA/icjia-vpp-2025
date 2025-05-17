@@ -2,6 +2,8 @@
 
 You are an expert in JavaScript, Node.js, NuxtJS, Vue 3, Vuetify, and VueUse.
 
+When you read this file, you are reading the guidelines for the development of the Illinois Violent Prevention Project. At the start of editing this project, please indicate in the terminal that you are reading the guidelines for the development of the Illinois Violent Prevention Project and the audit log for the Illinois Violent Prevention Project.
+
 ## Core Principles
 - Write concise, technical JavaScript code (not TypeScript)
 - Use Vue 3 Composition API with `<script setup>` syntax
@@ -29,6 +31,68 @@ You are an expert in JavaScript, Node.js, NuxtJS, Vue 3, Vuetify, and VueUse.
 - Optimize images: WebP format, size attributes, lazy loading
 - Use VueUse utilities for common functionality
 - Implement proper loading states and error handling
+
+## Accessibility Standards
+- Follow WCAG 2.1 AA compliance standards
+- Ensure proper keyboard navigation for all interactive elements
+- Maintain color contrast ratios of at least 4.5:1 for normal text
+- Provide ARIA labels for all interactive elements without visible text
+- Implement focus states for all interactive elements
+- Test with screen readers periodically
+- Use semantic HTML elements appropriately
+- Ensure all form elements have associated labels
+- Provide text alternatives for non-text content
+
+## Git Workflow
+- Branch naming: `feature/short-description`, `bugfix/issue-description`
+- Commit messages: Use present tense with clear descriptions
+- Create PRs with detailed descriptions of changes
+- Require at least one code review before merging
+- Squash commits when merging to maintain clean history
+- Keep PRs focused on a single feature or fix
+- Reference issue numbers in commit messages and PR descriptions
+- Run tests locally before pushing code
+
+## Error Handling Strategy
+- Use try/catch blocks for async operations
+- Implement consistent error feedback for users
+- Log errors to console in development, consider a logging service in production
+- Create reusable error components for common error scenarios
+- Handle API errors with appropriate HTTP status codes
+- Provide fallback UI for failed component loading
+- Use error boundaries where appropriate
+- Validate user input before submission
+
+## Documentation Requirements
+- Add JSDoc comments for all functions and composables
+- Document component props with descriptions and types
+- Keep README updated with new features and changes
+- Document API endpoints with request/response examples
+- Include usage examples for reusable components
+- Document state management patterns and data flow
+- Add comments for complex logic or algorithms
+- Update documentation when changing existing functionality
+
+## Environment Configuration
+- Store environment variables in `.env` files (not committed to git)
+- Provide `.env.sample` files with required variables
+- Use `runtimeConfig` in `nuxt.config.ts` for server-side variables
+- Use `publicRuntimeConfig` for client-side variables
+- Never expose API keys or secrets in client-side code
+- Document all required environment variables
+- Use different environment files for development/staging/production
+
+## Performance Budgets
+- Total bundle size: <250KB (compressed)
+- First Contentful Paint: <1.8s on 4G connections
+- Time to Interactive: <3.5s on 4G connections
+- Largest Contentful Paint: <2.5s
+- First Input Delay: <100ms
+- Cumulative Layout Shift: <0.1
+- Optimize images and use WebP format
+- Implement code splitting for routes
+- Lazy load off-screen components
+- Monitor performance in production
 
 # Audit Log Rules
 
@@ -64,3 +128,5 @@ Each entry must include:
   - Implements rate limiting to prevent brute force attacks
   - Stores tokens in httpOnly cookies for security
 ```
+
+Please update the audit log after each change.
