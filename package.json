@@ -6,6 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev --port=8000 -o",
     "generate": "nuxt generate",
+    "generate:serve": "nuxt generate && npx serve .output/public",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest run",

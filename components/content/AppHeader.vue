@@ -6,46 +6,84 @@
     class="app-header"
   >
     <v-container class="d-flex align-center justify-space-between py-0">
-      <nuxt-link to="/" class="text-decoration-none">
-        <v-row no-gutters align="center">
-          <v-col cols="auto">
-            <div class="logo d-flex align-center">
-              <v-icon
-                icon="mdi-cube-outline"
-                size="x-large"
-                color="primary"
-                class="mr-2"
-              />
-              <span class="text-h5 font-weight-bold text-primary">Elegant</span>
-            </div>
-          </v-col>
-        </v-row>
-      </nuxt-link>
+      <v-tooltip
+        text="Return to homepage"
+        :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
+        :open-delay="200"
+      >
+        <template v-slot:activator="{ props }">
+          <nuxt-link to="/" class="text-decoration-none" v-bind="props">
+            <v-row no-gutters align="center">
+              <v-col cols="auto">
+                <div class="logo d-flex align-center">
+                  <v-icon
+                    icon="mdi-cube-outline"
+                    size="x-large"
+                    color="primary"
+                    class="mr-2"
+                  />
+                  <span class="text-h5 font-weight-bold text-primary">Elegant</span>
+                </div>
+              </v-col>
+            </v-row>
+          </nuxt-link>
+        </template>
+      </v-tooltip>
 
       <div class="d-flex align-center justify-end">
-        <v-btn
-          variant="text"
-          class="font-weight-medium mx-2 nav-link"
-          to="/"
-          color="on-background"
+        <v-tooltip
+          text="Navigate to home page"
+          :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
+          :open-delay="200"
         >
-          Home
-        </v-btn>
-        <v-btn
-          variant="text"
-          class="font-weight-medium mx-2 nav-link"
-          to="/about"
-          color="on-background"
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              variant="text"
+              class="font-weight-medium mx-2 nav-link"
+              to="/"
+              color="on-background"
+            >
+              Home
+            </v-btn>
+          </template>
+        </v-tooltip>
+
+        <v-tooltip
+          text="Learn more about our project"
+          :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
+          :open-delay="200"
         >
-          About
-        </v-btn>
-        <v-btn
-          variant="outlined"
-          color="primary"
-          class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              variant="text"
+              class="font-weight-medium mx-2 nav-link"
+              to="/about"
+              color="on-background"
+            >
+              About
+            </v-btn>
+          </template>
+        </v-tooltip>
+
+        <v-tooltip
+          text="Begin using our application"
+          :location="$vuetify.display.smAndDown ? 'bottom' : 'right'"
+          :open-delay="200"
         >
-          Get Started
-        </v-btn>
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              variant="outlined"
+              color="primary"
+              class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
+            >
+              Get Started
+            </v-btn>
+          </template>
+        </v-tooltip>
+
         <ThemeSwitch
           :theme="theme"
           @toggle-theme="$emit('toggle-theme')"
