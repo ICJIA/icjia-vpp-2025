@@ -37,7 +37,7 @@ This document defines rules for maintaining an audit log ('audit-log-vpp.md') as
 
 ## Required Format
 Each entry must include:
-1. **Date and Title**: YYYY-MM-DD format with descriptive title
+1. **Date and Title**: YYYY-MM-DD format with descriptive title. Always use the current date for Chicago: TZ='America/Chicago' date +"%Y-%m-%d".
 2. **Summary**: 1-2 sentence overview of what changed and why
 3. **Files Modified/Created**: List with specific changes to each file
 4. **Technical Notes**: Implementation details helpful for developers
