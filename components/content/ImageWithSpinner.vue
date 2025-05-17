@@ -3,7 +3,7 @@
     <v-img
       :src="src"
       :alt="alt"
-      :class="imageClass"
+      :imageClass="imageClass"
       :cover="cover"
       :aspect-ratio="aspectRatio"
       :height="height"

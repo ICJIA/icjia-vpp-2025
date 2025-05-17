@@ -1,42 +1,88 @@
-# Nuxt 3 Minimal Starter
+# Illinois Violent Prevention Project 2025
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern web application built with Nuxt 3, Vue 3, and Vuetify 3 for the Illinois Criminal Justice Information Authority.
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# yarn
+# Using Yarn (recommended)
 yarn install
 
-# npm
+# Using npm
 npm install
-
-# pnpm
-pnpm install
 ```
 
 ## Development Server
 
-Start the development server on http://localhost:3000
+Start the development server on http://localhost:8000 (automatically opens in browser):
 
 ```bash
+# Using Yarn
+yarn dev
+
+# Using npm
 npm run dev
 ```
 
-## Production
+## Production Build
 
-Build the application for production:
+Generate a static site for production:
 
 ```bash
+# Using Yarn
+yarn generate
+
+# Using npm
+npm run generate
+```
+
+Build the application for server-side rendering:
+
+```bash
+# Using Yarn
+yarn build
+
+# Using npm
 npm run build
 ```
 
 Locally preview production build:
 
 ```bash
+# Using Yarn
+yarn preview
+
+# Using npm
 npm run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Testing
+
+The project includes a comprehensive test suite using Vitest and Vue Test Utils:
+
+```bash
+# Run all tests
+yarn test
+
+# Run tests in watch mode during development
+yarn test:watch
+
+# Run tests with coverage report
+yarn test:coverage
+```
+
+## Audit Log
+
+This project maintains a detailed audit log to track all significant changes made to the codebase. The audit log serves as a chronological record providing transparency and accountability for external reviewers and future developers.
+
+View the complete [Audit Log](./audit-log-vpp.md) for details on all project changes.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## More Information
+
+For more information about Nuxt 3, check out the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction).
