@@ -4,7 +4,7 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
-### 2025-05-19 (Comprehensive Tooltip Implementation)
+### 2025-05-17 (Comprehensive Tooltip Implementation)
 - Added responsive tooltips to all navigation links in both header and footer for improved accessibility and user experience.
 - Files modified/created:
   - `components/content/AppHeader.vue`: Added responsive Vuetify tooltips to all navbar links
@@ -19,7 +19,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained existing styling and hover effects while adding tooltip functionality
   - Enhanced accessibility by providing additional context for all interactive elements
 
-### 2025-05-19 (Project Renaming and Documentation Updates)
+### 2025-05-17 (Project Renaming and Documentation Updates)
 - Renamed project to "Illinois Violent Prevention Project" and updated documentation.
 - Files modified/created:
   - `README.md`: Updated project name and revised with comprehensive project information
@@ -32,7 +32,7 @@ This document serves as a chronological record of all significant changes made t
   - Included audit log reference and explanation in README
   - Created standard MIT license file with proper attribution
 
-### 2025-05-19 (Test Suite Upgrade and Verification)
+### 2025-05-17 (Test Suite Upgrade and Verification)
 - Upgraded the test suite and verified that all tests now pass successfully.
 - Files modified/created:
   - `tests/example.test.js`: Enhanced test cases for theme preference functionality
@@ -45,7 +45,7 @@ This document serves as a chronological record of all significant changes made t
   - Added comprehensive testing for localStorage interactions with proper error handling
   - Optimized test setup for faster test execution and more reliable results
 
-### 2025-05-18 (Comprehensive Test Suite Fixes)
+### 2025-05-17 (Comprehensive Test Suite Fixes)
 - Fixed all failing tests for ImageWithSpinner component, default layout, and theme-handler plugin.
 - Files modified/created:
   - `tests/components/ImageWithSpinner.test.js`: Fixed VImgStub to properly handle props and attributes
