@@ -128,3 +128,4 @@ To implement an audit log in a project:
 3. Create a section titled "## Audit Log Entries" where all entries will be added
 4. Add new entries at the top of this section as changes are made
 
+Finally, if the change is very minor, you can just add a note to the audit log that the change was made.

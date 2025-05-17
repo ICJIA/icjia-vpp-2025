@@ -4,6 +4,33 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-17 (Theme Switch Layout Fix)
+- Fixed the layout of the theme switch to ensure proper horizontal alignment with menu items.
+- Files modified/created:
+  - `components/content/AppHeader.vue`: Updated layout structure to use flexbox for proper alignment
+  - `components/content/ThemeSwitch.vue`: Reverted to icon button with tooltip for better horizontal alignment
+- Technical Notes:
+  - Replaced v-row/v-col structure with direct flexbox for better control
+  - Used d-flex and align-center classes to ensure vertical alignment
+  - Maintained accessibility features including ARIA labels and tooltips
+  - Preserved focus styles for keyboard navigation
+  - Simplified component structure while maintaining functionality
+
+### 2025-05-17 (Accessible Theme Switch Implementation)
+- Improved accessibility of the theme toggle by replacing the icon button with a proper switch component.
+- Files modified/created:
+  - `components/content/ThemeSwitch.vue`: Created new accessible theme switch component with proper ARIA attributes
+  - `components/content/AppHeader.vue`: Updated to use the new ThemeSwitch component
+  - `layouts/default.vue`: Enhanced theme handling with system preference detection and persistence
+- Technical Notes:
+  - Used Vuetify's v-switch component for better accessibility
+  - Added proper ARIA labels that change based on current theme state
+  - Implemented tooltips to provide additional context
+  - Used VueUse's usePreferredDark and useStorage for improved theme handling
+  - Added focus styles for keyboard navigation
+  - Implemented system preference detection with preference persistence
+  - Added proper HTML data attributes for potential CSS usage
+
 ### 2025-05-17 (Image Loading Spinner Refinement)
 - Simplified and improved the image loading spinner implementation to ensure proper image loading.
 - Files modified/created:

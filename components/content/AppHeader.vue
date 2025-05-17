@@ -21,47 +21,44 @@
           </v-col>
         </v-row>
       </nuxt-link>
-      
-      <v-row no-gutters justify="end" align="center">
-        <v-col cols="auto">
-          <v-btn
-            variant="text"
-            class="font-weight-medium mx-2 nav-link"
-            to="/"
-            color="on-background"
-          >
-            Home
-          </v-btn>
-          <v-btn
-            variant="text"
-            class="font-weight-medium mx-2 nav-link"
-            to="/about"
-            color="on-background"
-          >
-            About
-          </v-btn>
-          <v-btn
-            variant="outlined"
-            color="primary"
-            class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
-          >
-            Get Started
-          </v-btn>
-          <v-btn
-            icon
-            class="ml-4"
-            @click="$emit('toggle-theme')"
-            color="on-background"
-          >
-            <v-icon>{{ theme === 'light' ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
+
+      <div class="d-flex align-center justify-end">
+        <v-btn
+          variant="text"
+          class="font-weight-medium mx-2 nav-link"
+          to="/"
+          color="on-background"
+        >
+          Home
+        </v-btn>
+        <v-btn
+          variant="text"
+          class="font-weight-medium mx-2 nav-link"
+          to="/about"
+          color="on-background"
+        >
+          About
+        </v-btn>
+        <v-btn
+          variant="outlined"
+          color="primary"
+          class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
+        >
+          Get Started
+        </v-btn>
+        <ThemeSwitch
+          :theme="theme"
+          @toggle-theme="$emit('toggle-theme')"
+          class="ml-4"
+        />
+      </div>
     </v-container>
   </v-app-bar>
 </template>
 
 <script setup>
+import ThemeSwitch from './ThemeSwitch.vue';
+
 defineProps({
   theme: {
     type: String,
