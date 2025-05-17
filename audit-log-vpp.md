@@ -4,6 +4,31 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-17 (SSR-Compatible Theme Handling)
+- Fixed theme handling to work properly with server-side rendering (SSR).
+- Files modified/created:
+  - `layouts/default.vue`: Restructured theme handling to be SSR-compatible
+  - `plugins/theme-handler.client.js`: Created client-only plugin to prevent theme flash
+- Technical Notes:
+  - Used client-only code detection with `typeof window !== 'undefined'`
+  - Implemented proper error handling for localStorage access
+  - Created a Nuxt client-only plugin that runs before Vue hydration
+  - Applied theme directly to document.documentElement for immediate effect
+  - Simplified the layout component to work in both SSR and client contexts
+  - Maintained light theme fallback when no preference exists
+
+### 2025-05-17 (Theme Persistence Enhancement)
+- Improved theme persistence to ensure user preferences are properly saved and restored.
+- Files modified/created:
+  - `layouts/default.vue`: Simplified theme persistence logic with direct localStorage handling
+- Technical Notes:
+  - Implemented strict fallback to light theme ONLY when no preference exists
+  - Used direct localStorage API for more explicit control over theme persistence
+  - Ensured saved dark theme preference is always respected across sessions
+  - Simplified logic flow for better reliability
+  - Removed unnecessary system preference detection
+  - Added clear comments explaining the theme handling logic
+
 ### 2025-05-17 (Theme Switch Layout Fix)
 - Fixed the layout of the theme switch to ensure proper horizontal alignment with menu items.
 - Files modified/created:
