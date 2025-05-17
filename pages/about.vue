@@ -12,41 +12,42 @@
         </v-row>
       </v-container>
     </section>
-    
+
     <v-divider></v-divider>
-    
+
     <section class="section py-16">
       <v-container>
         <v-row>
           <v-col cols="12" lg="6" class="pr-lg-12">
             <h2 class="text-h3 font-weight-bold mb-6">Our Story</h2>
             <p class="text-body-1 mb-4">
-              Founded in 2025, we set out with a simple mission: to create digital experiences that are both beautiful and functional. 
+              Founded in 2025, we set out with a simple mission: to create digital experiences that are both beautiful and functional.
               Our team consists of passionate designers and developers who believe that great design and powerful technology should go hand in hand.
             </p>
             <p class="text-body-1 mb-4">
-              We draw inspiration from companies like Apple that have mastered the art of combining aesthetics with usability. 
+              We draw inspiration from companies like Apple that have mastered the art of combining aesthetics with usability.
               Every product we create reflects our commitment to quality, attention to detail, and user-centered design.
             </p>
             <p class="text-body-1">
-              Our approach is grounded in the belief that technology should enhance human experiences, not complicate them. 
+              Our approach is grounded in the belief that technology should enhance human experiences, not complicate them.
               We strive to create interfaces that feel intuitive and delightful to use, making complex tasks simple and elegant.
             </p>
           </v-col>
-          
+
           <v-col cols="12" lg="6" class="mt-8 mt-lg-0">
-            <v-img
+            <ImageWithSpinner
               src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
               alt="Our Team"
-              class="rounded-xl about-image"
+              image-class="rounded-xl about-image"
               height="400"
               cover
+              spinner-color="primary"
             />
           </v-col>
         </v-row>
       </v-container>
     </section>
-    
+
     <section class="section py-16 bg-primary-lighten-5">
       <v-container>
         <div class="text-center mb-12">
@@ -55,7 +56,7 @@
             The principles that guide everything we do.
           </p>
         </div>
-        
+
         <v-row>
           <v-col v-for="(value, index) in values" :key="index" cols="12" md="4" class="mb-8">
             <v-card class="h-100 rounded-xl value-card pa-6" variant="elevated">
@@ -72,7 +73,7 @@
         </v-row>
       </v-container>
     </section>
-    
+
     <section class="section py-16">
       <v-container>
         <v-row align="center">
@@ -80,7 +81,7 @@
             <h2 class="text-h3 font-weight-bold mb-6">
               Our Approach
             </h2>
-            
+
             <div v-for="(item, i) in approach" :key="i" class="mb-8 approach-item">
               <div class="d-flex align-start">
                 <div class="approach-number mr-4">{{ i + 1 }}</div>
@@ -91,20 +92,21 @@
               </div>
             </div>
           </v-col>
-          
+
           <v-col cols="12" md="6" order="1" order-md="2" class="mb-8 mb-md-0">
-            <v-img
+            <ImageWithSpinner
               src="https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
               alt="Our Approach"
-              class="rounded-xl about-image"
+              image-class="rounded-xl about-image"
               aspect-ratio="4/3"
               cover
+              spinner-color="primary"
             />
           </v-col>
         </v-row>
       </v-container>
     </section>
-    
+
     <section class="section py-16 bg-primary-lighten-5">
       <v-container>
         <div class="text-center">
@@ -112,7 +114,7 @@
           <p class="text-body-1 mx-auto mb-8" style="max-width: 600px;">
             Have questions or want to learn more? We'd love to hear from you.
           </p>
-          
+
           <v-btn
             color="primary"
             size="large"
@@ -128,6 +130,8 @@
 </template>
 
 <script setup>
+import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+
 const values = [
   {
     icon: 'mdi-heart-outline',

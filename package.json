@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "HOST=0.0.0.0 nuxt dev",
+    "dev": "nuxt dev --port=8000 -o",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -16,6 +16,8 @@
     "@vueuse/motion": "^3.0.3",
     "@vueuse/router": "^13.2.0",
     "nuxt": "^3.17.3",
+    "rimraf": "^6.0.1",
+    "serve": "^14.2.4",
     "vue": "^3.5.0",
     "vuetify": "^3.8.5"
   },

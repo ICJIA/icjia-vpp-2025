@@ -1,37 +1,38 @@
 <template>
   <div>
     <HeroSection />
-    
+
     <v-divider></v-divider>
-    
+
     <FeatureSection />
-    
+
     <v-divider></v-divider>
-    
+
     <section class="section py-16">
       <v-container>
         <v-row align="center">
           <v-col cols="12" md="6">
-            <v-img
+            <ImageWithSpinner
               src="https://images.pexels.com/photos/6192137/pexels-photo-6192137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
               alt="App Screenshot"
-              class="rounded-xl shadow-img"
+              image-class="rounded-xl shadow-img"
               aspect-ratio="4/3"
               cover
+              spinner-color="primary"
             />
           </v-col>
-          
+
           <v-col cols="12" md="6" class="pl-md-12">
             <h2 class="text-h3 font-weight-bold mb-6">
               Crafted with Precision
             </h2>
-            
+
             <p class="text-body-1 mb-8">
               Every detail in this application has been carefully considered and implemented with precision.
               From subtle animations to responsive layouts, we've created an experience that feels both
               delightful and intuitive.
             </p>
-            
+
             <v-list class="bg-transparent pa-0">
               <v-list-item
                 v-for="(item, i) in highlights"
@@ -48,7 +49,7 @@
                 <v-list-item-title class="text-body-1">{{ item }}</v-list-item-title>
               </v-list-item>
             </v-list>
-            
+
             <v-btn
               color="primary"
               variant="tonal"
@@ -61,7 +62,7 @@
         </v-row>
       </v-container>
     </section>
-    
+
     <section class="section py-16 bg-primary-lighten-5">
       <v-container>
         <div class="text-center mb-12">
@@ -70,7 +71,7 @@
             Join thousands of users who are already enjoying our application.
           </p>
         </div>
-        
+
         <div class="text-center">
           <v-btn
             color="primary"
@@ -87,6 +88,8 @@
 </template>
 
 <script setup>
+import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+
 const highlights = [
   'Modern stack with Vue 3, Nuxt 3, and Vuetify 3',
   'Optimized for performance and SEO',

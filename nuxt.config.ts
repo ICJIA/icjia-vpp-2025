@@ -45,5 +45,6 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
     }
-  }
+  },
+  
 })
