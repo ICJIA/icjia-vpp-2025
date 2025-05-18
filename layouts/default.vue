@@ -1,4 +1,15 @@
 <script setup>
+/**
+ * Default layout component for the Illinois Violent Prevention Project
+ *
+ * This layout provides the common structure for all pages including:
+ * - Theme management (light/dark mode with localStorage persistence)
+ * - Skip-to-content accessibility link
+ * - Screen reader announcements system
+ * - Common header and footer
+ *
+ * @component
+ */
 import { ref, watch, onMounted, provide } from 'vue';
 import { useAnnouncer } from '~/composables/useAnnouncer';
 
@@ -9,20 +20,28 @@ const skipLinkVisible = ref(false);
 // Set up screen reader announcer
 const { announcePolite, announceAssertive, announce } = useAnnouncer();
 
-// Make announce available to all components
+// Make announce function available to all components via provide/inject
 provide('announce', announce);
 
-// Check if we're on client-side
+// Check if we're on client-side to safely use browser APIs
 const isClient = typeof window !== 'undefined';
 
-// Client-only initialization
+/**
+ * Initialize theme settings on component mount
+ * Only runs on client-side to avoid SSR issues with localStorage
+ */
 onMounted(() => {
   if (isClient) {
     initTheme();
   }
 });
 
-// Get theme from localStorage (client-side only)
+/**
+ * Initialize theme from localStorage or use default
+ *
+ * Retrieves saved theme preference from localStorage and applies it
+ * Falls back to light theme if localStorage is unavailable
+ */
 function initTheme() {
   try {
     // Check if there's a theme preference in localStorage
@@ -40,7 +59,12 @@ function initTheme() {
   }
 }
 
-// Toggle theme function (client-side only)
+/**
+ * Toggle between light and dark themes
+ *
+ * Switches the current theme, saves preference to localStorage,
+ * and updates the document attribute for CSS variables
+ */
 const toggleTheme = () => {
   if (!isClient) return;
 
@@ -58,11 +82,14 @@ const toggleTheme = () => {
   }
 };
 
-// Set up watcher for theme changes
+/**
+ * Set up watcher for theme changes
+ * Updates document attributes when theme changes
+ */
 onMounted(() => {
   if (!isClient) return;
 
-  // Watch for theme changes
+  // Watch for theme changes and update document attributes
   watch(theme, (newTheme) => {
     document.documentElement.setAttribute('data-theme', newTheme);
   });

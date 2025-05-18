@@ -107,15 +107,37 @@
 </template>
 
 <script setup>
+/**
+ * Application header component with navigation and theme toggle
+ *
+ * This component provides:
+ * - Main site navigation with accessible links
+ * - Site branding and logo
+ * - Theme toggle switch
+ * - Tooltips for improved usability
+ * - Proper ARIA attributes for accessibility
+ *
+ * @component
+ */
 import ThemeSwitch from './ThemeSwitch.vue';
 
+/**
+ * Component props
+ */
 defineProps({
+  /**
+   * Current theme ('light' or 'dark')
+   */
   theme: {
     type: String,
     required: true
   }
 });
 
+/**
+ * Define emits for the component
+ * toggle-theme: Emitted when theme switch is toggled
+ */
 defineEmits(['toggle-theme']);
 </script>
 

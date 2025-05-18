@@ -90,10 +90,24 @@
 </template>
 
 <script setup>
+/**
+ * Home page for the Illinois Violent Prevention Project
+ *
+ * This page includes:
+ * - Hero section with main call-to-action
+ * - Feature section highlighting key capabilities
+ * - Project highlights with accessible list
+ * - Call-to-action section
+ * - Proper SEO metadata and accessibility attributes
+ *
+ * @page
+ */
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 import { useHead, useSeoMeta } from '#imports';
 
-// Set page title and meta description
+/**
+ * Set page title and HTML attributes for accessibility and SEO
+ */
 useHead({
   title: 'Illinois Violent Prevention Project - Home',
   htmlAttrs: {
@@ -101,7 +115,10 @@ useHead({
   }
 });
 
-// Set SEO metadata
+/**
+ * Set SEO metadata for search engines and social sharing
+ * Includes Open Graph and Twitter Card metadata
+ */
 useSeoMeta({
   description: 'The Illinois Violent Prevention Project provides resources and tools for violence prevention initiatives across Illinois.',
   ogTitle: 'Illinois Violent Prevention Project - Home',
@@ -110,6 +127,10 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 });
 
+/**
+ * Project highlights displayed in the feature list
+ * @type {string[]}
+ */
 const highlights = [
   'Modern stack with Vue 3, Nuxt 3, and Vuetify 3',
   'Optimized for performance and SEO',

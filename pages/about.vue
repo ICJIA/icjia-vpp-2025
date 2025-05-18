@@ -147,14 +147,30 @@
 </template>
 
 <script setup>
+/**
+ * About page for the Illinois Violent Prevention Project
+ *
+ * This page includes:
+ * - Organization story and mission
+ * - Core values with interactive cards
+ * - Approach methodology with numbered steps
+ * - Contact section with accessible button
+ * - Proper SEO metadata and accessibility attributes
+ *
+ * @page
+ */
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 import { useHead, useSeoMeta } from '#imports';
 import { inject } from 'vue';
 
-// Get the announce function from the provider
+/**
+ * Get the announce function from the provider for screen reader announcements
+ */
 const announce = inject('announce', null);
 
-// Set page title and meta description
+/**
+ * Set page title and HTML attributes for accessibility and SEO
+ */
 useHead({
   title: 'Illinois Violent Prevention Project - About Us',
   htmlAttrs: {
@@ -162,7 +178,10 @@ useHead({
   }
 });
 
-// Set SEO metadata
+/**
+ * Set SEO metadata for search engines and social sharing
+ * Includes Open Graph and Twitter Card metadata
+ */
 useSeoMeta({
   description: 'Learn about the Illinois Violent Prevention Project, our mission, values, and approach to violence prevention across Illinois.',
   ogTitle: 'Illinois Violent Prevention Project - About Us',
@@ -171,6 +190,10 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 });
 
+/**
+ * Core values of the organization displayed as interactive cards
+ * @type {Array<{icon: string, title: string, description: string}>}
+ */
 const values = [
   {
     icon: 'mdi-heart-outline',
@@ -189,6 +212,10 @@ const values = [
   }
 ];
 
+/**
+ * Approach methodology displayed as numbered steps
+ * @type {Array<{title: string, description: string}>}
+ */
 const approach = [
   {
     title: 'Understand',
@@ -208,20 +235,31 @@ const approach = [
   }
 ];
 
-// Handler functions for interactive elements
+/**
+ * Handle value card activation via keyboard or click
+ * Announces selection to screen readers for accessibility
+ *
+ * @param {Object} value - The value card data object
+ * @param {string} value.title - The title of the value
+ * @param {string} value.description - The description of the value
+ */
 const handleValueCardActivation = (value) => {
   console.log(`Value card activated: ${value.title}`);
 
-  // Announce to screen readers
+  // Announce to screen readers for accessibility
   if (announce) {
     announce(`Selected value: ${value.title} - ${value.description}`);
   }
 };
 
+/**
+ * Handle contact button click or keyboard activation
+ * Announces action to screen readers and would typically open a contact form
+ */
 const handleContactClick = () => {
   console.log('Contact button clicked');
 
-  // Announce to screen readers
+  // Announce to screen readers with assertive priority for immediate feedback
   if (announce) {
     announce('Contact form will open shortly', 'assertive');
   }

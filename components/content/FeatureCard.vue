@@ -26,11 +26,29 @@
 </template>
 
 <script setup>
+/**
+ * Accessible feature card component with animation and keyboard support
+ *
+ * This component displays a feature with an icon, title, and description.
+ * It includes:
+ * - Keyboard navigation support (Enter/Space activation)
+ * - Screen reader announcements
+ * - Proper ARIA attributes for accessibility
+ * - Animation with configurable delay
+ * - Focus styles matching hover effects
+ *
+ * @component
+ */
 import { computed, onMounted, ref, inject } from 'vue';
 
-// Get the announce function from the provider
+/**
+ * Get the announce function from the provider for screen reader announcements
+ */
 const announce = inject('announce', null);
 
+/**
+ * Component props
+ */
 const props = defineProps({
   icon: {
     type: String,
@@ -50,24 +68,39 @@ const props = defineProps({
   }
 });
 
-// Generate a unique ID for ARIA attributes
+/**
+ * Unique ID for ARIA attributes to create proper relationships
+ * between elements for screen readers
+ */
 const uniqueId = ref('');
 
+/**
+ * Generate a unique ID for this component instance on mount
+ */
 onMounted(() => {
-  // Generate a unique ID for this component instance
   uniqueId.value = `feature-${Math.random().toString(36).substring(2, 9)}`;
 });
 
+/**
+ * Computed style for animation delay based on the delay prop
+ * Allows for staggered animations when multiple cards are displayed
+ *
+ * @returns {Object} CSS style object with animation delay
+ */
 const animationStyle = computed(() => ({
   animationDelay: `${props.delay}s`
 }));
 
-// Handle keyboard activation (Enter/Space)
+/**
+ * Handle keyboard activation (Enter/Space)
+ * Provides keyboard accessibility for interactive card
+ * Announces selection to screen readers
+ */
 const handleCardActivation = () => {
   // This would typically navigate to a feature detail page or show more information
   console.log(`Feature activated: ${props.title}`);
 
-  // Announce to screen readers
+  // Announce to screen readers for accessibility
   if (announce) {
     announce(`Selected feature: ${props.title}`);
   }

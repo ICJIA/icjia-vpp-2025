@@ -4,6 +4,27 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-18 (JSDoc Documentation Improvements)
+- Added comprehensive JSDoc comments to components, composables, and pages.
+- Files modified:
+  - `layouts/default.vue`: Added JSDoc for layout component and functions
+  - `components/content/ImageWithSpinner.vue`: Added JSDoc for component and methods
+  - `components/content/FeatureCard.vue`: Added JSDoc for component, props, and methods
+  - `components/content/ThemeSwitch.vue`: Added JSDoc for component, props, and methods
+  - `components/content/AppHeader.vue`: Added JSDoc for component and props
+  - `components/content/AppFooter.vue`: Added JSDoc for component
+  - `pages/index.vue`: Added JSDoc for page, data, and methods
+  - `pages/about.vue`: Added JSDoc for page, data, and methods
+- Technical Notes:
+  - Added detailed component descriptions with @component tags
+  - Added @page tags to page components
+  - Added parameter documentation with types
+  - Added return value documentation with types
+  - Added descriptive comments for all functions and methods
+  - Improved code readability and maintainability
+  - Enhanced developer experience with better documentation
+  - Followed JSDoc best practices for Vue components
+
 ### 2025-05-18 (Lighthouse Accessibility Fixes)
 - Fixed accessibility issues reported by Lighthouse.
 - Files modified:

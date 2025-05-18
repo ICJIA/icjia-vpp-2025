@@ -29,8 +29,23 @@
 </template>
 
 <script setup>
+/**
+ * Accessible theme switch component for toggling between light and dark themes
+ *
+ * This component provides:
+ * - Keyboard accessibility (Enter/Space activation)
+ * - Screen reader support with ARIA attributes
+ * - Tooltip with descriptive text
+ * - Visual indication of current theme
+ * - Focus styles for keyboard navigation
+ *
+ * @component
+ */
 import { computed } from 'vue';
 
+/**
+ * Component props
+ */
 const props = defineProps({
   theme: {
     type: String,
@@ -39,9 +54,17 @@ const props = defineProps({
   }
 });
 
+/**
+ * Define emits for the component
+ */
 const emit = defineEmits(['toggle-theme']);
 
-// Computed property to convert theme string to boolean for v-switch
+/**
+ * Computed property to convert theme string to boolean
+ * Used for conditional rendering and ARIA attributes
+ *
+ * @returns {boolean} True if theme is dark, false if light
+ */
 const isDarkTheme = computed({
   get: () => props.theme === 'dark',
   set: (value) => {
@@ -49,16 +72,30 @@ const isDarkTheme = computed({
   }
 });
 
-// Computed properties for accessibility
+/**
+ * Computed property for the button's aria-label
+ * Provides context for screen readers
+ *
+ * @returns {string} Descriptive label for the current action
+ */
 const ariaLabel = computed(() =>
   isDarkTheme.value ? 'Switch to light theme' : 'Switch to dark theme'
 );
 
+/**
+ * Computed property for the tooltip text
+ * Provides visual description on hover
+ *
+ * @returns {string} Descriptive tooltip text
+ */
 const tooltipText = computed(() =>
   isDarkTheme.value ? 'Switch to light theme' : 'Switch to dark theme'
 );
 
-// Method to toggle theme
+/**
+ * Toggle theme method
+ * Emits event to parent component to handle theme change
+ */
 const toggleTheme = () => {
   emit('toggle-theme');
 };

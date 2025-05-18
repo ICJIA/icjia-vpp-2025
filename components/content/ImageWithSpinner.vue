@@ -40,8 +40,22 @@
 </template>
 
 <script setup>
+/**
+ * Accessible image component with loading spinner and error handling
+ *
+ * This component enhances the standard v-img with:
+ * - Loading spinner with proper ARIA attributes
+ * - Error handling with visual and screen reader feedback
+ * - Proper accessibility attributes for images
+ * - Unique IDs for ARIA relationships
+ *
+ * @component
+ */
 import { ref, onMounted } from 'vue';
 
+/**
+ * Component props
+ */
 const props = defineProps({
   src: {
     type: String,
@@ -94,21 +108,36 @@ const props = defineProps({
   }
 });
 
+/**
+ * Reactive state for component
+ */
 // Generate a unique ID for ARIA attributes
 const uniqueId = ref('');
+// Track error state for displaying error message
 const hasError = ref(false);
+// Track loading state for spinner and ARIA attributes
 const isLoading = ref(true);
 
+/**
+ * Generate a unique ID for this component instance on mount
+ * Used for ARIA attribute relationships
+ */
 onMounted(() => {
-  // Generate a unique ID for this component instance
   uniqueId.value = `img-${Math.random().toString(36).substring(2, 9)}`;
 });
 
+/**
+ * Handle successful image load
+ * Updates loading state and removes spinner
+ */
 const onImageLoad = () => {
-  // Image loaded successfully
   isLoading.value = false;
 };
 
+/**
+ * Handle image load error
+ * Displays error message and updates ARIA attributes
+ */
 const onImageError = () => {
   hasError.value = true;
   isLoading.value = false;

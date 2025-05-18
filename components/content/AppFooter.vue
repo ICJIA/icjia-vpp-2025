@@ -146,6 +146,23 @@
   </v-footer>
 </template>
 
+<script setup>
+/**
+ * Application footer component with navigation, social links, and legal information
+ *
+ * This component provides:
+ * - Secondary site navigation
+ * - Social media links
+ * - Legal information links
+ * - Site branding
+ * - Copyright information
+ * - Tooltips for improved usability
+ * - Proper ARIA attributes for accessibility
+ *
+ * @component
+ */
+</script>
+
 <style scoped>
 .max-width-300 {
   max-width: 300px;
