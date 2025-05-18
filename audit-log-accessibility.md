@@ -1,5 +1,7 @@
 # Accessibility Audit Log: Illinois Violent Prevention Project
 
+**Last Updated: May 17, 2025**
+
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Illinois Violent Prevention Project. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AAA standards.
 
 ## Audit Log Update: 2025-05-17

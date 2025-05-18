@@ -1,5 +1,7 @@
 # Accessibility Documentation: Illinois Violent Prevention Project
 
+**Last Updated: May 17, 2025**
+
 The Illinois Violent Prevention Project is committed to ensuring digital accessibility for people of all abilities. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AAA.
 
 This document outlines the accessibility features available on our site and provides guidance on how to use them effectively.
