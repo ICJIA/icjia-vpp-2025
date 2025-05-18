@@ -77,8 +77,8 @@ yarn test:coverage
 
 This project maintains detailed audit logs to track all significant changes made to the codebase. The audit logs serve as chronological records providing transparency and accountability for external reviewers and future developers.
 
-- [Project Audit Log](./audit-log-project.md): Tracks all development changes, features, and improvements
-- [Accessibility Audit Log](./audit-log-accessibility.md): Documents accessibility assessments and compliance status
+- [Project Audit Log](./audit-log-project.md)  Tracks all development changes, features, and improvements
+- [Accessibility Audit Log](./audit-log-accessibility.md)  Documents accessibility assessments and compliance status
 
 ## License
 
@@ -100,5 +100,5 @@ The Illinois Violent Prevention Project is committed to providing an accessible 
 
 ### Accessibility Resources
 
-- [Accessibility Documentation](./accessibility-documentation.md): User guide to accessibility features
-- [Accessibility Audit Log](./audit-log-accessibility.md): Technical assessment of compliance status
+- [Accessibility Documentation](./accessibility-documentation.md)  User guide to accessibility features
+- [Accessibility Audit Log](./audit-log-accessibility.md)  Technical assessment of compliance status
