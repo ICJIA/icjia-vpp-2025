@@ -3,6 +3,8 @@
     <v-tooltip
       :text="tooltipText"
       location="bottom"
+      role="tooltip"
+      :aria-label="tooltipText"
     >
       <template v-slot:activator="{ props }">
         <v-btn

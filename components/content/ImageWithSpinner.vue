@@ -12,8 +12,9 @@
       :lazy-src="lazySrc"
       @load="onImageLoad"
       @error="onImageError"
-      aria-busy="isLoading"
+      :aria-busy="isLoading ? 'true' : 'false'"
       :aria-describedby="hasError ? `error-${uniqueId}` : undefined"
+      role="img"
     >
       <template v-slot:placeholder>
         <div

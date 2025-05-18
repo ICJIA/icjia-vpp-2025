@@ -13,6 +13,8 @@
               text="Return to homepage"
               :location="$vuetify.display.smAndDown ? 'top' : 'top'"
               :open-delay="200"
+              role="tooltip"
+              aria-label="Return to homepage"
             >
               <template v-slot:activator="{ props }">
                 <nuxt-link to="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="Elegant - Return to homepage">
@@ -43,6 +45,8 @@
                 text="Navigate to home page"
                 :location="$vuetify.display.smAndDown ? 'top' : 'left'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="Navigate to home page"
               >
                 <template v-slot:activator="{ props }">
                   <nuxt-link to="/" class="footer-link mb-2" v-bind="props">Home</nuxt-link>
@@ -53,6 +57,8 @@
                 text="Learn more about our project"
                 :location="$vuetify.display.smAndDown ? 'top' : 'left'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="Learn more about our project"
               >
                 <template v-slot:activator="{ props }">
                   <nuxt-link to="/about" class="footer-link mb-2" v-bind="props">About</nuxt-link>
@@ -67,6 +73,8 @@
                 text="Follow us on Twitter"
                 :location="$vuetify.display.smAndDown ? 'top' : 'top'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="Follow us on Twitter"
               >
                 <template v-slot:activator="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Twitter">Twitter</a>
@@ -77,6 +85,8 @@
                 text="View our code on GitHub"
                 :location="$vuetify.display.smAndDown ? 'top' : 'top'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="View our code on GitHub"
               >
                 <template v-slot:activator="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="GitHub">GitHub</a>
@@ -87,6 +97,8 @@
                 text="Connect with us on LinkedIn"
                 :location="$vuetify.display.smAndDown ? 'top' : 'top'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="Connect with us on LinkedIn"
               >
                 <template v-slot:activator="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="LinkedIn">LinkedIn</a>
@@ -101,6 +113,8 @@
                 text="Read our privacy policy"
                 :location="$vuetify.display.smAndDown ? 'top' : 'right'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="Read our privacy policy"
               >
                 <template v-slot:activator="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Privacy Policy">Privacy Policy</a>
@@ -111,6 +125,8 @@
                 text="View our terms of service"
                 :location="$vuetify.display.smAndDown ? 'top' : 'right'"
                 :open-delay="200"
+                role="tooltip"
+                aria-label="View our terms of service"
               >
                 <template v-slot:activator="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Terms of Service">Terms of Service</a>

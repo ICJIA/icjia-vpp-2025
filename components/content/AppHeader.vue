@@ -12,6 +12,8 @@
         text="Return to homepage"
         :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
         :open-delay="200"
+        role="tooltip"
+        aria-label="Return to homepage"
       >
         <template v-slot:activator="{ props }">
           <nuxt-link to="/" class="text-decoration-none" v-bind="props" aria-label="Elegant - Return to homepage">
@@ -39,6 +41,8 @@
           text="Navigate to home page"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
           :open-delay="200"
+          role="tooltip"
+          aria-label="Navigate to home page"
         >
           <template v-slot:activator="{ props }">
             <v-btn
@@ -58,6 +62,8 @@
           text="Learn more about our project"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
           :open-delay="200"
+          role="tooltip"
+          aria-label="Learn more about our project"
         >
           <template v-slot:activator="{ props }">
             <v-btn

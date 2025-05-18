@@ -4,6 +4,23 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-18 (Lighthouse Accessibility Fixes)
+- Fixed accessibility issues reported by Lighthouse.
+- Files modified:
+  - `pages/index.vue`: Added proper ARIA roles to v-list components
+  - `components/content/ImageWithSpinner.vue`: Fixed invalid ARIA attributes on v-img
+  - `components/content/AppHeader.vue`: Added proper ARIA roles and labels to tooltips
+  - `components/content/AppFooter.vue`: Added proper ARIA roles and labels to tooltips
+  - `components/content/ThemeSwitch.vue`: Added proper ARIA roles and labels to tooltip
+- Technical Notes:
+  - Fixed ARIA parent/child role relationships in list components
+  - Corrected invalid ARIA attribute values on image components
+  - Added proper role="tooltip" to all tooltip components
+  - Added aria-label attributes to tooltips for screen reader support
+  - Made decorative icons non-focusable with aria-hidden="true"
+  - Ensured all interactive elements have accessible names
+  - Improved overall accessibility score in Lighthouse
+
 ### 2025-05-17 (Last Updated Date Addition)
 - Added "Last Updated" dates to accessibility documentation files.
 - Files modified/created:

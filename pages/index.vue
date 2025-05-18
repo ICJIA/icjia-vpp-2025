@@ -33,17 +33,19 @@
               delightful and intuitive.
             </p>
 
-            <v-list class="bg-transparent pa-0">
+            <v-list class="bg-transparent pa-0" role="list">
               <v-list-item
                 v-for="(item, i) in highlights"
                 :key="i"
                 class="pa-0 mb-4"
+                role="listitem"
               >
                 <template v-slot:prepend>
                   <v-icon
                     color="success"
                     icon="mdi-check-circle"
                     class="mr-2"
+                    aria-hidden="true"
                   ></v-icon>
                 </template>
                 <v-list-item-title class="text-body-1">{{ item }}</v-list-item-title>

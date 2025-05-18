@@ -1,8 +1,24 @@
 # Accessibility Audit Log: Illinois Violent Prevention Project
 
-**Last Updated: May 17, 2025**
+**Last Updated: May 18, 2025**
 
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Illinois Violent Prevention Project. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AAA standards.
+
+## Audit Log Update: 2025-05-18
+
+### Lighthouse Accessibility Fixes
+
+Several accessibility issues identified by Lighthouse have been fixed:
+
+1. **ARIA Role Relationships**: Fixed parent/child role relationships in list components by adding proper `role="list"` and `role="listitem"` attributes.
+
+2. **Invalid ARIA Attributes**: Corrected invalid ARIA attribute values on image components, ensuring `aria-busy` has a proper boolean value and adding `role="img"` where appropriate.
+
+3. **Tooltip Accessibility**: Enhanced all tooltips with proper `role="tooltip"` and `aria-label` attributes to ensure they are properly announced by screen readers.
+
+4. **Decorative Elements**: Made all decorative icons non-focusable with `aria-hidden="true"` to prevent screen readers from announcing them unnecessarily.
+
+These fixes have significantly improved the project's accessibility score in Lighthouse and ensure better compatibility with assistive technologies.
 
 ## Audit Log Update: 2025-05-17
 

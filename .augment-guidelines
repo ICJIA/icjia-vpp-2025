@@ -82,7 +82,7 @@ When you read this file, you are reading the guidelines for the development of t
 
 ## Environment Configuration
 - Store environment variables in `.env` files (not committed to git)
-- Provide `.env.sample` files with required variables
+- Provide `.env.sample` files with required variables but values removed.
 - Use `runtimeConfig` in `nuxt.config.ts` for server-side variables
 - Use `publicRuntimeConfig` for client-side variables
 - Never expose API keys or secrets in client-side code
@@ -97,9 +97,10 @@ When you read this file, you are reading the guidelines for the development of t
 - First Input Delay: <100ms
 - Cumulative Layout Shift: <0.1
 - Optimize images and use WebP format
-- Implement code splitting for routes
+- Implement code splitting for routes. Use dynamic import() to code-split the application where possible.
 - Lazy load off-screen components
 - Monitor performance in production
+
 
 # Audit Log Rules
 
@@ -137,3 +138,4 @@ Each entry must include:
 ```
 
 Please update the audit log after each change.
+
