@@ -4,15 +4,17 @@
     elevation="0"
     :border="true"
     class="app-header"
+    role="banner"
   >
     <v-container class="d-flex align-center justify-space-between py-0">
+      <!-- Site logo/branding -->
       <v-tooltip
         text="Return to homepage"
         :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
         :open-delay="200"
       >
         <template v-slot:activator="{ props }">
-          <nuxt-link to="/" class="text-decoration-none" v-bind="props">
+          <nuxt-link to="/" class="text-decoration-none" v-bind="props" aria-label="Elegant - Return to homepage">
             <v-row no-gutters align="center">
               <v-col cols="auto">
                 <div class="logo d-flex align-center">
@@ -21,6 +23,7 @@
                     size="x-large"
                     color="primary"
                     class="mr-2"
+                    aria-hidden="true"
                   />
                   <span class="text-h5 font-weight-bold text-primary">Elegant</span>
                 </div>
@@ -30,7 +33,8 @@
         </template>
       </v-tooltip>
 
-      <div class="d-flex align-center justify-end">
+      <!-- Main navigation -->
+      <nav class="d-flex align-center justify-end" aria-label="Main Navigation">
         <v-tooltip
           text="Navigate to home page"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
@@ -43,6 +47,7 @@
               class="font-weight-medium mx-2 nav-link"
               to="/"
               color="on-background"
+              aria-current="page"
             >
               Home
             </v-btn>
@@ -78,6 +83,7 @@
               variant="outlined"
               color="primary"
               class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
+              aria-label="Get Started with our application"
             >
               Get Started
             </v-btn>
@@ -89,7 +95,7 @@
           @toggle-theme="$emit('toggle-theme')"
           class="ml-4"
         />
-      </div>
+      </nav>
     </v-container>
   </v-app-bar>
 </template>

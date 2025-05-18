@@ -1,5 +1,30 @@
 // Main styles
 
+// Accessibility - Respect user's motion preferences
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Global focus styles for keyboard navigation
+:focus {
+  outline: 3px solid var(--v-primary-base);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--v-primary-base);
+  outline-offset: 2px;
+}
+
 // Variables
 $spacing-unit: 8px;
 $border-radius-sm: 8px;
@@ -24,7 +49,7 @@ $transition-slow: 0.5s ease;
 
 .section {
   padding: $spacing-unit * 8 0;
-  
+
   @media (max-width: 600px) {
     padding: $spacing-unit * 5 0;
   }
@@ -42,7 +67,7 @@ $transition-slow: 0.5s ease;
   line-height: 1.2;
   font-weight: 700;
   margin-bottom: $spacing-unit * 3;
-  
+
   @media (max-width: 600px) {
     font-size: 2.25rem;
   }
@@ -54,7 +79,7 @@ $transition-slow: 0.5s ease;
   font-weight: 400;
   margin-bottom: $spacing-unit * 5;
   max-width: 600px;
-  
+
   @media (max-width: 600px) {
     font-size: 1.25rem;
   }
@@ -72,7 +97,7 @@ $transition-slow: 0.5s ease;
 
 .scale-up {
   transition: transform $transition-fast;
-  
+
   &:hover {
     transform: scale(1.05);
   }
@@ -80,7 +105,7 @@ $transition-slow: 0.5s ease;
 
 .hover-lift {
   transition: transform $transition-fast, box-shadow $transition-fast;
-  
+
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);

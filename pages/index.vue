@@ -89,6 +89,24 @@
 
 <script setup>
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import { useHead, useSeoMeta } from '#imports';
+
+// Set page title and meta description
+useHead({
+  title: 'Illinois Violent Prevention Project - Home',
+  htmlAttrs: {
+    lang: 'en'
+  }
+});
+
+// Set SEO metadata
+useSeoMeta({
+  description: 'The Illinois Violent Prevention Project provides resources and tools for violence prevention initiatives across Illinois.',
+  ogTitle: 'Illinois Violent Prevention Project - Home',
+  ogDescription: 'Resources and tools for violence prevention initiatives across Illinois.',
+  ogImage: '/images/og-image.jpg',
+  twitterCard: 'summary_large_image',
+});
 
 const highlights = [
   'Modern stack with Vue 3, Nuxt 3, and Vuetify 3',

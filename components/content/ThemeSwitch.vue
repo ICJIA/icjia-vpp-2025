@@ -11,9 +11,15 @@
           color="on-background"
           :aria-label="ariaLabel"
           @click="toggleTheme"
+          @keydown.enter="toggleTheme"
+          @keydown.space.prevent="toggleTheme"
           class="theme-btn"
+          tabindex="0"
+          role="switch"
+          :aria-checked="isDarkTheme ? 'true' : 'false'"
         >
-          <v-icon>{{ isDarkTheme ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}</v-icon>
+          <v-icon aria-hidden="true">{{ isDarkTheme ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}</v-icon>
+          <span class="sr-only">{{ isDarkTheme ? 'Currently in dark mode' : 'Currently in light mode' }}</span>
         </v-btn>
       </template>
     </v-tooltip>
@@ -70,8 +76,21 @@ const toggleTheme = () => {
 
 /* Improve focus visibility for accessibility */
 .theme-btn:focus-visible {
-  outline: 2px solid var(--v-primary-base);
+  outline: 3px solid var(--v-primary-base);
   outline-offset: 2px;
   border-radius: 50%;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 </style>

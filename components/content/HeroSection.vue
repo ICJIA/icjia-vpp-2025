@@ -1,5 +1,16 @@
 <script setup>
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+
+// Button handlers for keyboard navigation
+const handleGetStarted = () => {
+  // This would typically navigate to a sign-up or onboarding page
+  console.log('Get Started button activated');
+};
+
+const handleLearnMore = () => {
+  // This would typically navigate to an about or features page
+  console.log('Learn More button activated');
+};
 </script>
 
 <template>
@@ -16,15 +27,19 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
             Built with Vue 3, Nuxt 3, and Vuetify 3 for a seamless user experience.
           </p>
 
-          <div class="d-flex flex-wrap">
+          <div class="d-flex flex-wrap" role="group" aria-label="Main actions">
             <v-btn
               color="primary"
               size="large"
               class="text-none rounded-pill px-8 py-6 elevation-2 mr-4 mb-4 hero-button text-center"
+              aria-label="Get Started with our application"
+              @keydown.enter="handleGetStarted"
+              @keydown.space.prevent="handleGetStarted"
+              tabindex="0"
             >
               <span class="d-flex align-center justify-center">
                 Get Started
-                <v-icon end icon="mdi-arrow-right" class="ml-2" />
+                <v-icon end icon="mdi-arrow-right" class="ml-2" aria-hidden="true" />
               </span>
             </v-btn>
 
@@ -33,6 +48,10 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
               color="primary"
               size="large"
               class="text-none rounded-pill px-8 py-6 elevation-0 mb-4 hero-button text-center"
+              aria-label="Learn more about our application"
+              @keydown.enter="handleLearnMore"
+              @keydown.space.prevent="handleLearnMore"
+              tabindex="0"
             >
               <span class="d-flex align-center justify-center">
                 Learn More
@@ -52,8 +71,8 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
               spinner-color="primary"
               spinner-size="50"
             />
-            <div class="hero-image-decoration-1"></div>
-            <div class="hero-image-decoration-2"></div>
+            <div class="hero-image-decoration-1" aria-hidden="true"></div>
+            <div class="hero-image-decoration-2" aria-hidden="true"></div>
           </div>
         </v-col>
       </v-row>
@@ -89,8 +108,14 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
   justify-content: center;
 }
 
-.hero-button:hover {
+.hero-button:hover,
+.hero-button:focus-visible {
   transform: translateY(-4px);
+}
+
+.hero-button:focus-visible {
+  outline: 3px solid var(--v-primary-base);
+  outline-offset: 2px;
 }
 
 .hero-button span {

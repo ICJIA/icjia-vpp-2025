@@ -59,15 +59,25 @@
 
         <v-row>
           <v-col v-for="(value, index) in values" :key="index" cols="12" md="4" class="mb-8">
-            <v-card class="h-100 rounded-xl value-card pa-6" variant="elevated">
+            <v-card
+              class="h-100 rounded-xl value-card pa-6"
+              variant="elevated"
+              role="article"
+              tabindex="0"
+              @keydown.enter="handleValueCardActivation(value)"
+              @keydown.space.prevent="handleValueCardActivation(value)"
+              :aria-labelledby="`value-title-${index}`"
+              :aria-describedby="`value-desc-${index}`"
+            >
               <v-icon
                 :icon="value.icon"
                 size="x-large"
                 color="primary"
                 class="mb-4"
+                aria-hidden="true"
               ></v-icon>
-              <h3 class="text-h5 font-weight-bold mb-2">{{ value.title }}</h3>
-              <p class="text-body-2 text-medium-emphasis">{{ value.description }}</p>
+              <h3 :id="`value-title-${index}`" class="text-h5 font-weight-bold mb-2">{{ value.title }}</h3>
+              <p :id="`value-desc-${index}`" class="text-body-2 text-medium-emphasis">{{ value.description }}</p>
             </v-card>
           </v-col>
         </v-row>
@@ -84,9 +94,9 @@
 
             <div v-for="(item, i) in approach" :key="i" class="mb-8 approach-item">
               <div class="d-flex align-start">
-                <div class="approach-number mr-4">{{ i + 1 }}</div>
+                <div class="approach-number mr-4" aria-hidden="true">{{ i + 1 }}</div>
                 <div>
-                  <h3 class="text-h5 font-weight-bold mb-2">{{ item.title }}</h3>
+                  <h3 :id="`approach-title-${i}`" class="text-h5 font-weight-bold mb-2">{{ item.title }}</h3>
                   <p class="text-body-2 text-medium-emphasis">{{ item.description }}</p>
                 </div>
               </div>
@@ -119,9 +129,16 @@
             color="primary"
             size="large"
             class="rounded-pill px-8 py-3 elevation-2 contact-button"
+            aria-label="Contact us via email"
+            @keydown.enter="handleContactClick"
+            @keydown.space.prevent="handleContactClick"
+            @click="handleContactClick"
+            tabindex="0"
           >
-            Contact Us
-            <v-icon end icon="mdi-email-outline" />
+            <span class="d-flex align-center justify-center">
+              Contact Us
+              <v-icon end icon="mdi-email-outline" aria-hidden="true" class="ml-2" />
+            </span>
           </v-btn>
         </div>
       </v-container>
@@ -131,6 +148,28 @@
 
 <script setup>
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import { useHead, useSeoMeta } from '#imports';
+import { inject } from 'vue';
+
+// Get the announce function from the provider
+const announce = inject('announce', null);
+
+// Set page title and meta description
+useHead({
+  title: 'Illinois Violent Prevention Project - About Us',
+  htmlAttrs: {
+    lang: 'en'
+  }
+});
+
+// Set SEO metadata
+useSeoMeta({
+  description: 'Learn about the Illinois Violent Prevention Project, our mission, values, and approach to violence prevention across Illinois.',
+  ogTitle: 'Illinois Violent Prevention Project - About Us',
+  ogDescription: 'Learn about our mission, values, and approach to violence prevention across Illinois.',
+  ogImage: '/images/og-image-about.jpg',
+  twitterCard: 'summary_large_image',
+});
 
 const values = [
   {
@@ -168,6 +207,27 @@ const approach = [
     description: 'We continuously test and improve our work based on real user feedback and data.'
   }
 ];
+
+// Handler functions for interactive elements
+const handleValueCardActivation = (value) => {
+  console.log(`Value card activated: ${value.title}`);
+
+  // Announce to screen readers
+  if (announce) {
+    announce(`Selected value: ${value.title} - ${value.description}`);
+  }
+};
+
+const handleContactClick = () => {
+  console.log('Contact button clicked');
+
+  // Announce to screen readers
+  if (announce) {
+    announce('Contact form will open shortly', 'assertive');
+  }
+
+  // This would typically open a contact form or navigate to a contact page
+};
 </script>
 
 <style scoped>
@@ -200,9 +260,15 @@ const approach = [
   height: 100%;
 }
 
-.value-card:hover {
+.value-card:hover,
+.value-card:focus-visible {
   transform: translateY(-8px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.value-card:focus-visible {
+  outline: 3px solid var(--v-primary-base);
+  outline-offset: 2px;
 }
 
 .approach-number {
@@ -233,8 +299,14 @@ const approach = [
   transition: transform 0.3s ease;
 }
 
-.contact-button:hover {
+.contact-button:hover,
+.contact-button:focus-visible {
   transform: translateY(-4px);
+}
+
+.contact-button:focus-visible {
+  outline: 3px solid var(--v-primary-base);
+  outline-offset: 2px;
 }
 
 @keyframes fadeSlideUp {

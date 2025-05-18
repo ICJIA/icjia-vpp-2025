@@ -33,15 +33,22 @@ When you read this file, you are reading the guidelines for the development of t
 - Implement proper loading states and error handling
 
 ## Accessibility Standards
-- Follow WCAG 2.1 AA compliance standards
+- **CRITICAL**: All new UI/UX updates MUST follow WCAG 2.1 AAA compliance standards without exception
+- Every component, feature, or UI element must be fully accessible before being merged
+- Follow WCAG 2.1 AAA compliance standards (higher than AA which is the minimum)
+- Maintain color contrast ratios of at least 8:1 for all UI elements
 - Ensure proper keyboard navigation for all interactive elements
-- Maintain color contrast ratios of at least 4.5:1 for normal text
 - Provide ARIA labels for all interactive elements without visible text
-- Implement focus states for all interactive elements
-- Test with screen readers periodically
+- Implement focus states for all interactive elements that match hover states
+- Test with screen readers before submitting any UI changes
 - Use semantic HTML elements appropriately
 - Ensure all form elements have associated labels
 - Provide text alternatives for non-text content
+- Implement screen reader announcements for dynamic content changes
+- Support reduced motion preferences for animations
+- Include skip-to-content functionality on all pages
+- Ensure proper heading hierarchy and landmark regions
+- Document accessibility features in code comments and PR descriptions
 
 ## Git Workflow
 - Branch naming: `feature/short-description`, `bugfix/issue-description`
@@ -101,7 +108,7 @@ This document defines rules for maintaining an audit log ('audit-log-vpp.md') as
 
 ## Required Format
 Each entry must include:
-1. **Date and Title**: YYYY-MM-DD format with descriptive title. Always use the current date for Chicago: TZ='America/Chicago' date +"%Y-%m-%d".
+1. **Date and Title**: YYYY-MM-DD format with descriptive title. Always use the current date for Chicago. The date should be checked with the command TZ='America/Chicago' date +"%Y-%m-%d" on the command line. Please use the date command to check the date.
 2. **Summary**: 1-2 sentence overview of what changed and why
 3. **Files Modified/Created**: List with specific changes to each file
 4. **Technical Notes**: Implementation details helpful for developers
