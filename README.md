@@ -73,16 +73,29 @@ yarn test:watch
 yarn test:coverage
 ```
 
-## Audit Log
+## Audit Logs
 
-This project maintains a detailed audit log to track all significant changes made to the codebase. The audit log serves as a chronological record providing transparency and accountability for external reviewers and future developers.
+This project maintains detailed audit logs to track all significant changes made to the codebase. The audit logs serve as chronological records providing transparency and accountability for external reviewers and future developers.
 
-View the complete [Audit Log](./audit-log-vpp.md) for details on all project changes.
+- [Project Audit Log](./audit-log-project.md): Tracks all development changes, features, and improvements
+- [Accessibility Audit Log](./audit-log-accessibility.md): Documents accessibility assessments and compliance status
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-## More Information
+## Accessibility
 
-For more information about Nuxt 3, check out the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction).
+The Illinois Violent Prevention Project is committed to providing an accessible experience for all users. The project follows WCAG 2.1 AAA compliance standards, which is higher than the commonly implemented AA standard.
+
+### Key Accessibility Features
+
+- Skip-to-content functionality for keyboard users
+- Proper semantic structure with appropriate ARIA landmarks
+- Keyboard navigation for all interactive elements
+- High contrast ratio (8:1) exceeding WCAG AAA requirements
+- Screen reader announcements for dynamic content
+- Support for reduced motion preferences
+- Consistent focus management across all components
+
+For a detailed assessment of the project's accessibility features and compliance, view the [Accessibility Audit Log](./audit-log-accessibility.md).

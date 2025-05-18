@@ -104,7 +104,7 @@ When you read this file, you are reading the guidelines for the development of t
 # Audit Log Rules
 
 ## Purpose and Overview
-This document defines rules for maintaining an audit log ('audit-log-vpp.md') as a chronological record of all significant changes, providing transparency for reviewers and developers.
+This document defines rules for maintaining audit logs ('audit-log-project.md' and 'audit-log-accessibility.md') as chronological records of all significant changes, providing transparency for reviewers and developers.
 
 ## Required Format
 Each entry must include:

@@ -1,0 +1,75 @@
+# Audit Log for Illinois Violent Prevention Project
+
+This document serves as a chronological record of all significant changes made to the Illinois Violent Prevention Project, providing transparency and accountability for external reviewers and future developers.
+
+## Audit Log Entries
+
+### 2025-05-17 (Audit Log Renaming)
+- Renamed audit log files for better clarity and organization.
+- Files modified/created:
+  - `audit-log-vpp.md` → `audit-log-project.md`: Renamed main project audit log
+  - `README.md`: Updated reference to audit log
+  - `.augment-guidelines`: Updated audit log references
+- Technical Notes:
+  - Maintained two separate audit logs for different purposes:
+    - `audit-log-project.md`: General project changes and development
+    - `audit-log-accessibility.md`: Dedicated to accessibility assessments and improvements
+  - Updated all references to ensure consistent naming across the project
+  - Preserved all historical entries during the renaming process
+  - Improved documentation organization for better maintainability
+
+### 2025-05-17 (Accessibility Documentation Enhancement)
+- Added accessibility section to README and created comprehensive accessibility audit log.
+- Files modified/created:
+  - `README.md`: Added accessibility section with key features and link to audit log
+  - `audit-log-accessibility.md`: Created detailed accessibility assessment document
+- Technical Notes:
+  - Documented WCAG 2.1 AAA compliance status of the project
+  - Highlighted key accessibility features implemented in the project
+  - Created component-by-component accessibility assessment
+  - Provided recommendations for future accessibility improvements
+  - Established a dedicated document for tracking accessibility status
+  - Added link from README to make accessibility information easily discoverable
+
+### 2025-05-17 (Critical Accessibility Guidelines Update)
+- Added critical WCAG 2.1 AAA compliance requirement for all UI/UX updates.
+- Files modified/created:
+  - `.augment-guidelines`: Updated accessibility standards section with critical requirements
+- Technical Notes:
+  - Added explicit requirement that all new UI/UX updates MUST follow WCAG 2.1 AAA compliance
+  - Marked accessibility compliance as CRITICAL to emphasize its importance
+  - Upgraded requirements from AA to AAA standards for higher accessibility
+  - Increased color contrast ratio requirement from 4.5:1 to 8:1
+  - Added requirement for screen reader testing before submitting changes
+  - Added requirement for documenting accessibility features in code and PRs
+  - Specified that all components must be fully accessible before merging
+  - Added comprehensive list of accessibility requirements for all UI elements
+
+### 2025-05-17 (About Page Accessibility Improvements)
+- Extended accessibility features to the About page to ensure consistent accessibility across the site.
+- Files modified/created:
+  - `pages/about.vue`: Enhanced with keyboard navigation, ARIA attributes, and screen reader announcements
+- Technical Notes:
+  - Added keyboard navigation to Value Cards with proper focus management
+  - Implemented ARIA roles, labels, and descriptions for all interactive elements
+  - Added screen reader announcements for Value Card and Contact Button interactions
+  - Enhanced focus styles to match hover effects for consistent user experience
+  - Made decorative elements non-focusable with aria-hidden
+  - Added unique IDs for ARIA relationships between elements
+  - Ensured consistent accessibility patterns across all pages
+
+### 2025-05-17 (Comprehensive Accessibility Enhancements)
+- Implemented additional accessibility improvements to achieve WCAG 2.1 AAA compliance.
+- Files modified/created:
+  - `components/content/FeatureCard.vue`: Enhanced with keyboard navigation and ARIA attributes
+  - `composables/useAnnouncer.js`: Created new composable for screen reader announcements
+  - `layouts/default.vue`: Added screen reader announcement system
+  - `pages/index.vue` and `pages/about.vue`: Added proper page titles and meta descriptions
+- Technical Notes:
+  - Made FeatureCard components fully keyboard accessible with proper focus management
+  - Added ARIA roles, labels, and descriptions to interactive elements
+  - Implemented a global screen reader announcement system for dynamic content changes
+  - Added proper page titles and meta descriptions using Nuxt's useHead and useSeoMeta
+  - Created unique IDs for ARIA relationships between elements
+  - Enhanced focus styles to match hover effects for consistent user experience
+  - Improved SEO with proper Open Graph and Twitter Card metadata
