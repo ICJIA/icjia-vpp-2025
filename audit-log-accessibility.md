@@ -4,6 +4,21 @@ This document serves as a comprehensive assessment of the accessibility features
 
 ## Audit Log Update: 2025-05-17
 
+### User-Facing Accessibility Documentation Added
+
+A comprehensive user-facing accessibility documentation has been created to help users understand and utilize the accessibility features of the site. This documentation includes:
+
+- Keyboard navigation instructions
+- Screen reader compatibility information
+- Display customization options
+- Assistive technology compatibility details
+- Page-specific accessibility features
+- Technical compliance information
+
+The documentation is available at [accessibility-documentation.md](./accessibility-documentation.md) and is referenced in the README.
+
+### Audit Log Organization
+
 The project now maintains two separate audit logs:
 - `audit-log-project.md`: For general project changes and development
 - `audit-log-accessibility.md`: Dedicated to accessibility assessments and improvements

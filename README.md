@@ -98,4 +98,7 @@ The Illinois Violent Prevention Project is committed to providing an accessible 
 - Support for reduced motion preferences
 - Consistent focus management across all components
 
-For a detailed assessment of the project's accessibility features and compliance, view the [Accessibility Audit Log](./audit-log-accessibility.md).
+### Accessibility Resources
+
+- [Accessibility Documentation](./accessibility-documentation.md): User guide to accessibility features
+- [Accessibility Audit Log](./audit-log-accessibility.md): Technical assessment of compliance status
