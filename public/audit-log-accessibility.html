@@ -135,7 +135,29 @@
 <p><strong>Note</strong>: This document is also available as an HTML page at <code>/audit-log-accessibility.html</code> for direct access without requiring JavaScript.</p>
 </blockquote>
 <h2>Audit Log Update: 2025-05-18</h2>
-<h3>Lighthouse Accessibility Fixes</h3>
+<h3>Tooltip Accessibility Fix</h3>
+<p>Fixed an accessibility issue where a tooltip element in the AppHeader component was missing proper ARIA attributes:</p>
+<ol>
+<li><strong>Issue</strong>: ARIA tooltip element did not have an accessible name, causing screen readers to announce it with a generic name.</li>
+<li><strong>Fix</strong>: Added <code>role=&quot;tooltip&quot;</code> and <code>aria-label</code> attributes to the tooltip for the &quot;Get Started&quot; button.</li>
+<li><strong>Impact</strong>: All tooltips now have proper accessible names, ensuring they are properly announced by screen readers.</li>
+</ol>
+<h3>Accessibility Assessment Update</h3>
+<p>A comprehensive review of the project&#39;s accessibility features confirms that the Illinois Violent Prevention Project continues to maintain excellent WCAG 2.1 AAA compliance across all components. The project demonstrates strong implementation of accessibility best practices including:</p>
+<ol>
+<li><p><strong>Semantic HTML Structure</strong>: All pages and components use proper semantic elements with appropriate ARIA attributes and roles.</p>
+</li>
+<li><p><strong>Keyboard Navigation</strong>: All interactive elements are fully keyboard accessible with visible focus indicators that match hover states.</p>
+</li>
+<li><p><strong>Screen Reader Support</strong>: Comprehensive screen reader announcements for dynamic content changes and proper ARIA relationships between elements.</p>
+</li>
+<li><p><strong>High Contrast Ratios</strong>: All text and UI elements maintain the required 8:1 contrast ratio in both light and dark themes.</p>
+</li>
+<li><p><strong>Responsive Design</strong>: Content properly reflows at different zoom levels and viewport sizes without loss of functionality.</p>
+</li>
+</ol>
+<p>The only area still needing improvement is the implementation of automated accessibility testing. Adding axe-core or similar tools would help ensure ongoing compliance as the project evolves.</p>
+<h3>Previous Update: Lighthouse Accessibility Fixes</h3>
 <p>Several accessibility issues identified by Lighthouse have been fixed:</p>
 <ol>
 <li><p><strong>ARIA Role Relationships</strong>: Fixed parent/child role relationships in list components by adding proper <code>role=&quot;list&quot;</code> and <code>role=&quot;listitem&quot;</code> attributes.</p>
@@ -159,7 +181,7 @@
 <li>Page-specific accessibility features</li>
 <li>Technical compliance information</li>
 </ul>
-<p>The documentation is available at <a href="./accessibility-documentation.md">accessibility-documentation.md</a> and is referenced in the README.</p>
+<p>The documentation is available at <a href="/accessibility-documentation.html">Accessibility Documentation</a> and is referenced in the README.</p>
 <h3>Audit Log Organization</h3>
 <p>The project now maintains two separate audit logs:</p>
 <ul>

@@ -34,6 +34,7 @@ When you read this file, you are reading the guidelines for the development of t
 
 ## Accessibility Standards
 - **CRITICAL**: All new UI/UX updates MUST follow WCAG 2.1 AAA compliance standards without exception
+-  **CRITICAL**: Ensure all accessibility follows the guidelines for Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards: https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html
 - Every component, feature, or UI element must be fully accessible before being merged
 - Follow WCAG 2.1 AAA compliance standards (higher than AA which is the minimum)
 - Maintain color contrast ratios of at least 8:1 for all UI elements
@@ -49,6 +50,8 @@ When you read this file, you are reading the guidelines for the development of t
 - Include skip-to-content functionality on all pages
 - Ensure proper heading hierarchy and landmark regions
 - Document accessibility features in code comments and PR descriptions
+- Ensure all accessibility features are documented in the audit log.
+
 
 ## Git Workflow
 - Branch naming: `feature/short-description`, `bugfix/issue-description`

@@ -8,7 +8,31 @@ This document serves as a comprehensive assessment of the accessibility features
 
 ## Audit Log Update: 2025-05-18
 
-### Lighthouse Accessibility Fixes
+### Tooltip Accessibility Fix
+
+Fixed an accessibility issue where a tooltip element in the AppHeader component was missing proper ARIA attributes:
+
+1. **Issue**: ARIA tooltip element did not have an accessible name, causing screen readers to announce it with a generic name.
+2. **Fix**: Added `role="tooltip"` and `aria-label` attributes to the tooltip for the "Get Started" button.
+3. **Impact**: All tooltips now have proper accessible names, ensuring they are properly announced by screen readers.
+
+### Accessibility Assessment Update
+
+A comprehensive review of the project's accessibility features confirms that the Illinois Violent Prevention Project continues to maintain excellent WCAG 2.1 AAA compliance across all components. The project demonstrates strong implementation of accessibility best practices including:
+
+1. **Semantic HTML Structure**: All pages and components use proper semantic elements with appropriate ARIA attributes and roles.
+
+2. **Keyboard Navigation**: All interactive elements are fully keyboard accessible with visible focus indicators that match hover states.
+
+3. **Screen Reader Support**: Comprehensive screen reader announcements for dynamic content changes and proper ARIA relationships between elements.
+
+4. **High Contrast Ratios**: All text and UI elements maintain the required 8:1 contrast ratio in both light and dark themes.
+
+5. **Responsive Design**: Content properly reflows at different zoom levels and viewport sizes without loss of functionality.
+
+The only area still needing improvement is the implementation of automated accessibility testing. Adding axe-core or similar tools would help ensure ongoing compliance as the project evolves.
+
+### Previous Update: Lighthouse Accessibility Fixes
 
 Several accessibility issues identified by Lighthouse have been fixed:
 

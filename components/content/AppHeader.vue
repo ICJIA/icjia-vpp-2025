@@ -82,6 +82,8 @@
           text="Begin using our application"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'right'"
           :open-delay="200"
+          role="tooltip"
+          aria-label="Begin using our application"
         >
           <template v-slot:activator="{ props }">
             <v-btn
