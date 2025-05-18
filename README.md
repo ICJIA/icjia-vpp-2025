@@ -100,5 +100,9 @@ The Illinois Violent Prevention Project is committed to providing an accessible 
 
 ### Accessibility Resources
 
-- [Accessibility Documentation](./accessibility-documentation.md)  User guide to accessibility features
-- [Accessibility Audit Log](./audit-log-accessibility.md)  Technical assessment of compliance status
+- [Accessibility Documentation](./accessibility-documentation.md): User guide to accessibility features
+- [Accessibility Audit Log](./audit-log-accessibility.md): Technical assessment of compliance status
+
+These resources are also available as HTML pages directly accessible via URL:
+- `/accessibility-documentation.html`: User-facing documentation
+- `/audit-log-accessibility.html`: Technical audit log

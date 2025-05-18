@@ -4,6 +4,36 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-18 (Accessibility Documentation Link Updates)
+- Updated links in accessibility documentation to point to HTML versions.
+- Files modified:
+  - `audit-log-accessibility.md`: Updated link to point to HTML version of accessibility documentation
+  - `scripts/generate-accessibility-html.js`: Enhanced to replace Markdown links with HTML links
+- Technical Notes:
+  - Updated links to ensure they work in both development and production environments
+  - Modified HTML generation script to replace Markdown links with HTML links
+  - Ensured consistent linking between documentation files
+  - Improved user experience by providing direct links to HTML versions
+
+### 2025-05-18 (Accessibility Documentation HTML Generation)
+- Added script to generate HTML versions of accessibility documentation for direct URL access.
+- Files modified/created:
+  - `scripts/generate-accessibility-html.js`: Created script to convert Markdown to HTML
+  - `package.json`: Added scripts for generating accessibility HTML
+  - `public/accessibility-documentation.html`: Generated HTML version of accessibility documentation
+  - `public/audit-log-accessibility.html`: Generated HTML version of accessibility audit log
+  - `composables/useAccessibilityDocs.js`: Created utility functions for accessibility documentation
+- Technical Notes:
+  - Created a Node.js script to convert Markdown to HTML using marked
+  - Added responsive styling with light/dark mode support
+  - Set up automatic generation during build and static site generation process
+  - Added pre-generate and post-generate hooks to ensure HTML files are always up-to-date
+  - Made accessibility documentation directly accessible via URL
+  - Added navigation links between documentation pages
+  - Ensured documentation is available without requiring JavaScript
+  - Added support for copying files to Nuxt output directory during static site generation
+  - Implemented as part of the continuous documentation process
+
 ### 2025-05-18 (JSDoc Documentation Improvements)
 - Added comprehensive JSDoc comments to components, composables, and pages.
 - Files modified:

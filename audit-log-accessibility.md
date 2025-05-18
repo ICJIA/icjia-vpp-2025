@@ -4,6 +4,8 @@
 
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Illinois Violent Prevention Project. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AAA standards.
 
+> **Note**: This document is also available as an HTML page at `/audit-log-accessibility.html` for direct access without requiring JavaScript.
+
 ## Audit Log Update: 2025-05-18
 
 ### Lighthouse Accessibility Fixes
@@ -33,7 +35,7 @@ A comprehensive user-facing accessibility documentation has been created to help
 - Page-specific accessibility features
 - Technical compliance information
 
-The documentation is available at [accessibility-documentation.md](./accessibility-documentation.md) and is referenced in the README.
+The documentation is available at [Accessibility Documentation](/accessibility-documentation.html) and is referenced in the README.
 
 ### Audit Log Organization
 
