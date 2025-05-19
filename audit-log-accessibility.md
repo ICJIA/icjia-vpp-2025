@@ -8,6 +8,14 @@ This document serves as a comprehensive assessment of the accessibility features
 
 ## Audit Log Update: 2025-05-18
 
+### Footer Text Contrast Improvement
+
+Fixed contrast ratio issues in the AppFooter component to ensure WCAG AA compliance:
+
+1. **Issue**: Text in the footer had insufficient contrast ratios (below 4.5:1) due to low opacity values.
+2. **Fix**: Increased the opacity/contrast of footer text elements including description text, links, and copyright notice.
+3. **Impact**: All text in the footer now meets WCAG AA requirements with contrast ratios of at least 4.5:1, improving readability for users with low vision.
+
 ### Tooltip Accessibility Fix
 
 Fixed an accessibility issue where a tooltip element in the AppHeader component was missing proper ARIA attributes:

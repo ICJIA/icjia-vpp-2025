@@ -34,7 +34,7 @@ When you read this file, you are reading the guidelines for the development of t
 
 ## Accessibility Standards
 - **CRITICAL**: All new UI/UX updates MUST follow WCAG 2.1 AAA compliance standards without exception
--  **CRITICAL**: Ensure all accessibility follows the guidelines for Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards: https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html
+- **CRITICAL**: Ensure all accessibility follows the guidelines for Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards: https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html
 - Every component, feature, or UI element must be fully accessible before being merged
 - Follow WCAG 2.1 AAA compliance standards (higher than AA which is the minimum)
 - Maintain color contrast ratios of at least 8:1 for all UI elements
@@ -108,6 +108,9 @@ When you read this file, you are reading the guidelines for the development of t
 # Audit Log Rules
 
 ## Purpose and Overview
+
+First and foremost, please use today's date for the audit. No dates in the future, no dates in the past. The actual date based on Chicago time should be used. The date should be checked with the command TZ='America/Chicago' date +"%Y-%m-%d" on the command line. Please use the date command to check the date.
+
 This document defines rules for maintaining audit logs ('audit-log-project.md' and 'audit-log-accessibility.md') as chronological records of all significant changes, providing transparency for reviewers and developers.
 
 ## Required Format

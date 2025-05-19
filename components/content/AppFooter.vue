@@ -29,7 +29,7 @@
                 </nuxt-link>
               </template>
             </v-tooltip>
-            <p class="mt-4 text-body-2 text-medium-emphasis max-width-300">
+            <p class="mt-4 text-body-2 max-width-300 footer-description">
               A beautifully designed application built with Nuxt 3 and Vuetify 3,
               focusing on elegant user experiences.
             </p>
@@ -139,7 +139,7 @@
 
       <v-divider class="mb-6" aria-hidden="true"></v-divider>
 
-      <div class="text-center text-body-2 text-medium-emphasis" role="contentinfo">
+      <div class="text-center text-body-2 footer-copyright" role="contentinfo">
         <small>&copy; {{ new Date().getFullYear() }} Elegant. All rights reserved.</small>
       </div>
     </v-container>
@@ -168,15 +168,18 @@
   max-width: 300px;
 }
 
+.footer-description,
+.footer-copyright {
+  color: rgba(var(--v-theme-on-background), 0.87); /* Higher contrast than default medium-emphasis */
+}
+
 .footer-link {
-  color: inherit;
+  color: rgba(var(--v-theme-on-background), 0.87); /* Increased from 0.7 opacity for better contrast */
   text-decoration: none;
-  opacity: 0.7;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-  opacity: 1;
   color: var(--v-primary-base);
 }
 

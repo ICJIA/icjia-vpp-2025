@@ -4,6 +4,19 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-18 (Footer Contrast Ratio Improvement)
+- Fixed contrast ratio issues in the AppFooter component to ensure WCAG AA compliance.
+- Files modified:
+  - `components/content/AppFooter.vue`: Increased text contrast for better readability
+  - `audit-log-accessibility.md`: Documented the contrast ratio improvements
+  - `public/audit-log-accessibility.html`: Updated HTML version with latest fixes
+- Technical Notes:
+  - Replaced low-contrast text-medium-emphasis class with custom higher-contrast classes
+  - Increased opacity of footer links from 0.7 to 0.87 for better contrast
+  - Created custom footer-description and footer-copyright classes with improved contrast
+  - Ensured all text elements in the footer now meet WCAG AA contrast requirements (4.5:1)
+  - Maintained visual design while improving accessibility for users with low vision
+
 ### 2025-05-18 (Tooltip Accessibility Fix)
 - Fixed accessibility issue with tooltip element missing proper ARIA attributes.
 - Files modified:
