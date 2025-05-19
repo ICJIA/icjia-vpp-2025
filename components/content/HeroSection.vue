@@ -23,7 +23,7 @@ const handleLearnMore = () => {
           </h1>
 
           <p class="text-body-1 mb-8 hero-description">
-            Experience a perfect blend of aesthetics and performance in this elegantly crafted application.
+            Experience a perfect blend of aesthetics and performance in this application.
             Built with Vue 3, Nuxt 3, and Vuetify 3 for a seamless user experience.
           </p>
 
@@ -63,7 +63,7 @@ const handleLearnMore = () => {
         <v-col cols="12" md="6" class="mt-8 mt-md-0">
           <div class="hero-image-container">
             <ImageWithSpinner
-              src="https://images.pexels.com/photos/4339853/pexels-photo-4339853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
+              src="https://placehold.co/1200x800?text=VPP+Image+Here"
               alt="Hero Image"
               image-class="hero-image rounded-xl"
               cover

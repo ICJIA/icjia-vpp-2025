@@ -6,7 +6,7 @@
           <v-col cols="12" md="8" class="mx-auto text-center">
             <h1 class="text-h2 font-weight-bold mb-6 animate-title">About Us</h1>
             <p class="text-body-1 mb-8 animate-text">
-              Learn more about our mission, values, and the team behind this elegant application.
+              Learn more about our mission, values, and the team behind this application.
             </p>
           </v-col>
         </v-row>
@@ -30,13 +30,13 @@
             </p>
             <p class="text-body-1">
               Our approach is grounded in the belief that technology should enhance human experiences, not complicate them.
-              We strive to create interfaces that feel intuitive and delightful to use, making complex tasks simple and elegant.
+              We strive to create interfaces that feel intuitive and delightful to use, making complex tasks simple.
             </p>
           </v-col>
 
           <v-col cols="12" lg="6" class="mt-8 mt-lg-0">
             <ImageWithSpinner
-              src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
+              src="https://placehold.co/1200x800?text=VPP+Image+Here"
               alt="Our Team"
               image-class="rounded-xl about-image"
               height="400"
@@ -105,7 +105,7 @@
 
           <v-col cols="12" md="6" order="1" order-md="2" class="mb-8 mb-md-0">
             <ImageWithSpinner
-              src="https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
+              src="https://placehold.co/1200x800?text=VPP+Image+Here"
               alt="Our Approach"
               image-class="rounded-xl about-image"
               aspect-ratio="4/3"

@@ -17,7 +17,7 @@
               aria-label="Return to homepage"
             >
               <template v-slot:activator="{ props }">
-                <nuxt-link to="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="Elegant - Return to homepage">
+                <nuxt-link to="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="ILVPP - Return to homepage">
                   <v-icon
                     icon="mdi-cube-outline"
                     size="large"
@@ -25,13 +25,13 @@
                     class="mr-2"
                     aria-hidden="true"
                   />
-                  <span class="text-h6 font-weight-bold text-primary">Elegant</span>
+                  <span class="text-h6 font-weight-bold text-primary">Illinois Violent Prevention Project</span>
                 </nuxt-link>
               </template>
             </v-tooltip>
             <p class="mt-4 text-body-2 max-width-300 footer-description">
               A beautifully designed application built with Nuxt 3 and Vuetify 3,
-              focusing on elegant user experiences.
+              focusing on accessible user experiences.
             </p>
           </div>
         </v-col>
@@ -69,7 +69,7 @@
             <div class="d-flex flex-column mr-8">
               <h2 class="text-subtitle-1 font-weight-bold mb-4">Connect</h2>
 
-              <v-tooltip
+              <!-- <v-tooltip
                 text="Follow us on Twitter"
                 :location="$vuetify.display.smAndDown ? 'top' : 'top'"
                 :open-delay="200"
@@ -79,7 +79,7 @@
                 <template v-slot:activator="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Twitter">Twitter</a>
                 </template>
-              </v-tooltip>
+              </v-tooltip> -->
 
               <v-tooltip
                 text="View our code on GitHub"
@@ -140,7 +140,7 @@
       <v-divider class="mb-6" aria-hidden="true"></v-divider>
 
       <div class="text-center text-body-2 footer-copyright" role="contentinfo">
-        <small>&copy; {{ new Date().getFullYear() }} Elegant. All rights reserved.</small>
+        <small>&copy; {{ new Date().getFullYear() }} Illinois Criminal Justice Information Authority. All rights reserved.</small>
       </div>
     </v-container>
   </v-footer>

@@ -30,9 +30,9 @@ export default defineNuxtConfig({
   
   app: {
     head: {
-      title: 'Elegant App',
+      title: 'Illinois Violent Prevention Project',
       meta: [
-        { name: 'description', content: 'A beautifully designed app with Nuxt 3 and Vuetify 3' }
+        { name: 'description', content: 'Illinois Violent Prevention Project' }
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png' }

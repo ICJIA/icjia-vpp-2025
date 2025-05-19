@@ -13,7 +13,7 @@
         <v-row align="center">
           <v-col cols="12" md="6">
             <ImageWithSpinner
-              src="https://images.pexels.com/photos/6192137/pexels-photo-6192137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750"
+              src="https://placehold.co/1200x800?text=VPP+Image+Here"
               alt="App Screenshot"
               image-class="rounded-xl shadow-img"
               aspect-ratio="4/3"
