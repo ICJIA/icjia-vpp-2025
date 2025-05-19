@@ -4,6 +4,18 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-19 (State of Illinois Seal Favicon)
+- Added State of Illinois seal as the project favicon.
+- Files modified:
+  - `public/favicon.png`: Replaced with Illinois State Seal placeholder
+  - `public/favicon.ico`: Replaced with Illinois State Seal placeholder
+  - `nuxt.config.ts`: Updated to reference both favicon.png and favicon.ico
+- Technical Notes:
+  - Added both PNG and ICO favicon formats for better browser compatibility
+  - Updated favicon references in the head configuration
+  - Created placeholder files that will be replaced with actual Illinois State Seal images
+  - Improved branding by using the official State of Illinois seal
+
 ### 2025-05-19 (Placeholder Images Update)
 - Updated placeholder images across the application to include descriptive text.
 - Files modified:

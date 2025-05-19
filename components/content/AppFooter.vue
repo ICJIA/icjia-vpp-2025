@@ -30,8 +30,7 @@
               </template>
             </v-tooltip>
             <p class="mt-4 text-body-2 max-width-300 footer-description">
-              A beautifully designed application built with Nuxt 3 and Vuetify 3,
-              focusing on accessible user experiences.
+              Tempor magna proident qui dolore ipsum ut mollit reprehenderit labore duis. Qui commodo culpa ullamco in sit veniam id minim laborum velit. Duis cillum nisi sint minim sint reprehenderit amet eu consectetur officia do.
             </p>
           </div>
         </v-col>
