@@ -27,13 +27,13 @@
                     Violence Prevention Plan for Illinois: 2025-2029
                   </span>
                   <span class="d-none d-lg-block d-xl-none text-subtitle-1 font-weight-bold text-primary">
-                    Violence Prevention Plan for Illinois
+                    Violence Prevention Plan for Illinois: 2025-2029
                   </span>
                   <span class="d-none d-sm-block d-lg-none text-subtitle-2 font-weight-bold text-primary">
-                    Violence Prevention Plan
+                    Illinois Violence Prevention Plan
                   </span>
                   <span class="d-block d-sm-none text-subtitle-2 font-weight-bold text-primary">
-                    IL VPP
+                   Illinois Violence Prevention Plan
                   </span>
                 </a>
               </template>
@@ -90,7 +90,7 @@
               </AccessibleTooltip>
             </div>
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column mr-8">
               <h2 class="text-subtitle-1 font-weight-bold mb-4">Legal</h2>
 
               <AccessibleTooltip
@@ -108,6 +108,28 @@
               >
                 <template v-slot="{ props }">
                   <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Terms of Service">Terms of Service</a>
+                </template>
+              </AccessibleTooltip>
+            </div>
+
+            <div class="d-flex flex-column">
+              <h2 class="text-subtitle-1 font-weight-bold mb-4">Accessibility</h2>
+
+              <AccessibleTooltip
+                text="View our accessibility documentation"
+                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
+              >
+                <template v-slot="{ props }">
+                  <a href="/accessibility-documentation.html" class="footer-link mb-2" v-bind="props" aria-label="Accessibility Documentation">Documentation</a>
+                </template>
+              </AccessibleTooltip>
+
+              <AccessibleTooltip
+                text="View our accessibility audit log"
+                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
+              >
+                <template v-slot="{ props }">
+                  <a href="/audit-log-accessibility.html" class="footer-link mb-2" v-bind="props" aria-label="Accessibility Audit Log">Audit Log</a>
                 </template>
               </AccessibleTooltip>
             </div>

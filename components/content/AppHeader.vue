@@ -41,7 +41,7 @@
                     Violence Prevention Plan: 2025-2029
                   </span>
                   <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
-                    VPP: 2025
+                    IL VPP: 2025
                   </span>
                 </div>
               </v-col>

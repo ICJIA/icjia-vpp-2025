@@ -4,42 +4,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Accessibility Documentation for the Violence Prevention Plan for Illinois: 2025-2029">
   <title>Accessibility Documentation - Violence Prevention Plan for Illinois: 2025-2029</title>
   <style>
+    /* Base styles */
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       line-height: 1.6;
       color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
     }
+
+    /* Typography */
     a {
-      color: #1867c0;
-      text-decoration: none;
+      color: #0056b3; /* Darker blue for better contrast (4.5:1 ratio) */
+      text-decoration: underline; /* Always show underlines for links - WCAG 2.1 AA */
     }
-    a:hover {
+
+    a:hover, a:focus {
       text-decoration: underline;
+      color: #003b7a; /* Even darker on hover/focus */
     }
+
+    /* Focus styles for keyboard navigation */
+    a:focus, button:focus, [tabindex]:focus {
+      outline: 3px solid #0056b3;
+      outline-offset: 2px;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #0056b3;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
     h1, h2, h3, h4, h5, h6 {
       margin-top: 24px;
       margin-bottom: 16px;
       font-weight: 600;
       line-height: 1.25;
     }
+
     h1 {
       font-size: 2em;
       border-bottom: 1px solid #eaecef;
       padding-bottom: 0.3em;
     }
+
     h2 {
       font-size: 1.5em;
       border-bottom: 1px solid #eaecef;
       padding-bottom: 0.3em;
     }
+
     h3 {
       font-size: 1.25em;
     }
+
+    /* Code blocks */
     code {
       font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
       background-color: rgba(27, 31, 35, 0.05);
@@ -47,92 +86,154 @@
       padding: 0.2em 0.4em;
       font-size: 85%;
     }
+
     pre {
       background-color: #f6f8fa;
       border-radius: 3px;
       padding: 16px;
       overflow: auto;
     }
+
     pre code {
       background-color: transparent;
       padding: 0;
     }
+
+    /* Quotes */
     blockquote {
       margin: 0;
       padding: 0 1em;
-      color: #6a737d;
+      color: #4a5568; /* Darker for better contrast */
       border-left: 0.25em solid #dfe2e5;
     }
+
+    /* Tables */
     table {
       border-collapse: collapse;
       width: 100%;
       margin-bottom: 16px;
     }
+
     table th, table td {
       padding: 6px 13px;
       border: 1px solid #dfe2e5;
     }
+
+    table th {
+      background-color: #f1f1f1;
+      font-weight: 600;
+    }
+
     table tr {
       background-color: #fff;
       border-top: 1px solid #c6cbd1;
     }
+
     table tr:nth-child(2n) {
       background-color: #f6f8fa;
     }
-    .header-link {
-      display: block;
+
+    /* Header and footer */
+    .site-header {
       padding: 10px 0;
       margin-bottom: 20px;
       border-bottom: 1px solid #eaecef;
     }
-    .footer-link {
-      display: block;
+
+    .site-footer {
       margin-top: 40px;
       padding-top: 20px;
       border-top: 1px solid #eaecef;
       text-align: center;
     }
+
+    .footer-nav {
+      margin: 1rem 0;
+    }
+
+    .footer-nav a {
+      margin: 0 10px;
+    }
+
+    /* Dark mode */
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #121212;
         color: #e0e0e0;
       }
+
       a {
-        color: #64b5f6;
+        color: #64b5f6; /* Light blue for dark mode - still meets 4.5:1 contrast */
       }
+
+      a:hover, a:focus {
+        color: #90caf9; /* Lighter on hover/focus */
+      }
+
+      a:focus, button:focus, [tabindex]:focus {
+        outline-color: #64b5f6;
+      }
+
       code {
         background-color: rgba(255, 255, 255, 0.1);
       }
+
       pre {
         background-color: #1e1e1e;
       }
+
       blockquote {
-        color: #9e9e9e;
+        color: #a0aec0; /* Lighter for dark mode, still with good contrast */
         border-left-color: #424242;
       }
+
+      table th {
+        background-color: #2d2d2d;
+      }
+
       table th, table td {
         border-color: #424242;
       }
+
       table tr {
         background-color: #1e1e1e;
         border-top-color: #424242;
       }
+
       table tr:nth-child(2n) {
         background-color: #262626;
       }
-      .header-link, .footer-link {
+
+      .site-header, .site-footer {
         border-color: #424242;
+      }
+    }
+
+    /* Respect user's motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 <body>
-  <a href="/" class="header-link">← Back to Violence Prevention Plan for Illinois: 2025-2029</a>
-  <h1>Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029</h1>
-<p><strong>Last Updated: May 18, 2025</strong></p>
-<p>The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA.</p>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="container">
+    <header class="site-header" role="banner">
+      <a href="/" aria-label="Return to Violence Prevention Plan for Illinois homepage">← Back to Violence Prevention Plan for Illinois: 2025-2029</a>
+    </header>
+
+    <main id="main-content" role="main">
+      <h1>Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029</h1>
+<p><strong>Last Updated: May 20, 2025</strong></p>
+<p>The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.</p>
 <blockquote>
-<p><strong>Note</strong>: This document is also available as an HTML page at <code>/accessibility-documentation.html</code> for direct access without requiring JavaScript.</p>
+<p><strong>Note</strong>: This document is also available as an HTML page on our website for direct access without requiring JavaScript.</p>
 </blockquote>
 <p>This document outlines the accessibility features available on our site and provides guidance on how to use them effectively.</p>
 <h2>Accessibility Features</h2>
@@ -174,7 +275,7 @@
 </ul>
 <h3>Additional Accessibility Features</h3>
 <ul>
-<li><strong>High Contrast</strong>: All text meets WCAG 2.1 AAA contrast requirements (8:1 ratio)</li>
+<li><strong>High Contrast</strong>: All text meets WCAG 2.1 AA contrast requirements (4.5:1 ratio minimum), with many elements exceeding this to approach AAA levels (7:1 ratio) where possible</li>
 <li><strong>Focus Indicators</strong>: Visible focus indicators for all interactive elements</li>
 <li><strong>Reduced Motion</strong>: Respects the <code>prefers-reduced-motion</code> setting to minimize animations</li>
 <li><strong>Text Spacing</strong>: Supports increased text spacing without loss of content</li>
@@ -183,7 +284,7 @@
 <li><strong>Descriptive Tooltips</strong>: Additional context provided via tooltips on navigation items</li>
 </ul>
 <h2>Assistive Technology Compatibility</h2>
-<p>The Illinois Violent Prevention Project has been tested with the following assistive technologies:</p>
+<p>Our website has been tested with the following assistive technologies:</p>
 <ul>
 <li>Screen readers: NVDA, JAWS, VoiceOver</li>
 <li>Browser compatibility: Chrome, Firefox, Safari, Edge</li>
@@ -205,8 +306,8 @@
 <h2>Feedback and Assistance</h2>
 <p>We welcome your feedback on the accessibility of the Violence Prevention Plan for Illinois: 2025-2029. Please let us know if you encounter any accessibility barriers:</p>
 <ul>
-<li>Email: <a href="mailto:accessibility@icjia.illinois.gov">accessibility@icjia.illinois.gov</a></li>
-<li>Phone: (555) 123-4567</li>
+<li>Email: Contact us through our website&#39;s contact form</li>
+<li>Phone: See our contact page for current phone numbers</li>
 </ul>
 <h2>Resources</h2>
 <ul>
@@ -215,7 +316,7 @@
 <li><a href="https://www.w3.org/WAI/fundamentals/accessibility-intro/">Accessibility Basics</a></li>
 </ul>
 <h2>Compatibility with Assistive Technologies</h2>
-<p>The Illinois Violent Prevention Project is designed to be compatible with the following assistive technologies:</p>
+<p>Our website is designed to be compatible with the following assistive technologies:</p>
 <h3>Screen Readers</h3>
 <ul>
 <li>NVDA (Windows)</li>
@@ -253,22 +354,28 @@
 <li>Proper focus management</li>
 </ul>
 <h2>Technical Compliance</h2>
-<p>The Illinois Violent Prevention Project meets the following technical requirements:</p>
+<p>Our website meets the following technical requirements:</p>
 <ul>
 <li>Valid HTML5 according to W3C standards</li>
 <li>Proper use of ARIA landmarks and attributes</li>
 <li>Semantic HTML elements throughout</li>
 <li>Keyboard focus visible and logical</li>
-<li>Color contrast ratio of 8:1 or higher for all text</li>
+<li>Color contrast ratio of at least 4.5:1 for all text (meeting WCAG AA requirements), with many elements exceeding 7:1</li>
 <li>Text resizable up to 200% without loss of content</li>
 <li>No time-based media that auto-plays</li>
 <li>No content that flashes more than three times per second</li>
 </ul>
 
-  <div class="footer-link">
-    <a href="/">Violence Prevention Plan for Illinois: 2025-2029</a> |
-    <a href="/accessibility-documentation.html">Accessibility Documentation</a> |
-    <a href="/audit-log-accessibility.html">Accessibility Audit Log</a>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="/" aria-label="Return to Violence Prevention Plan for Illinois homepage">Home</a> |
+        <a href="/accessibility-documentation.html" aria-label="View Accessibility Documentation">Accessibility Documentation</a> |
+        <a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a>
+      </nav>
+      <p>&copy; 2025 Illinois Criminal Justice Information Authority. All rights reserved.</p>
+    </footer>
   </div>
 </body>
 </html>

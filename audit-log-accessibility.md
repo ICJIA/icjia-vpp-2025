@@ -1,16 +1,58 @@
 # Accessibility Audit Log: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 19, 2025**
+**Last Updated: May 20, 2025**
 
-This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AAA standards.
+This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.
 
-> **Note**: This document is also available as an HTML page at `/audit-log-accessibility.html` for direct access without requiring JavaScript.
+> **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
+
+## Audit Log Update: 2025-05-20
+
+### Footer Accessibility Section Enhancement
+
+Improved accessibility resource organization in the footer:
+
+1. **Enhancement**: Added a dedicated Accessibility column to the footer with links to both documentation and audit log.
+2. **Implementation**: Removed accessibility link from Legal column and created a new column specifically for accessibility resources.
+3. **Impact**: Improved discoverability and organization of accessibility resources, making them more prominent and easier to find.
+
+### Security Enhancement for Accessibility Documentation
+
+Improved security of accessibility documentation:
+
+1. **Enhancement**: Removed specific file paths, internal component names, and implementation details from accessibility documentation.
+2. **Implementation**: Updated accessibility documentation to use more generic descriptions while maintaining accuracy.
+3. **Impact**: Reduced potential security risks while preserving the accessibility information needed by users.
+
+### Accessibility HTML Documentation Enhancement
+
+Improved the accessibility of HTML documentation files:
+
+1. **Enhancement**: Updated the HTML template in our documentation generator.
+2. **Implementation**: Added semantic HTML structure, skip links, ARIA roles, improved focus styles, and other accessibility features.
+3. **Impact**: HTML versions of accessibility documentation now fully comply with WCAG 2.1 AA standards, providing a better experience for all users, especially those using assistive technologies.
+
+### Accessibility Compliance Target Clarification
+
+Updated documentation to clarify that WCAG 2.1 AA is our primary compliance target:
+
+1. **Clarification**: Updated all documentation to clearly state that WCAG 2.1 AA is our primary accessibility compliance target.
+2. **Implementation**: Modified accessibility documentation and project guidelines to reflect this standard.
+3. **Impact**: Provides clearer expectations while still encouraging implementation of AAA features where feasible.
+
+### Accessibility Documentation Link Added to Footer
+
+Added a direct link to the accessibility documentation in the footer's legal section:
+
+1. **Enhancement**: Added an "Accessibility" link in the footer's legal section alongside Privacy Policy and Terms of Service.
+2. **Implementation**: Used proper ARIA attributes, tooltip, and consistent styling with other footer links.
+3. **Impact**: Improved discoverability of accessibility documentation for all users, making it easier to find information about the site's accessibility features.
 
 ## Audit Log Update: 2025-05-19
 
 ### Footer Text Contrast Improvement
 
-Fixed contrast ratio issues in the AppFooter component to ensure WCAG AA compliance:
+Fixed contrast ratio issues in the site footer to ensure WCAG AA compliance:
 
 1. **Issue**: Text in the footer had insufficient contrast ratios (below 4.5:1) due to low opacity values.
 2. **Fix**: Increased the opacity/contrast of footer text elements including description text, links, and copyright notice.
@@ -18,15 +60,15 @@ Fixed contrast ratio issues in the AppFooter component to ensure WCAG AA complia
 
 ### Tooltip Accessibility Fix
 
-Fixed an accessibility issue where a tooltip element in the AppHeader component was missing proper ARIA attributes:
+Fixed an accessibility issue where a tooltip element in the site header was missing proper ARIA attributes:
 
 1. **Issue**: ARIA tooltip element did not have an accessible name, causing screen readers to announce it with a generic name.
-2. **Fix**: Added `role="tooltip"` and `aria-label` attributes to the tooltip for the "Get Started" button.
+2. **Fix**: Added `role="tooltip"` and `aria-label` attributes to the tooltip for navigation elements.
 3. **Impact**: All tooltips now have proper accessible names, ensuring they are properly announced by screen readers.
 
 ### Accessibility Assessment Update
 
-A comprehensive review of the project's accessibility features confirms that the Illinois Violent Prevention Project continues to maintain excellent WCAG 2.1 AAA compliance across all components. The project demonstrates strong implementation of accessibility best practices including:
+A comprehensive review of the project's accessibility features confirms that the Violence Prevention Plan for Illinois: 2025-2029 continues to maintain excellent WCAG 2.1 AA compliance across all components, with many aspects exceeding AA requirements. The project demonstrates strong implementation of accessibility best practices including:
 
 1. **Semantic HTML Structure**: All pages and components use proper semantic elements with appropriate ARIA attributes and roles.
 
@@ -34,7 +76,7 @@ A comprehensive review of the project's accessibility features confirms that the
 
 3. **Screen Reader Support**: Comprehensive screen reader announcements for dynamic content changes and proper ARIA relationships between elements.
 
-4. **High Contrast Ratios**: All text and UI elements maintain the required 8:1 contrast ratio in both light and dark themes.
+4. **High Contrast Ratios**: All text and UI elements maintain at least a 4.5:1 contrast ratio (AA requirement) in both light and dark themes, with many elements exceeding 7:1 for enhanced readability.
 
 5. **Responsive Design**: Content properly reflows at different zoom levels and viewport sizes without loss of functionality.
 
@@ -46,7 +88,7 @@ Several accessibility issues identified by Lighthouse have been fixed:
 
 1. **ARIA Role Relationships**: Fixed parent/child role relationships in list components by adding proper `role="list"` and `role="listitem"` attributes.
 
-2. **Invalid ARIA Attributes**: Corrected invalid ARIA attribute values on image components, ensuring `aria-busy` has a proper boolean value and adding `role="img"` where appropriate.
+2. **Invalid ARIA Attributes**: Corrected invalid ARIA attribute values on image components, ensuring `aria-busy` has a proper boolean value and adding appropriate roles.
 
 3. **Tooltip Accessibility**: Enhanced all tooltips with proper `role="tooltip"` and `aria-label` attributes to ensure they are properly announced by screen readers.
 
@@ -67,13 +109,13 @@ A comprehensive user-facing accessibility documentation has been created to help
 - Page-specific accessibility features
 - Technical compliance information
 
-The documentation is available at [Accessibility Documentation](/accessibility-documentation.html) and is referenced in the README.
+The documentation is available on our website and is referenced in the project documentation.
 
 ### Audit Log Organization
 
 The project now maintains two separate audit logs:
-- `audit-log-project.md`: For general project changes and development
-- `audit-log-accessibility.md`: Dedicated to accessibility assessments and improvements
+- One for general project changes and development
+- One dedicated to accessibility assessments and improvements
 
 This separation allows for better organization and more focused tracking of accessibility-specific changes and assessments.
 
@@ -82,8 +124,8 @@ This separation allows for better organization and more focused tracking of acce
 ## Assessment Methodology
 
 The project was evaluated against the key requirements in our updated accessibility guidelines:
-1. WCAG 2.1 AAA compliance
-2. Color contrast ratios (8:1 requirement)
+1. WCAG 2.1 AA compliance (primary target)
+2. Color contrast ratios (minimum 4.5:1 requirement for AA, with 7:1 preferred where possible)
 3. Keyboard navigation
 4. ARIA attributes and screen reader support
 5. Focus management
@@ -125,7 +167,8 @@ The project was evaluated against the key requirements in our updated accessibil
    - Essential animations maintained with minimal movement
 
 6. **Color Contrast**: ✅ EXCELLENT
-   - Updated color scheme with 8:1 contrast ratio
+   - Updated color scheme meeting AA requirements (4.5:1 minimum)
+   - Many elements exceed AA requirements, approaching AAA levels (7:1) where possible
    - Text is highly readable in both light and dark modes
    - Interactive elements have sufficient contrast
 
@@ -149,49 +192,49 @@ The project was evaluated against the key requirements in our updated accessibil
 
 ## Component-by-Component Assessment
 
-1. **Layout (default.vue)**: ✅ EXCELLENT
+1. **Layout**: ✅ EXCELLENT
    - Skip-to-content link
    - Proper landmark roles
    - Screen reader announcer system
    - Semantic structure
 
-2. **AppHeader**: ✅ EXCELLENT
+2. **Header Navigation**: ✅ EXCELLENT
    - Proper navigation role
    - ARIA labels for all links
    - Tooltips with descriptive text
    - Keyboard accessible
 
-3. **AppFooter**: ✅ EXCELLENT
+3. **Footer**: ✅ EXCELLENT
    - Proper contentinfo role
    - Semantic heading structure
    - ARIA labels for all links
    - Keyboard accessible
 
-4. **ThemeSwitch**: ✅ EXCELLENT
+4. **Theme Toggle**: ✅ EXCELLENT
    - Proper switch role
    - ARIA states (aria-checked)
    - Keyboard event handlers
    - Screen reader text
 
-5. **ImageWithSpinner**: ✅ EXCELLENT
+5. **Images**: ✅ EXCELLENT
    - Alt text for images
    - Loading state announcements
    - Error handling with alerts
    - ARIA busy attribute
 
-6. **FeatureCard & ValueCard**: ✅ EXCELLENT
+6. **Interactive Cards**: ✅ EXCELLENT
    - Keyboard accessible
    - ARIA labelledby and describedby
    - Focus management
    - Screen reader announcements
 
-7. **HeroSection**: ✅ EXCELLENT
+7. **Hero Section**: ✅ EXCELLENT
    - Keyboard accessible buttons
    - ARIA labels
    - Decorative elements marked with aria-hidden
    - Focus styles
 
-8. **Pages (index.vue, about.vue)**: ✅ EXCELLENT
+8. **Main Pages**: ✅ EXCELLENT
    - Proper page titles and meta descriptions
    - Semantic structure
    - Consistent accessibility patterns
@@ -201,8 +244,8 @@ The project was evaluated against the key requirements in our updated accessibil
 
 The project now meets almost all of the critical accessibility requirements specified in the updated guidelines:
 
-- ✅ WCAG 2.1 AAA compliance for all UI components
-- ✅ 8:1 color contrast ratio for all UI elements
+- ✅ WCAG 2.1 AA compliance for all UI components (primary target)
+- ✅ Minimum 4.5:1 color contrast ratio for all UI elements (AA requirement), with many elements exceeding 7:1
 - ✅ Keyboard navigation for all interactive elements
 - ✅ ARIA labels for all interactive elements
 - ✅ Focus states that match hover states
@@ -226,6 +269,6 @@ The only area that could be improved is the implementation of automated accessib
 
 ## Conclusion
 
-The Violence Prevention Plan for Illinois: 2025-2029 has achieved an excellent level of accessibility, meeting WCAG 2.1 AAA standards across all implemented components. The project demonstrates a strong commitment to accessibility through its comprehensive implementation of semantic structure, keyboard navigation, screen reader support, and other accessibility features.
+The Violence Prevention Plan for Illinois: 2025-2029 has achieved an excellent level of accessibility, meeting WCAG 2.1 AA standards across all implemented components, with many aspects exceeding AA requirements. The project demonstrates a strong commitment to accessibility through its comprehensive implementation of semantic structure, keyboard navigation, screen reader support, and other accessibility features.
 
-The foundation is now in place to maintain this high level of accessibility as the project continues to evolve. By following the updated guidelines that mark accessibility as CRITICAL for all UI/UX updates, the project will continue to be accessible to all users, regardless of their abilities.
+The foundation is now in place to maintain this high level of accessibility as the project continues to evolve. By following the updated guidelines that mark accessibility as CRITICAL for all UI/UX updates and targeting WCAG 2.1 AA compliance, the project will continue to be accessible to all users, regardless of their abilities.

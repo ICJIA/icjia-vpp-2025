@@ -1,10 +1,10 @@
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 18, 2025**
+**Last Updated: May 20, 2025**
 
-The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA.
+The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.
 
-> **Note**: This document is also available as an HTML page at `/accessibility-documentation.html` for direct access without requiring JavaScript.
+> **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
 
 This document outlines the accessibility features available on our site and provides guidance on how to use them effectively.
 
@@ -55,7 +55,7 @@ Our site adapts to different screen sizes and zoom levels:
 
 ### Additional Accessibility Features
 
-- **High Contrast**: All text meets WCAG 2.1 AAA contrast requirements (8:1 ratio)
+- **High Contrast**: All text meets WCAG 2.1 AA contrast requirements (4.5:1 ratio minimum), with many elements exceeding this to approach AAA levels (7:1 ratio) where possible
 - **Focus Indicators**: Visible focus indicators for all interactive elements
 - **Reduced Motion**: Respects the `prefers-reduced-motion` setting to minimize animations
 - **Text Spacing**: Supports increased text spacing without loss of content
@@ -65,7 +65,7 @@ Our site adapts to different screen sizes and zoom levels:
 
 ## Assistive Technology Compatibility
 
-The Illinois Violent Prevention Project has been tested with the following assistive technologies:
+Our website has been tested with the following assistive technologies:
 
 - Screen readers: NVDA, JAWS, VoiceOver
 - Browser compatibility: Chrome, Firefox, Safari, Edge
@@ -90,8 +90,8 @@ We are committed to ensuring our website is accessible to all users regardless o
 
 We welcome your feedback on the accessibility of the Violence Prevention Plan for Illinois: 2025-2029. Please let us know if you encounter any accessibility barriers:
 
-- Email: [accessibility@icjia.illinois.gov](mailto:accessibility@icjia.illinois.gov)
-- Phone: (555) 123-4567
+- Email: Contact us through our website's contact form
+- Phone: See our contact page for current phone numbers
 
 ## Resources
 
@@ -101,7 +101,7 @@ We welcome your feedback on the accessibility of the Violence Prevention Plan fo
 
 ## Compatibility with Assistive Technologies
 
-The Illinois Violent Prevention Project is designed to be compatible with the following assistive technologies:
+Our website is designed to be compatible with the following assistive technologies:
 
 ### Screen Readers
 - NVDA (Windows)
@@ -137,13 +137,13 @@ The Illinois Violent Prevention Project is designed to be compatible with the fo
 
 ## Technical Compliance
 
-The Illinois Violent Prevention Project meets the following technical requirements:
+Our website meets the following technical requirements:
 
 - Valid HTML5 according to W3C standards
 - Proper use of ARIA landmarks and attributes
 - Semantic HTML elements throughout
 - Keyboard focus visible and logical
-- Color contrast ratio of 8:1 or higher for all text
+- Color contrast ratio of at least 4.5:1 for all text (meeting WCAG AA requirements), with many elements exceeding 7:1
 - Text resizable up to 200% without loss of content
 - No time-based media that auto-plays
 - No content that flashes more than three times per second
