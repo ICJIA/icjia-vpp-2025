@@ -1,8 +1,8 @@
-# Accessibility Audit Log: Illinois Violent Prevention Project
+# Accessibility Audit Log: Violence Prevention Plan for Illinois: 2025-2029
 
 **Last Updated: May 19, 2025**
 
-This document serves as a comprehensive assessment of the accessibility features and compliance level of the Illinois Violent Prevention Project. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AAA standards.
+This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AAA standards.
 
 > **Note**: This document is also available as an HTML page at `/audit-log-accessibility.html` for direct access without requiring JavaScript.
 
@@ -226,6 +226,6 @@ The only area that could be improved is the implementation of automated accessib
 
 ## Conclusion
 
-The Illinois Violent Prevention Project has achieved an excellent level of accessibility, meeting WCAG 2.1 AAA standards across all implemented components. The project demonstrates a strong commitment to accessibility through its comprehensive implementation of semantic structure, keyboard navigation, screen reader support, and other accessibility features.
+The Violence Prevention Plan for Illinois: 2025-2029 has achieved an excellent level of accessibility, meeting WCAG 2.1 AAA standards across all implemented components. The project demonstrates a strong commitment to accessibility through its comprehensive implementation of semantic structure, keyboard navigation, screen reader support, and other accessibility features.
 
 The foundation is now in place to maintain this high level of accessibility as the project continues to evolve. By following the updated guidelines that mark accessibility as CRITICAL for all UI/UX updates, the project will continue to be accessible to all users, regardless of their abilities.

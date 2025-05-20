@@ -17,7 +17,7 @@
               aria-label="Return to homepage"
             >
               <template v-slot:activator="{ props }">
-                <nuxt-link to="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="ILVPP - Return to homepage">
+                <nuxt-link to="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="VPPI - Return to homepage">
                   <v-icon
                     icon="mdi-cube-outline"
                     size="large"
@@ -25,7 +25,7 @@
                     class="mr-2"
                     aria-hidden="true"
                   />
-                  <span class="text-h6 font-weight-bold text-primary">Illinois Violent Prevention Project</span>
+                  <span class="text-subtitle-1 font-weight-bold text-primary">Violence Prevention Plan for Illinois: 2025-2029</span>
                 </nuxt-link>
               </template>
             </v-tooltip>

@@ -1,4 +1,4 @@
-# Illinois Violent Prevention Project 2025
+# Violence Prevention Plan for Illinois: 2025-2029
 
 A modern web application built with Nuxt 3, Vue 3, and Vuetify 3 for the Illinois Criminal Justice Information Authority.
 

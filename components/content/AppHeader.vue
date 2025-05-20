@@ -16,7 +16,7 @@
         aria-label="Return to homepage"
       >
         <template v-slot:activator="{ props }">
-          <nuxt-link to="/" class="text-decoration-none" v-bind="props" aria-label="Illinois Violent Prevention Project - Return to homepage">
+          <nuxt-link to="/" class="text-decoration-none" v-bind="props" aria-label="Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage">
             <v-row no-gutters align="center">
               <v-col cols="auto">
                 <div class="logo d-flex align-center">
@@ -27,7 +27,7 @@
                     class="mr-2"
                     aria-hidden="true"
                   />
-                  <span class="text-h5 font-weight-bold text-primary">Illinois Violent Prevention Project</span>
+                  <span class="text-h6 font-weight-bold text-primary">Violence Prevention Plan for Illinois: 2025-2029</span>
                 </div>
               </v-col>
             </v-row>

@@ -1,8 +1,24 @@
-# Audit Log for Illinois Violent Prevention Project
+# Audit Log for Violence Prevention Plan for Illinois: 2025-2029
 
-This document serves as a chronological record of all significant changes made to the Illinois Violent Prevention Project, providing transparency and accountability for external reviewers and future developers.
+This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
 ## Audit Log Entries
+
+### 2025-05-20 (Project Name Update)
+- Updated project name from "Illinois Violent Prevention Project" to "Violence Prevention Plan for Illinois: 2025-2029" across the application.
+- Files modified:
+  - `components/content/AppHeader.vue`: Updated project name and adjusted font size from h5 to h6
+  - `components/content/AppFooter.vue`: Updated project name and adjusted font size from h6 to subtitle-1
+  - `nuxt.config.ts`: Updated title and meta description
+  - `README.md`: Updated project title
+  - `accessibility-documentation.md`: Updated all references to project name
+  - `audit-log-accessibility.md`: Updated all references to project name
+  - `audit-log-project.md`: Updated all references to project name
+- Technical Notes:
+  - Font sizes were adjusted to accommodate the longer project name
+  - Maintained all existing accessibility attributes
+  - Updated aria-labels to reflect the new project name
+  - Used consistent naming across all files
 
 ### 2025-05-20 (Code Cleanup)
 - Removed unused code and dependencies to improve maintainability.

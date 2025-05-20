@@ -91,7 +91,7 @@
 
 <script setup>
 /**
- * Home page for the Illinois Violent Prevention Project
+ * Home page for the Violence Prevention Plan for Illinois: 2025-2029
  *
  * This page includes:
  * - Hero section with main call-to-action
@@ -109,7 +109,7 @@ import { useHead, useSeoMeta } from '#imports';
  * Set page title and HTML attributes for accessibility and SEO
  */
 useHead({
-  title: 'Illinois Violent Prevention Project - Home',
+  title: 'Violence Prevention Plan for Illinois: 2025-2029 - Home',
   htmlAttrs: {
     lang: 'en'
   }
@@ -120,8 +120,8 @@ useHead({
  * Includes Open Graph and Twitter Card metadata
  */
 useSeoMeta({
-  description: 'The Illinois Violent Prevention Project provides resources and tools for violence prevention initiatives across Illinois.',
-  ogTitle: 'Illinois Violent Prevention Project - Home',
+  description: 'The Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.',
+  ogTitle: 'Violence Prevention Plan for Illinois: 2025-2029 - Home',
   ogDescription: 'Resources and tools for violence prevention initiatives across Illinois.',
   ogImage: '/images/og-image.jpg',
   twitterCard: 'summary_large_image',

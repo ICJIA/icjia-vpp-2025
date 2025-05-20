@@ -148,7 +148,7 @@
 
 <script setup>
 /**
- * About page for the Illinois Violent Prevention Project
+ * About page for the Violence Prevention Plan for Illinois: 2025-2029
  *
  * This page includes:
  * - Organization story and mission
@@ -172,7 +172,7 @@ const announce = inject('announce', null);
  * Set page title and HTML attributes for accessibility and SEO
  */
 useHead({
-  title: 'Illinois Violent Prevention Project - About Us',
+  title: 'Violence Prevention Plan for Illinois: 2025-2029 - About Us',
   htmlAttrs: {
     lang: 'en'
   }
@@ -183,8 +183,8 @@ useHead({
  * Includes Open Graph and Twitter Card metadata
  */
 useSeoMeta({
-  description: 'Learn about the Illinois Violent Prevention Project, our mission, values, and approach to violence prevention across Illinois.',
-  ogTitle: 'Illinois Violent Prevention Project - About Us',
+  description: 'Learn about the Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.',
+  ogTitle: 'Violence Prevention Plan for Illinois: 2025-2029 - About Us',
   ogDescription: 'Learn about our mission, values, and approach to violence prevention across Illinois.',
   ogImage: '/images/og-image-about.jpg',
   twitterCard: 'summary_large_image',

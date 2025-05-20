@@ -30,9 +30,9 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Illinois Violent Prevention Project',
+      title: 'Violence Prevention Plan for Illinois: 2025-2029',
       meta: [
-        { name: 'description', content: 'Illinois Violent Prevention Project' }
+        { name: 'description', content: 'Violence Prevention Plan for Illinois: 2025-2029' }
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
