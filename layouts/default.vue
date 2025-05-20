@@ -131,6 +131,7 @@ onMounted(() => {
 </template>
 
 <style>
+
 .skip-link {
   position: absolute;
   top: -40px;

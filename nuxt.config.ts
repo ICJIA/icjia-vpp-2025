@@ -45,6 +45,10 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
+      ignore: [
+        // Exclude sandbox page from being crawled
+        '/sandbox'
+      ]
     }
   },
 

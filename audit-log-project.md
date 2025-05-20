@@ -4,6 +4,53 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (Direct NuxtPage Height Implementation)
+- Simplified layout by directly setting NuxtPage height to 100vh and removing previous sticky footer code.
+- Files modified:
+  - `app.vue`: Added min-height: 100vh to NuxtPage component, removed unnecessary body styles
+  - `layouts/default.vue`: Removed app-wrapper class and main-content class
+  - `pages/sandbox.vue`: Removed sandbox-container class and styles
+- Technical Notes:
+  - Used a direct approach by setting NuxtPage min-height to 100vh
+  - Removed all previous sticky footer implementations
+  - Simplified the overall layout structure
+  - Maintained proper footer positioning with minimal code
+  - Improved maintainability by reducing CSS complexity
+
+### 2025-05-20 (Simplified Sticky Footer Implementation)
+- Simplified the sticky footer implementation to ensure it's always at the bottom of the viewport.
+- Files modified:
+  - `app.vue`: Set body min-height to 100vh directly
+  - `layouts/default.vue`: Simplified flex layout with cleaner CSS
+  - `pages/sandbox.vue`: Simplified container styles
+- Technical Notes:
+  - Used a simpler approach with body min-height: 100vh
+  - Implemented a basic flex layout with app-wrapper and flex: 1 for main content
+  - Removed unnecessary complexity from the layout structure
+  - Fixed issue with footer not being at the bottom on pages with minimal content
+  - Maintained accessibility and responsive design with a cleaner implementation
+
+### 2025-05-20 (Sticky Footer Implementation)
+- Implemented a 100vh layout to ensure the footer is always at the bottom of the page.
+- Files modified:
+  - `layouts/default.vue`: Added flex layout with min-height: 100vh and flex-grow for main content
+- Technical Notes:
+  - Added app-wrapper class with display: flex, flex-direction: column, and min-height: 100vh
+  - Made v-main flex-grow: 1 to push the footer to the bottom
+  - Ensures consistent layout even on pages with minimal content
+  - Maintains accessibility and responsive design
+  - Improves user experience by preventing "floating" footers on short pages
+
+### 2025-05-20 (Sandbox Page Crawler Exclusion)
+- Configured Nuxt to exclude the sandbox page from being crawled during static site generation.
+- Files modified:
+  - `nuxt.config.ts`: Added ignore pattern for the sandbox route in nitro.prerender configuration
+- Technical Notes:
+  - Added '/sandbox' to the nitro.prerender.ignore array to prevent it from being crawled
+  - This ensures the sandbox page won't be included in the static site generation
+  - The sandbox page remains accessible in development mode
+  - This approach is more maintainable than manually specifying all routes to include
+
 ### 2025-05-19 (State of Illinois Seal Favicon)
 - Added State of Illinois seal as the project favicon.
 - Files modified:
