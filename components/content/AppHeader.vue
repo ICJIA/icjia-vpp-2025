@@ -13,7 +13,13 @@
         :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
       >
         <template v-slot="{ props }">
-          <nuxt-link to="/" class="text-decoration-none" v-bind="props" aria-label="Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage">
+          <a
+            href="/"
+            class="text-decoration-none"
+            v-bind="props"
+            aria-label="Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage"
+            @click.prevent="handleHomeClick"
+          >
             <v-row no-gutters align="center">
               <v-col cols="auto">
                 <div class="logo d-flex align-center">
@@ -40,7 +46,7 @@
                 </div>
               </v-col>
             </v-row>
-          </nuxt-link>
+          </a>
         </template>
       </AccessibleTooltip>
 
@@ -55,9 +61,10 @@
               v-bind="props"
               variant="text"
               class="font-weight-medium mx-2 nav-link"
-              to="/"
+              href="/"
               color="on-app-bar"
               aria-current="page"
+              @click.prevent="handleHomeClick"
             >
               Home
             </v-btn>
@@ -118,11 +125,13 @@
  * - Theme toggle switch
  * - Tooltips for improved usability
  * - Proper ARIA attributes for accessibility
+ * - Scroll to top functionality for homepage links
  *
  * @component
  */
 import ThemeSwitch from './ThemeSwitch.vue';
 import AccessibleTooltip from './AccessibleTooltip.vue';
+import { useRouter, useRoute } from '#imports';
 
 /**
  * Component props
@@ -142,6 +151,26 @@ defineProps({
  * toggle-theme: Emitted when theme switch is toggled
  */
 defineEmits(['toggle-theme']);
+
+// Get Nuxt app instance to access plugins
+const nuxtApp = useNuxtApp();
+const router = useRouter();
+const route = useRoute();
+
+/**
+ * Handle click on home links
+ * If already on homepage, just scroll to top
+ * Otherwise navigate to homepage
+ */
+const handleHomeClick = () => {
+  if (route.path === '/') {
+    // Already on homepage, just scroll to top
+    nuxtApp.$scrollToTop();
+  } else {
+    // Navigate to homepage
+    router.push('/');
+  }
+};
 </script>
 
 <style scoped>

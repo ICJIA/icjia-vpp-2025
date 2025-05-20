@@ -14,7 +14,7 @@
               :location="$vuetify.display.smAndDown ? 'top' : 'top'"
             >
               <template v-slot="{ props }">
-                <nuxt-link to="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="VPPI - Return to homepage">
+                <a href="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="VPPI - Return to homepage" @click.prevent="handleHomeClick">
                   <v-icon
                     icon="mdi-cube-outline"
                     :size="$vuetify.display.smAndDown ? 'medium' : 'large'"
@@ -35,7 +35,7 @@
                   <span class="d-block d-sm-none text-subtitle-2 font-weight-bold text-primary">
                     IL VPP
                   </span>
-                </nuxt-link>
+                </a>
               </template>
             </AccessibleTooltip>
             <p class="mt-4 text-body-2 max-width-300 footer-description">
@@ -54,7 +54,7 @@
                 :location="$vuetify.display.smAndDown ? 'top' : 'left'"
               >
                 <template v-slot="{ props }">
-                  <nuxt-link to="/" class="footer-link mb-2" v-bind="props">Home</nuxt-link>
+                  <a href="/" class="footer-link mb-2" v-bind="props" @click.prevent="handleHomeClick">Home</a>
                 </template>
               </AccessibleTooltip>
 
@@ -136,9 +136,31 @@
  * - Copyright information
  * - Tooltips for improved usability
  * - Proper ARIA attributes for accessibility
+ * - Scroll to top functionality for homepage links
  *
  * @component
  */
+import { useRouter, useRoute } from '#imports';
+
+// Get Nuxt app instance to access plugins
+const nuxtApp = useNuxtApp();
+const router = useRouter();
+const route = useRoute();
+
+/**
+ * Handle click on home links
+ * If already on homepage, just scroll to top
+ * Otherwise navigate to homepage
+ */
+const handleHomeClick = () => {
+  if (route.path === '/') {
+    // Already on homepage, just scroll to top
+    nuxtApp.$scrollToTop();
+  } else {
+    // Navigate to homepage
+    router.push('/');
+  }
+};
 </script>
 
 <style scoped>

@@ -4,6 +4,21 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (Scroll-to-Top Navigation Enhancement)
+- Implemented functionality to ensure clicking on "return to homepage" links always scrolls to the top of the page.
+- Files modified/created:
+  - `plugins/scroll-behavior.client.js`: Created new plugin for scroll behavior management
+  - `components/content/AppHeader.vue`: Modified homepage links to use scroll-to-top functionality
+  - `components/content/AppFooter.vue`: Modified homepage links to use scroll-to-top functionality
+  - `error.vue`: Enhanced error page navigation with scroll-to-top functionality
+- Technical Notes:
+  - Created a reusable scrollToTop function available throughout the application
+  - Implemented custom click handlers for all homepage links
+  - Added logic to detect if user is already on homepage to avoid unnecessary navigation
+  - Ensured scroll behavior respects user's prefers-reduced-motion setting
+  - Improved user experience by ensuring consistent navigation behavior
+  - Added fallback for cases where the plugin might not be available
+
 ### 2025-05-20 (Color-Coded Console Output Implementation)
 - Enhanced the accessibility HTML generation script with color-coded console output.
 - Files modified:

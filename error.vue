@@ -81,6 +81,7 @@ useSeoMeta({
  * Handle return to homepage
  * Uses Nuxt's built-in clearError function to reset the error state
  * and navigate to the homepage
+ * Ensures page scrolls to top after navigation
  */
 const handleReturn = () => {
   // Access Nuxt's built-in clearError function
@@ -88,7 +89,21 @@ const handleReturn = () => {
 
   // Clear the error and navigate to homepage
   nuxtApp.callHook('app:error:cleared');
-  navigateTo('/');
+
+  // Navigate to homepage and ensure scroll to top
+  navigateTo('/', {
+    onFinish: () => {
+      // Use setTimeout to ensure this runs after navigation completes
+      setTimeout(() => {
+        if (nuxtApp.$scrollToTop) {
+          nuxtApp.$scrollToTop();
+        } else {
+          // Fallback if plugin not available
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  });
 };
 </script>
 
