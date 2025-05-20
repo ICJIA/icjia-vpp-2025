@@ -16,12 +16,27 @@ export default defineNuxtConfig({
 
   // @ts-ignore - Known module configuration
   googleFonts: {
-    families: {
-      'Inter': [300, 400, 500, 600, 700],
-    },
-    display: 'swap',
+    inject: true,
+    download: true,
+    display: "swap",
     prefetch: true,
-    preconnect: true,
+    families: {
+      Roboto: {
+        wght: [100, 400, 700, 900],
+        ital: [100],
+      },
+      Lato: {
+        wght: [100, 300, 400, 700, 900],
+        ital: [100],
+      },
+      Raleway: {
+        wght: [100, 400, 900],
+        ital: [100],
+      },
+      "Caveat+Brush": {
+        wght: [400],
+      },
+    }
   },
 
   build: {

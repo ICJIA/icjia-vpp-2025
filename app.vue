@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+ 
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
