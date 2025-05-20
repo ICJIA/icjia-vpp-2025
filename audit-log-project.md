@@ -4,6 +4,20 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (Color-Coded Console Output Implementation)
+- Enhanced the accessibility HTML generation script with color-coded console output.
+- Files modified:
+  - `scripts/generate-accessibility-html.js`: Added color coding to console output messages
+- Technical Notes:
+  - Added ANSI color codes for console output formatting
+  - Implemented color scheme:
+    - Filenames in blue for easy identification
+    - Successful operations in green for clear success indicators
+    - Errors in red for high visibility of issues
+  - Updated project name references in HTML template to "Violence Prevention Plan for Illinois: 2025-2029"
+  - Improved developer experience with more readable console output
+  - Enhanced error visibility for faster troubleshooting
+
 ### 2025-05-20 (Optimized Container Width Implementation)
 - Optimized the header and footer containers to reduce unnecessary blank space while maintaining minimum padding.
 - Files modified:

@@ -3,12 +3,25 @@
  *
  * This script converts Markdown files to HTML and places them in the /public directory
  * to make them accessible via direct URL.
+ *
+ * Console output is color-coded:
+ * - Filenames in blue
+ * - Successful steps in green
+ * - Errors in red
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { marked } from 'marked';
+
+// ANSI color codes for console output
+const colors = {
+  reset: '\x1b[0m',
+  red: '\x1b[31m',
+  green: '\x1b[32m',
+  blue: '\x1b[34m'
+};
 
 // Get the directory name in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -29,7 +42,7 @@ const htmlTemplate = (title, content) => `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} - Illinois Violent Prevention Project</title>
+  <title>${title} - Violence Prevention Plan for Illinois: 2025-2029</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -152,10 +165,10 @@ const htmlTemplate = (title, content) => `
   </style>
 </head>
 <body>
-  <a href="/" class="header-link">← Back to Illinois Violent Prevention Project</a>
+  <a href="/" class="header-link">← Back to Violence Prevention Plan for Illinois: 2025-2029</a>
   ${content}
   <div class="footer-link">
-    <a href="/">Illinois Violent Prevention Project</a> |
+    <a href="/">Violence Prevention Plan for Illinois: 2025-2029</a> |
     <a href="/accessibility-documentation.html">Accessibility Documentation</a> |
     <a href="/audit-log-accessibility.html">Accessibility Audit Log</a>
   </div>
@@ -212,17 +225,17 @@ filesToConvert.forEach(file => {
     // Write to destination
     fs.writeFileSync(file.destination, fullHtml);
 
-    console.log(`Successfully generated ${file.destination}`);
+    console.log(`${colors.green}Successfully generated ${colors.blue}${file.destination}${colors.reset}`);
 
     // If we're running during static site generation, also copy to .output/public
     if (isStaticGeneration) {
       const outputFilePath = path.join(outputPublicDir, path.basename(file.destination));
       fs.writeFileSync(outputFilePath, fullHtml);
-      console.log(`Also copied to ${outputFilePath}`);
+      console.log(`${colors.green}Also copied to ${colors.blue}${outputFilePath}${colors.reset}`);
     }
   } catch (error) {
-    console.error(`Error processing ${file.source}:`, error);
+    console.error(`${colors.red}Error processing ${colors.blue}${file.source}${colors.red}:${colors.reset}`, error);
   }
 });
 
-console.log('HTML generation complete!');
+console.log(`${colors.green}HTML generation complete!${colors.reset}`);

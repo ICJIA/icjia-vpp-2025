@@ -32,10 +32,10 @@
                     Violence Prevention Plan for Illinois: 2025-2029
                   </span>
                   <span class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary">
-                    Violence Prevention Plan
+                    Violence Prevention Plan: 2025-2029
                   </span>
                   <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
-                    IL VPP
+                    VPP: 2025
                   </span>
                 </div>
               </v-col>
