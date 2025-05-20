@@ -45,6 +45,11 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
+      routes: [
+        // Explicitly include accessibility documentation HTML files
+        '/accessibility-documentation.html',
+        '/audit-log-accessibility.html'
+      ],
       ignore: [
         // Exclude sandbox page from being crawled
         '/sandbox'

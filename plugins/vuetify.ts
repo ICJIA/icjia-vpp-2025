@@ -29,7 +29,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             error: '#B91C1C', // Darker red for better contrast
             info: '#1E40AF', // Darker blue for better contrast
             background: '#F8FAFC',
-            'app-bar': '#F0F4F8', // Slightly off-white for app-bar (distinguishable from white body)
+            'app-bar': '#F2F2F2', // Light grey for app-bar (distinguishable from white body)
             surface: '#FFFFFF',
             'on-surface': '#1E293B',
             'on-background': '#1E293B',

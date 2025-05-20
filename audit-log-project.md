@@ -4,6 +4,28 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (App Navigation Bar Color Update)
+- Changed the light theme app navigation bar background color from a blueish tint to a greyish tint.
+- Files modified:
+  - `plugins/vuetify.ts`: Updated 'app-bar' color value in the light theme
+- Technical Notes:
+  - Light theme: Changed from '#F0F4F8' (blueish off-white) to '#F2F2F2' (light grey)
+  - Maintained the dark theme's original blue color ('#1A2234')
+  - Maintained contrast ratios for text to ensure WCAG AA compliance
+  - Preserved the visual distinction between app-bar and body background
+  - Simplified the light theme color palette with a more neutral navigation bar color
+
+### 2025-05-20 (Accessibility Documentation Prerendering)
+- Updated Nitro configuration to ensure accessibility documentation HTML files are prerendered during static site generation.
+- Files modified:
+  - `nuxt.config.ts`: Added explicit routes for accessibility documentation HTML files in the Nitro prerender configuration
+- Technical Notes:
+  - Added '/accessibility-documentation.html' and '/audit-log-accessibility.html' to the nitro.prerender.routes array
+  - Ensures these files are properly prerendered during the 'nuxt generate' step
+  - Makes accessibility documentation directly accessible via URL without requiring JavaScript
+  - Improves accessibility by providing static HTML versions of documentation
+  - Complements the existing HTML generation script that creates these files
+
 ### 2025-05-20 (Footer Accessibility Section Enhancement)
 - Added a dedicated Accessibility column to the footer with links to documentation and audit log.
 - Files modified:
