@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <NuxtPage style="min-height: 100vh !important;" />
+    <NuxtPage style="min-height: 70vh !important;" />
   </NuxtLayout>
 </template>
 

@@ -68,18 +68,6 @@
             <div class="d-flex flex-column mr-8">
               <h2 class="text-subtitle-1 font-weight-bold mb-4">Connect</h2>
 
-              <!-- <v-tooltip
-                text="Follow us on Twitter"
-                :location="$vuetify.display.smAndDown ? 'top' : 'top'"
-                :open-delay="200"
-                role="tooltip"
-                aria-label="Follow us on Twitter"
-              >
-                <template v-slot:activator="{ props }">
-                  <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Twitter">Twitter</a>
-                </template>
-              </v-tooltip> -->
-
               <v-tooltip
                 text="View our code on GitHub"
                 :location="$vuetify.display.smAndDown ? 'top' : 'top'"

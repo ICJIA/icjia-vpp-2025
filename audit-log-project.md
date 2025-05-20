@@ -4,6 +4,18 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (Code Cleanup)
+- Removed unused code and dependencies to improve maintainability.
+- Files modified/removed:
+  - Removed `scripts/create-favicon.js` and `scripts/copy-favicon.js`: Unused favicon scripts
+  - `components/content/AppFooter.vue`: Removed commented-out Twitter tooltip section
+  - `package.json`: Removed unused "sharp" dependency
+- Technical Notes:
+  - Removed scripts that were created for favicon manipulation but are no longer needed
+  - Cleaned up commented-out code that wasn't being used
+  - Removed unused dependency to reduce package size and simplify dependency management
+  - Improved code maintainability by removing dead code
+
 ### 2025-05-20 (Direct NuxtPage Height Implementation)
 - Simplified layout by directly setting NuxtPage height to 100vh and removing previous sticky footer code.
 - Files modified:
