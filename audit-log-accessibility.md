@@ -24,6 +24,14 @@ Improved security of accessibility documentation:
 2. **Implementation**: Updated accessibility documentation to use more generic descriptions while maintaining accuracy.
 3. **Impact**: Reduced potential security risks while preserving the accessibility information needed by users.
 
+### Accessibility Script Naming Update
+
+Renamed accessibility HTML generation script for clarity:
+
+1. **Enhancement**: Renamed script from `generate-accessibility-html.js` to `create-accessibility-html.js` and updated script commands.
+2. **Implementation**: Changed script name and commands from `generate:accessibility-html` to `create:accessibility-html` to avoid confusion with Nuxt's `generate` command.
+3. **Impact**: Improved developer experience with clearer naming conventions while maintaining the same functionality.
+
 ### Accessibility HTML Documentation Enhancement
 
 Improved the accessibility of HTML documentation files:

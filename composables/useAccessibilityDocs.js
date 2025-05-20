@@ -32,7 +32,7 @@ export async function updateAccessibilityHtml() {
       const { exec } = await import('child_process');
       
       return new Promise((resolve, reject) => {
-        exec('npm run generate:accessibility-html', (error, stdout, stderr) => {
+        exec('npm run create:accessibility-html', (error, stdout, stderr) => {
           if (error) {
             console.error(`Error executing script: ${error.message}`);
             reject(error);

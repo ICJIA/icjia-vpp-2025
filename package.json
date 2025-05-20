@@ -3,16 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run generate:accessibility-html && nuxt build",
-    "dev": "npm run generate:accessibility-html && nuxt dev --port=8000 -o",
-    "generate": "npm run generate:accessibility-html && nuxt generate",
-    "generate:serve": "npm run generate:accessibility-html && nuxt generate && npx serve .output/public",
+    "build": "npm run create:accessibility-html && nuxt build",
+    "dev": "npm run create:accessibility-html && nuxt dev --port=8000 -o",
+    "generate": "npm run create:accessibility-html && nuxt generate",
+    "generate:serve": "npm run create:accessibility-html && nuxt generate && npx serve .output/public",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "generate:accessibility-html": "node scripts/generate-accessibility-html.js"
+    "create:accessibility-html": "node scripts/create-accessibility-html.js"
   },
   "dependencies": {
     "@nuxt/content": "^3.5.1",

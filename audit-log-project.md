@@ -4,6 +4,19 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (Accessibility Script Naming Update)
+- Renamed accessibility HTML generation script and commands to avoid confusion with Nuxt's generate command.
+- Files modified:
+  - `scripts/generate-accessibility-html.js` → `scripts/create-accessibility-html.js`: Renamed script file
+  - `package.json`: Changed script command from `generate:accessibility-html` to `create:accessibility-html`
+  - `composables/useAccessibilityDocs.js`: Updated references to the script name
+- Technical Notes:
+  - Renamed to avoid confusion with Nuxt's specific `generate` command
+  - Used 'create' instead of 'generate' to better reflect the script's purpose
+  - Updated all script references in build, dev, and generate commands
+  - Maintained the same functionality while improving naming clarity
+  - Enhanced developer experience with more intuitive script naming
+
 ### 2025-05-20 (App Navigation Bar Color Update)
 - Changed the light theme app navigation bar background color from a blueish tint to a greyish tint.
 - Files modified:
@@ -43,7 +56,7 @@ This document serves as a chronological record of all significant changes made t
 - Files modified:
   - `accessibility-documentation.md`: Removed specific file paths and contact information
   - `audit-log-accessibility.md`: Removed internal component names and file paths
-  - `scripts/generate-accessibility-html.js`: Removed specific file paths from error messages
+  - `scripts/create-accessibility-html.js`: Removed specific file paths from error messages
 - Technical Notes:
   - Replaced specific email addresses with generic contact instructions
   - Removed internal component names (e.g., AppHeader, AppFooter)
@@ -55,7 +68,7 @@ This document serves as a chronological record of all significant changes made t
 ### 2025-05-20 (Accessibility HTML Documentation Enhancement)
 - Enhanced the HTML versions of accessibility documentation to meet WCAG 2.1 AA standards.
 - Files modified:
-  - `scripts/generate-accessibility-html.js`: Updated HTML template with proper accessibility features
+  - `scripts/create-accessibility-html.js`: Updated HTML template with proper accessibility features
   - `public/accessibility-documentation.html`: Generated with improved accessibility
   - `public/audit-log-accessibility.html`: Generated with improved accessibility
 - Technical Notes:
@@ -112,7 +125,7 @@ This document serves as a chronological record of all significant changes made t
 ### 2025-05-20 (Color-Coded Console Output Implementation)
 - Enhanced the accessibility HTML generation script with color-coded console output.
 - Files modified:
-  - `scripts/generate-accessibility-html.js`: Added color coding to console output messages
+  - `scripts/create-accessibility-html.js`: Added color coding to console output messages
 - Technical Notes:
   - Added ANSI color codes for console output formatting
   - Implemented color scheme:
@@ -325,7 +338,7 @@ This document serves as a chronological record of all significant changes made t
 - Updated links in accessibility documentation to point to HTML versions.
 - Files modified:
   - `audit-log-accessibility.md`: Updated link to point to HTML version of accessibility documentation
-  - `scripts/generate-accessibility-html.js`: Enhanced to replace Markdown links with HTML links
+  - `scripts/create-accessibility-html.js`: Enhanced to replace Markdown links with HTML links
 - Technical Notes:
   - Updated links to ensure they work in both development and production environments
   - Modified HTML generation script to replace Markdown links with HTML links
@@ -335,8 +348,8 @@ This document serves as a chronological record of all significant changes made t
 ### 2025-05-18 (Accessibility Documentation HTML Generation)
 - Added script to generate HTML versions of accessibility documentation for direct URL access.
 - Files modified/created:
-  - `scripts/generate-accessibility-html.js`: Created script to convert Markdown to HTML
-  - `package.json`: Added scripts for generating accessibility HTML
+  - `scripts/create-accessibility-html.js`: Created script to convert Markdown to HTML
+  - `package.json`: Added scripts for creating accessibility HTML
   - `public/accessibility-documentation.html`: Generated HTML version of accessibility documentation
   - `public/audit-log-accessibility.html`: Generated HTML version of accessibility audit log
   - `composables/useAccessibilityDocs.js`: Created utility functions for accessibility documentation
@@ -344,7 +357,7 @@ This document serves as a chronological record of all significant changes made t
   - Created a Node.js script to convert Markdown to HTML using marked
   - Added responsive styling with light/dark mode support
   - Set up automatic generation during build and static site generation process
-  - Added pre-generate and post-generate hooks to ensure HTML files are always up-to-date
+  - Added pre-build and pre-generate hooks to ensure HTML files are always up-to-date
   - Made accessibility documentation directly accessible via URL
   - Added navigation links between documentation pages
   - Ensured documentation is available without requiring JavaScript
