@@ -1,91 +1,91 @@
 <template>
   <v-app-bar
-    color="background"
+    color="app-bar"
     elevation="0"
     :border="true"
     class="app-header"
     role="banner"
   >
-    <v-container class="d-flex align-center justify-space-between py-0">
+    <div class="header-container d-flex align-center justify-space-between py-0">
       <!-- Site logo/branding -->
-      <v-tooltip
+      <AccessibleTooltip
         text="Return to homepage"
         :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
-        :open-delay="200"
-        role="tooltip"
-        aria-label="Return to homepage"
       >
-        <template v-slot:activator="{ props }">
+        <template v-slot="{ props }">
           <nuxt-link to="/" class="text-decoration-none" v-bind="props" aria-label="Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage">
             <v-row no-gutters align="center">
               <v-col cols="auto">
                 <div class="logo d-flex align-center">
                   <v-icon
                     icon="mdi-cube-outline"
-                    size="x-large"
+                    :size="$vuetify.display.smAndDown ? 'large' : 'x-large'"
                     color="primary"
-                    class="mr-2"
+                    :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
                     aria-hidden="true"
                   />
-                  <span class="text-h6 font-weight-bold text-primary">Violence Prevention Plan for Illinois: 2025-2029</span>
+                  <!-- Responsive title display based on screen size -->
+                  <span class="d-none d-xl-block text-h6 font-weight-bold text-primary">
+                    Violence Prevention Plan for Illinois: 2025-2029
+                  </span>
+                  <span class="d-none d-lg-block d-xl-none text-h6 font-weight-bold text-primary">
+                    Violence Prevention Plan for Illinois: 2025-2029
+                  </span>
+                  <span class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary">
+                    Violence Prevention Plan
+                  </span>
+                  <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
+                    IL VPP
+                  </span>
                 </div>
               </v-col>
             </v-row>
           </nuxt-link>
         </template>
-      </v-tooltip>
+      </AccessibleTooltip>
 
       <!-- Main navigation -->
       <nav class="d-flex align-center justify-end" aria-label="Main Navigation">
-        <v-tooltip
+        <AccessibleTooltip
           text="Navigate to home page"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
-          :open-delay="200"
-          role="tooltip"
-          aria-label="Navigate to home page"
         >
-          <template v-slot:activator="{ props }">
+          <template v-slot="{ props }">
             <v-btn
               v-bind="props"
               variant="text"
               class="font-weight-medium mx-2 nav-link"
               to="/"
-              color="on-background"
+              color="on-app-bar"
               aria-current="page"
             >
               Home
             </v-btn>
           </template>
-        </v-tooltip>
+        </AccessibleTooltip>
 
-        <v-tooltip
+        <AccessibleTooltip
           text="Learn more about our project"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
-          :open-delay="200"
-          role="tooltip"
-          aria-label="Learn more about our project"
         >
-          <template v-slot:activator="{ props }">
+          <template v-slot="{ props }">
             <v-btn
               v-bind="props"
               variant="text"
               class="font-weight-medium mx-2 nav-link"
               to="/about"
-              color="on-background"
+              color="on-app-bar"
             >
               About
             </v-btn>
           </template>
-        </v-tooltip>
+        </AccessibleTooltip>
 
-        <v-tooltip
+        <AccessibleTooltip
           text="Begin using our application"
           :location="$vuetify.display.smAndDown ? 'bottom' : 'right'"
-          :open-delay="200"
-          role="tooltip"
-          aria-label="Begin using our application"
         >
-          <template v-slot:activator="{ props }">
+          <template v-slot="{ props }">
             <v-btn
               v-bind="props"
               variant="outlined"
@@ -96,7 +96,7 @@
               Get Started
             </v-btn>
           </template>
-        </v-tooltip>
+        </AccessibleTooltip>
 
         <ThemeSwitch
           :theme="theme"
@@ -104,7 +104,7 @@
           class="ml-4"
         />
       </nav>
-    </v-container>
+    </div>
   </v-app-bar>
 </template>
 
@@ -122,6 +122,7 @@
  * @component
  */
 import ThemeSwitch from './ThemeSwitch.vue';
+import AccessibleTooltip from './AccessibleTooltip.vue';
 
 /**
  * Component props
@@ -176,5 +177,25 @@ defineEmits(['toggle-theme']);
 
 .logo:hover {
   transform: scale(1.05);
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1600px; /* Wider than default container */
+  margin: 0 auto;
+  padding: 0 16px; /* Minimum padding on small screens */
+}
+
+/* Responsive padding adjustments */
+@media (min-width: 600px) {
+  .header-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 960px) {
+  .header-container {
+    padding: 0 32px;
+  }
 }
 </style>

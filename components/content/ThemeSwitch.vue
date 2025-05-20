@@ -1,16 +1,14 @@
 <template>
   <div class="theme-switch-container">
-    <v-tooltip
+    <AccessibleTooltip
       :text="tooltipText"
       location="bottom"
-      role="tooltip"
-      :aria-label="tooltipText"
     >
-      <template v-slot:activator="{ props }">
+      <template v-slot="{ props }">
         <v-btn
           v-bind="props"
           icon
-          color="on-background"
+          color="on-app-bar"
           :aria-label="ariaLabel"
           @click="toggleTheme"
           @keydown.enter="toggleTheme"
@@ -24,7 +22,7 @@
           <span class="sr-only">{{ isDarkTheme ? 'Currently in dark mode' : 'Currently in light mode' }}</span>
         </v-btn>
       </template>
-    </v-tooltip>
+    </AccessibleTooltip>
   </div>
 </template>
 
@@ -42,6 +40,7 @@
  * @component
  */
 import { computed } from 'vue';
+import AccessibleTooltip from './AccessibleTooltip.vue';
 
 /**
  * Component props

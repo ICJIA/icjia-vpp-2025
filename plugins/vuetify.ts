@@ -29,9 +29,11 @@ export default defineNuxtPlugin((nuxtApp) => {
             error: '#B91C1C', // Darker red for better contrast
             info: '#1E40AF', // Darker blue for better contrast
             background: '#F8FAFC',
+            'app-bar': '#F0F4F8', // Slightly off-white for app-bar (distinguishable from white body)
             surface: '#FFFFFF',
             'on-surface': '#1E293B',
             'on-background': '#1E293B',
+            'on-app-bar': '#1E293B', // Same as on-background for consistent text color
           }
         },
         dark: {
@@ -45,9 +47,11 @@ export default defineNuxtPlugin((nuxtApp) => {
             error: '#FCA5A5', // Lighter red for better contrast
             info: '#BFDBFE', // Lighter blue for better contrast
             background: '#0F172A',
+            'app-bar': '#1A2234', // Slightly different hue from background for distinction
             surface: '#1E293B',
             'on-surface': '#F1F5F9',
             'on-background': '#F1F5F9',
+            'on-app-bar': '#F1F5F9', // Same as on-background for consistent text color
           }
         }
       }

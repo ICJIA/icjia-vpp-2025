@@ -4,6 +4,65 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-20 (Optimized Container Width Implementation)
+- Optimized the header and footer containers to reduce unnecessary blank space while maintaining minimum padding.
+- Files modified:
+  - `components/content/AppHeader.vue`: Replaced v-container with custom header-container class
+  - `components/content/AppFooter.vue`: Replaced v-container with custom footer-container class
+- Technical Notes:
+  - Increased maximum width from default 1200px to 1600px for better space utilization
+  - Implemented responsive padding that adjusts based on screen size:
+    - Small screens: 16px padding
+    - Medium screens: 24px padding
+    - Large screens: 32px padding
+  - Maintained consistent styling between header and footer
+  - Ensured content doesn't touch screen edges on any device size
+  - Improved overall layout by utilizing more horizontal space
+
+### 2025-05-20 (Responsive Header Title Implementation)
+- Updated the app header and footer to display responsive titles based on screen size.
+- Files modified:
+  - `components/content/AppHeader.vue`: Implemented responsive title display with different text for various screen sizes
+  - `components/content/AppFooter.vue`: Implemented responsive title display with different text for various screen sizes
+- Technical Notes:
+  - Created four different title versions for different screen widths:
+    - Extra-large screens: "Violence Prevention Plan for Illinois: 2025-2029"
+    - Large screens: "Violence Prevention Plan for Illinois"
+    - Medium screens: "Violence Prevention Plan"
+    - Small screens: "IL VPP"
+  - Used Vuetify's responsive display classes (d-none, d-xl-block, etc.) to show/hide appropriate title
+  - Adjusted font sizes for smaller screens (text-h6 to text-subtitle-1/2)
+  - Made icon sizes responsive based on screen width
+  - Maintained full title in aria-label for accessibility
+  - Adjusted spacing between icon and text for smaller screens
+
+### 2025-05-20 (Custom 404 Error Page Implementation)
+- Created a modern and stylish 404 error page following Nuxt 3 guidelines.
+- Files created:
+  - `error.vue`: Implemented custom error page with navigation options
+- Technical Notes:
+  - Created a visually appealing 404 page with animated elements
+  - Added clear site identification with "Violence Prevention Plan for Illinois: 2025-2029" text
+  - Implemented single "Return to Homepage" button for simplified navigation
+  - Fixed navigation with proper Nuxt error handling using useNuxtApp and navigateTo
+  - Added SEO metadata with noindex directive for error pages
+  - Ensured full accessibility with proper ARIA attributes and keyboard navigation
+  - Used responsive design for all screen sizes
+  - Added subtle animations for enhanced user experience
+
+### 2025-05-20 (App Navigation Bar Color Update)
+- Updated the app navigation bar colors to better distinguish it from the body in both light and dark themes.
+- Files modified:
+  - `plugins/vuetify.ts`: Added new 'app-bar' and 'on-app-bar' color variables to the theme configuration
+  - `components/content/AppHeader.vue`: Changed color from "background" to "app-bar" and updated button colors
+  - `components/content/ThemeSwitch.vue`: Updated theme switch button color to use "on-app-bar"
+- Technical Notes:
+  - Light theme: Added a slightly off-white color (#F0F4F8) for the app-bar to distinguish it from the white body
+  - Dark theme: Added a different hue (#1A2234) for the app-bar to distinguish it from the dark background
+  - Ensured all text colors maintain a contrast ratio of at least 4.5:1 for WCAG AA compliance
+  - Used consistent color naming with 'on-app-bar' following Vuetify's naming convention
+  - Maintained existing accessibility features while improving visual distinction
+
 ### 2025-05-20 (Project Name Update)
 - Updated project name from "Illinois Violent Prevention Project" to "Violence Prevention Plan for Illinois: 2025-2029" across the application.
 - Files modified:
