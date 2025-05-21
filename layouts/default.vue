@@ -12,6 +12,10 @@
  */
 import { ref, watch, onMounted, provide } from 'vue';
 import { useAnnouncer } from '~/composables/useAnnouncer';
+import ConsoleLogger from '~/components/dev/ConsoleLogger.vue';
+
+// Conditionally import ConsoleLogger component only in development
+const isDev = process.env.NODE_ENV !== 'production';
 
 // Initialize theme state
 const theme = ref('light'); // Default to light for SSR
@@ -127,6 +131,11 @@ onMounted(() => {
       aria-atomic="true"
       class="sr-only"
     >{{ announceAssertive }}</div>
+
+    <!-- Console Logger (development only) -->
+    <ClientOnly>
+      <ConsoleLogger v-if="isDev" />
+    </ClientOnly>
   </v-app>
 </template>
 

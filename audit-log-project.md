@@ -4,6 +4,32 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-21 (Console Logger Implementation)
+- Created a development console logger system for color-coded logging of key events and route changes.
+- Files modified/created:
+  - `composables/useConsoleLogger.js`: Created composable for console logging with color-coded categories
+  - `plugins/console-logger.client.js`: Created plugin to initialize logger and track lifecycle events
+  - `components/dev/ConsoleLogger.vue`: Created UI component for controlling logger settings
+  - `layouts/default.vue`: Added ConsoleLogger component to default layout (development only)
+  - `tests/composables/useConsoleLogger.test.js`: Added tests for console logger composable
+  - `tests/components/dev/ConsoleLogger.test.js`: Added tests for console logger component
+- Technical Notes:
+  - Implemented color-coded console logging for different categories:
+    - UI components (blue)
+    - Route changes (purple)
+    - Theme changes (dark purple)
+    - Lifecycle events (green)
+    - Success messages (dark green)
+    - Warnings (orange)
+    - Errors (red)
+    - API/data operations (teal)
+    - Performance metrics (yellow)
+  - Created a global on/off toggle that defaults to off in production
+  - Added a floating UI control panel for toggling logging during development
+  - Automatically tracks Vue/Nuxt lifecycle events and route changes
+  - Implemented as a singleton pattern to maintain state across imports
+  - Added comprehensive test coverage for all functionality
+
 ### 2025-05-21 (Ultra-Simplified Scroll-to-Top Implementation)
 - Completely simplified the scroll-to-top functionality to ensure it works consistently on page refresh.
 - Files modified/created:
