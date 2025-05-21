@@ -4,6 +4,55 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-21 (Ultra-Simplified Scroll-to-Top Implementation)
+- Completely simplified the scroll-to-top functionality to ensure it works consistently on page refresh.
+- Files modified/created:
+  - `plugins/refresh-scroll.client.js`: Replaced with ultra-simple implementation
+  - `tests/plugins/refresh-scroll.test.js`: Simplified tests to match new implementation
+  - `app.vue`: Added direct window.load event listener to force scroll to top
+  - `app/router.options.ts`: Created new router configuration file with scrollBehavior option
+- Technical Notes:
+  - Implemented multiple redundant approaches to ensure scroll position is always reset to (0,0):
+    1. Plugin code that executes immediately when loaded, before Vue initialization
+    2. Direct window.load event listener in app.vue for maximum compatibility
+    3. Vue Router scrollBehavior configuration in router.options.ts
+  - Uses three direct methods to ensure scroll position is reset:
+    1. window.scrollTo(0, 0)
+    2. document.documentElement.scrollTop = 0
+    3. document.body.scrollTop = 0
+  - Disables browser's automatic scroll restoration with history.scrollRestoration = 'manual'
+  - Removed all complexity, lifecycle hooks, and unnecessary functionality
+  - Focuses solely on the core requirement: scroll to absolute top (0,0) on page refresh
+  - Uses native Nuxt/Vue Router configuration for consistent behavior
+
+### 2025-05-21 (Scroll Position Fix for Page Refresh)
+- Fixed scroll position issue during page refresh that was causing a jarring user experience.
+- Files modified:
+  - `plugins/refresh-scroll.client.js`: Completely revised implementation to use History API
+  - `tests/plugins/refresh-scroll.test.js`: Updated tests to match new implementation
+- Technical Notes:
+  - Uses History API's scrollRestoration property set to 'manual' to prevent browser's automatic scroll restoration
+  - Implements immediate scroll to top without animation to prevent visual jumps
+  - Removes previous sessionStorage-based approach in favor of a more direct solution
+  - Handles the issue at its source by disabling the browser's default behavior
+  - Ensures consistent behavior across all browsers and devices
+  - Improves user experience by eliminating the jarring effect of briefly showing previous scroll position
+  - Includes comprehensive error handling for better reliability
+
+### 2025-05-21 (Scroll-to-Top on Page Refresh)
+- Implemented functionality to automatically scroll to the top of the page when a user refreshes the browser.
+- Files modified/created:
+  - `plugins/refresh-scroll.client.js`: Created new plugin to handle scroll behavior on page refresh
+  - `tests/plugins/refresh-scroll.test.js`: Added tests for the new plugin
+- Technical Notes:
+  - Uses VueUse's useEventListener to efficiently handle browser events
+  - Stores the current route path in sessionStorage before page unload
+  - Detects page refreshes by comparing stored route with current route
+  - Works across all routes, not just the homepage
+  - Respects existing scroll behavior functionality
+  - Ensures consistent user experience when refreshing the page at any scroll position
+  - Includes comprehensive test coverage for all scenarios
+
 ### 2025-05-21 (Simplified Tooltip Implementation)
 - Simplified the tooltip implementation to resolve navigation issues while maintaining mobile auto-dismiss functionality.
 - Files modified:

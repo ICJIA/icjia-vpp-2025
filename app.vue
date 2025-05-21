@@ -1,3 +1,14 @@
+<script>
+// Force scroll to top on page load
+if (typeof window !== 'undefined') {
+  window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
+}
+</script>
+
 <template>
   <NuxtLayout>
     <NuxtPage style="min-height: 70vh !important;" />
@@ -10,7 +21,6 @@ html {
 }
 
 body {
- 
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

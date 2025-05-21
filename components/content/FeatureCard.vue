@@ -3,7 +3,6 @@
     <v-card
       variant="elevated"
       class="h-100 rounded-xl pa-6 feature-card-inner"
-      theme="light"
       role="article"
       tabindex="0"
       @keydown.enter="handleCardActivation"
@@ -118,12 +117,25 @@ const handleCardActivation = () => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode box shadow */
+:root[data-theme="dark"] .feature-card-inner {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
 .feature-card-inner:hover,
 .feature-card-inner:focus-visible {
   transform: translateY(-8px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark mode hover box shadow */
+:root[data-theme="dark"] .feature-card-inner:hover,
+:root[data-theme="dark"] .feature-card-inner:focus-visible {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 .feature-card-inner:focus-visible {

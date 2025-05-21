@@ -289,6 +289,11 @@ const handleContactClick = () => {
   transition: transform 0.5s ease;
 }
 
+/* Dark mode about image shadow */
+:root[data-theme="dark"] .about-image {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
 .about-image:hover {
   transform: scale(1.02);
 }
@@ -296,12 +301,26 @@ const handleContactClick = () => {
 .value-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode value card shadow */
+:root[data-theme="dark"] .value-card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .value-card:hover,
 .value-card:focus-visible {
   transform: translateY(-8px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark mode value card hover shadow */
+:root[data-theme="dark"] .value-card:hover,
+:root[data-theme="dark"] .value-card:focus-visible {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 .value-card:focus-visible {
