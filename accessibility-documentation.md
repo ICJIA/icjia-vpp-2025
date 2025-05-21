@@ -2,7 +2,7 @@
 
 **Last Updated: May 21, 2025**
 
-> **Documentation Update**: We've enhanced our code documentation throughout the project to better explain accessibility features. This makes it easier for developers to understand and maintain our accessibility implementations.
+> **Documentation Update**: We've conducted our weekly accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We've also enhanced our code documentation throughout the project to better explain accessibility features, making it easier for developers to understand and maintain our accessibility implementations.
 
 The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.
 

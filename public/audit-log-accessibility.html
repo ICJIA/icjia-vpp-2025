@@ -236,6 +236,45 @@
 <p><strong>Note</strong>: This document is also available as an HTML page on our website for direct access without requiring JavaScript.</p>
 </blockquote>
 <h2>Audit Log Update: 2025-05-21</h2>
+<h3>Privacy Policy Accessibility Implementation</h3>
+<p>Added a comprehensive privacy policy with strong accessibility features:</p>
+<ol>
+<li><strong>Enhancement</strong>: Created a fully accessible privacy policy following WCAG 2.1 AA standards.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Created privacy-policy.md with comprehensive content based on State of Illinois privacy notice</li>
+<li>Generated HTML version with proper semantic structure and accessibility features</li>
+<li>Updated HTML generation script to include privacy policy in footer navigation of all documentation</li>
+<li>Added information about alternative format availability</li>
+<li>Included proper contact information with accessible email link</li>
+<li>Ensured consistent accessibility features across all documentation</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Improved legal compliance while maintaining strong accessibility, ensuring all users can access important privacy information regardless of abilities.</li>
+</ol>
+<h3>Weekly Accessibility Assessment</h3>
+<p>Conducted a comprehensive accessibility review of the Violence Prevention Plan for Illinois: 2025-2029 website:</p>
+<ol>
+<li><strong>Assessment</strong>: Evaluated all components against WCAG 2.1 AA standards and Illinois Information Technology Accessibility Act (IITAA) 2.1 requirements.</li>
+<li><strong>Implementation Status</strong>:<ul>
+<li>All core components maintain excellent accessibility compliance</li>
+<li>Skip-to-content functionality works correctly</li>
+<li>Keyboard navigation is fully functional across all interactive elements</li>
+<li>Screen reader announcements properly communicate dynamic content changes</li>
+<li>Color contrast ratios meet or exceed 4.5:1 AA requirements throughout the site</li>
+<li>Reduced motion preferences are properly respected via CSS media queries</li>
+<li>Proper ARIA attributes and semantic HTML structure maintained</li>
+<li>Documentation HTML files now have consistent navigation with privacy policy link</li>
+</ul>
+</li>
+<li><strong>Areas for Improvement</strong>:<ul>
+<li>Automated accessibility testing still needed (axe-core or similar)</li>
+<li>Consider implementing more comprehensive keyboard shortcut documentation</li>
+<li>Future complex components (forms, modals, etc.) will need careful accessibility implementation</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: The site continues to maintain high accessibility standards, ensuring all users can access content regardless of abilities or assistive technologies used.</li>
+</ol>
+<h2>Audit Log Update: 2025-05-21</h2>
 <h3>Enhanced Code Documentation for Accessibility</h3>
 <p>Improved JSDoc and code comments throughout the project to better document accessibility features:</p>
 <ol>
@@ -563,7 +602,8 @@
       <nav class="footer-nav" aria-label="Footer Navigation">
         <a href="/" aria-label="Return to Violence Prevention Plan for Illinois homepage">Home</a> |
         <a href="/accessibility-documentation.html" aria-label="View Accessibility Documentation">Accessibility Documentation</a> |
-        <a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a>
+        <a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a> |
+        <a href="/privacy-policy.html" aria-label="View Privacy Policy">Privacy Policy</a>
       </nav>
       <p>&copy; 2025 Illinois Criminal Justice Information Authority. All rights reserved.</p>
     </footer>

@@ -274,7 +274,8 @@ const htmlTemplate = (title, content) => `
       <nav class="footer-nav" aria-label="Footer Navigation">
         <a href="/" aria-label="Return to Violence Prevention Plan for Illinois homepage">Home</a> |
         <a href="/accessibility-documentation.html" aria-label="View Accessibility Documentation">Accessibility Documentation</a> |
-        <a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a>
+        <a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a> |
+        <a href="/privacy-policy.html" aria-label="View Privacy Policy">Privacy Policy</a>
       </nav>
       <p>&copy; ${new Date().getFullYear()} Illinois Criminal Justice Information Authority. All rights reserved.</p>
     </footer>
@@ -294,6 +295,11 @@ const filesToConvert = [
     source: path.join(process.cwd(), 'audit-log-accessibility.md'),
     destination: path.join(process.cwd(), 'public/audit-log-accessibility.html'),
     title: 'Accessibility Audit Log'
+  },
+  {
+    source: path.join(process.cwd(), 'privacy-policy.md'),
+    destination: path.join(process.cwd(), 'public/privacy-policy.html'),
+    title: 'Privacy Policy'
   }
 ];
 

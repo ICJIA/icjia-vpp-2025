@@ -98,7 +98,7 @@
                 :location="$vuetify.display.smAndDown ? 'top' : 'right'"
               >
                 <template v-slot="{ props }">
-                  <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Privacy Policy">Privacy Policy</a>
+                  <a href="/privacy-policy.html" class="footer-link mb-2" v-bind="props" aria-label="Privacy Policy">Privacy Policy</a>
                 </template>
               </AccessibleTooltip>
 
@@ -133,7 +133,7 @@
                 </template>
               </AccessibleTooltip>
 
-             
+
             </div>
           </nav>
         </v-col>
