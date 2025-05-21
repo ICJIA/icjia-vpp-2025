@@ -4,6 +4,19 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-21 (Simplified Tooltip Implementation)
+- Simplified the tooltip implementation to resolve navigation issues while maintaining mobile auto-dismiss functionality.
+- Files modified:
+  - `components/content/AccessibleTooltip.vue`: Reverted to a simpler implementation with only mobile detection
+- Technical Notes:
+  - Removed all custom event handling that was interfering with navigation
+  - Maintained the 4-second auto-dismiss timeout on mobile devices
+  - Removed tooltip coordination system to simplify implementation
+  - Removed global click/touch event listeners that were causing navigation issues
+  - Kept proper ARIA attributes for accessibility
+  - Simplified the component to focus on core functionality
+  - Ensured normal link navigation works as expected
+
 ### 2025-05-20 (Accessibility Script Naming Update)
 - Renamed accessibility HTML generation script and commands to avoid confusion with Nuxt's generate command.
 - Files modified:

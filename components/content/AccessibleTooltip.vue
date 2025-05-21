@@ -26,7 +26,7 @@
  *
  * @component
  */
-import { computed, ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 /**
  * Component props
@@ -65,7 +65,7 @@ const props = defineProps({
    */
   mobileCloseDelay: {
     type: Number,
-    default: 1500 // Auto-hide after 1.5 seconds on mobile
+    default: 4000 // Auto-hide after 4 seconds on mobile
   }
 });
 
@@ -90,10 +90,10 @@ onMounted(() => {
   if (typeof window !== 'undefined') {
     // Initial check
     checkIfMobile();
-    
+
     // Add resize listener
     window.addEventListener('resize', checkIfMobile);
-    
+
     // Clean up event listener on component unmount
     return () => {
       window.removeEventListener('resize', checkIfMobile);
