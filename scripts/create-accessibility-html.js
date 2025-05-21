@@ -44,6 +44,9 @@ const htmlTemplate = (title, content) => `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${title} for the Violence Prevention Plan for Illinois: 2025-2029">
   <title>${title} - Violence Prevention Plan for Illinois: 2025-2029</title>
+  <!-- Accessibility meta tags -->
+  <meta name="author" content="Illinois Criminal Justice Information Authority">
+  <meta name="robots" content="index, follow">
   <style>
     /* Base styles */
     body {
@@ -256,6 +259,51 @@ const htmlTemplate = (title, content) => `
         scroll-behavior: auto !important;
       }
     }
+
+    /* Print styles for better accessibility when printing */
+    @media print {
+      body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+      }
+
+      a {
+        color: #000;
+        text-decoration: underline;
+      }
+
+      a::after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+      }
+
+      .skip-link,
+      .site-header,
+      .site-footer {
+        display: none;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+      }
+
+      img, table, figure {
+        page-break-inside: avoid;
+      }
+
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -272,10 +320,13 @@ const htmlTemplate = (title, content) => `
 
     <footer class="site-footer" role="contentinfo">
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="/" aria-label="Return to Violence Prevention Plan for Illinois homepage">Home</a> |
-        <a href="/accessibility-documentation.html" aria-label="View Accessibility Documentation">Accessibility Documentation</a> |
-        <a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a> |
-        <a href="/privacy-policy.html" aria-label="View Privacy Policy">Privacy Policy</a>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center;">
+          <li style="margin: 0 10px;"><a href="/" aria-label="Return to Violence Prevention Plan for Illinois homepage">Home</a></li>
+          <li style="margin: 0 10px;"><a href="/accessibility-documentation.html" aria-label="View Accessibility Documentation">Accessibility Documentation</a></li>
+          <li style="margin: 0 10px;"><a href="/audit-log-accessibility.html" aria-label="View Accessibility Audit Log">Accessibility Audit Log</a></li>
+          <li style="margin: 0 10px;"><a href="/privacy-policy.html" aria-label="View Privacy Policy">Privacy Policy</a></li>
+          <li style="margin: 0 10px;"><a href="/terms-of-service.html" aria-label="View Terms of Service">Terms of Service</a></li>
+        </ul>
       </nav>
       <p>&copy; ${new Date().getFullYear()} Illinois Criminal Justice Information Authority. All rights reserved.</p>
     </footer>
@@ -300,6 +351,11 @@ const filesToConvert = [
     source: path.join(process.cwd(), 'privacy-policy.md'),
     destination: path.join(process.cwd(), 'public/privacy-policy.html'),
     title: 'Privacy Policy'
+  },
+  {
+    source: path.join(process.cwd(), 'terms-of-service.md'),
+    destination: path.join(process.cwd(), 'public/terms-of-service.html'),
+    title: 'Terms of Service'
   }
 ];
 

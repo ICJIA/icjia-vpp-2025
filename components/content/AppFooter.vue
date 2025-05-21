@@ -107,7 +107,7 @@
                 :location="$vuetify.display.smAndDown ? 'top' : 'right'"
               >
                 <template v-slot="{ props }">
-                  <a href="#" class="footer-link mb-2" v-bind="props" aria-label="Terms of Service">Terms of Service</a>
+                  <a href="/terms-of-service.html" class="footer-link mb-2" v-bind="props" aria-label="Terms of Service">Terms of Service</a>
                 </template>
               </AccessibleTooltip>
             </div>

@@ -4,6 +4,34 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-21 (Terms of Service Implementation with MIT License)
+- Created a comprehensive terms of service document for the Violence Prevention Plan for Illinois: 2025-2029 website.
+- Files modified/created:
+  - `terms-of-service.md`: Created comprehensive terms of service document with MIT license information
+  - `public/terms-of-service.html`: Generated HTML version of the terms of service
+  - `scripts/create-accessibility-html.js`: Updated to include terms of service in HTML generation and added to footer navigation
+  - `components/content/AppFooter.vue`: Updated Terms of Service link to point to the HTML version
+  - `nuxt.config.ts`: Updated to include terms-of-service.html and privacy-policy.html in prerendering routes
+- Technical Notes:
+  - Created a comprehensive terms of service document with clear sections on user rights and responsibilities
+  - Added MIT license information for the website source code, clearly distinguishing between code license and content terms
+  - Implemented the same accessibility features as the privacy policy:
+    - Proper semantic structure with appropriate heading hierarchy
+    - Skip-to-content link for keyboard navigation
+    - ARIA landmarks and roles for screen readers
+    - High contrast text meeting WCAG 2.1 AA standards
+    - Visible focus indicators for keyboard users
+    - Dark mode support with appropriate contrast
+    - Support for reduced motion preferences
+    - Information about alternative format availability
+    - Proper link text with descriptive labels
+    - Print-specific stylesheet for better accessibility when printing
+  - Added to HTML generation script to ensure availability without JavaScript
+  - Updated footer link to point to the HTML version for direct access
+  - Added Terms of Service link to the footer navigation in all HTML documentation files
+  - Maintained consistent styling and accessibility with other documentation
+  - Ensured both legal documents are included in Nitro's prerendering crawl
+
 ### 2025-05-21 (Privacy Policy Implementation with Enhanced Accessibility)
 - Created a comprehensive privacy policy for the Violence Prevention Plan for Illinois: 2025-2029 website with strong accessibility features.
 - Files modified/created:
@@ -25,6 +53,10 @@ This document serves as a chronological record of all significant changes made t
     - Support for reduced motion preferences
     - Information about alternative format availability
     - Proper link text with descriptive labels
+    - Print-specific stylesheet for better accessibility when printing
+    - Additional accessibility meta tags (author, robots)
+    - Improved footer navigation using semantic list structure instead of text separators
+    - Responsive design for all screen sizes
   - Added to HTML generation script to ensure availability without JavaScript
   - Updated footer navigation in all HTML documentation to include Privacy Policy link
   - Updated contact information with real email, phone, and address

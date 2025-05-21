@@ -2,7 +2,7 @@
 
 **Last Updated: May 21, 2025**
 
-This Privacy Policy describes how the Violence Prevention Plan for Illinois: 2025-2029 website ("we," "our," or "us") collects, uses, and shares information about you when you visit our website at [website URL]. This policy is based on the State of Illinois Privacy Notice and has been enhanced to address specific aspects of this website.
+This Privacy Policy describes how the Violence Prevention Plan for Illinois: 2025-2029 website ("we," "our," or "us") collects, uses, and shares information about you when you visit our website. This policy is based on the State of Illinois Privacy Notice and has been enhanced to address specific aspects of this website.
 
 > **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
 
@@ -84,34 +84,7 @@ We implement reasonable security measures to protect your personal information f
 
 We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
 
-## Your Rights and Choices
 
-### Access, Correction, and Deletion
-
-You have the right to access, correct, or delete your personal information. You can request access to your personal information by contacting us using the information provided in the "Contact Us" section below.
-
-### California Consumer Privacy Act (CCPA) Rights
-
-If you are a California resident, you have the right to:
-- Know what personal information we collect about you
-- Request deletion of your personal information
-- Opt-out of the sale of your personal information
-- Non-discrimination for exercising your CCPA rights
-
-To exercise these rights, please contact us using the information provided in the "Contact Us" section.
-
-### General Data Protection Regulation (GDPR) Rights
-
-If you are in the European Economic Area (EEA), you have certain rights under the GDPR, including:
-- Right to access your personal data
-- Right to rectification of inaccurate personal data
-- Right to erasure of your personal data
-- Right to restriction of processing of your personal data
-- Right to data portability
-- Right to object to processing of your personal data
-- Right to withdraw consent
-
-To exercise these rights, please contact us using the information provided in the "Contact Us" section.
 
 ## Children's Privacy
 
