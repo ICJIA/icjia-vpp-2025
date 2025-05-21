@@ -4,6 +4,28 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-21 (Enhanced Code Documentation)
+- Implemented comprehensive JSDoc and code comments throughout the project to improve maintainability.
+- Files modified:
+  - `composables/useConsoleLogger.js`: Enhanced with detailed JSDoc, parameter descriptions, and usage examples
+  - `composables/useAnnouncer.js`: Improved documentation with detailed explanations of screen reader announcements
+  - `components/dev/ConsoleLogger.vue`: Enhanced documentation with usage examples and UI explanations
+  - `components/content/HeroSection.vue`: Added detailed comments for animations and accessibility features
+  - `components/content/ImageWithSpinner.vue`: Improved documentation with comprehensive accessibility explanations
+  - `layouts/default.vue`: Enhanced documentation of theme management and accessibility features
+  - `nuxt.config.ts`: Added detailed comments explaining configuration options
+  - `README.md`: Updated to reflect documentation improvements and development practices
+- Technical Notes:
+  - Added comprehensive component descriptions with @component tags
+  - Documented all parameters with types and descriptions
+  - Added return value documentation with types
+  - Added detailed CSS comments explaining the purpose of each style rule
+  - Documented animation keyframes with explanations of their effects
+  - Added comprehensive documentation for accessibility features
+  - Explained the "why" behind implementation decisions
+  - Enhanced developer experience with better documentation
+  - Updated README with sections on code documentation, VueUse integration, and console logging
+
 ### 2025-05-21 (404 Error Handling Enhancement)
 - Added graceful handling of 404 "Page not found" errors to prevent console noise in production.
 - Files created:
