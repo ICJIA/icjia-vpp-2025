@@ -35,17 +35,24 @@ import { ref, watch, onMounted, provide } from 'vue';
 
 // Composables and components
 import { useAnnouncer } from '~/composables/useAnnouncer';
+import { useConsoleLogger } from '~/composables/useConsoleLogger';
 import ConsoleLogger from '~/components/dev/ConsoleLogger.vue';
+
+// Get logger instance for theme logging
+// NOTE: Console logging is intentionally enabled in all environments (including production)
+// during the pre-launch phase for monitoring and debugging purposes.
+const { logTheme, logError } = useConsoleLogger();
 
 /**
  * Environment detection for conditional rendering
  *
- * Used to only include development tools in non-production environments.
- * The ConsoleLogger component will only be rendered when isDev is true.
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes. This will be
+ * revisited before the official launch.
  *
  * @type {boolean}
  */
-const isDev = process.env.NODE_ENV !== 'production';
+const showConsoleLogger = true; // Intentionally enabled in all environments for pre-launch debugging
 
 /**
  * Theme state management
@@ -115,9 +122,13 @@ onMounted(() => {
  * 2. Sets the theme state based on the saved preference or falls back to 'light'
  * 3. Applies the theme to the document by setting a data-theme attribute
  * 4. Handles errors if localStorage is unavailable (e.g., in private browsing)
+ * 5. Logs theme initialization for debugging purposes
  *
  * The data-theme attribute is used by CSS variables to apply the appropriate
  * theme colors throughout the application.
+ *
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes.
  *
  * @returns {void}
  */
@@ -131,10 +142,26 @@ function initTheme() {
 
     // Apply theme class to document for CSS variable access
     document.documentElement.setAttribute('data-theme', theme.value);
+
+    // Log theme initialization
+    logTheme('Theme initialized', {
+      theme: theme.value,
+      source: savedTheme ? 'localStorage' : 'default',
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      viewportWidth: window.innerWidth
+    });
   } catch (e) {
     // Fallback if localStorage is not available (e.g., private browsing)
-    console.error('Error accessing localStorage:', e);
+    logError('Error accessing localStorage during theme initialization', e);
     theme.value = 'light';
+
+    // Log fallback theme
+    logTheme('Theme initialized with fallback', {
+      theme: 'light',
+      reason: 'localStorage error',
+      timestamp: new Date().toISOString()
+    });
   }
 }
 
@@ -146,9 +173,13 @@ function initTheme() {
  * 2. Persists the preference to localStorage for future visits
  * 3. Updates the document's data-theme attribute for CSS variables
  * 4. Handles errors if localStorage is unavailable
+ * 5. Logs theme changes for debugging purposes
  *
  * It's passed to the AppHeader component as a prop and called when
  * the user clicks the theme toggle button.
+ *
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes.
  *
  * @returns {void}
  */
@@ -156,8 +187,20 @@ const toggleTheme = () => {
   // Safety check for SSR
   if (!isClient) return;
 
+  // Store the original theme for logging
+  const originalTheme = theme.value;
+
   // Toggle between light and dark
   theme.value = theme.value === 'light' ? 'dark' : 'light';
+
+  // Log theme change with both origin and destination themes
+  logTheme('Theme switched', {
+    from: originalTheme,
+    to: theme.value,
+    timestamp: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+    viewportWidth: window.innerWidth
+  });
 
   try {
     // Store the user's preference in localStorage for persistence
@@ -167,7 +210,7 @@ const toggleTheme = () => {
     document.documentElement.setAttribute('data-theme', theme.value);
   } catch (e) {
     // Handle localStorage errors (e.g., private browsing, storage quota)
-    console.error('Error saving theme preference:', e);
+    logError('Error saving theme preference', e);
   }
 };
 
@@ -180,14 +223,29 @@ const toggleTheme = () => {
  *
  * This provides a fallback mechanism in case the theme is changed through
  * means other than the toggleTheme function.
+ *
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes.
  */
 onMounted(() => {
   // Safety check for SSR
   if (!isClient) return;
 
   // Watch for theme changes and update document attributes
-  watch(theme, (newTheme) => {
+  watch(theme, (newTheme, oldTheme) => {
+    // Update document attribute for CSS variables
     document.documentElement.setAttribute('data-theme', newTheme);
+
+    // Only log if this change wasn't already logged by toggleTheme
+    // This helps avoid duplicate logs for the same theme change
+    if (oldTheme && newTheme !== oldTheme) {
+      logTheme('Theme changed via watcher', {
+        from: oldTheme,
+        to: newTheme,
+        timestamp: new Date().toISOString(),
+        source: 'watcher'
+      });
+    }
   });
 });
 </script>
@@ -224,9 +282,9 @@ onMounted(() => {
       class="sr-only"
     >{{ announceAssertive }}</div>
 
-    <!-- Console Logger (development only) -->
+    <!-- Console Logger (enabled in all environments for pre-launch debugging) -->
     <ClientOnly>
-      <ConsoleLogger v-if="isDev" />
+      <ConsoleLogger v-if="showConsoleLogger" />
     </ClientOnly>
   </v-app>
 </template>

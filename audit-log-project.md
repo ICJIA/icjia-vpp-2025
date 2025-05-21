@@ -4,6 +4,47 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-21 (Enhanced Theme Switching with Detailed Logging)
+- Enhanced the theme switching functionality with detailed console logging.
+- Files modified:
+  - `layouts/default.vue`: Added detailed logging to theme toggle and initialization functions
+- Technical Notes:
+  - Added logging that captures both origin and destination themes during theme switches
+  - Implemented non-blocking logging that doesn't affect performance or user experience
+  - Added additional context data to logs (timestamp, user agent, viewport width)
+  - Enhanced error logging for localStorage issues
+  - Added comments explaining that logging is intentionally enabled in all environments
+  - Maintained all existing accessibility features, especially keyboard accessibility
+  - Added conditional logging in the theme watcher to avoid duplicate logs
+  - Ensured consistent logging format using the existing useConsoleLogger composable
+
+### 2025-05-21 (Console Logging Configuration Update)
+- Modified the application to enable console logging in both development and production environments.
+- Files modified:
+  - `composables/useConsoleLogger.js`: Updated to enable logging in all environments
+  - `plugins/console-logger.client.js`: Removed condition that skipped initialization in production
+  - `layouts/default.vue`: Modified to show the ConsoleLogger component in all environments
+  - `plugins/theme-handler.client.js`: Added detailed logging for theme initialization
+  - `components/content/HeroSection.vue`: Updated to use the logger instead of console.log
+  - `README.md`: Updated documentation to note that console logging is enabled in all environments
+- Technical Notes:
+  - Console logging is now intentionally enabled in all environments during the pre-launch phase
+  - Added clear comments explaining that logging is intentionally enabled for debugging
+  - Enhanced theme initialization logging with detailed state information
+  - Improved user interaction logging in the HeroSection component
+  - Identified additional components for future logging implementation
+  - Updated documentation to reflect the current logging configuration
+
+### 2025-05-21 (README Update - Dev Site Information)
+- Added development site information to the README.
+- Files modified:
+  - `README.md`: Added a new 'Dev Site' section with the URL of the development site
+- Technical Notes:
+  - Added the development site URL (https://vpp-2025.netlify.app) to the README
+  - Included information about the automatic updates from the main branch
+  - Positioned the section prominently after the Project Overview for visibility
+  - Maintained consistent formatting with the rest of the README
+
 ### 2025-05-21 (Terms of Service Implementation with MIT License)
 - Created a comprehensive terms of service document for the Violence Prevention Plan for Illinois: 2025-2029 website.
 - Files modified/created:

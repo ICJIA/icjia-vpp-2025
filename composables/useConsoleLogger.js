@@ -35,11 +35,14 @@ import { ref } from 'vue';
 /**
  * Singleton state for the logger
  * Using ref to make it reactive and shared across all imports
- * Default: enabled in development, disabled in production
+ *
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes. This will be
+ * revisited before the official launch.
  *
  * @type {import('vue').Ref<boolean>}
  */
-const isEnabled = ref(process.env.NODE_ENV !== 'production');
+const isEnabled = ref(true); // Intentionally enabled in all environments for pre-launch debugging
 
 /**
  * Color codes for different log categories

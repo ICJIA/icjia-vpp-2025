@@ -27,6 +27,15 @@
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 
 /**
+ * Import the console logger
+ *
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes.
+ */
+import { useConsoleLogger } from '~/composables/useConsoleLogger';
+const { logUI } = useConsoleLogger();
+
+/**
  * Handle Get Started button activation
  *
  * This function is triggered when the user activates the primary CTA button
@@ -37,7 +46,7 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
  */
 const handleGetStarted = () => {
   // This would typically navigate to a sign-up or onboarding page
-  console.log('Get Started button activated');
+  logUI('Get Started button activated', { component: 'HeroSection', action: 'primary-cta' });
 };
 
 /**

@@ -12,6 +12,14 @@ This project serves as the official web presence for the Violence Prevention Pla
 - Subtle animations with reduced motion support
 - Dark/light theme with persistent user preferences
 
+## Dev Site
+
+The development version of this site is available at:
+
+**[https://vpp-2025.netlify.app](https://vpp-2025.netlify.app)**
+
+This development site is automatically updated with the latest changes from the main branch and serves as a preview environment before production deployment.
+
 ## Setup
 
 Make sure to install the dependencies:
@@ -113,12 +121,14 @@ The project leverages [VueUse](https://vueuse.org/) composables for common funct
 
 ### Console Logging
 
-During development, the project uses a custom console logging system:
+The project uses a custom console logging system:
 
 - Color-coded logs for different categories (UI, API, routes, etc.)
 - Global enable/disable functionality
-- Development-only console logger component
-- Automatic disabling in production
+- Interactive console logger component
+- Detailed state information for debugging
+
+**Note:** Console logging is currently enabled in all environments (including production) during the pre-launch phase for monitoring and debugging purposes. This will be revisited before the official launch.
 
 ## License
 
