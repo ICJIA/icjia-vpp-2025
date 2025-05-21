@@ -19,12 +19,11 @@ const handleLearnMore = () => {
       <v-row align="center" justify="space-between">
         <v-col cols="12" md="6" class="pr-md-12">
           <h1 class="text-h2 font-weight-bold mb-6 hero-title">
-            Beautiful Design Meets <span class="text-primary">Powerful Functionality</span>
+           Rex adipiscing bis <span class="text-primary">umbra sol gloria bis amet.</span>
           </h1>
 
           <p class="text-body-1 mb-8 hero-description">
-            Experience a perfect blend of aesthetics and performance in this application.
-            Built with Vue 3, Nuxt 3, and Vuetify 3 for a seamless user experience.
+            Rex adipiscing bis umbra sol gloria bis amet ventus sit rex caelum est ideme. Stella vox terra carmen anima rex vita sol fine opus pax caelum bellum bellum. Vox jugum gloria caligine vita fine aether jugum terra portitor est elit portitor est.
           </p>
 
           <div class="d-flex flex-wrap" role="group" aria-label="Main actions">

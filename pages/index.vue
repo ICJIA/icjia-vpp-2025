@@ -24,13 +24,11 @@
 
           <v-col cols="12" md="6" class="pl-md-12">
             <h2 class="text-h3 font-weight-bold mb-6">
-              Crafted with Precision
+              Enim manus aether virtus manus mare carmen elit
             </h2>
 
             <p class="text-body-1 mb-8">
-              Every detail in this application has been carefully considered and implemented with precision.
-              From subtle animations to responsive layouts, we've created an experience that feels both
-              delightful and intuitive.
+              Tempus tempus rex terra summo ipsum fine stella portitor enim mare homo bellum deus opus.
             </p>
 
             <v-list class="bg-transparent pa-0" role="list">
@@ -58,7 +56,7 @@
               size="large"
               class="mt-8 rounded-pill px-8"
             >
-              Learn More
+              Ipsum Enim Vita
             </v-btn>
           </v-col>
         </v-row>
@@ -68,9 +66,9 @@
     <section class="section py-16 bg-primary-lighten-5">
       <v-container>
         <div class="text-center mb-12">
-          <h2 class="text-h3 font-weight-bold mb-4">Ready to Get Started?</h2>
+          <h2 class="text-h3 font-weight-bold mb-4">Ipsum Enim Vita</h2>
           <p class="text-body-1 mx-auto" style="max-width: 600px;">
-            Join thousands of users who are already enjoying our application.
+            Lorem elit anima lumen manus.
           </p>
         </div>
 
@@ -80,7 +78,7 @@
             size="x-large"
             class="rounded-pill px-8 py-3 elevation-3 cta-button"
           >
-            Start Your Journey
+            Ipsum Enim Vita
             <v-icon end icon="mdi-arrow-right" />
           </v-btn>
         </div>
@@ -132,11 +130,11 @@ useSeoMeta({
  * @type {string[]}
  */
 const highlights = [
-  'Modern stack with Vue 3, Nuxt 3, and Vuetify 3',
-  'Optimized for performance and SEO',
-  'Fully responsive design for all devices',
-  'Beautiful dark and light themes',
-  'Smooth animations and transitions'
+  'Ipsum caelum bellum homax pax',
+  'Sanctum sol elit sol',
+  'Umbra fine homo terra',
+  'Sit mare idem jugum gloria',
+  'Quam stella dolor anima mare summo'
 ];
 </script>
 

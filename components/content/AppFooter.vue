@@ -115,6 +115,15 @@
             <div class="d-flex flex-column">
               <h2 class="text-subtitle-1 font-weight-bold mb-4">Accessibility</h2>
 
+               <AccessibleTooltip
+                text="View our accessibility audit log"
+                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
+              >
+                <template v-slot="{ props }">
+                  <a href="/audit-log-accessibility.html" class="footer-link mb-2" v-bind="props" aria-label="Accessibility Audit Log">Audit Log</a>
+                </template>
+              </AccessibleTooltip>
+
               <AccessibleTooltip
                 text="View our accessibility documentation"
                 :location="$vuetify.display.smAndDown ? 'top' : 'right'"
@@ -124,14 +133,7 @@
                 </template>
               </AccessibleTooltip>
 
-              <AccessibleTooltip
-                text="View our accessibility audit log"
-                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
-              >
-                <template v-slot="{ props }">
-                  <a href="/audit-log-accessibility.html" class="footer-link mb-2" v-bind="props" aria-label="Accessibility Audit Log">Audit Log</a>
-                </template>
-              </AccessibleTooltip>
+             
             </div>
           </nav>
         </v-col>

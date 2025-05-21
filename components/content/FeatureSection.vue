@@ -2,9 +2,9 @@
   <section class="section py-16">
     <v-container>
       <div class="text-center mb-16">
-        <h2 class="text-h3 font-weight-bold mb-4">Key Features</h2>
+        <h2 class="text-h3 font-weight-bold mb-4">Sit virtus enim</h2>
         <p class="text-body-1 mx-auto" style="max-width: 600px;">
-          Discover what makes this application stand out with its carefully crafted features.
+          Ipsum caelum bellum homo pax amet.
         </p>
       </div>
       
@@ -26,33 +26,33 @@
 const features = [
   {
     icon: 'mdi-palette-outline',
-    title: 'Beautiful Design',
-    description: 'Carefully crafted interface with attention to detail and aesthetic appeal.'
+    title: 'Ipsum Caelum Bellum',
+    description: 'Elit nox virtus caelum Lorem amet ipsum.'
   },
   {
     icon: 'mdi-responsive',
-    title: 'Fully Responsive',
-    description: 'Optimized for all devices and screen sizes from mobile to desktop.'
+    title: 'Carmen umbra stella vox',
+    description: 'Elit nox virtus caelum.'
   },
   {
     icon: 'mdi-lightning-bolt-outline',
-    title: 'High Performance',
-    description: 'Lightning-fast load times and smooth interactions throughout the application.'
+    title: 'Vox tempus elit sol vox',
+    description: 'Orbus amet summo bellum est umbra vox.'
   },
   {
     icon: 'mdi-theme-light-dark',
-    title: 'Dark/Light Mode',
-    description: 'Switch between beautiful color schemes based on your preference.'
+    title: 'Vita idem bis aether lumen',
+    description: 'Caelum orbus opus sanctum amet.'
   },
   {
     icon: 'mdi-cube-scan',
-    title: 'Static Generation',
-    description: 'Pre-rendered pages for better performance and SEO optimization.'
+    title: 'Rex adipiscing bis umbra',
+    description: 'Caligine tempus pax est fassaque.'
   },
   {
     icon: 'mdi-animation-outline',
-    title: 'Smooth Animations',
-    description: 'Subtle, meaningful animations enhance the user experience.'
+    title: 'Stella vox terra carmen anima rex',
+    description: 'Anima Lorem opus fine vox manus opus elit lumen opus stella portitor bellum aether nox. Fassaque consectetur.'
   }
 ];
 </script>
