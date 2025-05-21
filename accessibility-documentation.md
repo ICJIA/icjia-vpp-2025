@@ -1,6 +1,8 @@
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 20, 2025**
+**Last Updated: May 21, 2025**
+
+> **Documentation Update**: We've enhanced our code documentation throughout the project to better explain accessibility features. This makes it easier for developers to understand and maintain our accessibility implementations.
 
 The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.
 
