@@ -32,6 +32,23 @@ When you read this file, you are reading the guidelines for the development of t
 - Use VueUse utilities for common functionality
 - Implement proper loading states and error handling
 
+## VueUse Integration
+- Leverage VueUse composables (already installed) whenever possible instead of writing custom solutions
+- Always check VueUse documentation (https://vueuse.org/) before implementing common UI/UX patterns
+- Prefer VueUse solutions for consistent code style, reduced boilerplate, and tested implementations
+- Use core VueUse composables for common needs:
+  - `useLocalStorage`/`useSessionStorage` for persistent state
+  - `useDark`/`usePreferredDark` for theme management
+  - `useMediaQuery` for responsive design logic
+  - `useScroll`/`useIntersectionObserver` for scroll-based interactions
+  - `useFetch`/`useAxios` for data fetching (alongside Nuxt's built-in fetching)
+  - `useEventListener` for DOM event handling
+  - `useTimeoutFn`/`useIntervalFn` for timing operations
+- Document any custom implementations that could be replaced by VueUse in future refactoring
+- Combine VueUse composables with Vuetify components for optimal developer experience
+- Consider VueUse's ecosystem packages for specialized needs (e.g., `@vueuse/motion`, `@vueuse/sound`)
+- **Important**: When using with Nuxt 3, some VueUse functions will NOT be auto-imported in favor of Nitro's built-in alternatives. For example, `useStorage()` from VueUse requires explicit import to avoid conflict with Nitro's built-in `useStorage()`. Always check for potential naming conflicts with Nuxt/Nitro built-ins.
+
 ## Accessibility Standards
 - **CRITICAL**: All new UI/UX updates MUST follow WCAG 2.1 AA compliance standards without exception
 - **CRITICAL**: Ensure all accessibility follows the guidelines for Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards: https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html
