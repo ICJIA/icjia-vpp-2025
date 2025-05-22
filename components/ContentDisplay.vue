@@ -114,7 +114,7 @@
                 <div>
                   <ContentRenderer
                     :value="content"
-                    class="content-renderer"
+                    :class="['content-renderer', { 'hide-matching-heading': props.hideMatchingHeading }]"
                     @render-complete="onContentRendered"
                   />
                 </div>
@@ -170,7 +170,7 @@
           <div>
             <ContentRenderer
               :value="content"
-              class="content-renderer"
+              :class="['content-renderer', { 'hide-matching-heading': props.hideMatchingHeading }]"
               @render-complete="onContentRendered"
             />
           </div>
@@ -304,6 +304,15 @@ const props = defineProps({
   showFrontmatter: {
     type: Boolean,
     default: true
+  },
+
+  /**
+   * Whether to hide the first heading if it matches the title
+   * This prevents duplicate titles when the content has a heading that matches the frontmatter title
+   */
+  hideMatchingHeading: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -428,6 +437,13 @@ const onContentRendered = () => {
 
 // Styling for the content renderer
 .content-renderer {
+  // Hide first heading if hideMatchingHeading is true
+  &.hide-matching-heading {
+    :deep(h1:first-of-type) {
+      display: none;
+    }
+  }
+
   :deep(h1) {
     font-size: 1.8rem;
     font-weight: 600;

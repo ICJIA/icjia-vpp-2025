@@ -1,10 +1,38 @@
 # Accessibility Audit Log: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 21, 2025**
+**Last Updated: May 22, 2025**
 
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.
 
 > **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
+
+## Audit Log Update: 2025-05-22
+
+### ContentDisplay Component Duplicate Heading Fix
+
+Fixed duplicate heading display issue in the ContentDisplay component:
+
+1. **Issue**: Content headings were being duplicated when displayed in the ContentDisplay component, causing confusion for screen reader users and visual clutter.
+2. **Fix**: Simplified the `hideMatchingHeading` prop implementation to consistently hide the first heading when enabled.
+3. **Implementation**:
+   - Simplified the condition for hiding the first heading to use only the hideMatchingHeading prop
+   - Updated both card and non-card versions of the component for consistency
+   - Removed conditional logic that was causing inconsistent heading hiding
+   - Explicitly set hideMatchingHeading prop in the sandbox-refactored page
+   - Removed the duplicate heading from the content file while preserving frontmatter
+4. **Impact**: Improved screen reader experience by eliminating duplicate announcements of headings, reduced visual clutter, and maintained semantic structure while preventing redundancy.
+
+### ContentDisplay Component Accessibility Enhancement
+
+Fixed duplicate content display issue in the ContentDisplay component:
+
+1. **Issue**: Content with a heading matching the frontmatter title would display the title twice (once as a chip/tag and once as a heading), causing confusion for screen reader users and visual clutter.
+2. **Fix**: Added a new `hideMatchingHeading` prop (default: true) to the ContentDisplay component that automatically hides the first heading if it matches the frontmatter title.
+3. **Implementation**:
+   - Added conditional CSS class to hide the first heading when appropriate
+   - Applied the fix to both card and non-card display modes
+   - Added comprehensive documentation for the new prop
+4. **Impact**: Improved screen reader experience by eliminating duplicate announcements of the same title, reduced visual clutter, and maintained semantic structure while preventing redundancy.
 
 ## Audit Log Update: 2025-05-21
 

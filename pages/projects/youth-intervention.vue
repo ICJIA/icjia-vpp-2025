@@ -19,13 +19,11 @@
       <v-container>
         <v-row>
           <v-col cols="12" lg="10" class="mx-auto">
-            <!-- Dynamic Content Display -->
-            <ContentDisplay
+            <!-- Simple Content Display -->
+            <SimpleContentDisplay
               :path="contentPath"
-              @render-complete="onRenderComplete"
-              @error="onError"
             />
-            
+
             <!-- Fallback Content (shown only if content fails to load) -->
             <div v-if="showFallbackContent" class="mt-8">
               <v-row>
@@ -50,7 +48,7 @@
                   />
                 </v-col>
               </v-row>
-              
+
               <section class="section py-16 bg-primary-lighten-5 mt-8">
                 <div class="text-center">
                   <h2 class="text-h3 font-weight-bold mb-6">Our Approach</h2>
@@ -83,11 +81,11 @@
  *
  * @page
  */
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useHead, useSeoMeta, useRoute, useNuxtApp } from '#imports';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
 import useContentFetcher from '~/composables/useContentFetcher';
-import ContentDisplay from '~/components/ContentDisplay.vue';
+import SimpleContentDisplay from '~/components/SimpleContentDisplay.vue';
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 
 // Initialize console logger
@@ -107,12 +105,23 @@ log('content', 'Youth Intervention page - content path', {
 });
 
 // For direct access to content data
-const { content, error } = useContentFetcher({
+const { content, error, pending } = useContentFetcher({
   path: contentPath
 });
 
 // Flag to show fallback content if there's an error
 const showFallbackContent = ref(false);
+
+// Watch for errors to show fallback content
+watch(error, (newError) => {
+  if (newError) {
+    logError('Youth Intervention content error', {
+      error: newError.message,
+      timestamp: new Date().toISOString()
+    });
+    showFallbackContent.value = true;
+  }
+});
 
 // Default page title and description (fallbacks)
 const defaultTitle = 'Youth Intervention';
@@ -143,31 +152,15 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 });
 
-/**
- * Handle render complete event
- */
-function onRenderComplete(event) {
-  log('content', 'Youth Intervention content render complete', {
-    path: event.path,
-    timestamp: new Date().toISOString()
-  });
-  
-  // Hide fallback content when rendering is successful
-  showFallbackContent.value = false;
-}
-
-/**
- * Handle error event
- */
-function onError(error) {
-  logError('Youth Intervention content error', {
-    error: error.error?.message,
-    timestamp: new Date().toISOString()
-  });
-  
-  // Show fallback content when there's an error
-  showFallbackContent.value = true;
-}
+// Watch for successful content loading to hide fallback content
+watch(content, (newContent) => {
+  if (newContent) {
+    log('content', 'Youth Intervention content loaded', {
+      timestamp: new Date().toISOString()
+    });
+    showFallbackContent.value = false;
+  }
+});
 </script>
 
 <style scoped>
@@ -224,11 +217,11 @@ function onError(error) {
     animation: none;
     opacity: 1;
   }
-  
+
   .youth-image {
     transition: none;
   }
-  
+
   .youth-image:hover {
     transform: none;
   }
