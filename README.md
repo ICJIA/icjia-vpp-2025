@@ -1,6 +1,10 @@
 # Violence Prevention Plan for Illinois: 2025-2029
 
-A modern web application built with Nuxt 3, Vue 3, and Vuetify 3 for the Illinois Criminal Justice Information Authority.
+The first Statewide Violence Prevention Plan, for 2020-2024, was released in 2021. Since then, a
+variety of implementation, research, and activities have taken place. The Ad Hoc Violence Prevention
+Committee and its workgroups reviewed these activities, reports, and research, discussing ways in
+which this work could be used to inform the next violence prevention plan, collectively writing the
+2025-2029 goals and recommendations.
 
 ## Project Overview
 
