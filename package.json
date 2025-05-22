@@ -3,16 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run create:accessibility-html && nuxt build",
-    "dev": "npm run create:accessibility-html && nuxt dev --port=8000 -o",
-    "generate": "npm run create:accessibility-html && nuxt generate",
-    "generate:serve": "npm run create:accessibility-html && nuxt generate && npx serve .output/public",
+    "build": "npm run create:accessibility-html && npm run create:search-index && nuxt build",
+    "dev": "npm run create:accessibility-html && npm run create:search-index && nuxt dev --port=8000 -o",
+    "generate": "npm run create:accessibility-html && npm run create:search-index && nuxt generate",
+    "generate:serve": "npm run create:accessibility-html && npm run create:search-index && nuxt generate && npx serve .output/public",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "create:accessibility-html": "node scripts/create-accessibility-html.js"
+    "create:accessibility-html": "node scripts/create-accessibility-html.js",
+    "create:search-index": "node scripts/generate-search-index.js"
   },
   "dependencies": {
     "@nuxt/content": "^3.5.1",
@@ -20,6 +21,9 @@
     "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^3.0.3",
     "@vueuse/router": "^13.2.0",
+    "fuse.js": "^7.1.0",
+    "glob": "^11.0.2",
+    "gray-matter": "^4.0.3",
     "nuxt": "^3.17.3",
     "rimraf": "^6.0.1",
     "serve": "^14.2.4",

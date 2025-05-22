@@ -51,3 +51,6 @@ coverage
 
 # Optional eslint cache
 .eslintcache
+
+# Generated files
+public/data/search-index.json

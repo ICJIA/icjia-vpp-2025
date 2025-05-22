@@ -8,9 +8,11 @@ This project serves as the official web presence for the Violence Prevention Pla
 
 - Modern, responsive design using Vuetify 3 components
 - Accessibility-first development approach (WCAG 2.1 AA compliant)
+- Dynamic content rendering with Nuxt Content
 - Comprehensive documentation for developers and users
 - Subtle animations with reduced motion support
 - Dark/light theme with persistent user preferences
+- Full-text search functionality across all content
 
 ## Dev Site
 
@@ -56,6 +58,11 @@ yarn generate
 npm run generate
 ```
 
+This command will:
+1. Generate accessibility documentation HTML files
+2. Create a fresh search index based on the latest content
+3. Build the static site with Nuxt
+
 Build the application for server-side rendering:
 
 ```bash
@@ -99,6 +106,31 @@ This project maintains detailed audit logs to track all significant changes made
 - [Accessibility Audit Log](./audit-log-accessibility.md)  Documents accessibility assessments and compliance status
 
 ## Development Practices
+
+### Project Structure
+
+The project follows a structured organization pattern:
+
+- **Pages**: Follows the same structure as the content directory for proper routing
+  - `/pages/projects/` contains pages that render content from `/content/projects/`
+  - This alignment ensures proper Vue Router navigation and content fetching
+- **Content**: Organized in a hierarchical structure that matches the routing
+  - `/content/projects/` contains markdown files for project-related pages
+  - Content files include frontmatter for metadata (title, description, etc.)
+- **Components**: Reusable UI elements organized by function
+  - `ContentDisplay.vue` provides a standardized way to render markdown content
+  - `ImageWithSpinner.vue` handles image loading with accessibility features
+
+### Content Management
+
+The project uses Nuxt Content for dynamic content rendering:
+
+- Markdown files in the `/content` directory are automatically available as routes
+- Content is fetched using the `useContentFetcher` composable
+- Dynamic rendering with proper loading states and error handling
+- Fallback content displayed when content fetching fails
+- SEO metadata derived from content frontmatter
+- Search functionality with automatically generated search index
 
 ### Code Documentation
 

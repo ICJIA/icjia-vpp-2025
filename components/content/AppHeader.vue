@@ -386,6 +386,15 @@ defineProps({
   theme: {
     type: String,
     required: true
+  },
+
+  /**
+   * ARIA role for the component
+   * This is inherited from the parent component
+   */
+  role: {
+    type: String,
+    default: 'banner'
   }
 });
 
