@@ -10,7 +10,131 @@ import { useConsoleLogger } from '~/composables/useConsoleLogger';
  *
  * @param {Object} options - Configuration options
  * @param {string} options.path - Content path to fetch (e.g., '/sandbox')
- * @returns {Object} Content fetching state and utilities
+ * @returns {Object} Content fetching state and utilities including:
+ *   - content: Ref containing the fetched content data
+ *   - pending: Ref indicating if the fetch is in progress
+ *   - error: Ref containing any error that occurred during fetching
+ *   - isContentRenderable: Computed boolean indicating if content can be rendered
+ *   - contentSuccessfullyRendered: Ref boolean tracking if content was rendered
+ *   - userFriendlyErrorMessage: Computed string with user-friendly error message
+ *   - errorSeverity: Computed string indicating error severity level
+ *   - errorTitle: Computed string with error title
+ *   - contentPreview: Computed object with simplified content preview
+ *   - refresh: Function to manually refresh the content
+ *   - markAsRendered: Function to mark content as successfully rendered
+ *   - errorAction: Ref containing any action to take on error
+ *   - technicalErrorDetails: Ref containing detailed error information
+ *   - isDevelopment: Boolean indicating if running in development mode
+ *
+ * @example
+ * // Basic usage in a Vue component
+ * <script setup>
+ * import { computed } from 'vue';
+ * import useContentFetcher from '~/composables/useContentFetcher';
+ *
+ * // Fetch content from a specific path
+ * const {
+ *   content,
+ *   pending,
+ *   error,
+ *   isContentRenderable,
+ *   markAsRendered
+ * } = useContentFetcher({
+ *   path: '/about'
+ * });
+ *
+ * // Create computed properties based on the content
+ * const pageTitle = computed(() => content.value?.title || 'Default Title');
+ * const pageDescription = computed(() => content.value?.description || 'Default description');
+ *
+ * // Call markAsRendered when content is successfully displayed
+ * function onContentRendered() {
+ *   markAsRendered();
+ * }
+ * </script>
+ *
+ * @example
+ * // Advanced usage with error handling
+ * <script setup>
+ * import { computed, watch } from 'vue';
+ * import useContentFetcher from '~/composables/useContentFetcher';
+ *
+ * // Fetch content with dynamic path
+ * const route = useRoute();
+ * const contentPath = computed(() => `/${route.name}`);
+ *
+ * const {
+ *   content,
+ *   pending,
+ *   error,
+ *   refresh,
+ *   userFriendlyErrorMessage,
+ *   errorTitle,
+ *   errorSeverity,
+ *   technicalErrorDetails,
+ *   isDevelopment
+ * } = useContentFetcher({
+ *   path: contentPath.value
+ * });
+ *
+ * // Watch for route changes to refresh content
+ * watch(() => route.path, () => {
+ *   refresh();
+ * });
+ *
+ * // Handle errors with different approaches for dev vs production
+ * const errorMessage = computed(() => {
+ *   if (!error.value) return null;
+ *
+ *   // In development, show technical details
+ *   if (isDevelopment) {
+ *     return {
+ *       title: errorTitle.value,
+ *       message: technicalErrorDetails.value?.message || userFriendlyErrorMessage.value,
+ *       details: technicalErrorDetails.value
+ *     };
+ *   }
+ *
+ *   // In production, show user-friendly message
+ *   return {
+ *     title: errorTitle.value,
+ *     message: userFriendlyErrorMessage.value,
+ *     severity: errorSeverity.value
+ *   };
+ * });
+ * </script>
+ *
+ * @example
+ * // Usage with ContentDisplay component
+ * <template>
+ *   <div>
+ *     <h1>{{ pageTitle }}</h1>
+ *
+ *     <div v-if="pending">
+ *       <v-progress-circular indeterminate />
+ *       <span>Loading content...</span>
+ *     </div>
+ *
+ *     <div v-else-if="error">
+ *       <v-alert :type="errorSeverity" :title="errorTitle">
+ *         {{ userFriendlyErrorMessage }}
+ *       </v-alert>
+ *     </div>
+ *
+ *     <div v-else-if="isContentRenderable">
+ *       <ContentRenderer
+ *         :value="content"
+ *         @rendered="markAsRendered"
+ *       />
+ *     </div>
+ *
+ *     <div v-else>
+ *       <v-alert type="warning">
+ *         No renderable content found
+ *       </v-alert>
+ *     </div>
+ *   </div>
+ * </template>
  */
 export default function useContentFetcher(options) {
   // Get the content path
