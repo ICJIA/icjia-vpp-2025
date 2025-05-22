@@ -38,17 +38,58 @@
         <!-- Error State -->
         <v-alert
           v-else-if="error"
-          type="error"
-          title="Error Loading Content"
+          :type="errorSeverity"
+          :title="errorTitle"
           class="mb-6"
           variant="tonal"
           border="start"
           closable
+          role="alert"
+          aria-live="assertive"
         >
-          <p>{{ error.message || 'There was a problem loading the content. Please try again later.' }}</p>
-          <div v-if="isDevelopment" class="mt-4 text-caption">
-            <strong>Developer Details:</strong>
-            <pre class="error-details mt-2 pa-2">{{ error }}</pre>
+          <!-- User-friendly error message -->
+          <p>{{ userFriendlyErrorMessage }}</p>
+
+          <!-- Actionable information when available -->
+          <div v-if="errorAction" class="mt-3">
+            <v-btn
+              :color="errorSeverity"
+              variant="outlined"
+              size="small"
+              @click="errorAction.handler"
+              :aria-label="errorAction.ariaLabel"
+            >
+              {{ errorAction.label }}
+            </v-btn>
+          </div>
+
+          <!-- Technical details (development only) -->
+          <div v-if="isDevelopment && technicalErrorDetails" class="mt-4 text-caption">
+            <v-expansion-panels variant="accordion">
+              <v-expansion-panel>
+                <v-expansion-panel-title>
+                  <strong>Developer Details</strong>
+                </v-expansion-panel-title>
+                <v-expansion-panel-text>
+                  <div class="error-details pa-2">
+                    <div v-if="error.code" class="mb-2">
+                      <strong>Error Code:</strong> {{ error.code }}
+                    </div>
+                    <div v-if="error.message" class="mb-2">
+                      <strong>Message:</strong> {{ error.message }}
+                    </div>
+                    <div v-if="technicalErrorDetails.stack" class="mb-2">
+                      <strong>Stack Trace:</strong>
+                      <pre class="stack-trace mt-1">{{ technicalErrorDetails.stack }}</pre>
+                    </div>
+                    <div v-if="technicalErrorDetails.context" class="mb-2">
+                      <strong>Context:</strong>
+                      <pre class="context-data mt-1">{{ JSON.stringify(technicalErrorDetails.context, null, 2) }}</pre>
+                    </div>
+                  </div>
+                </v-expansion-panel-text>
+              </v-expansion-panel>
+            </v-expansion-panels>
           </div>
         </v-alert>
 
@@ -80,11 +121,44 @@
                 <!-- Content Renderer -->
                 <v-card-text>
                   <v-divider class="my-4"></v-divider>
-                  <ContentRenderer
-                    :value="content"
-                    class="content-renderer"
-                    @render-complete="onContentRendered"
-                  />
+
+                  <!-- Always attempt to render content with ContentRenderer -->
+                  <div>
+                    <ContentRenderer
+                      :value="content"
+                      class="content-renderer"
+                      @render-complete="onContentRendered"
+                    />
+                  </div>
+
+                  <!-- Fallback for non-standard content structures - only shown when:
+                       1. Content is not detected as renderable by our validation AND
+                       2. Content has not been successfully rendered AND
+                       3. We're not in debug mode -->
+                  <div v-if="(!isContentRenderable && !contentSuccessfullyRendered) || showDebugContentStructure"
+                       class="content-fallback mt-8">
+                    <v-alert
+                      type="info"
+                      :title="showDebugContentStructure ? 'Content Structure Debug' : 'Content Preview'"
+                      variant="tonal"
+                      border="start"
+                      class="mb-4"
+                    >
+                      <template v-if="showDebugContentStructure">
+                        This is a debug view of the content structure.
+                      </template>
+                      <template v-else>
+                        This content is available but uses a non-standard format.
+                      </template>
+                    </v-alert>
+
+                    <div v-if="content && typeof content === 'object'">
+                      <div v-for="(value, key) in contentPreview" :key="key" class="mb-4">
+                        <div class="text-subtitle-1 font-weight-bold">{{ key }}</div>
+                        <pre class="content-preview pa-3">{{ value }}</pre>
+                      </div>
+                    </div>
+                  </div>
                 </v-card-text>
               </v-card>
             </v-slide-y-transition>
@@ -240,9 +314,502 @@ useSeoMeta({
  */
 import { useHead, useSeoMeta, useRuntimeConfig, useAsyncData, useRoute, ref, computed, onMounted, watch } from '#imports';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { useRouter } from 'vue-router';
 
 // Determine if we're in development mode
 const isDevelopment = useRuntimeConfig().public.NODE_ENV === 'development';
+
+// Initialize router for navigation actions
+const router = useRouter();
+
+/**
+ * Error Handling System
+ *
+ * This section implements a comprehensive error handling system for content fetching.
+ * It's designed to:
+ * 1. Provide user-friendly error messages in production
+ * 2. Show detailed technical information in development
+ * 3. Log all errors consistently
+ * 4. Handle specific error types differently
+ * 5. Be extractable into a reusable composable
+ *
+ * The implementation is structured as discrete functions that could be
+ * moved to a separate composable in the future.
+ */
+
+/**
+ * Error type constants
+ *
+ * These constants define the different types of errors that can occur
+ * during content fetching. Using constants instead of string literals
+ * makes the code more maintainable and less prone to typos.
+ *
+ * @type {Object.<string, string>}
+ */
+const ERROR_TYPES = {
+  NETWORK: 'network',
+  NOT_FOUND: 'not_found',
+  INVALID_CONTENT: 'invalid_content',
+  MALFORMED_MARKDOWN: 'malformed_markdown',
+  UNKNOWN: 'unknown'
+};
+
+/**
+ * Technical error details storage
+ *
+ * This reactive object stores detailed technical information about errors
+ * that is only shown in development mode. It's separate from the user-facing
+ * error information.
+ *
+ * @type {import('vue').Ref<Object|null>}
+ */
+const technicalErrorDetails = ref(null);
+
+/**
+ * Error action configuration
+ *
+ * This reactive object stores information about actions that can be taken
+ * to resolve the error, such as retrying or navigating elsewhere.
+ *
+ * @type {import('vue').Ref<Object|null>}
+ */
+const errorAction = ref(null);
+
+/**
+ * Analyze an error to determine its type
+ *
+ * This function examines an error object and its context to determine
+ * what type of error occurred. This allows for more specific error handling
+ * and user messaging.
+ *
+ * @param {Error} err - The error object
+ * @param {Object} context - Additional context about when/where the error occurred
+ * @returns {string} The error type from ERROR_TYPES
+ */
+const analyzeErrorType = (err, context = {}) => {
+  // Check for network-related errors
+  if (
+    err.message?.includes('network') ||
+    err.message?.includes('fetch') ||
+    err.message?.includes('connection') ||
+    err.name === 'NetworkError' ||
+    err.code === 'NETWORK_ERROR' ||
+    err.code === 'ECONNREFUSED' ||
+    err.code === 'ECONNRESET'
+  ) {
+    return ERROR_TYPES.NETWORK;
+  }
+
+  // Check for not found errors
+  if (
+    err.message?.includes('not found') ||
+    err.message?.includes('404') ||
+    err.statusCode === 404 ||
+    err.code === 'NOT_FOUND' ||
+    (context.path && err.message?.includes(context.path))
+  ) {
+    return ERROR_TYPES.NOT_FOUND;
+  }
+
+  // Check for invalid content structure
+  if (
+    err.message?.includes('invalid') ||
+    err.message?.includes('unexpected') ||
+    err.message?.includes('schema') ||
+    err.message?.includes('structure') ||
+    err.code === 'INVALID_CONTENT'
+  ) {
+    return ERROR_TYPES.INVALID_CONTENT;
+  }
+
+  // Check for malformed markdown
+  if (
+    err.message?.includes('markdown') ||
+    err.message?.includes('parse') ||
+    err.message?.includes('syntax') ||
+    err.code === 'MARKDOWN_ERROR'
+  ) {
+    return ERROR_TYPES.MALFORMED_MARKDOWN;
+  }
+
+  // Default to unknown error type
+  return ERROR_TYPES.UNKNOWN;
+};
+
+/**
+ * Create user-friendly error message based on error type
+ *
+ * This function generates appropriate user-facing error messages
+ * based on the type of error that occurred. Messages are designed
+ * to be helpful without exposing technical details.
+ *
+ * @param {string} errorType - The type of error from ERROR_TYPES
+ * @param {Object} context - Additional context about the error
+ * @returns {string} A user-friendly error message
+ */
+const createUserFriendlyMessage = (errorType, context = {}) => {
+  switch (errorType) {
+    case ERROR_TYPES.NETWORK:
+      return 'Unable to load content due to a network issue. Please check your internet connection and try again.';
+
+    case ERROR_TYPES.NOT_FOUND:
+      return `The requested content "${context.path || ''}" could not be found. It may have been moved or deleted.`;
+
+    case ERROR_TYPES.INVALID_CONTENT:
+      return 'The content could not be displayed because it has an invalid structure. Our team has been notified.';
+
+    case ERROR_TYPES.MALFORMED_MARKDOWN:
+      return 'The content could not be displayed due to formatting issues. Our team has been notified.';
+
+    case ERROR_TYPES.UNKNOWN:
+    default:
+      return 'There was a problem loading the content. Please try again later.';
+  }
+};
+
+/**
+ * Create appropriate error action based on error type
+ *
+ * This function defines actions that users can take to resolve
+ * different types of errors, such as retrying or navigating elsewhere.
+ *
+ * @param {string} errorType - The type of error from ERROR_TYPES
+ * @param {Function} retryFn - Function to call to retry the operation
+ * @returns {Object|null} Action configuration or null if no action is available
+ */
+const createErrorAction = (errorType, retryFn) => {
+  switch (errorType) {
+    case ERROR_TYPES.NETWORK:
+    case ERROR_TYPES.UNKNOWN:
+      return {
+        label: 'Retry',
+        handler: retryFn,
+        ariaLabel: 'Retry loading the content'
+      };
+
+    case ERROR_TYPES.NOT_FOUND:
+      return {
+        label: 'Go to Homepage',
+        handler: () => router.push('/'),
+        ariaLabel: 'Navigate to the homepage'
+      };
+
+    // For other error types, no action is provided
+    default:
+      return null;
+  }
+};
+
+/**
+ * Determine error severity for UI display
+ *
+ * This function maps error types to Vuetify alert severities
+ * to provide appropriate visual treatment.
+ *
+ * @param {string} errorType - The type of error from ERROR_TYPES
+ * @returns {string} Vuetify alert type ('error', 'warning', or 'info')
+ */
+const getErrorSeverity = (errorType) => {
+  switch (errorType) {
+    case ERROR_TYPES.NETWORK:
+    case ERROR_TYPES.UNKNOWN:
+      return 'error';
+
+    case ERROR_TYPES.INVALID_CONTENT:
+    case ERROR_TYPES.MALFORMED_MARKDOWN:
+      return 'warning';
+
+    case ERROR_TYPES.NOT_FOUND:
+      return 'info';
+
+    default:
+      return 'error';
+  }
+};
+
+/**
+ * Get appropriate error title based on error type
+ *
+ * This function provides a concise title for the error alert
+ * based on the type of error that occurred.
+ *
+ * @param {string} errorType - The type of error from ERROR_TYPES
+ * @returns {string} A short, descriptive error title
+ */
+const getErrorTitle = (errorType) => {
+  switch (errorType) {
+    case ERROR_TYPES.NETWORK:
+      return 'Network Error';
+
+    case ERROR_TYPES.NOT_FOUND:
+      return 'Content Not Found';
+
+    case ERROR_TYPES.INVALID_CONTENT:
+      return 'Invalid Content Structure';
+
+    case ERROR_TYPES.MALFORMED_MARKDOWN:
+      return 'Content Format Error';
+
+    case ERROR_TYPES.UNKNOWN:
+    default:
+      return 'Error Loading Content';
+  }
+};
+
+/**
+ * Handle content fetching error
+ *
+ * This is the main error handling function that orchestrates the error
+ * handling process. It:
+ * 1. Analyzes the error to determine its type
+ * 2. Creates appropriate user-facing messages and actions
+ * 3. Stores technical details for development mode
+ * 4. Logs the error with the console logger
+ *
+ * This function is designed to be called from the catch block of
+ * content fetching operations.
+ *
+ * @param {Error} err - The error object
+ * @param {Object} context - Additional context about the error
+ * @param {Function} [retryFn] - Optional function to retry the operation
+ */
+const handleContentError = (err, context = {}, retryFn = null) => {
+  // Determine the type of error
+  const errorType = analyzeErrorType(err, context);
+
+  // Store technical details for development mode
+  technicalErrorDetails.value = {
+    errorType,
+    message: err.message,
+    stack: err.stack,
+    code: err.code,
+    context: {
+      ...context,
+      timestamp: new Date().toISOString()
+    }
+  };
+
+  // Set up error action if a retry function is provided
+  if (retryFn) {
+    // Use the retry function directly instead of retryContentFetch
+    errorAction.value = createErrorAction(errorType, retryFn);
+  } else {
+    errorAction.value = null;
+  }
+
+  // Log the error with appropriate detail level based on environment
+  logError('Content error handled', {
+    errorType,
+    message: err.message,
+    path: context.path,
+    // Only include stack trace and full context in development
+    ...(isDevelopment ? {
+      stack: err.stack,
+      fullContext: context
+    } : {})
+  });
+
+  // Return the error type for potential further handling
+  return errorType;
+};
+
+// Note: The refresh function from useAsyncData is used directly for retrying content fetching
+// This approach is more efficient than reloading the entire page with router.go(0)
+
+/**
+ * Determine if content is renderable by ContentRenderer
+ *
+ * This computed property checks if the content has the expected structure
+ * that can be rendered by the ContentRenderer component. If not, we'll
+ * display a fallback view.
+ *
+ * The logic has been made more permissive to handle various content structures
+ * that Nuxt Content might return, especially for standard markdown files.
+ *
+ * @type {import('vue').ComputedRef<boolean>}
+ */
+const isContentRenderable = computed(() => {
+  // First check if content exists
+  if (!content.value) return false;
+
+  // Check if content is an object (required for ContentRenderer)
+  if (typeof content.value !== 'object') return false;
+
+  // IMPORTANT: If content has been successfully rendered, always return true
+  // This prevents false negatives when content renders correctly but structure validation fails
+  if (contentSuccessfullyRendered.value) return true;
+
+  // If we have title and description, it's likely a valid markdown document
+  // This is a common pattern for markdown files with frontmatter
+  if (content.value.title && content.value.description) {
+    return true;
+  }
+
+  // Check for standard Nuxt Content structure with body property
+  if (content.value.body) {
+    // If body is an object with children array, it's the standard structure
+    if (
+      typeof content.value.body === 'object' &&
+      content.value.body.children &&
+      Array.isArray(content.value.body.children)
+    ) {
+      return true;
+    }
+
+    // If body is a string, it might be raw content that can be rendered
+    if (typeof content.value.body === 'string' && content.value.body.trim().length > 0) {
+      return true;
+    }
+
+    // If body has any content property, assume it's renderable
+    // This catches various Nuxt Content structures
+    if (typeof content.value.body === 'object' && Object.keys(content.value.body).length > 0) {
+      return true;
+    }
+  }
+
+  // If we have _id and _path properties, it's likely a Nuxt Content document
+  // even if it doesn't have the expected body structure
+  if (
+    content.value &&
+    (Object.prototype.hasOwnProperty.call(content.value, '_id') ||
+     Object.prototype.hasOwnProperty.call(content.value, '_path') ||
+     Object.prototype.hasOwnProperty.call(content.value, 'path'))
+  ) {
+    return true;
+  }
+
+  // If we have any markdown-specific properties, assume it's renderable
+  if (
+    content.value.excerpt ||
+    content.value.toc ||
+    content.value.readingTime ||
+    content.value.layout
+  ) {
+    return true;
+  }
+
+  // Otherwise, it's not renderable by ContentRenderer
+  return false;
+});
+
+/**
+ * Create a preview of content for non-standard structures
+ *
+ * This computed property creates a simplified view of the content
+ * for display when it can't be rendered by ContentRenderer.
+ *
+ * @type {import('vue').ComputedRef<Object>}
+ */
+const contentPreview = computed(() => {
+  if (!content.value || typeof content.value !== 'object') {
+    return { content: String(content.value) };
+  }
+
+  // Create a safe preview object
+  const preview = {};
+
+  // Add metadata fields
+  if (content.value.title) preview.title = content.value.title;
+  if (content.value.description) preview.description = content.value.description;
+
+  // Add path information if available
+  // Use hasOwnProperty to safely check for properties
+  if (Object.prototype.hasOwnProperty.call(content.value, '_path')) {
+    preview.path = content.value['_path'];
+  } else if (Object.prototype.hasOwnProperty.call(content.value, 'path')) {
+    preview.path = content.value.path;
+  }
+
+  // Handle different body structures
+  if (content.value.body) {
+    if (typeof content.value.body === 'string') {
+      preview.body = content.value.body;
+    } else if (typeof content.value.body === 'object') {
+      // Safely stringify the body object
+      try {
+        preview.body = JSON.stringify(content.value.body, null, 2);
+      } catch (err) {
+        preview.body = '[Complex body structure]';
+      }
+    }
+  }
+
+  // Add other fields that might be useful
+  const otherFields = Object.keys(content.value).filter(key =>
+    !['title', 'description', '_path', 'body'].includes(key) &&
+    !key.startsWith('_')
+  );
+
+  if (otherFields.length > 0) {
+    preview.otherFields = otherFields.map(key => `${key}: ${JSON.stringify(content.value[key])}`).join('\n');
+  }
+
+  return preview;
+});
+
+/**
+ * Computed property for user-friendly error message
+ *
+ * This computed property generates an appropriate user-facing
+ * error message based on the current error.
+ *
+ * @type {import('vue').ComputedRef<string>}
+ */
+const userFriendlyErrorMessage = computed(() => {
+  if (!error.value) return '';
+
+  // If we have technical details with an error type, use that
+  if (technicalErrorDetails.value?.errorType) {
+    return createUserFriendlyMessage(
+      technicalErrorDetails.value.errorType,
+      { path: contentPath }
+    );
+  }
+
+  // Fallback to the error message or a generic message
+  return error.value.message || 'There was a problem loading the content. Please try again later.';
+});
+
+/**
+ * Computed property for error severity
+ *
+ * This computed property determines the appropriate Vuetify
+ * alert type based on the current error.
+ *
+ * @type {import('vue').ComputedRef<string>}
+ */
+const errorSeverity = computed(() => {
+  if (!error.value) return 'error';
+
+  // If we have technical details with an error type, use that
+  if (technicalErrorDetails.value?.errorType) {
+    return getErrorSeverity(technicalErrorDetails.value.errorType);
+  }
+
+  // Default to error severity
+  return 'error';
+});
+
+/**
+ * Computed property for error title
+ *
+ * This computed property generates an appropriate title
+ * for the error alert based on the current error.
+ *
+ * @type {import('vue').ComputedRef<string>}
+ */
+const errorTitle = computed(() => {
+  if (!error.value) return 'Error';
+
+  // If we have technical details with an error type, use that
+  if (technicalErrorDetails.value?.errorType) {
+    return getErrorTitle(technicalErrorDetails.value.errorType);
+  }
+
+  // Default to generic error title
+  return 'Error Loading Content';
+});
 
 /**
  * Initialize console logger with custom content logging
@@ -360,13 +927,39 @@ logContent('Content fetching started', {
 // Use a safe approach that works in both browser and server environments
 const fetchStartTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
 
-// Fetch the content with proper error handling
-const { data: content, pending, error } = await useAsyncData(
+// Fetch the content with enhanced error handling
+const { data: content, pending, error, refresh } = await useAsyncData(
   `content-${contentPath}`, // Use dynamic key based on path
   async () => {
     try {
       // Fetch the content
       const result = await queryCollection('content').path(contentPath).first();
+
+      // Validate content structure with more flexible validation
+      if (result === null || result === undefined) {
+        // Handle missing content explicitly
+        const notFoundError = new Error(`Content not found at path: ${contentPath}`);
+        notFoundError.code = 'NOT_FOUND';
+        throw notFoundError;
+      }
+
+      // Log the content structure for debugging
+      if (isDevelopment) {
+        console.log(`[DEBUG] Content structure for ${contentPath}:`, {
+          type: typeof result,
+          hasBody: result && typeof result === 'object' && 'body' in result,
+          bodyType: result && typeof result === 'object' && result.body ? typeof result.body : 'none',
+          keys: result && typeof result === 'object' ? Object.keys(result) : []
+        });
+      }
+
+      // More permissive validation that accepts different content structures
+      // Nuxt Content can return different structures depending on the content type
+      if (typeof result !== 'object') {
+        const invalidTypeError = new Error(`Invalid content type: expected object, got ${typeof result}`);
+        invalidTypeError.code = 'INVALID_CONTENT';
+        throw invalidTypeError;
+      }
 
       // Calculate fetch duration for performance monitoring
       // Use the same timing API that was used to create the start time
@@ -375,33 +968,72 @@ const { data: content, pending, error } = await useAsyncData(
         : Date.now() - fetchStartTime;
 
       // Log successful content retrieval with detailed information
-      logContent('Content successfully retrieved', {
-        path: contentPath,
-        duration: `${fetchDuration.toFixed(2)}ms`,
-        contentType: result ? typeof result : 'null',
-        hasBody: result && result.body ? true : false,
-        frontmatter: result ? {
-          title: result.title || null,
-          description: result.description || null,
-          hasOtherMetadata: Object.keys(result || {}).filter(key =>
-            !['title', 'description', '_id', '_path', 'body'].includes(key)
-          ).length > 0
-        } : null,
-        // Safely access nested properties with optional chaining
-        bodyLength: result?.body?.children?.length || 0
-      });
+      // Use a try-catch block to ensure logging doesn't cause additional errors
+      try {
+        // Create a safe version of the content structure for logging
+        const safeContentInfo = {
+          path: contentPath,
+          duration: `${fetchDuration.toFixed(2)}ms`,
+          contentType: typeof result,
+          // Safely check for various content structures
+          hasBody: Boolean(result && typeof result === 'object' && 'body' in result),
+          // Extract frontmatter safely
+          frontmatter: result && typeof result === 'object' ? {
+            title: result.title || null,
+            description: result.description || null,
+            hasOtherMetadata: Object.keys(result).filter(key =>
+              !['title', 'description', '_id', '_path', 'body'].includes(key)
+            ).length > 0
+          } : null
+        };
+
+        // Only add body information if it exists and is safe to access
+        if (result && typeof result === 'object' && result.body) {
+          // Handle different body structures
+          if (result.body.children && Array.isArray(result.body.children)) {
+            safeContentInfo.bodyStructure = 'standard';
+            safeContentInfo.bodyLength = result.body.children.length;
+          } else if (typeof result.body === 'string') {
+            safeContentInfo.bodyStructure = 'string';
+            safeContentInfo.bodyLength = result.body.length;
+          } else {
+            safeContentInfo.bodyStructure = 'other';
+            safeContentInfo.bodyKeys = Object.keys(result.body);
+          }
+        }
+
+        logContent('Content successfully retrieved', safeContentInfo);
+      } catch (logError) {
+        // If logging fails, log a simpler message
+        console.warn('Error while logging content info:', logError);
+        logContent('Content successfully retrieved (logging error)', {
+          path: contentPath,
+          error: logError.message
+        });
+      }
+
+      // Clear any previous error state
+      if (technicalErrorDetails.value) {
+        technicalErrorDetails.value = null;
+        errorAction.value = null;
+      }
 
       return result;
     } catch (err) {
-      // Log any errors that occur during content fetching
-      logError('Content fetching failed', {
+      // Use our enhanced error handling system
+      const context = {
         path: contentPath,
-        error: err.message,
-        stack: isDevelopment ? err.stack : 'hidden in production',
-        timestamp: new Date().toISOString()
-      });
+        timestamp: new Date().toISOString(),
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'server-side',
+        fetchStartTime,
+        routeName: route.name
+      };
+
+      // Process the error through our error handling system
+      handleContentError(err, context, () => refresh());
 
       // Re-throw the error to be caught by useAsyncData
+      // This ensures the error state is properly set
       throw err;
     }
   }
@@ -429,6 +1061,20 @@ const pageTitle = computed(() => {
  * Track content rendering time for performance monitoring
  */
 const renderStartTime = ref(0);
+
+/**
+ * Track whether content has been successfully rendered
+ * This is used to prevent showing fallback content when rendering succeeds
+ * even if our structure validation is imperfect
+ */
+const contentSuccessfullyRendered = ref(false);
+
+/**
+ * Debug flag to help diagnose content structure issues
+ * When true, will show both the rendered content and the fallback preview
+ * This is useful for development only
+ */
+const showDebugContentStructure = ref(isDevelopment && false); // Set to true to enable debug mode
 
 /**
  * Called when content starts rendering
@@ -461,6 +1107,10 @@ const onContentRendered = () => {
   // Only run this on the client side where we have access to the DOM
   if (typeof window === 'undefined') return;
 
+  // Mark content as successfully rendered
+  // This is crucial to prevent showing fallback content when rendering succeeds
+  contentSuccessfullyRendered.value = true;
+
   // Only log if we have content and a valid start time
   if (content.value && renderStartTime.value > 0) {
     // Use the same timing API that was used to create the start time
@@ -474,7 +1124,8 @@ const onContentRendered = () => {
       duration: `${renderDuration.toFixed(2)}ms`,
       timestamp: new Date().toISOString(),
       contentTitle: content.value?.title || 'Untitled',
-      contentType: typeof content.value
+      contentType: typeof content.value,
+      renderSuccess: true
     };
 
     // Only add bodySize if we can safely access it
@@ -492,6 +1143,21 @@ const onContentRendered = () => {
       logData.bodySizeError = true;
     }
 
+    // Log content structure for debugging if needed
+    if (isDevelopment) {
+      try {
+        logData.contentStructure = {
+          hasBody: Boolean(content.value?.body),
+          bodyType: content.value?.body ? typeof content.value.body : 'none',
+          hasChildren: Boolean(content.value?.body?.children),
+          childrenIsArray: Array.isArray(content.value?.body?.children),
+          topLevelKeys: Object.keys(content.value || {})
+        };
+      } catch (err) {
+        logData.contentStructureError = err.message;
+      }
+    }
+
     logContent('Content rendering completed', logData);
   }
 };
@@ -507,8 +1173,35 @@ const onContentRendered = () => {
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-word;
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: auto;
+
+  .stack-trace, .context-data {
+    background-color: rgba(0, 0, 0, 0.03);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+}
+
+// Styling for content preview when standard rendering is not possible
+.content-fallback {
+  .content-preview {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    line-height: 1.5;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
 }
 
 // Styling for the content renderer
@@ -628,7 +1321,23 @@ const onContentRendered = () => {
 
 // Ensure proper contrast for dark mode
 :deep(.v-theme--dark) {
-  .error-details,
+  .error-details {
+    background-color: rgba(255, 255, 255, 0.05);
+
+    .stack-trace, .context-data {
+      background-color: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .content-fallback {
+    .content-preview {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
   .code-block {
     background-color: rgba(255, 255, 255, 0.05);
   }
@@ -640,6 +1349,21 @@ const onContentRendered = () => {
 
     :deep(pre) {
       background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  // Improve contrast for error alerts in dark mode
+  .v-alert {
+    &.v-alert--type-error {
+      background-color: rgba(var(--v-theme-error), 0.15);
+    }
+
+    &.v-alert--type-warning {
+      background-color: rgba(var(--v-theme-warning), 0.15);
+    }
+
+    &.v-alert--type-info {
+      background-color: rgba(var(--v-theme-info), 0.15);
     }
   }
 }
