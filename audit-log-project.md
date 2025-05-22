@@ -4,6 +4,98 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-22 (Nuxt Content v3 Demo Fixes)
+- Fixed theme detection and simplified content fetching in the Nuxt Content v3 demo.
+- Files modified:
+  - `pages/sandbox.vue`: Fixed theme detection and removed logging functionality
+- Technical Notes:
+  - Fixed theme detection error by using a more robust client-side approach
+  - Added proper error handling for theme detection
+  - Simplified content fetching by removing verbose logging
+  - Used onMounted hook to ensure theme detection only runs on client-side
+  - Added watch to keep theme state in sync with Vuetify theme changes
+  - Improved code reliability by handling potential undefined values
+
+### 2025-05-22 (Enhanced Nuxt Content v3 Demo)
+- Enhanced the Nuxt Content v3 demonstration page with improved UI and accessibility.
+- Files modified:
+  - `pages/sandbox.vue`: Completely redesigned with polished UI and comprehensive documentation
+- Technical Notes:
+  - Implemented a visually appealing design using Vuetify components
+  - Added proper loading states with v-skeleton-loader for better user experience
+  - Implemented comprehensive error handling with detailed error display
+  - Added animations with v-slide-y-transition and v-expand-transition
+  - Included a "How It Works" section with step-by-step explanation and code examples
+  - Ensured WCAG 2.1 AA compliance with proper contrast, focus states, and ARIA attributes
+  - Added support for reduced motion preferences
+  - Implemented theme-aware styling that adapts to light and dark modes
+  - Used Vue 3 Composition API with <script setup> syntax
+  - Added detailed comments and documentation throughout the code
+  - Fixed conditional rendering issues with proper v-if/v-else structure
+
+### 2025-05-22 (Nuxt Content v3 $content API Fix)
+- Fixed content fetching in the Nuxt Content v3 implementation to use the $content API.
+- Files modified:
+  - `pages/sandbox.vue`: Updated content fetching approach to use the $content API
+- Technical Notes:
+  - Replaced dynamic import with the built-in $content API from useNuxtApp()
+  - Used `$content('sandbox').fetch()` to fetch content
+  - Updated path format to not include a leading slash when using the $content API
+  - Updated error handling to work with the $content API approach
+  - Updated explanation section to reflect the correct API usage
+  - Fixed import errors by using the officially supported API
+  - Ensured compatibility with the specific version of Nuxt Content used in the project
+
+### 2025-05-22 (Nuxt Content v3 API Update)
+- Fixed content fetching in the Nuxt Content v3 implementation to correctly display markdown content.
+- Files modified:
+  - `pages/sandbox.vue`: Updated content fetching approach
+- Technical Notes:
+  - Replaced `queryCollection` with the built-in `queryContent` helper function
+  - Updated path format to include a leading slash when using queryContent
+  - Added array handling for the query results
+  - Improved logging to show more detailed information about the content structure
+  - Updated explanation section to reflect the correct API usage
+  - Fixed hydration mismatch issues by using the correct content fetching approach
+
+### 2025-05-22 (Nuxt Content v3 Error Handling Fixes)
+- Fixed runtime errors in the Nuxt Content v3 implementation.
+- Files modified:
+  - `pages/sandbox.vue`: Fixed process.env references and logger issues
+- Technical Notes:
+  - Replaced direct `process.env.NODE_ENV` references with Nuxt's `useRuntimeConfig()`
+  - Added `isDevelopment` variable to safely check environment
+  - Replaced custom logger with standard console methods to simplify implementation
+  - Fixed conditional rendering in error display component
+  - Improved error handling to prevent runtime exceptions
+  - Maintained detailed error information for development mode
+
+### 2025-05-22 (Nuxt Content v3 Path Fix)
+- Fixed path format in Nuxt Content v3 implementation to correctly fetch markdown content.
+- Files modified:
+  - `pages/sandbox.vue`: Updated path format and enhanced error handling
+- Technical Notes:
+  - Fixed path format by removing the leading slash (changed from `/sandbox` to `sandbox`)
+  - Added detailed error display for development mode to aid debugging
+  - Enhanced documentation to clarify the correct path format for Nuxt Content v3
+  - Added styling for error details to improve readability
+  - Updated explanation section to include notes about path formatting
+  - Improved error handling to show more specific error messages
+
+### 2025-05-22 (Nuxt Content v3 Demonstration)
+- Created a demonstration of Nuxt Content v3 functionality in the sandbox page.
+- Files modified:
+  - `pages/sandbox.vue`: Implemented content fetching and display with Nuxt Content v3
+- Technical Notes:
+  - Used `queryCollection('content')` to fetch markdown content from `/content/sandbox.md`
+  - Implemented the `ContentRenderer` component to display the markdown content
+  - Added proper loading states with v-skeleton-loader for better user experience
+  - Implemented error handling for content fetching failures
+  - Added detailed comments explaining the implementation for educational purposes
+  - Used console logging to track content fetching and rendering
+  - Styled the content with appropriate spacing and typography
+  - Added an explanation section to document how Nuxt Content v3 works
+
 ### 2025-05-21 (Enhanced Theme Switching with Detailed Logging)
 - Enhanced the theme switching functionality with detailed console logging.
 - Files modified:

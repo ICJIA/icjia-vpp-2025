@@ -138,7 +138,7 @@ export default defineNuxtConfig({
       // Exclude these routes from crawling/generation
       ignore: [
         // Development sandbox page
-        '/sandbox'
+        //'/sandbox'
       ]
     }
   },

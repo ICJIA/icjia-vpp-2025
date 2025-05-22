@@ -41,7 +41,7 @@
                     Violence Prevention Plan: 2025-2029
                   </span>
                   <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
-                    IL VPP: 2025
+                    Violence Prevention
                   </span>
                 </div>
               </v-col>
@@ -99,8 +99,9 @@
               color="primary"
               class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
               aria-label="Get Started with our application"
+              to="/sandbox"
             >
-              Get Started
+              Sandbox
             </v-btn>
           </template>
         </AccessibleTooltip>
