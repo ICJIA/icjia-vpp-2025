@@ -99,7 +99,7 @@
               color="primary"
               class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
               aria-label="Get Started with our application"
-              to="/sandbox"
+              to="/sandbox-refactored"
             >
               Sandbox
             </v-btn>
