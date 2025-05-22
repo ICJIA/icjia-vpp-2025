@@ -4,6 +4,54 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-22 (Content Logging Fixes)
+- Fixed error handling and environment compatibility in content logging.
+- Files modified:
+  - `pages/sandbox.vue`: Fixed "Cannot read properties of undefined (reading 'length')" error
+- Technical Notes:
+  - Added proper null checks and optional chaining for all object properties
+  - Implemented safe JSON stringification with fallbacks
+  - Added environment detection for server-side rendering compatibility
+  - Used conditional performance API access based on environment
+  - Added try/catch blocks around potentially problematic operations
+  - Improved client-side detection in lifecycle hooks
+  - Enhanced error handling for content structure access
+  - Maintained all logging functionality while fixing edge cases
+  - Ensured compatibility with both client and server environments
+
+### 2025-05-22 (Content Logging Enhancement)
+- Added comprehensive logging functionality for the content fetching process.
+- Files modified:
+  - `pages/sandbox.vue`: Implemented detailed content logging with useConsoleLogger
+- Technical Notes:
+  - Used the project's existing useConsoleLogger composable for consistency
+  - Added a custom content logging function with cyan color (#00BCD4) for content-related operations
+  - Implemented logging for key content lifecycle events:
+    - Content fetching start (with route and path information)
+    - Content retrieval success (with detailed content structure information)
+    - Content rendering start and completion (with performance metrics)
+    - Content fetching errors (with detailed error information)
+  - Added performance tracking for both fetching and rendering operations
+  - Included detailed context data with each log (timestamps, durations, content metadata)
+  - Ensured logs appear in both development and production environments during pre-launch phase
+  - Added comprehensive comments explaining the logging implementation
+  - Maintained all existing functionality while adding non-intrusive logging
+
+### 2025-05-22 (Dynamic Content Path in Nuxt Content Demo)
+- Enhanced the Nuxt Content v3 demo to use dynamic route-based content paths.
+- Files modified:
+  - `pages/sandbox.vue`: Updated content fetching to use dynamic paths based on route name
+- Technical Notes:
+  - Implemented dynamic content path determination based on current route name
+  - Created a getContentPath utility function to convert route names to content paths
+  - Added handling for nested routes by extracting the last segment of hyphenated route names
+  - Added special handling for index routes
+  - Updated the "How It Works" section to reflect the dynamic path construction
+  - Updated the code example to show the dynamic path implementation
+  - Added detailed comments explaining the path determination logic
+  - Maintained all existing styling, UI components, and functionality
+  - Prepared the foundation for a future generic content fetching component/composable
+
 ### 2025-05-22 (Nuxt Content v3 Demo Fixes)
 - Fixed theme detection and simplified content fetching in the Nuxt Content v3 demo.
 - Files modified:

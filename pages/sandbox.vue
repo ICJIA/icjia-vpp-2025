@@ -83,6 +83,7 @@
                   <ContentRenderer
                     :value="content"
                     class="content-renderer"
+                    @render-complete="onContentRendered"
                   />
                 </v-card-text>
               </v-card>
@@ -134,15 +135,23 @@
                   dot-color="primary"
                   size="small"
                 >
-                  <div class="mb-2 font-weight-bold">Step 2: Fetch Content</div>
-                  <p>We fetch it using <code>queryCollection('content').path('/sandbox').first()</code></p>
+                  <div class="mb-2 font-weight-bold">Step 2: Determine Content Path</div>
+                  <p>We dynamically determine the content path based on the current route name</p>
                 </v-timeline-item>
 
                 <v-timeline-item
                   dot-color="primary"
                   size="small"
                 >
-                  <div class="mb-2 font-weight-bold">Step 3: Handle States</div>
+                  <div class="mb-2 font-weight-bold">Step 3: Fetch Content</div>
+                  <p>We fetch it using <code>queryCollection('content').path(contentPath).first()</code></p>
+                </v-timeline-item>
+
+                <v-timeline-item
+                  dot-color="primary"
+                  size="small"
+                >
+                  <div class="mb-2 font-weight-bold">Step 4: Handle States</div>
                   <p>We implement loading, error, and empty states for better UX</p>
                 </v-timeline-item>
 
@@ -150,7 +159,7 @@
                   dot-color="primary"
                   size="small"
                 >
-                  <div class="mb-2 font-weight-bold">Step 4: Render Content</div>
+                  <div class="mb-2 font-weight-bold">Step 5: Render Content</div>
                   <p>The content is rendered with <code>&lt;ContentRenderer&gt;</code> component</p>
                 </v-timeline-item>
               </v-timeline>
@@ -165,10 +174,26 @@
                   <span class="text-subtitle-1 font-weight-bold">Code Example</span>
                 </div>
                 <pre class="code-block"><code>&lt;script setup&gt;
+// Get the current route
+const route = useRoute();
+
+// Determine content path from route name
+const getContentPath = () => {
+  const routeName = route.name?.toString() || 'default';
+  const baseRouteName = routeName.includes('-')
+    ? routeName.split('-').pop()
+    : routeName;
+
+  return baseRouteName === 'index' ? '/' : `/${baseRouteName}`;
+};
+
+// Get dynamic content path
+const contentPath = getContentPath();
+
 // Fetch content from the markdown file
 const { data: content, pending, error } = await useAsyncData(
-  'sandbox-content',
-  () => queryCollection('content').path('/sandbox').first()
+  `content-${contentPath}`,
+  () => queryCollection('content').path(contentPath).first()
 )
 
 // Use frontmatter for SEO
@@ -213,10 +238,43 @@ useSeoMeta({
  *
  * @page
  */
-import { useHead, useSeoMeta, useRuntimeConfig, useAsyncData, ref, computed, onMounted, watch } from '#imports';
+import { useHead, useSeoMeta, useRuntimeConfig, useAsyncData, useRoute, ref, computed, onMounted, watch } from '#imports';
+import { useConsoleLogger } from '~/composables/useConsoleLogger';
 
 // Determine if we're in development mode
 const isDevelopment = useRuntimeConfig().public.NODE_ENV === 'development';
+
+/**
+ * Initialize console logger with custom content logging
+ *
+ * We're creating a custom content logging function with a distinct color (cyan)
+ * for content-related operations. This helps distinguish content logs from other
+ * types of logs in the console.
+ *
+ * NOTE: Console logging is intentionally enabled in all environments (including production)
+ * during the pre-launch phase for monitoring and debugging purposes.
+ */
+const { log, logError } = useConsoleLogger();
+
+/**
+ * Log content-related events with cyan color
+ *
+ * @param {string} message - The message to log
+ * @param {any} [data] - Optional data to log
+ */
+const logContent = (message, data) => {
+  // Use a custom 'content' category with cyan color (#00BCD4)
+  log('content', message, data);
+};
+
+// Add the custom content color to the console if in development mode
+if (isDevelopment && typeof window !== 'undefined') {
+  // This is just for development visualization in the console
+  console.log(
+    '%c[CONTENT] Color sample for content logs',
+    'color: #00BCD4; font-weight: bold;'
+  );
+}
 
 // Use a simpler approach for theme detection
 const isDark = ref(false);
@@ -248,14 +306,105 @@ useHead({
 });
 
 /**
- * Fetch content from the sandbox.md file in the content directory
+ * Fetch content from the markdown file in the content directory based on current route
  *
  * Uses queryCollection to fetch content from the 'content' collection
- * The path is set to '/sandbox' to match the sandbox.md file
+ * The path is dynamically determined from the current route name
  * We use useAsyncData to handle the async operation with proper loading and error states
  */
-const { data: content, pending, error } = await useAsyncData('sandbox-content', () =>
-  queryCollection('content').path('/sandbox').first()
+
+// Get the current route
+const route = useRoute();
+
+/**
+ * Determine the content path based on the current route name
+ *
+ * This function converts the route name to a content path:
+ * - Removes any parent route segments (everything after the last hyphen)
+ * - Handles index routes by converting them to the appropriate path
+ * - Falls back to 'sandbox' if the route name is undefined or empty
+ *
+ * @returns {string} The content path to fetch
+ */
+const getContentPath = () => {
+  // Get the route name, fallback to 'sandbox' if undefined
+  const routeName = route.name?.toString() || 'sandbox';
+
+  // Handle nested routes by taking only the last part of the route name
+  // For example, 'parent-child' becomes 'child'
+  const baseRouteName = routeName.includes('-')
+    ? routeName.split('-').pop()
+    : routeName;
+
+  // Handle index routes (convert 'index' to appropriate path)
+  if (baseRouteName === 'index') {
+    return '/';
+  }
+
+  // Return the path with leading slash
+  return `/${baseRouteName}`;
+};
+
+// Get the content path for the current route
+const contentPath = getContentPath();
+
+// Log the content fetching start with detailed context
+logContent('Content fetching started', {
+  route: route.name,
+  path: contentPath,
+  timestamp: new Date().toISOString(),
+  userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'server-side',
+});
+
+// Create a timestamp for performance tracking
+// Use a safe approach that works in both browser and server environments
+const fetchStartTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
+
+// Fetch the content with proper error handling
+const { data: content, pending, error } = await useAsyncData(
+  `content-${contentPath}`, // Use dynamic key based on path
+  async () => {
+    try {
+      // Fetch the content
+      const result = await queryCollection('content').path(contentPath).first();
+
+      // Calculate fetch duration for performance monitoring
+      // Use the same timing API that was used to create the start time
+      const fetchDuration = typeof performance !== 'undefined'
+        ? performance.now() - fetchStartTime
+        : Date.now() - fetchStartTime;
+
+      // Log successful content retrieval with detailed information
+      logContent('Content successfully retrieved', {
+        path: contentPath,
+        duration: `${fetchDuration.toFixed(2)}ms`,
+        contentType: result ? typeof result : 'null',
+        hasBody: result && result.body ? true : false,
+        frontmatter: result ? {
+          title: result.title || null,
+          description: result.description || null,
+          hasOtherMetadata: Object.keys(result || {}).filter(key =>
+            !['title', 'description', '_id', '_path', 'body'].includes(key)
+          ).length > 0
+        } : null,
+        // Safely access nested properties with optional chaining
+        bodyLength: result?.body?.children?.length || 0
+      });
+
+      return result;
+    } catch (err) {
+      // Log any errors that occur during content fetching
+      logError('Content fetching failed', {
+        path: contentPath,
+        error: err.message,
+        stack: isDevelopment ? err.stack : 'hidden in production',
+        timestamp: new Date().toISOString()
+      });
+
+      // Re-throw the error to be caught by useAsyncData
+      throw err;
+    }
+  }
 );
 
 /**
@@ -275,6 +424,77 @@ useSeoMeta({
 const pageTitle = computed(() => {
   return content.value?.title || 'Nuxt Content Demo';
 });
+
+/**
+ * Track content rendering time for performance monitoring
+ */
+const renderStartTime = ref(0);
+
+/**
+ * Called when content starts rendering
+ * This is triggered when the content becomes available and rendering begins
+ */
+onMounted(() => {
+  // Only run this on the client side where we have access to the DOM
+  if (typeof window !== 'undefined') {
+    // Check if content is already available
+    if (content.value && !pending.value) {
+      // Use a safe approach for performance tracking
+      renderStartTime.value = typeof performance !== 'undefined'
+        ? performance.now()
+        : Date.now();
+
+      logContent('Content rendering started', {
+        path: contentPath,
+        timestamp: new Date().toISOString(),
+        environment: 'client'
+      });
+    }
+  }
+});
+
+/**
+ * Called when content rendering is complete
+ * This is triggered by the ContentRenderer component's render-complete event
+ */
+const onContentRendered = () => {
+  // Only run this on the client side where we have access to the DOM
+  if (typeof window === 'undefined') return;
+
+  // Only log if we have content and a valid start time
+  if (content.value && renderStartTime.value > 0) {
+    // Use the same timing API that was used to create the start time
+    const renderDuration = typeof performance !== 'undefined'
+      ? performance.now() - renderStartTime.value
+      : Date.now() - renderStartTime.value;
+
+    // Safely create log data with proper null checks
+    const logData = {
+      path: contentPath,
+      duration: `${renderDuration.toFixed(2)}ms`,
+      timestamp: new Date().toISOString(),
+      contentTitle: content.value?.title || 'Untitled',
+      contentType: typeof content.value
+    };
+
+    // Only add bodySize if we can safely access it
+    try {
+      if (content.value?.body) {
+        // Use a safer approach to get body size
+        const bodyString = JSON.stringify(content.value.body || {});
+        logData.bodySize = bodyString ? bodyString.length : 0;
+      } else {
+        logData.bodySize = 0;
+      }
+    } catch (err) {
+      // If there's any error calculating body size, just log it as 0
+      logData.bodySize = 0;
+      logData.bodySizeError = true;
+    }
+
+    logContent('Content rendering completed', logData);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
