@@ -67,6 +67,9 @@ Each item in the `header.items` array can have the following properties:
 | `target` | String | Target attribute for links (e.g., "_blank" to open in new tab) |
 | `rel` | String | Rel attribute for links (e.g., "noopener noreferrer" for security) |
 | `externalIcon` | String | Material Design icon to display next to external links (e.g., "mdi-open-in-new") |
+| `order` | Number | Position in the navigation menu (lower numbers appear first) |
+| `iconOnly` | Boolean | Whether to display only the icon without text |
+| `icon` | String | Material Design icon name for icon-only items |
 
 ### Internal vs External Links
 
@@ -381,6 +384,12 @@ To add a new section to the footer:
    - Always include a `dropdownIcon` to visually indicate dropdown functionality
    - Limit dropdown depth to one level for better usability
    - Keep dropdown items concise and limited to 5-7 items when possible
+5. For navigation item ordering:
+   - Always include an `order` property to control item position
+   - Use increments of 10 (10, 20, 30...) to allow for future insertions
+   - Standard navigation items should have lower order values (10-80)
+   - Icon-only utility items should have higher order values (90+)
+   - Items without an order property will appear at the end
    - Ensure dropdown items have consistent styling using the `dropdown-item` class
    - Include a mix of internal and external links as needed, following the same guidelines
 5. For responsive navigation:

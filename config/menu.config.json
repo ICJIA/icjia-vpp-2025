@@ -27,7 +27,8 @@
         "color": "on-app-bar",
         "class": "font-weight-medium mx-2 nav-link",
         "mobileClass": "font-weight-medium py-2 nav-link-mobile",
-        "displayMode": "both"
+        "displayMode": "both",
+        "order": 10
       },
       {
         "text": "About",
@@ -39,7 +40,8 @@
         "color": "on-app-bar",
         "class": "font-weight-medium mx-2 nav-link",
         "mobileClass": "font-weight-medium py-2 nav-link-mobile",
-        "displayMode": "both"
+        "displayMode": "both",
+        "order": 20
       },
       {
         "text": "Projects",
@@ -54,6 +56,7 @@
         "hasDropdown": true,
         "dropdownIcon": "mdi-chevron-down",
         "mobileDropdownIcon": "mdi-chevron-right",
+        "order": 30,
         "children": [
           {
             "text": "Youth Intervention",
@@ -119,7 +122,23 @@
         "color": "primary",
         "class": "ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down",
         "mobileClass": "font-weight-medium py-2 nav-link-mobile",
-        "displayMode": "both"
+        "displayMode": "both",
+        "order": 40
+      },
+      {
+        "text": "",
+        "to": "/search",
+        "ariaLabel": "Search",
+        "tooltip": "Search",
+        "tooltipLocation": "bottom",
+        "variant": "text",
+        "color": "on-app-bar",
+        "icon": "mdi-magnify",
+        "class": "font-weight-medium mx-2 nav-link",
+        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "displayMode": "both",
+        "iconOnly": true,
+        "order": 95
       },
       {
         "text": "ICJIA",
@@ -135,7 +154,8 @@
         "target": "_blank",
         "rel": "noopener noreferrer",
         "externalIcon": "mdi-open-in-new",
-        "displayMode": "both"
+        "displayMode": "both",
+        "order": 50
       }
     ]
   },

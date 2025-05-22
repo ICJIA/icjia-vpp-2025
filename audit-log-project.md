@@ -4,6 +4,51 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-22 (Navigation Utility Icons Positioning)
+- Refined the navigation ordering to position utility icons together at the end of the navigation bar.
+- Files modified:
+  - `config/menu.config.json`: Updated order property values for navigation items
+- Technical Notes:
+  - Positioned search icon with order value 95 (previously 90) to ensure it appears at the end
+  - Added order value 50 to the ICJIA external link to position it between regular navigation items and utility icons
+  - Ensured search icon and theme switch are positioned directly next to each other
+  - Maintained the ordering pattern with regular links first, external links in the middle, and utility icons at the end
+  - Preserved all existing accessibility features and responsive behavior
+  - Followed the established ordering convention with increments of 10 for regular items and 5 for fine-tuned positioning
+
+### 2025-05-22 (Navigation Ordering Implementation)
+- Implemented explicit ordering of navigation items with search icon positioned at the end of the menu.
+- Files modified:
+  - `config/menu.config.json`: Added 'order' property to all navigation items
+  - `components/content/AppHeader.vue`: Implemented sorting of navigation items based on order property
+  - `config/menu.config.md`: Updated documentation with ordering guidelines
+- Technical Notes:
+  - Added 'order' property to the navigation item schema with increments of 10 (10, 20, 30...)
+  - Implemented a computed property (sortedHeaderItems) to sort navigation items by order
+  - Positioned search icon with a high order value (90) to appear at the end of regular navigation items
+  - Updated both desktop and mobile navigation to use the sorted items
+  - Added comprehensive documentation on the ordering system in menu.config.md
+  - Maintained all existing accessibility features and responsive behavior
+  - Used a consistent ordering pattern that allows for future insertions
+  - Ensured proper keyboard navigation with the new ordering
+
+### 2025-05-22 (Search Navigation Implementation)
+- Added search functionality to the navigation bar with icon and tooltip.
+- Files modified:
+  - `config/menu.config.json`: Added search icon navigation item
+  - `components/content/AppHeader.vue`: Implemented icon-only button display and positioning
+- Technical Notes:
+  - Added mdi-magnify icon from Material Design Icons library
+  - Positioned search icon to the left of the theme switch in desktop navigation
+  - Implemented tooltip with 4-second auto-dismiss on mobile devices
+  - Added proper ARIA attributes for accessibility (aria-label="Search")
+  - Ensured proper contrast ratios for accessibility compliance
+  - Added icon-only display in desktop navigation with tooltip
+  - Added text label in mobile navigation drawer for better usability
+  - Maintained consistent styling and spacing with existing navigation elements
+  - Ensured proper keyboard navigation support
+  - Updated spacing between icons for visual balance
+
 ### 2025-05-22 (Responsive Navigation Implementation)
 - Enhanced the navigation system to implement responsive behavior with mobile and desktop layouts.
 - Files modified:

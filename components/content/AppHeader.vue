@@ -76,8 +76,8 @@
 
       <!-- Desktop navigation (visible on md and up) -->
       <nav class="d-none d-md-flex align-center justify-end" aria-label="Main Navigation">
-        <!-- Dynamically generate navigation items from config -->
-        <template v-for="(item, index) in menuConfig.header.items" :key="index">
+        <!-- Dynamically generate navigation items from config, sorted by order property -->
+        <template v-for="(item, index) in sortedHeaderItems" :key="index">
           <AccessibleTooltip
             v-if="shouldDisplayInDesktop(item)"
             :text="item.tooltip"
@@ -151,7 +151,22 @@
                 </v-card>
               </v-menu>
 
-              <!-- Internal link with Vue Router -->
+              <!-- Icon-only internal link with Vue Router -->
+              <v-btn
+                v-else-if="item.to && !item.isExternal && item.iconOnly"
+                v-bind="props"
+                icon
+                :variant="item.variant"
+                :class="item.class"
+                :to="item.to"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+                :aria-current="route.path === item.to ? 'page' : undefined"
+              >
+                <v-icon :icon="item.icon"></v-icon>
+              </v-btn>
+
+              <!-- Regular internal link with Vue Router -->
               <v-btn
                 v-else-if="item.to && !item.isExternal"
                 v-bind="props"
@@ -221,7 +236,7 @@
         <ThemeSwitch
           :theme="theme"
           @toggle-theme="$emit('toggle-theme')"
-          class="ml-4"
+          class="ml-2"
         />
       </nav>
     </div>
@@ -239,8 +254,8 @@
     aria-label="Mobile Navigation Menu"
   >
     <v-list>
-      <!-- Mobile navigation items -->
-      <template v-for="(item, index) in menuConfig.header.items" :key="index">
+      <!-- Mobile navigation items, sorted by order property -->
+      <template v-for="(item, index) in sortedHeaderItems" :key="index">
         <template v-if="shouldDisplayInMobile(item)">
           <!-- Dropdown menu item -->
           <template v-if="item.hasDropdown">
@@ -307,7 +322,14 @@
             @click="item.href === '/' ? handleHomeClick() : undefined"
           >
             <v-list-item-title class="d-flex align-center">
-              {{ item.text }}
+              <v-icon
+                v-if="item.iconOnly && item.icon"
+                :icon="item.icon"
+                size="default"
+                class="mr-2"
+                aria-hidden="true"
+              ></v-icon>
+              {{ item.iconOnly ? 'Search' : item.text }}
               <v-icon
                 v-if="item.isExternal && item.externalIcon"
                 :icon="item.externalIcon"
@@ -393,6 +415,19 @@ const mobileDrawerOpen = ref(false);
  * State for tracking expanded dropdown menus in mobile view
  */
 const mobileExpandedDropdowns = ref({});
+
+/**
+ * Computed property to sort header items by order property
+ * Items without an order property will be placed at the end
+ */
+const sortedHeaderItems = computed(() => {
+  return [...menuConfig.header.items].sort((a, b) => {
+    // Default order for items without an order property
+    const orderA = a.order || 1000;
+    const orderB = b.order || 1000;
+    return orderA - orderB;
+  });
+});
 
 /**
  * Determine if an item should be displayed in desktop view
