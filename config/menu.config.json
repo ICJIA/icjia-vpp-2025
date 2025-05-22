@@ -10,6 +10,12 @@
       "ariaLabel": "Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
       "tooltip": "Return to homepage"
     },
+    "mobile": {
+      "menuIcon": "mdi-menu",
+      "closeIcon": "mdi-close",
+      "ariaLabel": "Toggle navigation menu",
+      "tooltip": "Toggle navigation menu"
+    },
     "items": [
       {
         "text": "Home",
@@ -19,7 +25,9 @@
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "class": "font-weight-medium mx-2 nav-link"
+        "class": "font-weight-medium mx-2 nav-link",
+        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "displayMode": "both"
       },
       {
         "text": "About",
@@ -29,7 +37,9 @@
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "class": "font-weight-medium mx-2 nav-link"
+        "class": "font-weight-medium mx-2 nav-link",
+        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "displayMode": "both"
       },
       {
         "text": "Projects",
@@ -39,8 +49,11 @@
         "variant": "text",
         "color": "on-app-bar",
         "class": "font-weight-medium mx-2 nav-link",
+        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "displayMode": "both",
         "hasDropdown": true,
         "dropdownIcon": "mdi-chevron-down",
+        "mobileDropdownIcon": "mdi-chevron-right",
         "children": [
           {
             "text": "Youth Intervention",
@@ -49,7 +62,9 @@
             "tooltip": "Learn about youth intervention projects",
             "tooltipLocation": "right",
             "class": "dropdown-item",
-            "color": "on-app-bar"
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
           },
           {
             "text": "Community Outreach",
@@ -58,7 +73,9 @@
             "tooltip": "Learn about community outreach projects",
             "tooltipLocation": "right",
             "class": "dropdown-item",
-            "color": "on-app-bar"
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
           },
           {
             "text": "CDC Violence Prevention",
@@ -67,11 +84,13 @@
             "tooltip": "Visit CDC Violence Prevention website",
             "tooltipLocation": "right",
             "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
             "isExternal": true,
             "target": "_blank",
             "rel": "noopener noreferrer",
-            "externalIcon": "mdi-open-in-new"
+            "externalIcon": "mdi-open-in-new",
+            "displayMode": "both"
           },
           {
             "text": "WHO Violence Prevention",
@@ -80,11 +99,13 @@
             "tooltip": "Visit WHO Violence Prevention resources",
             "tooltipLocation": "right",
             "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
             "isExternal": true,
             "target": "_blank",
             "rel": "noopener noreferrer",
-            "externalIcon": "mdi-open-in-new"
+            "externalIcon": "mdi-open-in-new",
+            "displayMode": "both"
           }
         ]
       },
@@ -96,7 +117,9 @@
         "tooltipLocation": "right",
         "variant": "outlined",
         "color": "primary",
-        "class": "ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
+        "class": "ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down",
+        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "displayMode": "both"
       },
       {
         "text": "ICJIA",
@@ -107,10 +130,12 @@
         "variant": "text",
         "color": "on-app-bar",
         "class": "font-weight-medium mx-2 nav-link",
+        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
         "isExternal": true,
         "target": "_blank",
         "rel": "noopener noreferrer",
-        "externalIcon": "mdi-open-in-new"
+        "externalIcon": "mdi-open-in-new",
+        "displayMode": "both"
       }
     ]
   },

@@ -50,13 +50,38 @@
         </template>
       </AccessibleTooltip>
 
-      <!-- Main navigation -->
-      <nav class="d-flex align-center justify-end" aria-label="Main Navigation">
+      <!-- Mobile hamburger menu button (visible on sm and down) -->
+      <div class="d-md-none">
+        <AccessibleTooltip
+          :text="menuConfig.header.mobile.tooltip"
+          location="bottom"
+        >
+          <template v-slot="{ props }">
+            <v-btn
+              v-bind="props"
+              icon
+              variant="text"
+              color="primary"
+              :aria-label="menuConfig.header.mobile.ariaLabel"
+              @click="mobileDrawerOpen = !mobileDrawerOpen"
+            >
+              <v-icon
+                :icon="mobileDrawerOpen ? menuConfig.header.mobile.closeIcon : menuConfig.header.mobile.menuIcon"
+                size="large"
+              ></v-icon>
+            </v-btn>
+          </template>
+        </AccessibleTooltip>
+      </div>
+
+      <!-- Desktop navigation (visible on md and up) -->
+      <nav class="d-none d-md-flex align-center justify-end" aria-label="Main Navigation">
         <!-- Dynamically generate navigation items from config -->
         <template v-for="(item, index) in menuConfig.header.items" :key="index">
           <AccessibleTooltip
+            v-if="shouldDisplayInDesktop(item)"
             :text="item.tooltip"
-            :location="$vuetify.display.smAndDown ? 'bottom' : item.tooltipLocation || 'bottom'"
+            :location="item.tooltipLocation || 'bottom'"
           >
             <template v-slot="{ props }">
               <!-- Dropdown menu -->
@@ -201,6 +226,112 @@
       </nav>
     </div>
   </v-app-bar>
+
+  <!-- Mobile navigation drawer -->
+  <v-navigation-drawer
+    v-model="mobileDrawerOpen"
+    location="right"
+    temporary
+    width="280"
+    class="mobile-nav-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile Navigation Menu"
+  >
+    <v-list>
+      <!-- Mobile navigation items -->
+      <template v-for="(item, index) in menuConfig.header.items" :key="index">
+        <template v-if="shouldDisplayInMobile(item)">
+          <!-- Dropdown menu item -->
+          <template v-if="item.hasDropdown">
+            <v-list-group
+              :value="mobileExpandedDropdowns[index]"
+              @click="toggleMobileDropdown(index)"
+            >
+              <template v-slot:activator="{ props }">
+                <v-list-item
+                  v-bind="props"
+                  :class="item.mobileClass"
+                  :aria-label="item.ariaLabel"
+                  :aria-expanded="mobileExpandedDropdowns[index] ? 'true' : 'false'"
+                  :aria-haspopup="true"
+                >
+                  <v-list-item-title>{{ item.text }}</v-list-item-title>
+                  <template v-slot:append>
+                    <v-icon
+                      :icon="item.mobileDropdownIcon || 'mdi-chevron-right'"
+                      size="small"
+                      :class="{ 'rotate-90': mobileExpandedDropdowns[index] }"
+                      aria-hidden="true"
+                    ></v-icon>
+                  </template>
+                </v-list-item>
+              </template>
+
+              <!-- Dropdown children -->
+              <template v-for="(child, childIndex) in item.children" :key="`${index}-${childIndex}`">
+                <v-list-item
+                  v-if="shouldDisplayInMobile(child)"
+                  :to="child.to"
+                  :href="child.href"
+                  :target="child.isExternal ? child.target : undefined"
+                  :rel="child.isExternal ? child.rel : undefined"
+                  :class="child.mobileClass"
+                  :aria-label="child.ariaLabel"
+                  @click="child.href === '/' ? handleHomeClick() : undefined"
+                >
+                  <v-list-item-title class="d-flex align-center">
+                    {{ child.text }}
+                    <v-icon
+                      v-if="child.isExternal && child.externalIcon"
+                      :icon="child.externalIcon"
+                      size="small"
+                      class="ml-1"
+                      aria-hidden="true"
+                    ></v-icon>
+                  </v-list-item-title>
+                </v-list-item>
+              </template>
+            </v-list-group>
+          </template>
+
+          <!-- Regular menu item -->
+          <v-list-item
+            v-else
+            :to="item.to"
+            :href="item.href"
+            :target="item.isExternal ? item.target : undefined"
+            :rel="item.isExternal ? item.rel : undefined"
+            :class="item.mobileClass"
+            :aria-label="item.ariaLabel"
+            @click="item.href === '/' ? handleHomeClick() : undefined"
+          >
+            <v-list-item-title class="d-flex align-center">
+              {{ item.text }}
+              <v-icon
+                v-if="item.isExternal && item.externalIcon"
+                :icon="item.externalIcon"
+                size="small"
+                class="ml-1"
+                aria-hidden="true"
+              ></v-icon>
+            </v-list-item-title>
+          </v-list-item>
+        </template>
+      </template>
+
+      <!-- Theme toggle in mobile menu -->
+      <v-list-item class="mt-4">
+        <v-list-item-title>
+          <ThemeSwitch
+            :theme="theme"
+            @toggle-theme="$emit('toggle-theme')"
+            class="ml-2"
+          />
+        </v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script setup>
@@ -248,10 +379,46 @@ const router = useRouter();
 const route = useRoute();
 
 /**
- * State for tracking open dropdown menus
+ * State for tracking open dropdown menus in desktop view
  * Each index corresponds to a navigation item
  */
 const openDropdowns = ref({});
+
+/**
+ * State for tracking mobile navigation drawer
+ */
+const mobileDrawerOpen = ref(false);
+
+/**
+ * State for tracking expanded dropdown menus in mobile view
+ */
+const mobileExpandedDropdowns = ref({});
+
+/**
+ * Determine if an item should be displayed in desktop view
+ * @param {Object} item - Navigation item from config
+ * @returns {boolean} - Whether the item should be displayed in desktop view
+ */
+const shouldDisplayInDesktop = (item) => {
+  return item.displayMode === 'desktop' || item.displayMode === 'both';
+};
+
+/**
+ * Determine if an item should be displayed in mobile view
+ * @param {Object} item - Navigation item from config
+ * @returns {boolean} - Whether the item should be displayed in mobile view
+ */
+const shouldDisplayInMobile = (item) => {
+  return item.displayMode === 'mobile' || item.displayMode === 'both';
+};
+
+/**
+ * Toggle a dropdown menu in mobile view
+ * @param {number} index - Index of the dropdown menu to toggle
+ */
+const toggleMobileDropdown = (index) => {
+  mobileExpandedDropdowns.value[index] = !mobileExpandedDropdowns.value[index];
+};
 
 /**
  * Initialize dropdown state for each navigation item
@@ -261,6 +428,7 @@ onMounted(() => {
   menuConfig.header.items.forEach((item, index) => {
     if (item.hasDropdown) {
       openDropdowns.value[index] = false;
+      mobileExpandedDropdowns.value[index] = false;
     }
   });
 
@@ -374,6 +542,7 @@ const handleHomeClick = () => {
   backdrop-filter: blur(10px);
 }
 
+/* Desktop navigation styles */
 .nav-link {
   position: relative;
   overflow: hidden;
@@ -404,7 +573,7 @@ const handleHomeClick = () => {
   transform: scale(1.05);
 }
 
-/* Dropdown menu styles */
+/* Dropdown menu styles for desktop */
 .dropdown-menu {
   border-radius: 4px;
   min-width: 200px;
@@ -427,6 +596,41 @@ const handleHomeClick = () => {
 .dropdown-item:focus-visible {
   outline: 2px solid var(--v-theme-primary);
   outline-offset: -2px;
+}
+
+/* Mobile navigation styles */
+.mobile-nav-drawer {
+  z-index: 1000;
+}
+
+.nav-link-mobile {
+  transition: background-color 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.nav-link-mobile:hover,
+.nav-link-mobile:focus,
+.nav-link-mobile.router-link-active {
+  background-color: rgba(var(--v-theme-primary), 0.1) !important;
+  border-left-color: var(--v-theme-primary);
+}
+
+.dropdown-item-mobile {
+  transition: background-color 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.dropdown-item-mobile:hover,
+.dropdown-item-mobile:focus,
+.dropdown-item-mobile.router-link-active {
+  background-color: rgba(var(--v-theme-primary), 0.05) !important;
+  border-left-color: var(--v-theme-primary);
+}
+
+/* Animation for mobile dropdown chevron */
+.rotate-90 {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
 }
 
 .v-list-item-title {

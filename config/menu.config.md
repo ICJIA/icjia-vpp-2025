@@ -56,9 +56,12 @@ Each item in the `header.items` array can have the following properties:
 | `tooltipLocation` | String | Position of the tooltip (top, bottom, left, right) |
 | `variant` | String | Button variant (text, outlined, etc.) |
 | `color` | String | Button color (primary, etc.) |
-| `class` | String | Additional CSS classes |
+| `class` | String | Additional CSS classes for desktop view |
+| `mobileClass` | String | Additional CSS classes for mobile view |
+| `displayMode` | String | Where to display the item: 'desktop', 'mobile', or 'both' |
 | `hasDropdown` | Boolean | Set to `true` for items that have dropdown menus |
-| `dropdownIcon` | String | Material Design icon to display next to dropdown menu items (e.g., "mdi-chevron-down") |
+| `dropdownIcon` | String | Material Design icon to display next to dropdown menu items in desktop view (e.g., "mdi-chevron-down") |
+| `mobileDropdownIcon` | String | Material Design icon to display next to dropdown menu items in mobile view (e.g., "mdi-chevron-right") |
 | `children` | Array | Array of child items for dropdowns (same properties as parent) |
 | `isExternal` | Boolean | Set to `true` for external links (links to other websites) |
 | `target` | String | Target attribute for links (e.g., "_blank" to open in new tab) |
@@ -110,13 +113,43 @@ When adding external links, always include these security attributes:
 
 3. **Visual Indicator**: Always include an icon (using the `externalIcon` property) to visually indicate that the link will take users to an external site.
 
+### Responsive Navigation
+
+The navigation system supports responsive behavior with different layouts for desktop and mobile views:
+
+1. **Desktop View (md and up)**: Displays a horizontal navigation bar with dropdown menus
+2. **Mobile View (sm and down)**: Displays a hamburger menu that opens a slide-out drawer
+
+To configure responsive behavior:
+
+1. Use the `displayMode` property to control where items appear:
+   - `"desktop"`: Item only appears in desktop navigation
+   - `"mobile"`: Item only appears in mobile navigation
+   - `"both"`: Item appears in both desktop and mobile navigation (default)
+
+2. Use different styling for desktop and mobile:
+   - `class`: CSS classes for desktop view
+   - `mobileClass`: CSS classes for mobile view
+
+3. Configure mobile-specific properties:
+   - `mobileDropdownIcon`: Icon for dropdown indicators in mobile view
+
+The mobile navigation implementation includes:
+
+- **Slide-out Drawer**: A right-side drawer that appears when the hamburger icon is clicked
+- **Expandable Dropdowns**: Dropdown menus that expand/collapse within the drawer
+- **Consistent Styling**: Visual indicators and styling consistent with desktop view
+- **Accessibility**: Proper ARIA attributes and keyboard navigation
+- **Theme Toggle**: Theme switch included in the mobile menu
+
 ### Dropdown Menus
 
 Dropdown menus allow for hierarchical navigation structures. To create a dropdown menu:
 
 1. Set `hasDropdown: true` on the parent navigation item
-2. Add a `dropdownIcon` (typically "mdi-chevron-down") to visually indicate the dropdown
-3. Define an array of `children` items, each with their own properties
+2. Add a `dropdownIcon` (typically "mdi-chevron-down") for desktop view
+3. Add a `mobileDropdownIcon` (typically "mdi-chevron-right") for mobile view
+4. Define an array of `children` items, each with their own properties
 
 The dropdown implementation includes:
 
@@ -137,8 +170,11 @@ Example dropdown configuration:
   "variant": "text",
   "color": "on-app-bar",
   "class": "font-weight-medium mx-2 nav-link",
+  "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+  "displayMode": "both",
   "hasDropdown": true,
   "dropdownIcon": "mdi-chevron-down",
+  "mobileDropdownIcon": "mdi-chevron-right",
   "children": [
     {
       "text": "Youth Intervention",
@@ -147,7 +183,9 @@ Example dropdown configuration:
       "tooltip": "Learn about youth intervention projects",
       "tooltipLocation": "right",
       "class": "dropdown-item",
-      "color": "on-app-bar"
+      "mobileClass": "dropdown-item-mobile ml-4",
+      "color": "on-app-bar",
+      "displayMode": "both"
     },
     {
       "text": "CDC Violence Prevention",
@@ -156,11 +194,13 @@ Example dropdown configuration:
       "tooltip": "Visit CDC Violence Prevention website",
       "tooltipLocation": "right",
       "class": "dropdown-item",
+      "mobileClass": "dropdown-item-mobile ml-4",
       "color": "on-app-bar",
       "isExternal": true,
       "target": "_blank",
       "rel": "noopener noreferrer",
-      "externalIcon": "mdi-open-in-new"
+      "externalIcon": "mdi-open-in-new",
+      "displayMode": "both"
     }
   ]
 }
@@ -343,9 +383,17 @@ To add a new section to the footer:
    - Keep dropdown items concise and limited to 5-7 items when possible
    - Ensure dropdown items have consistent styling using the `dropdown-item` class
    - Include a mix of internal and external links as needed, following the same guidelines
-5. Maintain consistent styling by using the same classes for similar items
-6. Keep the navigation structure simple and intuitive
-7. Test navigation changes on different screen sizes to ensure responsive behavior
-8. Verify that all external links work correctly and open in new tabs
-9. Test keyboard navigation for dropdown menus to ensure accessibility
-10. Ensure that all links have appropriate ARIA labels for screen readers
+5. For responsive navigation:
+   - Always set `displayMode` for all navigation items (default is "both")
+   - Always provide both `class` and `mobileClass` for consistent styling
+   - Use `mobileDropdownIcon` for dropdown menus in mobile view
+   - Test navigation on both desktop and mobile screen sizes
+   - Ensure mobile drawer opens and closes properly
+   - Verify that dropdown menus expand/collapse correctly in mobile view
+6. Maintain consistent styling by using the same classes for similar items
+7. Keep the navigation structure simple and intuitive
+8. Test navigation changes on different screen sizes to ensure responsive behavior
+9. Verify that all external links work correctly and open in new tabs
+10. Test keyboard navigation for dropdown menus to ensure accessibility
+11. Ensure that all links have appropriate ARIA labels for screen readers
+12. Verify that the theme toggle works correctly in both desktop and mobile views
