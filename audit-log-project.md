@@ -4,6 +4,59 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-22 (Dropdown Menu Implementation in Navigation Configuration)
+- Enhanced the navigation configuration to support hierarchical dropdown menus with both internal and external links.
+- Files modified:
+  - `config/menu.config.json`: Added dropdown menu structure with Projects dropdown
+  - `config/menu.config.md`: Updated documentation with dropdown menu guidelines
+  - `components/content/AppHeader.vue`: Enhanced to properly render dropdown menus with accessibility features
+- Technical Notes:
+  - Added properties for dropdown menus: hasDropdown, dropdownIcon, and children array
+  - Implemented Vuetify v-menu component for dropdown functionality with hover and click support
+  - Added keyboard navigation support with arrow keys and proper focus management
+  - Implemented ARIA attributes for screen readers (aria-haspopup, aria-expanded)
+  - Added visual indicators for dropdown menus with chevron icons
+  - Created comprehensive documentation on dropdown menu implementation
+  - Added detailed examples with both internal and external links in dropdowns
+  - Implemented proper styling for dropdown menus with hover and focus states
+  - Added support for external links within dropdown menus with proper security attributes
+  - Ensured all dropdown functionality is fully accessible with keyboard navigation
+
+### 2025-05-22 (External Links Support in Navigation Configuration)
+- Enhanced the navigation configuration to explicitly support external links with security features.
+- Files modified:
+  - `config/menu.config.json`: Added external link properties and examples
+  - `config/menu.config.md`: Updated documentation with external link guidelines
+  - `components/content/AppHeader.vue`: Enhanced to properly handle external links
+  - `components/content/AppFooter.vue`: Enhanced to properly handle external links
+- Technical Notes:
+  - Added properties for external links: isExternal, target, rel, and externalIcon
+  - Implemented proper security attributes (rel="noopener noreferrer") for external links
+  - Added visual indicators (icons) for external links to improve usability
+  - Created comprehensive documentation on when to use internal vs. external links
+  - Added detailed security considerations for external links in the documentation
+  - Updated both header and footer components to properly handle all link types
+  - Added real-world examples of external links to GitHub and ICJIA website
+  - Maintained all accessibility features for external links
+  - Ensured external links open in new tabs with proper security attributes
+
+### 2025-05-22 (Configuration-Based Navigation Implementation)
+- Created a centralized configuration approach for site navigation to improve maintainability.
+- Files modified/created:
+  - `config/menu.config.json`: Created JSON configuration file for all navigation items
+  - `config/menu.config.md`: Created documentation for the navigation configuration structure
+  - `components/content/AppHeader.vue`: Refactored to use the configuration-based approach
+  - `components/content/AppFooter.vue`: Refactored to use the configuration-based approach
+- Technical Notes:
+  - Implemented a structured JSON configuration that defines all navigation items for both header and footer
+  - Created a clear schema with properties for text, routes, tooltips, aria-labels, and styling
+  - Supported both internal routes (to) and external links (href) with appropriate handling
+  - Maintained all existing accessibility features including tooltips and ARIA attributes
+  - Added support for responsive text variations in branding elements
+  - Implemented dynamic generation of navigation items from configuration
+  - Created comprehensive documentation with usage examples and best practices
+  - Preserved all existing styling and functionality while improving maintainability
+
 ### 2025-05-22 (Simplified Content Fetching Abstraction)
 - Created a minimal abstraction of the content fetching logic from sandbox.vue that can be reused across the project.
 - Files modified:

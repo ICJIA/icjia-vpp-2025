@@ -9,22 +9,22 @@
     <div class="header-container d-flex align-center justify-space-between py-0">
       <!-- Site logo/branding -->
       <AccessibleTooltip
-        text="Return to homepage"
+        :text="menuConfig.header.branding.tooltip"
         :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
       >
         <template v-slot="{ props }">
           <a
-            href="/"
+            :href="menuConfig.header.branding.href"
             class="text-decoration-none"
             v-bind="props"
-            aria-label="Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage"
+            :aria-label="menuConfig.header.branding.ariaLabel"
             @click.prevent="handleHomeClick"
           >
             <v-row no-gutters align="center">
               <v-col cols="auto">
                 <div class="logo d-flex align-center">
                   <v-icon
-                    icon="mdi-cube-outline"
+                    :icon="menuConfig.header.branding.icon"
                     :size="$vuetify.display.smAndDown ? 'large' : 'x-large'"
                     color="primary"
                     :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
@@ -32,16 +32,16 @@
                   />
                   <!-- Responsive title display based on screen size -->
                   <span class="d-none d-xl-block text-h6 font-weight-bold text-primary">
-                    Violence Prevention Plan for Illinois: 2025-2029
+                    {{ menuConfig.header.branding.text }}
                   </span>
                   <span class="d-none d-lg-block d-xl-none text-h6 font-weight-bold text-primary">
-                    Violence Prevention Plan for Illinois: 2025-2029
+                    {{ menuConfig.header.branding.textMd }}
                   </span>
                   <span class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary">
-                    Violence Prevention Plan: 2025-2029
+                    {{ menuConfig.header.branding.textSm }}
                   </span>
                   <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
-                    Violence Prevention
+                    {{ menuConfig.header.branding.textXs }}
                   </span>
                 </div>
               </v-col>
@@ -52,59 +52,146 @@
 
       <!-- Main navigation -->
       <nav class="d-flex align-center justify-end" aria-label="Main Navigation">
-        <AccessibleTooltip
-          text="Navigate to home page"
-          :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
-        >
-          <template v-slot="{ props }">
-            <v-btn
-              v-bind="props"
-              variant="text"
-              class="font-weight-medium mx-2 nav-link"
-              href="/"
-              color="on-app-bar"
-              aria-current="page"
-              @click.prevent="handleHomeClick"
-            >
-              Home
-            </v-btn>
-          </template>
-        </AccessibleTooltip>
+        <!-- Dynamically generate navigation items from config -->
+        <template v-for="(item, index) in menuConfig.header.items" :key="index">
+          <AccessibleTooltip
+            :text="item.tooltip"
+            :location="$vuetify.display.smAndDown ? 'bottom' : item.tooltipLocation || 'bottom'"
+          >
+            <template v-slot="{ props }">
+              <!-- Dropdown menu -->
+              <v-menu
+                v-if="item.hasDropdown"
+                open-on-hover
+                :close-on-content-click="false"
+                location="bottom"
+                offset="5"
+              >
+                <template v-slot:activator="{ props: menuProps }">
+                  <v-btn
+                    v-bind="{ ...props, ...menuProps }"
+                    :variant="item.variant"
+                    :class="item.class"
+                    :color="item.color"
+                    :aria-label="item.ariaLabel"
+                    :aria-haspopup="true"
+                    :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
+                    @focus="openDropdowns[index] = true"
+                    @blur="handleDropdownBlur(index)"
+                    @keydown.esc="openDropdowns[index] = false"
+                    @keydown.down.prevent="focusNextDropdownItem(index, 0)"
+                  >
+                    {{ item.text }}
+                    <v-icon
+                      v-if="item.dropdownIcon"
+                      :icon="item.dropdownIcon"
+                      size="small"
+                      class="ml-1"
+                      aria-hidden="true"
+                    ></v-icon>
+                  </v-btn>
+                </template>
 
-        <AccessibleTooltip
-          text="Learn more about our project"
-          :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
-        >
-          <template v-slot="{ props }">
-            <v-btn
-              v-bind="props"
-              variant="text"
-              class="font-weight-medium mx-2 nav-link"
-              to="/about"
-              color="on-app-bar"
-            >
-              About
-            </v-btn>
-          </template>
-        </AccessibleTooltip>
+                <v-card class="dropdown-menu" elevation="4">
+                  <v-list density="compact" nav>
+                    <v-list-item
+                      v-for="(child, childIndex) in item.children"
+                      :key="childIndex"
+                      :value="childIndex"
+                      :to="child.to"
+                      :href="child.href"
+                      :target="child.isExternal ? child.target : undefined"
+                      :rel="child.isExternal ? child.rel : undefined"
+                      :aria-label="child.ariaLabel"
+                      :class="child.class"
+                      :color="child.color"
+                      @focus="openDropdowns[index] = true"
+                      @keydown.esc="openDropdowns[index] = false"
+                      @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
+                      @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
+                      @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
+                    >
+                      <v-list-item-title>
+                        {{ child.text }}
+                        <v-icon
+                          v-if="child.isExternal && child.externalIcon"
+                          :icon="child.externalIcon"
+                          size="small"
+                          class="ml-1"
+                          aria-hidden="true"
+                        ></v-icon>
+                      </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-card>
+              </v-menu>
 
-        <AccessibleTooltip
-          text="Begin using our application"
-          :location="$vuetify.display.smAndDown ? 'bottom' : 'right'"
-        >
-          <template v-slot="{ props }">
-            <v-btn
-              v-bind="props"
-              variant="outlined"
-              color="primary"
-              class="ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
-              aria-label="Get Started with our application"
-              to="/sandbox-refactored"
-            >
-              Sandbox
-            </v-btn>
-          </template>
-        </AccessibleTooltip>
+              <!-- Internal link with Vue Router -->
+              <v-btn
+                v-else-if="item.to && !item.isExternal"
+                v-bind="props"
+                :variant="item.variant"
+                :class="item.class"
+                :to="item.to"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+                :aria-current="route.path === item.to ? 'page' : undefined"
+              >
+                {{ item.text }}
+              </v-btn>
+
+              <!-- Home link with special handling -->
+              <v-btn
+                v-else-if="item.href === '/'"
+                v-bind="props"
+                :variant="item.variant"
+                :class="item.class"
+                :href="item.href"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+                :aria-current="route.path === '/' ? 'page' : undefined"
+                @click.prevent="handleHomeClick"
+              >
+                {{ item.text }}
+              </v-btn>
+
+              <!-- External link -->
+              <v-btn
+                v-else-if="item.isExternal"
+                v-bind="props"
+                :variant="item.variant"
+                :class="item.class"
+                :href="item.href"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+                :target="item.target"
+                :rel="item.rel"
+              >
+                {{ item.text }}
+                <v-icon
+                  v-if="item.externalIcon"
+                  :icon="item.externalIcon"
+                  size="small"
+                  class="ml-1"
+                  aria-hidden="true"
+                ></v-icon>
+              </v-btn>
+
+              <!-- Default link (internal non-router links) -->
+              <v-btn
+                v-else
+                v-bind="props"
+                :variant="item.variant"
+                :class="item.class"
+                :href="item.href"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+              >
+                {{ item.text }}
+              </v-btn>
+            </template>
+          </AccessibleTooltip>
+        </template>
 
         <ThemeSwitch
           :theme="theme"
@@ -127,12 +214,14 @@
  * - Tooltips for improved usability
  * - Proper ARIA attributes for accessibility
  * - Scroll to top functionality for homepage links
+ * - Configuration-based navigation structure
  *
  * @component
  */
 import ThemeSwitch from './ThemeSwitch.vue';
 import AccessibleTooltip from './AccessibleTooltip.vue';
-import { useRouter, useRoute } from '#imports';
+import { useRouter, useRoute, ref, onMounted, onBeforeUnmount } from '#imports';
+import menuConfig from '~/config/menu.config.json';
 
 /**
  * Component props
@@ -157,6 +246,112 @@ defineEmits(['toggle-theme']);
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const route = useRoute();
+
+/**
+ * State for tracking open dropdown menus
+ * Each index corresponds to a navigation item
+ */
+const openDropdowns = ref({});
+
+/**
+ * Initialize dropdown state for each navigation item
+ */
+onMounted(() => {
+  // Initialize all dropdowns as closed
+  menuConfig.header.items.forEach((item, index) => {
+    if (item.hasDropdown) {
+      openDropdowns.value[index] = false;
+    }
+  });
+
+  // Add global click handler to close dropdowns when clicking outside
+  if (typeof window !== 'undefined') {
+    window.addEventListener('click', handleOutsideClick);
+  }
+});
+
+/**
+ * Clean up event listeners on component unmount
+ */
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('click', handleOutsideClick);
+  }
+});
+
+/**
+ * Close dropdowns when clicking outside
+ */
+const handleOutsideClick = (event) => {
+  // Check if click is outside dropdown menus and their activators
+  const isOutsideDropdown = !event.target.closest('.v-menu') &&
+                           !event.target.closest('.v-btn[aria-haspopup="true"]');
+
+  if (isOutsideDropdown) {
+    // Close all dropdowns
+    Object.keys(openDropdowns.value).forEach(key => {
+      openDropdowns.value[key] = false;
+    });
+  }
+};
+
+/**
+ * Handle blur events on dropdown activator buttons
+ * Delay closing to allow focus to move to dropdown items
+ */
+const handleDropdownBlur = (index) => {
+  setTimeout(() => {
+    // Check if focus is still within the dropdown
+    const activeElement = document.activeElement;
+    const isInDropdown = activeElement &&
+                        (activeElement.closest('.v-menu') ||
+                         activeElement.getAttribute('aria-haspopup') === 'true');
+
+    if (!isInDropdown) {
+      openDropdowns.value[index] = false;
+    }
+  }, 100);
+};
+
+/**
+ * Focus the next item in a dropdown menu
+ */
+const focusNextDropdownItem = (dropdownIndex, currentItemIndex) => {
+  const dropdown = document.querySelectorAll('.v-menu')[dropdownIndex];
+  if (!dropdown) return;
+
+  const items = dropdown.querySelectorAll('.v-list-item');
+  const nextIndex = currentItemIndex + 1 < items.length ? currentItemIndex + 1 : 0;
+
+  if (items[nextIndex]) {
+    items[nextIndex].focus();
+  }
+};
+
+/**
+ * Focus the previous item in a dropdown menu
+ */
+const focusPrevDropdownItem = (dropdownIndex, currentItemIndex) => {
+  const dropdown = document.querySelectorAll('.v-menu')[dropdownIndex];
+  if (!dropdown) return;
+
+  const items = dropdown.querySelectorAll('.v-list-item');
+  const prevIndex = currentItemIndex - 1 >= 0 ? currentItemIndex - 1 : items.length - 1;
+
+  if (items[prevIndex]) {
+    items[prevIndex].focus();
+  }
+};
+
+/**
+ * Handle tab key in dropdown menu to ensure proper focus management
+ */
+const handleDropdownTabKey = (dropdownIndex, currentItemIndex, totalItems, event) => {
+  // If tabbing from the last item, close the dropdown
+  if (currentItemIndex === totalItems - 1 && !event.shiftKey) {
+    openDropdowns.value[dropdownIndex] = false;
+  }
+};
 
 /**
  * Handle click on home links
@@ -207,6 +402,36 @@ const handleHomeClick = () => {
 
 .logo:hover {
   transform: scale(1.05);
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  border-radius: 4px;
+  min-width: 200px;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-left: 3px solid transparent;
+  padding-left: 16px !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: rgba(var(--v-theme-primary), 0.1) !important;
+  border-left-color: var(--v-theme-primary);
+}
+
+.dropdown-item:focus-visible {
+  outline: 2px solid var(--v-theme-primary);
+  outline-offset: -2px;
+}
+
+.v-list-item-title {
+  display: flex;
+  align-items: center;
 }
 
 .header-container {

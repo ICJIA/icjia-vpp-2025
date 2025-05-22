@@ -10,13 +10,19 @@
         <v-col cols="12" md="4">
           <div class="footer-branding">
             <AccessibleTooltip
-              text="Return to homepage"
+              :text="menuConfig.footer.branding.tooltip"
               :location="$vuetify.display.smAndDown ? 'top' : 'top'"
             >
               <template v-slot="{ props }">
-                <a href="/" class="d-flex align-center text-decoration-none" v-bind="props" aria-label="VPPI - Return to homepage" @click.prevent="handleHomeClick">
+                <a
+                  :href="menuConfig.footer.branding.href"
+                  class="d-flex align-center text-decoration-none"
+                  v-bind="props"
+                  :aria-label="menuConfig.footer.branding.ariaLabel"
+                  @click.prevent="handleHomeClick"
+                >
                   <v-icon
-                    icon="mdi-cube-outline"
+                    :icon="menuConfig.footer.branding.icon"
                     :size="$vuetify.display.smAndDown ? 'medium' : 'large'"
                     color="primary"
                     :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
@@ -24,116 +30,102 @@
                   />
                   <!-- Responsive title display based on screen size -->
                   <span class="d-none d-xl-block text-subtitle-1 font-weight-bold text-primary">
-                    Violence Prevention Plan for Illinois: 2025-2029
+                    {{ menuConfig.footer.branding.text }}
                   </span>
                   <span class="d-none d-lg-block d-xl-none text-subtitle-1 font-weight-bold text-primary">
-                    Violence Prevention Plan for Illinois: 2025-2029
+                    {{ menuConfig.footer.branding.textMd }}
                   </span>
                   <span class="d-none d-sm-block d-lg-none text-subtitle-2 font-weight-bold text-primary">
-                    Illinois Violence Prevention Plan
+                    {{ menuConfig.footer.branding.textSm }}
                   </span>
                   <span class="d-block d-sm-none text-subtitle-2 font-weight-bold text-primary">
-                   Illinois Violence Prevention Plan
+                   {{ menuConfig.footer.branding.textXs }}
                   </span>
                 </a>
               </template>
             </AccessibleTooltip>
             <p class="mt-4 text-body-2 max-width-300 footer-description">
-              Tempor magna proident qui dolore ipsum ut mollit reprehenderit labore duis. Qui commodo culpa ullamco in sit veniam id minim laborum velit. Duis cillum nisi sint minim sint reprehenderit amet eu consectetur officia do.
+              {{ menuConfig.footer.description }}
             </p>
           </div>
         </v-col>
 
         <v-col cols="12" md="8" class="d-flex justify-end">
           <nav aria-label="Footer Navigation" class="d-flex justify-end w-100">
-            <div class="d-flex flex-column mr-8">
-              <h2 class="text-subtitle-1 font-weight-bold mb-4">Navigation</h2>
+            <!-- Dynamically generate footer sections from config -->
+            <div
+              v-for="(section, sectionIndex) in menuConfig.footer.sections"
+              :key="sectionIndex"
+              class="d-flex flex-column"
+              :class="sectionIndex < menuConfig.footer.sections.length - 1 ? 'mr-8' : ''"
+            >
+              <h2 class="text-subtitle-1 font-weight-bold mb-4">{{ section.title }}</h2>
 
-              <AccessibleTooltip
-                text="Navigate to home page"
-                :location="$vuetify.display.smAndDown ? 'top' : 'left'"
-              >
-                <template v-slot="{ props }">
-                  <a href="/" class="footer-link mb-2" v-bind="props" @click.prevent="handleHomeClick">Home</a>
-                </template>
-              </AccessibleTooltip>
+              <!-- Generate items for each section -->
+              <template v-for="(item, itemIndex) in section.items" :key="`${sectionIndex}-${itemIndex}`">
+                <AccessibleTooltip
+                  :text="item.tooltip"
+                  :location="$vuetify.display.smAndDown ? 'top' : item.tooltipLocation"
+                >
+                  <template v-slot="{ props }">
+                    <!-- Use nuxt-link for internal routes with 'to' property -->
+                    <nuxt-link
+                      v-if="item.to && !item.isExternal"
+                      :to="item.to"
+                      :class="item.class"
+                      v-bind="props"
+                      :aria-label="item.ariaLabel"
+                    >
+                      {{ item.text }}
+                    </nuxt-link>
 
-              <AccessibleTooltip
-                text="Learn more about our project"
-                :location="$vuetify.display.smAndDown ? 'top' : 'left'"
-              >
-                <template v-slot="{ props }">
-                  <nuxt-link to="/about" class="footer-link mb-2" v-bind="props">About</nuxt-link>
-                </template>
-              </AccessibleTooltip>
-            </div>
+                    <!-- Home link with special handling -->
+                    <a
+                      v-else-if="item.href === '/'"
+                      :href="item.href"
+                      :class="item.class"
+                      v-bind="props"
+                      :aria-label="item.ariaLabel"
+                      @click.prevent="handleHomeClick"
+                    >
+                      {{ item.text }}
+                    </a>
 
-            <div class="d-flex flex-column mr-8">
-              <h2 class="text-subtitle-1 font-weight-bold mb-4">Connect</h2>
+                    <!-- External link with additional attributes -->
+                    <a
+                      v-else-if="item.isExternal"
+                      :href="item.href"
+                      :class="item.class"
+                      v-bind="props"
+                      :aria-label="item.ariaLabel"
+                      :target="item.target"
+                      :rel="item.rel"
+                    >
+                      <span class="d-flex align-center">
+                        {{ item.text }}
+                        <v-icon
+                          v-if="item.externalIcon"
+                          :icon="item.externalIcon"
+                          size="small"
+                          class="ml-1"
+                          aria-hidden="true"
+                        ></v-icon>
+                      </span>
+                    </a>
 
-              <AccessibleTooltip
-                text="View our code on GitHub"
-                :location="$vuetify.display.smAndDown ? 'top' : 'top'"
-              >
-                <template v-slot="{ props }">
-                  <a href="#" class="footer-link mb-2" v-bind="props" aria-label="GitHub">GitHub</a>
-                </template>
-              </AccessibleTooltip>
-
-              <AccessibleTooltip
-                text="Connect with us on LinkedIn"
-                :location="$vuetify.display.smAndDown ? 'top' : 'top'"
-              >
-                <template v-slot="{ props }">
-                  <a href="#" class="footer-link mb-2" v-bind="props" aria-label="LinkedIn">LinkedIn</a>
-                </template>
-              </AccessibleTooltip>
-            </div>
-
-            <div class="d-flex flex-column mr-8">
-              <h2 class="text-subtitle-1 font-weight-bold mb-4">Legal</h2>
-
-              <AccessibleTooltip
-                text="Read our privacy policy"
-                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
-              >
-                <template v-slot="{ props }">
-                  <a href="/privacy-policy.html" class="footer-link mb-2" v-bind="props" aria-label="Privacy Policy">Privacy Policy</a>
-                </template>
-              </AccessibleTooltip>
-
-              <AccessibleTooltip
-                text="View our terms of service"
-                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
-              >
-                <template v-slot="{ props }">
-                  <a href="/terms-of-service.html" class="footer-link mb-2" v-bind="props" aria-label="Terms of Service">Terms of Service</a>
-                </template>
-              </AccessibleTooltip>
-            </div>
-
-            <div class="d-flex flex-column">
-              <h2 class="text-subtitle-1 font-weight-bold mb-4">Accessibility</h2>
-
-               <AccessibleTooltip
-                text="View our accessibility audit log"
-                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
-              >
-                <template v-slot="{ props }">
-                  <a href="/audit-log-accessibility.html" class="footer-link mb-2" v-bind="props" aria-label="Accessibility Audit Log">Audit Log</a>
-                </template>
-              </AccessibleTooltip>
-
-              <AccessibleTooltip
-                text="View our accessibility documentation"
-                :location="$vuetify.display.smAndDown ? 'top' : 'right'"
-              >
-                <template v-slot="{ props }">
-                  <a href="/accessibility-documentation.html" class="footer-link mb-2" v-bind="props" aria-label="Accessibility Documentation">Documentation</a>
-                </template>
-              </AccessibleTooltip>
-
-
+                    <!-- Default link (internal non-router links) -->
+                    <a
+                      v-else
+                      :href="item.href"
+                      :class="item.class"
+                      v-bind="props"
+                      :aria-label="item.ariaLabel"
+                    >
+                      {{ item.text }}
+                    </a>
+                  </template>
+                </AccessibleTooltip>
+              </template>
             </div>
           </nav>
         </v-col>
@@ -142,7 +134,7 @@
       <v-divider class="mb-6" aria-hidden="true"></v-divider>
 
       <div class="text-center text-body-2 footer-copyright" role="contentinfo">
-        <small>&copy; {{ new Date().getFullYear() }} Illinois Criminal Justice Information Authority. All rights reserved.</small>
+        <small>{{ menuConfig.footer.copyright.replace('{year}', new Date().getFullYear()) }}</small>
       </div>
     </div>
   </v-footer>
@@ -161,10 +153,13 @@
  * - Tooltips for improved usability
  * - Proper ARIA attributes for accessibility
  * - Scroll to top functionality for homepage links
+ * - Configuration-based navigation structure
  *
  * @component
  */
 import { useRouter, useRoute } from '#imports';
+import AccessibleTooltip from './AccessibleTooltip.vue';
+import menuConfig from '~/config/menu.config.json';
 
 // Get Nuxt app instance to access plugins
 const nuxtApp = useNuxtApp();

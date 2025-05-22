@@ -1,0 +1,225 @@
+{
+  "header": {
+    "branding": {
+      "icon": "mdi-cube-outline",
+      "text": "Violence Prevention Plan for Illinois: 2025-2029",
+      "textMd": "Violence Prevention Plan for Illinois: 2025-2029",
+      "textSm": "Violence Prevention Plan: 2025-2029",
+      "textXs": "Violence Prevention",
+      "href": "/",
+      "ariaLabel": "Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
+      "tooltip": "Return to homepage"
+    },
+    "items": [
+      {
+        "text": "Home",
+        "href": "/",
+        "ariaLabel": "Navigate to home page",
+        "tooltip": "Navigate to home page",
+        "tooltipLocation": "bottom",
+        "variant": "text",
+        "color": "on-app-bar",
+        "class": "font-weight-medium mx-2 nav-link"
+      },
+      {
+        "text": "About",
+        "to": "/about",
+        "ariaLabel": "Learn more about our project",
+        "tooltip": "Learn more about our project",
+        "tooltipLocation": "bottom",
+        "variant": "text",
+        "color": "on-app-bar",
+        "class": "font-weight-medium mx-2 nav-link"
+      },
+      {
+        "text": "Projects",
+        "ariaLabel": "Browse our projects",
+        "tooltip": "Browse our violence prevention projects",
+        "tooltipLocation": "bottom",
+        "variant": "text",
+        "color": "on-app-bar",
+        "class": "font-weight-medium mx-2 nav-link",
+        "hasDropdown": true,
+        "dropdownIcon": "mdi-chevron-down",
+        "children": [
+          {
+            "text": "Youth Intervention",
+            "to": "/projects/youth-intervention",
+            "ariaLabel": "Learn about youth intervention projects",
+            "tooltip": "Learn about youth intervention projects",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "color": "on-app-bar"
+          },
+          {
+            "text": "Community Outreach",
+            "to": "/projects/community-outreach",
+            "ariaLabel": "Learn about community outreach projects",
+            "tooltip": "Learn about community outreach projects",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "color": "on-app-bar"
+          },
+          {
+            "text": "CDC Violence Prevention",
+            "href": "https://www.cdc.gov/violenceprevention/",
+            "ariaLabel": "Visit CDC Violence Prevention website",
+            "tooltip": "Visit CDC Violence Prevention website",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "color": "on-app-bar",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-open-in-new"
+          },
+          {
+            "text": "WHO Violence Prevention",
+            "href": "https://www.who.int/health-topics/violence",
+            "ariaLabel": "Visit WHO Violence Prevention resources",
+            "tooltip": "Visit WHO Violence Prevention resources",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "color": "on-app-bar",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-open-in-new"
+          }
+        ]
+      },
+      {
+        "text": "Sandbox",
+        "to": "/sandbox-refactored",
+        "ariaLabel": "Get Started with our application",
+        "tooltip": "Begin using our application",
+        "tooltipLocation": "right",
+        "variant": "outlined",
+        "color": "primary",
+        "class": "ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down"
+      },
+      {
+        "text": "ICJIA",
+        "href": "https://icjia.illinois.gov",
+        "ariaLabel": "Visit the Illinois Criminal Justice Information Authority website",
+        "tooltip": "Visit the Illinois Criminal Justice Information Authority website",
+        "tooltipLocation": "bottom",
+        "variant": "text",
+        "color": "on-app-bar",
+        "class": "font-weight-medium mx-2 nav-link",
+        "isExternal": true,
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "externalIcon": "mdi-open-in-new"
+      }
+    ]
+  },
+  "footer": {
+    "branding": {
+      "icon": "mdi-cube-outline",
+      "text": "Violence Prevention Plan for Illinois: 2025-2029",
+      "textMd": "Violence Prevention Plan for Illinois: 2025-2029",
+      "textSm": "Illinois Violence Prevention Plan",
+      "textXs": "Illinois Violence Prevention Plan",
+      "href": "/",
+      "ariaLabel": "VPPI - Return to homepage",
+      "tooltip": "Return to homepage"
+    },
+    "description": "Tempor magna proident qui dolore ipsum ut mollit reprehenderit labore duis. Qui commodo culpa ullamco in sit veniam id minim laborum velit. Duis cillum nisi sint minim sint reprehenderit amet eu consectetur officia do.",
+    "sections": [
+      {
+        "title": "Navigation",
+        "items": [
+          {
+            "text": "Home",
+            "href": "/",
+            "ariaLabel": "Navigate to home page",
+            "tooltip": "Navigate to home page",
+            "tooltipLocation": "left",
+            "class": "footer-link mb-2"
+          },
+          {
+            "text": "About",
+            "to": "/about",
+            "ariaLabel": "Learn more about our project",
+            "tooltip": "Learn more about our project",
+            "tooltipLocation": "left",
+            "class": "footer-link mb-2"
+          }
+        ]
+      },
+      {
+        "title": "Connect",
+        "items": [
+          {
+            "text": "GitHub",
+            "href": "https://github.com/ICJIA/icjia-vpp-2025",
+            "ariaLabel": "View our code on GitHub",
+            "tooltip": "View our code on GitHub",
+            "tooltipLocation": "top",
+            "class": "footer-link mb-2",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-github"
+          },
+          {
+            "text": "ICJIA Website",
+            "href": "https://icjia.illinois.gov",
+            "ariaLabel": "Visit the Illinois Criminal Justice Information Authority website",
+            "tooltip": "Visit the Illinois Criminal Justice Information Authority website",
+            "tooltipLocation": "top",
+            "class": "footer-link mb-2",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-open-in-new"
+          }
+        ]
+      },
+      {
+        "title": "Legal",
+        "items": [
+          {
+            "text": "Privacy Policy",
+            "href": "/privacy-policy.html",
+            "ariaLabel": "Privacy Policy",
+            "tooltip": "Read our privacy policy",
+            "tooltipLocation": "right",
+            "class": "footer-link mb-2"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "/terms-of-service.html",
+            "ariaLabel": "Terms of Service",
+            "tooltip": "View our terms of service",
+            "tooltipLocation": "right",
+            "class": "footer-link mb-2"
+          }
+        ]
+      },
+      {
+        "title": "Accessibility",
+        "items": [
+          {
+            "text": "Audit Log",
+            "href": "/audit-log-accessibility.html",
+            "ariaLabel": "Accessibility Audit Log",
+            "tooltip": "View our accessibility audit log",
+            "tooltipLocation": "right",
+            "class": "footer-link mb-2"
+          },
+          {
+            "text": "Documentation",
+            "href": "/accessibility-documentation.html",
+            "ariaLabel": "Accessibility Documentation",
+            "tooltip": "View our accessibility documentation",
+            "tooltipLocation": "right",
+            "class": "footer-link mb-2"
+          }
+        ]
+      }
+    ],
+    "copyright": "© {year} Illinois Criminal Justice Information Authority. All rights reserved."
+  }
+}
