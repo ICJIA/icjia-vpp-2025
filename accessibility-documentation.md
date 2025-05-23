@@ -1,8 +1,8 @@
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 21, 2025**
+**Last Updated: May 23, 2025**
 
-> **Documentation Update**: We've conducted our weekly accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We've also enhanced our code documentation throughout the project to better explain accessibility features, making it easier for developers to understand and maintain our accessibility implementations.
+> **Documentation Update**: We've conducted our comprehensive accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We've enhanced our tooltip accessibility with the AccessibleTooltip component, improved screen reader announcements with the useAnnouncer composable, and added better documentation access with the useAccessibilityDocs composable. These enhancements further strengthen our commitment to providing an accessible experience for all users.
 
 The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.
 
@@ -58,12 +58,15 @@ Our site adapts to different screen sizes and zoom levels:
 ### Additional Accessibility Features
 
 - **High Contrast**: All text meets WCAG 2.1 AA contrast requirements (4.5:1 ratio minimum), with many elements exceeding this to approach AAA levels (7:1 ratio) where possible
-- **Focus Indicators**: Visible focus indicators for all interactive elements
-- **Reduced Motion**: Respects the `prefers-reduced-motion` setting to minimize animations
-- **Text Spacing**: Supports increased text spacing without loss of content
-- **Consistent Navigation**: Predictable navigation patterns throughout the site
-- **Error Identification**: Clear error messages with suggestions for correction
-- **Descriptive Tooltips**: Additional context provided via tooltips on navigation items
+- **Focus Indicators**: Visible focus indicators for all interactive elements that match hover states for consistency
+- **Reduced Motion**: Respects the `prefers-reduced-motion` setting to minimize animations through CSS media queries
+- **Text Spacing**: Supports increased text spacing without loss of content or functionality
+- **Consistent Navigation**: Predictable navigation patterns throughout the site with clear visual and semantic structure
+- **Error Identification**: Clear error messages with suggestions for correction and proper ARIA attributes
+- **Descriptive Tooltips**: Additional context provided via tooltips with auto-dismiss functionality on mobile devices
+- **Screen Reader Announcements**: Dynamic content changes are announced to screen readers using ARIA live regions
+- **Semantic Structure**: Proper use of HTML5 semantic elements and ARIA landmarks throughout the site
+- **Accessible Images**: All images have appropriate alt text, loading states, and proper ARIA attributes
 
 ## Assistive Technology Compatibility
 
@@ -73,12 +76,36 @@ Our website has been tested with the following assistive technologies:
 - Browser compatibility: Chrome, Firefox, Safari, Edge
 - Mobile screen readers: VoiceOver (iOS), TalkBack (Android)
 
+## Specialized Accessibility Components
+
+Our site includes several specialized components designed specifically to enhance accessibility:
+
+### AccessibleTooltip Component
+
+Our custom AccessibleTooltip component enhances the standard tooltip functionality with:
+
+- Proper ARIA attributes (`role="tooltip"` and `aria-label`)
+- Auto-dismiss functionality on mobile devices (after 4 seconds)
+- Consistent behavior across the application
+- Full keyboard accessibility
+- Responsive behavior that adapts to different device types
+
+### Screen Reader Announcer
+
+We use a dedicated screen reader announcement system that:
+
+- Provides both polite and assertive announcement modes
+- Properly clears previous announcements to ensure screen readers detect changes
+- Announces dynamic content changes that might otherwise be missed
+- Uses ARIA live regions with appropriate attributes
+
 ## Known Limitations
 
 While we strive for perfect accessibility, we are continuously improving. Current known limitations include:
 
 - Complex data visualizations may have limited screen reader support
 - Some third-party embedded content may not meet all accessibility standards
+- Automated accessibility testing is still being implemented
 
 ## Accessibility Statement
 
@@ -144,8 +171,15 @@ Our website meets the following technical requirements:
 - Valid HTML5 according to W3C standards
 - Proper use of ARIA landmarks and attributes
 - Semantic HTML elements throughout
-- Keyboard focus visible and logical
+- Keyboard focus visible and logical with focus states that match hover states
 - Color contrast ratio of at least 4.5:1 for all text (meeting WCAG AA requirements), with many elements exceeding 7:1
-- Text resizable up to 200% without loss of content
+- Text resizable up to 200% without loss of content or functionality
+- Content reflows appropriately when zoomed up to 400%
 - No time-based media that auto-plays
 - No content that flashes more than three times per second
+- Proper heading hierarchy (h1 → h2 → h3) throughout the site
+- Skip-to-content functionality for keyboard users
+- Proper form labels and error messages
+- Consistent navigation and predictable behavior
+- Proper use of ARIA live regions for dynamic content
+- Support for assistive technologies including screen readers and switch controls

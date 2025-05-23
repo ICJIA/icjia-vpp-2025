@@ -278,9 +278,9 @@
 
     <main id="main-content" role="main">
       <h1>Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029</h1>
-<p><strong>Last Updated: May 21, 2025</strong></p>
+<p><strong>Last Updated: May 23, 2025</strong></p>
 <blockquote>
-<p><strong>Documentation Update</strong>: We&#39;ve conducted our weekly accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We&#39;ve also enhanced our code documentation throughout the project to better explain accessibility features, making it easier for developers to understand and maintain our accessibility implementations.</p>
+<p><strong>Documentation Update</strong>: We&#39;ve conducted our comprehensive accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We&#39;ve enhanced our tooltip accessibility with the AccessibleTooltip component, improved screen reader announcements with the useAnnouncer composable, and added better documentation access with the useAccessibilityDocs composable. These enhancements further strengthen our commitment to providing an accessible experience for all users.</p>
 </blockquote>
 <p>The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.</p>
 <blockquote>
@@ -327,12 +327,15 @@
 <h3>Additional Accessibility Features</h3>
 <ul>
 <li><strong>High Contrast</strong>: All text meets WCAG 2.1 AA contrast requirements (4.5:1 ratio minimum), with many elements exceeding this to approach AAA levels (7:1 ratio) where possible</li>
-<li><strong>Focus Indicators</strong>: Visible focus indicators for all interactive elements</li>
-<li><strong>Reduced Motion</strong>: Respects the <code>prefers-reduced-motion</code> setting to minimize animations</li>
-<li><strong>Text Spacing</strong>: Supports increased text spacing without loss of content</li>
-<li><strong>Consistent Navigation</strong>: Predictable navigation patterns throughout the site</li>
-<li><strong>Error Identification</strong>: Clear error messages with suggestions for correction</li>
-<li><strong>Descriptive Tooltips</strong>: Additional context provided via tooltips on navigation items</li>
+<li><strong>Focus Indicators</strong>: Visible focus indicators for all interactive elements that match hover states for consistency</li>
+<li><strong>Reduced Motion</strong>: Respects the <code>prefers-reduced-motion</code> setting to minimize animations through CSS media queries</li>
+<li><strong>Text Spacing</strong>: Supports increased text spacing without loss of content or functionality</li>
+<li><strong>Consistent Navigation</strong>: Predictable navigation patterns throughout the site with clear visual and semantic structure</li>
+<li><strong>Error Identification</strong>: Clear error messages with suggestions for correction and proper ARIA attributes</li>
+<li><strong>Descriptive Tooltips</strong>: Additional context provided via tooltips with auto-dismiss functionality on mobile devices</li>
+<li><strong>Screen Reader Announcements</strong>: Dynamic content changes are announced to screen readers using ARIA live regions</li>
+<li><strong>Semantic Structure</strong>: Proper use of HTML5 semantic elements and ARIA landmarks throughout the site</li>
+<li><strong>Accessible Images</strong>: All images have appropriate alt text, loading states, and proper ARIA attributes</li>
 </ul>
 <h2>Assistive Technology Compatibility</h2>
 <p>Our website has been tested with the following assistive technologies:</p>
@@ -341,11 +344,31 @@
 <li>Browser compatibility: Chrome, Firefox, Safari, Edge</li>
 <li>Mobile screen readers: VoiceOver (iOS), TalkBack (Android)</li>
 </ul>
+<h2>Specialized Accessibility Components</h2>
+<p>Our site includes several specialized components designed specifically to enhance accessibility:</p>
+<h3>AccessibleTooltip Component</h3>
+<p>Our custom AccessibleTooltip component enhances the standard tooltip functionality with:</p>
+<ul>
+<li>Proper ARIA attributes (<code>role=&quot;tooltip&quot;</code> and <code>aria-label</code>)</li>
+<li>Auto-dismiss functionality on mobile devices (after 4 seconds)</li>
+<li>Consistent behavior across the application</li>
+<li>Full keyboard accessibility</li>
+<li>Responsive behavior that adapts to different device types</li>
+</ul>
+<h3>Screen Reader Announcer</h3>
+<p>We use a dedicated screen reader announcement system that:</p>
+<ul>
+<li>Provides both polite and assertive announcement modes</li>
+<li>Properly clears previous announcements to ensure screen readers detect changes</li>
+<li>Announces dynamic content changes that might otherwise be missed</li>
+<li>Uses ARIA live regions with appropriate attributes</li>
+</ul>
 <h2>Known Limitations</h2>
 <p>While we strive for perfect accessibility, we are continuously improving. Current known limitations include:</p>
 <ul>
 <li>Complex data visualizations may have limited screen reader support</li>
 <li>Some third-party embedded content may not meet all accessibility standards</li>
+<li>Automated accessibility testing is still being implemented</li>
 </ul>
 <h2>Accessibility Statement</h2>
 <p>We are committed to ensuring our website is accessible to all users regardless of ability or technology. Our development process includes:</p>
@@ -410,11 +433,18 @@
 <li>Valid HTML5 according to W3C standards</li>
 <li>Proper use of ARIA landmarks and attributes</li>
 <li>Semantic HTML elements throughout</li>
-<li>Keyboard focus visible and logical</li>
+<li>Keyboard focus visible and logical with focus states that match hover states</li>
 <li>Color contrast ratio of at least 4.5:1 for all text (meeting WCAG AA requirements), with many elements exceeding 7:1</li>
-<li>Text resizable up to 200% without loss of content</li>
+<li>Text resizable up to 200% without loss of content or functionality</li>
+<li>Content reflows appropriately when zoomed up to 400%</li>
 <li>No time-based media that auto-plays</li>
 <li>No content that flashes more than three times per second</li>
+<li>Proper heading hierarchy (h1 → h2 → h3) throughout the site</li>
+<li>Skip-to-content functionality for keyboard users</li>
+<li>Proper form labels and error messages</li>
+<li>Consistent navigation and predictable behavior</li>
+<li>Proper use of ARIA live regions for dynamic content</li>
+<li>Support for assistive technologies including screen readers and switch controls</li>
 </ul>
 
     </main>
