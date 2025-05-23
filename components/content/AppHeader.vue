@@ -88,9 +88,12 @@
               <v-menu
                 v-if="item.hasDropdown"
                 open-on-hover
-                :close-on-content-click="false"
+                :close-on-content-click="true"
                 location="bottom"
                 offset="5"
+                :model-value="openDropdowns[index]"
+                @update:model-value="openDropdowns[index] = $event"
+                @mouseleave="handleDropdownMouseLeave(index)"
               >
                 <template v-slot:activator="{ props: menuProps }">
                   <v-btn
@@ -131,6 +134,7 @@
                       :class="child.class"
                       :color="child.color"
                       @focus="openDropdowns[index] = true"
+                      @click="handleDropdownItemClick(index)"
                       @keydown.esc="openDropdowns[index] = false"
                       @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
                       @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
@@ -293,7 +297,7 @@
                   :rel="child.isExternal ? child.rel : undefined"
                   :class="child.mobileClass"
                   :aria-label="child.ariaLabel"
-                  @click="child.href === '/' ? handleHomeClick() : undefined"
+                  @click="handleMobileDropdownItemClick(index, child.href)"
                 >
                   <v-list-item-title class="d-flex align-center">
                     {{ child.text }}
@@ -480,6 +484,22 @@ onMounted(() => {
   if (typeof window !== 'undefined') {
     window.addEventListener('click', handleOutsideClick);
   }
+
+  // Add router navigation hook to close all dropdowns when navigation occurs
+  router.afterEach(() => {
+    // Close all desktop dropdowns
+    Object.keys(openDropdowns.value).forEach(key => {
+      openDropdowns.value[key] = false;
+    });
+
+    // Close all mobile dropdowns
+    Object.keys(mobileExpandedDropdowns.value).forEach(key => {
+      mobileExpandedDropdowns.value[key] = false;
+    });
+
+    // Close mobile drawer
+    mobileDrawerOpen.value = false;
+  });
 });
 
 /**
@@ -562,6 +582,47 @@ const handleDropdownTabKey = (dropdownIndex, currentItemIndex, totalItems, event
   // If tabbing from the last item, close the dropdown
   if (currentItemIndex === totalItems - 1 && !event.shiftKey) {
     openDropdowns.value[dropdownIndex] = false;
+  }
+};
+
+/**
+ * Handle click on dropdown menu items in desktop view
+ * Closes the dropdown menu when an item is clicked
+ * @param {number} index - Index of the dropdown menu
+ */
+const handleDropdownItemClick = (index) => {
+  // Close the dropdown after a short delay to allow navigation to start
+  setTimeout(() => {
+    openDropdowns.value[index] = false;
+  }, 100);
+};
+
+/**
+ * Handle mouseleave event on dropdown menu in desktop view
+ * Closes the dropdown menu when mouse leaves the dropdown area
+ * @param {number} index - Index of the dropdown menu
+ */
+const handleDropdownMouseLeave = (index) => {
+  // Close the dropdown when mouse leaves the dropdown area
+  openDropdowns.value[index] = false;
+};
+
+/**
+ * Handle click on dropdown menu items in mobile view
+ * Closes the dropdown menu and mobile drawer when an item is clicked
+ * @param {number} index - Index of the dropdown menu
+ * @param {string} href - The href attribute of the clicked item
+ */
+const handleMobileDropdownItemClick = (index, href) => {
+  // Close the dropdown
+  mobileExpandedDropdowns.value[index] = false;
+
+  // Close the mobile drawer
+  mobileDrawerOpen.value = false;
+
+  // Handle home link special case
+  if (href === '/') {
+    handleHomeClick();
   }
 };
 

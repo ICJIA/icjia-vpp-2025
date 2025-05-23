@@ -1,10 +1,69 @@
 # Accessibility Audit Log: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 22, 2025**
+**Last Updated: May 23, 2025**
 
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.
 
 > **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
+
+## Audit Log Update: 2025-05-23
+
+### Navigation Dropdown Menu Accessibility Improvement
+
+Enhanced dropdown menu behavior to improve accessibility and user experience:
+
+1. **Issue**: Dropdown menus remained open after navigation or when mouse left the dropdown area, creating potential confusion for users, especially those using assistive technologies.
+2. **Fix**: Implemented proper dropdown menu closing behavior to improve navigation experience.
+3. **Implementation**:
+   - Added proper event handlers to close dropdowns when links are clicked
+   - Implemented mouse leave detection to close dropdowns when focus/hover moves away
+   - Added router navigation hook to ensure consistent dropdown state during navigation
+   - Maintained all keyboard navigation functionality and ARIA attributes
+   - Ensured mobile navigation maintains the same level of accessibility
+4. **Impact**: Improved user experience for all users, particularly benefiting those using screen readers or keyboard navigation by providing more predictable and consistent navigation behavior.
+
+### Text Wrapping Component CSS Accessibility Fix
+
+Fixed CSS issues preventing proper text wrapping around images in markdown content:
+
+1. **Issue**: The text wrapping component's CSS was not properly applying in markdown context, causing accessibility issues with content flow and readability.
+2. **Fix**: Updated CSS implementation to ensure proper text wrapping in all contexts.
+3. **Implementation**:
+   - Removed 'scoped' attribute from component styles to ensure they apply in markdown context
+   - Added specific CSS selectors to target content within Nuxt Content renderer
+   - Simplified component template structure to improve text flow
+   - Enhanced responsive behavior for mobile devices to ensure content is properly stacked
+   - Added proper deep selectors for targeting content within Nuxt Content context
+   - Registered ImageWithSpinner component to ensure it's available in markdown
+4. **Impact**: Improved reading experience for all users by ensuring text properly flows around images, maintaining proper reading order for screen readers and visual flow for sighted users.
+
+### Text Wrapping Component Markdown Integration Fix
+
+Fixed the text wrapping component to properly work within markdown content:
+
+1. **Issue**: The text wrapping component was not properly rendering in markdown content, causing accessibility issues with content layout and readability.
+2. **Fix**: Implemented proper component registration and Nuxt Content configuration to enable Vue components in markdown.
+3. **Implementation**:
+   - Created a Nuxt plugin to globally register the TextWrapImage component
+   - Updated Nuxt Content configuration to enable component islands for better Vue component support
+   - Added explicit markdown tag configuration to ensure proper rendering
+   - Fixed issue where text wasn't properly wrapping around images in markdown content
+4. **Impact**: Ensured that the accessible text wrapping functionality works correctly in all contexts, maintaining proper reading order for screen readers and visual flow for all users.
+
+### Text Wrapping Component Accessibility Implementation
+
+Implemented an accessible text wrapping component for images in markdown content:
+
+1. **Enhancement**: Created a reusable component that allows text to wrap around images while maintaining accessibility.
+2. **Implementation**:
+   - Created `TextWrapImage.vue` component with proper accessibility attributes
+   - Required alt text with validation to ensure it's never empty
+   - Added proper ARIA attributes for loading states
+   - Implemented responsive behavior that stacks content on mobile for better readability
+   - Added support for image captions with proper contrast in both light and dark themes
+   - Used the existing accessible ImageWithSpinner component for consistent loading behavior
+   - Created comprehensive documentation with accessibility best practices
+3. **Impact**: Improved content layout flexibility while maintaining strong accessibility, ensuring all users can access content with images regardless of abilities or assistive technologies used.
 
 ## Audit Log Update: 2025-05-22
 

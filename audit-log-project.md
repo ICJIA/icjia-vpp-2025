@@ -4,6 +4,78 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-23 (Navigation Dropdown Menu Behavior Fix)
+- Fixed issue where dropdown menus remained open after navigation or when mouse left the dropdown area.
+- Files modified:
+  - `components/content/AppHeader.vue`: Updated dropdown menu behavior to improve user experience
+- Technical Notes:
+  - Changed `close-on-content-click` from false to true to close dropdown when a link is clicked
+  - Added `@mouseleave` event handler to close dropdown when mouse leaves the dropdown area
+  - Added click handlers for dropdown items to ensure dropdowns close after navigation
+  - Implemented router navigation hook to close all dropdowns when navigation occurs
+  - Added special handling for mobile dropdown menu items to close both dropdown and mobile drawer
+  - Maintained all existing accessibility features including keyboard navigation and ARIA attributes
+  - Ensured consistent behavior across desktop and mobile views
+  - Added proper documentation for all new methods
+
+### 2025-05-23 (Markdown Components Plugin Linting Fix)
+- Fixed linting error in the markdown components plugin.
+- Files modified:
+  - `plugins/markdown-components.ts`: Fixed TypeScript linting error and deprecated API usage
+- Technical Notes:
+  - Removed dependency on useConsoleLogger to fix TypeScript linting error
+  - Replaced deprecated `process.dev` with standard `process.env.NODE_ENV === 'development'` check
+  - Simplified logging approach to use standard console.log in development environment only
+  - Maintained component registration functionality for TextWrapImage and ImageWithSpinner
+
+### 2025-05-23 (Text Wrapping Component CSS Fix)
+- Fixed CSS issues preventing proper text wrapping around images in markdown content.
+- Files modified:
+  - `components/content/TextWrapImage.vue`: Updated CSS to fix text wrapping issues
+  - `plugins/markdown-components.ts`: Enhanced component registration with better logging
+- Technical Notes:
+  - Removed 'scoped' attribute from component styles to ensure they apply in markdown context
+  - Added specific CSS selectors to target content within Nuxt Content renderer
+  - Simplified component template structure to improve text flow
+  - Added !important flags to float properties to override any conflicting styles
+  - Improved responsive behavior for mobile devices
+  - Added proper deep selectors for targeting content within Nuxt Content context
+  - Registered ImageWithSpinner component to ensure it's available in markdown
+  - Updated logging to use the project's standard console logger
+
+### 2025-05-23 (Text Wrapping Component Fix for Markdown Integration)
+- Fixed the text wrapping component to properly work within markdown content.
+- Files modified/created:
+  - `plugins/markdown-components.ts`: Created plugin to register components for use in markdown
+  - `nuxt.config.ts`: Updated Nuxt Content configuration to properly support Vue components in markdown
+- Technical Notes:
+  - Created a Nuxt plugin to globally register the TextWrapImage component
+  - Updated Nuxt Content configuration to enable component islands for better Vue component support
+  - Added explicit markdown tag configuration to ensure proper rendering
+  - Fixed issue where text wasn't properly wrapping around images in markdown content
+  - Enabled proper component integration between Vue and markdown
+  - Added development logging to confirm component registration
+  - Implemented the fix based on Nuxt Content documentation for Vue components in markdown
+
+### 2025-05-23 (Text Wrapping Component Implementation)
+- Created a reusable component for text wrapping around images in markdown content.
+- Files modified/created:
+  - `components/content/TextWrapImage.vue`: Created new component for text wrapping around images
+  - `content/projects/community-outreach.md`: Updated to demonstrate text wrapping functionality
+  - `docs/text-wrap-image.md`: Created documentation for the text wrapping component
+  - `pages/text-wrap-demo.vue`: Created demo page showcasing the component's features
+- Technical Notes:
+  - Implemented a flexible component that supports both left and right image alignment
+  - Used the existing ImageWithSpinner component for consistent image loading behavior
+  - Added configurable spacing options (small, medium, large, xlarge)
+  - Implemented responsive behavior that stacks content on mobile devices
+  - Added support for optional image captions with proper styling
+  - Ensured proper accessibility with alt text and ARIA attributes
+  - Created comprehensive documentation with usage examples
+  - Maintained theme compatibility with proper styling in both light and dark modes
+  - Implemented proper CSS for text flow around images using float properties
+  - Created a demonstration page with various configuration examples
+
 ### 2025-05-22 (Debug Functionality Fixed in SimpleContentDisplay)
 - Fixed and enhanced the debug functionality in the SimpleContentDisplay component.
 - Files modified:

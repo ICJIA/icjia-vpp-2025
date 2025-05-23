@@ -278,11 +278,73 @@
 
     <main id="main-content" role="main">
       <h1>Accessibility Audit Log: Violence Prevention Plan for Illinois: 2025-2029</h1>
-<p><strong>Last Updated: May 22, 2025</strong></p>
+<p><strong>Last Updated: May 23, 2025</strong></p>
 <p>This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project&#39;s accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.</p>
 <blockquote>
 <p><strong>Note</strong>: This document is also available as an HTML page on our website for direct access without requiring JavaScript.</p>
 </blockquote>
+<h2>Audit Log Update: 2025-05-23</h2>
+<h3>Navigation Dropdown Menu Accessibility Improvement</h3>
+<p>Enhanced dropdown menu behavior to improve accessibility and user experience:</p>
+<ol>
+<li><strong>Issue</strong>: Dropdown menus remained open after navigation or when mouse left the dropdown area, creating potential confusion for users, especially those using assistive technologies.</li>
+<li><strong>Fix</strong>: Implemented proper dropdown menu closing behavior to improve navigation experience.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Added proper event handlers to close dropdowns when links are clicked</li>
+<li>Implemented mouse leave detection to close dropdowns when focus/hover moves away</li>
+<li>Added router navigation hook to ensure consistent dropdown state during navigation</li>
+<li>Maintained all keyboard navigation functionality and ARIA attributes</li>
+<li>Ensured mobile navigation maintains the same level of accessibility</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Improved user experience for all users, particularly benefiting those using screen readers or keyboard navigation by providing more predictable and consistent navigation behavior.</li>
+</ol>
+<h3>Text Wrapping Component CSS Accessibility Fix</h3>
+<p>Fixed CSS issues preventing proper text wrapping around images in markdown content:</p>
+<ol>
+<li><strong>Issue</strong>: The text wrapping component&#39;s CSS was not properly applying in markdown context, causing accessibility issues with content flow and readability.</li>
+<li><strong>Fix</strong>: Updated CSS implementation to ensure proper text wrapping in all contexts.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Removed &#39;scoped&#39; attribute from component styles to ensure they apply in markdown context</li>
+<li>Added specific CSS selectors to target content within Nuxt Content renderer</li>
+<li>Simplified component template structure to improve text flow</li>
+<li>Enhanced responsive behavior for mobile devices to ensure content is properly stacked</li>
+<li>Added proper deep selectors for targeting content within Nuxt Content context</li>
+<li>Registered ImageWithSpinner component to ensure it&#39;s available in markdown</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Improved reading experience for all users by ensuring text properly flows around images, maintaining proper reading order for screen readers and visual flow for sighted users.</li>
+</ol>
+<h3>Text Wrapping Component Markdown Integration Fix</h3>
+<p>Fixed the text wrapping component to properly work within markdown content:</p>
+<ol>
+<li><strong>Issue</strong>: The text wrapping component was not properly rendering in markdown content, causing accessibility issues with content layout and readability.</li>
+<li><strong>Fix</strong>: Implemented proper component registration and Nuxt Content configuration to enable Vue components in markdown.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Created a Nuxt plugin to globally register the TextWrapImage component</li>
+<li>Updated Nuxt Content configuration to enable component islands for better Vue component support</li>
+<li>Added explicit markdown tag configuration to ensure proper rendering</li>
+<li>Fixed issue where text wasn&#39;t properly wrapping around images in markdown content</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Ensured that the accessible text wrapping functionality works correctly in all contexts, maintaining proper reading order for screen readers and visual flow for all users.</li>
+</ol>
+<h3>Text Wrapping Component Accessibility Implementation</h3>
+<p>Implemented an accessible text wrapping component for images in markdown content:</p>
+<ol>
+<li><strong>Enhancement</strong>: Created a reusable component that allows text to wrap around images while maintaining accessibility.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Created <code>TextWrapImage.vue</code> component with proper accessibility attributes</li>
+<li>Required alt text with validation to ensure it&#39;s never empty</li>
+<li>Added proper ARIA attributes for loading states</li>
+<li>Implemented responsive behavior that stacks content on mobile for better readability</li>
+<li>Added support for image captions with proper contrast in both light and dark themes</li>
+<li>Used the existing accessible ImageWithSpinner component for consistent loading behavior</li>
+<li>Created comprehensive documentation with accessibility best practices</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Improved content layout flexibility while maintaining strong accessibility, ensuring all users can access content with images regardless of abilities or assistive technologies used.</li>
+</ol>
 <h2>Audit Log Update: 2025-05-22</h2>
 <h3>ContentDisplay Component Duplicate Heading Fix</h3>
 <p>Fixed duplicate heading display issue in the ContentDisplay component:</p>
