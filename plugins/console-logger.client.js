@@ -4,16 +4,16 @@
  * Initializes the console logger and provides it to the Nuxt app.
  * Only runs on the client side and automatically tracks route changes.
  *
- * NOTE: Console logging is intentionally enabled in all environments (including production)
- * during the pre-launch phase for monitoring and debugging purposes. This will be
- * revisited before the official launch.
+ * This plugin hooks into Nuxt's lifecycle events to log important application
+ * events such as route changes, app initialization, mounting, and errors.
+ * It makes the logger available globally through Nuxt's provide/inject system.
  */
 
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
 import { useRoute, useRouter } from '#imports';
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // Initialize logger in all environments for pre-launch debugging
+  // Initialize logger and get route information
   const logger = useConsoleLogger();
   const route = useRoute();
   const router = useRouter();

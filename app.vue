@@ -1,5 +1,10 @@
 <script>
-// Force scroll to top on page load
+/**
+ * Force scroll to top on page load
+ *
+ * This ensures the page always starts at the top when loaded.
+ * Multiple methods are used for maximum browser compatibility.
+ */
 if (typeof window !== 'undefined') {
   window.addEventListener('load', () => {
     window.scrollTo(0, 0);

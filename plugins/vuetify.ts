@@ -1,3 +1,13 @@
+/**
+ * Vuetify Plugin
+ *
+ * Configures and initializes Vuetify for the application.
+ * Sets up themes, components, directives, and icon sets.
+ *
+ * The color palette is designed for high contrast ratios (>8:1)
+ * to ensure WCAG AA and AAA compliance for text accessibility.
+ */
+
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'

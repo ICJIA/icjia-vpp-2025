@@ -2,7 +2,14 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import ConsoleLogger from '~/components/dev/ConsoleLogger.vue';
 
-// Mock the useConsoleLogger composable
+/**
+ * Mock the useConsoleLogger composable
+ *
+ * This mock provides all the necessary methods and properties that the
+ * ConsoleLogger component expects from the useConsoleLogger composable.
+ * It includes mock functions for all logging methods and a replica of the
+ * COLORS object with the same color values as the real implementation.
+ */
 vi.mock('~/composables/useConsoleLogger', () => ({
   useConsoleLogger: () => ({
     isEnabled: { value: true },
@@ -31,35 +38,40 @@ vi.mock('~/composables/useConsoleLogger', () => ({
 }));
 
 describe('ConsoleLogger', () => {
-  // Mock console.clear
+  /**
+   * Set up test environment before each test
+   *
+   * Mock console.clear to prevent actual console clearing during tests
+   * and to allow verifying that it's called when expected.
+   */
   beforeEach(() => {
     vi.spyOn(console, 'clear').mockImplementation(() => {});
   });
-  
+
   it('should render the toggle button when controls are hidden', () => {
     const wrapper = mount(ConsoleLogger, {
       global: {
         stubs: ['v-btn', 'v-card', 'v-card-title', 'v-card-text', 'v-switch', 'v-spacer']
       }
     });
-    
+
     expect(wrapper.find('.console-logger-toggle').exists()).toBe(true);
     expect(wrapper.find('.console-logger-controls').exists()).toBe(false);
   });
-  
+
   it('should show controls when toggle button is clicked', async () => {
     const wrapper = mount(ConsoleLogger, {
       global: {
         stubs: ['v-btn', 'v-card', 'v-card-title', 'v-card-text', 'v-switch', 'v-spacer']
       }
     });
-    
+
     await wrapper.find('.console-logger-toggle v-btn-stub').trigger('click');
-    
+
     expect(wrapper.find('.console-logger-toggle').exists()).toBe(false);
     expect(wrapper.find('.console-logger-controls').exists()).toBe(true);
   });
-  
+
   it('should hide controls when close button is clicked', async () => {
     const wrapper = mount(ConsoleLogger, {
       data() {
@@ -71,13 +83,13 @@ describe('ConsoleLogger', () => {
         stubs: ['v-btn', 'v-card', 'v-card-title', 'v-card-text', 'v-switch', 'v-spacer']
       }
     });
-    
+
     await wrapper.find('.console-logger-controls v-card-title-stub v-btn-stub').trigger('click');
-    
+
     expect(wrapper.find('.console-logger-toggle').exists()).toBe(true);
     expect(wrapper.find('.console-logger-controls').exists()).toBe(false);
   });
-  
+
   it('should clear console when clear button is clicked', async () => {
     const wrapper = mount(ConsoleLogger, {
       data() {
@@ -89,16 +101,16 @@ describe('ConsoleLogger', () => {
         stubs: ['v-btn', 'v-card', 'v-card-title', 'v-card-text', 'v-switch', 'v-spacer']
       }
     });
-    
-    const clearButton = wrapper.findAll('v-btn-stub').filter(btn => 
+
+    const clearButton = wrapper.findAll('v-btn-stub').filter(btn =>
       btn.attributes('color') === 'error'
     )[0];
-    
+
     await clearButton.trigger('click');
-    
+
     expect(console.clear).toHaveBeenCalled();
   });
-  
+
   it('should display color samples for all categories', () => {
     const wrapper = mount(ConsoleLogger, {
       data() {
@@ -110,10 +122,10 @@ describe('ConsoleLogger', () => {
         stubs: ['v-btn', 'v-card', 'v-card-title', 'v-card-text', 'v-switch', 'v-spacer']
       }
     });
-    
+
     const colorSamples = wrapper.findAll('.color-sample');
-    
-    // Should have 10 color samples (9 categories + default)
+
+    // Verify all color categories are displayed (9 specific categories + default)
     expect(colorSamples.length).toBe(10);
   });
 });

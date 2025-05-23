@@ -15,7 +15,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { marked } from 'marked';
 
-// ANSI color codes for console output
+/**
+ * ANSI color codes for console output
+ *
+ * These color codes provide visual distinction in the terminal:
+ * - Blue for filenames and paths
+ * - Green for successful operations
+ * - Red for errors and warnings
+ */
 const colors = {
   reset: '\x1b[0m',
   red: '\x1b[31m',
