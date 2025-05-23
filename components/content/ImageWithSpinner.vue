@@ -108,6 +108,7 @@ const props = defineProps({
    * Alternative text for the image
    * Critical for accessibility - describes the image for screen reader users
    * Validated to ensure it's not empty
+   * Default is 'Image' but should be overridden with descriptive text
    */
   alt: {
     type: String,

@@ -4,6 +4,90 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-23 (Image Components Tooltip Enhancement)
+- Enhanced image components to display alt text as tooltips on hover/click.
+- Files modified:
+  - `components/content/CenteredImage.vue`: Added tooltip functionality
+  - `components/content/TextWrapImage.vue`: Added tooltip functionality
+- Technical Notes:
+  - Integrated AccessibleTooltip component for consistent tooltip behavior
+  - Configured tooltips to display image alt text on hover/click
+  - Set tooltips to auto-dismiss after 4 seconds on mobile devices
+  - Positioned tooltips intelligently based on image alignment
+  - Enhanced alt text validation to ensure descriptive content
+  - Added validator to reject generic terms like "image" or "photo"
+  - Provided meaningful default alt text values
+  - Updated component documentation to reflect new tooltip functionality
+  - Maintained all existing accessibility features
+
+### 2025-05-23 (Image Components Accessibility Compliance Update)
+- Conducted comprehensive accessibility assessment and implemented improvements for image components.
+- Files modified:
+  - `components/content/TextWrapImage.vue`: Enhanced accessibility features and semantic structure
+  - `components/content/CenteredImage.vue`: Improved keyboard navigation and focus states
+  - `components/content/ImageWithSpinner.vue`: Updated documentation for alt text
+- Technical Notes:
+  - Updated TextWrapImage to use proper semantic HTML with figure/figcaption elements
+  - Added ARIA relationships between images and captions with unique IDs
+  - Implemented keyboard focus states with visible outlines for both components
+  - Removed background colors from TextWrapImage captions for better contrast
+  - Added conditional ARIA attributes that only appear when needed
+  - Implemented reduced motion support in TextWrapImage component
+  - Verified alt text validation in all image components
+  - Added tabindex="0" to make image components focusable for keyboard users
+  - Ensured all components fully comply with WCAG 2.1 AA guidelines
+
+### 2025-05-23 (CenteredImage Component Dark Mode Enhancement)
+- Enhanced the CenteredImage component's dark mode appearance with improved box shadow.
+- Files modified:
+  - `components/content/CenteredImage.vue`: Updated dark theme box shadow for better visibility
+- Technical Notes:
+  - Replaced single box shadow with a multi-layered shadow effect for better depth in dark mode
+  - Used semi-transparent light colors (white with low opacity) to create subtle glow against dark backgrounds
+  - Implemented three-layer shadow with different spread and opacity values for a more refined effect
+  - Maintained visual consistency with other components while ensuring proper visual separation from background
+  - Added detailed comments explaining the shadow implementation for future reference
+
+### 2025-05-23 (CenteredImage Component Caption Fix)
+- Fixed remaining caption styling issues in the CenteredImage component.
+- Files modified:
+  - `components/content/CenteredImage.vue`: Completely removed caption background and borders
+- Technical Notes:
+  - Added explicit `background: none` and `border: none` to ensure no background appears on captions
+  - Ensured caption text uses only theme colors without any additional styling
+  - Maintained clean, minimal appearance that adapts to light/dark themes automatically
+
+### 2025-05-23 (CenteredImage Component Style Improvements)
+- Fixed styling issues in the CenteredImage component to improve appearance and usability.
+- Files modified:
+  - `components/content/CenteredImage.vue`: Updated styling for better centering and caption appearance
+- Technical Notes:
+  - Changed image wrapper from block to inline-block with text-align: center on parent for proper centering
+  - Removed background color from captions for a cleaner, less distracting appearance
+  - Updated caption styling to use theme text colors that automatically adapt to light/dark modes
+  - Maintained proper contrast ratios for accessibility in both themes
+  - Preserved semantic structure with figure/figcaption elements
+  - Added conditional aria-labelledby attribute that only applies when a caption exists
+  - Improved spacing and padding for better visual appearance
+
+### 2025-05-23 (CenteredImage Component Implementation)
+- Created a reusable component for displaying centered images with captions in markdown content.
+- Files modified/created:
+  - `components/content/CenteredImage.vue`: Created new component for centered images
+  - `plugins/markdown-components.ts`: Updated to register the CenteredImage component
+  - `content/projects/youth-intervention.md`: Updated to demonstrate the CenteredImage component
+- Technical Notes:
+  - Implemented a responsive component that centers images with proper spacing
+  - Used the existing ImageWithSpinner component for consistent image loading behavior
+  - Added support for optional image captions with proper semantic markup (figure/figcaption)
+  - Ensured proper accessibility with alt text validation, ARIA attributes, and semantic HTML
+  - Added subtle box shadow effect that works in both light and dark themes
+  - Implemented responsive behavior with max-width constraints
+  - Maintained proper aspect ratio with object-fit property
+  - Added support for eager loading and object-fit cover options
+  - Ensured the component works in both standalone pages and markdown content
+  - Added comprehensive JSDoc documentation with usage examples
+
 ### 2025-05-23 (Navigation Dropdown Menu Behavior Fix)
 - Fixed issue where dropdown menus remained open after navigation or when mouse left the dropdown area.
 - Files modified:

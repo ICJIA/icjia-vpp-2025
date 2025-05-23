@@ -1,6 +1,6 @@
 <template>
   <div class="text-wrap-image-container">
-    <div
+    <figure
       class="image-wrapper"
       :class="{
         'float-left': align === 'left',
@@ -18,21 +18,41 @@
         width: `${width}px`,
         height: `${height}px`
       }"
+      role="group"
+      :aria-labelledby="caption ? captionId : undefined"
+      tabindex="0"
     >
-      <ImageWithSpinner
-        :src="src"
-        :alt="alt"
-        :width="width"
-        :height="height"
-        :spinner-color="spinnerColor"
-        :spinner-size="24"
-        :eager="eager"
-        :cover="cover"
-      />
-      <div v-if="caption" class="image-caption text-center pa-1" :class="captionClass">
+      <AccessibleTooltip
+        :text="alt"
+        :location="align === 'left' ? 'right' : 'left'"
+        :open-delay="100"
+        :close-delay="500"
+        :mobile-close-delay="4000"
+      >
+        <template v-slot="{ props }">
+          <div class="image-content-wrapper" v-bind="props">
+            <ImageWithSpinner
+              :src="src"
+              :alt="alt"
+              :width="width"
+              :height="height"
+              :spinner-color="spinnerColor"
+              :spinner-size="24"
+              :eager="eager"
+              :cover="cover"
+            />
+          </div>
+        </template>
+      </AccessibleTooltip>
+      <figcaption
+        v-if="caption"
+        :id="captionId"
+        class="image-caption text-center pa-1"
+        :class="captionClass"
+      >
         {{ caption }}
-      </div>
-    </div>
+      </figcaption>
+    </figure>
     <!-- Slot for content that will wrap around the image -->
     <slot></slot>
   </div>
@@ -44,7 +64,17 @@
  *
  * This component allows text to wrap around an image, with configurable alignment,
  * spacing, and styling. It uses the ImageWithSpinner component for image loading
- * and provides options for caption display.
+ * and provides options for caption display. The component also displays the image's
+ * alt text as a tooltip when users hover over or click on the image.
+ *
+ * Features:
+ * - Text wrapping around images with configurable alignment (left/right)
+ * - Customizable spacing between image and text
+ * - Optional caption with proper semantic markup
+ * - Loading spinner during image load
+ * - Tooltip displaying alt text on hover/click
+ * - Proper accessibility attributes and structure
+ * - Auto-dismissing tooltips on mobile devices
  *
  * Usage in Markdown:
  * ```md
@@ -67,8 +97,24 @@
  *
  * @component
  * @requires ImageWithSpinner
+ * @requires AccessibleTooltip
  */
+import { ref, onMounted } from 'vue';
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import AccessibleTooltip from '~/components/content/AccessibleTooltip.vue';
+
+/**
+ * Unique ID for the caption to associate it with the image
+ * Generated on component mount for proper ARIA relationships
+ */
+const captionId = ref('');
+
+/**
+ * Generate a unique ID for the caption on mount
+ */
+onMounted(() => {
+  captionId.value = `caption-${Math.random().toString(36).substring(2, 9)}`;
+});
 
 const props = defineProps({
   /**
@@ -81,11 +127,17 @@ const props = defineProps({
 
   /**
    * Alt text for the image (required for accessibility)
+   * Also used as tooltip content on hover/click
    */
   alt: {
     type: String,
     required: true,
-    validator: (value) => value.trim() !== ''
+    default: 'Descriptive image with text wrapping around it',
+    validator: (value) => {
+      // Ensure alt text is not empty and not just a generic word like "Image"
+      const trimmed = value.trim();
+      return trimmed !== '' && trimmed.length > 5 && !['image', 'picture', 'photo'].includes(trimmed.toLowerCase());
+    }
   },
 
   /**
@@ -197,6 +249,17 @@ const props = defineProps({
   max-width: 100%;
 }
 
+/**
+ * Image content wrapper styles
+ * Used for tooltip binding
+ */
+.image-content-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 /* Force float left with important to override any conflicting styles */
 .float-left {
   float: left !important;
@@ -209,13 +272,23 @@ const props = defineProps({
 
 /**
  * Image caption styles
- * Provides a subtle background that works in both light and dark themes
+ * Clean, minimal styling that adapts to the current theme
+ * No background color, just text that follows the theme's text color
  */
 .image-caption {
-  background-color: rgba(var(--v-theme-surface-variant), 0.7);
-  color: rgb(var(--v-theme-on-surface-variant));
   font-size: 0.875rem;
-  border-top: 1px solid rgba(var(--v-theme-outline), 0.2);
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+  color: rgb(var(--v-theme-on-background));
+  opacity: 0.87; /* For proper contrast ratio */
+  background: none; /* Explicitly remove any background */
+  border: none; /* Remove any borders */
+}
+
+/* Focus styles for accessibility */
+.image-wrapper:focus-visible {
+  outline: 2px solid var(--v-theme-primary);
+  outline-offset: 4px;
 }
 
 /* Add responsive adjustments for small screens */
@@ -238,5 +311,12 @@ const props = defineProps({
 :deep(.prose) .text-wrap-image-container p,
 :deep(.content-renderer) .text-wrap-image-container p {
   display: inline;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .image-wrapper {
+    transition: none;
+  }
 }
 </style>

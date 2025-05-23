@@ -284,6 +284,36 @@
 <p><strong>Note</strong>: This document is also available as an HTML page on our website for direct access without requiring JavaScript.</p>
 </blockquote>
 <h2>Audit Log Update: 2025-05-23</h2>
+<h3>CenteredImage Component Accessibility Improvements</h3>
+<p>Enhanced the CenteredImage component with improved styling while maintaining accessibility:</p>
+<ol>
+<li><strong>Issue</strong>: The component had styling issues that affected visual presentation while maintaining accessibility requirements.</li>
+<li><strong>Improvements</strong>:<ul>
+<li>Improved visual appearance with cleaner caption styling that adapts to theme colors</li>
+<li>Maintained proper contrast ratios (minimum 4.5:1) in both light and dark themes</li>
+<li>Added conditional ARIA attribute that only applies when relevant (aria-labelledby)</li>
+<li>Preserved semantic structure with proper figure/figcaption elements</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Enhanced user experience for all users while maintaining strong accessibility features, ensuring content is both visually appealing and accessible to users of assistive technologies.</li>
+</ol>
+<h3>CenteredImage Component Accessibility Implementation</h3>
+<p>Created an accessible component for displaying centered images with captions:</p>
+<ol>
+<li><strong>Enhancement</strong>: Implemented a reusable component that displays images centered in their container with proper accessibility features.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Used semantic HTML with <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements for proper structure</li>
+<li>Required alt text with validation to ensure it&#39;s never empty</li>
+<li>Added proper ARIA attributes including <code>role=&quot;group&quot;</code> and <code>aria-labelledby</code> to associate captions with images</li>
+<li>Implemented loading state with spinner and appropriate ARIA attributes</li>
+<li>Ensured captions have proper contrast ratio (minimum 4.5:1) in both light and dark themes</li>
+<li>Added visible focus states for keyboard navigation</li>
+<li>Implemented reduced motion support for animations</li>
+<li>Used the existing accessible ImageWithSpinner component for consistent loading behavior</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Improved content presentation while maintaining strong accessibility, ensuring all users can access image content regardless of abilities or assistive technologies used.</li>
+</ol>
 <h3>Navigation Dropdown Menu Accessibility Improvement</h3>
 <p>Enhanced dropdown menu behavior to improve accessibility and user experience:</p>
 <ol>

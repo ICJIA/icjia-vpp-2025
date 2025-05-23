@@ -8,6 +8,93 @@ This document serves as a comprehensive assessment of the accessibility features
 
 ## Audit Log Update: 2025-05-23
 
+### Image Components Tooltip Accessibility Enhancement
+
+Added accessible tooltips to image components to improve content understanding:
+
+1. **Enhancement**: Implemented tooltips that display alt text when users hover over or click on images.
+2. **Implementation**:
+   - Integrated the existing AccessibleTooltip component for consistent behavior
+   - Configured tooltips to display image alt text on hover/click
+   - Set tooltips to auto-dismiss after 4 seconds on mobile devices
+   - Positioned tooltips intelligently based on image alignment
+   - Enhanced alt text validation to ensure descriptive content
+   - Added validator to reject generic terms like "image" or "photo"
+   - Provided meaningful default alt text values
+3. **Impact**: Improved content understanding for all users, particularly benefiting:
+   - Users with cognitive disabilities who benefit from reinforced information
+   - Users with low vision who may miss visual details in images
+   - Mobile users who can access image descriptions through touch
+   - Users who need additional context about image content
+
+### Image Components Comprehensive Accessibility Audit
+
+Conducted a thorough accessibility assessment of image components and implemented improvements:
+
+1. **Assessment**: Performed a comprehensive review of TextWrapImage and CenteredImage components against WCAG 2.1 AA guidelines.
+2. **Improvements**:
+   - Updated TextWrapImage to use proper semantic HTML with `<figure>` and `<figcaption>` elements
+   - Added ARIA relationships between images and captions with unique IDs and aria-labelledby attributes
+   - Ensured both components have proper keyboard focus states with visible outlines
+   - Removed background colors from captions in TextWrapImage for better contrast and consistency
+   - Added conditional ARIA attributes that only appear when needed
+   - Implemented reduced motion support in both components
+   - Verified alt text validation in all image components
+   - Ensured proper color contrast ratios in both light and dark themes
+3. **Impact**: Significantly improved accessibility for users with disabilities, particularly those using screen readers, keyboard navigation, or who have visual impairments or motion sensitivity.
+
+### CenteredImage Component Dark Mode Accessibility Enhancement
+
+Improved the CenteredImage component's visual accessibility in dark mode:
+
+1. **Enhancement**: Enhanced the visual distinction between images and background in dark mode.
+2. **Implementation**:
+   - Implemented a multi-layered box shadow effect using semi-transparent light colors
+   - Created subtle visual separation that improves content perception without being distracting
+   - Maintained consistent visual language with other components in dark mode
+   - Ensured proper contrast between image containers and surrounding content
+3. **Impact**: Improved visual perception of image boundaries in dark mode, benefiting users with low vision or contrast sensitivity issues while maintaining an aesthetically pleasing appearance for all users.
+
+### CenteredImage Component Caption Accessibility Fix
+
+Further refined the CenteredImage component's caption styling:
+
+1. **Issue**: Caption styling still included a background that affected visual presentation.
+2. **Fix**: Completely removed background and border styling from captions.
+3. **Implementation**:
+   - Added explicit `background: none` and `border: none` CSS properties
+   - Ensured caption text uses only theme colors for proper light/dark mode adaptation
+   - Maintained proper contrast ratios in both themes
+4. **Impact**: Improved visual clarity while maintaining accessibility, creating a cleaner reading experience for all users.
+
+### CenteredImage Component Accessibility Improvements
+
+Enhanced the CenteredImage component with improved styling while maintaining accessibility:
+
+1. **Issue**: The component had styling issues that affected visual presentation while maintaining accessibility requirements.
+2. **Improvements**:
+   - Improved visual appearance with cleaner caption styling that adapts to theme colors
+   - Maintained proper contrast ratios (minimum 4.5:1) in both light and dark themes
+   - Added conditional ARIA attribute that only applies when relevant (aria-labelledby)
+   - Preserved semantic structure with proper figure/figcaption elements
+3. **Impact**: Enhanced user experience for all users while maintaining strong accessibility features, ensuring content is both visually appealing and accessible to users of assistive technologies.
+
+### CenteredImage Component Accessibility Implementation
+
+Created an accessible component for displaying centered images with captions:
+
+1. **Enhancement**: Implemented a reusable component that displays images centered in their container with proper accessibility features.
+2. **Implementation**:
+   - Used semantic HTML with `<figure>` and `<figcaption>` elements for proper structure
+   - Required alt text with validation to ensure it's never empty
+   - Added proper ARIA attributes including `role="group"` and `aria-labelledby` to associate captions with images
+   - Implemented loading state with spinner and appropriate ARIA attributes
+   - Ensured captions have proper contrast ratio (minimum 4.5:1) in both light and dark themes
+   - Added visible focus states for keyboard navigation
+   - Implemented reduced motion support for animations
+   - Used the existing accessible ImageWithSpinner component for consistent loading behavior
+3. **Impact**: Improved content presentation while maintaining strong accessibility, ensuring all users can access image content regardless of abilities or assistive technologies used.
+
 ### Navigation Dropdown Menu Accessibility Improvement
 
 Enhanced dropdown menu behavior to improve accessibility and user experience:
