@@ -3,10 +3,12 @@ import { useAsyncData, useRuntimeConfig, queryCollection } from '#imports';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
 
 /**
- * Simple composable for fetching content from Nuxt Content
+ * Composable for fetching and managing content from Nuxt Content
  *
- * This is a minimal abstraction of the content fetching logic from sandbox.vue
- * It provides the same functionality without any additional features or complexity
+ * This composable provides a comprehensive solution for fetching, rendering,
+ * and error handling when working with Nuxt Content. It includes features for
+ * tracking render state, handling errors gracefully, and providing appropriate
+ * feedback based on the environment (development vs. production).
  *
  * @param {Object} options - Configuration options
  * @param {string} options.path - Content path to fetch (e.g., '/sandbox')
@@ -157,7 +159,7 @@ export default function useContentFetcher(options) {
     timestamp: new Date().toISOString()
   });
 
-  // Fetch content using the same approach as in sandbox.vue
+  // Fetch content using Nuxt's useAsyncData and queryCollection
   const { data: content, pending, error, refresh } = useAsyncData(
     `content-${path}`,
     async () => {

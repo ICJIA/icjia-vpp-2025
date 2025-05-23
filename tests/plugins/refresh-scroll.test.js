@@ -1,6 +1,15 @@
 import { describe, it, expect, vi } from 'vitest';
 import refreshScrollPlugin from '../../plugins/refresh-scroll.client';
 
+/**
+ * Test setup - Mock browser globals
+ *
+ * These mocks simulate the browser environment for testing the scroll plugin:
+ * 1. window.scrollTo - Mock function to verify it's called with correct parameters
+ * 2. document - Mock document object with scrollTop properties
+ * 3. history - Mock history object with scrollRestoration property
+ */
+
 // Mock window.scrollTo
 const scrollToMock = vi.fn();
 vi.stubGlobal('scrollTo', scrollToMock);

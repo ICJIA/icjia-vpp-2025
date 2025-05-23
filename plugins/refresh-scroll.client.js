@@ -1,5 +1,9 @@
 /**
- * Ultra-simple plugin to force scroll to top (0,0) on page refresh
+ * Plugin to force scroll to top (0,0) on page refresh
+ *
+ * This plugin ensures that when a user refreshes the page, the scroll position
+ * is reset to the top. It disables the browser's automatic scroll restoration
+ * and manually sets the scroll position to the top of the page.
  */
 
 // Execute immediately when this script is loaded

@@ -2,10 +2,10 @@
  * Theme Handler Plugin
  *
  * This plugin runs only on the client side.
- * It sets the theme before Vue hydration to prevent flash of incorrect theme.
+ * It sets the theme before Vue hydration to prevent flash of incorrect theme (FOUC).
  *
- * NOTE: Console logging is intentionally enabled in all environments (including production)
- * during the pre-launch phase for monitoring and debugging purposes.
+ * The plugin reads the user's theme preference from localStorage and applies it
+ * immediately to the document, ensuring consistent theming during the initial render.
  */
 
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
