@@ -1,1 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /sandbox
+Disallow: /sandbox-refactored
 

@@ -4,7 +4,35 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-23 (Enhanced Code Documentation and Comments)
+
+- Added comprehensive code comments throughout the project to improve maintainability and developer onboarding.
+- Files modified:
+  - Multiple components, composables, and utility files across the project
+- Technical Notes:
+  - Enhanced JSDoc comments for all components with detailed descriptions of functionality and usage
+  - Added comprehensive parameter documentation with types and descriptions
+  - Improved accessibility documentation in code comments explaining ARIA attributes and screen reader considerations
+  - Added detailed explanations of complex logic and algorithms
+  - Enhanced comments for CSS properties explaining their purpose and accessibility implications
+  - Added usage examples for reusable components and composables
+  - Documented theme-specific styling considerations for both light and dark modes
+  - Improved documentation of event handlers and lifecycle hooks
+  - Added explanations of performance optimizations and their rationale
+  - Ensured all code comments follow a consistent style and format throughout the project
+
+### 2025-05-23 (Robots.txt Implementation)
+
+- Added a `robots.txt` file to control web crawler access.
+- Files modified/created:
+  - `public/robots.txt`: Created file to allow full access except for /sandbox and /sandbox-refactored.
+- Technical Notes:
+  - The `robots.txt` file is configured to allow all user-agents (`User-agent: *`).
+  - It allows access to all parts of the site (`Allow: /`).
+  - It specifically disallows access to `/sandbox` and `/sandbox-refactored` paths.
+
 ### 2025-05-23 (Image Components Tooltip Enhancement)
+
 - Enhanced image components to display alt text as tooltips on hover/click.
 - Files modified:
   - `components/content/CenteredImage.vue`: Added tooltip functionality
@@ -21,6 +49,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained all existing accessibility features
 
 ### 2025-05-23 (Image Components Accessibility Compliance Update)
+
 - Conducted comprehensive accessibility assessment and implemented improvements for image components.
 - Files modified:
   - `components/content/TextWrapImage.vue`: Enhanced accessibility features and semantic structure
@@ -38,6 +67,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured all components fully comply with WCAG 2.1 AA guidelines
 
 ### 2025-05-23 (CenteredImage Component Dark Mode Enhancement)
+
 - Enhanced the CenteredImage component's dark mode appearance with improved box shadow.
 - Files modified:
   - `components/content/CenteredImage.vue`: Updated dark theme box shadow for better visibility
@@ -49,6 +79,7 @@ This document serves as a chronological record of all significant changes made t
   - Added detailed comments explaining the shadow implementation for future reference
 
 ### 2025-05-23 (CenteredImage Component Caption Fix)
+
 - Fixed remaining caption styling issues in the CenteredImage component.
 - Files modified:
   - `components/content/CenteredImage.vue`: Completely removed caption background and borders
@@ -58,6 +89,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained clean, minimal appearance that adapts to light/dark themes automatically
 
 ### 2025-05-23 (CenteredImage Component Style Improvements)
+
 - Fixed styling issues in the CenteredImage component to improve appearance and usability.
 - Files modified:
   - `components/content/CenteredImage.vue`: Updated styling for better centering and caption appearance
@@ -71,6 +103,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved spacing and padding for better visual appearance
 
 ### 2025-05-23 (CenteredImage Component Implementation)
+
 - Created a reusable component for displaying centered images with captions in markdown content.
 - Files modified/created:
   - `components/content/CenteredImage.vue`: Created new component for centered images
@@ -89,6 +122,7 @@ This document serves as a chronological record of all significant changes made t
   - Added comprehensive JSDoc documentation with usage examples
 
 ### 2025-05-23 (Navigation Dropdown Menu Behavior Fix)
+
 - Fixed issue where dropdown menus remained open after navigation or when mouse left the dropdown area.
 - Files modified:
   - `components/content/AppHeader.vue`: Updated dropdown menu behavior to improve user experience
@@ -103,6 +137,7 @@ This document serves as a chronological record of all significant changes made t
   - Added proper documentation for all new methods
 
 ### 2025-05-23 (Markdown Components Plugin Linting Fix)
+
 - Fixed linting error in the markdown components plugin.
 - Files modified:
   - `plugins/markdown-components.ts`: Fixed TypeScript linting error and deprecated API usage
@@ -113,6 +148,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained component registration functionality for TextWrapImage and ImageWithSpinner
 
 ### 2025-05-23 (Text Wrapping Component CSS Fix)
+
 - Fixed CSS issues preventing proper text wrapping around images in markdown content.
 - Files modified:
   - `components/content/TextWrapImage.vue`: Updated CSS to fix text wrapping issues
@@ -128,6 +164,7 @@ This document serves as a chronological record of all significant changes made t
   - Updated logging to use the project's standard console logger
 
 ### 2025-05-23 (Text Wrapping Component Fix for Markdown Integration)
+
 - Fixed the text wrapping component to properly work within markdown content.
 - Files modified/created:
   - `plugins/markdown-components.ts`: Created plugin to register components for use in markdown
@@ -142,6 +179,7 @@ This document serves as a chronological record of all significant changes made t
   - Implemented the fix based on Nuxt Content documentation for Vue components in markdown
 
 ### 2025-05-23 (Text Wrapping Component Implementation)
+
 - Created a reusable component for text wrapping around images in markdown content.
 - Files modified/created:
   - `components/content/TextWrapImage.vue`: Created new component for text wrapping around images
@@ -161,6 +199,7 @@ This document serves as a chronological record of all significant changes made t
   - Created a demonstration page with various configuration examples
 
 ### 2025-05-22 (Debug Functionality Fixed in SimpleContentDisplay)
+
 - Fixed and enhanced the debug functionality in the SimpleContentDisplay component.
 - Files modified:
   - `components/SimpleContentDisplay.vue`: Improved debug display with better styling and functionality
@@ -178,6 +217,7 @@ This document serves as a chronological record of all significant changes made t
   - Tested functionality in both light and dark themes
 
 ### 2025-05-22 (Debug Mode Enabled by Default in Sandbox)
+
 - Updated sandbox-refactored page to enable debug mode by default.
 - Files modified:
   - `pages/sandbox-refactored.vue`: Changed default value of showDebug ref to true
@@ -188,6 +228,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured debug mode is immediately visible when the page loads
 
 ### 2025-05-22 (Debug Mode Added to SimpleContentDisplay)
+
 - Added a debug prop to the SimpleContentDisplay component for development and troubleshooting.
 - Files modified:
   - `components/SimpleContentDisplay.vue`: Added debug prop and JSON display functionality
@@ -204,6 +245,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained all existing functionality while adding the debug feature
 
 ### 2025-05-22 (Timeline Added to Sandbox-Refactored)
+
 - Added Vuetify timeline to sandbox-refactored page to mirror the one in sandbox.vue.
 - Files modified:
   - `pages/sandbox-refactored.vue`: Added v-timeline component with steps
@@ -217,6 +259,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained all existing functionality while adding the timeline
 
 ### 2025-05-22 (Project Pages Update to SimpleContentDisplay)
+
 - Updated all project pages to use the new SimpleContentDisplay component.
 - Files modified:
   - `pages/projects/community-outreach.vue`: Replaced ContentDisplay with SimpleContentDisplay
@@ -231,6 +274,7 @@ This document serves as a chronological record of all significant changes made t
   - Eliminated potential for duplicate headings by using the simplified component
 
 ### 2025-05-22 (Error Handling Fix in Content Display)
+
 - Fixed error handling in the SimpleContentDisplay component and example code.
 - Files modified:
   - `components/SimpleContentDisplay.vue`: Added robust error handling with fallback message
@@ -244,6 +288,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured consistent error handling across all content display components
 
 ### 2025-05-22 (Simplified Content Display Implementation)
+
 - Created a simplified approach to content display with a clean, minimal component.
 - Files created/modified:
   - `components/SimpleContentDisplay.vue`: Created a new minimal component for content display
@@ -260,6 +305,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained dark mode support and responsive design
 
 ### 2025-05-22 (ContentDisplay Component Fix for Duplicate Headings)
+
 - Fixed issue where content headings were duplicated when displayed in the ContentDisplay component.
 - Files modified:
   - `components/ContentDisplay.vue`: Simplified the hideMatchingHeading prop implementation
@@ -275,6 +321,7 @@ This document serves as a chronological record of all significant changes made t
   - Fixed issue where content was showing duplicate headings in the UI
 
 ### 2025-05-22 (ContentDisplay Component Enhancement)
+
 - Fixed duplicate content display issue in ContentDisplay component when content has a heading matching the frontmatter title.
 - Files modified:
   - `components/ContentDisplay.vue`: Added hideMatchingHeading prop and CSS to hide duplicate headings
@@ -287,6 +334,7 @@ This document serves as a chronological record of all significant changes made t
   - Applied the fix to both card and non-card display modes
 
 ### 2025-05-22 (Page Structure Alignment with Content)
+
 - Restructured page directories to match content directory structure, resolving Vue Router warnings.
 - Files moved:
   - `pages/community-outreach.vue` → `pages/projects/community-outreach.vue`
@@ -302,6 +350,7 @@ This document serves as a chronological record of all significant changes made t
   - This approach maintains the existing content organization while fixing the routing structure
 
 ### 2025-05-22 (Search Index Git Exclusion)
+
 - Added search-index.json to .gitignore to ensure it's always freshly generated.
 - Files modified:
   - `.gitignore`: Added public/data/search-index.json to the ignored files list
@@ -314,6 +363,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintains the existing build process integration via the create:search-index script
 
 ### 2025-05-22 (Dynamic Content Implementation for Placeholder Pages)
+
 - Enhanced placeholder pages to dynamically fetch and render content from the content directory.
 - Files modified:
   - `pages/community-outreach.vue`: Updated to use ContentDisplay component and useContentFetcher composable
@@ -331,6 +381,7 @@ This document serves as a chronological record of all significant changes made t
   - Used the same content fetching approach as implemented in sandbox-refactored.vue
 
 ### 2025-05-22 (Missing Page Placeholders)
+
 - Added placeholder pages for 'community-outreach' and 'youth-intervention' to resolve console warnings.
 - Files created:
   - `pages/community-outreach.vue`: Created placeholder page with basic structure
@@ -345,6 +396,7 @@ This document serves as a chronological record of all significant changes made t
   - Resolved console warnings about missing page routes
 
 ### 2025-05-22 (Navigation and Search Fixes)
+
 - Fixed console warnings and added missing content pages for navigation links.
 - Files modified/created:
   - `components/content/AppHeader.vue`: Fixed role attribute inheritance
@@ -359,6 +411,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured all navigation links now point to valid routes
 
 ### 2025-05-22 (Search Functionality Implementation)
+
 - Implemented a fully functional search page using Fuse.js for searching markdown content.
 - Files modified/created:
   - `pages/search.vue`: Created search UI with real-time results and highlighting
@@ -379,6 +432,7 @@ This document serves as a chronological record of all significant changes made t
   - Added comprehensive documentation in code comments
 
 ### 2025-05-22 (Navigation Utility Icons Positioning)
+
 - Refined the navigation ordering to position utility icons together at the end of the navigation bar.
 - Files modified:
   - `config/menu.config.json`: Updated order property values for navigation items
@@ -391,6 +445,7 @@ This document serves as a chronological record of all significant changes made t
   - Followed the established ordering convention with increments of 10 for regular items and 5 for fine-tuned positioning
 
 ### 2025-05-22 (Navigation Ordering Implementation)
+
 - Implemented explicit ordering of navigation items with search icon positioned at the end of the menu.
 - Files modified:
   - `config/menu.config.json`: Added 'order' property to all navigation items
@@ -407,6 +462,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured proper keyboard navigation with the new ordering
 
 ### 2025-05-22 (Search Navigation Implementation)
+
 - Added search functionality to the navigation bar with icon and tooltip.
 - Files modified:
   - `config/menu.config.json`: Added search icon navigation item
@@ -424,6 +480,7 @@ This document serves as a chronological record of all significant changes made t
   - Updated spacing between icons for visual balance
 
 ### 2025-05-22 (Responsive Navigation Implementation)
+
 - Enhanced the navigation system to implement responsive behavior with mobile and desktop layouts.
 - Files modified:
   - `config/menu.config.json`: Added responsive display options and mobile-specific properties
@@ -443,6 +500,7 @@ This document serves as a chronological record of all significant changes made t
   - Used Vuetify's responsive display utilities and breakpoints for consistent implementation
 
 ### 2025-05-22 (Dropdown Menu Implementation in Navigation Configuration)
+
 - Enhanced the navigation configuration to support hierarchical dropdown menus with both internal and external links.
 - Files modified:
   - `config/menu.config.json`: Added dropdown menu structure with Projects dropdown
@@ -461,6 +519,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured all dropdown functionality is fully accessible with keyboard navigation
 
 ### 2025-05-22 (External Links Support in Navigation Configuration)
+
 - Enhanced the navigation configuration to explicitly support external links with security features.
 - Files modified:
   - `config/menu.config.json`: Added external link properties and examples
@@ -479,6 +538,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured external links open in new tabs with proper security attributes
 
 ### 2025-05-22 (Configuration-Based Navigation Implementation)
+
 - Created a centralized configuration approach for site navigation to improve maintainability.
 - Files modified/created:
   - `config/menu.config.json`: Created JSON configuration file for all navigation items
@@ -496,6 +556,7 @@ This document serves as a chronological record of all significant changes made t
   - Preserved all existing styling and functionality while improving maintainability
 
 ### 2025-05-22 (Simplified Content Fetching Abstraction)
+
 - Created a minimal abstraction of the content fetching logic from sandbox.vue that can be reused across the project.
 - Files modified:
   - `composables/useContentFetcher.js`: Simplified to use the exact same working logic from sandbox.vue
@@ -510,6 +571,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured the implementation works with the existing ContentDisplay component
 
 ### 2025-05-22 (Content Rendering Abstraction)
+
 - Created reusable content fetching and rendering solution for consistent implementation across the application.
 - Files modified/created:
   - `composables/useContentFetcher.js`: Created composable for content fetching with robust error handling
@@ -528,6 +590,7 @@ This document serves as a chronological record of all significant changes made t
   - Implemented responsive design patterns for all screen sizes
 
 ### 2025-05-22 (Content Logging Fixes)
+
 - Fixed error handling and environment compatibility in content logging.
 - Files modified:
   - `pages/sandbox.vue`: Fixed "Cannot read properties of undefined (reading 'length')" error
@@ -543,6 +606,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured compatibility with both client and server environments
 
 ### 2025-05-22 (Content Logging Enhancement)
+
 - Added comprehensive logging functionality for the content fetching process.
 - Files modified:
   - `pages/sandbox.vue`: Implemented detailed content logging with useConsoleLogger
@@ -561,6 +625,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained all existing functionality while adding non-intrusive logging
 
 ### 2025-05-22 (Dynamic Content Path in Nuxt Content Demo)
+
 - Enhanced the Nuxt Content v3 demo to use dynamic route-based content paths.
 - Files modified:
   - `pages/sandbox.vue`: Updated content fetching to use dynamic paths based on route name
@@ -576,6 +641,7 @@ This document serves as a chronological record of all significant changes made t
   - Prepared the foundation for a future generic content fetching component/composable
 
 ### 2025-05-22 (Nuxt Content v3 Demo Fixes)
+
 - Fixed theme detection and simplified content fetching in the Nuxt Content v3 demo.
 - Files modified:
   - `pages/sandbox.vue`: Fixed theme detection and removed logging functionality
@@ -588,6 +654,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved code reliability by handling potential undefined values
 
 ### 2025-05-22 (Enhanced Nuxt Content v3 Demo)
+
 - Enhanced the Nuxt Content v3 demonstration page with improved UI and accessibility.
 - Files modified:
   - `pages/sandbox.vue`: Completely redesigned with polished UI and comprehensive documentation
@@ -605,6 +672,7 @@ This document serves as a chronological record of all significant changes made t
   - Fixed conditional rendering issues with proper v-if/v-else structure
 
 ### 2025-05-22 (Nuxt Content v3 $content API Fix)
+
 - Fixed content fetching in the Nuxt Content v3 implementation to use the $content API.
 - Files modified:
   - `pages/sandbox.vue`: Updated content fetching approach to use the $content API
@@ -618,6 +686,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured compatibility with the specific version of Nuxt Content used in the project
 
 ### 2025-05-22 (Nuxt Content v3 API Update)
+
 - Fixed content fetching in the Nuxt Content v3 implementation to correctly display markdown content.
 - Files modified:
   - `pages/sandbox.vue`: Updated content fetching approach
@@ -630,6 +699,7 @@ This document serves as a chronological record of all significant changes made t
   - Fixed hydration mismatch issues by using the correct content fetching approach
 
 ### 2025-05-22 (Nuxt Content v3 Error Handling Fixes)
+
 - Fixed runtime errors in the Nuxt Content v3 implementation.
 - Files modified:
   - `pages/sandbox.vue`: Fixed process.env references and logger issues
@@ -642,6 +712,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained detailed error information for development mode
 
 ### 2025-05-22 (Nuxt Content v3 Path Fix)
+
 - Fixed path format in Nuxt Content v3 implementation to correctly fetch markdown content.
 - Files modified:
   - `pages/sandbox.vue`: Updated path format and enhanced error handling
@@ -654,6 +725,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved error handling to show more specific error messages
 
 ### 2025-05-22 (Nuxt Content v3 Demonstration)
+
 - Created a demonstration of Nuxt Content v3 functionality in the sandbox page.
 - Files modified:
   - `pages/sandbox.vue`: Implemented content fetching and display with Nuxt Content v3
@@ -668,6 +740,7 @@ This document serves as a chronological record of all significant changes made t
   - Added an explanation section to document how Nuxt Content v3 works
 
 ### 2025-05-21 (Enhanced Theme Switching with Detailed Logging)
+
 - Enhanced the theme switching functionality with detailed console logging.
 - Files modified:
   - `layouts/default.vue`: Added detailed logging to theme toggle and initialization functions
@@ -682,6 +755,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured consistent logging format using the existing useConsoleLogger composable
 
 ### 2025-05-21 (Console Logging Configuration Update)
+
 - Modified the application to enable console logging in both development and production environments.
 - Files modified:
   - `composables/useConsoleLogger.js`: Updated to enable logging in all environments
@@ -699,6 +773,7 @@ This document serves as a chronological record of all significant changes made t
   - Updated documentation to reflect the current logging configuration
 
 ### 2025-05-21 (README Update - Dev Site Information)
+
 - Added development site information to the README.
 - Files modified:
   - `README.md`: Added a new 'Dev Site' section with the URL of the development site
@@ -709,6 +784,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained consistent formatting with the rest of the README
 
 ### 2025-05-21 (Terms of Service Implementation with MIT License)
+
 - Created a comprehensive terms of service document for the Violence Prevention Plan for Illinois: 2025-2029 website.
 - Files modified/created:
   - `terms-of-service.md`: Created comprehensive terms of service document with MIT license information
@@ -737,6 +813,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured both legal documents are included in Nitro's prerendering crawl
 
 ### 2025-05-21 (Privacy Policy Implementation with Enhanced Accessibility)
+
 - Created a comprehensive privacy policy for the Violence Prevention Plan for Illinois: 2025-2029 website with strong accessibility features.
 - Files modified/created:
   - `privacy-policy.md`: Created comprehensive privacy policy based on State of Illinois privacy notice
@@ -768,6 +845,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained consistent styling and accessibility with other documentation
 
 ### 2025-05-21 (Enhanced Code Documentation)
+
 - Implemented comprehensive JSDoc and code comments throughout the project to improve maintainability.
 - Files modified:
   - `composables/useConsoleLogger.js`: Enhanced with detailed JSDoc, parameter descriptions, and usage examples
@@ -790,6 +868,7 @@ This document serves as a chronological record of all significant changes made t
   - Updated README with sections on code documentation, VueUse integration, and console logging
 
 ### 2025-05-21 (404 Error Handling Enhancement)
+
 - Added graceful handling of 404 "Page not found" errors to prevent console noise in production.
 - Files created:
   - `plugins/error-handler.client.js`: Created plugin to intercept and filter 404 errors in production
@@ -802,6 +881,7 @@ This document serves as a chronological record of all significant changes made t
   - Implemented as a client-side plugin to ensure it only affects browser console
 
 ### 2025-05-21 (Console Logger Implementation)
+
 - Created a development console logger system for color-coded logging of key events and route changes.
 - Files modified/created:
   - `composables/useConsoleLogger.js`: Created composable for console logging with color-coded categories
@@ -828,6 +908,7 @@ This document serves as a chronological record of all significant changes made t
   - Added comprehensive test coverage for all functionality
 
 ### 2025-05-21 (Ultra-Simplified Scroll-to-Top Implementation)
+
 - Completely simplified the scroll-to-top functionality to ensure it works consistently on page refresh.
 - Files modified/created:
   - `plugins/refresh-scroll.client.js`: Replaced with ultra-simple implementation
@@ -849,6 +930,7 @@ This document serves as a chronological record of all significant changes made t
   - Uses native Nuxt/Vue Router configuration for consistent behavior
 
 ### 2025-05-21 (Scroll Position Fix for Page Refresh)
+
 - Fixed scroll position issue during page refresh that was causing a jarring user experience.
 - Files modified:
   - `plugins/refresh-scroll.client.js`: Completely revised implementation to use History API
@@ -863,6 +945,7 @@ This document serves as a chronological record of all significant changes made t
   - Includes comprehensive error handling for better reliability
 
 ### 2025-05-21 (Scroll-to-Top on Page Refresh)
+
 - Implemented functionality to automatically scroll to the top of the page when a user refreshes the browser.
 - Files modified/created:
   - `plugins/refresh-scroll.client.js`: Created new plugin to handle scroll behavior on page refresh
@@ -877,6 +960,7 @@ This document serves as a chronological record of all significant changes made t
   - Includes comprehensive test coverage for all scenarios
 
 ### 2025-05-21 (Simplified Tooltip Implementation)
+
 - Simplified the tooltip implementation to resolve navigation issues while maintaining mobile auto-dismiss functionality.
 - Files modified:
   - `components/content/AccessibleTooltip.vue`: Reverted to a simpler implementation with only mobile detection
@@ -890,6 +974,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured normal link navigation works as expected
 
 ### 2025-05-20 (Accessibility Script Naming Update)
+
 - Renamed accessibility HTML generation script and commands to avoid confusion with Nuxt's generate command.
 - Files modified:
   - `scripts/generate-accessibility-html.js` → `scripts/create-accessibility-html.js`: Renamed script file
@@ -903,6 +988,7 @@ This document serves as a chronological record of all significant changes made t
   - Enhanced developer experience with more intuitive script naming
 
 ### 2025-05-20 (App Navigation Bar Color Update)
+
 - Changed the light theme app navigation bar background color from a blueish tint to a greyish tint.
 - Files modified:
   - `plugins/vuetify.ts`: Updated 'app-bar' color value in the light theme
@@ -914,6 +1000,7 @@ This document serves as a chronological record of all significant changes made t
   - Simplified the light theme color palette with a more neutral navigation bar color
 
 ### 2025-05-20 (Accessibility Documentation Prerendering)
+
 - Updated Nitro configuration to ensure accessibility documentation HTML files are prerendered during static site generation.
 - Files modified:
   - `nuxt.config.ts`: Added explicit routes for accessibility documentation HTML files in the Nitro prerender configuration
@@ -925,6 +1012,7 @@ This document serves as a chronological record of all significant changes made t
   - Complements the existing HTML generation script that creates these files
 
 ### 2025-05-20 (Footer Accessibility Section Enhancement)
+
 - Added a dedicated Accessibility column to the footer with links to documentation and audit log.
 - Files modified:
   - `components/content/AppFooter.vue`: Restructured footer columns and added new accessibility links
@@ -937,6 +1025,7 @@ This document serves as a chronological record of all significant changes made t
   - Enhanced user experience by grouping related accessibility content
 
 ### 2025-05-20 (Security Enhancement for Accessibility Documentation)
+
 - Improved security of accessibility documentation by removing specific file paths and implementation details.
 - Files modified:
   - `accessibility-documentation.md`: Removed specific file paths and contact information
@@ -951,6 +1040,7 @@ This document serves as a chronological record of all significant changes made t
   - Added security review as a standard step in accessibility documentation updates
 
 ### 2025-05-20 (Accessibility HTML Documentation Enhancement)
+
 - Enhanced the HTML versions of accessibility documentation to meet WCAG 2.1 AA standards.
 - Files modified:
   - `scripts/create-accessibility-html.js`: Updated HTML template with proper accessibility features
@@ -969,6 +1059,7 @@ This document serves as a chronological record of all significant changes made t
   - Added copyright information in footer
 
 ### 2025-05-20 (Accessibility Compliance Target Clarification)
+
 - Updated documentation to clarify that WCAG 2.1 AA is our primary accessibility compliance target.
 - Files modified:
   - `.augment-guidelines`: Updated accessibility standards section to target AA compliance
@@ -982,6 +1073,7 @@ This document serves as a chronological record of all significant changes made t
   - Ensured consistent messaging across all documentation
 
 ### 2025-05-20 (Accessibility Link Addition)
+
 - Added an accessibility link to the footer in the legal column.
 - Files modified:
   - `components/content/AppFooter.vue`: Added accessibility link with tooltip
@@ -993,6 +1085,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved discoverability of accessibility documentation for all users
 
 ### 2025-05-20 (Scroll-to-Top Navigation Enhancement)
+
 - Implemented functionality to ensure clicking on "return to homepage" links always scrolls to the top of the page.
 - Files modified/created:
   - `plugins/scroll-behavior.client.js`: Created new plugin for scroll behavior management
@@ -1008,6 +1101,7 @@ This document serves as a chronological record of all significant changes made t
   - Added fallback for cases where the plugin might not be available
 
 ### 2025-05-20 (Color-Coded Console Output Implementation)
+
 - Enhanced the accessibility HTML generation script with color-coded console output.
 - Files modified:
   - `scripts/create-accessibility-html.js`: Added color coding to console output messages
@@ -1022,6 +1116,7 @@ This document serves as a chronological record of all significant changes made t
   - Enhanced error visibility for faster troubleshooting
 
 ### 2025-05-20 (Optimized Container Width Implementation)
+
 - Optimized the header and footer containers to reduce unnecessary blank space while maintaining minimum padding.
 - Files modified:
   - `components/content/AppHeader.vue`: Replaced v-container with custom header-container class
@@ -1037,6 +1132,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved overall layout by utilizing more horizontal space
 
 ### 2025-05-20 (Responsive Header Title Implementation)
+
 - Updated the app header and footer to display responsive titles based on screen size.
 - Files modified:
   - `components/content/AppHeader.vue`: Implemented responsive title display with different text for various screen sizes
@@ -1054,6 +1150,7 @@ This document serves as a chronological record of all significant changes made t
   - Adjusted spacing between icon and text for smaller screens
 
 ### 2025-05-20 (Custom 404 Error Page Implementation)
+
 - Created a modern and stylish 404 error page following Nuxt 3 guidelines.
 - Files created:
   - `error.vue`: Implemented custom error page with navigation options
@@ -1068,6 +1165,7 @@ This document serves as a chronological record of all significant changes made t
   - Added subtle animations for enhanced user experience
 
 ### 2025-05-20 (App Navigation Bar Color Update)
+
 - Updated the app navigation bar colors to better distinguish it from the body in both light and dark themes.
 - Files modified:
   - `plugins/vuetify.ts`: Added new 'app-bar' and 'on-app-bar' color variables to the theme configuration
@@ -1081,6 +1179,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained existing accessibility features while improving visual distinction
 
 ### 2025-05-20 (Project Name Update)
+
 - Updated project name from "Illinois Violent Prevention Project" to "Violence Prevention Plan for Illinois: 2025-2029" across the application.
 - Files modified:
   - `components/content/AppHeader.vue`: Updated project name and adjusted font size from h5 to h6
@@ -1097,6 +1196,7 @@ This document serves as a chronological record of all significant changes made t
   - Used consistent naming across all files
 
 ### 2025-05-20 (Code Cleanup)
+
 - Removed unused code and dependencies to improve maintainability.
 - Files modified/removed:
   - Removed `scripts/create-favicon.js` and `scripts/copy-favicon.js`: Unused favicon scripts
@@ -1109,6 +1209,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved code maintainability by removing dead code
 
 ### 2025-05-20 (Direct NuxtPage Height Implementation)
+
 - Simplified layout by directly setting NuxtPage height to 100vh and removing previous sticky footer code.
 - Files modified:
   - `app.vue`: Added min-height: 100vh to NuxtPage component, removed unnecessary body styles
@@ -1122,6 +1223,7 @@ This document serves as a chronological record of all significant changes made t
   - Improved maintainability by reducing CSS complexity
 
 ### 2025-05-20 (Simplified Sticky Footer Implementation)
+
 - Simplified the sticky footer implementation to ensure it's always at the bottom of the viewport.
 - Files modified:
   - `app.vue`: Set body min-height to 100vh directly
@@ -1135,6 +1237,7 @@ This document serves as a chronological record of all significant changes made t
   - Maintained accessibility and responsive design with a cleaner implementation
 
 ### 2025-05-20 (Sticky Footer Implementation)
+
 - Implemented a 100vh layout to ensure the footer is always at the bottom of the page.
 - Files modified:
   - `layouts/default.vue`: Added flex layout with min-height: 100vh and flex-grow for main content
@@ -1146,6 +1249,7 @@ This document serves as a chronological record of all significant changes made t
   - Improves user experience by preventing "floating" footers on short pages
 
 ### 2025-05-20 (Sandbox Page Crawler Exclusion)
+
 - Configured Nuxt to exclude the sandbox page from being crawled during static site generation.
 - Files modified:
   - `nuxt.config.ts`: Added ignore pattern for the sandbox route in nitro.prerender configuration
@@ -1154,232 +1258,3 @@ This document serves as a chronological record of all significant changes made t
   - This ensures the sandbox page won't be included in the static site generation
   - The sandbox page remains accessible in development mode
   - This approach is more maintainable than manually specifying all routes to include
-
-### 2025-05-19 (State of Illinois Seal Favicon)
-- Added State of Illinois seal as the project favicon.
-- Files modified:
-  - `public/favicon.png`: Replaced with Illinois State Seal placeholder
-  - `public/favicon.ico`: Replaced with Illinois State Seal placeholder
-  - `nuxt.config.ts`: Updated to reference both favicon.png and favicon.ico
-- Technical Notes:
-  - Added both PNG and ICO favicon formats for better browser compatibility
-  - Updated favicon references in the head configuration
-  - Created placeholder files that will be replaced with actual Illinois State Seal images
-  - Improved branding by using the official State of Illinois seal
-
-### 2025-05-19 (Placeholder Images Update)
-- Updated placeholder images across the application to include descriptive text.
-- Files modified:
-  - `pages/index.vue`: Updated placeholder image URL to include "VPP Image Here" text
-  - `pages/about.vue`: Updated placeholder images with descriptive text
-  - `components/content/HeroSection.vue`: Updated hero image placeholder with project identifier
-- Technical Notes:
-  - Changed placeholder image URLs from `https://placehold.co/1200x800` to `https://placehold.co/1200x800?text=VPP+Image+Here`
-  - Maintained all existing accessibility attributes (alt text, aria roles, etc.)
-  - Improved visual identification of placeholder images for development purposes
-  - Ensured consistent placeholder image styling across all components
-  - Maintained responsive image behavior with updated placeholder URLs
-
-### 2025-05-19 (Footer Contrast Ratio Improvement)
-- Fixed contrast ratio issues in the AppFooter component to ensure WCAG AA compliance.
-- Files modified:
-  - `components/content/AppFooter.vue`: Increased text contrast for better readability
-  - `audit-log-accessibility.md`: Documented the contrast ratio improvements
-  - `public/audit-log-accessibility.html`: Updated HTML version with latest fixes
-- Technical Notes:
-  - Replaced low-contrast text-medium-emphasis class with custom higher-contrast classes
-  - Increased opacity of footer links from 0.7 to 0.87 for better contrast
-  - Created custom footer-description and footer-copyright classes with improved contrast
-  - Ensured all text elements in the footer now meet WCAG AA contrast requirements (4.5:1)
-  - Maintained visual design while improving accessibility for users with low vision
-
-### 2025-05-19 (Tooltip Accessibility Fix)
-- Fixed accessibility issue with tooltip element missing proper ARIA attributes.
-- Files modified:
-  - `components/content/AppHeader.vue`: Added role="tooltip" and aria-label to tooltip
-  - `audit-log-accessibility.md`: Documented the tooltip accessibility fix
-  - `public/audit-log-accessibility.html`: Updated HTML version with latest fixes
-- Technical Notes:
-  - Fixed issue where ARIA tooltip element did not have an accessible name
-  - Added proper role="tooltip" attribute to ensure correct semantic meaning
-  - Added aria-label attribute to provide an accessible name for screen readers
-  - Ensured all tooltips in the application now have proper accessibility attributes
-  - Improved screen reader experience by ensuring tooltips are properly announced
-
-### 2025-05-19 (Accessibility Assessment Update)
-- Conducted comprehensive review of project's accessibility features and updated documentation.
-- Files modified:
-  - `audit-log-accessibility.md`: Added new assessment confirming continued WCAG 2.1 AAA compliance
-  - `public/audit-log-accessibility.html`: Updated HTML version with latest assessment
-- Technical Notes:
-  - Verified all components maintain proper semantic structure with appropriate ARIA attributes
-  - Confirmed keyboard navigation works correctly for all interactive elements
-  - Validated screen reader announcements for dynamic content changes
-  - Verified high contrast ratios (8:1) are maintained in both light and dark themes
-  - Identified automated accessibility testing as the only remaining area for improvement
-  - Regenerated HTML documentation to ensure it reflects current accessibility status
-
-### 2025-05-18 (Accessibility Documentation Link Updates)
-- Updated links in accessibility documentation to point to HTML versions.
-- Files modified:
-  - `audit-log-accessibility.md`: Updated link to point to HTML version of accessibility documentation
-  - `scripts/create-accessibility-html.js`: Enhanced to replace Markdown links with HTML links
-- Technical Notes:
-  - Updated links to ensure they work in both development and production environments
-  - Modified HTML generation script to replace Markdown links with HTML links
-  - Ensured consistent linking between documentation files
-  - Improved user experience by providing direct links to HTML versions
-
-### 2025-05-18 (Accessibility Documentation HTML Generation)
-- Added script to generate HTML versions of accessibility documentation for direct URL access.
-- Files modified/created:
-  - `scripts/create-accessibility-html.js`: Created script to convert Markdown to HTML
-  - `package.json`: Added scripts for creating accessibility HTML
-  - `public/accessibility-documentation.html`: Generated HTML version of accessibility documentation
-  - `public/audit-log-accessibility.html`: Generated HTML version of accessibility audit log
-  - `composables/useAccessibilityDocs.js`: Created utility functions for accessibility documentation
-- Technical Notes:
-  - Created a Node.js script to convert Markdown to HTML using marked
-  - Added responsive styling with light/dark mode support
-  - Set up automatic generation during build and static site generation process
-  - Added pre-build and pre-generate hooks to ensure HTML files are always up-to-date
-  - Made accessibility documentation directly accessible via URL
-  - Added navigation links between documentation pages
-  - Ensured documentation is available without requiring JavaScript
-  - Added support for copying files to Nuxt output directory during static site generation
-  - Implemented as part of the continuous documentation process
-
-### 2025-05-18 (JSDoc Documentation Improvements)
-- Added comprehensive JSDoc comments to components, composables, and pages.
-- Files modified:
-  - `layouts/default.vue`: Added JSDoc for layout component and functions
-  - `components/content/ImageWithSpinner.vue`: Added JSDoc for component and methods
-  - `components/content/FeatureCard.vue`: Added JSDoc for component, props, and methods
-  - `components/content/ThemeSwitch.vue`: Added JSDoc for component, props, and methods
-  - `components/content/AppHeader.vue`: Added JSDoc for component and props
-  - `components/content/AppFooter.vue`: Added JSDoc for component
-  - `pages/index.vue`: Added JSDoc for page, data, and methods
-  - `pages/about.vue`: Added JSDoc for page, data, and methods
-- Technical Notes:
-  - Added detailed component descriptions with @component tags
-  - Added @page tags to page components
-  - Added parameter documentation with types
-  - Added return value documentation with types
-  - Added descriptive comments for all functions and methods
-  - Improved code readability and maintainability
-  - Enhanced developer experience with better documentation
-  - Followed JSDoc best practices for Vue components
-
-### 2025-05-18 (Lighthouse Accessibility Fixes)
-- Fixed accessibility issues reported by Lighthouse.
-- Files modified:
-  - `pages/index.vue`: Added proper ARIA roles to v-list components
-  - `components/content/ImageWithSpinner.vue`: Fixed invalid ARIA attributes on v-img
-  - `components/content/AppHeader.vue`: Added proper ARIA roles and labels to tooltips
-  - `components/content/AppFooter.vue`: Added proper ARIA roles and labels to tooltips
-  - `components/content/ThemeSwitch.vue`: Added proper ARIA roles and labels to tooltip
-- Technical Notes:
-  - Fixed ARIA parent/child role relationships in list components
-  - Corrected invalid ARIA attribute values on image components
-  - Added proper role="tooltip" to all tooltip components
-  - Added aria-label attributes to tooltips for screen reader support
-  - Made decorative icons non-focusable with aria-hidden="true"
-  - Ensured all interactive elements have accessible names
-  - Improved overall accessibility score in Lighthouse
-
-### 2025-05-17 (Last Updated Date Addition)
-- Added "Last Updated" dates to accessibility documentation files.
-- Files modified/created:
-  - `accessibility-documentation.md`: Added "Last Updated: May 17, 2025" at the top
-  - `audit-log-accessibility.md`: Added "Last Updated: May 17, 2025" at the top
-- Technical Notes:
-  - Provides users with clear information about when accessibility was last analyzed
-  - Helps maintain transparency about the currency of accessibility information
-  - Follows best practices for documentation by indicating recency
-  - Ensures users know they're viewing the most current accessibility information
-  - Establishes a pattern for future updates to maintain date information
-
-### 2025-05-17 (User-Facing Accessibility Documentation)
-- Created comprehensive user-facing accessibility documentation.
-- Files modified/created:
-  - `accessibility-documentation.md`: Created detailed user guide for accessibility features
-  - `README.md`: Updated to reference the new accessibility documentation
-- Technical Notes:
-  - Documented all keyboard navigation shortcuts and patterns
-  - Provided guidance on screen reader compatibility
-  - Listed assistive technology compatibility information
-  - Included page-specific accessibility features
-  - Added contact information for accessibility feedback
-  - Documented technical compliance with WCAG 2.1 AAA standards
-  - Created a user-friendly resource separate from technical audit logs
-  - Implemented recommendation from previous accessibility assessment
-
-### 2025-05-17 (Audit Log Renaming)
-- Renamed audit log files for better clarity and organization.
-- Files modified/created:
-  - `audit-log-vpp.md` → `audit-log-project.md`: Renamed main project audit log
-  - `README.md`: Updated reference to audit log
-  - `.augment-guidelines`: Updated audit log references
-- Technical Notes:
-  - Maintained two separate audit logs for different purposes:
-    - `audit-log-project.md`: General project changes and development
-    - `audit-log-accessibility.md`: Dedicated to accessibility assessments and improvements
-  - Updated all references to ensure consistent naming across the project
-  - Preserved all historical entries during the renaming process
-  - Improved documentation organization for better maintainability
-
-### 2025-05-17 (Accessibility Documentation Enhancement)
-- Added accessibility section to README and created comprehensive accessibility audit log.
-- Files modified/created:
-  - `README.md`: Added accessibility section with key features and link to audit log
-  - `audit-log-accessibility.md`: Created detailed accessibility assessment document
-- Technical Notes:
-  - Documented WCAG 2.1 AAA compliance status of the project
-  - Highlighted key accessibility features implemented in the project
-  - Created component-by-component accessibility assessment
-  - Provided recommendations for future accessibility improvements
-  - Established a dedicated document for tracking accessibility status
-  - Added link from README to make accessibility information easily discoverable
-
-### 2025-05-17 (Critical Accessibility Guidelines Update)
-- Added critical WCAG 2.1 AAA compliance requirement for all UI/UX updates.
-- Files modified/created:
-  - `.augment-guidelines`: Updated accessibility standards section with critical requirements
-- Technical Notes:
-  - Added explicit requirement that all new UI/UX updates MUST follow WCAG 2.1 AAA compliance
-  - Marked accessibility compliance as CRITICAL to emphasize its importance
-  - Upgraded requirements from AA to AAA standards for higher accessibility
-  - Increased color contrast ratio requirement from 4.5:1 to 8:1
-  - Added requirement for screen reader testing before submitting changes
-  - Added requirement for documenting accessibility features in code and PRs
-  - Specified that all components must be fully accessible before merging
-  - Added comprehensive list of accessibility requirements for all UI elements
-
-### 2025-05-17 (About Page Accessibility Improvements)
-- Extended accessibility features to the About page to ensure consistent accessibility across the site.
-- Files modified/created:
-  - `pages/about.vue`: Enhanced with keyboard navigation, ARIA attributes, and screen reader announcements
-- Technical Notes:
-  - Added keyboard navigation to Value Cards with proper focus management
-  - Implemented ARIA roles, labels, and descriptions for all interactive elements
-  - Added screen reader announcements for Value Card and Contact Button interactions
-  - Enhanced focus styles to match hover effects for consistent user experience
-  - Made decorative elements non-focusable with aria-hidden
-  - Added unique IDs for ARIA relationships between elements
-  - Ensured consistent accessibility patterns across all pages
-
-### 2025-05-17 (Comprehensive Accessibility Enhancements)
-- Implemented additional accessibility improvements to achieve WCAG 2.1 AAA compliance.
-- Files modified/created:
-  - `components/content/FeatureCard.vue`: Enhanced with keyboard navigation and ARIA attributes
-  - `composables/useAnnouncer.js`: Created new composable for screen reader announcements
-  - `layouts/default.vue`: Added screen reader announcement system
-  - `pages/index.vue` and `pages/about.vue`: Added proper page titles and meta descriptions
-- Technical Notes:
-  - Made FeatureCard components fully keyboard accessible with proper focus management
-  - Added ARIA roles, labels, and descriptions to interactive elements
-  - Implemented a global screen reader announcement system for dynamic content changes
-  - Added proper page titles and meta descriptions using Nuxt's useHead and useSeoMeta
-  - Created unique IDs for ARIA relationships between elements
-  - Enhanced focus styles to match hover effects for consistent user experience
-  - Improved SEO with proper Open Graph and Twitter Card metadata
