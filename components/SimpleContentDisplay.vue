@@ -14,6 +14,20 @@
     <div v-else-if="content" class="content-container">
       <!-- Just the content, nothing else -->
       <ContentRenderer :value="content" class="content-renderer" />
+
+      <!-- Debug Information (only shown when debug=true) -->
+      <div v-if="props.debug" class="debug-container mt-6">
+        <v-divider class="my-4"></v-divider>
+        <h3 class="text-h6 font-weight-bold mb-3">
+          <v-icon icon="mdi-code-json" class="me-2" aria-hidden="true"></v-icon>
+          Debug: Raw Content Data
+        </h3>
+        <v-card class="debug-card" variant="outlined">
+          <v-card-text class="pa-0">
+            <pre class="debug-content">{{ JSON.stringify(content, null, 2) }}</pre>
+          </v-card-text>
+        </v-card>
+      </div>
     </div>
 
     <!-- No Content State -->
@@ -29,6 +43,24 @@
  *
  * A minimal component for displaying markdown content without any UI decorations.
  * Just shows the raw content with basic loading and error states.
+ *
+ * @example Basic usage
+ * ```vue
+ * <SimpleContentDisplay :path="contentPath" />
+ * ```
+ *
+ * @example With debug enabled
+ * ```vue
+ * <SimpleContentDisplay :path="contentPath" :debug="true" />
+ * ```
+ *
+ * @example All available props
+ * ```vue
+ * <SimpleContentDisplay
+ *   :path="contentPath"
+ *   :debug="isDevelopment"
+ * />
+ * ```
  */
 import { ContentRenderer } from '#components';
 import useContentFetcher from '~/composables/useContentFetcher';
@@ -40,6 +72,32 @@ const props = defineProps({
   path: {
     type: String,
     required: true
+  },
+
+  /**
+   * Debug mode
+   *
+   * When enabled, displays the complete raw JSON representation of the content data
+   * below the rendered content. This is useful for development and debugging
+   * to understand the content structure and troubleshoot rendering issues.
+   *
+   * The debug display shows all keys and values in the content object, including
+   * metadata, body content, and any other properties returned by the content API.
+   * It is formatted with proper indentation for readability and placed in a
+   * visually distinct section below the rendered content.
+   *
+   * @type {Boolean}
+   * @default false
+   * @example
+   * // Enable debug mode
+   * <SimpleContentDisplay :path="contentPath" :debug="true" />
+   *
+   * // Conditionally enable debug mode in development only
+   * <SimpleContentDisplay :path="contentPath" :debug="isDevelopment" />
+   */
+  debug: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -161,6 +219,30 @@ const { content, pending, error } = useContentFetcher({
   }
 }
 
+// Debug container styling
+.debug-container {
+  margin-top: 2rem;
+
+  .debug-card {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+
+    .debug-content {
+      font-family: 'Roboto Mono', monospace;
+      background-color: rgba(0, 0, 0, 0.03);
+      padding: 1.5rem;
+      overflow-x: auto;
+      line-height: 1.6;
+      font-size: 0.9rem;
+      max-height: 500px;
+      overflow-y: auto;
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  }
+}
+
 // Dark mode support
 :deep(.v-theme--dark) {
   .content-renderer {
@@ -170,6 +252,17 @@ const { content, pending, error } = useContentFetcher({
 
     :deep(pre) {
       background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .debug-container {
+    .debug-card {
+      border-color: rgba(255, 255, 255, 0.12);
+
+      .debug-content {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.87);
+      }
     }
   }
 }

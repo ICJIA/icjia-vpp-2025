@@ -4,6 +4,62 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-22 (Debug Functionality Fixed in SimpleContentDisplay)
+- Fixed and enhanced the debug functionality in the SimpleContentDisplay component.
+- Files modified:
+  - `components/SimpleContentDisplay.vue`: Improved debug display with better styling and functionality
+  - `pages/sandbox-refactored.vue`: Updated code example to match the new implementation
+- Technical Notes:
+  - Fixed the debug display to properly show the complete raw JSON data structure
+  - Improved the visual presentation with a card container and proper styling
+  - Added an icon to the debug heading for better visual identification
+  - Enhanced the styling with proper padding, margins, and scrolling for large JSON objects
+  - Improved dark mode support with appropriate colors and contrast
+  - Updated JSDoc documentation with more detailed explanations and examples
+  - Ensured the debug toggle properly shows/hides the JSON data
+  - Made the debug display visually distinct from the content with a divider and card
+  - Updated the code example in sandbox-refactored to match the new implementation
+  - Tested functionality in both light and dark themes
+
+### 2025-05-22 (Debug Mode Enabled by Default in Sandbox)
+- Updated sandbox-refactored page to enable debug mode by default.
+- Files modified:
+  - `pages/sandbox-refactored.vue`: Changed default value of showDebug ref to true
+- Technical Notes:
+  - Set the initial value of showDebug ref to true for demonstration purposes
+  - Updated the comment to indicate the default is for demonstration
+  - Maintained the toggle functionality to allow users to disable debug mode
+  - Ensured debug mode is immediately visible when the page loads
+
+### 2025-05-22 (Debug Mode Added to SimpleContentDisplay)
+- Added a debug prop to the SimpleContentDisplay component for development and troubleshooting.
+- Files modified:
+  - `components/SimpleContentDisplay.vue`: Added debug prop and JSON display functionality
+- Technical Notes:
+  - Added a Boolean prop 'debug' that defaults to false
+  - When debug=true, displays the raw JSON representation of the content data
+  - Formatted JSON output with proper indentation using JSON.stringify
+  - Added styling for the debug display with monospace font and proper formatting
+  - Included comprehensive JSDoc documentation with usage examples
+  - Added visual separation between content and debug information with a divider
+  - Implemented dark mode support for the debug display
+  - Added max-height with scrolling for large content objects
+  - Ensured debug information only shows when both debug=true AND content exists
+  - Maintained all existing functionality while adding the debug feature
+
+### 2025-05-22 (Timeline Added to Sandbox-Refactored)
+- Added Vuetify timeline to sandbox-refactored page to mirror the one in sandbox.vue.
+- Files modified:
+  - `pages/sandbox-refactored.vue`: Added v-timeline component with steps
+- Technical Notes:
+  - Replaced bullet list with Vuetify timeline component
+  - Maintained the same 5-step process as in the original sandbox.vue
+  - Used consistent styling with primary color dots and compact density
+  - Added code examples within timeline items
+  - Ensured proper accessibility with clear headings and descriptions
+  - Preserved the overall layout and design of the page
+  - Maintained all existing functionality while adding the timeline
+
 ### 2025-05-22 (Project Pages Update to SimpleContentDisplay)
 - Updated all project pages to use the new SimpleContentDisplay component.
 - Files modified:
