@@ -1,12 +1,16 @@
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 23, 2025**
+**Last Updated: May 24, 2025**
 
 > **Documentation Update**: We've conducted our comprehensive accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We've enhanced our tooltip accessibility with the AccessibleTooltip component, improved screen reader announcements with the useAnnouncer composable, and added better documentation access with the useAccessibilityDocs composable. These enhancements further strengthen our commitment to providing an accessible experience for all users.
 
 The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.
 
 > **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
+
+## Development Approach
+
+**Important Note**: Accessibility has been integrated into this project from day 1 as a critical, non-negotiable requirement rather than an afterthought. Our development methodology treats accessibility as an integral part of the development process, not as a separate concern. Every component, feature, and UI element is designed and implemented with accessibility in mind from the initial conception through final implementation. This approach ensures that accessibility considerations are baked into the project's foundation and maintained throughout the iterative development process.
 
 This document outlines the accessibility features available on our site and provides guidance on how to use them effectively.
 
