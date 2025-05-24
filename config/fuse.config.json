@@ -1,0 +1,116 @@
+{
+  "search": {
+    "indexPath": "/data/search-index.json",
+    "fuseOptions": {
+      "keys": [
+        {
+          "name": "title",
+          "weight": 1.0
+        },
+        {
+          "name": "content",
+          "weight": 0.6
+        },
+        {
+          "name": "description",
+          "weight": 0.6
+        },
+        {
+          "name": "path",
+          "weight": 0.3
+        }
+      ],
+      "includeScore": true,
+      "isCaseSensitive": false,
+      "threshold": 0.6,
+      "distance": 150,
+      "useExtendedSearch": false,
+      "includeMatches": true
+    },
+    "debounceMs": 300,
+    "minTermLength": 2,
+    "excerptContextChars": 50
+  },
+  "indexing": {
+    "blacklist": {
+      "vue": [
+        "sandbox.vue",
+        "sandbox-*.vue"
+      ],
+      "markdown": [
+        "sandbox.md",
+        "sandbox-*.md"
+      ]
+    },
+    "paths": {
+      "content": "content",
+      "pages": "pages",
+      "output": "public/data",
+      "outputFile": "search-index.json"
+    },
+    "duplicateHandling": {
+      "preferMarkdown": true,
+      "mergeMetadata": true,
+      "minContentLength": 50
+    },
+    "textExtraction": {
+      "vue": {
+        "elements": [
+          "h1",
+          "h2",
+          "h3",
+          "h4",
+          "h5",
+          "h6",
+          "p",
+          "li",
+          "span",
+          "div",
+          "v-btn",
+          "v-list-item-title",
+          "v-card-title",
+          "v-card-text",
+          "v-card-subtitle",
+          "v-list-item",
+          "v-alert",
+          "v-chip",
+          "v-tooltip"
+        ],
+        "attributes": [
+          "text",
+          "label",
+          "placeholder",
+          "title",
+          "alt"
+        ],
+        "metadata": {
+          "titlePatterns": [
+            "title:\\s*['\"]([^'\"]+)['\"]",
+            "@page\\s*\\n\\s*\\*/\\s*[\\s\\S]*?['\"]([^'\"]+)['\"]"
+          ],
+          "descriptionPatterns": [
+            "description:\\s*['\"]([^'\"]+)['\"]"
+          ]
+        }
+      },
+      "markdown": {
+        "removePatterns": [
+          "```[\\s\\S]*?```",
+          "`[^`]*`",
+          "#{1,6}\\s+",
+          "\\[([^\\]]+)\\]\\([^)]+\\)",
+          "!\\[[^\\]]*\\]\\([^)]+\\)",
+          "<[^>]*>"
+        ]
+      }
+    },
+    "normalization": {
+      "removeExtensions": [
+        ".vue",
+        ".md"
+      ],
+      "ensureLeadingSlash": true,
+      "indexToRoot": true
+    }
+  }
+}

@@ -13,7 +13,7 @@
             <v-text-field
               v-model="searchQuery"
               label="Search content"
-              placeholder="Enter search terms..."
+              :placeholder="searchQuery ? '' : 'Enter search terms...'"
               variant="outlined"
               hide-details
               clearable
@@ -28,53 +28,62 @@
         </v-card>
 
         <!-- Search results -->
-        <div v-if="isInitializing" class="text-center py-8">
-          <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+        <!-- Loading state -->
+        <div v-if="isInitializing" class="text-center py-8" role="status" aria-live="polite">
+          <v-progress-circular indeterminate color="primary" size="64" aria-label="Loading search index"></v-progress-circular>
           <div class="mt-4 text-body-1">Loading search index...</div>
         </div>
 
-        <div v-else-if="searchQuery && !isSearching && searchResults.length === 0" class="text-center py-8">
-          <v-icon icon="mdi-file-search-outline" size="64" color="grey-lighten-1" class="mb-4"></v-icon>
+        <!-- No results state -->
+        <div v-else-if="searchQuery && !isSearching && searchResults.length === 0" class="text-center py-8" role="status" aria-live="polite">
+          <v-icon icon="mdi-file-search-outline" size="64" color="grey-lighten-1" class="mb-4" aria-hidden="true"></v-icon>
           <h2 class="text-h5 mb-2">No results found</h2>
           <p class="text-body-1 text-medium-emphasis">
-            No content matches your search for "{{ searchQuery }}". Try different keywords or check your spelling.
+            No content matches your search for "{{ sanitizedSearchDisplay }}". Try different keywords or check your spelling.
           </p>
         </div>
 
-        <div v-else-if="searchQuery && !isSearching">
-          <div class="mb-4 text-subtitle-1">
+        <!-- Search results -->
+        <div v-else-if="searchQuery && !isSearching" role="region" aria-label="Search results">
+          <div class="mb-4 text-subtitle-1" aria-live="polite">
             {{ searchResults.length }} {{ searchResults.length === 1 ? 'result' : 'results' }} found
           </div>
 
-          <v-card v-for="(result, index) in searchResults" :key="index" class="mb-4" elevation="1" :to="result.path">
-            <v-card-title class="text-h6">
-              {{ result.title }}
-            </v-card-title>
-            <v-card-text>
-              <p class="text-body-2 text-medium-emphasis mb-2">
-                <v-icon icon="mdi-link-variant" size="small" class="me-1"></v-icon>
-                {{ result.path }}
-              </p>
-              <div v-html="highlightMatches(result.excerpt)" class="search-result-excerpt"></div>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                variant="text"
-                color="primary"
-                :to="result.path"
-                class="text-none"
-                aria-label="View content"
-              >
-                View content
-                <v-icon icon="mdi-arrow-right" size="small" class="ms-1"></v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <!-- Results list -->
+          <ul class="search-results-list pa-0" aria-label="Search results list">
+            <li v-for="(result, index) in searchResults" :key="index" class="mb-4" style="list-style-type: none;">
+              <v-card elevation="1" :to="result.path" class="search-result-card" tabindex="0">
+                <v-card-title class="text-h6">
+                  {{ result.title }}
+                </v-card-title>
+                <v-card-text>
+                  <p class="text-body-2 text-medium-emphasis mb-2">
+                    <v-icon icon="mdi-link-variant" size="small" class="me-1" aria-hidden="true"></v-icon>
+                    <span class="sr-only">Path: </span>{{ result.path }}
+                  </p>
+                  <div v-html="safeHighlight(result.excerpt)" class="search-result-excerpt" aria-label="Result excerpt"></div>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    variant="text"
+                    color="primary"
+                    :to="result.path"
+                    class="text-none"
+                    aria-label="View content for {{ result.title }}"
+                  >
+                    View content
+                    <v-icon icon="mdi-arrow-right" size="small" class="ms-1" aria-hidden="true"></v-icon>
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </li>
+          </ul>
         </div>
 
-        <div v-else-if="!searchQuery" class="text-center py-8">
-          <v-icon icon="mdi-text-search" size="64" color="grey-lighten-1" class="mb-4"></v-icon>
+        <!-- Empty search state -->
+        <div v-else-if="!searchQuery" class="text-center py-8" role="status">
+          <v-icon icon="mdi-text-search" size="64" color="grey-lighten-1" class="mb-4" aria-hidden="true"></v-icon>
           <h2 class="text-h5 mb-2">Search content</h2>
           <p class="text-body-1 text-medium-emphasis">
             Enter keywords above to search through all content.
@@ -86,10 +95,11 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import { useHead, useSeoMeta } from '#imports';
 import Fuse from 'fuse.js';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { sanitizeString, sanitizeSearchQuery, safeHighlightMatches } from '~/utils/sanitize';
 
 // Initialize logger
 const { log } = useConsoleLogger();
@@ -115,14 +125,22 @@ const isInitializing = ref(true);
 const isSearching = ref(false);
 const fuseInstance = ref(null);
 
-// Fuse.js configuration options
-const fuseOptions = {
+// Computed properties
+const sanitizedSearchQuery = computed(() => {
+  return sanitizeSearchQuery(searchQuery.value);
+});
+
+// Safe display version of the search query for UI display
+const sanitizedSearchDisplay = computed(() => {
+  return sanitizeString(searchQuery.value);
+});
+
+// Load Fuse.js configuration from config file
+const fuseConfig = ref(null);
+const fuseOptions = ref({
   /**
-   * Keys to search in, with weights to prioritize matches
-   * - title: highest priority (weight 1.0)
-   * - content: medium priority (weight 0.6)
-   * - description: medium priority (weight 0.6)
-   * - path: lowest priority (weight 0.3)
+   * Default Fuse.js configuration options
+   * These will be used if the config file cannot be loaded
    */
   keys: [
     { name: 'title', weight: 1.0 },
@@ -130,21 +148,43 @@ const fuseOptions = {
     { name: 'description', weight: 0.6 },
     { name: 'path', weight: 0.3 }
   ],
-  // Include score in results to show relevance
   includeScore: true,
-  // Match similar terms (fuzzy matching)
   isCaseSensitive: false,
-  // Fuzzy matching threshold (0.0 = exact match, 1.0 = anything matches)
-  // Lower values = stricter matching
-  threshold: 0.3,
-  // Determine if the match should be included in the result set
-  // Lower values = more exact matches
-  distance: 100,
-  // Will search all fields by default
+  threshold: 0.6,
+  distance: 150,
   useExtendedSearch: false,
-  // Include matches information for highlighting
   includeMatches: true
-};
+});
+
+// Load configuration from fuse.config.json
+async function loadFuseConfig() {
+  try {
+    // Try to load from public directory first
+    let response = await fetch('/config/fuse.config.json');
+
+    // If that fails, try the fallback path
+    if (!response.ok) {
+      log('search', 'Config not found in /config, trying fallback path');
+      response = await fetch('/data/fuse.config.json');
+
+      if (!response.ok) {
+        throw new Error(`Failed to load Fuse config: ${response.status}`);
+      }
+    }
+
+    fuseConfig.value = await response.json();
+    log('search', 'Loaded Fuse.js configuration from config file');
+
+    // Update Fuse options from config
+    if (fuseConfig.value && fuseConfig.value.search && fuseConfig.value.search.fuseOptions) {
+      fuseOptions.value = fuseConfig.value.search.fuseOptions;
+      log('search', 'Using Fuse.js options from config file');
+    }
+  } catch (error) {
+    console.error('Error loading Fuse config:', error);
+    log('search', 'Using default Fuse.js configuration');
+  }
+}
 
 // Load search index
 async function loadSearchIndex() {
@@ -152,7 +192,14 @@ async function loadSearchIndex() {
     isInitializing.value = true;
     log('search', 'Loading search index');
 
-    const response = await fetch('/data/search-index.json');
+    // First load the configuration
+    await loadFuseConfig();
+
+    // Determine the index path from config or use default
+    const indexPath = fuseConfig.value?.search?.indexPath || '/data/search-index.json';
+    log('search', `Using search index path: ${indexPath}`);
+
+    const response = await fetch(indexPath);
     if (!response.ok) {
       throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
     }
@@ -160,8 +207,8 @@ async function loadSearchIndex() {
     searchIndex.value = await response.json();
     log('search', `Search index loaded with ${searchIndex.value.length} items`);
 
-    // Initialize Fuse.js with the loaded index
-    fuseInstance.value = new Fuse(searchIndex.value, fuseOptions);
+    // Initialize Fuse.js with the loaded index and options
+    fuseInstance.value = new Fuse(searchIndex.value, fuseOptions.value);
 
     isInitializing.value = false;
   } catch (error) {
@@ -178,19 +225,32 @@ function performSearch() {
     clearTimeout(debounceTimeout);
   }
 
+  // Get debounce time from config or use default
+  const debounceMs = fuseConfig.value?.search?.debounceMs || 300;
+
+  // Get minimum term length from config or use default
+  const minTermLength = fuseConfig.value?.search?.minTermLength || 3;
+
+  // Get excerpt context size from config or use default
+  const excerptContextChars = fuseConfig.value?.search?.excerptContextChars || 50;
+
   // Set a new timeout
   debounceTimeout = setTimeout(() => {
-    if (!searchQuery.value.trim()) {
+    // Use the sanitized query for searching
+    const safeQuery = sanitizedSearchQuery.value;
+
+    // Check if query is empty or too short
+    if (!safeQuery || safeQuery.length <= minTermLength) {
       searchResults.value = [];
       return;
     }
 
     isSearching.value = true;
-    log('search', `Searching for: "${searchQuery.value}"`);
+    log('search', `Searching for: "${safeQuery}"`);
 
     try {
-      // Perform search using Fuse.js
-      const results = fuseInstance.value.search(searchQuery.value);
+      // Perform search using Fuse.js with sanitized query
+      const results = fuseInstance.value.search(safeQuery);
 
       // Process results to add excerpts with context
       searchResults.value = results.map(result => {
@@ -204,8 +264,8 @@ function performSearch() {
           if (contentMatches && contentMatches.indices.length > 0) {
             // Get the first match position
             const firstMatch = contentMatches.indices[0];
-            const start = Math.max(0, firstMatch[0] - 50);
-            const end = Math.min(item.content.length, firstMatch[1] + 50);
+            const start = Math.max(0, firstMatch[0] - excerptContextChars);
+            const end = Math.min(item.content.length, firstMatch[1] + excerptContextChars);
 
             // Create excerpt with context around the match
             excerpt = (start > 0 ? '...' : '') +
@@ -218,7 +278,8 @@ function performSearch() {
           title: item.title,
           path: item.path,
           excerpt: excerpt,
-          score: result.score
+          score: result.score,
+          type: item.type // Include content type for potential filtering
         };
       });
 
@@ -229,7 +290,7 @@ function performSearch() {
     } finally {
       isSearching.value = false;
     }
-  }, 300); // 300ms debounce delay
+  }, debounceMs);
 }
 
 // Watch for changes in search query
@@ -243,24 +304,15 @@ function clearSearch() {
   searchResults.value = [];
 }
 
-// Highlight matched terms in search results
-function highlightMatches(text) {
-  if (!searchQuery.value.trim() || !text) return text;
+// Safely highlight matched terms in search results
+function safeHighlight(text) {
+  if (!text) return '';
 
-  // Simple highlighting implementation
-  // For more complex needs, consider using a dedicated library
-  const terms = searchQuery.value.trim().split(/\s+/);
-  let highlightedText = text;
+  // Get minimum term length from config or use default
+  const minTermLength = fuseConfig.value?.search?.minTermLength || 2;
 
-  terms.forEach(term => {
-    if (term.length < 3) return; // Skip short terms
-
-    // Case-insensitive global replace
-    const regex = new RegExp(`(${term})`, 'gi');
-    highlightedText = highlightedText.replace(regex, '<mark>$1</mark>');
-  });
-
-  return highlightedText;
+  // Use our safe highlighting function from the sanitize utility
+  return safeHighlightMatches(text, searchQuery.value, minTermLength);
 }
 
 // Initialize on component mount
@@ -287,5 +339,32 @@ onMounted(() => {
     border-radius: 2px;
     font-weight: 500;
   }
+}
+
+/* Accessibility styles */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.search-result-card {
+  &:focus {
+    outline: 2px solid rgba(var(--v-theme-primary), 0.7);
+    outline-offset: 2px;
+  }
+}
+
+/* Ensure highlighted text is accessible */
+:deep(.search-result-excerpt mark) {
+  /* Ensure sufficient contrast for highlighted text */
+  color: rgb(var(--v-theme-on-surface));
+  font-weight: 500;
 }
 </style>

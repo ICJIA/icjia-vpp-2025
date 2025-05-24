@@ -4,6 +4,254 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-23 (Enhanced Search Indexing for Vue-Only Pages)
+- Enhanced search indexing to properly capture content from Vue-only pages, including script-defined content and nested components.
+- Files modified:
+  - `scripts/generate-search-index.js`: Comprehensive enhancement of search indexing functionality
+- Technical Notes:
+  - Improved extraction of reactive variables, computed properties, and script-defined content
+  - Enhanced component detection to better identify components used in templates, including auto-imported components
+  - Added special handling for common layout components (HeroSection, FeatureSection, FeatureCard, ContentDisplay)
+  - Improved component recursion to better handle nested components and avoid circular references
+  - Added special case for index.vue to ensure it properly captures all content
+  - Enhanced logging with detailed statistics about component processing and content extraction
+  - Implemented weighted content extraction to prioritize important text (headings, titles, etc.)
+  - Added comprehensive JSDoc documentation with detailed explanations of functionality
+  - Maintained compatibility with existing search functionality while enhancing content extraction
+  - Fixed component detection to avoid false positives with composables, utilities, and other non-component imports
+  - Improved import filtering to prevent warnings about missing .vue files for JavaScript/TypeScript files
+
+### 2025-05-23 (Search Index Generation Homepage Headline Fix)
+- Fixed critical issue with homepage headline "Rex adipiscing" not being properly indexed and searchable.
+- Files modified:
+  - `scripts/generate-search-index.js`: Enhanced homepage and HeroSection component handling
+- Technical Notes:
+  - Added special handling for index.vue (homepage) to ensure it's properly indexed
+  - Enhanced HeroSection component processing to extract headline and subheadline props
+  - Added high weight to homepage content and headline text to prioritize in search results
+  - Implemented automatic deletion of existing search index before generation to prevent stale data
+  - Fixed issue with "Rex adipiscing" headline not being properly indexed
+  - Added detailed logging of homepage content extraction
+
+### 2025-05-23 (Search Index Generation Homepage Content Fix)
+- Fixed issues with the search index generation script not properly capturing homepage content, particularly headings.
+- Files modified:
+  - `scripts/generate-search-index.js`: Enhanced component import resolution and heading extraction
+- Technical Notes:
+  - Improved heading extraction to prioritize headings in search results with weight-based repetition
+  - Enhanced component import resolution to handle all import patterns and special cases
+  - Added configurable logging level option with three modes (DETAILED, NORMAL, CONCISE)
+  - Added special handling for index.vue to ensure HeroSection and FeatureSection components are properly processed
+  - Fixed issue with "Rex adipiscing" and other hero section text not being properly indexed
+  - Added command-line arguments for controlling logging verbosity
+  - Implemented more robust component path resolution with fallback mechanisms
+
+### 2025-05-23 (Search Index Generation Content Extraction Improvements)
+- Enhanced the search index generation script to capture all visible text content, particularly from hero sections and script variables.
+- Files modified:
+  - `scripts/generate-search-index.js`: Improved text extraction from Vue components
+- Technical Notes:
+  - Added extraction of text from JavaScript variables and constants in the `<script>` section
+  - Enhanced template parsing to better handle template interpolation (`{{ variable }}`)
+  - Improved component recursion to better capture text from child components
+  - Added special case handling for arrays of objects (common pattern in Vue components)
+  - Enhanced logging to provide better visibility into the text extraction process
+  - Added special handling for hero sections and other important content areas
+  - Fixed issue where text defined in the script section was not being properly indexed
+  - Ensured all meaningful text content is searchable, regardless of implementation
+
+### 2025-05-23 (Search Index Generation Console Enhancements)
+- Enhanced the search index generation script with color-coded console output for better developer experience.
+- Files modified:
+  - `scripts/generate-search-index.js`: Added color-coded logging and detailed statistics
+- Technical Notes:
+  - Implemented a standalone Logger utility with ANSI color codes for different message types
+  - Added green color for successful operations (index generation, file processing)
+  - Added red color for errors and failures (file not found, parsing errors)
+  - Added yellow color for warnings and informational messages (duplicate detection, skipped files)
+  - Added cyan color for general status updates and progress indicators
+  - Added detailed statistics about processed files, success/failure counts, and content types
+  - Added emoji icons to make the console output more scannable
+  - Improved error handling with try/catch blocks and appropriate error messages
+  - Added summary statistics at the end of the process for quick overview
+
+### 2025-05-23 (Search Results Accessibility Enhancement)
+- Enhanced search results display and search index generation for improved accessibility.
+- Files modified:
+  - `scripts/generate-search-index.js`: Enhanced JSDoc documentation and improved accessibility-related text extraction
+  - `pages/search.vue`: Improved semantic structure and added ARIA attributes for better screen reader support
+- Technical Notes:
+  - Added comprehensive JSDoc documentation with accessibility considerations
+  - Enhanced text extraction to include accessibility-related attributes (ARIA labels, alt text, etc.)
+  - Implemented proper semantic HTML structure with list elements for search results
+  - Added ARIA roles, labels, and live regions for dynamic content updates
+  - Implemented screen reader only text for better context
+  - Enhanced keyboard navigation with visible focus indicators
+  - Ensured proper contrast for highlighted search terms
+  - Made decorative icons hidden from screen readers
+  - Added descriptive aria-labels to interactive elements
+
+### 2025-05-23 (Search UX Improvements)
+- Enhanced search functionality to improve user experience with more intuitive behavior.
+- Files modified:
+  - `config/fuse.config.json`: Updated minTermLength from 3 to 2 characters
+  - `public/config/fuse.config.json`: Updated minTermLength from 3 to 2 characters
+  - `public/data/fuse.config.json`: Updated minTermLength from 3 to 2 characters
+  - `pages/search.vue`: Modified placeholder behavior to disappear when typing and updated search trigger threshold
+  - `config/fuse.config.md`: Updated documentation to reflect the new minTermLength value
+- Technical Notes:
+  - Changed search placeholder text to disappear as soon as the user begins typing
+  - Modified search behavior to only display results after user enters more than 2 characters
+  - Updated configuration files to enforce the 2-character minimum threshold
+  - Ensured consistent behavior across all search-related components
+
+### 2025-05-23 (Search Input XSS Protection)
+
+- Implemented comprehensive XSS protection for the search functionality.
+- Files modified/created:
+  - `utils/sanitize.js`: Created utility functions for input sanitization
+  - `pages/search.vue`: Updated to use sanitized input and safe highlighting
+- Technical Notes:
+  - Added input sanitization for search queries to prevent XSS attacks
+  - Implemented safe HTML escaping for all user-generated content
+  - Created a secure highlighting function that prevents regex injection
+  - Added protection against potentially malicious search patterns
+  - Sanitized all search query displays in the UI
+  - Limited search query length to prevent DoS attacks
+  - Added error handling for regex failures
+  - Implemented proper content sanitization before using v-html directive
+  - Followed OWASP security best practices for input handling
+
+### 2025-05-23 (Search Configuration Documentation)
+
+- Created comprehensive documentation for the Fuse.js search configuration.
+- Files modified/created:
+  - `config/fuse.config.md`: Added detailed documentation for search configuration
+  - `README.md`: Updated to include information about configuration documentation
+- Technical Notes:
+  - Documented all search configuration parameters with explanations
+  - Added examples for common configuration scenarios
+  - Documented the component content extraction process
+  - Included best practices and performance considerations
+  - Added information about duplicate content handling
+  - Documented limitations and potential issues
+  - Updated README to reference both menu and search configuration documentation
+
+### 2025-05-23 (Component-Aware Search Indexing)
+
+- Enhanced search indexing to include component content in parent pages.
+- Files modified:
+  - `scripts/generate-search-index.js`: Updated to recursively process components
+- Technical Notes:
+  - Implemented recursive component extraction to follow component references to any depth
+  - Added function to extract component imports from Vue files
+  - Created recursive processing function to handle parent → child → grandchild component relationships
+  - Enhanced duplicate detection logic to intelligently merge content from Vue and Markdown sources
+  - Added content overlap calculation to prevent duplicate content in search index
+  - Implemented combined entry type for pages with both Vue and Markdown content
+  - Ensured component text is associated with the page that renders it
+  - Added detailed logging for component processing and content merging
+  - Maintained compatibility with the existing search system
+  - Improved search results by including all relevant content for each page
+
+### 2025-05-23 (Enhanced Search Tolerance and Content Extraction)
+
+- Improved search functionality to be more tolerant of spelling errors and typos.
+- Enhanced text extraction process to exclude non-content elements.
+- Files modified:
+  - `config/fuse.config.json`: Updated Fuse.js configuration parameters
+  - `public/config/fuse.config.json`: Updated public copy of configuration
+  - `public/data/fuse.config.json`: Updated fallback copy of configuration
+  - `scripts/generate-search-index.js`: Improved text extraction functions
+- Technical Notes:
+  - Increased Fuse.js threshold from 0.3 to 0.6 for more fuzzy matching
+  - Increased distance parameter from 100 to 150 to allow for more character transpositions
+  - Enhanced Vue file text extraction to filter out Vuetify class names and CSS classes
+  - Added pre-processing to remove non-content attributes from Vue templates
+  - Improved markdown text extraction to remove additional syntax elements
+  - Added filtering for HTML comments, entities, and other non-content elements
+  - Implemented comprehensive cleanup of extracted text to ensure only meaningful content is indexed
+  - Added specific patterns to exclude common Vue/Vuetify class names from indexed content
+
+### 2025-05-23 (Fixed Search Configuration Access)
+
+- Fixed browser access to search configuration file.
+- Files modified/created:
+  - `public/config/fuse.config.json`: Added publicly accessible configuration file
+  - `public/data/fuse.config.json`: Added fallback configuration file
+  - `scripts/generate-search-index.js`: Updated to copy configuration to public directories
+  - `pages/search.vue`: Modified to use multiple paths for configuration loading
+- Technical Notes:
+  - Fixed 404 error when loading configuration from browser
+  - Implemented multi-path configuration loading with fallback mechanism
+  - Added automatic copying of configuration file to public directories during index generation
+  - Enhanced error handling for configuration loading
+  - Maintained backward compatibility with existing search functionality
+
+### 2025-05-23 (Centralized Search Configuration)
+
+- Created a centralized configuration file for search indexing and Fuse.js settings.
+- Files modified/created:
+  - `config/fuse.config.json`: Created new configuration file for search settings
+  - `scripts/generate-search-index.js`: Updated to use the configuration file
+  - `pages/search.vue`: Modified to load and use the configuration file
+- Technical Notes:
+  - Created a comprehensive configuration file with settings for both search indexing and Fuse.js
+  - Implemented configuration loading in both the search index generator and search page
+  - Added fallback defaults for all configuration options for robustness
+  - Centralized blacklist patterns for excluding sandbox files from indexing
+  - Added configuration options for debounce time, minimum term length, and excerpt context size
+  - Improved error handling for configuration loading
+  - Enhanced search results to include content type for potential filtering
+  - Maintained backward compatibility with existing search functionality
+
+### 2025-05-23 (Improved Search Indexing Blacklist)
+
+- Enhanced search indexing blacklist to exclude all sandbox-related files using glob patterns.
+- Files modified:
+  - `scripts/generate-search-index.js`: Updated blacklist mechanism to use glob patterns
+- Technical Notes:
+  - Implemented glob pattern matching to exclude all files starting with 'sandbox-'
+  - Added separate blacklist for markdown files to ensure consistency
+  - Ensured both Vue and markdown files with sandbox prefixes are excluded from search index
+  - Maintained all existing functionality for duplicate detection and content extraction
+  - Improved logging to show when files are excluded due to blacklist patterns
+  - Used the same glob pattern approach for both Vue and markdown files
+
+### 2025-05-23 (Enhanced Search Indexing with Duplicate Detection)
+
+- Improved search indexing functionality with duplicate detection and reconciliation.
+- Files modified:
+  - `scripts/generate-search-index.js`: Enhanced to handle duplicate content and improve text extraction
+- Technical Notes:
+  - Implemented configurable blacklist to exclude specific pages (sandbox.vue, sandbox-refactored.vue)
+  - Added recursive directory scanning for the /pages/ folder to include all nested Vue files
+  - Implemented duplicate detection and reconciliation based on normalized paths
+  - Enhanced text extraction from Vue files to better capture content from various components
+  - Added intelligent merging strategy for duplicate content (keeping markdown content but enhancing with Vue metadata)
+  - Improved metadata extraction from JSDoc comments and script sections
+  - Added detailed logging for debugging and transparency
+  - Fixed issues with indexing key pages like index.vue and about.vue
+  - Maintained compatibility with the existing Fuse.js search system
+  - Added path normalization for consistent comparison and duplicate detection
+
+### 2025-05-23 (Enhanced Search Indexing for Vue Pages)
+
+- Updated search indexing to include text content from Vue pages outside the /content/ directory.
+- Files modified:
+  - `scripts/generate-search-index.js`: Enhanced to extract and index text from Vue pages
+- Technical Notes:
+  - Added functionality to scan Vue files in the /pages directory
+  - Created a specialized function to extract visible text content from Vue templates
+  - Implemented metadata extraction from Vue script sections (title, description)
+  - Added a "type" field to distinguish between markdown content and Vue pages
+  - Excluded sandbox.vue from indexing as specified in requirements
+  - Maintained compatibility with the existing Fuse.js search system
+  - Preserved all existing search functionality while adding this enhancement
+  - Implemented robust error handling for Vue file parsing
+  - Added detailed logging for the indexing process
+  - Ensured the search index format remains compatible with existing search page
+
 ### 2025-05-23 (Enhanced Code Documentation and Comments)
 
 - Added comprehensive code comments throughout the project to improve maintainability and developer onboarding.

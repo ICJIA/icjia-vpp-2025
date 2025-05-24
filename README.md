@@ -124,6 +124,9 @@ The project follows a structured organization pattern:
 - **Components**: Reusable UI elements organized by function
   - `ContentDisplay.vue` provides a standardized way to render markdown content
   - `ImageWithSpinner.vue` handles image loading with accessibility features
+- **Config**: Configuration files with accompanying documentation
+  - `menu.config.json` and `menu.config.md` for navigation structure
+  - `fuse.config.json` and `fuse.config.md` for search functionality
 
 ### Content Management
 
@@ -135,6 +138,20 @@ The project uses Nuxt Content for dynamic content rendering:
 - Fallback content displayed when content fetching fails
 - SEO metadata derived from content frontmatter
 - Search functionality with automatically generated search index
+
+### Configuration Documentation
+
+The project uses configuration files with accompanying markdown documentation:
+
+- **[Menu Configuration](./config/menu.config.md)**: Documents the navigation structure for header and footer
+- **[Search Configuration](./config/fuse.config.md)**: Documents the Fuse.js search functionality
+
+These documentation files provide:
+- Detailed explanations of each configuration option
+- Usage examples for common scenarios
+- Best practices for modifying configurations
+- Guidance on performance considerations
+- Limitations and potential issues to be aware of
 
 ### Code Documentation
 
