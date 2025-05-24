@@ -2,6 +2,10 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## Purpose and Scope
+
+**Important Note**: This audit log does not track git commits or version control history. Instead, it documents the actual iterative development process and working methodology used to create the website. The log serves as a detailed record of specific steps, decisions, and implementation approaches taken during development. The intended audience is future developers, project managers, or stakeholders who need to understand the development workflow and rationale behind implementation choices. Each entry captures the real-time development process, including iterations, refinements, and problem-solving approaches that occurred during the creation of this project.
+
 ## Audit Log Entries
 
 ### 2025-05-23 (Enhanced Search Indexing for Vue-Only Pages)
