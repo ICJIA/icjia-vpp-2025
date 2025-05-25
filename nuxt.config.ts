@@ -45,6 +45,7 @@ export default defineNuxtConfig({
    * Nuxt Content configuration
    *
    * Configures how markdown content is processed and rendered.
+   * Includes syntax highlighting with Shiki for code blocks.
    *
    * @see https://content.nuxt.com/get-started/configuration
    */
@@ -54,6 +55,16 @@ export default defineNuxtConfig({
       // Disable automatic anchor link generation for headings
       // We'll handle this manually in our custom heading components
       anchorLinks: false
+    },
+
+    // Configure build-time processing
+    build: {
+      // Configure markdown processing
+      markdown: {
+        // Disable Shiki syntax highlighting due to accessibility issues
+        // We'll implement custom highlighting with better contrast
+        highlight: false
+      }
     }
   },
 

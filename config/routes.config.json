@@ -1,13 +1,13 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-25T19:04:28.003Z",
+  "generatedAt": "2025-05-25T20:23:36.022Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 5,
-    "contentPages": 4,
-    "vuePages": 5,
+    "totalPages": 9,
+    "contentPages": 7,
+    "vuePages": 6,
     "combinedPages": 4,
     "blacklistedFiles": 4
   },
@@ -27,6 +27,19 @@
           "type": "vue",
           "source": "pages/index.vue",
           "title": "Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "[...slug] - Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/[...slug]",
+      "fullUrl": "https://vpp-2025.netlify.app/[...slug]",
+      "type": "vue",
+      "sources": [
+        {
+          "type": "vue",
+          "source": "pages/[...slug].vue",
+          "title": "[...slug] - Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
     },
@@ -96,12 +109,51 @@
           "title": "Search - Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
+    },
+    {
+      "title": "Simple Test Page",
+      "path": "/simple-test",
+      "fullUrl": "https://vpp-2025.netlify.app/simple-test",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/simple-test.md",
+          "title": "Simple Test Page"
+        }
+      ]
+    },
+    {
+      "title": "Syntax Highlighting Test",
+      "path": "/syntax-highlighting-test",
+      "fullUrl": "https://vpp-2025.netlify.app/syntax-highlighting-test",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/syntax-highlighting-test.md",
+          "title": "Syntax Highlighting Test"
+        }
+      ]
+    },
+    {
+      "title": "Test Dynamic Route",
+      "path": "/test-dynamic-route",
+      "fullUrl": "https://vpp-2025.netlify.app/test-dynamic-route",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/test-dynamic-route.md",
+          "title": "Test Dynamic Route"
+        }
+      ]
     }
   ],
   "stats": {
-    "totalPages": 5,
-    "contentPages": 4,
-    "vuePages": 5,
+    "totalPages": 9,
+    "contentPages": 7,
+    "vuePages": 6,
     "combinedPages": 4,
     "blacklistedFiles": 4
   }
