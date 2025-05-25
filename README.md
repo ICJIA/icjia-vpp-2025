@@ -18,6 +18,29 @@ This project serves as the official web presence for the Violence Prevention Pla
 - Dark/light theme with persistent user preferences
 - Full-text search functionality across all content
 
+## Recent Major Updates (May 25, 2025)
+
+### Unified Logging System
+- **New**: Comprehensive logging system that works consistently across Node.js and browser environments
+- **Features**: Configurable verbosity levels (DETAILED, NORMAL, CONCISE), color-coded output, message grouping
+- **Command Line**: Support for `--verbose` and `--quiet` flags on all build scripts
+
+### Configuration System Reorganization
+- **Reorganized**: Site configuration system for improved clarity and separation of concerns
+- **New**: `site.config.json` for general site configuration (metadata, branding, contact info, logging)
+- **Updated**: `routes.config.json` focuses specifically on page discovery and routing metadata
+- **Removed**: `site.config.base.json` (consolidated into `site.config.json`)
+
+### Package Manager Standardization
+- **Standardized**: Yarn as the official package manager for all operations
+- **Updated**: All script examples and documentation now use `yarn` commands
+- **New**: Verbose and quiet script variants (e.g., `yarn dev:verbose`, `yarn build:quiet`)
+
+### Documentation and Standards
+- **New**: [Project Rules](./docs/project-rules.md) document establishing mandatory development standards
+- **New**: [Logging System](./docs/logging-system.md) comprehensive documentation
+- **Updated**: All configuration documentation to reflect new system organization
+
 ## Site Structure
 
 The site is organized into the following main sections:
@@ -41,6 +64,12 @@ The navigation also provides quick access to external resources:
 ### Accessibility Resources
 - **Accessibility Documentation**: User guide to accessibility features (available at `/accessibility-documentation.html`)
 - **Accessibility Audit Log**: Technical assessment of compliance status (available at `/audit-log-accessibility.html`)
+
+### Development Tools and Systems
+- **Unified Logging System**: Comprehensive logging that works consistently across Node.js and browser environments
+- **Configurable Verbosity**: DETAILED, NORMAL, and CONCISE logging levels with command-line support
+- **Package Manager**: Yarn is the official package manager with verbose/quiet script variants
+- **Configuration Management**: Centralized configuration system with comprehensive documentation
 
 *Last Updated: May 25, 2025*
 
@@ -86,6 +115,22 @@ yarn generate
 
 # Using npm
 npm run generate
+```
+
+### Verbose and Quiet Builds
+
+The project now supports configurable logging levels for all build operations:
+
+```bash
+# Detailed logging (DETAILED level)
+yarn dev:verbose
+yarn build:verbose
+yarn generate:verbose
+
+# Minimal logging (CONCISE level)
+yarn dev:quiet
+yarn build:quiet
+yarn generate:quiet
 ```
 
 This command will:
@@ -186,7 +231,7 @@ The project uses a comprehensive configuration system with accompanying markdown
 The following configuration files are automatically generated during the build process:
 
 **Routes Configuration (`routes.config.json`)**
-- **Generated during**: `npm run dev`, `npm run build`, `npm run generate`
+- **Generated during**: `yarn dev`, `yarn build`, `yarn generate`
 - **Purpose**: Comprehensive catalog of all pages in the project with metadata
 - **Contains**: Page titles, paths, URLs, types (content/vue/combined), and source file references
 - **Features**: Intelligent deduplication, title extraction, blacklist filtering
@@ -207,8 +252,9 @@ The following configuration files are automatically generated during the build p
 
 **Site Configuration (`site.config.json`)**
 - **Purpose**: General site configuration including metadata, branding, and settings
-- **Contains**: Project metadata, branding information, contact details, feature flags, routing settings
+- **Contains**: Project metadata, branding information, contact details, feature flags, routing settings, logging configuration
 - **Usage**: Provides centralized configuration for site-wide settings and metadata
+- **New Features**: Includes unified logging system configuration with verbosity levels and color schemes
 
 #### Configuration Documentation
 
@@ -218,6 +264,8 @@ Each configuration system includes comprehensive markdown documentation:
 - **[Search Configuration](./config/fuse.config.md)**: Search functionality and content indexing
 - **[Site Configuration](./config/site.config.md)**: General site configuration and metadata
 - **[Routes Configuration](./config/routes.config.md)**: Automatic page discovery and routing metadata
+- **[Project Rules](./docs/project-rules.md)**: Mandatory standards and rules for development
+- **[Logging System](./docs/logging-system.md)**: Unified logging system documentation
 
 These documentation files provide:
 - Detailed explanations of each configuration option
@@ -226,6 +274,22 @@ These documentation files provide:
 - Integration points with other systems
 - Runtime and build-time access patterns
 - Troubleshooting guides and limitations
+
+### Project Standards and Rules
+
+The project follows mandatory standards and rules documented in [Project Rules](./docs/project-rules.md):
+
+#### Package Manager Standard
+- **Yarn is the official package manager** for all operations
+- All script examples and documentation use `yarn` commands
+- Internal package.json scripts use `yarn` instead of `npm run`
+- Package execution uses `yarn dlx` instead of `npx`
+
+#### Development Standards
+- **WCAG 2.1 AA compliance** is mandatory for all UI/UX updates
+- **Comprehensive documentation** required for all new features
+- **Unified logging system** must be used for all server-side scripts
+- **Centralized configuration** system for all site-wide settings
 
 ### Code Documentation
 
@@ -246,14 +310,43 @@ The project leverages [VueUse](https://vueuse.org/) composables for common funct
 - DOM utilities for event handling and element interactions
 - Sensor hooks for responsive design
 
-### Console Logging
+### Unified Logging System
 
-The project uses a custom console logging system:
+The project implements a comprehensive unified logging system that works consistently across both Node.js (server-side) and browser environments:
 
-- Color-coded logs for different categories (UI, API, routes, etc.)
-- Global enable/disable functionality
-- Interactive console logger component
-- Detailed state information for debugging
+#### Features
+- **Environment Detection**: Automatically detects Node.js vs browser and applies appropriate formatting
+- **Configurable Verbosity**: Three levels (DETAILED, NORMAL, CONCISE) with smart filtering
+- **Color-coded Output**: Consistent green/red/yellow/cyan color scheme across environments
+- **Message Grouping**: Cleaner build output with grouped messages for related operations
+- **Performance Timing**: Built-in timing functions for measuring operation duration
+- **Scoped Logging**: Context-specific loggers for better organization
+
+#### Server-Side Usage
+```javascript
+import { createLogger } from '../utils/logger.js';
+const logger = createLogger(config).createScope('MyScript');
+logger.success('✅ Operation completed successfully!');
+```
+
+#### Browser Usage
+```javascript
+import { useConsoleLogger } from '~/composables/useConsoleLogger';
+const { logUI, logError } = useConsoleLogger();
+logUI('Button clicked', { id: 'submit-btn' });
+```
+
+#### Command Line Control
+```bash
+# Verbose output
+yarn dev:verbose
+
+# Quiet output
+yarn build:quiet
+
+# Individual script
+node scripts/generate-site-config.js --verbose
+```
 
 **Note:** Console logging is currently enabled in all environments (including production) during the pre-launch phase for monitoring and debugging purposes. This will be revisited before the official launch.
 

@@ -54,7 +54,10 @@
     "themes": {
       "enabled": true,
       "default": "light",
-      "options": ["light", "dark"]
+      "options": [
+        "light",
+        "dark"
+      ]
     },
     "accessibility": {
       "wcagLevel": "AA",
@@ -80,6 +83,20 @@
     "titleExtraction": {
       "fallbackPattern": "Violence Prevention Plan for Illinois: 2025-2029",
       "maxLength": 100
+    }
+  },
+  "logging": {
+    "level": "NORMAL",
+    "showTimestamp": true,
+    "showPrefix": true,
+    "groupMessages": true,
+    "buildSummary": true,
+    "colors": {
+      "success": "#27ae60",
+      "error": "#e74c3c",
+      "warning": "#f39c12",
+      "info": "#3498db",
+      "debug": "#7f8c8d"
     }
   },
   "build": {

@@ -8,6 +8,59 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-25 (Package Manager Standardization to Yarn)
+- **Summary**: Standardized all script run examples and package.json scripts to use Yarn instead of npm, establishing Yarn as the official package manager for the project and ensuring consistency across all documentation and build processes.
+
+- **Files Modified**:
+  - `package.json`: Updated all internal script references from `npm run` to `yarn` and replaced `npx serve` with `yarn dlx serve`
+  - `docs/logging-system.md`: Updated all command examples to use `yarn` instead of `npm run`
+  - `README.md`: Updated auto-generated configuration documentation to reference `yarn` commands
+  - `config/routes.config.md`: Updated build process documentation to use `yarn` commands
+
+- **Technical Notes**:
+  - **Script Consistency**: All package.json scripts now use `yarn` for internal script calls instead of `npm run`
+  - **Documentation Alignment**: All documentation examples now consistently show `yarn` commands
+  - **Yarn DLX Usage**: Replaced `npx serve` with `yarn dlx serve` for package execution
+  - **Maintained Compatibility**: README still shows both yarn and npm examples for user choice, with yarn listed first as recommended
+  - **Build Process**: All build, dev, and generate commands now use yarn internally for consistency
+
+- **Benefits Achieved**:
+  - **Consistency**: All internal processes and documentation use the same package manager
+  - **Performance**: Yarn's faster dependency resolution and installation
+  - **Reliability**: Yarn's deterministic dependency resolution with yarn.lock
+  - **Developer Experience**: Consistent commands across all project documentation
+  - **Future-Proof**: Establishes clear standard for all future development
+
+### 2025-05-25 (Unified Logging System Implementation)
+- **Summary**: Implemented a comprehensive unified logging system that works consistently across both Node.js (server-side) and browser environments with configurable verbosity levels, maintaining existing color coding while providing cleaner build output and enhanced debugging capabilities.
+
+- **Files Modified/Created**:
+  - `utils/logger.js`: Created unified logger class with environment detection, verbosity levels, color coding, performance timing, and message grouping
+  - `utils/config-loader.js`: Created configuration loader utility for logging settings with environment variable support
+  - `config/site.config.json`: Added logging configuration section with verbosity levels, colors, and feature flags
+  - `scripts/generate-site-config.js`: Updated to use unified logger with scoped logging, message grouping, and configurable verbosity
+  - `package.json`: Added verbose and quiet script variants for all build commands (dev:verbose, build:quiet, etc.)
+  - `docs/logging-system.md`: Created comprehensive documentation for the unified logging system
+
+- **Technical Notes**:
+  - **Environment Detection**: Automatically detects Node.js vs browser and applies appropriate color formatting (ANSI vs CSS)
+  - **Verbosity Levels**: Implements DETAILED, NORMAL, and CONCISE levels with configurable output filtering
+  - **Message Grouping**: Provides grouped output for build processes to reduce console noise while maintaining detailed logs when needed
+  - **Performance Timing**: Built-in timing functions for measuring operation duration
+  - **Scoped Logging**: Context-specific loggers for better organization and filtering
+  - **Configuration Integration**: Reads settings from site.config.json with environment variable overrides
+  - **Command Line Support**: Supports --verbose, --quiet, and --normal flags for individual scripts
+  - **Backward Compatibility**: Maintains existing useConsoleLogger composable for browser components
+  - **Color Consistency**: Preserves existing green/red/yellow/cyan color scheme across environments
+
+- **Benefits Achieved**:
+  - **Cleaner Build Output**: Grouped messages provide condensed view while detailed logs remain accessible
+  - **Consistent Logging**: Same API and color scheme across server and client environments
+  - **Configurable Verbosity**: Easy switching between detailed and quiet modes for different use cases
+  - **Better Debugging**: Enhanced error tracking, performance timing, and contextual information
+  - **Improved Developer Experience**: Clear, organized console output with meaningful color coding
+  - **Scalable Architecture**: Foundation for future enhancements like log file output and remote logging
+
 ### 2025-05-25 (Site Configuration System Reorganization)
 - **Summary**: Reorganized the site configuration system to improve clarity and separation of concerns by consolidating general site configuration in `site.config.json` and routing data in `routes.config.json`, eliminating the unnecessary `site.config.base.json` file.
 

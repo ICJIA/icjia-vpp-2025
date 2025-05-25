@@ -16,49 +16,8 @@ import path from 'path';
 import { glob } from 'glob';
 import matter from 'gray-matter';
 
-/**
- * Logger utility for colored console output
- */
-class Logger {
-  static colors = {
-    reset: '\x1b[0m',
-    red: '\x1b[31m',
-    green: '\x1b[32m',
-    yellow: '\x1b[33m',
-    blue: '\x1b[34m',
-    cyan: '\x1b[36m'
-  };
-
-  static log(type, message, data = null) {
-    const timestamp = new Date().toLocaleTimeString();
-    let color = this.colors.cyan;
-    let prefix = 'INFO';
-
-    switch (type) {
-      case 'success':
-        color = this.colors.green;
-        prefix = 'SUCCESS';
-        break;
-      case 'error':
-        color = this.colors.red;
-        prefix = 'ERROR';
-        break;
-      case 'warning':
-        color = this.colors.yellow;
-        prefix = 'WARNING';
-        break;
-      case 'info':
-        color = this.colors.cyan;
-        prefix = 'INFO';
-        break;
-    }
-
-    console.log(`${color}[${timestamp}][${prefix}]${this.colors.reset} ${message}`);
-    if (data) {
-      console.log(data);
-    }
-  }
-}
+import { createLogger } from '../utils/logger.js';
+import { createScriptLoggerConfig, getVerbosityFromArgs } from '../utils/config-loader.js';
 
 /**
  * Site Configuration Generator Class
@@ -76,7 +35,8 @@ class SiteConfigGenerator {
       combinedPages: 0,
       blacklistedFiles: 0
     };
-    this.logger = Logger;
+    this.logger = null; // Will be initialized in generate()
+    this.options = options;
   }
 
   /**
@@ -107,9 +67,9 @@ class SiteConfigGenerator {
           version: '1.0.0'
         }
       };
-      this.logger.log('info', 'Loaded routing configuration from config/site.config.json');
+      this.logger?.info('Loaded routing configuration from config/site.config.json');
     } catch (error) {
-      this.logger.log('warning', 'Site config file not found, using defaults');
+      this.logger?.warning('Site config file not found, using defaults');
       // Use defaults if config file doesn't exist
       this.baseConfig = {
         baseUrl: 'https://vpp-2025.netlify.app/',
@@ -151,7 +111,7 @@ class SiteConfigGenerator {
 
     if (isBlacklisted) {
       this.stats.blacklistedFiles++;
-      this.logger.log('info', `Blacklisted file: ${filePath}`);
+      this.logger?.debug(`Blacklisted file: ${filePath}`);
     }
 
     return isBlacklisted;
@@ -169,7 +129,7 @@ class SiteConfigGenerator {
       const { data } = matter(content);
       return data.title || null;
     } catch (error) {
-      this.logger.log('warning', `Failed to extract title from ${filePath}: ${error.message}`);
+      this.logger?.warning(`Failed to extract title from ${filePath}: ${error.message}`);
       return null;
     }
   }
@@ -226,7 +186,7 @@ class SiteConfigGenerator {
 
       return null;
     } catch (error) {
-      this.logger.log('warning', `Failed to extract title from ${filePath}: ${error.message}`);
+      this.logger?.warning(`Failed to extract title from ${filePath}: ${error.message}`);
       return null;
     }
   }
@@ -291,14 +251,15 @@ class SiteConfigGenerator {
    * @returns {Promise<void>}
    */
   async processMarkdownFiles() {
-    this.logger.log('info', '📄 Processing markdown files from content directory...');
+    this.logger?.info('📄 Processing markdown files from content directory...');
 
     try {
       const contentFiles = await glob('content/**/*.md', { cwd: process.cwd() });
-      this.logger.log('info', `📊 Found ${contentFiles.length} markdown files`);
+      this.logger?.debug(`📊 Found ${contentFiles.length} markdown files`);
 
       for (const filePath of contentFiles) {
         if (this.isBlacklisted(filePath, 'markdown')) {
+          this.logger?.addToGroup('warning', `Skipped blacklisted file: ${filePath}`);
           continue;
         }
 
@@ -316,12 +277,12 @@ class SiteConfigGenerator {
         this.pages.push(pageEntry);
         this.stats.contentPages++;
 
-        this.logger.log('success', `✓ Indexed markdown: ${filePath} -> ${urlPath}`);
+        this.logger?.addToGroup('success', `Indexed markdown: ${filePath} -> ${urlPath}`);
       }
 
-      this.logger.log('info', `📊 Markdown processing complete: ${this.stats.contentPages} successful`);
+      this.logger?.info(`📊 Markdown processing complete: ${this.stats.contentPages} successful`);
     } catch (error) {
-      this.logger.log('error', `Failed to process markdown files: ${error.message}`);
+      this.logger?.error(`Failed to process markdown files: ${error.message}`);
       throw error;
     }
   }
@@ -332,14 +293,15 @@ class SiteConfigGenerator {
    * @returns {Promise<void>}
    */
   async processVueFiles() {
-    this.logger.log('info', '🖼️  Processing Vue files from pages directory...');
+    this.logger?.info('🖼️  Processing Vue files from pages directory...');
 
     try {
       const vueFiles = await glob('pages/**/*.vue', { cwd: process.cwd() });
-      this.logger.log('info', `📊 Found ${vueFiles.length} Vue files`);
+      this.logger?.debug(`📊 Found ${vueFiles.length} Vue files`);
 
       for (const filePath of vueFiles) {
         if (this.isBlacklisted(filePath, 'vue')) {
+          this.logger?.addToGroup('warning', `Skipped blacklisted file: ${filePath}`);
           continue;
         }
 
@@ -357,12 +319,12 @@ class SiteConfigGenerator {
         this.pages.push(pageEntry);
         this.stats.vuePages++;
 
-        this.logger.log('success', `✓ Indexed Vue page: ${filePath} -> ${urlPath}`);
+        this.logger?.addToGroup('success', `Indexed Vue page: ${filePath} -> ${urlPath}`);
       }
 
-      this.logger.log('info', `📊 Vue processing complete: ${this.stats.vuePages} successful`);
+      this.logger?.info(`📊 Vue processing complete: ${this.stats.vuePages} successful`);
     } catch (error) {
-      this.logger.log('error', `Failed to process Vue files: ${error.message}`);
+      this.logger?.error(`Failed to process Vue files: ${error.message}`);
       throw error;
     }
   }
@@ -376,7 +338,7 @@ class SiteConfigGenerator {
    * @returns {Array} Deduplicated array of page entries
    */
   deduplicatePages() {
-    this.logger.log('info', '🔄 Starting page deduplication process...');
+    this.logger?.info('🔄 Starting page deduplication process...');
 
     // Group pages by path
     const pageGroups = new Map();
@@ -410,13 +372,13 @@ class SiteConfigGenerator {
         const mergedPage = this.mergePages(pages, path);
         deduplicatedPages.push(mergedPage);
 
-        this.logger.log('info', `🔗 Merged ${pages.length} pages for path: ${path}`);
-        this.logger.log('info', `   Sources: ${pages.map(p => p.source).join(', ')}`);
+        this.logger?.debug(`🔗 Merged ${pages.length} pages for path: ${path}`);
+        this.logger?.debug(`   Sources: ${pages.map(p => p.source).join(', ')}`);
       }
     }
 
-    this.logger.log('success', `✅ Deduplication complete: ${duplicatesFound} duplicate paths merged`);
-    this.logger.log('info', `📊 Final page count: ${deduplicatedPages.length} unique pages`);
+    this.logger?.info(`✅ Deduplication complete: ${duplicatesFound} duplicate paths merged`);
+    this.logger?.debug(`📊 Final page count: ${deduplicatedPages.length} unique pages`);
 
     return deduplicatedPages;
   }
@@ -473,7 +435,7 @@ class SiteConfigGenerator {
       this.stats.combinedPages++;
     }
 
-    this.logger.log('info', `   📝 Selected title: "${bestTitle}" (from ${titleSource})`);
+    this.logger?.debug(`   📝 Selected title: "${bestTitle}" (from ${titleSource})`);
 
     return {
       title: bestTitle,
@@ -513,9 +475,18 @@ class SiteConfigGenerator {
    * @returns {Promise<Object>} Generated configuration object
    */
   async generate() {
-    this.logger.log('info', '🔍 Starting site configuration generation...');
-
     try {
+      // Initialize logger with configuration
+      const verbosity = getVerbosityFromArgs() || this.options.logLevel;
+      const loggerConfig = await createScriptLoggerConfig('SiteConfig', {
+        level: verbosity,
+        groupMessages: true
+      });
+      this.logger = createLogger(loggerConfig).createScope('SiteConfig');
+
+      this.logger.time('generation');
+      this.logger.info('🔍 Starting site configuration generation...');
+
       // Load base configuration
       await this.loadBaseConfig();
 
@@ -562,20 +533,16 @@ class SiteConfigGenerator {
       const publicPath = path.join(process.cwd(), 'public/config/routes.config.json');
       await fs.writeFile(publicPath, JSON.stringify(config, null, 2));
 
+      this.logger.timeEnd('generation', 'Routes configuration generation completed');
+
       // Log success summary
-      this.logger.log('success', '✅ Routes configuration generated successfully!');
-      this.logger.log('info', `📊 Total unique pages: ${this.stats.totalPages}`);
-      this.logger.log('info', `   📄 Content pages: ${this.stats.contentPages}`);
-      this.logger.log('info', `   🖼️  Vue pages: ${this.stats.vuePages}`);
-      this.logger.log('info', `   🔗 Combined pages: ${this.stats.combinedPages}`);
-      this.logger.log('info', `   🚫 Blacklisted files: ${this.stats.blacklistedFiles}`);
-      this.logger.log('info', `📁 Routes configuration written to:`);
-      this.logger.log('info', `   - ${outputPath}`);
-      this.logger.log('info', `   - ${publicPath}`);
+      this.logger.success('✅ Routes configuration generated successfully!');
+      this.logger.info(`📊 Summary: ${this.stats.totalPages} pages (${this.stats.contentPages} content, ${this.stats.vuePages} Vue, ${this.stats.combinedPages} combined, ${this.stats.blacklistedFiles} blacklisted)`);
+      this.logger.debug(`📁 Files written to: ${outputPath} and ${publicPath}`);
 
       return config;
     } catch (error) {
-      this.logger.log('error', `Site configuration generation failed: ${error.message}`);
+      this.logger?.error(`Site configuration generation failed: ${error.message}`);
       throw error;
     }
   }

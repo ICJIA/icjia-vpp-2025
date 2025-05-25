@@ -148,6 +148,22 @@ Configuration for routing and page discovery:
 | `titleExtraction.fallbackPattern` | String | Default title pattern |
 | `titleExtraction.maxLength` | Number | Maximum title length |
 
+### Logging Section
+Unified logging system configuration:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `level` | String | Verbosity level (DETAILED, NORMAL, CONCISE) |
+| `showTimestamp` | Boolean | Whether to show timestamps in logs |
+| `showPrefix` | Boolean | Whether to show log type prefixes |
+| `groupMessages` | Boolean | Whether to group related messages |
+| `buildSummary` | Boolean | Whether to show build summaries |
+| `colors.success` | String | Color code for success messages |
+| `colors.error` | String | Color code for error messages |
+| `colors.warning` | String | Color code for warning messages |
+| `colors.info` | String | Color code for info messages |
+| `colors.debug` | String | Color code for debug messages |
+
 ### Build Section
 Build-time configuration and metadata:
 
@@ -202,6 +218,23 @@ const baseUrl = process.env.NODE_ENV === 'development'
   : siteConfig.urls.baseUrl;
 
 console.log(`Building for: ${baseUrl}`);
+```
+
+### Logging Configuration
+
+```javascript
+// Script with unified logging
+import { createLogger } from '../utils/logger.js';
+import { createScriptLoggerConfig } from '../utils/config-loader.js';
+
+const loggerConfig = await createScriptLoggerConfig('MyScript', {
+  level: 'DETAILED', // Override config file setting
+  groupMessages: true
+});
+const logger = createLogger(loggerConfig).createScope('MyScript');
+
+logger.info('Script started');
+logger.success('Operation completed');
 ```
 
 ## Integration Points
