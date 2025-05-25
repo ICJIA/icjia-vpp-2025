@@ -8,6 +8,20 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-25 (README Enhancement for Configuration Documentation)
+- Enhanced README.md with comprehensive documentation of all configuration files in the /config/ directory, including links to detailed documentation and explanations of when files are generated.
+- Files modified:
+  - `README.md`: Expanded "Configuration Documentation" section with detailed table of all config files, their purposes, generation methods, and documentation links
+- Technical Notes:
+  - Added comprehensive table showing all configuration files (manual and auto-generated)
+  - Documented when each file is generated (dev/build/generate commands)
+  - Included clear explanations of file purposes and contents
+  - Added links to all configuration documentation (.md files)
+  - Updated production build section to mention site configuration generation
+  - Enhanced project structure section to include all config files
+  - Organized information into logical sections: overview table, auto-generated files, manual files, and documentation links
+  - Provides clear guidance for developers on configuration system architecture
+
 ### 2025-05-25 (Site Configuration Documentation and Deduplication Implementation)
 - Created comprehensive documentation and implemented intelligent deduplication logic for the site configuration system to eliminate duplicate entries and ensure unique pages per path.
 - Files modified/created:

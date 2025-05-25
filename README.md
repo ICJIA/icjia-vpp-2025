@@ -65,7 +65,8 @@ npm run generate
 This command will:
 1. Generate accessibility documentation HTML files
 2. Create a fresh search index based on the latest content
-3. Build the static site with Nuxt
+3. Generate site configuration with page discovery and deduplication
+4. Build the static site with Nuxt
 
 Build the application for server-side rendering:
 
@@ -124,9 +125,11 @@ The project follows a structured organization pattern:
 - **Components**: Reusable UI elements organized by function
   - `ContentDisplay.vue` provides a standardized way to render markdown content
   - `ImageWithSpinner.vue` handles image loading with accessibility features
-- **Config**: Configuration files with accompanying documentation
+- **Config**: Configuration files with comprehensive documentation
   - `menu.config.json` and `menu.config.md` for navigation structure
   - `fuse.config.json` and `fuse.config.md` for search functionality
+  - `site.config.base.json` and `site.config.md` for automatic page discovery
+  - Auto-generated files like `site.config.json` for runtime site mapping
 
 ### Content Management
 
@@ -141,17 +144,60 @@ The project uses Nuxt Content for dynamic content rendering:
 
 ### Configuration Documentation
 
-The project uses configuration files with accompanying markdown documentation:
+The project uses a comprehensive configuration system with accompanying markdown documentation for all major features. Configuration files are located in the `/config/` directory and are automatically processed during build operations.
 
-- **[Menu Configuration](./config/menu.config.md)**: Documents the navigation structure for header and footer
-- **[Search Configuration](./config/fuse.config.md)**: Documents the Fuse.js search functionality
+#### Configuration Files Overview
+
+| File | Purpose | Generated | Documentation |
+|------|---------|-----------|---------------|
+| `menu.config.json` | Navigation structure for header and footer | Manual | [Menu Configuration](./config/menu.config.md) |
+| `fuse.config.json` | Search functionality settings and indexing rules | Manual | [Search Configuration](./config/fuse.config.md) |
+| `site.config.base.json` | Base settings for site configuration generation | Manual | [Site Configuration](./config/site.config.md) |
+| `site.config.json` | Complete site page catalog and metadata | Auto-generated | [Site Configuration](./config/site.config.md) |
+
+#### Auto-Generated Configuration Files
+
+The following configuration files are automatically generated during the build process:
+
+**Site Configuration (`site.config.json`)**
+- **Generated during**: `npm run dev`, `npm run build`, `npm run generate`
+- **Purpose**: Comprehensive catalog of all pages in the project with metadata
+- **Contains**: Page titles, paths, URLs, types (content/vue/combined), and source file references
+- **Features**: Intelligent deduplication, title extraction, blacklist filtering
+- **Runtime Access**: Available via `useSiteConfig()` composable
+
+#### Manual Configuration Files
+
+**Menu Configuration (`menu.config.json`)**
+- **Purpose**: Defines navigation structure for header and footer menus
+- **Contains**: Menu items, external links, dropdown structures, accessibility settings
+- **Usage**: Processed by navigation components for consistent site navigation
+
+**Search Configuration (`fuse.config.json`)**
+- **Purpose**: Controls search functionality and content indexing
+- **Contains**: Fuse.js settings, blacklist patterns, text extraction rules
+- **Features**: Fuzzy search parameters, duplicate handling, content normalization
+
+**Site Configuration Base (`site.config.base.json`)**
+- **Purpose**: Base settings for automatic site configuration generation
+- **Contains**: Base URL, blacklist patterns, title extraction rules, project metadata
+- **Usage**: Controls how the auto-generated site configuration is created
+
+#### Configuration Documentation
+
+Each configuration system includes comprehensive markdown documentation:
+
+- **[Menu Configuration](./config/menu.config.md)**: Navigation structure and dropdown menus
+- **[Search Configuration](./config/fuse.config.md)**: Search functionality and content indexing
+- **[Site Configuration](./config/site.config.md)**: Automatic page discovery and site mapping
 
 These documentation files provide:
 - Detailed explanations of each configuration option
 - Usage examples for common scenarios
 - Best practices for modifying configurations
-- Guidance on performance considerations
-- Limitations and potential issues to be aware of
+- Integration points with other systems
+- Runtime and build-time access patterns
+- Troubleshooting guides and limitations
 
 ### Code Documentation
 
