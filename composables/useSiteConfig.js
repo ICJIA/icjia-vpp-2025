@@ -61,8 +61,8 @@ export const useSiteConfig = () => {
     try {
       // Try multiple paths for robustness
       const paths = [
-        '/config/site.config.json',
-        '/data/site.config.json'
+        '/config/routes.config.json',
+        '/data/routes.config.json'
       ];
 
       let response;
@@ -77,14 +77,14 @@ export const useSiteConfig = () => {
       }
 
       if (!response) {
-        throw new Error('Site configuration not found at any expected path');
+        throw new Error('Routes configuration not found at any expected path');
       }
 
       config.value = response;
 
       // Log successful load in development
       if (process.env.NODE_ENV === 'development') {
-        console.log('✅ Site configuration loaded:', {
+        console.log('✅ Routes configuration loaded:', {
           totalPages: response.stats?.totalPages || 0,
           contentPages: response.stats?.contentPages || 0,
           vuePages: response.stats?.vuePages || 0,

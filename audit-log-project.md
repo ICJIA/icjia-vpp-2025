@@ -8,6 +8,57 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-25 (Routing Configuration File Renamed for Clarity)
+
+- **Summary**: Renamed auto-generated routing configuration file from `config/site.config.json` to `config/routes.config.json` to better reflect its purpose and prepare for implementing a centralized site configuration system.
+
+- **Files Modified/Created**:
+  - `config/routes.config.json`: Renamed from `config/site.config.json` - contains auto-generated page discovery and routing metadata
+  - `public/config/routes.config.json`: Renamed from `public/config/site.config.json` - public copy for runtime access
+  - `scripts/generate-site-config.js`: Updated to write output to `config/routes.config.json` and `public/config/routes.config.json` instead of site.config.json paths
+  - `composables/useSiteConfig.js`: Updated to fetch from `/config/routes.config.json` instead of `/config/site.config.json`
+  - Removed: `config/site.config.json` and `public/config/site.config.json` (old files)
+
+- **Technical Notes**:
+  - **Descriptive Naming**: File name now clearly indicates it contains routing and page discovery data rather than general site configuration
+  - **Preparation for Centralization**: Clears the way for a future centralized site configuration file that will contain actual site-wide settings (metadata, contact info, URLs, etc.)
+  - **No Breaking Changes**: All existing functionality preserved through updated file paths in generation script and composable
+  - **Updated Logging**: Generation script now logs "Routes configuration generated successfully" to reflect the new purpose
+  - **Error Message Updates**: Composable error messages updated to reference "Routes configuration" for clarity
+  - **Consistent File Structure**: Both config and public directories now use the same naming convention
+  - **Description Updates**: Updated file description from "site configuration" to "routing configuration" to accurately reflect contents
+
+- **Benefits Achieved**:
+  - **Eliminated Naming Confusion**: No more ambiguity about what the auto-generated file contains
+  - **Improved Developer Experience**: Clear file naming makes it obvious which file contains routing data
+  - **Future-Ready**: Prepares codebase for implementing a true centralized site configuration system
+  - **Better Organization**: Logical separation between routing data and future site configuration
+  - **Maintained Functionality**: All existing features continue to work seamlessly with the new file names
+
+### 2025-05-25 (Nuxt Configuration Cleanup and Anchor Links Disabled)
+
+- **Summary**: Fixed linting error in nuxt.config.ts by removing experimental.componentIslands setting and ensured anchor links are properly disabled for headings to prevent automatic anchor link generation.
+
+- **Files Modified**:
+  - `nuxt.config.ts`: Removed experimental.componentIslands setting that was causing linting errors, added proper content renderer configuration with anchorLinks: false, cleaned up markdown configuration that was causing TypeScript errors
+
+- **Technical Notes**:
+  - **Linting Error Resolution**: Removed `experimental.componentIslands` setting from content configuration that was causing TypeScript/linting errors
+  - **Anchor Links Disabled**: Added `renderer: { anchorLinks: false }` to content configuration to prevent automatic anchor link generation for headings
+  - **Configuration Cleanup**: Removed invalid markdown configuration that was causing TypeScript errors about unknown properties
+  - **Simplified Configuration**: Streamlined content configuration to only include necessary and valid options
+  - **Maintained Functionality**: All existing content rendering functionality preserved while fixing configuration issues
+  - **TypeScript Compliance**: Configuration now passes TypeScript validation without errors
+  - **Custom Heading Components**: Anchor links disabled to allow custom heading components to handle ID generation manually
+  - **Clean Build Process**: Eliminates linting warnings during development and build processes
+
+- **Benefits Achieved**:
+  - **Error-Free Development**: No more linting errors in nuxt.config.ts during development
+  - **Clean Build Output**: Build process runs without TypeScript configuration warnings
+  - **Proper Heading Control**: Headings no longer automatically generate anchor links, allowing for custom implementation
+  - **Simplified Configuration**: Cleaner, more maintainable configuration structure
+  - **Better Developer Experience**: Eliminates distracting linting errors in the IDE
+
 ### 2025-05-25 (README Enhancement for Configuration Documentation)
 - Enhanced README.md with comprehensive documentation of all configuration files in the /config/ directory, including links to detailed documentation and explanations of when files are generated.
 - Files modified:

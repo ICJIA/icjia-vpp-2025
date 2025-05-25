@@ -532,21 +532,21 @@ class SiteConfigGenerator {
       await fs.mkdir(path.join(process.cwd(), 'public/config'), { recursive: true });
 
       // Write to config directory
-      const outputPath = path.join(process.cwd(), 'config/site.config.json');
+      const outputPath = path.join(process.cwd(), 'config/routes.config.json');
       await fs.writeFile(outputPath, JSON.stringify(config, null, 2));
 
       // Also write to public directory for runtime access
-      const publicPath = path.join(process.cwd(), 'public/config/site.config.json');
+      const publicPath = path.join(process.cwd(), 'public/config/routes.config.json');
       await fs.writeFile(publicPath, JSON.stringify(config, null, 2));
 
       // Log success summary
-      this.logger.log('success', '✅ Site configuration generated successfully!');
+      this.logger.log('success', '✅ Routes configuration generated successfully!');
       this.logger.log('info', `📊 Total unique pages: ${this.stats.totalPages}`);
       this.logger.log('info', `   📄 Content pages: ${this.stats.contentPages}`);
       this.logger.log('info', `   🖼️  Vue pages: ${this.stats.vuePages}`);
       this.logger.log('info', `   🔗 Combined pages: ${this.stats.combinedPages}`);
       this.logger.log('info', `   🚫 Blacklisted files: ${this.stats.blacklistedFiles}`);
-      this.logger.log('info', `📁 Configuration written to:`);
+      this.logger.log('info', `📁 Routes configuration written to:`);
       this.logger.log('info', `   - ${outputPath}`);
       this.logger.log('info', `   - ${publicPath}`);
 

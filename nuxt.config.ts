@@ -49,40 +49,11 @@ export default defineNuxtConfig({
    * @see https://content.nuxt.com/get-started/configuration
    */
   content: {
-    // Enable Vue components in markdown
-    markdown: {
-      // Enable component use in markdown
-      tags: {
-        p: 'p',
-        a: 'a',
-        blockquote: 'blockquote',
-        'code-block': 'code-block',
-        code: 'code',
-        em: 'em',
-        h1: 'h1',
-        h2: 'h2',
-        h3: 'h3',
-        h4: 'h4',
-        h5: 'h5',
-        h6: 'h6',
-        hr: 'hr',
-        img: 'img',
-        ul: 'ul',
-        ol: 'ol',
-        li: 'li',
-        strong: 'strong',
-        table: 'table',
-        thead: 'thead',
-        tbody: 'tbody',
-        td: 'td',
-        th: 'th',
-        tr: 'tr'
-      }
-    },
-    // Experimental features
-    experimental: {
-      // Enable component islands for better Vue component support in markdown
-      componentIslands: true
+    // Configure content rendering
+    renderer: {
+      // Disable automatic anchor link generation for headings
+      // We'll handle this manually in our custom heading components
+      anchorLinks: false
     }
   },
 
