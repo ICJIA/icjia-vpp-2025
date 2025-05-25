@@ -239,7 +239,7 @@ The project uses a comprehensive configuration system with accompanying markdown
 | `menu.config.json` | Navigation structure for header and footer | Manual | [Menu Configuration](./config/menu.config.md) |
 | `fuse.config.json` | Search functionality settings and indexing rules | Manual | [Search Configuration](./config/fuse.config.md) |
 | `site.config.json` | General site configuration and metadata | Manual | [Site Configuration](./config/site.config.md) |
-| `sitemap.config.json` | XML sitemap generation settings and SEO metadata | Manual | [Sitemap Configuration](./docs/sitemap.config.md) |
+| `sitemap.config.json` | XML sitemap generation settings and SEO metadata | Manual | [Sitemap Configuration](./config/sitemap.config.md) |
 | `routes.config.json` | Complete site page catalog and routing metadata | Auto-generated | [Routes Configuration](./config/routes.config.md) |
 
 #### Auto-Generated Configuration Files
@@ -273,10 +273,11 @@ The following configuration files are automatically generated during the build p
 - **New Features**: Includes unified logging system configuration with verbosity levels and color schemes
 
 **Sitemap Configuration (`sitemap.config.json`)**
-- **Purpose**: Controls XML sitemap generation for SEO optimization
-- **Contains**: Priority settings, change frequencies, exclusion rules, validation options
-- **Features**: Configurable priorities for different page types, intelligent exclusions, URL sanitization
-- **Output**: Generates `/public/sitemap.xml` automatically referenced in robots.txt
+- **Purpose**: Controls XML sitemap generation for SEO optimization following sitemaps.org protocol
+- **Contains**: Priority settings, change frequencies, exclusion rules, validation options, logging configuration
+- **Features**: Configurable priorities for different page types, intelligent exclusions, URL sanitization, automatic route discovery
+- **Output**: Generates `/public/sitemap.xml` automatically referenced in robots.txt for search engine discovery
+- **Integration**: Uses existing route discovery and blacklist systems for consistent content management
 
 #### Configuration Documentation
 
@@ -285,7 +286,7 @@ Each configuration system includes comprehensive markdown documentation:
 - **[Menu Configuration](./config/menu.config.md)**: Navigation structure and dropdown menus
 - **[Search Configuration](./config/fuse.config.md)**: Search functionality and content indexing
 - **[Site Configuration](./config/site.config.md)**: General site configuration and metadata
-- **[Sitemap Configuration](./docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
+- **[Sitemap Configuration](./config/sitemap.config.md)**: XML sitemap generation and SEO optimization
 - **[Routes Configuration](./config/routes.config.md)**: Automatic page discovery and routing metadata
 - **[Search Security Audit](./docs/search-security-audit.md)**: Comprehensive security audit and protection measures
 - **[Project Rules](./docs/project-rules.md)**: Mandatory standards and rules for development
