@@ -1,0 +1,48 @@
+{
+  "sitemap": {
+    "outputPath": "public/sitemap.xml",
+    "baseUrl": "https://vpp-2025.netlify.app/",
+    "defaultChangeFreq": "monthly",
+    "defaultPriority": 0.6,
+    "priorities": {
+      "/": 1.0,
+      "/about": 0.8,
+      "/plan": 0.8,
+      "/resources": 0.8,
+      "/contact": 0.8
+    },
+    "changeFrequencies": {
+      "/": "weekly",
+      "/about": "monthly",
+      "/plan": "monthly",
+      "/resources": "weekly",
+      "/contact": "monthly"
+    },
+    "exclusions": {
+      "frontmatterKey": "includeInSiteMap",
+      "frontmatterValue": false,
+      "patterns": [
+        "/sandbox",
+        "/sandbox-*",
+        "/404",
+        "/error"
+      ]
+    }
+  },
+  "validation": {
+    "validateXML": true,
+    "maxUrls": 50000,
+    "requireLastMod": false,
+    "allowDuplicates": false
+  },
+  "logging": {
+    "showProgress": true,
+    "showStats": true,
+    "logLevel": "NORMAL"
+  },
+  "metadata": {
+    "description": "Sitemap configuration for Violence Prevention Plan for Illinois: 2025-2029",
+    "version": "1.0.0",
+    "lastUpdated": "2025-05-25"
+  }
+}
