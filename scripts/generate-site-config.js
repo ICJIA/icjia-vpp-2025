@@ -1,0 +1,570 @@
+/**
+ * Site Configuration Generator
+ *
+ * Automatically discovers and catalogs all pages in the project,
+ * extracting metadata and generating a comprehensive site map.
+ *
+ * This script scans both Nuxt Content markdown files and Vue pages,
+ * extracting titles and metadata to create a complete site catalog.
+ *
+ * @author Violence Prevention Plan for Illinois: 2025-2029
+ * @version 1.0.0
+ */
+
+import { promises as fs } from 'fs';
+import path from 'path';
+import { glob } from 'glob';
+import matter from 'gray-matter';
+
+/**
+ * Logger utility for colored console output
+ */
+class Logger {
+  static colors = {
+    reset: '\x1b[0m',
+    red: '\x1b[31m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    blue: '\x1b[34m',
+    cyan: '\x1b[36m'
+  };
+
+  static log(type, message, data = null) {
+    const timestamp = new Date().toLocaleTimeString();
+    let color = this.colors.cyan;
+    let prefix = 'INFO';
+
+    switch (type) {
+      case 'success':
+        color = this.colors.green;
+        prefix = 'SUCCESS';
+        break;
+      case 'error':
+        color = this.colors.red;
+        prefix = 'ERROR';
+        break;
+      case 'warning':
+        color = this.colors.yellow;
+        prefix = 'WARNING';
+        break;
+      case 'info':
+        color = this.colors.cyan;
+        prefix = 'INFO';
+        break;
+    }
+
+    console.log(`${color}[${timestamp}][${prefix}]${this.colors.reset} ${message}`);
+    if (data) {
+      console.log(data);
+    }
+  }
+}
+
+/**
+ * Site Configuration Generator Class
+ *
+ * Handles the discovery and cataloging of all pages in the project
+ */
+class SiteConfigGenerator {
+  constructor(options = {}) {
+    this.baseConfig = null;
+    this.pages = [];
+    this.stats = {
+      totalPages: 0,
+      contentPages: 0,
+      vuePages: 0,
+      combinedPages: 0,
+      blacklistedFiles: 0
+    };
+    this.logger = Logger;
+  }
+
+  /**
+   * Load base configuration from config/site.config.base.json
+   *
+   * @returns {Promise<void>}
+   */
+  async loadBaseConfig() {
+    try {
+      const configPath = path.join(process.cwd(), 'config/site.config.base.json');
+      const configContent = await fs.readFile(configPath, 'utf-8');
+      this.baseConfig = JSON.parse(configContent);
+      this.logger.log('info', 'Loaded base configuration from config/site.config.base.json');
+    } catch (error) {
+      this.logger.log('warning', 'Base config file not found, using defaults');
+      // Use defaults if config file doesn't exist
+      this.baseConfig = {
+        baseUrl: 'https://vpp-2025.netlify.app/',
+        blacklist: {
+          vue: ['sandbox.vue', 'sandbox-*.vue'],
+          markdown: ['sandbox.md', 'sandbox-*.md']
+        },
+        titleExtraction: {
+          fallbackPattern: 'Violence Prevention Plan for Illinois: 2025-2029',
+          maxLength: 100
+        }
+      };
+    }
+  }
+
+  /**
+   * Check if file should be blacklisted based on patterns
+   *
+   * @param {string} filePath - Path to the file
+   * @param {string} type - Type of file ('vue' or 'markdown')
+   * @returns {boolean} True if file should be blacklisted
+   */
+  isBlacklisted(filePath, type) {
+    const blacklistPatterns = this.baseConfig.blacklist[type] || [];
+    const fileName = path.basename(filePath);
+
+    const isBlacklisted = blacklistPatterns.some(pattern => {
+      if (pattern.includes('*')) {
+        const regex = new RegExp(pattern.replace('*', '.*'));
+        return regex.test(fileName);
+      }
+      return fileName === pattern;
+    });
+
+    if (isBlacklisted) {
+      this.stats.blacklistedFiles++;
+      this.logger.log('info', `Blacklisted file: ${filePath}`);
+    }
+
+    return isBlacklisted;
+  }
+
+  /**
+   * Extract title from markdown frontmatter
+   *
+   * @param {string} filePath - Path to the markdown file
+   * @returns {Promise<string|null>} Extracted title or null
+   */
+  async extractMarkdownTitle(filePath) {
+    try {
+      const content = await fs.readFile(filePath, 'utf-8');
+      const { data } = matter(content);
+      return data.title || null;
+    } catch (error) {
+      this.logger.log('warning', `Failed to extract title from ${filePath}: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * Extract title from Vue component using various methods
+   *
+   * @param {string} filePath - Path to the Vue file
+   * @returns {Promise<string|null>} Extracted title or null
+   */
+  async extractVueTitle(filePath) {
+    try {
+      const content = await fs.readFile(filePath, 'utf-8');
+
+      // Look for useHead title (most common pattern)
+      const useHeadMatch = content.match(/useHead\s*\(\s*\{[^}]*title:\s*['"`]([^'"`]+)['"`]/);
+      if (useHeadMatch) {
+        return useHeadMatch[1];
+      }
+
+      // Look for computed useHead title
+      const computedUseHeadMatch = content.match(/useHead\s*\(\s*\{[^}]*title:\s*computed\(\s*\(\)\s*=>\s*['"`]([^'"`]+)['"`]/);
+      if (computedUseHeadMatch) {
+        return computedUseHeadMatch[1];
+      }
+
+      // Look for template variables in title (fallback to default title)
+      const templateVarMatch = content.match(/title:\s*['"`][^'"`]*\$\{[^}]+\}[^'"`]*['"`]/);
+      if (templateVarMatch) {
+        // If title contains template variables, try to extract default values
+        const defaultTitleMatch = content.match(/defaultTitle\s*=\s*['"`]([^'"`]+)['"`]/);
+        if (defaultTitleMatch) {
+          return defaultTitleMatch[1];
+        }
+      }
+
+      // Look for useSeoMeta title
+      const seoMetaMatch = content.match(/useSeoMeta\s*\(\s*\{[^}]*title:\s*['"`]([^'"`]+)['"`]/);
+      if (seoMetaMatch) {
+        return seoMetaMatch[1];
+      }
+
+      // Look for JSDoc @page annotation with title
+      const jsdocMatch = content.match(/@page\s+([^\n*]+)/);
+      if (jsdocMatch) {
+        return jsdocMatch[1].trim();
+      }
+
+      // Look for component name in JSDoc comments
+      const componentMatch = content.match(/\*\s*([A-Z][a-zA-Z\s]+)\s*(?:page|component)/i);
+      if (componentMatch) {
+        return componentMatch[1].trim();
+      }
+
+      return null;
+    } catch (error) {
+      this.logger.log('warning', `Failed to extract title from ${filePath}: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * Convert file path to URL path
+   *
+   * @param {string} filePath - File system path
+   * @param {string} type - Type of file ('content' or 'vue')
+   * @returns {string} URL path
+   */
+  filePathToUrlPath(filePath, type) {
+    if (type === 'content') {
+      // Remove content/ prefix and .md extension
+      let urlPath = filePath.replace(/^content\//, '').replace(/\.md$/, '');
+
+      // Handle index files
+      if (urlPath === 'index' || urlPath.endsWith('/index')) {
+        urlPath = urlPath.replace(/\/?index$/, '');
+      }
+
+      return '/' + urlPath;
+    } else {
+      // Remove pages/ prefix and .vue extension
+      let urlPath = filePath.replace(/^pages\//, '').replace(/\.vue$/, '');
+
+      // Handle index files
+      if (urlPath === 'index' || urlPath.endsWith('/index')) {
+        urlPath = urlPath.replace(/\/?index$/, '');
+      }
+
+      return '/' + urlPath;
+    }
+  }
+
+  /**
+   * Generate fallback title from URL path
+   *
+   * @param {string} urlPath - URL path
+   * @returns {string} Generated title
+   */
+  generateFallbackTitle(urlPath) {
+    if (urlPath === '/' || urlPath === '') {
+      return this.baseConfig.titleExtraction?.fallbackPattern || 'Violence Prevention Plan for Illinois: 2025-2029';
+    }
+
+    // Convert path to title case
+    const segments = urlPath.split('/').filter(Boolean);
+    const title = segments
+      .map(segment => segment.split('-').map(word =>
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' '))
+      .join(' - ');
+
+    const baseName = this.baseConfig.titleExtraction?.fallbackPattern || 'Violence Prevention Plan for Illinois: 2025-2029';
+    return `${title} - ${baseName}`;
+  }
+
+  /**
+   * Process markdown files from the content directory
+   *
+   * @returns {Promise<void>}
+   */
+  async processMarkdownFiles() {
+    this.logger.log('info', '📄 Processing markdown files from content directory...');
+
+    try {
+      const contentFiles = await glob('content/**/*.md', { cwd: process.cwd() });
+      this.logger.log('info', `📊 Found ${contentFiles.length} markdown files`);
+
+      for (const filePath of contentFiles) {
+        if (this.isBlacklisted(filePath, 'markdown')) {
+          continue;
+        }
+
+        const title = await this.extractMarkdownTitle(filePath);
+        const urlPath = this.filePathToUrlPath(filePath, 'content');
+
+        const pageEntry = {
+          title: title || this.generateFallbackTitle(urlPath),
+          path: urlPath,
+          fullUrl: this.baseConfig.baseUrl.replace(/\/$/, '') + urlPath,
+          type: 'content',
+          source: filePath
+        };
+
+        this.pages.push(pageEntry);
+        this.stats.contentPages++;
+
+        this.logger.log('success', `✓ Indexed markdown: ${filePath} -> ${urlPath}`);
+      }
+
+      this.logger.log('info', `📊 Markdown processing complete: ${this.stats.contentPages} successful`);
+    } catch (error) {
+      this.logger.log('error', `Failed to process markdown files: ${error.message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Process Vue page files from the pages directory
+   *
+   * @returns {Promise<void>}
+   */
+  async processVueFiles() {
+    this.logger.log('info', '🖼️  Processing Vue files from pages directory...');
+
+    try {
+      const vueFiles = await glob('pages/**/*.vue', { cwd: process.cwd() });
+      this.logger.log('info', `📊 Found ${vueFiles.length} Vue files`);
+
+      for (const filePath of vueFiles) {
+        if (this.isBlacklisted(filePath, 'vue')) {
+          continue;
+        }
+
+        const title = await this.extractVueTitle(filePath);
+        const urlPath = this.filePathToUrlPath(filePath, 'vue');
+
+        const pageEntry = {
+          title: title || this.generateFallbackTitle(urlPath),
+          path: urlPath,
+          fullUrl: this.baseConfig.baseUrl.replace(/\/$/, '') + urlPath,
+          type: 'vue',
+          source: filePath
+        };
+
+        this.pages.push(pageEntry);
+        this.stats.vuePages++;
+
+        this.logger.log('success', `✓ Indexed Vue page: ${filePath} -> ${urlPath}`);
+      }
+
+      this.logger.log('info', `📊 Vue processing complete: ${this.stats.vuePages} successful`);
+    } catch (error) {
+      this.logger.log('error', `Failed to process Vue files: ${error.message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Deduplicate pages that map to the same URL path
+   *
+   * Implements intelligent merging of pages that have the same path but come from
+   * different sources (e.g., both content/about.md and pages/about.vue mapping to /about)
+   *
+   * @returns {Array} Deduplicated array of page entries
+   */
+  deduplicatePages() {
+    this.logger.log('info', '🔄 Starting page deduplication process...');
+
+    // Group pages by path
+    const pageGroups = new Map();
+
+    for (const page of this.pages) {
+      if (!pageGroups.has(page.path)) {
+        pageGroups.set(page.path, []);
+      }
+      pageGroups.get(page.path).push(page);
+    }
+
+    const deduplicatedPages = [];
+    let duplicatesFound = 0;
+
+    for (const [path, pages] of pageGroups) {
+      if (pages.length === 1) {
+        // Single page, no deduplication needed but ensure consistent structure
+        const page = pages[0];
+        // Add sources array for consistency
+        page.sources = [{
+          type: page.type,
+          source: page.source,
+          title: page.title
+        }];
+        // Remove the old source field since we now use sources array
+        delete page.source;
+        deduplicatedPages.push(page);
+      } else {
+        // Multiple pages for the same path, merge them
+        duplicatesFound++;
+        const mergedPage = this.mergePages(pages, path);
+        deduplicatedPages.push(mergedPage);
+
+        this.logger.log('info', `🔗 Merged ${pages.length} pages for path: ${path}`);
+        this.logger.log('info', `   Sources: ${pages.map(p => p.source).join(', ')}`);
+      }
+    }
+
+    this.logger.log('success', `✅ Deduplication complete: ${duplicatesFound} duplicate paths merged`);
+    this.logger.log('info', `📊 Final page count: ${deduplicatedPages.length} unique pages`);
+
+    return deduplicatedPages;
+  }
+
+  /**
+   * Merge multiple pages that map to the same path
+   *
+   * @param {Array} pages - Array of page objects to merge
+   * @param {string} path - The common path for these pages
+   * @returns {Object} Merged page object
+   */
+  mergePages(pages, path) {
+    // Separate pages by type
+    const contentPages = pages.filter(p => p.type === 'content');
+    const vuePages = pages.filter(p => p.type === 'vue');
+
+    // Determine the best title (prefer content titles over Vue titles)
+    let bestTitle = '';
+    let titleSource = '';
+
+    if (contentPages.length > 0) {
+      // Prefer content (markdown) titles
+      const contentPage = contentPages[0];
+      bestTitle = contentPage.title;
+      titleSource = 'content';
+    } else if (vuePages.length > 0) {
+      // Fall back to Vue titles, but clean them up
+      const vuePage = vuePages[0];
+      bestTitle = this.cleanVueTitle(vuePage.title);
+      titleSource = 'vue';
+    } else {
+      // Fallback to generated title
+      bestTitle = this.generateFallbackTitle(path);
+      titleSource = 'generated';
+    }
+
+    // Determine the page type
+    let pageType = 'combined';
+    if (contentPages.length > 0 && vuePages.length === 0) {
+      pageType = 'content';
+    } else if (vuePages.length > 0 && contentPages.length === 0) {
+      pageType = 'vue';
+    }
+
+    // Create sources array with all source information
+    const sources = pages.map(page => ({
+      type: page.type,
+      source: page.source,
+      title: page.title
+    }));
+
+    // Update statistics
+    if (pageType === 'combined') {
+      this.stats.combinedPages++;
+    }
+
+    this.logger.log('info', `   📝 Selected title: "${bestTitle}" (from ${titleSource})`);
+
+    return {
+      title: bestTitle,
+      path: path,
+      fullUrl: this.baseConfig.baseUrl.replace(/\/$/, '') + path,
+      type: pageType,
+      sources: sources
+    };
+  }
+
+  /**
+   * Clean Vue component titles by removing template variables and improving formatting
+   *
+   * @param {string} title - Original Vue component title
+   * @returns {string} Cleaned title
+   */
+  cleanVueTitle(title) {
+    if (!title) return '';
+
+    // Remove template variables like ${pageTitle.value}
+    let cleaned = title.replace(/\$\{[^}]+\}/g, '');
+
+    // Remove extra spaces and dashes
+    cleaned = cleaned.replace(/\s*-\s*$/, '').trim();
+
+    // If the title is now empty or too short, generate a fallback
+    if (!cleaned || cleaned.length < 3) {
+      return '';
+    }
+
+    return cleaned;
+  }
+
+  /**
+   * Generate the complete site configuration
+   *
+   * @returns {Promise<Object>} Generated configuration object
+   */
+  async generate() {
+    this.logger.log('info', '🔍 Starting site configuration generation...');
+
+    try {
+      // Load base configuration
+      await this.loadBaseConfig();
+
+      // Process all files
+      await this.processMarkdownFiles();
+      await this.processVueFiles();
+
+      // Deduplicate pages with the same path
+      const deduplicatedPages = this.deduplicatePages();
+
+      // Calculate final stats
+      this.stats.totalPages = deduplicatedPages.length;
+
+      // Sort pages by path for consistency
+      deduplicatedPages.sort((a, b) => a.path.localeCompare(b.path));
+
+      // Create the complete configuration object
+      const config = {
+        baseUrl: this.baseConfig.baseUrl,
+        generatedAt: new Date().toISOString(),
+        summary: {
+          projectName: this.baseConfig.summary?.projectName || 'Violence Prevention Plan for Illinois: 2025-2029',
+          description: this.baseConfig.summary?.description || 'Comprehensive site configuration for automatic page discovery and cataloging',
+          version: this.baseConfig.summary?.version || '1.0.0',
+          totalPages: this.stats.totalPages,
+          contentPages: this.stats.contentPages,
+          vuePages: this.stats.vuePages,
+          combinedPages: this.stats.combinedPages,
+          blacklistedFiles: this.stats.blacklistedFiles
+        },
+        pages: deduplicatedPages,
+        stats: this.stats
+      };
+
+      // Ensure output directories exist
+      await fs.mkdir(path.join(process.cwd(), 'config'), { recursive: true });
+      await fs.mkdir(path.join(process.cwd(), 'public/config'), { recursive: true });
+
+      // Write to config directory
+      const outputPath = path.join(process.cwd(), 'config/site.config.json');
+      await fs.writeFile(outputPath, JSON.stringify(config, null, 2));
+
+      // Also write to public directory for runtime access
+      const publicPath = path.join(process.cwd(), 'public/config/site.config.json');
+      await fs.writeFile(publicPath, JSON.stringify(config, null, 2));
+
+      // Log success summary
+      this.logger.log('success', '✅ Site configuration generated successfully!');
+      this.logger.log('info', `📊 Total unique pages: ${this.stats.totalPages}`);
+      this.logger.log('info', `   📄 Content pages: ${this.stats.contentPages}`);
+      this.logger.log('info', `   🖼️  Vue pages: ${this.stats.vuePages}`);
+      this.logger.log('info', `   🔗 Combined pages: ${this.stats.combinedPages}`);
+      this.logger.log('info', `   🚫 Blacklisted files: ${this.stats.blacklistedFiles}`);
+      this.logger.log('info', `📁 Configuration written to:`);
+      this.logger.log('info', `   - ${outputPath}`);
+      this.logger.log('info', `   - ${publicPath}`);
+
+      return config;
+    } catch (error) {
+      this.logger.log('error', `Site configuration generation failed: ${error.message}`);
+      throw error;
+    }
+  }
+}
+
+// CLI execution
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const generator = new SiteConfigGenerator();
+  generator.generate().catch(error => {
+    console.error('Site configuration generation failed:', error);
+    process.exit(1);
+  });
+}
+
+export default SiteConfigGenerator;

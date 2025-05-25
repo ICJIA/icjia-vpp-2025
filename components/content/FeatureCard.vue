@@ -18,8 +18,9 @@
         />
       </div>
 
-      <h3 :id="`feature-title-${uniqueId}`" class="text-h5 font-weight-bold mb-2">{{ title }}</h3>
-      <p :id="`feature-desc-${uniqueId}`" class="text-body-2 text-medium-emphasis">{{ description }}</p>
+      <div :id="`feature-title-${uniqueId}`">
+        <slot mdc-unwrap="p" />
+      </div>
     </v-card>
   </div>
 </template>
@@ -50,14 +51,6 @@ const announce = inject('announce', null);
  */
 const props = defineProps({
   icon: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
     type: String,
     required: true
   },
@@ -97,11 +90,11 @@ const animationStyle = computed(() => ({
  */
 const handleCardActivation = () => {
   // This would typically navigate to a feature detail page or show more information
-  console.log(`Feature activated: ${props.title}`);
+  console.log('Feature card activated');
 
   // Announce to screen readers for accessibility
   if (announce) {
-    announce(`Selected feature: ${props.title}`);
+    announce('Feature card selected');
   }
 };
 </script>

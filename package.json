@@ -3,17 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run create:accessibility-html && npm run create:search-index && nuxt build",
-    "dev": "npm run create:accessibility-html && npm run create:search-index && nuxt dev --port=8000 -o",
-    "generate": "npm run create:accessibility-html && npm run create:search-index && nuxt generate",
-    "generate:serve": "npm run create:accessibility-html && npm run create:search-index && nuxt generate && npx serve .output/public",
+    "build": "npm run create:accessibility-html && npm run create:search-index && npm run create:site-config && nuxt build",
+    "dev": "npm run create:accessibility-html && npm run create:search-index && npm run create:site-config && nuxt dev --port=8000 -o",
+    "generate": "npm run create:accessibility-html && npm run create:search-index && npm run create:site-config && nuxt generate",
+    "generate:serve": "npm run create:accessibility-html && npm run create:search-index && npm run create:site-config && nuxt generate && npx serve .output/public",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "create:accessibility-html": "node scripts/create-accessibility-html.js",
-    "create:search-index": "node scripts/generate-search-index.js"
+    "create:search-index": "node scripts/generate-search-index.js",
+    "create:site-config": "node scripts/generate-site-config.js"
   },
   "dependencies": {
     "@nuxt/content": "^3.5.1",

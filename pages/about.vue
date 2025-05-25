@@ -1,142 +1,34 @@
 <template>
   <div class="about-page">
-    <section class="hero-section py-16">
-      <v-container>
-        <v-row>
-          <v-col cols="12" md="8" class="mx-auto text-center">
-            <h1 class="text-h2 font-weight-bold mb-6 animate-title">About Us</h1>
-            <p class="text-body-1 mb-8 animate-text">
-             Sed do eiusmod tempor incididunt.
-            </p>
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
+    <!-- Loading state -->
+    <div v-if="pending" class="text-center py-16">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        size="64"
+      ></v-progress-circular>
+      <p class="text-body-1 mt-4">Loading content...</p>
+    </div>
 
-    <v-divider></v-divider>
+    <!-- Error state -->
+    <div v-else-if="error" class="text-center py-16">
+      <v-icon color="error" size="64" class="mb-4">mdi-alert-circle</v-icon>
+      <h2 class="text-h4 mb-4">Content Loading Error</h2>
+      <p class="text-body-1 mb-4">{{ error.message }}</p>
+      <v-btn color="primary" @click="refresh()">Try Again</v-btn>
+    </div>
 
-    <section class="section py-16">
-      <v-container>
-        <v-row>
-          <v-col cols="12" lg="6" class="pr-lg-12">
-            <h2 class="text-h3 font-weight-bold mb-6">Anima Lumen Manus</h2>
-            <p class="text-body-1 mb-4">
-              Carmen mare vita idem Lorem elit anima lumen manus. terra homo ventus aether nox vita bellum quam fine fine jugum umbra tempus. umbra anima fassaque portitor sol elit fatum jugum opus terra bellum. gloria lumen tempus caelum opus ipsum summo idem Lorem fatum sanctum pax. sit caligine ventus fine fine Lorem adipiscing bis consectetur jugum bellum. dolor bellum vita caligine caelum pax carmen sit portitor elit. aether sol amet orbus fassaque consectetur homo enim. rex anima opus gloria lumen terra gloria carmen ventus vox lumen. </p>
-            <p class="text-body-1 mb-4">
-              Tempus vox sanctum carmen sanctum mare ipsum carmen carmen manus dolor sol aether. enim elit caligine umbra pax vita ipsum Lorem caligine. Fatum jugum opus terra bellum. gloria lumen tempus caelum opus ipsum summo idem Lorem fatum sanctum pax. sit caligine ventus fine fine Lorem adipiscing bis consectetur jugum bellum. dolor bellum vita caligine caelum pax carmen sit portitor elit. aether sol amet orbus fassaque consectetur homo enim. rex anima opus gloria lumen terra gloria carmen ventus vox lumen. 
-            </p>
-           
-          </v-col>
+    <!-- Content display -->
+    <div v-else-if="content">
+      <ContentRenderer :value="content" />
+    </div>
 
-          <v-col cols="12" lg="6" class="mt-8 mt-lg-0">
-            <ImageWithSpinner
-              src="https://placehold.co/1200x800?text=VPP+Image+Here"
-              alt="Our Team"
-              image-class="rounded-xl about-image"
-              height="400"
-              cover
-              spinner-color="primary"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
-
-    <section class="section py-16 bg-primary-lighten-5">
-      <v-container>
-        <div class="text-center mb-12">
-          <h2 class="text-h3 font-weight-bold mb-4">Ipsum Enim Vita</h2>
-          <p class="text-body-1 mx-auto" style="max-width: 600px;">
-            Lorem elit anima lumen manus.
-          </p>
-        </div>
-
-        <v-row>
-          <v-col v-for="(value, index) in values" :key="index" cols="12" md="4" class="mb-8">
-            <v-card
-              class="h-100 rounded-xl value-card pa-6"
-              variant="elevated"
-              role="article"
-              tabindex="0"
-              @keydown.enter="handleValueCardActivation(value)"
-              @keydown.space.prevent="handleValueCardActivation(value)"
-              :aria-labelledby="`value-title-${index}`"
-              :aria-describedby="`value-desc-${index}`"
-            >
-              <v-icon
-                :icon="value.icon"
-                size="x-large"
-                color="primary"
-                class="mb-4"
-                aria-hidden="true"
-              ></v-icon>
-              <h3 :id="`value-title-${index}`" class="text-h5 font-weight-bold mb-2">{{ value.title }}</h3>
-              <p :id="`value-desc-${index}`" class="text-body-2 text-medium-emphasis">{{ value.description }}</p>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
-
-    <section class="section py-16">
-      <v-container>
-        <v-row align="center">
-          <v-col cols="12" md="6" order="2" order-md="1" class="pr-md-12">
-            <h2 class="text-h3 font-weight-bold mb-6">
-             Ipsum Vita Omnis
-            </h2>
-
-            <div v-for="(item, i) in approach" :key="i" class="mb-8 approach-item">
-              <div class="d-flex align-start">
-                <div class="approach-number mr-4" aria-hidden="true">{{ i + 1 }}</div>
-                <div>
-                  <h3 :id="`approach-title-${i}`" class="text-h5 font-weight-bold mb-2">{{ item.title }}</h3>
-                  <p class="text-body-2 text-medium-emphasis">{{ item.description }}</p>
-                </div>
-              </div>
-            </div>
-          </v-col>
-
-          <v-col cols="12" md="6" order="1" order-md="2" class="mb-8 mb-md-0">
-            <ImageWithSpinner
-              src="https://placehold.co/1200x800?text=VPP+Image+Here"
-              alt="Our Approach"
-              image-class="rounded-xl about-image"
-              aspect-ratio="4/3"
-              cover
-              spinner-color="primary"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
-
-    <section class="section py-16 bg-primary-lighten-5">
-      <v-container>
-        <div class="text-center">
-          <h2 class="text-h3 font-weight-bold mb-6">Get In Touch</h2>
-          <p class="text-body-1 mx-auto mb-8" style="max-width: 600px;">
-            Helit ipsum umbra enim vita nox deus fassaque? caligine deus summo orbus vita.
-          </p>
-
-          <v-btn
-            color="primary"
-            size="large"
-            class="rounded-pill px-8 py-3 elevation-2 contact-button"
-            aria-label="Contact us via email"
-            @keydown.enter="handleContactClick"
-            @keydown.space.prevent="handleContactClick"
-            @click="handleContactClick"
-            tabindex="0"
-          >
-            <span class="d-flex align-center justify-center">
-              Contact Us
-              <v-icon end icon="mdi-email-outline" aria-hidden="true" class="ml-2" />
-            </span>
-          </v-btn>
-        </div>
-      </v-container>
-    </section>
+    <!-- Fallback content if no content is found -->
+    <div v-else class="text-center py-16">
+      <v-icon color="warning" size="64" class="mb-4">mdi-file-document-outline</v-icon>
+      <h2 class="text-h4 mb-4">No Content Found</h2>
+      <p class="text-body-1">The about page content could not be found.</p>
+    </div>
   </div>
 </template>
 
@@ -144,122 +36,69 @@
 /**
  * About page for the Violence Prevention Plan for Illinois: 2025-2029
  *
- * This page includes:
- * - Organization story and mission
- * - Core values with interactive cards
- * - Approach methodology with numbered steps
- * - Contact section with accessible button
- * - Proper SEO metadata and accessibility attributes
+ * This page now uses Nuxt Content's MDC (Markdown Components) system to render
+ * the about page content from /content/about.md. This approach allows for:
+ * - Better content management through markdown
+ * - Vue component integration within markdown
+ * - Proper SEO metadata from frontmatter
+ * - Consistent content structure
  *
  * @page
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import { computed } from 'vue';
 import { useHead, useSeoMeta } from '#imports';
-import { inject } from 'vue';
+import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import useContentFetcher from '~/composables/useContentFetcher';
 
-/**
- * Get the announce function from the provider for screen reader announcements
- */
-const announce = inject('announce', null);
+// Initialize console logger
+const { log } = useConsoleLogger();
+
+// Content path for the about page
+const contentPath = '/about';
+
+// Log the content path
+log('content', 'About page - loading MDC content', {
+  path: contentPath,
+  timestamp: new Date().toISOString()
+});
+
+console.log('DEBUG: contentPath is:', contentPath);
+
+// Use the project's content fetcher composable
+const { content, pending, error, refresh } = useContentFetcher({
+  path: contentPath
+});
+
+// Watch for successful content loading
+if (content.value) {
+  log('content', 'About page content loaded', {
+    title: content.value.title,
+    timestamp: new Date().toISOString()
+  });
+}
 
 /**
  * Set page title and HTML attributes for accessibility and SEO
+ * Uses content frontmatter when available, falls back to defaults
  */
 useHead({
-  title: 'Violence Prevention Plan for Illinois: 2025-2029 - About Us',
+  title: computed(() => content.value?.title || 'Violence Prevention Plan for Illinois: 2025-2029 - About Us'),
   htmlAttrs: {
     lang: 'en'
   }
 });
 
 /**
- * Set SEO metadata for search engines and social sharing
+ * Set SEO metadata based on content frontmatter
  * Includes Open Graph and Twitter Card metadata
  */
 useSeoMeta({
-  description: 'Learn about the Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.',
-  ogTitle: 'Violence Prevention Plan for Illinois: 2025-2029 - About Us',
-  ogDescription: 'Learn about our mission, values, and approach to violence prevention across Illinois.',
-  ogImage: '/images/og-image-about.jpg',
-  twitterCard: 'summary_large_image',
+  description: computed(() => content.value?.description || 'Learn about the Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.'),
+  ogTitle: computed(() => content.value?.ogTitle || content.value?.title || 'Violence Prevention Plan for Illinois: 2025-2029 - About Us'),
+  ogDescription: computed(() => content.value?.ogDescription || content.value?.description || 'Learn about our mission, values, and approach to violence prevention across Illinois.'),
+  ogImage: computed(() => content.value?.ogImage || '/images/og-image-about.jpg'),
+  twitterCard: computed(() => content.value?.twitterCard || 'summary_large_image'),
 });
-
-/**
- * Core values of the organization displayed as interactive cards
- * @type {Array<{icon: string, title: string, description: string}>}
- */
-const values = [
-  {
-    icon: 'mdi-heart-outline',
-    title: 'Lorem ipsum',
-    description: 'Lomo fassaque aether orbus.'
-  },
-  {
-    icon: 'mdi-lightbulb-outline',
-    title: 'Consectetur',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  },
-  {
-    icon: 'mdi-shield-check-outline',
-    title: 'Incididunt Opus',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-  }
-];
-
-/**
- * Approach methodology displayed as numbered steps
- * @type {Array<{title: string, description: string}>}
- */
-const approach = [
-  {
-    title: 'Lumen Enim Vitae',
-    description: 'Omnis lumen enim vita. Lumen enim vita omnis. Omnis enim vita lumen. Lumen enim vita omnis.'
-  },
-  {
-    title: 'Aliquam Ypsum Omnis',
-    description: 'Aliquam lumen enim vita. Lumen enim vita aliquam. Aliquam enim vita lumen. Lumen enim vita aliquam.'
-  },
-  {
-    title: 'Aliquam Omnis',
-    description: 'Enim vita aliquam. Aliquam enim vita. Enim vita aliquam. Aliquam enim vita omnis.'
-  },
-  {
-    title: 'Ipsum Enim Vita Lumen',
-    description: 'Ipsum lumen enim vita. Lumen enim vita ipsum. Ipsum enim vita lumen. Lumen enim vita ipsum omnis aliquam.'
-  }
-];
-
-/**
- * Handle value card activation via keyboard or click
- * Announces selection to screen readers for accessibility
- *
- * @param {Object} value - The value card data object
- * @param {string} value.title - The title of the value
- * @param {string} value.description - The description of the value
- */
-const handleValueCardActivation = (value) => {
-  console.log(`Value card activated: ${value.title}`);
-
-  // Announce to screen readers for accessibility
-  if (announce) {
-    announce(`Selected value: ${value.title} - ${value.description}`);
-  }
-};
-
-/**
- * Handle contact button click or keyboard activation
- * Announces action to screen readers and would typically open a contact form
- */
-const handleContactClick = () => {
-  console.log('Contact button clicked');
-
-  // Announce to screen readers with assertive priority for immediate feedback
-  if (announce) {
-    announce('Contact form will open shortly', 'assertive');
-  }
-
-  // This would typically open a contact form or navigate to a contact page
-};
 </script>
 
 <style scoped>
@@ -267,107 +106,30 @@ const handleContactClick = () => {
   overflow-x: hidden;
 }
 
-.animate-title {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-}
-
-.animate-text {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-  animation-delay: 0.2s;
-}
-
-.about-image {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: transform 0.5s ease;
-}
-
-/* Dark mode about image shadow */
-:root[data-theme="dark"] .about-image {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-}
-
-.about-image:hover {
-  transform: scale(1.02);
-}
-
-.value-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-/* Dark mode value card shadow */
-:root[data-theme="dark"] .value-card {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.value-card:hover,
-.value-card:focus-visible {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* Dark mode value card hover shadow */
-:root[data-theme="dark"] .value-card:hover,
-:root[data-theme="dark"] .value-card:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
-}
-
-.value-card:focus-visible {
-  outline: 3px solid var(--v-primary-base);
+/* Add focus styles for accessibility */
+:deep(*:focus-visible) {
+  outline: 2px solid var(--v-primary-base);
   outline-offset: 2px;
 }
 
-.approach-number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--v-primary-base);
-  color: white;
-  font-weight: bold;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-
-.approach-item {
-  opacity: 0;
-  animation: fadeSlideUp 0.6s forwards;
-}
-
-.approach-item:nth-child(1) { animation-delay: 0.1s; }
-.approach-item:nth-child(2) { animation-delay: 0.3s; }
-.approach-item:nth-child(3) { animation-delay: 0.5s; }
-.approach-item:nth-child(4) { animation-delay: 0.7s; }
-
-.contact-button {
-  transition: transform 0.3s ease;
-}
-
-.contact-button:hover,
-.contact-button:focus-visible {
-  transform: translateY(-4px);
-}
-
-.contact-button:focus-visible {
-  outline: 3px solid var(--v-primary-base);
-  outline-offset: 2px;
-}
-
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :deep(.animate-title),
+  :deep(.animate-text),
+  :deep(.about-image),
+  :deep(.value-card),
+  :deep(.approach-item),
+  :deep(.contact-button) {
+    animation: none !important;
+    transition: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  :deep(.about-image:hover),
+  :deep(.value-card:hover),
+  :deep(.value-card:focus-visible),
+  :deep(.contact-button:hover),
+  :deep(.contact-button:focus-visible) {
+    transform: none !important;
   }
 }
 </style>

@@ -33,6 +33,14 @@ export default defineNuxtConfig({
     '@nuxt/content'          // Content management system
   ],
 
+  // Components configuration
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    }
+  ],
+
   /**
    * Nuxt Content configuration
    *

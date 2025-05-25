@@ -6,6 +6,29 @@ This document serves as a comprehensive assessment of the accessibility features
 
 > **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
 
+## Audit Log Update: 2025-05-24
+
+### Theme Accessibility Enhancement
+
+Fixed HeroSection component to properly support both light and dark themes, ensuring consistent accessibility across theme changes:
+
+1. **Issue**: The HeroSection component was hardcoded to always use dark theme styling (dark background with white text), but it needed to adapt to both light and dark themes for proper accessibility.
+2. **Fix**: Implemented theme-aware styling that adapts to both light and dark themes while maintaining accessibility standards.
+3. **Implementation**:
+   - Updated `components/content/HeroSection.vue` with theme-specific CSS classes
+   - Added `.v-theme--dark` and `.v-theme--light` selectors for proper theme detection
+   - Ensured proper contrast ratios maintained in both themes (minimum 4.5:1)
+   - Updated button styling to adapt to theme changes while maintaining accessibility
+   - Preserved all existing accessibility features (ARIA attributes, keyboard navigation, reduced motion support)
+   - Primary buttons remain consistently styled across themes for brand recognition
+   - Secondary buttons adapt border and text colors to maintain visibility and contrast
+4. **Impact**: Significantly improved accessibility for users who prefer different themes, ensuring:
+   - Proper contrast ratios in both light and dark modes
+   - Consistent readability across theme changes
+   - Maintained accessibility for users with visual impairments or light sensitivity
+   - All animations and accessibility features preserved during theme transitions
+   - Better support for users who rely on high contrast or specific color schemes
+
 ## Purpose and Scope
 
 **Important Note**: This accessibility audit log does not track git commits or version control history. Instead, it documents the iterative accessibility implementation process that has been integrated into the project since day 1. The log serves as a detailed record of specific accessibility steps, decisions, and compliance approaches taken during development. Accessibility is treated as a critical, non-negotiable requirement rather than an afterthought. The intended audience is future developers, accessibility auditors, project managers, or stakeholders who need to understand the accessibility workflow and rationale behind implementation choices. Each entry captures the real-time accessibility development process, including iterations, refinements, and problem-solving approaches to achieve WCAG 2.1 AA compliance. This approach emphasizes that accessibility has been baked into the project from the beginning as an integral part of the development methodology, not as a separate concern.

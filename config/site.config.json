@@ -1,0 +1,108 @@
+{
+  "baseUrl": "https://vpp-2025.netlify.app/",
+  "generatedAt": "2025-05-25T15:17:57.780Z",
+  "summary": {
+    "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
+    "description": "Comprehensive site configuration for automatic page discovery and cataloging",
+    "version": "1.0.0",
+    "totalPages": 5,
+    "contentPages": 4,
+    "vuePages": 5,
+    "combinedPages": 4,
+    "blacklistedFiles": 4
+  },
+  "pages": [
+    {
+      "title": "Violence Prevention Plan for Illinois: 2025-2029 - Home",
+      "path": "/",
+      "fullUrl": "https://vpp-2025.netlify.app/",
+      "type": "combined",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/index.md",
+          "title": "Violence Prevention Plan for Illinois: 2025-2029 - Home"
+        },
+        {
+          "type": "vue",
+          "source": "pages/index.vue",
+          "title": "Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "Violence Prevention Plan for Illinois: 2025-2029 - About Us",
+      "path": "/about",
+      "fullUrl": "https://vpp-2025.netlify.app/about",
+      "type": "combined",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/about.md",
+          "title": "Violence Prevention Plan for Illinois: 2025-2029 - About Us"
+        },
+        {
+          "type": "vue",
+          "source": "pages/about.vue",
+          "title": "About - Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "Community Outreach",
+      "path": "/projects/community-outreach",
+      "fullUrl": "https://vpp-2025.netlify.app/projects/community-outreach",
+      "type": "combined",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/projects/community-outreach.md",
+          "title": "Community Outreach"
+        },
+        {
+          "type": "vue",
+          "source": "pages/projects/community-outreach.vue",
+          "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}"
+        }
+      ]
+    },
+    {
+      "title": "Youth Intervention",
+      "path": "/projects/youth-intervention",
+      "fullUrl": "https://vpp-2025.netlify.app/projects/youth-intervention",
+      "type": "combined",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/projects/youth-intervention.md",
+          "title": "Youth Intervention"
+        },
+        {
+          "type": "vue",
+          "source": "pages/projects/youth-intervention.vue",
+          "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}"
+        }
+      ]
+    },
+    {
+      "title": "Search - Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/search",
+      "fullUrl": "https://vpp-2025.netlify.app/search",
+      "type": "vue",
+      "sources": [
+        {
+          "type": "vue",
+          "source": "pages/search.vue",
+          "title": "Search - Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "totalPages": 5,
+    "contentPages": 4,
+    "vuePages": 5,
+    "combinedPages": 4,
+    "blacklistedFiles": 4
+  }
+}

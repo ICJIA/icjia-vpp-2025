@@ -1,89 +1,34 @@
 <template>
-  <div>
-    <HeroSection />
+  <div class="home-page">
+    <!-- Loading state -->
+    <div v-if="pending" class="text-center py-16">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        size="64"
+      ></v-progress-circular>
+      <p class="text-body-1 mt-4">Loading content...</p>
+    </div>
 
-    <v-divider></v-divider>
+    <!-- Error state -->
+    <div v-else-if="error" class="text-center py-16">
+      <v-icon color="error" size="64" class="mb-4">mdi-alert-circle</v-icon>
+      <h2 class="text-h4 mb-4">Content Loading Error</h2>
+      <p class="text-body-1 mb-4">{{ error.message }}</p>
+      <v-btn color="primary" @click="refresh()">Try Again</v-btn>
+    </div>
 
-    <FeatureSection />
+    <!-- Content display -->
+    <div v-else-if="content">
+      <ContentRenderer :value="content" />
+    </div>
 
-    <v-divider></v-divider>
-
-    <section class="section py-16">
-      <v-container>
-        <v-row align="center">
-          <v-col cols="12" md="6">
-            <ImageWithSpinner
-              src="https://placehold.co/1200x800?text=VPP+Image+Here"
-              alt="App Screenshot"
-              image-class="rounded-xl shadow-img"
-              aspect-ratio="4/3"
-              cover
-              spinner-color="primary"
-            />
-          </v-col>
-
-          <v-col cols="12" md="6" class="pl-md-12">
-            <h2 class="text-h3 font-weight-bold mb-6">
-              Enim manus aether virtus manus mare carmen elit
-            </h2>
-
-            <p class="text-body-1 mb-8">
-              Tempus tempus rex terra summo ipsum fine stella portitor enim mare homo bellum deus opus.
-            </p>
-
-            <v-list class="bg-transparent pa-0" role="list">
-              <v-list-item
-                v-for="(item, i) in highlights"
-                :key="i"
-                class="pa-0 mb-4"
-                role="listitem"
-              >
-                <template v-slot:prepend>
-                  <v-icon
-                    color="success"
-                    icon="mdi-check-circle"
-                    class="mr-2"
-                    aria-hidden="true"
-                  ></v-icon>
-                </template>
-                <v-list-item-title class="text-body-1">{{ item }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-
-            <v-btn
-              color="primary"
-              variant="tonal"
-              size="large"
-              class="mt-8 rounded-pill px-8"
-            >
-              Ipsum Enim Vita
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
-
-    <section class="section py-16 bg-primary-lighten-5">
-      <v-container>
-        <div class="text-center mb-12">
-          <h2 class="text-h3 font-weight-bold mb-4">Ipsum Enim Vita</h2>
-          <p class="text-body-1 mx-auto" style="max-width: 600px;">
-            Lorem elit anima lumen manus.
-          </p>
-        </div>
-
-        <div class="text-center">
-          <v-btn
-            color="primary"
-            size="x-large"
-            class="rounded-pill px-8 py-3 elevation-3 cta-button"
-          >
-            Ipsum Enim Vita
-            <v-icon end icon="mdi-arrow-right" />
-          </v-btn>
-        </div>
-      </v-container>
-    </section>
+    <!-- Fallback content if no content is found -->
+    <div v-else class="text-center py-16">
+      <v-icon color="warning" size="64" class="mb-4">mdi-file-document-outline</v-icon>
+      <h2 class="text-h4 mb-4">No Content Found</h2>
+      <p class="text-body-1">The home page content could not be found.</p>
+    </div>
   </div>
 </template>
 
@@ -91,69 +36,97 @@
 /**
  * Home page for the Violence Prevention Plan for Illinois: 2025-2029
  *
- * This page includes:
- * - Hero section with main call-to-action
- * - Feature section highlighting key capabilities
- * - Project highlights with accessible list
- * - Call-to-action section
- * - Proper SEO metadata and accessibility attributes
+ * This page now uses Nuxt Content's MDC (Markdown Components) system to render
+ * the home page content from /content/index.md. This approach allows for:
+ * - Better content management through markdown
+ * - Vue component integration within markdown
+ * - Proper SEO metadata from frontmatter
+ * - Consistent content structure
  *
  * @page
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import { computed } from 'vue';
 import { useHead, useSeoMeta } from '#imports';
+import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import useContentFetcher from '~/composables/useContentFetcher';
+
+// Initialize console logger
+const { log } = useConsoleLogger();
+
+// Content path for the home page
+const contentPath = '/';
+
+// Log the content path
+log('content', 'Home page - loading MDC content', {
+  path: contentPath,
+  timestamp: new Date().toISOString()
+});
+
+console.log('DEBUG: contentPath is:', contentPath);
+
+// Use the project's content fetcher composable
+const { content, pending, error, refresh } = useContentFetcher({
+  path: contentPath
+});
+
+// Watch for successful content loading
+if (content.value) {
+  log('content', 'Home page content loaded', {
+    title: content.value.title,
+    timestamp: new Date().toISOString()
+  });
+}
 
 /**
  * Set page title and HTML attributes for accessibility and SEO
+ * Uses content frontmatter when available, falls back to defaults
  */
 useHead({
-  title: 'Violence Prevention Plan for Illinois: 2025-2029 - Home',
+  title: computed(() => content.value?.title || 'Violence Prevention Plan for Illinois: 2025-2029 - Home'),
   htmlAttrs: {
     lang: 'en'
   }
 });
 
 /**
- * Set SEO metadata for search engines and social sharing
+ * Set SEO metadata based on content frontmatter
  * Includes Open Graph and Twitter Card metadata
  */
 useSeoMeta({
-  description: 'The Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.',
-  ogTitle: 'Violence Prevention Plan for Illinois: 2025-2029 - Home',
-  ogDescription: 'Resources and tools for violence prevention initiatives across Illinois.',
-  ogImage: '/images/og-image.jpg',
-  twitterCard: 'summary_large_image',
+  description: computed(() => content.value?.description || 'The Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.'),
+  ogTitle: computed(() => content.value?.ogTitle || content.value?.title || 'Violence Prevention Plan for Illinois: 2025-2029 - Home'),
+  ogDescription: computed(() => content.value?.ogDescription || content.value?.description || 'Resources and tools for violence prevention initiatives across Illinois.'),
+  ogImage: computed(() => content.value?.ogImage || '/images/og-image.jpg'),
+  twitterCard: computed(() => content.value?.twitterCard || 'summary_large_image'),
 });
-
-/**
- * Project highlights displayed in the feature list
- * @type {string[]}
- */
-const highlights = [
-  'Ipsum caelum bellum homax pax',
-  'Sanctum sol elit sol',
-  'Umbra fine homo terra',
-  'Sit mare idem jugum gloria',
-  'Quam stella dolor anima mare summo'
-];
 </script>
 
 <style scoped>
-.shadow-img {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: transform 0.5s ease;
+.home-page {
+  overflow-x: hidden;
 }
 
-.shadow-img:hover {
-  transform: scale(1.02) rotate(1deg);
+/* Add focus styles for accessibility */
+:deep(*:focus-visible) {
+  outline: 2px solid var(--v-primary-base);
+  outline-offset: 2px;
 }
 
-.cta-button {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :deep(.hero-title),
+  :deep(.hero-description),
+  :deep(.hero-button),
+  :deep(.feature-card),
+  :deep(.shadow-img),
+  :deep(.cta-button) {
+    animation: none !important;
+    transition: none !important;
+  }
 
-.cta-button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  :deep(.shadow-img:hover),
+  :deep(.cta-button:hover) {
+    transform: none !important;
+  }
 }
 </style>

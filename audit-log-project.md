@@ -8,6 +8,182 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-25 (Site Configuration Documentation and Deduplication Implementation)
+- Created comprehensive documentation and implemented intelligent deduplication logic for the site configuration system to eliminate duplicate entries and ensure unique pages per path.
+- Files modified/created:
+  - `config/site.config.md`: Created comprehensive documentation following established format with detailed explanations of purpose, file structure, generation process, title extraction, runtime access, configuration options, integration points, and usage examples
+  - `scripts/generate-site-config.js`: Implemented deduplication logic with path-based grouping, title prioritization (content over Vue), source tracking in arrays, and type classification (content/vue/combined)
+  - `composables/useSiteConfig.js`: Updated to handle deduplicated structure with sources arrays and added combinedPages computed property, fixed deprecated process.client usage
+  - `config/site.config.base.json`: Enhanced base configuration structure for better documentation examples
+- Technical Notes:
+  - Deduplication reduces 9 original pages to 5 unique pages by merging entries with same path
+  - Content (markdown) titles are prioritized over Vue component titles during merging
+  - All source files are preserved in sources array with type, source, and title information
+  - Pages are classified as 'content', 'vue', or 'combined' based on their sources
+  - Added combinedPages statistic to track pages with both markdown and Vue sources
+  - Implemented consistent structure where all pages have sources array for uniformity
+  - Documentation includes comprehensive examples for navigation menus, sitemap generation, and page validation
+  - System handles template variables in Vue titles by cleaning them during merge process
+  - Integration points documented for search indexing, accessibility HTML, navigation systems, and build validation
+  - Composable updated to work with new deduplicated structure and provide proper filtering
+  - All existing functionality preserved while adding powerful deduplication capabilities
+
+### 2025-05-25 (Site Configuration System Testing and Validation)
+- Successfully tested and validated the comprehensive site configuration system implementation, confirming all functionality works correctly without affecting existing site features.
+- Files verified/tested:
+  - `scripts/generate-site-config.js`: Confirmed script runs successfully and generates proper configuration files
+  - `config/site.config.json`: Verified auto-generation with correct page discovery and metadata extraction
+  - `public/config/site.config.json`: Confirmed runtime access file is properly created
+  - `composables/useSiteConfig.js`: Validated composable provides correct reactive access to site configuration
+  - `package.json`: Confirmed build scripts integration works seamlessly with existing workflow
+- Technical Notes:
+  - Site configuration generation runs successfully in development mode without errors
+  - System correctly discovers 4 content pages and 5 Vue pages while blacklisting 4 sandbox files
+  - Title extraction works properly for both markdown frontmatter and Vue component metadata
+  - Integration with existing build pipeline (accessibility HTML and search index generation) works flawlessly
+  - No impact on existing site functionality - all pages render correctly
+  - Colored console logging provides clear feedback during generation process
+  - Configuration files are properly generated in both config/ and public/ directories
+  - System handles duplicate routes gracefully and maintains consistent URL path generation
+  - Summary section includes comprehensive project metadata and statistics
+  - Ready for future integration with navigation systems and enhanced search functionality
+
+### 2025-05-24 (Comprehensive Site Configuration System Implementation)
+- Implemented a comprehensive site configuration system that automatically discovers and catalogs all pages in the project, providing a complete site map with metadata.
+- Files modified/created:
+  - `config/site.config.base.json`: Created base configuration file with project settings, blacklist patterns, and title extraction rules
+  - `scripts/generate-site-config.js`: Created comprehensive site configuration generator script with colored logging and robust error handling
+  - `composables/useSiteConfig.js`: Created runtime composable for accessing site configuration data in Vue components
+  - `package.json`: Updated build scripts to include site configuration generation in dev, build, and generate commands
+  - `config/site.config.json`: Auto-generated site configuration file with complete page catalog (not committed to git)
+  - `public/config/site.config.json`: Auto-generated public configuration file for runtime access (not committed to git)
+- Technical Notes:
+  - System automatically discovers both Nuxt Content markdown files and Vue pages during build process
+  - Extracts titles from markdown frontmatter, Vue useHead() calls, useSeoMeta(), and JSDoc comments
+  - Implements configurable blacklisting to exclude sandbox files and other development pages
+  - Generates comprehensive metadata including title, path, fullUrl, type (content/vue), and source file path
+  - Includes summary section with project metadata and statistics (total pages, content pages, Vue pages, blacklisted files)
+  - Integrates seamlessly with existing build pipeline without affecting current site functionality
+  - Provides runtime composable with reactive access to site configuration, page lookup methods, and computed helpers
+  - Uses colored console logging for clear development feedback and error tracking
+  - Handles duplicate routes (pages with both markdown and Vue files) gracefully
+  - Generates configuration files in both config/ directory for development and public/ directory for runtime access
+  - Compatible with existing search indexing system and could enhance future navigation features
+  - Runs automatically during npm run dev, npm run build, and npm run generate commands
+  - Maintains consistent URL path generation and handles index files correctly
+
+### 2025-05-24 (Markdown Rendering Fix for About Page)
+- Fixed critical markdown rendering issue where markdown content in component slots was displaying as plain text instead of properly formatted HTML.
+- Files modified/created:
+  - `content/about.md`: Enhanced with proper markdown formatting including bold text, italic text, subheadings, and bulleted lists for testing
+  - `components/content/AboutHero.vue`: Removed `mdc-unwrap="p"` attribute and added comprehensive markdown CSS styling with `:deep()` selectors
+  - `components/content/AboutStory.vue`: Removed `mdc-unwrap="p"` attribute and added markdown styling for headings, paragraphs, bold, italic, and lists
+  - `components/content/AboutValues.vue`: Removed `mdc-unwrap="p"` attributes from all slots and added markdown styling
+  - `components/content/AboutApproach.vue`: Removed `mdc-unwrap="p"` attributes from all slots and added markdown styling
+  - `components/content/AboutContact.vue`: Removed `mdc-unwrap="p"` attribute and added markdown styling
+- Technical Notes:
+  - The `mdc-unwrap="p"` attribute was preventing proper markdown-to-HTML conversion in component slots
+  - Removed all `mdc-unwrap="p"` attributes and let content render naturally through the slot system
+  - Added comprehensive CSS styling using `:deep()` selectors to ensure proper markdown element styling
+  - Implemented proper paragraph spacing, heading hierarchy, bold/italic text formatting, and list styling
+  - Enhanced about.md content with markdown formatting examples to demonstrate proper rendering
+  - Solution maintains existing component structure, accessibility features, and responsive layouts
+  - All markdown syntax now properly converts to HTML with appropriate styling
+  - Fixed line breaks, paragraph spacing, text formatting, and heading structure throughout the about page
+
+### 2025-05-24 (Homepage Hero Section Visual Redesign for Screenshot Compliance)
+- Completely redesigned homepage hero section to achieve pixel-perfect consistency with provided screenshot requirements.
+- Files modified/created:
+  - `components/content/HeroSection.vue`: Comprehensive visual overhaul including dark navy background (#1a2234), white text styling, larger typography (3rem), blue accent color for bold text (#64b5f6), improved button spacing with gap-4, and refined responsive breakpoints
+  - `components/content/AboutHero.vue`: Updated H1 styling to maintain consistency with new homepage design
+- Technical Notes:
+  - Implemented exact background color (#1a2234) and white text to match screenshot
+  - Increased H1 font size to 3rem with 600 font weight and tighter line height (1.1)
+  - Added blue accent styling for bold text within headings using `:deep(h1 strong)` selector
+  - Updated button layout to use CSS gap instead of margin classes for precise spacing
+  - Reduced button padding from py-6 to py-3 for better proportions
+  - Added Roboto font family specification and negative letter spacing (-0.02em)
+  - Implemented responsive typography maintaining visual hierarchy across all screen sizes
+  - Ensured paragraph text uses muted white (rgba(255, 255, 255, 0.9)) with max-width constraints
+  - Updated container padding to py-12 py-md-16 for better vertical spacing
+
+### 2025-05-24 (Homepage H1 Heading Fix and Button Positioning)
+- Fixed missing H1 heading on homepage hero section and improved button positioning for better user experience.
+- Files modified/created:
+  - `components/content/HeroSection.vue`: Added proper H1 styling with `:deep(h1)` CSS rules, updated class from `hero-title` to `hero-content`, added responsive typography, and improved button spacing with `mt-4` class
+  - `components/content/AboutHero.vue`: Added consistent H1 styling to match homepage, implemented responsive heading sizes, and added paragraph styling for consistency
+- Technical Notes:
+  - Used Vue's `:deep()` pseudo-class to style H1 elements rendered from MDC slot content
+  - Implemented mobile-first responsive typography with breakpoints at 960px and 600px
+  - Ensured consistent heading hierarchy and visual styling between homepage and about page
+  - Updated reduced motion support for new CSS class names
+  - Button container now has proper top margin for better visual spacing
+
+### 2025-05-24 (Homepage Components Slot-Based Content Management Implementation)
+- Implemented slot-based content management for all homepage components, following the same pattern as the about page for consistent content management and improved searchability.
+- Files modified/created:
+  - `content/index.md`: Updated to include all text content in slots with proper MDC syntax for hero section, feature section, highlights, and call-to-action
+  - `components/content/HeroSection.vue`: Updated to use default slot with `mdc-unwrap="p"` for hero title and subtitle content, removed hardcoded text
+  - `components/content/FeatureSection.vue`: Updated to use default slot for section title and named slots for individual feature cards (`ipsum-caelum-bellum`, `carmen-umbra-stella-vox`, etc.), removed hardcoded features array
+  - `components/content/FeatureCard.vue`: Updated to accept content through slots instead of props, removed title and description props, maintained icon and delay props
+  - `components/content/HomeHighlights.vue`: Updated to use default slot for title/description and named slots for individual highlight items (`highlight-1` through `highlight-5`), removed hardcoded highlights array
+  - `components/content/HomeAction.vue`: Updated to use default slot for title/description and named slot for button text (`button-text`)
+- Technical Notes:
+  - Applied the same MDC syntax and slot implementation pattern used successfully for the about page
+  - Used `::component-name` and `::` block syntax with content slots for all homepage components
+  - Implemented `mdc-unwrap="p"` attribute for proper markdown content handling in all slots
+  - Moved all hardcoded text content from Vue components to markdown slots for better searchability
+  - Used named slots with kebab-case naming for structured content sections (feature cards, highlights, button text)
+  - Maintained all existing accessibility features, ARIA labels, keyboard navigation, and responsive layouts
+  - Preserved all styling, animations, and interactive functionality while enabling content management through markdown
+  - Ensured consistency across the entire site with the same slot-based content management approach
+  - All homepage text content is now searchable through the site's search functionality
+  - Updated component documentation to reflect the new slot-based architecture
+
+### 2025-05-24 (MDC Syntax Correction and Content Slot Implementation)
+- Corrected Vue component formatting in `/content/about.md` to use proper Nuxt Content MDC syntax and implemented slot-based content management for better searchability.
+- Files modified/created:
+  - `content/about.md`: Converted from HTML-style `<ComponentName />` syntax to proper MDC `::component-name` syntax with content slots
+  - `components/content/AboutHero.vue`: Updated to use default slot with `mdc-unwrap="p"` for title and subtitle content
+  - `components/content/AboutStory.vue`: Updated to use default slot for story content, maintaining image layout
+  - `components/content/AboutValues.vue`: Updated to use named slots (`lorem-ipsum`, `consectetur`, `incididunt-opus`) for individual value cards, removed hardcoded values array
+  - `components/content/AboutApproach.vue`: Updated to use named slots for each approach step (`lumen-enim-vitae`, `aliquam-ypsum-omnis`, `aliquam-omnis`, `ipsum-enim-vita-lumen`), removed hardcoded approach array
+  - `components/content/AboutContact.vue`: Updated to use default slot for contact section content
+- Technical Notes:
+  - Followed official Nuxt Content MDC documentation for proper Vue component syntax in markdown
+  - Used `::component-name` and `::` block syntax instead of HTML-style `<ComponentName />` tags
+  - Implemented `mdc-unwrap="p"` attribute to properly handle markdown content in slots
+  - Moved all hardcoded text content from Vue components to markdown slots for better searchability
+  - Used named slots with kebab-case naming for structured content sections
+  - Maintained all existing accessibility features, ARIA labels, and keyboard navigation
+  - Preserved responsive layouts and styling while enabling content management through markdown
+  - This pattern ensures consistency with `/content/index.md` and follows MDC best practices
+  - All text content is now searchable through the site's search functionality
+
+### 2025-05-24 (About Page Conversion to MDC System)
+- Converted the existing pages/about.vue page to use the Nuxt Content (MDC) system for consistent content management.
+- Files modified/created:
+  - `content/about.md`: Created markdown file with frontmatter metadata and component references
+  - `components/content/AboutHero.vue`: Created hero section component with title and subtitle
+  - `components/content/AboutStory.vue`: Created story section component with text and image
+  - `components/content/AboutValues.vue`: Created values section component with interactive cards
+  - `components/content/AboutApproach.vue`: Created approach section component with numbered steps
+  - `components/content/AboutContact.vue`: Created contact section component with CTA button
+  - `pages/about.vue`: Converted to use ContentRenderer with MDC content fetching
+- Technical Notes:
+  - Implemented the same MDC pattern used for the homepage with ContentRenderer
+  - Broke down the monolithic about page into modular, reusable components
+  - Preserved all existing functionality, styling, and accessibility features
+  - Maintained proper SEO metadata through frontmatter in the markdown file
+  - Added comprehensive error handling and loading states
+  - Implemented proper keyboard navigation and screen reader announcements
+  - Added reduced motion support for all animations and transitions
+  - Ensured all components follow WCAG 2.1 AA accessibility standards
+  - Used the existing ImageWithSpinner component for consistent image loading
+  - Maintained proper ARIA attributes, semantic HTML, and focus management
+  - Added comprehensive JSDoc documentation for all new components
+  - Ensured consistent styling with dark mode support and proper contrast ratios
+
 ### 2025-05-23 (Enhanced Search Indexing for Vue-Only Pages)
 - Enhanced search indexing to properly capture content from Vue-only pages, including script-defined content and nested components.
 - Files modified:

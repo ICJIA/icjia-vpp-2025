@@ -66,22 +66,18 @@ const handleLearnMore = () => {
 
 <template>
   <section class="hero-section">
-    <v-container class="py-16">
+    <v-container class="py-12 py-md-16">
       <v-row align="center" justify="space-between">
         <v-col cols="12" md="6" class="pr-md-12">
-          <h1 class="text-h2 font-weight-bold mb-6 hero-title">
-           Rex adipiscing bis <span class="text-primary">umbra sol gloria bis amet.</span>
-          </h1>
+          <div class="hero-content mb-8">
+            <slot mdc-unwrap="p" />
+          </div>
 
-          <p class="text-body-1 mb-8 hero-description">
-            Rex adipiscing bis umbra sol gloria bis amet ventus sit rex caelum est ideme. Stella vox terra carmen anima rex vita sol fine opus pax caelum bellum bellum. Vox jugum gloria caligine vita fine aether jugum terra portitor est elit portitor est.
-          </p>
-
-          <div class="d-flex flex-wrap" role="group" aria-label="Main actions">
+          <div class="d-flex flex-wrap hero-buttons-container" role="group" aria-label="Main actions">
             <v-btn
               color="primary"
               size="large"
-              class="text-none rounded-pill px-8 py-6 elevation-2 mr-4 mb-4 hero-button text-center"
+              class="text-none rounded-pill px-8 py-3 elevation-2 hero-button"
               aria-label="Get Started with our application"
               @keydown.enter="handleGetStarted"
               @keydown.space.prevent="handleGetStarted"
@@ -97,7 +93,7 @@ const handleLearnMore = () => {
               variant="outlined"
               color="primary"
               size="large"
-              class="text-none rounded-pill px-8 py-6 elevation-0 mb-4 hero-button text-center"
+              class="text-none rounded-pill px-8 py-3 elevation-0 hero-button"
               aria-label="Learn more about our application"
               @keydown.enter="handleLearnMore"
               @keydown.space.prevent="handleLearnMore"
@@ -143,17 +139,107 @@ const handleLearnMore = () => {
  * - Accessibility considerations for motion preferences
  */
 
-/* Main container */
+/* Main container with theme-aware background */
 .hero-section {
   position: relative;
   overflow: hidden; /* Prevent decorative elements from causing scrollbars */
+  /* Theme-aware background colors */
+  background: rgb(var(--v-theme-surface));
+  color: rgb(var(--v-theme-on-surface));
 }
 
-/* Main heading with staggered animation */
-.hero-title {
+/* Dark theme specific styling */
+.v-theme--dark .hero-section {
+  background: #1a2234; /* Dark navy background for dark theme */
+  color: white; /* White text for dark theme */
+}
+
+/* Light theme specific styling */
+.v-theme--light .hero-section {
+  background: #f8f9fa; /* Light background for light theme */
+  color: #2c3e50; /* Dark text for light theme */
+}
+
+/* Hero content container with staggered animation */
+.hero-content {
   opacity: 0; /* Start invisible */
   animation: fadeSlideUp 0.8s forwards; /* Fade in and slide up */
   animation-delay: 0.2s; /* Start first in the sequence */
+}
+
+/* Style the H1 heading from the slot content - theme aware */
+.hero-content :deep(h1) {
+  font-size: 60px; /* Exact size to match screenshot */
+  font-weight: 600; /* Medium-bold weight matching screenshot */
+  line-height: 1.2; /* Line height to match screenshot spacing */
+  margin-bottom: 2rem; /* Space below heading to match screenshot */
+  color: inherit; /* Inherit from parent theme color */
+  font-family: 'Roboto', sans-serif; /* Ensure consistent font family */
+  letter-spacing: -0.02em; /* Slight negative letter spacing for modern look */
+}
+
+/* Dark theme H1 styling */
+.v-theme--dark .hero-content :deep(h1) {
+  color: white; /* Pure white text for dark theme */
+}
+
+/* Light theme H1 styling */
+.v-theme--light .hero-content :deep(h1) {
+  color: #2c3e50; /* Dark text for light theme */
+}
+
+/* Style bold text within H1 to have blue accent color - consistent across themes */
+.hero-content :deep(h1 strong) {
+  color: #1976d2; /* Blue accent color for both themes */
+  font-weight: 600; /* Maintain consistent weight */
+}
+
+/* Style the paragraph content from the slot - theme aware */
+.hero-content :deep(p) {
+  font-size: 1rem; /* Standard body text size */
+  line-height: 1.6; /* Good readability */
+  margin-bottom: 2rem; /* More space below paragraph to match screenshot */
+  color: inherit; /* Inherit from parent theme color */
+  font-family: 'Roboto', sans-serif; /* Consistent font family */
+  max-width: 90%; /* Limit width for better readability */
+  opacity: 0.9; /* Slightly muted for both themes */
+}
+
+/* Responsive heading sizes maintaining proportions */
+@media (max-width: 960px) {
+  .hero-content :deep(h1) {
+    font-size: 48px; /* Proportionally smaller on tablets (80% of 60px) */
+    line-height: 1.15; /* Slightly tighter line height for smaller screens */
+  }
+
+  .hero-content :deep(p) {
+    max-width: 95%; /* Slightly wider on tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-content :deep(h1) {
+    font-size: 36px; /* Mobile size (60% of 60px) while maintaining impact */
+    line-height: 1.1; /* Tighter line height for mobile */
+    margin-bottom: 1.5rem; /* Reduced margin on mobile */
+  }
+
+  .hero-content :deep(p) {
+    max-width: 100%; /* Full width on mobile */
+    font-size: 0.95rem; /* Slightly smaller text on mobile */
+  }
+}
+
+/* Button container with proper spacing */
+.hero-buttons-container {
+  gap: 20px; /* 20px gap between buttons to match screenshot */
+}
+
+/* Responsive button spacing */
+@media (max-width: 600px) {
+  .hero-buttons-container {
+    gap: 16px; /* Slightly smaller gap on mobile */
+  }
 }
 
 /* Description paragraph with staggered animation */
@@ -190,6 +276,67 @@ const handleLearnMore = () => {
 .hero-button span {
   width: 100%;
   text-align: center;
+}
+
+/* Primary button styling - consistent across themes */
+.hero-content :deep(.v-btn--variant-elevated) {
+  background: #1976d2 !important; /* Blue background for both themes */
+  color: white !important; /* White text for both themes */
+  font-weight: 500; /* Medium weight */
+  text-transform: none; /* Preserve original case */
+  letter-spacing: 0.02em; /* Slight letter spacing */
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3); /* Blue glow shadow */
+  border-radius: 8px; /* Rounded corners */
+  padding: 12px 24px; /* Comfortable padding */
+  font-size: 0.95rem; /* Slightly smaller than default */
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Primary button hover state */
+.hero-content :deep(.v-btn--variant-elevated:hover) {
+  background: #1565c0 !important; /* Darker blue on hover */
+  box-shadow: 0 6px 16px rgba(25, 118, 210, 0.4); /* Enhanced shadow */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Secondary button styling - theme aware */
+.hero-content :deep(.v-btn--variant-outlined) {
+  font-weight: 500; /* Medium weight */
+  text-transform: none; /* Preserve original case */
+  letter-spacing: 0.02em; /* Slight letter spacing */
+  border-radius: 8px; /* Rounded corners */
+  padding: 12px 24px; /* Comfortable padding */
+  font-size: 0.95rem; /* Slightly smaller than default */
+  transition: all 0.3s ease; /* Smooth transitions */
+  background: transparent !important; /* Transparent background */
+}
+
+/* Dark theme secondary button */
+.v-theme--dark .hero-content :deep(.v-btn--variant-outlined) {
+  border: 2px solid rgba(255, 255, 255, 0.7) !important; /* White border */
+  color: rgba(255, 255, 255, 0.9) !important; /* White text */
+}
+
+/* Light theme secondary button */
+.v-theme--light .hero-content :deep(.v-btn--variant-outlined) {
+  border: 2px solid rgba(44, 62, 80, 0.7) !important; /* Dark border */
+  color: rgba(44, 62, 80, 0.9) !important; /* Dark text */
+}
+
+/* Dark theme secondary button hover */
+.v-theme--dark .hero-content :deep(.v-btn--variant-outlined:hover) {
+  background: rgba(255, 255, 255, 0.1) !important; /* Subtle white background */
+  border-color: white !important; /* Solid white border */
+  color: white !important; /* Pure white text */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Light theme secondary button hover */
+.v-theme--light .hero-content :deep(.v-btn--variant-outlined:hover) {
+  background: rgba(44, 62, 80, 0.1) !important; /* Subtle dark background */
+  border-color: #2c3e50 !important; /* Solid dark border */
+  color: #2c3e50 !important; /* Pure dark text */
+  transform: translateY(-2px); /* Subtle lift effect */
 }
 
 /* Hero image container with floating animation */
@@ -361,7 +508,7 @@ const handleLearnMore = () => {
  */
 @media (prefers-reduced-motion: reduce) {
   /* Text elements get simple fade instead of slide */
-  .hero-title,
+  .hero-content,
   .hero-description,
   .hero-button {
     animation: fadeIn 0.5s forwards !important;

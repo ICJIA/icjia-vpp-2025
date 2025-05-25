@@ -278,11 +278,38 @@
 
     <main id="main-content" role="main">
       <h1>Accessibility Audit Log: Violence Prevention Plan for Illinois: 2025-2029</h1>
-<p><strong>Last Updated: May 23, 2025</strong></p>
+<p><strong>Last Updated: May 24, 2025</strong></p>
 <p>This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project&#39;s accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.</p>
 <blockquote>
 <p><strong>Note</strong>: This document is also available as an HTML page on our website for direct access without requiring JavaScript.</p>
 </blockquote>
+<h2>Audit Log Update: 2025-05-24</h2>
+<h3>Theme Accessibility Enhancement</h3>
+<p>Fixed HeroSection component to properly support both light and dark themes, ensuring consistent accessibility across theme changes:</p>
+<ol>
+<li><strong>Issue</strong>: The HeroSection component was hardcoded to always use dark theme styling (dark background with white text), but it needed to adapt to both light and dark themes for proper accessibility.</li>
+<li><strong>Fix</strong>: Implemented theme-aware styling that adapts to both light and dark themes while maintaining accessibility standards.</li>
+<li><strong>Implementation</strong>:<ul>
+<li>Updated <code>components/content/HeroSection.vue</code> with theme-specific CSS classes</li>
+<li>Added <code>.v-theme--dark</code> and <code>.v-theme--light</code> selectors for proper theme detection</li>
+<li>Ensured proper contrast ratios maintained in both themes (minimum 4.5:1)</li>
+<li>Updated button styling to adapt to theme changes while maintaining accessibility</li>
+<li>Preserved all existing accessibility features (ARIA attributes, keyboard navigation, reduced motion support)</li>
+<li>Primary buttons remain consistently styled across themes for brand recognition</li>
+<li>Secondary buttons adapt border and text colors to maintain visibility and contrast</li>
+</ul>
+</li>
+<li><strong>Impact</strong>: Significantly improved accessibility for users who prefer different themes, ensuring:<ul>
+<li>Proper contrast ratios in both light and dark modes</li>
+<li>Consistent readability across theme changes</li>
+<li>Maintained accessibility for users with visual impairments or light sensitivity</li>
+<li>All animations and accessibility features preserved during theme transitions</li>
+<li>Better support for users who rely on high contrast or specific color schemes</li>
+</ul>
+</li>
+</ol>
+<h2>Purpose and Scope</h2>
+<p><strong>Important Note</strong>: This accessibility audit log does not track git commits or version control history. Instead, it documents the iterative accessibility implementation process that has been integrated into the project since day 1. The log serves as a detailed record of specific accessibility steps, decisions, and compliance approaches taken during development. Accessibility is treated as a critical, non-negotiable requirement rather than an afterthought. The intended audience is future developers, accessibility auditors, project managers, or stakeholders who need to understand the accessibility workflow and rationale behind implementation choices. Each entry captures the real-time accessibility development process, including iterations, refinements, and problem-solving approaches to achieve WCAG 2.1 AA compliance. This approach emphasizes that accessibility has been baked into the project from the beginning as an integral part of the development methodology, not as a separate concern.</p>
 <h2>Audit Log Update: 2025-05-23</h2>
 <h3>Enhanced Search Indexing for Improved Content Accessibility</h3>
 <p>Enhanced the search indexing system to improve content discoverability for all users:</p>
