@@ -20,6 +20,13 @@ This project serves as the official web presence for the Violence Prevention Pla
 
 ## Recent Major Updates (May 25, 2025)
 
+### Comprehensive Search Security Audit and Enhancement
+- **Security**: Conducted comprehensive security audit and implemented robust multi-layered protection
+- **XSS Protection**: Enhanced sanitization, dangerous content detection, and safe result rendering
+- **DoS Prevention**: Query length limits, debouncing, and rate limiting measures
+- **Content Security**: Comprehensive search index sanitization removing potentially dangerous code
+- **Compliance**: Meets OWASP security standards while maintaining full accessibility
+
 ### Comprehensive Sitemap Generation System
 - **New**: Automated XML sitemap generation following sitemaps.org protocol
 - **Features**: Configurable priorities, change frequencies, intelligent exclusions, URL sanitization
@@ -280,6 +287,7 @@ Each configuration system includes comprehensive markdown documentation:
 - **[Site Configuration](./config/site.config.md)**: General site configuration and metadata
 - **[Sitemap Configuration](./docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
 - **[Routes Configuration](./config/routes.config.md)**: Automatic page discovery and routing metadata
+- **[Search Security Audit](./docs/search-security-audit.md)**: Comprehensive security audit and protection measures
 - **[Project Rules](./docs/project-rules.md)**: Mandatory standards and rules for development
 - **[Logging System](./docs/logging-system.md)**: Unified logging system documentation
 

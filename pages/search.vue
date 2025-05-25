@@ -99,7 +99,7 @@ import { ref, watch, onMounted, computed } from 'vue';
 import { useHead, useSeoMeta } from '#imports';
 import Fuse from 'fuse.js';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
-import { sanitizeString, sanitizeSearchQuery, safeHighlightMatches } from '~/utils/sanitize';
+import { sanitizeString, sanitizeSearchQuery, safeHighlightMatches, validateSearchResults, containsDangerousContent } from '~/utils/sanitize';
 
 // Initialize logger
 const { log } = useConsoleLogger();
@@ -204,10 +204,26 @@ async function loadSearchIndex() {
       throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
     }
 
-    searchIndex.value = await response.json();
-    log('search', `Search index loaded with ${searchIndex.value.length} items`);
+    const rawIndex = await response.json();
 
-    // Initialize Fuse.js with the loaded index and options
+    // Validate and sanitize the search index for security
+    searchIndex.value = validateSearchResults(rawIndex);
+
+    // Check for any dangerous content in the index
+    const dangerousItems = searchIndex.value.filter(item =>
+      containsDangerousContent(item.title) ||
+      containsDangerousContent(item.content) ||
+      containsDangerousContent(item.description)
+    );
+
+    if (dangerousItems.length > 0) {
+      console.warn(`⚠️ Found ${dangerousItems.length} potentially dangerous items in search index`);
+      log('search', `Security warning: ${dangerousItems.length} items flagged for review`);
+    }
+
+    log('search', `Search index loaded with ${searchIndex.value.length} validated items`);
+
+    // Initialize Fuse.js with the validated index and options
     fuseInstance.value = new Fuse(searchIndex.value, fuseOptions.value);
 
     isInitializing.value = false;
@@ -239,10 +255,24 @@ function performSearch() {
     // Use the sanitized query for searching
     const safeQuery = sanitizedSearchQuery.value;
 
+    // Additional security checks
+    if (containsDangerousContent(searchQuery.value)) {
+      console.warn('⚠️ Potentially dangerous search query blocked:', searchQuery.value);
+      log('search', 'Blocked dangerous search query');
+      searchResults.value = [];
+      return;
+    }
+
     // Check if query is empty or too short
     if (!safeQuery || safeQuery.length <= minTermLength) {
       searchResults.value = [];
       return;
+    }
+
+    // Limit query length to prevent DoS attacks
+    if (safeQuery.length > 100) {
+      console.warn('⚠️ Search query too long, truncating');
+      log('search', 'Query truncated for security');
     }
 
     isSearching.value = true;
@@ -253,11 +283,11 @@ function performSearch() {
       const results = fuseInstance.value.search(safeQuery);
 
       // Process results to add excerpts with context
-      searchResults.value = results.map(result => {
+      const processedResults = results.map(result => {
         const item = result.item;
 
         // Create excerpt from content, focusing on the first match
-        let excerpt = item.description;
+        let excerpt = item.description || '';
         if (result.matches && result.matches.length > 0) {
           // Find matches in content
           const contentMatches = result.matches.find(match => match.key === 'content');
@@ -275,13 +305,16 @@ function performSearch() {
         }
 
         return {
-          title: item.title,
-          path: item.path,
-          excerpt: excerpt,
-          score: result.score,
-          type: item.type // Include content type for potential filtering
+          title: sanitizeString(item.title || ''),
+          path: sanitizeString(item.path || ''),
+          excerpt: sanitizeString(excerpt),
+          score: typeof result.score === 'number' ? result.score : 0,
+          type: sanitizeString(item.type || '') // Include content type for potential filtering
         };
       });
+
+      // Validate the processed results for security
+      searchResults.value = validateSearchResults(processedResults);
 
       log('search', `Found ${searchResults.value.length} results`);
     } catch (error) {

@@ -25,11 +25,20 @@
       "threshold": 0.6,
       "distance": 150,
       "useExtendedSearch": false,
-      "includeMatches": true
+      "includeMatches": true,
+      "maxPatternLength": 50,
+      "minMatchCharLength": 2
     },
     "debounceMs": 300,
     "minTermLength": 2,
-    "excerptContextChars": 50
+    "excerptContextChars": 50,
+    "security": {
+      "maxQueryLength": 50,
+      "maxResultsPerPage": 50,
+      "sanitizeInput": true,
+      "validateResults": true,
+      "blockDangerousPatterns": true
+    }
   },
   "indexing": {
     "blacklist": {

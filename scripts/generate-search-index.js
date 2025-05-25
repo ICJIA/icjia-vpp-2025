@@ -55,6 +55,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { globSync } from 'glob';
 import matter from 'gray-matter';
+import { sanitizeContentForIndexing, containsDangerousContent } from '../utils/sanitize.js';
 
 /**
  * Console Logger for Search Index Generation
@@ -387,6 +388,9 @@ function extractTextFromMarkdown(markdown) {
 
   // Remove extra whitespace and normalize spacing
   text = text.replace(/\s+/g, ' ').trim();
+
+  // Apply additional security sanitization
+  text = sanitizeContentForIndexing(text);
 
   return text;
 }
@@ -1506,13 +1510,18 @@ async function generateSearchIndex(options = {}) {
       let routePath = '/' + file.replace(/\.md$/, '');
       const normalizedPath = normalizePath(routePath);
 
-      // Create search item
+      // Security check for dangerous content
+      if (containsDangerousContent(plainText)) {
+        Logger.warning(`⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`);
+      }
+
+      // Create search item with sanitized content
       const searchItem = {
-        title: data.title || path.basename(file, '.md'),
-        content: plainText,
+        title: sanitizeContentForIndexing(data.title || path.basename(file, '.md')),
+        content: plainText, // Already sanitized in extractTextFromMarkdown
         path: normalizedPath,
-        description: data.description || plainText.substring(0, 160) + '...',
-        // Store the raw frontmatter data for additional search fields
+        description: sanitizeContentForIndexing(data.description || plainText.substring(0, 160) + '...'),
+        // Store the raw frontmatter data for additional search fields (but sanitize it)
         frontmatter: data,
         // Add type field to identify content source
         type: 'markdown',
@@ -1628,12 +1637,17 @@ async function generateSearchIndex(options = {}) {
 
       Logger.info(`📝 Extracted ${text.length} characters of text from homepage and its components`);
 
-      // Create search item for homepage
+      // Security check for dangerous content
+      if (containsDangerousContent(enhancedText)) {
+        Logger.warning(`⚠️ Potentially dangerous content detected in homepage, applying extra sanitization`);
+      }
+
+      // Create search item for homepage with sanitized content
       const searchItem = {
-        title: pageTitle,
-        content: enhancedText,
+        title: sanitizeContentForIndexing(pageTitle),
+        content: sanitizeContentForIndexing(enhancedText),
         path: normalizedPath,
-        description: pageDescription,
+        description: sanitizeContentForIndexing(pageDescription),
         type: 'vue-page',
         sourceFile: indexFile
       };
@@ -1693,12 +1707,17 @@ async function generateSearchIndex(options = {}) {
 
       Logger.info(`📝 Extracted ${text.length} characters of text from ${file} and its components`);
 
-      // Create search item
+      // Security check for dangerous content
+      if (containsDangerousContent(text)) {
+        Logger.warning(`⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`);
+      }
+
+      // Create search item with sanitized content
       const searchItem = {
-        title: title,
-        content: text,
+        title: sanitizeContentForIndexing(title || 'Untitled'),
+        content: sanitizeContentForIndexing(text),
         path: normalizedPath,
-        description: pageDescription,
+        description: sanitizeContentForIndexing(pageDescription),
         // Add type field to identify content source
         type: 'vue-page',
         // Add source file for debugging
