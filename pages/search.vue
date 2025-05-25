@@ -144,7 +144,7 @@ const fuseOptions = ref({
    */
   keys: [
     { name: 'title', weight: 1.0 },
-    { name: 'content', weight: 0.6 },
+    { name: 'content', weight: 1.0 },
     { name: 'description', weight: 0.6 },
     { name: 'path', weight: 0.3 }
   ],
@@ -159,29 +159,49 @@ const fuseOptions = ref({
 // Load configuration from fuse.config.json
 async function loadFuseConfig() {
   try {
-    // Try to load from public directory first
-    let response = await fetch('/config/fuse.config.json');
+    // Add cache-busting parameter to force fresh load
+    const cacheBuster = `?t=${Date.now()}`;
+
+    console.log('🔧 Loading Fuse config...');
+
+    // Try to load from public directory first with cache busting
+    let response = await fetch(`/config/fuse.config.json${cacheBuster}`, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    });
 
     // If that fails, try the fallback path
     if (!response.ok) {
+      console.log('⚠️ Config not found in /config, trying fallback path');
       log('search', 'Config not found in /config, trying fallback path');
-      response = await fetch('/data/fuse.config.json');
+      response = await fetch(`/data/fuse.config.json${cacheBuster}`, {
+        cache: 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
 
       if (!response.ok) {
-        throw new Error(`Failed to load Fuse config: ${response.status}`);
+        throw new Error(`Failed to load Fuse config: ${response.status} ${response.statusText}`);
       }
     }
 
     fuseConfig.value = await response.json();
+    console.log('✅ Loaded Fuse.js configuration:', fuseConfig.value);
     log('search', 'Loaded Fuse.js configuration from config file');
 
     // Update Fuse options from config
     if (fuseConfig.value && fuseConfig.value.search && fuseConfig.value.search.fuseOptions) {
       fuseOptions.value = fuseConfig.value.search.fuseOptions;
+      console.log('✅ Using Fuse.js options from config file:', fuseOptions.value);
       log('search', 'Using Fuse.js options from config file');
     }
   } catch (error) {
-    console.error('Error loading Fuse config:', error);
+    console.error('❌ Error loading Fuse config:', error);
     log('search', 'Using default Fuse.js configuration');
   }
 }
@@ -190,6 +210,7 @@ async function loadFuseConfig() {
 async function loadSearchIndex() {
   try {
     isInitializing.value = true;
+    console.log('🔍 Starting search index loading...');
     log('search', 'Loading search index');
 
     // First load the configuration
@@ -197,17 +218,33 @@ async function loadSearchIndex() {
 
     // Determine the index path from config or use default
     const indexPath = fuseConfig.value?.search?.indexPath || '/data/search-index.json';
+    console.log(`📊 Using search index path: ${indexPath}`);
     log('search', `Using search index path: ${indexPath}`);
 
-    const response = await fetch(indexPath);
+    // Add cache-busting parameter to force fresh load
+    const cacheBuster = `?t=${Date.now()}`;
+    const fullIndexPath = `${indexPath}${cacheBuster}`;
+
+    console.log(`📥 Fetching search index from: ${fullIndexPath}`);
+
+    const response = await fetch(fullIndexPath, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    });
+
     if (!response.ok) {
       throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
     }
 
     const rawIndex = await response.json();
+    console.log(`✅ Search index loaded successfully:`, rawIndex);
 
     // Validate and sanitize the search index for security
     searchIndex.value = validateSearchResults(rawIndex);
+    console.log(`🔒 Search index validated: ${searchIndex.value.length} items`);
 
     // Check for any dangerous content in the index
     const dangerousItems = searchIndex.value.filter(item =>
@@ -221,14 +258,41 @@ async function loadSearchIndex() {
       log('search', `Security warning: ${dangerousItems.length} items flagged for review`);
     }
 
+    // Check for "Rex adipiscing" specifically
+    const homepage = searchIndex.value.find(item => item.path === '/' || item.path === '/index');
+    console.log(`🏠 Homepage found:`, homepage);
+
+    if (homepage) {
+      console.log(`🏠 Homepage title: "${homepage.title}"`);
+      console.log(`🏠 Homepage content type: ${typeof homepage.content}`);
+      console.log(`🏠 Homepage content length: ${homepage.content ? homepage.content.length : 'undefined'}`);
+
+      const hasRexAdipiscing = homepage.content ? homepage.content.includes('Rex adipiscing') : false;
+      console.log(`🏠 Contains "Rex adipiscing": ${hasRexAdipiscing}`);
+
+      if (homepage.content) {
+        console.log(`🏠 Homepage content preview: "${homepage.content.substring(0, 100)}..."`);
+      } else {
+        console.log(`🏠 Homepage content is undefined or null`);
+      }
+    } else {
+      console.log(`🏠 No homepage found in search index`);
+    }
+
     log('search', `Search index loaded with ${searchIndex.value.length} validated items`);
 
     // Initialize Fuse.js with the validated index and options
-    fuseInstance.value = new Fuse(searchIndex.value, fuseOptions.value);
+    if (searchIndex.value && searchIndex.value.length > 0) {
+      fuseInstance.value = new Fuse(searchIndex.value, fuseOptions.value);
+      console.log(`🔍 Fuse.js initialized with options:`, fuseOptions.value);
+      console.log('✅ Search index loading completed successfully!');
+    } else {
+      console.error('❌ Cannot initialize Fuse.js - search index is empty or invalid');
+    }
 
     isInitializing.value = false;
   } catch (error) {
-    console.error('Error loading search index:', error);
+    console.error('❌ Error loading search index:', error);
     isInitializing.value = false;
   }
 }
@@ -276,11 +340,20 @@ function performSearch() {
     }
 
     isSearching.value = true;
+    console.log(`🔍 Performing search for: "${safeQuery}"`);
     log('search', `Searching for: "${safeQuery}"`);
 
     try {
+      // Check if Fuse instance is available
+      if (!fuseInstance.value) {
+        console.error('❌ Fuse instance is null - search index may not have loaded properly');
+        searchResults.value = [];
+        return;
+      }
+
       // Perform search using Fuse.js with sanitized query
       const results = fuseInstance.value.search(safeQuery);
+      console.log(`📊 Search results:`, results);
 
       // Process results to add excerpts with context
       const processedResults = results.map(result => {
@@ -315,10 +388,11 @@ function performSearch() {
 
       // Validate the processed results for security
       searchResults.value = validateSearchResults(processedResults);
+      console.log(`✅ Final search results (${searchResults.value.length}):`, searchResults.value);
 
       log('search', `Found ${searchResults.value.length} results`);
     } catch (error) {
-      console.error('Error performing search:', error);
+      console.error('❌ Error performing search:', error);
       searchResults.value = [];
     } finally {
       isSearching.value = false;

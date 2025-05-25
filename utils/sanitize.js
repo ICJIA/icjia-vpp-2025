@@ -204,10 +204,16 @@ export function validateSearchResults(results) {
 
     return {
       title: sanitizeString(result.title || ''),
+      content: sanitizeString(result.content || ''),
       path: sanitizeString(result.path || ''),
       excerpt: sanitizeString(result.excerpt || ''),
       score: typeof result.score === 'number' ? result.score : 0,
-      type: sanitizeString(result.type || '')
+      type: sanitizeString(result.type || ''),
+      description: sanitizeString(result.description || ''),
+      fullPath: sanitizeString(result.fullPath || ''),
+      frontmatter: result.frontmatter || {},
+      sourceFile: sanitizeString(result.sourceFile || ''),
+      wordCount: typeof result.wordCount === 'number' ? result.wordCount : 0
     };
   }).filter(result => result !== null);
 }
