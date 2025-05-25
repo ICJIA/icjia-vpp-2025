@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
+    "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
+    "version": "1.0.0",
+    "lastUpdated": "2025-05-25"
+  },
+  "branding": {
+    "siteName": "Violence Prevention Plan for Illinois: 2025-2029",
+    "shortName": "Illinois Violence Prevention Plan",
+    "tagline": "Building safer communities through evidence-based violence prevention strategies",
+    "logo": {
+      "icon": "mdi-cube-outline",
+      "favicon": "/favicon.png",
+      "ogImage": "/images/og-image-default.jpg"
+    }
+  },
+  "urls": {
+    "baseUrl": "https://vpp-2025.netlify.app/",
+    "devUrl": "http://localhost:8000",
+    "repository": "https://github.com/ICJIA/icjia-vpp-2025",
+    "organization": "https://icjia.illinois.gov"
+  },
+  "contact": {
+    "organization": "Illinois Criminal Justice Information Authority",
+    "website": "https://icjia.illinois.gov",
+    "email": "info@icjia.illinois.gov",
+    "address": {
+      "street": "300 W. Adams Street, Suite 700",
+      "city": "Chicago",
+      "state": "Illinois",
+      "zipCode": "60606",
+      "country": "United States"
+    }
+  },
+  "social": {
+    "github": "https://github.com/ICJIA/icjia-vpp-2025",
+    "twitter": null,
+    "facebook": null,
+    "linkedin": null
+  },
+  "legal": {
+    "license": "MIT",
+    "copyright": "© {year} Illinois Criminal Justice Information Authority. All rights reserved.",
+    "privacyPolicy": "/privacy-policy.html",
+    "termsOfService": "/terms-of-service.html"
+  },
+  "features": {
+    "search": {
+      "enabled": true,
+      "provider": "fuse.js",
+      "minCharacters": 3
+    },
+    "themes": {
+      "enabled": true,
+      "default": "light",
+      "options": ["light", "dark"]
+    },
+    "accessibility": {
+      "wcagLevel": "AA",
+      "auditLog": "/audit-log-accessibility.html",
+      "documentation": "/accessibility-documentation.html"
+    },
+    "analytics": {
+      "enabled": false,
+      "provider": null
+    }
+  },
+  "routing": {
+    "blacklist": {
+      "vue": [
+        "sandbox.vue",
+        "sandbox-*.vue"
+      ],
+      "markdown": [
+        "sandbox.md",
+        "sandbox-*.md"
+      ]
+    },
+    "titleExtraction": {
+      "fallbackPattern": "Violence Prevention Plan for Illinois: 2025-2029",
+      "maxLength": 100
+    }
+  },
+  "build": {
+    "environment": "production",
+    "generatedAt": "2025-05-25T00:00:00.000Z",
+    "nodeVersion": null,
+    "nuxtVersion": null
+  }
+}

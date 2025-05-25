@@ -80,18 +80,36 @@ class SiteConfigGenerator {
   }
 
   /**
-   * Load base configuration from config/site.config.base.json
+   * Load routing configuration from config/site.config.json
    *
    * @returns {Promise<void>}
    */
   async loadBaseConfig() {
     try {
-      const configPath = path.join(process.cwd(), 'config/site.config.base.json');
+      const configPath = path.join(process.cwd(), 'config/site.config.json');
       const configContent = await fs.readFile(configPath, 'utf-8');
-      this.baseConfig = JSON.parse(configContent);
-      this.logger.log('info', 'Loaded base configuration from config/site.config.base.json');
+      const siteConfig = JSON.parse(configContent);
+
+      // Extract routing-specific configuration
+      this.baseConfig = {
+        baseUrl: siteConfig.urls?.baseUrl || 'https://vpp-2025.netlify.app/',
+        blacklist: siteConfig.routing?.blacklist || {
+          vue: ['sandbox.vue', 'sandbox-*.vue'],
+          markdown: ['sandbox.md', 'sandbox-*.md']
+        },
+        titleExtraction: siteConfig.routing?.titleExtraction || {
+          fallbackPattern: 'Violence Prevention Plan for Illinois: 2025-2029',
+          maxLength: 100
+        },
+        summary: siteConfig.metadata || {
+          projectName: 'Violence Prevention Plan for Illinois: 2025-2029',
+          description: 'Comprehensive site configuration for automatic page discovery and cataloging',
+          version: '1.0.0'
+        }
+      };
+      this.logger.log('info', 'Loaded routing configuration from config/site.config.json');
     } catch (error) {
-      this.logger.log('warning', 'Base config file not found, using defaults');
+      this.logger.log('warning', 'Site config file not found, using defaults');
       // Use defaults if config file doesn't exist
       this.baseConfig = {
         baseUrl: 'https://vpp-2025.netlify.app/',
@@ -102,6 +120,11 @@ class SiteConfigGenerator {
         titleExtraction: {
           fallbackPattern: 'Violence Prevention Plan for Illinois: 2025-2029',
           maxLength: 100
+        },
+        summary: {
+          projectName: 'Violence Prevention Plan for Illinois: 2025-2029',
+          description: 'Comprehensive site configuration for automatic page discovery and cataloging',
+          version: '1.0.0'
         }
       };
     }

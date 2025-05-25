@@ -8,6 +8,33 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-25 (Site Configuration System Reorganization)
+- **Summary**: Reorganized the site configuration system to improve clarity and separation of concerns by consolidating general site configuration in `site.config.json` and routing data in `routes.config.json`, eliminating the unnecessary `site.config.base.json` file.
+
+- **Files Modified/Created**:
+  - `config/site.config.json`: Created comprehensive site configuration file containing metadata, branding, URLs, contact information, features, and routing settings
+  - `config/routes.config.md`: Created new documentation specifically for routes configuration system
+  - `config/site.config.md`: Updated to focus on general site configuration rather than routing
+  - `scripts/generate-site-config.js`: Updated to read routing configuration from `config/site.config.json` instead of `config/site.config.base.json`
+  - `README.md`: Updated configuration documentation to reflect new file structure and purposes
+  - Removed: `config/site.config.base.json` (consolidated into `site.config.json`)
+
+- **Technical Notes**:
+  - New `site.config.json` includes sections for metadata, branding, URLs, contact, social, legal, features, routing, and build configuration
+  - Routes configuration system now reads blacklist patterns and other routing settings from the routing section of `site.config.json`
+  - Maintained backward compatibility by providing fallback defaults in the generation script
+  - Improved documentation clarity by separating general site configuration from routing-specific documentation
+  - All existing functionality continues to work with the new structure
+  - Script successfully tested and confirmed to work with the new configuration structure
+
+- **Benefits Achieved**:
+  - **Improved Separation of Concerns**: Clear distinction between general site configuration and routing-specific data
+  - **Eliminated File Redundancy**: Removed unnecessary `site.config.base.json` file by consolidating into `site.config.json`
+  - **Enhanced Documentation**: Separate documentation files for different configuration purposes
+  - **Better Organization**: Logical grouping of related configuration settings
+  - **Maintained Functionality**: All existing features continue to work seamlessly
+  - **Future-Ready**: Better foundation for expanding site configuration capabilities
+
 ### 2025-05-25 (Routing Configuration File Renamed for Clarity)
 
 - **Summary**: Renamed auto-generated routing configuration file from `config/site.config.json` to `config/routes.config.json` to better reflect its purpose and prepare for implementing a centralized site configuration system.

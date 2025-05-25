@@ -18,6 +18,32 @@ This project serves as the official web presence for the Violence Prevention Pla
 - Dark/light theme with persistent user preferences
 - Full-text search functionality across all content
 
+## Site Structure
+
+The site is organized into the following main sections:
+
+### Core Pages
+- **Home (/)**: Main landing page with project overview and key highlights
+- **About (/about)**: Detailed information about the Violence Prevention Plan project
+- **Search (/search)**: Full-text search functionality across all site content
+- **Dynamic Content ([slug])**: Catch-all page that renders any markdown content from `/content/` directory
+
+### Projects Section
+- **Youth Intervention (/projects/youth-intervention)**: Information about youth-focused violence prevention initiatives
+- **Community Outreach (/projects/community-outreach)**: Details about community engagement and outreach programs
+
+### External Resources
+The navigation also provides quick access to external resources:
+- CDC Violence Prevention resources
+- WHO Violence Prevention information
+- Illinois Criminal Justice Information Authority (ICJIA) website
+
+### Accessibility Resources
+- **Accessibility Documentation**: User guide to accessibility features (available at `/accessibility-documentation.html`)
+- **Accessibility Audit Log**: Technical assessment of compliance status (available at `/audit-log-accessibility.html`)
+
+*Last Updated: May 25, 2025*
+
 ## Dev Site
 
 The development version of this site is available at:
@@ -128,8 +154,8 @@ The project follows a structured organization pattern:
 - **Config**: Configuration files with comprehensive documentation
   - `menu.config.json` and `menu.config.md` for navigation structure
   - `fuse.config.json` and `fuse.config.md` for search functionality
-  - `site.config.base.json` and `site.config.md` for automatic page discovery
-  - Auto-generated files like `site.config.json` for runtime site mapping
+  - `site.config.json` and `site.config.md` for general site configuration
+  - Auto-generated files like `routes.config.json` for runtime routing metadata
 
 ### Content Management
 
@@ -152,19 +178,20 @@ The project uses a comprehensive configuration system with accompanying markdown
 |------|---------|-----------|---------------|
 | `menu.config.json` | Navigation structure for header and footer | Manual | [Menu Configuration](./config/menu.config.md) |
 | `fuse.config.json` | Search functionality settings and indexing rules | Manual | [Search Configuration](./config/fuse.config.md) |
-| `site.config.base.json` | Base settings for site configuration generation | Manual | [Site Configuration](./config/site.config.md) |
-| `site.config.json` | Complete site page catalog and metadata | Auto-generated | [Site Configuration](./config/site.config.md) |
+| `site.config.json` | General site configuration and metadata | Manual | [Site Configuration](./config/site.config.md) |
+| `routes.config.json` | Complete site page catalog and routing metadata | Auto-generated | [Routes Configuration](./config/routes.config.md) |
 
 #### Auto-Generated Configuration Files
 
 The following configuration files are automatically generated during the build process:
 
-**Site Configuration (`site.config.json`)**
+**Routes Configuration (`routes.config.json`)**
 - **Generated during**: `npm run dev`, `npm run build`, `npm run generate`
 - **Purpose**: Comprehensive catalog of all pages in the project with metadata
 - **Contains**: Page titles, paths, URLs, types (content/vue/combined), and source file references
 - **Features**: Intelligent deduplication, title extraction, blacklist filtering
-- **Runtime Access**: Available via `useSiteConfig()` composable
+- **Current Status**: Contains 5 total pages (4 content pages, 5 Vue pages, 4 combined pages)
+- **Runtime Access**: Available via site configuration composables
 
 #### Manual Configuration Files
 
@@ -178,10 +205,10 @@ The following configuration files are automatically generated during the build p
 - **Contains**: Fuse.js settings, blacklist patterns, text extraction rules
 - **Features**: Fuzzy search parameters, duplicate handling, content normalization
 
-**Site Configuration Base (`site.config.base.json`)**
-- **Purpose**: Base settings for automatic site configuration generation
-- **Contains**: Base URL, blacklist patterns, title extraction rules, project metadata
-- **Usage**: Controls how the auto-generated site configuration is created
+**Site Configuration (`site.config.json`)**
+- **Purpose**: General site configuration including metadata, branding, and settings
+- **Contains**: Project metadata, branding information, contact details, feature flags, routing settings
+- **Usage**: Provides centralized configuration for site-wide settings and metadata
 
 #### Configuration Documentation
 
@@ -189,7 +216,8 @@ Each configuration system includes comprehensive markdown documentation:
 
 - **[Menu Configuration](./config/menu.config.md)**: Navigation structure and dropdown menus
 - **[Search Configuration](./config/fuse.config.md)**: Search functionality and content indexing
-- **[Site Configuration](./config/site.config.md)**: Automatic page discovery and site mapping
+- **[Site Configuration](./config/site.config.md)**: General site configuration and metadata
+- **[Routes Configuration](./config/routes.config.md)**: Automatic page discovery and routing metadata
 
 These documentation files provide:
 - Detailed explanations of each configuration option
