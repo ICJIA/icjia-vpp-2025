@@ -187,6 +187,13 @@ Dynamic navigation components can use the routes configuration to build menus an
 ### SEO
 The metadata extracted during route discovery is used for SEO optimization and social media sharing.
 
+### Sitemap Generation
+The routes configuration serves as the primary data source for XML sitemap generation, providing:
+- Complete list of all discoverable pages
+- Page metadata including titles and paths
+- Source file information for lastmod dates
+- Integration with blacklist patterns for exclusions
+
 ## File Locations
 
 - **Config**: `/config/routes.config.json` (build-time access)

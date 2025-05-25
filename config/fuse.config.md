@@ -334,3 +334,12 @@ To extract text from additional Vue components:
    - No single configuration works optimally for all content types
    - Test with representative queries and content
    - Adjust based on user feedback and search behavior analytics
+
+## Related Documentation
+
+- **[Site Configuration](./site.config.md)**: General site configuration and metadata
+- **[Routes Configuration](./routes.config.md)**: Page discovery and routing metadata
+- **[Menu Configuration](./menu.config.md)**: Navigation structure and menus
+- **[Sitemap Configuration](../docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
+
+*Last Updated: May 25, 2025*

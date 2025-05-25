@@ -38,6 +38,14 @@ This document serves as a chronological record of all significant changes made t
   - **Developer Experience**: Clear logging, comprehensive documentation, and seamless build integration
   - **Future-Ready**: Foundation for potential enhancements like image sitemaps, news sitemaps, or multilingual support
 
+- **Documentation Updates**:
+  - **README.md**: Updated to include sitemap generation in recent updates, build process, configuration overview, and documentation links
+  - **config/site.config.md**: Added sitemap integration section explaining how site configuration provides base URL and routing settings
+  - **config/routes.config.md**: Added sitemap generation integration point explaining how routes configuration serves as primary data source
+  - **config/fuse.config.md**: Added related documentation section with sitemap configuration reference
+  - **config/menu.config.md**: Added related documentation section with sitemap configuration reference
+  - **Cross-References**: All configuration documentation now includes comprehensive cross-references to related systems including sitemap generation
+
 ### 2025-05-25 (Package Manager Standardization to Yarn)
 - **Summary**: Standardized all script run examples and package.json scripts to use Yarn instead of npm, establishing Yarn as the official package manager for the project and ensuring consistency across all documentation and build processes.
 

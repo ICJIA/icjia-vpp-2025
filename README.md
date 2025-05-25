@@ -20,6 +20,12 @@ This project serves as the official web presence for the Violence Prevention Pla
 
 ## Recent Major Updates (May 25, 2025)
 
+### Comprehensive Sitemap Generation System
+- **New**: Automated XML sitemap generation following sitemaps.org protocol
+- **Features**: Configurable priorities, change frequencies, intelligent exclusions, URL sanitization
+- **Integration**: Seamlessly integrates with existing site configuration and build pipeline
+- **SEO**: Automatically referenced in robots.txt for optimal search engine discovery
+
 ### Unified Logging System
 - **New**: Comprehensive logging system that works consistently across Node.js and browser environments
 - **Features**: Configurable verbosity levels (DETAILED, NORMAL, CONCISE), color-coded output, message grouping
@@ -39,6 +45,7 @@ This project serves as the official web presence for the Violence Prevention Pla
 ### Documentation and Standards
 - **New**: [Project Rules](./docs/project-rules.md) document establishing mandatory development standards
 - **New**: [Logging System](./docs/logging-system.md) comprehensive documentation
+- **New**: [Sitemap Configuration](./docs/sitemap.config.md) comprehensive sitemap documentation
 - **Updated**: All configuration documentation to reflect new system organization
 
 ## Site Structure
@@ -137,7 +144,8 @@ This command will:
 1. Generate accessibility documentation HTML files
 2. Create a fresh search index based on the latest content
 3. Generate site configuration with page discovery and deduplication
-4. Build the static site with Nuxt
+4. Generate XML sitemap with SEO-optimized metadata
+5. Build the static site with Nuxt
 
 Build the application for server-side rendering:
 
@@ -224,6 +232,7 @@ The project uses a comprehensive configuration system with accompanying markdown
 | `menu.config.json` | Navigation structure for header and footer | Manual | [Menu Configuration](./config/menu.config.md) |
 | `fuse.config.json` | Search functionality settings and indexing rules | Manual | [Search Configuration](./config/fuse.config.md) |
 | `site.config.json` | General site configuration and metadata | Manual | [Site Configuration](./config/site.config.md) |
+| `sitemap.config.json` | XML sitemap generation settings and SEO metadata | Manual | [Sitemap Configuration](./docs/sitemap.config.md) |
 | `routes.config.json` | Complete site page catalog and routing metadata | Auto-generated | [Routes Configuration](./config/routes.config.md) |
 
 #### Auto-Generated Configuration Files
@@ -256,6 +265,12 @@ The following configuration files are automatically generated during the build p
 - **Usage**: Provides centralized configuration for site-wide settings and metadata
 - **New Features**: Includes unified logging system configuration with verbosity levels and color schemes
 
+**Sitemap Configuration (`sitemap.config.json`)**
+- **Purpose**: Controls XML sitemap generation for SEO optimization
+- **Contains**: Priority settings, change frequencies, exclusion rules, validation options
+- **Features**: Configurable priorities for different page types, intelligent exclusions, URL sanitization
+- **Output**: Generates `/public/sitemap.xml` automatically referenced in robots.txt
+
 #### Configuration Documentation
 
 Each configuration system includes comprehensive markdown documentation:
@@ -263,6 +278,7 @@ Each configuration system includes comprehensive markdown documentation:
 - **[Menu Configuration](./config/menu.config.md)**: Navigation structure and dropdown menus
 - **[Search Configuration](./config/fuse.config.md)**: Search functionality and content indexing
 - **[Site Configuration](./config/site.config.md)**: General site configuration and metadata
+- **[Sitemap Configuration](./docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
 - **[Routes Configuration](./config/routes.config.md)**: Automatic page discovery and routing metadata
 - **[Project Rules](./docs/project-rules.md)**: Mandatory standards and rules for development
 - **[Logging System](./docs/logging-system.md)**: Unified logging system documentation

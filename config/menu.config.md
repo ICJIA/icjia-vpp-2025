@@ -406,3 +406,12 @@ To add a new section to the footer:
 10. Test keyboard navigation for dropdown menus to ensure accessibility
 11. Ensure that all links have appropriate ARIA labels for screen readers
 12. Verify that the theme toggle works correctly in both desktop and mobile views
+
+## Related Documentation
+
+- **[Site Configuration](./site.config.md)**: General site configuration and metadata
+- **[Routes Configuration](./routes.config.md)**: Page discovery and routing metadata
+- **[Search Configuration](./fuse.config.md)**: Search functionality and content indexing
+- **[Sitemap Configuration](../docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
+
+*Last Updated: May 25, 2025*

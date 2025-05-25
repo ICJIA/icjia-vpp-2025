@@ -327,11 +327,26 @@ const fullAddress = computed(() =>
 - **Public Access**: Configuration can be fetched at runtime via `/config/site.config.json`
 - **Build Scripts**: Can import configuration directly from the file system
 
+### Sitemap Generation
+
+The site configuration provides base URL and routing settings used by the sitemap generation system:
+
+```javascript
+// Sitemap generator uses site configuration
+import siteConfig from '../config/site.config.json';
+
+const baseUrl = siteConfig.urls.baseUrl;
+const blacklistPatterns = siteConfig.routing.blacklist;
+
+// Generate sitemap with proper base URL and exclusions
+```
+
 ## Related Documentation
 
 - **[Routes Configuration](./routes.config.md)**: Page discovery and routing metadata
 - **[Menu Configuration](./menu.config.md)**: Navigation structure and menus
 - **[Search Configuration](./fuse.config.md)**: Search functionality and indexing
+- **[Sitemap Configuration](../docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
 
 *Last Updated: May 25, 2025*
 
