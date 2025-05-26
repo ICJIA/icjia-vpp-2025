@@ -18,7 +18,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
    yarn dev
    yarn build
    yarn generate
-   
+
    # Incorrect
    npm run dev
    npm run build
@@ -29,7 +29,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
    ```json
    {
      "scripts": {
-       "build": "yarn create:accessibility-html && yarn create:search-index && nuxt build"
+       "build": "yarn create:accessibility-html && yarn create:search-index-defuddle && nuxt build"
      }
    }
    ```
@@ -38,7 +38,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
    ```bash
    # Correct
    yarn dlx serve .output/public
-   
+
    # Incorrect
    npx serve .output/public
    ```
@@ -96,7 +96,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
 #### Implementation Requirements
 
 1. **Vue 3 Composition API**: Use `<script setup>` syntax consistently
-2. **Naming Conventions**: 
+2. **Naming Conventions**:
    - Components: PascalCase (e.g., `AuthWizard.vue`)
    - Composables: camelCase (e.g., `useAuthState.js`)
    - Files/Directories: lowercase-with-dashes

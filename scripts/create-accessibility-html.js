@@ -1,13 +1,31 @@
 /**
- * Script to generate HTML versions of accessibility documentation
+ * Accessibility Documentation HTML Generator
  *
- * This script converts Markdown files to HTML and places them in the /public directory
- * to make them accessible via direct URL.
+ * This script converts Markdown accessibility documentation files to HTML format
+ * and places them in the /public directory for direct URL access. The generated
+ * HTML files include comprehensive styling, accessibility features, and proper
+ * semantic structure following WCAG 2.1 AA guidelines.
  *
- * Console output is color-coded:
- * - Filenames in blue
- * - Successful steps in green
- * - Errors in red
+ * Features:
+ * - Converts multiple markdown files to HTML with consistent styling
+ * - Includes comprehensive CSS with dark mode support
+ * - Implements accessibility features (skip links, focus management, ARIA)
+ * - Supports both development and static generation environments
+ * - Provides color-coded console output for better developer experience
+ * - Includes print styles for better document accessibility
+ *
+ * @author Violence Prevention Plan for Illinois: 2025-2029
+ * @version 1.0.0
+ * @since 2025-05-25
+ *
+ * @example
+ * // Run the script directly
+ * node scripts/create-accessibility-html.js
+ *
+ * @example
+ * // Run via npm/yarn script
+ * yarn create:accessibility-html
+ * npm run create:accessibility-html
  */
 
 import fs from 'fs';
@@ -42,7 +60,26 @@ marked.setOptions({
   mangle: false
 });
 
-// HTML template for the generated files
+/**
+ * Generates a complete HTML document with accessibility features and styling
+ *
+ * This function creates a comprehensive HTML template that includes:
+ * - Semantic HTML structure with proper ARIA landmarks
+ * - WCAG 2.1 AA compliant styling and color contrast
+ * - Dark mode support with prefers-color-scheme
+ * - Skip links for keyboard navigation
+ * - Print styles for better document accessibility
+ * - Responsive design for mobile devices
+ * - Reduced motion support for accessibility
+ *
+ * @param {string} title - The title of the document (used in <title> and meta description)
+ * @param {string} content - The HTML content to be inserted into the main section
+ * @returns {string} Complete HTML document as a string
+ *
+ * @example
+ * const html = htmlTemplate('Accessibility Documentation', '<h1>Welcome</h1><p>Content here</p>');
+ * fs.writeFileSync('output.html', html);
+ */
 const htmlTemplate = (title, content) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -342,7 +379,16 @@ const htmlTemplate = (title, content) => `
 </html>
 `;
 
-// Files to convert
+/**
+ * Configuration array defining which markdown files to convert to HTML
+ *
+ * Each object in this array specifies:
+ * - source: Path to the source markdown file
+ * - destination: Path where the generated HTML file should be saved
+ * - title: Human-readable title for the document (used in HTML title and meta tags)
+ *
+ * @type {Array<{source: string, destination: string, title: string}>}
+ */
 const filesToConvert = [
   {
     source: path.join(process.cwd(), 'accessibility-documentation.md'),
@@ -366,18 +412,35 @@ const filesToConvert = [
   }
 ];
 
-// Also check if we're running during a static site generation
-// If .output/public exists, we'll copy the files there too
+/**
+ * Check if we're running during static site generation
+ * If .output/public exists, we'll copy the files there too for Nuxt static generation
+ */
 const outputPublicDir = path.join(process.cwd(), '.output/public');
 const isStaticGeneration = fs.existsSync(outputPublicDir);
 
-// Create public directory if it doesn't exist
+/**
+ * Ensure the public directory exists before writing files
+ * Creates the directory if it doesn't exist to prevent write errors
+ */
 const publicDir = path.join(process.cwd(), 'public');
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir);
 }
 
-// Convert each file
+/**
+ * Main processing loop - converts each configured markdown file to HTML
+ *
+ * For each file in the filesToConvert array:
+ * 1. Reads the source markdown file
+ * 2. Converts markdown to HTML using marked
+ * 3. Applies content-specific transformations (e.g., link updates)
+ * 4. Wraps content in the HTML template
+ * 5. Writes the result to the destination file
+ * 6. Optionally copies to static generation output directory
+ *
+ * @throws {Error} If file reading, conversion, or writing fails
+ */
 filesToConvert.forEach(file => {
   try {
     // Read markdown file
