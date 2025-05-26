@@ -26,8 +26,10 @@
       "distance": 150,
       "useExtendedSearch": false,
       "includeMatches": true,
-      "maxPatternLength": 50,
-      "minMatchCharLength": 2
+      "maxPatternLength": 100,
+      "minMatchCharLength": 2,
+      "ignoreLocation": true,
+      "findAllMatches": true
     },
     "debounceMs": 300,
     "minTermLength": 2,

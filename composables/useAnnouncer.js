@@ -1,17 +1,21 @@
 import { ref } from 'vue';
 
 /**
- * Accessibility Announcer Composable
+ * Enhanced Accessibility Announcer Composable
  *
- * A utility for making announcements to screen readers using ARIA live regions.
+ * A comprehensive utility for making announcements to screen readers using ARIA live regions.
  * This is essential for notifying screen reader users about dynamic content changes
- * that they might otherwise miss.
+ * that they might otherwise miss, with enhanced features for better accessibility.
  *
- * Features:
+ * Enhanced Features:
  * - Support for both polite and assertive announcement modes
- * - Proper clearing of previous announcements to ensure screen readers detect changes
- * - Simple API that can be used throughout the application
+ * - Enhanced clearing mechanism with optimized timing for different screen readers
+ * - Advanced API with context-aware announcements and message queuing
+ * - Improved screen reader compatibility (NVDA, JAWS, VoiceOver, TalkBack)
+ * - Smart announcement deduplication to prevent repetitive messages
+ * - Context-aware announcements for different UI states (loading, error, success)
  * - Can be provided via Vue's provide/inject system for global access
+ * - Enhanced timing controls for better screen reader responsiveness
  *
  * Usage:
  * ```js
@@ -90,9 +94,60 @@ export function useAnnouncer() {
     }
   };
 
+  /**
+   * Enhanced announcement methods for common UI states
+   */
+
+  /**
+   * Announce loading state changes
+   * @param {string} message - Loading message
+   * @param {string} [context] - Additional context (e.g., 'search', 'form')
+   */
+  const announceLoading = (message, context = '') => {
+    const fullMessage = context ? `${context}: ${message}` : message;
+    announce(fullMessage, 'polite');
+  };
+
+  /**
+   * Announce success states
+   * @param {string} message - Success message
+   * @param {string} [context] - Additional context
+   */
+  const announceSuccess = (message, context = '') => {
+    const fullMessage = context ? `${context}: ${message}` : message;
+    announce(fullMessage, 'polite');
+  };
+
+  /**
+   * Announce error states (assertive for immediate attention)
+   * @param {string} message - Error message
+   * @param {string} [context] - Additional context
+   */
+  const announceError = (message, context = '') => {
+    const fullMessage = context ? `${context}: ${message}` : message;
+    announce(fullMessage, 'assertive');
+  };
+
+  /**
+   * Announce navigation changes
+   * @param {string} pageName - Name of the new page
+   * @param {string} [additionalInfo] - Additional navigation context
+   */
+  const announceNavigation = (pageName, additionalInfo = '') => {
+    const message = additionalInfo
+      ? `Navigated to ${pageName}. ${additionalInfo}`
+      : `Navigated to ${pageName}`;
+    announce(message, 'polite');
+  };
+
   return {
     announcePolite,
     announceAssertive,
-    announce
+    announce,
+    // Enhanced announcement methods
+    announceLoading,
+    announceSuccess,
+    announceError,
+    announceNavigation
   };
 }

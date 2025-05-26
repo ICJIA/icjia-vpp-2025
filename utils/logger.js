@@ -1,9 +1,9 @@
 /**
  * Unified Logging System
- * 
+ *
  * A comprehensive logging utility that works consistently in both Node.js (server-side)
  * and browser environments with configurable verbosity levels and color coding.
- * 
+ *
  * Features:
  * - Environment detection (Node.js vs Browser)
  * - Configurable verbosity levels (DETAILED, NORMAL, CONCISE)
@@ -13,7 +13,7 @@
  * - Data object logging
  * - Performance timing
  * - Error tracking
- * 
+ *
  * @author Violence Prevention Plan for Illinois: 2025-2029
  * @version 1.0.0
  */
@@ -48,8 +48,8 @@ export const LogType = {
  * @returns {boolean} True if running in Node.js environment
  */
 const isNodeEnvironment = () => {
-  return typeof process !== 'undefined' && 
-         process.versions && 
+  return typeof process !== 'undefined' &&
+         process.versions &&
          process.versions.node;
 };
 
@@ -66,7 +66,7 @@ const Colors = {
     info: '\x1b[36m',     // Cyan
     debug: '\x1b[90m'     // Gray
   },
-  
+
   // CSS color codes for browser console output
   browser: {
     success: '#27ae60',   // Green
@@ -90,7 +90,7 @@ const defaultConfig = {
 
 /**
  * Unified Logger Class
- * 
+ *
  * Provides consistent logging across Node.js and browser environments
  * with configurable verbosity and color coding.
  */
@@ -145,12 +145,12 @@ export class UnifiedLogger {
    * @returns {Object} Formatted message components
    */
   formatMessage(type, message) {
-    const timestamp = this.config.showTimestamp ? 
+    const timestamp = this.config.showTimestamp ?
       `[${new Date().toLocaleTimeString()}]` : '';
-    
-    const prefix = this.config.showPrefix ? 
+
+    const prefix = this.config.showPrefix ?
       `[${type.toUpperCase()}]` : '';
-    
+
     return { timestamp, prefix, message };
   }
 
@@ -254,8 +254,8 @@ export class UnifiedLogger {
     const startTime = this.timers.get(name);
     if (startTime) {
       const duration = Date.now() - startTime;
-      const logMessage = message ? 
-        `${message} (${duration}ms)` : 
+      const logMessage = message ?
+        `${message} (${duration}ms)` :
         `Timer ${name}: ${duration}ms`;
       this.info(logMessage);
       this.timers.delete(name);
@@ -291,13 +291,13 @@ export class UnifiedLogger {
       return acc;
     }, {});
 
-    const summary = summaryMessage || 
+    const summary = summaryMessage ||
       `${groupName}: ${messages.length} operations (${counts.success || 0} success, ${counts.error || 0} errors, ${counts.warning || 0} warnings)`;
 
     // Determine overall status based on message types
     const hasErrors = counts.error > 0;
     const hasWarnings = counts.warning > 0;
-    const overallType = hasErrors ? LogType.ERROR : 
+    const overallType = hasErrors ? LogType.ERROR :
                        hasWarnings ? LogType.WARNING : LogType.SUCCESS;
 
     this.output(overallType, summary);
@@ -307,9 +307,113 @@ export class UnifiedLogger {
   }
 
   /**
-   * Create a scoped logger for a specific context
+   * Enhanced development workflow utilities
+   */
+
+  /**
+   * Log with enhanced debugging context including source location
+   * @param {LogType} type - Message type
+   * @param {string} message - Log message
+   * @param {any} data - Optional data object
+   * @param {Object} options - Enhanced logging options
+   */
+  logWithContext(type, message, data = null, options = {}) {
+    if (!this.shouldLog(type)) return;
+
+    // Enhanced message with context
+    let enhancedMessage = message;
+
+    if (options.source) {
+      enhancedMessage = `[${options.source}] ${message}`;
+    }
+
+    if (options.operation) {
+      enhancedMessage = `${enhancedMessage} (${options.operation})`;
+    }
+
+    this.output(type, enhancedMessage, data);
+  }
+
+  /**
+   * Enhanced performance monitoring with nested timing
+   * @param {string} name - Timer name
+   * @param {string} category - Timer category for grouping
+   */
+  timeWithCategory(name, category = 'general') {
+    const fullName = `${category}:${name}`;
+    this.timers.set(fullName, {
+      startTime: Date.now(),
+      category,
+      name
+    });
+    this.debug(`⏱️  Timer started: ${name} (${category})`);
+  }
+
+  /**
+   * End categorized timer with enhanced reporting
+   * @param {string} name - Timer name
+   * @param {string} category - Timer category
+   * @param {string} message - Optional message
+   */
+  timeEndWithCategory(name, category = 'general', message = '') {
+    const fullName = `${category}:${name}`;
+    const timerData = this.timers.get(fullName);
+
+    if (timerData) {
+      const duration = Date.now() - timerData.startTime;
+      const logMessage = message ?
+        `⏱️  ${message} - ${name}: ${duration}ms (${category})` :
+        `⏱️  ${name}: ${duration}ms (${category})`;
+
+      // Use different log levels based on duration
+      if (duration > 5000) {
+        this.warning(logMessage);
+      } else if (duration > 1000) {
+        this.info(logMessage);
+      } else {
+        this.debug(logMessage);
+      }
+
+      this.timers.delete(fullName);
+    } else {
+      this.warning(`Timer '${name}' in category '${category}' was not started`);
+    }
+  }
+
+  /**
+   * Enhanced error reporting with actionable insights
+   * @param {string} message - Error message
+   * @param {Error|any} error - Error object or data
+   * @param {Object} context - Additional context for debugging
+   */
+  errorWithContext(message, error = null, context = {}) {
+    let enhancedMessage = `❌ ${message}`;
+
+    if (context.suggestion) {
+      enhancedMessage += `\n💡 Suggestion: ${context.suggestion}`;
+    }
+
+    if (context.documentation) {
+      enhancedMessage += `\n📖 See: ${context.documentation}`;
+    }
+
+    this.output(LogType.ERROR, enhancedMessage);
+
+    if (error) {
+      if (error.stack && this.config.level === LogLevel.DETAILED) {
+        this.debug('Stack trace:', error.stack);
+      } else if (error.message) {
+        this.debug('Error details:', error.message);
+      } else {
+        this.debug('Error data:', error);
+      }
+    }
+  }
+
+  /**
+   * Create an enhanced scoped logger for a specific context with development optimizations
    * @param {string} context - Context name (e.g., 'SearchIndex', 'SiteConfig')
-   * @returns {Object} Scoped logger methods
+   * @returns {Object} Enhanced scoped logger methods
    */
   createScope(context) {
     return {
@@ -318,10 +422,15 @@ export class UnifiedLogger {
       warning: (message, data) => this.warning(`[${context}] ${message}`, data),
       info: (message, data) => this.info(`[${context}] ${message}`, data),
       debug: (message, data) => this.debug(`[${context}] ${message}`, data),
-      time: (name) => this.time(`${context}:${name}`),
-      timeEnd: (name, message) => this.timeEnd(`${context}:${name}`, message),
+      time: (name) => this.timeWithCategory(name, context),
+      timeEnd: (name, message) => this.timeEndWithCategory(name, context, message),
       addToGroup: (type, message) => this.addToGroup(context, type, message),
-      summarize: (summaryMessage) => this.summarizeGroup(context, summaryMessage)
+      summarize: (summaryMessage) => this.summarizeGroup(context, summaryMessage),
+      // Enhanced methods
+      errorWithContext: (message, error, contextData) =>
+        this.errorWithContext(`[${context}] ${message}`, error, contextData),
+      logWithContext: (type, message, data, options) =>
+        this.logWithContext(type, message, data, { ...options, source: context })
     };
   }
 }

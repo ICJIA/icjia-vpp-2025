@@ -206,27 +206,45 @@ export default function useContentFetcher(options) {
 
   /**
    * Determine if content is renderable
+   * Enhanced with better content validation and structure detection
    */
   const isContentRenderable = computed(() => {
     if (!content.value) return false;
     if (typeof content.value !== 'object') return false;
     if (contentSuccessfullyRendered.value) return true;
 
-    // Check for frontmatter
-    if (content.value.title && content.value.description) {
+    // Check for standard Nuxt Content structure
+    if (content.value._path || content.value.path) {
       return true;
     }
 
-    // Check for body
+    // Check for frontmatter
+    if (content.value.title || content.value.description) {
+      return true;
+    }
+
+    // Check for body content
     if (content.value.body) {
       return true;
     }
 
-    return false;
+    // Check for children (for directory listings)
+    if (Array.isArray(content.value.children) && content.value.children.length > 0) {
+      return true;
+    }
+
+    // Check for any content properties that indicate renderable content
+    const renderableProperties = ['title', 'description', 'body', '_path', 'path', 'children'];
+    const hasRenderableContent = renderableProperties.some(prop =>
+      content.value.hasOwnProperty(prop) && content.value[prop]
+    );
+
+    return hasRenderableContent;
   });
 
   /**
    * Create content preview for non-standard structures
+   * Enhanced with better content extraction and metadata handling
    */
   const contentPreview = computed(() => {
     if (!content.value || typeof content.value !== 'object') {
@@ -235,32 +253,69 @@ export default function useContentFetcher(options) {
 
     const preview = {};
 
-    // Add metadata
-    if (content.value.title) preview.title = content.value.title;
-    if (content.value.description) preview.description = content.value.description;
+    // Add metadata with fallbacks
+    if (content.value.title) {
+      preview.title = content.value.title;
+    } else if (content.value._path) {
+      // Generate title from path if none exists
+      const pathSegments = content.value._path.split('/').filter(Boolean);
+      preview.title = pathSegments.length > 0
+        ? pathSegments[pathSegments.length - 1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+        : 'Untitled';
+    }
 
-    // Add path
+    if (content.value.description) {
+      preview.description = content.value.description;
+    }
+
+    // Add path information
     if (Object.prototype.hasOwnProperty.call(content.value, '_path')) {
       preview.path = content.value['_path'];
     } else if (Object.prototype.hasOwnProperty.call(content.value, 'path')) {
       preview.path = content.value.path;
     }
 
-    // Handle body
+    // Handle body content with better processing
     if (content.value.body) {
       if (typeof content.value.body === 'string') {
         preview.body = content.value.body;
       } else if (typeof content.value.body === 'object') {
         try {
-          preview.body = JSON.stringify(content.value.body, null, 2);
+          // Try to extract text content from structured body
+          if (content.value.body.children && Array.isArray(content.value.body.children)) {
+            preview.body = extractTextFromChildren(content.value.body.children);
+          } else {
+            preview.body = JSON.stringify(content.value.body, null, 2);
+          }
         } catch (err) {
           preview.body = '[Complex body structure]';
         }
       }
     }
 
+    // Add additional metadata if available
+    if (content.value.createdAt) preview.createdAt = content.value.createdAt;
+    if (content.value.updatedAt) preview.updatedAt = content.value.updatedAt;
+    if (content.value.tags) preview.tags = content.value.tags;
+
     return preview;
   });
+
+  /**
+   * Helper function to extract text from Nuxt Content children structure
+   * @param {Array} children - Array of content children
+   * @returns {string} Extracted text content
+   */
+  function extractTextFromChildren(children) {
+    if (!Array.isArray(children)) return '';
+
+    return children.map(child => {
+      if (typeof child === 'string') return child;
+      if (child.value) return child.value;
+      if (child.children) return extractTextFromChildren(child.children);
+      return '';
+    }).join(' ').trim();
+  }
 
   /**
    * User-friendly error message

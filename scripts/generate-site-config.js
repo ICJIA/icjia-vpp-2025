@@ -20,23 +20,32 @@ import { createLogger } from '../utils/logger.js';
 import { createScriptLoggerConfig, getVerbosityFromArgs } from '../utils/config-loader.js';
 
 /**
- * Site Configuration Generator Class
+ * Enhanced Site Configuration Generator Class
  *
- * Handles the discovery and cataloging of all pages in the project
+ * Handles the discovery and cataloging of all pages in the project with
+ * enhanced routing configuration, menu integration, and build-time optimization
  */
 class SiteConfigGenerator {
   constructor(options = {}) {
     this.baseConfig = null;
     this.pages = [];
+    this.menuConfig = null;
     this.stats = {
       totalPages: 0,
       contentPages: 0,
       vuePages: 0,
       combinedPages: 0,
-      blacklistedFiles: 0
+      blacklistedFiles: 0,
+      menuIntegratedPages: 0,
+      orphanedPages: 0
     };
     this.logger = null; // Will be initialized in generate()
     this.options = options;
+    this.routeOptimizations = {
+      duplicateRoutes: [],
+      missingTitles: [],
+      longPaths: []
+    };
   }
 
   /**
@@ -87,6 +96,83 @@ class SiteConfigGenerator {
           version: '1.0.0'
         }
       };
+    }
+  }
+
+  /**
+   * Load menu configuration for enhanced routing integration
+   *
+   * @returns {Promise<void>}
+   */
+  async loadMenuConfig() {
+    try {
+      const menuConfigPath = path.join(process.cwd(), 'config/menu.config.json');
+      const menuConfigContent = await fs.readFile(menuConfigPath, 'utf-8');
+      this.menuConfig = JSON.parse(menuConfigContent);
+      this.logger?.info('Loaded menu configuration for routing integration');
+    } catch (error) {
+      this.logger?.warning('Menu config file not found, skipping menu integration');
+      this.menuConfig = null;
+    }
+  }
+
+  /**
+   * Check if a page is referenced in menu configuration
+   *
+   * @param {string} path - Page path to check
+   * @returns {boolean} True if page is in menu
+   */
+  isPageInMenu(path) {
+    if (!this.menuConfig) return false;
+
+    // Check header menu items
+    const headerItems = this.menuConfig.header?.items || [];
+    const footerSections = this.menuConfig.footer?.sections || [];
+
+    // Check all menu items
+    const allMenuItems = [
+      ...headerItems,
+      ...footerSections.flatMap(section => section.items || [])
+    ];
+
+    return allMenuItems.some(item =>
+      item.href === path ||
+      item.to === path ||
+      (item.href && item.href.endsWith(path)) ||
+      (item.to && item.to.endsWith(path))
+    );
+  }
+
+  /**
+   * Calculate enhanced statistics for routing optimization
+   *
+   * @param {Array} pages - Array of processed pages
+   */
+  calculateEnhancedStats(pages) {
+    // Calculate menu integration statistics
+    this.stats.menuIntegratedPages = pages.filter(page => this.isPageInMenu(page.path)).length;
+    this.stats.orphanedPages = pages.length - this.stats.menuIntegratedPages;
+
+    // Identify route optimizations
+    this.routeOptimizations.missingTitles = pages.filter(page =>
+      !page.title || page.title.includes('Violence Prevention Plan for Illinois: 2025-2029')
+    );
+
+    this.routeOptimizations.longPaths = pages.filter(page =>
+      page.path.length > 50
+    );
+
+    // Log optimization insights
+    if (this.routeOptimizations.missingTitles.length > 0) {
+      this.logger?.warning(`Found ${this.routeOptimizations.missingTitles.length} pages with generic titles`);
+    }
+
+    if (this.routeOptimizations.longPaths.length > 0) {
+      this.logger?.info(`Found ${this.routeOptimizations.longPaths.length} pages with long paths (>50 chars)`);
+    }
+
+    if (this.stats.orphanedPages > 0) {
+      this.logger?.info(`Found ${this.stats.orphanedPages} pages not referenced in menu configuration`);
     }
   }
 
@@ -490,12 +576,18 @@ class SiteConfigGenerator {
       // Load base configuration
       await this.loadBaseConfig();
 
+      // Load menu configuration for enhanced routing
+      await this.loadMenuConfig();
+
       // Process all files
       await this.processMarkdownFiles();
       await this.processVueFiles();
 
       // Deduplicate pages with the same path
       const deduplicatedPages = this.deduplicatePages();
+
+      // Enhanced statistics calculation
+      this.calculateEnhancedStats(deduplicatedPages);
 
       // Calculate final stats
       this.stats.totalPages = deduplicatedPages.length;

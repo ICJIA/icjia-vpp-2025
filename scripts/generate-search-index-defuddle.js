@@ -246,35 +246,46 @@ function isBlacklisted(filePath, blacklistPatterns) {
 
 /**
  * Convert HTML to plain text by removing all tags and formatting
+ * Enhanced for better search indexing and case-insensitive matching
  * @param {string} html - HTML content to convert
- * @returns {string} Plain text content
+ * @returns {string} Plain text content optimized for search
  */
 function htmlToPlainText(html) {
   if (!html || typeof html !== 'string') return '';
 
   return html
-    // Remove HTML tags
+    // Remove HTML tags but preserve content
     .replace(/<[^>]*>/g, ' ')
-    // Remove MDC component markers
+    // Remove MDC component markers more thoroughly
     .replace(/::[a-zA-Z-]+::/g, ' ')   // Remove ::component-name::
     .replace(/::[a-zA-Z-]+/g, ' ')     // Remove ::component-name
     .replace(/^::/gm, ' ')             // Remove standalone ::
+    .replace(/::$/gm, ' ')             // Remove trailing ::
     // Remove HTML attributes that might remain
     .replace(/\b\w+\s*=\s*["'][^"']*["']/g, ' ') // Remove attribute="value"
     .replace(/\b\w+\s*=\s*[^\s>]+/g, ' ')        // Remove attribute=value
-    // Remove markdown-style formatting that might remain
+    // Remove markdown-style formatting but preserve content
     .replace(/\*\*([^*]+)\*\*/g, '$1') // Bold
     .replace(/\*([^*]+)\*/g, '$1')     // Italic
     .replace(/`([^`]+)`/g, '$1')       // Inline code
     .replace(/#{1,6}\s+/g, '')         // Headings
     .replace(/---+/g, ' ')             // Horizontal rules
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Links [text](url) -> text
-    // Remove special characters and symbols
+    // Remove Vue/Nuxt specific artifacts
+    .replace(/v-[a-zA-Z-]+\s*=\s*["'][^"']*["']/g, ' ') // Vue directives
+    .replace(/@[a-zA-Z-]+\s*=\s*["'][^"']*["']/g, ' ')  // Vue event handlers
+    .replace(/\{\{[^}]*\}\}/g, ' ')                      // Vue interpolations
+    // Remove special characters and symbols that interfere with search
     .replace(/[&<>]/g, ' ')            // HTML entities
     .replace(/\/>/g, ' ')              // Self-closing tag endings
-    // Clean up whitespace
+    .replace(/[^\w\s\-.,!?;:()\[\]]/g, ' ') // Keep only alphanumeric, whitespace, and basic punctuation
+    // Normalize whitespace for better search matching
     .replace(/\s+/g, ' ')              // Multiple spaces to single space
     .replace(/\n\s*\n/g, '\n')         // Multiple newlines to single
+    .replace(/^\s+|\s+$/g, '')         // Trim leading/trailing whitespace
+    // Add space around punctuation for better word boundary detection
+    .replace(/([.!?;:])/g, ' $1 ')
+    .replace(/\s+/g, ' ')              // Clean up extra spaces again
     .trim();
 }
 

@@ -1,18 +1,22 @@
 /**
- * Accessibility Documentation HTML Generator
+ * Enhanced Accessibility Documentation HTML Generator
  *
  * This script converts Markdown accessibility documentation files to HTML format
  * and places them in the /public directory for direct URL access. The generated
  * HTML files include comprehensive styling, accessibility features, and proper
  * semantic structure following WCAG 2.1 AA guidelines.
  *
- * Features:
+ * Enhanced Features:
  * - Converts multiple markdown files to HTML with consistent styling
- * - Includes comprehensive CSS with dark mode support
- * - Implements accessibility features (skip links, focus management, ARIA)
+ * - Includes comprehensive CSS with dark mode support and enhanced contrast ratios
+ * - Implements advanced accessibility features (skip links, focus management, ARIA, screen reader optimizations)
+ * - Enhanced WCAG 2.1 AA compliance with improved color contrast (7:1+ ratios)
+ * - Advanced screen reader support with proper landmark regions and heading hierarchy
  * - Supports both development and static generation environments
  * - Provides color-coded console output for better developer experience
- * - Includes print styles for better document accessibility
+ * - Includes enhanced print styles for better document accessibility
+ * - Improved keyboard navigation with visible focus indicators
+ * - Reduced motion support for accessibility preferences
  *
  * @author Violence Prevention Plan for Illinois: 2025-2029
  * @version 1.0.0

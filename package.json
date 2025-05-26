@@ -9,6 +9,8 @@
     "dev": "yarn create:accessibility-html && yarn create:search-index-defuddle && yarn create:site-config && yarn create:sitemap && nuxt dev --port=8000 -o",
     "dev:verbose": "yarn create:accessibility-html --verbose && yarn create:search-index-defuddle --log-level Detailed && yarn create:site-config --verbose && yarn create:sitemap --verbose && nuxt dev --port=8000 -o",
     "dev:quiet": "yarn create:accessibility-html --quiet && yarn create:search-index-defuddle --log-level Concise && yarn create:site-config --quiet && yarn create:sitemap --quiet && nuxt dev --port=8000 -o",
+    "dev:fast": "nuxt dev --port=8000 -o",
+    "dev:clean": "yarn clean && yarn dev",
     "generate": "yarn create:accessibility-html && yarn create:search-index-defuddle && yarn create:site-config && yarn create:sitemap && nuxt generate",
     "generate:verbose": "yarn create:accessibility-html --verbose && yarn create:search-index-defuddle --log-level Detailed && yarn create:site-config --verbose && yarn create:sitemap --verbose && nuxt generate",
     "generate:quiet": "yarn create:accessibility-html --quiet && yarn create:search-index-defuddle --log-level Concise && yarn create:site-config --quiet && yarn create:sitemap --quiet && nuxt generate",
@@ -22,7 +24,13 @@
     "create:search-index": "node scripts/generate-search-index.js",
     "create:search-index-defuddle": "node scripts/generate-search-index-defuddle.js",
     "create:site-config": "node scripts/generate-site-config.js",
-    "create:sitemap": "node scripts/generate-sitemap.js"
+    "create:sitemap": "node scripts/generate-sitemap.js",
+    "clean": "rm -rf .output .nuxt dist node_modules/.cache",
+    "clean:data": "rm -rf public/data config/site.config.json public/*.html",
+    "debug:search": "node scripts/generate-search-index-defuddle.js --log-level Detailed",
+    "debug:config": "node scripts/generate-site-config.js --verbose",
+    "validate:accessibility": "node scripts/create-accessibility-html.js --verbose",
+    "dev:tools": "yarn debug:search && yarn debug:config && yarn validate:accessibility"
   },
   "dependencies": {
     "@nuxt/content": "^3.5.1",
