@@ -272,6 +272,9 @@ useSeoMeta({
 </script>
 
 <style scoped>
+
+
+
 .dynamic-content-page {
   overflow-x: hidden;
 }

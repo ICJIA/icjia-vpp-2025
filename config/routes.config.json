@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-26T20:27:46.497Z",
+  "generatedAt": "2025-05-27T18:38:59.716Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 9,
-    "contentPages": 7,
+    "totalPages": 10,
+    "contentPages": 8,
     "vuePages": 6,
     "combinedPages": 4,
     "blacklistedFiles": 4
@@ -58,6 +58,19 @@
           "type": "vue",
           "source": "pages/about.vue",
           "title": "About - Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "Footnote Scrolling Test",
+      "path": "/footnote-scroll-test",
+      "fullUrl": "https://vpp-2025.netlify.app/footnote-scroll-test",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/footnote-scroll-test.md",
+          "title": "Footnote Scrolling Test"
         }
       ]
     },
@@ -151,12 +164,12 @@
     }
   ],
   "stats": {
-    "totalPages": 9,
-    "contentPages": 7,
+    "totalPages": 10,
+    "contentPages": 8,
     "vuePages": 6,
     "combinedPages": 4,
     "blacklistedFiles": 4,
     "menuIntegratedPages": 3,
-    "orphanedPages": 6
+    "orphanedPages": 7
   }
 }

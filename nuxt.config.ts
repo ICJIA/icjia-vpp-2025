@@ -45,7 +45,7 @@ export default defineNuxtConfig({
    * Nuxt Content configuration
    *
    * Configures how markdown content is processed and rendered.
-   * Includes syntax highlighting with Shiki for code blocks.
+   * Includes syntax highlighting with Shiki for code blocks and footnote support.
    *
    * @see https://content.nuxt.com/get-started/configuration
    */
