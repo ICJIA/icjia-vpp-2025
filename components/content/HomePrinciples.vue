@@ -1,5 +1,5 @@
 <template>
-  <section class="principles-section section section-primary py-16">
+  <section class="principles-section section section-secondary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">
@@ -105,7 +105,7 @@ const principles = [
 </script>
 
 <style scoped>
-/* Background handled by global .section-primary class */
+/* Background handled by global .section-secondary class */
 
 .max-width-800 {
   max-width: 800px;

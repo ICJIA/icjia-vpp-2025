@@ -29,7 +29,8 @@
       <HomeStatistics />
       <HomeGoals />
       <HomeStakeholders />
-      <HomeNews />
+      <!-- Recent News Section with configurable item count -->
+      <HomeNews :item-count="3" />
       <HomePrinciples />
       <HomeApproach />
       <HomeAction />
@@ -86,6 +87,9 @@
  *
  * SandboxHomeStakeholders:
  * - No props required (self-contained stakeholder information section)
+ *
+ * HomeNews:
+ * - itemCount: number (default: 3) - Number of recent news items to display (2-3 recommended)
  *
  * SandboxHomePrinciples:
  * - No props required (contains SandboxPrincipleCard components internally)

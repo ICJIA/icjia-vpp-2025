@@ -60,32 +60,22 @@
 
     <!-- Content display -->
     <div v-else-if="content">
-      <!-- Standardized hero header for plain markdown content -->
-      <section v-if="needsStandardHeader" class="hero-section py-16">
-        <v-container>
-          <v-row>
-            <v-col cols="12" md="8" class="mx-auto text-center">
-              <div class="animate-title">
-                <h1>{{ content.title || pageTitle }}</h1>
-                <p v-if="content.description">{{ content.description }}</p>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </section>
+      <!-- Use PageTitleSection for standardized header -->
+      <PageTitleSection
+        v-if="needsStandardHeader"
+        :title="content.title || pageTitle"
+        :description="content.description"
+        :show-border="true"
+      />
 
       <!-- Main content section -->
-      <section class="content-section" :class="{ 'py-16': !needsStandardHeader, 'py-8': needsStandardHeader }">
-        <v-container>
-          <v-row>
-            <v-col cols="12" md="10" lg="8" class="mx-auto">
-              <div class="content-renderer" :class="{ 'hide-first-heading': needsStandardHeader }">
-                <ContentRenderer :value="content" @rendered="markAsRendered" />
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </section>
+      <div class="page-content">
+        <div class="container">
+          <div class="content-renderer" :class="{ 'hide-first-heading': needsStandardHeader }">
+            <ContentRenderer :value="content" @rendered="markAsRendered" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Fallback content if no content is found -->
@@ -132,6 +122,7 @@ import { computed } from 'vue';
 import { useRoute, useHead, useSeoMeta, navigateTo } from '#imports';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
 import useContentFetcher from '~/composables/useContentFetcher';
+import PageTitleSection from '~/components/content/PageTitleSection.vue';
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
@@ -272,11 +263,38 @@ useSeoMeta({
 </script>
 
 <style scoped>
+/**
+ * Dynamic Content Page Styling - Consistent with PageTitleSection System
+ *
+ * Implements the standardized page layout with soft light theme background,
+ * consistent spacing, and proper content structure to match other pages
+ * using the PageTitleSection component.
+ */
 
-
-
+/* Page structure with soft light theme background */
 .dynamic-content-page {
+  min-height: 100vh;
+  padding-top: 60px; /* Account for sticky header */
   overflow-x: hidden;
+  /* Soft light theme background to reduce eye strain */
+  background: #FAFAFA;
+}
+
+/* Dark theme background override */
+:root[data-theme="dark"] .dynamic-content-page {
+  background: rgb(var(--v-theme-surface));
+}
+
+/* Container styling for content areas */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Main content spacing */
+.page-content {
+  padding: 4.5rem 0; /* Consistent with other pages */
 }
 
 /* Add focus styles for accessibility - matching existing pages */
@@ -347,13 +365,6 @@ useSeoMeta({
     transform: none !important;
   }
 
-  /* Disable animations for standardized hero section */
-  .animate-title {
-    animation: none !important;
-    opacity: 1;
-    transform: none;
-  }
-
   /* Match the reduced motion classes from existing pages */
   :deep(.hero-title),
   :deep(.hero-description),
@@ -403,54 +414,18 @@ useSeoMeta({
   margin: 0 auto;
 }
 
-/* Standardized hero section styling - matches AboutHero component */
-.hero-section {
-  background: transparent;
-}
-
-.animate-title {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-}
-
-/* Style the H1 heading in hero section to match AboutHero */
-.animate-title h1 {
-  font-size: 2.5rem; /* Large heading size */
-  font-weight: 700; /* Bold weight */
-  line-height: 1.2; /* Tight line height for impact */
-  margin-bottom: 1.5rem; /* Space below heading */
-  color: inherit; /* Use theme color */
-}
-
-/* Style the description paragraph in hero section */
-.animate-title p {
-  font-size: 1.125rem; /* Slightly larger than body text */
-  line-height: 1.6; /* Good readability */
-  margin-bottom: 1rem; /* Add margin for proper spacing */
-  color: rgba(var(--v-theme-on-surface), 0.8); /* Slightly muted text */
-}
-
-/* Responsive heading sizes to match AboutHero */
-@media (max-width: 960px) {
-  .animate-title h1 {
-    font-size: 2rem; /* Smaller on tablets */
+/* Responsive design */
+@media (max-width: 768px) {
+  .dynamic-content-page {
+    padding-top: 50px; /* Smaller header offset on mobile */
   }
-}
 
-@media (max-width: 600px) {
-  .animate-title h1 {
-    font-size: 1.75rem; /* Even smaller on mobile */
+  .page-content {
+    padding: 3rem 0; /* Responsive spacing - reduced from 4.5rem for mobile */
   }
-}
 
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .container {
+    padding: 0 1rem;
   }
 }
 

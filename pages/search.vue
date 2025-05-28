@@ -1,11 +1,17 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12" md="10" lg="8" class="mx-auto">
-        <div class="d-flex align-center mb-6">
-          <v-icon icon="mdi-magnify" size="x-large" class="me-3" aria-hidden="true"></v-icon>
-          <h1 class="text-h4 font-weight-bold">Search</h1>
-        </div>
+  <div class="search-page">
+    <!-- Use PageTitleSection for consistent styling -->
+    <PageTitleSection
+      title="Search"
+      description="Search through all content in the Violence Prevention Plan for Illinois: 2025-2029 to find specific information, resources, and guidance."
+      :show-border="true"
+    />
+
+    <!-- Main Content -->
+    <div class="page-content">
+      <div class="container">
+        <v-row>
+          <v-col cols="12" md="10" lg="8" class="mx-auto">
 
         <!-- Search input -->
         <v-card class="mb-8" elevation="2">
@@ -88,10 +94,12 @@
           <p class="text-body-1 text-medium-emphasis">
             Enter keywords above to search through all content.
           </p>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+          </div>
+          </v-col>
+        </v-row>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -100,6 +108,7 @@ import { useHead, useSeoMeta } from '#imports';
 import Fuse from 'fuse.js';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
 import { sanitizeString, sanitizeSearchQuery, safeHighlightMatches, validateSearchResults, containsDangerousContent } from '~/utils/sanitize';
+import PageTitleSection from '~/components/content/PageTitleSection.vue';
 
 // Initialize logger
 const { log } = useConsoleLogger();
@@ -429,12 +438,61 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+/**
+ * Search Page Styling - Consistent with PageTitleSection System
+ *
+ * Implements the standardized page layout with soft light theme background,
+ * consistent spacing, and proper content structure to match other pages
+ * using the PageTitleSection component.
+ */
+
+/* Page structure with soft light theme background */
+.search-page {
+  min-height: 100vh;
+  padding-top: 60px; /* Account for sticky header */
+  /* Soft light theme background to reduce eye strain */
+  background: #FAFAFA;
+}
+
+/* Dark theme background override */
+:root[data-theme="dark"] .search-page {
+  background: rgb(var(--v-theme-surface));
+}
+
+/* Container styling for content areas */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Main content spacing */
+.page-content {
+  padding: 4.5rem 0; /* Consistent with other pages */
+}
+
+/* Search input styling */
 .search-input {
   transition: all 0.3s ease;
 
   &:focus-within {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .search-page {
+    padding-top: 50px; /* Smaller header offset on mobile */
+  }
+
+  .page-content {
+    padding: 3rem 0; /* Responsive spacing - reduced from 4.5rem for mobile */
+  }
+
+  .container {
+    padding: 0 1rem;
   }
 }
 

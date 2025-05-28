@@ -37,6 +37,12 @@ Our violence prevention plan is built around three core goals that address the f
 This plan was developed through an extensive collaborative process involving diverse stakeholders from across Illinois, ensuring community voices are centered in our violence prevention efforts.
 ::
 
+::home-news{:item-count=3}
+# Latest News & Updates
+
+Stay informed about violence prevention initiatives, research findings, and community programs making a difference across Illinois.
+::
+
 ::home-principles
 # Guiding Principles
 

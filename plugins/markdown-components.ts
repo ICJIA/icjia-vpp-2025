@@ -25,6 +25,7 @@ import HomeHero from '~/components/content/HomeHero.vue'
 import HomeStatistics from '~/components/content/HomeStatistics.vue'
 import HomeGoals from '~/components/content/HomeGoals.vue'
 import HomeStakeholders from '~/components/content/HomeStakeholders.vue'
+import HomeNews from '~/components/content/HomeNews.vue'
 import HomePrinciples from '~/components/content/HomePrinciples.vue'
 import HomeApproach from '~/components/content/HomeApproach.vue'
 
@@ -49,12 +50,13 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('HomeStatistics', HomeStatistics)
   nuxtApp.vueApp.component('HomeGoals', HomeGoals)
   nuxtApp.vueApp.component('HomeStakeholders', HomeStakeholders)
+  nuxtApp.vueApp.component('HomeNews', HomeNews)
   nuxtApp.vueApp.component('HomePrinciples', HomePrinciples)
   nuxtApp.vueApp.component('HomeApproach', HomeApproach)
 
 
   // Log registration in development environment
   if (process.env.NODE_ENV === 'development') {
-    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeStatistics, HomeGoals, HomeStakeholders, HomePrinciples, HomeApproach')
+    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
   }
 })

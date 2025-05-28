@@ -1,5 +1,5 @@
 <template>
-  <section class="news-section section section-secondary py-16">
+  <section class="news-section section section-primary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">
@@ -79,20 +79,23 @@
 
 <script setup>
 /**
- * Home News Section Component
+ * Home News Section Component - Enhanced with Configurable Item Count
  *
- * Displays the latest 3 news items on the homepage with proper loading states,
- * error handling, and navigation to the full news listing page.
+ * Displays recent news items on the homepage with configurable count,
+ * proper loading states, error handling, and navigation to the full news listing page.
  *
  * Features:
- * - Displays latest 3 news items sorted by date (newest first)
+ * - Configurable item count (default: 3) for easy adjustment
+ * - Uses Nuxt Content v3 queryCollection() with .limit() method
+ * - Sorts by date descending (newest first) using database-level ordering
  * - Responsive grid layout with consistent card styling
  * - Loading and error states with user-friendly messaging
  * - Navigation to full news listing page
- * - Follows project section styling patterns
+ * - Follows project section styling patterns with alternating backgrounds
  * - WCAG 2.1 AA accessibility compliance
  * - Full theme compatibility (light/dark)
  * - Smooth animations with reduced motion support
+ * - Easy removal capability for demo content
  *
  * @component
  */
@@ -100,27 +103,40 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import NewsCard from '~/components/content/NewsCard.vue';
 
+/**
+ * Component props
+ *
+ * @typedef {Object} Props
+ * @property {number} [itemCount=3] - Number of news items to display (2-3 recommended)
+ */
+const props = defineProps({
+  itemCount: {
+    type: Number,
+    default: 3,
+    validator: (value) => {
+      return value >= 1 && value <= 10; // Reasonable limits
+    }
+  }
+});
+
 const router = useRouter();
 
 /**
- * Fetch news content using Nuxt Content
- * Query the news directory, sort by date (newest first), and limit to 3 items
+ * Fetch news content using Nuxt Content v3 with optimized query
+ * Uses queryCollection() with .limit() method as documented
+ * Sorts by date descending at database level for better performance
  */
 const { data: allNews, pending, error, refresh } = await useAsyncData('home-news', async () => {
   try {
-    // Get all news items from the news directory
+    // Use Nuxt Content v3 queryCollection with .limit() method
+    // Sort by date descending and limit results at query level
     const news = await queryCollection('content')
-      .where('_path', 'startsWith', '/news/')
-      .find();
+      .where('path', 'LIKE', '/news%')
+      .order('date', 'DESC')
+      .limit(props.itemCount)
+      .all();
 
-    // Sort by date in JavaScript and limit to 3 items
-    const sortedNews = (news || []).sort((a, b) => {
-      const dateA = new Date(a.date || '1970-01-01');
-      const dateB = new Date(b.date || '1970-01-01');
-      return dateB - dateA; // Newest first
-    }).slice(0, 3);
-
-    return sortedNews;
+    return news || [];
   } catch (err) {
     console.error('Error fetching news:', err);
     throw err;
@@ -154,7 +170,7 @@ const handleViewAllNews = () => {
 </script>
 
 <style scoped>
-/* Background handled by global .section-secondary class */
+/* Background handled by global .section-primary class */
 
 .max-width-800 {
   max-width: 800px;

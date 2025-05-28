@@ -1,58 +1,47 @@
 <template>
   <div class="community-outreach-page">
-    <section class="hero-section py-16">
-      <v-container>
-        <v-row>
-          <v-col cols="12" md="8" class="mx-auto text-center">
-            <h1 class="text-h2 font-weight-bold mb-6 animate-title">{{ pageTitle }}</h1>
-            <p class="text-body-1 mb-8 animate-text">
-              {{ pageDescription }}
-            </p>
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
+    <!-- Use PageTitleSection for consistent styling -->
+    <PageTitleSection
+      :title="pageTitle"
+      :description="pageDescription"
+      :show-border="true"
+    />
 
-    <v-divider></v-divider>
+    <!-- Main Content -->
+    <div class="page-content">
+      <div class="container">
+        <!-- Simple Content Display -->
+        <SimpleContentDisplay
+          :path="contentPath"
+        />
 
-    <section class="section py-16">
-      <v-container>
-        <v-row>
-          <v-col cols="12" lg="10" class="mx-auto">
-            <!-- Simple Content Display -->
-            <SimpleContentDisplay
-              :path="contentPath"
-            />
+        <!-- Fallback Content (shown only if content fails to load) -->
+        <div v-if="showFallbackContent" class="mt-8">
+          <v-row>
+            <v-col cols="12" lg="6" class="pr-lg-12">
+              <h2 class="text-h3 font-weight-bold mb-6">Our Community Programs</h2>
+              <p class="text-body-1 mb-4">
+                This is a fallback content for Community Outreach programs. The dynamic content could not be loaded.
+              </p>
+              <p class="text-body-1 mb-4">
+                Please check back later for updated information about our community outreach initiatives and programs.
+              </p>
+            </v-col>
 
-            <!-- Fallback Content (shown only if content fails to load) -->
-            <div v-if="showFallbackContent" class="mt-8">
-              <v-row>
-                <v-col cols="12" lg="6" class="pr-lg-12">
-                  <h2 class="text-h3 font-weight-bold mb-6">Our Community Programs</h2>
-                  <p class="text-body-1 mb-4">
-                    This is a fallback content for Community Outreach programs. The dynamic content could not be loaded.
-                  </p>
-                  <p class="text-body-1 mb-4">
-                    Please check back later for updated information about our community outreach initiatives and programs.
-                  </p>
-                </v-col>
-
-                <v-col cols="12" lg="6" class="mt-8 mt-lg-0">
-                  <ImageWithSpinner
-                    src="https://placehold.co/1200x800?text=Community+Outreach"
-                    alt="Community Outreach Programs"
-                    image-class="rounded-xl community-image"
-                    height="400"
-                    cover
-                    spinner-color="primary"
-                  />
-                </v-col>
-              </v-row>
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </section>
+            <v-col cols="12" lg="6" class="mt-8 mt-lg-0">
+              <ImageWithSpinner
+                src="https://placehold.co/1200x800?text=Community+Outreach"
+                alt="Community Outreach Programs"
+                image-class="rounded-xl community-image"
+                height="400"
+                cover
+                spinner-color="primary"
+              />
+            </v-col>
+          </v-row>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -60,24 +49,27 @@
 /**
  * Community Outreach page for the Violence Prevention Plan for Illinois: 2025-2029
  *
- * This page dynamically fetches and renders content from the content directory
- * using the ContentDisplay component and useContentFetcher composable.
+ * This page now uses the standardized PageTitleSection component for consistent
+ * typography and styling across the site. It dynamically fetches and renders content
+ * from the content directory using the ContentDisplay component and useContentFetcher composable.
  *
  * Features:
+ * - Reusable PageTitleSection component with infographic-style typography
  * - Dynamic content fetching from /content/projects/community-outreach.md
  * - Proper loading states and error handling
  * - Fallback content if dynamic content fails to load
  * - SEO metadata based on content frontmatter
- * - Accessibility features
+ * - Accessibility features and consistent visual hierarchy
  *
  * @page
  */
-import { ref, computed, onMounted, watch } from 'vue';
-import { useHead, useSeoMeta, useRoute, useNuxtApp } from '#imports';
+import { ref, computed, watch } from 'vue';
+import { useHead, useSeoMeta, useRoute } from '#imports';
 import { useConsoleLogger } from '~/composables/useConsoleLogger';
 import useContentFetcher from '~/composables/useContentFetcher';
 import SimpleContentDisplay from '~/components/SimpleContentDisplay.vue';
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import PageTitleSection from '~/components/content/PageTitleSection.vue';
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
@@ -96,7 +88,7 @@ log('content', 'Community Outreach page - content path', {
 });
 
 // For direct access to content data
-const { content, error, pending } = useContentFetcher({
+const { content, error } = useContentFetcher({
   path: contentPath
 });
 
@@ -155,19 +147,38 @@ watch(content, (newContent) => {
 </script>
 
 <style scoped>
+/**
+ * Community Outreach Page Styling - Consistent with PageTitleSection System
+ *
+ * Implements the standardized page layout with soft light theme background,
+ * consistent spacing, and proper content structure to match other pages
+ * using the PageTitleSection component.
+ */
+
+/* Page structure with soft light theme background */
 .community-outreach-page {
+  min-height: 100vh;
+  padding-top: 60px; /* Account for sticky header */
   overflow-x: hidden;
+  /* Soft light theme background to reduce eye strain */
+  background: #FAFAFA;
 }
 
-.animate-title {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
+/* Dark theme background override */
+:root[data-theme="dark"] .community-outreach-page {
+  background: rgb(var(--v-theme-surface));
 }
 
-.animate-text {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-  animation-delay: 0.2s;
+/* Container styling for content areas */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Main content spacing */
+.page-content {
+  padding: 4.5rem 0; /* Consistent with other pages */
 }
 
 .community-image {
@@ -184,14 +195,18 @@ watch(content, (newContent) => {
   transform: scale(1.02);
 }
 
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Responsive design */
+@media (max-width: 768px) {
+  .community-outreach-page {
+    padding-top: 50px; /* Smaller header offset on mobile */
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .page-content {
+    padding: 3rem 0; /* Responsive spacing - reduced from 4.5rem for mobile */
+  }
+
+  .container {
+    padding: 0 1rem;
   }
 }
 
@@ -203,18 +218,24 @@ watch(content, (newContent) => {
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .animate-title,
-  .animate-text {
-    animation: none;
-    opacity: 1;
-  }
-
   .community-image {
     transition: none;
   }
 
   .community-image:hover {
     transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .community-outreach-page {
+    background: none !important;
+    padding-top: 0;
+  }
+
+  .page-content {
+    padding: 2rem 0;
   }
 }
 </style>

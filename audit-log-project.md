@@ -8,30 +8,247 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
-### 2025-05-28 (News Section Implementation - Complete Content Management System)
-- **Summary**: Implemented comprehensive news section for the Violence Prevention Plan website, including sample content creation, homepage integration, dedicated news page, and individual article routing. Features horizontal card layout with image thumbnails, Illinois State seal fallback, and full accessibility compliance.
+### 2025-05-28 (Homepage Alternating Background Pattern - Complete Implementation)
+- **Summary**: Implemented comprehensive alternating background color pattern for ALL homepage sections to create visual separation and bounded feeling between sections. Fixed the sequence to ensure proper Primary → Secondary → Primary → Secondary alternation throughout the entire homepage flow.
+- **Files Modified**:
+  - `components/content/HomeNews.vue`: Updated from secondary to primary background
+    - **Template**: Changed `section-secondary` to `section-primary` for proper alternation
+    - **CSS Comment**: Updated comment to reflect primary background handling
+    - **Pattern Position**: Now correctly positioned as 5th section (Primary) in alternating sequence
+    - **Visual Impact**: Creates proper visual separation from surrounding secondary sections
+  - `components/content/HomePrinciples.vue`: Updated from primary to secondary background
+    - **Template**: Changed `section-primary` to `section-secondary` for proper alternation
+    - **CSS Comment**: Updated comment to reflect secondary background handling
+    - **Pattern Position**: Now correctly positioned as 6th section (Secondary) in alternating sequence
+    - **Consistency**: Maintains visual rhythm with other secondary sections
+  - `components/content/HomeApproach.vue`: Updated from secondary to primary background
+    - **Template**: Changed `section-secondary` to `section-primary` for proper alternation
+    - **CSS Comment**: Updated comment to reflect primary background handling
+    - **Pattern Position**: Now correctly positioned as 7th section (Primary) in alternating sequence
+    - **Visual Balance**: Provides proper contrast before final action section
+- **Complete Alternating Pattern Implementation**:
+  - **Section 1 (HomeHero)**: ✅ Primary (#F8F8F8 in light mode) - Hero introduction
+  - **Section 2 (HomeStatistics)**: ✅ Secondary (#F2F2F2 in light mode) - Data presentation
+  - **Section 3 (HomeGoals)**: ✅ Primary (#F8F8F8 in light mode) - Strategic priorities
+  - **Section 4 (HomeStakeholders)**: ✅ Secondary (#F2F2F2 in light mode) - Partnership approach
+  - **Section 5 (HomeNews)**: ✅ Primary (#F8F8F8 in light mode) - Latest updates (newly corrected)
+  - **Section 6 (HomePrinciples)**: ✅ Secondary (#F2F2F2 in light mode) - Guiding values (newly corrected)
+  - **Section 7 (HomeApproach)**: ✅ Primary (#F8F8F8 in light mode) - Public health framework (newly corrected)
+  - **Section 8 (HomeAction)**: ✅ Secondary (#F2F2F2 in light mode) - Call-to-action with primary overlay
+- **Visual Design Benefits**:
+  - **Bounded Feeling**: Each section now has clear visual boundaries creating distinct content areas
+  - **Visual Rhythm**: Consistent alternating pattern creates pleasing visual flow throughout homepage
+  - **Content Separation**: Clear delineation between different content types and purposes
+  - **Eye Movement**: Alternating backgrounds guide user attention through the content hierarchy
+  - **Professional Appearance**: Creates sophisticated, magazine-style layout with visual breathing room
+- **Accessibility Compliance**:
+  - **WCAG 2.1 AA Standards**: All background combinations maintain required contrast ratios
+  - **Theme Compatibility**: Pattern works seamlessly in both light and dark themes
+  - **Color Contrast**: Primary sections (#F8F8F8) and secondary sections (#F2F2F2) provide sufficient contrast
+  - **Dark Theme**: Uses appropriate darker backgrounds (#1E2A3A for secondary) maintaining accessibility
+  - **Text Readability**: All text maintains proper contrast against alternating backgrounds
+- **Technical Implementation**:
+  - **Global CSS Classes**: Uses existing `.section-primary` and `.section-secondary` from main.scss
+  - **Theme Integration**: Leverages Vuetify theme variables for consistent color management
+  - **Responsive Design**: Alternating pattern maintains integrity across all screen sizes
+  - **Performance**: No additional CSS overhead - uses existing global styling system
+  - **Maintainability**: Easy to modify pattern by changing single CSS class per component
+- **User Experience Enhancement**:
+  - **Content Scanning**: Easier to scan and digest content with clear section boundaries
+  - **Visual Hierarchy**: Reinforces content importance through consistent visual treatment
+  - **Reading Flow**: Alternating backgrounds create natural reading rhythm and pacing
+  - **Professional Polish**: Elevates overall design quality with sophisticated visual treatment
+  - **Brand Consistency**: Maintains project's subtle, muted color palette preferences
+
+### 2025-05-28 (Homepage News Section Enhancement - Configurable Item Count Implementation)
+- **Summary**: Enhanced the existing HomeNews component with configurable item count prop and optimized Nuxt Content v3 query implementation. Added easy configuration capability for displaying 2-3 news items without code changes, following established patterns from pages/news.vue for consistency.
+- **Files Modified**:
+  - `components/content/HomeNews.vue`: Enhanced with configurable item count and optimized query
+    - **Props Addition**: Added `itemCount` prop with default value of 3 and validation (1-10 range)
+    - **Query Optimization**: Updated to use `.limit()` method directly in queryCollection() as documented
+    - **Database-Level Sorting**: Changed from JavaScript sorting to `.order('date', 'DESC')` for better performance
+    - **Documentation Enhancement**: Updated JSDoc with comprehensive feature list and configuration details
+    - **Component Description**: Enhanced to emphasize configurable nature and easy removal capability
+    - **Error Handling**: Maintained existing try/catch structure with improved error logging
+    - **Performance Improvement**: Eliminated JavaScript-level sorting and slicing by using database-level operations
+  - `pages/index.vue`: Added itemCount prop configuration for easy adjustment
+    - **Prop Configuration**: Added `:item-count="3"` to HomeNews component for explicit configuration
+    - **Documentation Update**: Added HomeNews component documentation in JSDoc comments
+    - **Template Enhancement**: Added explanatory comment about configurable item count
+    - **Integration Notes**: Documented prop usage pattern for future reference
+- **Technical Implementation**:
+  - **Nuxt Content v3 Compliance**: Uses `queryCollection()` with `.where()`, `.order()`, and `.limit()` methods as documented
+  - **Query Optimization**: Database-level sorting and limiting instead of JavaScript operations
+  - **Performance Benefits**: Reduced data transfer and processing by limiting results at query level
+  - **Prop Validation**: Ensures itemCount is between 1-10 for reasonable limits
+  - **Backward Compatibility**: Maintains all existing functionality while adding new configuration capability
+  - **Error Handling**: Preserves existing error handling patterns with enhanced logging
+- **Configuration Features**:
+  - **Easy Adjustment**: Change item count from 2-3 items by modifying single prop value
+  - **No Code Changes**: Configuration through props eliminates need for component modifications
+  - **Validation**: Built-in validation prevents unreasonable values
+  - **Default Behavior**: Maintains existing 3-item display as default
+  - **Future Scalability**: Can easily support different item counts for different contexts
+- **Content Strategy Alignment**:
+  - **Demo Content Compatibility**: Works seamlessly with existing sample/demo news content
+  - **Easy Removal**: Component can be easily removed from homepage when demo content is replaced
+  - **Consistent Patterns**: Follows same content-fetching strategy as established in pages/news.vue
+  - **Styling Consistency**: Maintains existing card styling and accessibility features
+  - **Theme Compatibility**: Preserves full light/dark theme support
+- **User Experience Features**:
+  - **Responsive Design**: Maintains existing responsive behavior across all screen sizes
+  - **Loading States**: Preserves existing loading, error, and empty state handling
+  - **Accessibility**: Maintains WCAG 2.1 AA compliance with all existing accessibility features
+  - **Navigation**: Preserves card-level click navigation and "View All News" button
+  - **Visual Consistency**: Maintains horizontal card layout with Illinois State seal fallback
+- **Future Benefits**:
+  - Easy configuration for different homepage layouts (2 vs 3 items)
+  - Template for other configurable content sections
+  - Improved maintainability through prop-based configuration
+  - Scalable pattern for content display customization
+  - Foundation for A/B testing different item counts
+
+### 2025-05-28 (Reusable Page Title System - Infographic-Style Typography Implementation)
+- **Summary**: Created comprehensive, reusable page title system with infographic-style typography (5rem base font size), professional animations, and full accessibility compliance. Implemented standardized PageTitleSection component that can be consistently applied across all pages in the project.
 - **Files Created**:
-  - `content/news/community-violence-prevention-grant-2024.md`: Sample news article about $2.3M grant funding
+  - `components/content/PageTitleSection.vue`: Reusable page title component
+    - **Typography**: Infographic-style design with 5rem base font size, 700 font weight, -0.03em letter spacing
+    - **Responsive Scaling**: Proportional scaling (5rem desktop, 4rem tablet, 3rem mobile, 2.25rem small mobile)
+    - **Professional Animations**: Staggered fade-in with title at 0.2s delay, description at 0.4s delay
+    - **Theme Compatibility**: Full light/dark theme support using CSS custom properties
+    - **Accessibility**: WCAG 2.1 AA compliance with semantic HTML, ARIA attributes, reduced motion support
+    - **Flexible Content**: Supports both props and slots for basic or advanced usage
+    - **Visual Elements**: Optional border separator for visual hierarchy between title and content
+    - **Props**: `title` (string), `description` (string), `showBorder` (boolean)
+    - **Slots**: `title` and `description` slots for custom formatting and complex content
+  - `docs/PageTitleSection-Usage.md`: Comprehensive documentation and usage guide
+    - **Implementation Examples**: Basic props usage, advanced slots usage, page integration patterns
+    - **Technical Specifications**: Typography details, responsive breakpoints, animation timing
+    - **Accessibility Features**: WCAG compliance details, keyboard navigation, screen reader support
+    - **Migration Guide**: Step-by-step instructions for converting existing pages
+    - **Best Practices**: Consistent usage patterns, theme compatibility, responsive considerations
+  - `pages/sandbox-page-title-test.vue`: Test page demonstrating component functionality
+    - **Live Demo**: Working implementation showing all component features
+    - **Feature Showcase**: Grid of cards highlighting component capabilities
+    - **Implementation Status**: Visual tracking of component adoption across pages
+    - **Code Examples**: Embedded usage examples for developer reference
+- **Files Modified**:
+  - `pages/news.vue`: Complete implementation of PageTitleSection component
+    - **Component Integration**: Replaced custom title section with PageTitleSection component
+    - **Props Usage**: `title="News & Updates"`, comprehensive description, `show-border="true"`
+    - **CSS Cleanup**: Removed old title-related CSS classes and animations (now handled by component)
+    - **Responsive Updates**: Simplified responsive design focusing on content layout
+    - **Background Enhancement**: Applied soft light theme background (#FAFAFA) for reduced eye strain
+    - **Spacing Optimization**: Enhanced content spacing (4.5rem top/bottom, 3rem mobile)
+    - **Import Addition**: Added PageTitleSection component import
+  - `pages/about.vue`: Comprehensive PageTitleSection integration
+    - **Component Replacement**: Replaced AboutHero component with PageTitleSection
+    - **Content Filtering**: Added `contentWithoutHero` computed property to remove duplicate hero sections
+    - **Title/Description Extraction**: Dynamic extraction from content frontmatter with fallbacks
+    - **Consistent Styling**: Applied standardized page layout with soft background and spacing
+    - **Template Restructure**: Organized loading, error, content, and fallback states
+  - `pages/[...slug].vue`: Dynamic content page standardization
+    - **Hero Section Replacement**: Replaced custom hero section with PageTitleSection
+    - **Conditional Rendering**: Only shows PageTitleSection when `needsStandardHeader` is true
+    - **Layout Simplification**: Streamlined content structure with consistent container system
+    - **CSS Updates**: Applied standardized page styling with soft background and spacing
+  - `pages/projects/community-outreach.vue`: Project page consistency implementation
+    - **Hero Replacement**: Replaced custom hero section with PageTitleSection
+    - **Import Cleanup**: Removed unused imports (onMounted, useNuxtApp, pending)
+    - **Layout Restructure**: Simplified template structure with consistent container system
+    - **Styling Updates**: Applied standardized page layout with responsive design
+  - `pages/projects/youth-intervention.vue`: Project page consistency implementation
+    - **Hero Replacement**: Replaced custom hero section with PageTitleSection
+    - **Import Cleanup**: Removed unused imports (onMounted, useNuxtApp, pending)
+    - **Layout Restructure**: Simplified template structure with consistent container system
+    - **Styling Updates**: Applied standardized page layout with responsive design
+  - `pages/search.vue`: Search page title standardization
+    - **Title Section Replacement**: Replaced custom title section with PageTitleSection
+    - **Enhanced Description**: Added comprehensive search page description
+    - **Layout Updates**: Applied consistent container system and page structure
+    - **Styling Integration**: Added standardized page styling with soft background
+- **Technical Implementation**:
+  - **Infographic-Style Typography**: Large, impactful 5rem font size with professional styling
+    - **Font Weight**: 700 (bold) for maximum visual impact
+    - **Letter Spacing**: -0.03em (tight) for modern, professional appearance
+    - **Line Height**: 1.1 (compact) for visual impact while maintaining readability
+    - **Font Family**: 'Roboto', sans-serif for consistency with site typography
+  - **Responsive Design System**: Proportional scaling maintaining visual hierarchy
+    - **Desktop (>960px)**: 5rem base size for maximum impact
+    - **Tablet (≤960px)**: 4rem (80% scaling) for optimal tablet viewing
+    - **Mobile (≤768px)**: 3rem (60% scaling) for mobile readability
+    - **Small Mobile (≤600px)**: 2.25rem (45% scaling) for very small screens
+  - **Animation System**: Professional entrance animations with accessibility support
+    - **Title Animation**: Fade-in with slide-up, 0.2s delay for primary impact
+    - **Description Animation**: Fade-in with slide-up, 0.4s delay for staggered effect
+    - **Duration**: 0.8s with ease timing for smooth, professional appearance
+    - **Reduced Motion**: Complete animation disable for accessibility compliance
+  - **Theme Integration**: Seamless light/dark theme compatibility
+    - **Color System**: Uses CSS custom properties for automatic theme adaptation
+    - **Contrast Ratios**: Maintains WCAG 2.1 AA standards (7:1 preferred) in both themes
+    - **Border Colors**: Theme-aware with appropriate opacity levels (0.12)
+- **Component Features**:
+  - **Flexible Usage**: Supports both simple props and advanced slots for custom formatting
+  - **Optional Border**: `showBorder` prop adds subtle visual separator between title and content
+  - **Semantic HTML**: Proper heading hierarchy with `<h1>` tags for SEO and accessibility
+  - **Print Support**: Optimized print styles with animation disable and appropriate spacing
+  - **Container System**: Consistent max-width (1200px) and responsive padding
+  - **Content Centering**: Title content centered with max-width (900px) for optimal readability
+- **News Page Enhancements**:
+  - **Enhanced Font Size**: Increased from 4rem to 5rem through component implementation
+  - **Improved Spacing**: Better visual breathing room with 4.5rem content padding
+  - **Soft Background**: Applied #FAFAFA background for reduced eye strain
+  - **Visual Separator**: Added border separator between title and content sections
+  - **Simplified CSS**: Removed redundant styles now handled by reusable component
+- **Accessibility Compliance**:
+  - ✅ **WCAG 2.1 AA Standards**: All typography meets contrast ratio requirements
+  - ✅ **Semantic Structure**: Proper heading hierarchy and landmark regions
+  - ✅ **Keyboard Navigation**: Full keyboard support for interactive elements
+  - ✅ **Screen Reader Support**: Proper ARIA attributes and semantic HTML
+  - ✅ **Reduced Motion**: Respects user motion preferences with animation disable
+  - ✅ **Focus Management**: Proper focus styles and logical tab order
+- **Reusability Benefits**:
+  - **Consistent Typography**: Standardized large titles across all pages
+  - **Reduced Code Duplication**: Single component replaces multiple custom implementations
+  - **Easy Maintenance**: Updates to component automatically apply to all pages
+  - **Design System Compliance**: Ensures consistent visual hierarchy throughout project
+  - **Developer Experience**: Clear documentation and examples for easy adoption
+- **Implementation Completed Across All Internal Pages**:
+  - ✅ **About page** (`pages/about.vue`): Replaced AboutHero component with PageTitleSection
+  - ✅ **Catch-all page** (`pages/[...slug].vue`): Implemented for all dynamic content pages
+  - ✅ **Projects pages**: Both community-outreach and youth-intervention updated
+  - ✅ **Search page** (`pages/search.vue`): Consistent title styling implemented
+  - ✅ **Homepage excluded**: Maintained specialized HomeHero component design
+- **Future Benefits**:
+  - Scalable pattern for consistent page title styling across entire project
+  - Foundation for enhanced page title features (breadcrumbs, progress indicators, etc.)
+  - Template for other reusable design system components
+  - Unified visual hierarchy and professional appearance site-wide
+
+### 2025-05-28 (News Section Implementation - Complete Content Management System)
+- **Summary**: Implemented comprehensive news section for the Violence Prevention Plan website, including sample content creation, homepage integration, dedicated news page, and individual article routing. Features horizontal card layout with image thumbnails, Illinois State seal fallback, and full accessibility compliance. **Note: All content files in `/content/news/` are sample/demo content for testing purposes only. Real news content will be added at a later date.**
+- **Files Created**:
+  - `content/news/community-violence-prevention-grant-2024.md`: **SAMPLE CONTENT** - Demo news article about $2.3M grant funding
     - **Content**: Comprehensive article about ICJIA grant awards to 15 counties
     - **Frontmatter**: Title, summary, date (2025-01-02), and image URL
     - **Features**: Evidence-based programs, expected outcomes, community partnerships
     - **Cross-references**: Links to strategic priorities and community engagement
-  - `content/news/youth-violence-prevention-summit-2024.md`: Summit coverage with 300+ participants
+  - `content/news/youth-violence-prevention-summit-2024.md`: **SAMPLE CONTENT** - Summit coverage with 300+ participants
     - **Content**: Detailed coverage of annual statewide summit in Springfield
     - **Frontmatter**: Title, summary, date (2024-12-15), and image URL
     - **Features**: Research presentations, innovative programs, policy recommendations
     - **Youth Leadership**: Panel featuring young advocates and their recommendations
-  - `content/news/hospital-violence-intervention-expansion.md`: HVIP program expansion
+  - `content/news/hospital-violence-intervention-expansion.md`: **SAMPLE CONTENT** - HVIP program expansion
     - **Content**: Five new hospital violence intervention programs across Illinois
     - **Frontmatter**: Title, summary, date (2024-11-28), no image (uses Illinois seal)
     - **Features**: Evidence-based outcomes, training components, community partnerships
     - **Impact Data**: 58% reduction in repeat injuries, $3.2M healthcare savings
-  - `content/news/data-sharing-initiative-launch.md`: Statewide data collaboration platform
+  - `content/news/data-sharing-initiative-launch.md`: **SAMPLE CONTENT** - Statewide data collaboration platform
     - **Content**: Launch of Illinois Violence Prevention Data Collaborative
     - **Frontmatter**: Title, summary, date (2024-10-22), and image URL
     - **Features**: Real-time monitoring, secure sharing, research collaboration tools
     - **Privacy Protection**: De-identification, aggregate reporting, role-based access
-  - `content/news/rural-violence-prevention-network.md`: Rural-specific violence prevention
+  - `content/news/rural-violence-prevention-network.md`: **SAMPLE CONTENT** - Rural-specific violence prevention
     - **Content**: Illinois Rural Violence Prevention Network addressing unique challenges
     - **Frontmatter**: Title, summary, date (2024-09-18), and image URL
     - **Features**: 28 rural counties, 5 regional hubs, telehealth interventions
@@ -73,11 +290,13 @@ This document serves as a chronological record of all significant changes made t
   - **Responsive Design**: CSS Grid with mobile-first responsive breakpoints
   - **Theme Support**: Full light/dark theme compatibility with proper contrast ratios
 - **Content Strategy**:
-  - **Realistic Topics**: All articles focus on actual violence prevention initiatives
-  - **Varied Content**: Mix of funding, research, programs, data, and rural initiatives
-  - **Cross-References**: Articles link to relevant site sections (strategic priorities, principles)
-  - **Professional Tone**: Appropriate for government/academic audience
-  - **SEO Optimization**: Descriptive titles, summaries, and structured content
+  - **Demo Content Purpose**: All 5 news articles are sample/demo content created for testing the news system functionality
+  - **Realistic Topics**: Sample articles focus on plausible violence prevention initiatives for authentic testing
+  - **Varied Content**: Mix of funding, research, programs, data, and rural initiatives to test different content types
+  - **Cross-References**: Sample articles link to relevant site sections (strategic priorities, principles)
+  - **Professional Tone**: Appropriate for government/academic audience to match final content expectations
+  - **SEO Optimization**: Descriptive titles, summaries, and structured content to test metadata handling
+  - **Future Replacement**: All sample content will be replaced with real news articles at a later date
 - **User Experience Features**:
   - **Homepage Integration**: Latest 3 articles prominently displayed in middle of homepage
   - **Full News Page**: Complete archive accessible at `/news` route

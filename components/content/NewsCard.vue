@@ -230,10 +230,25 @@ const handleCardClick = () => {
   min-height: 200px;
 }
 
-/* Image section */
+/* Image section - full height with no gaps */
 .news-image-section {
   position: relative;
   overflow: hidden;
+  /* Ensure image extends full height of card */
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Force the ImageWithSpinner component to fill full height */
+.news-image-section :deep(.image-container) {
+  height: 100%;
+  width: 100%;
+}
+
+.news-image-section :deep(.v-img) {
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .news-image {
@@ -292,12 +307,18 @@ const handleCardClick = () => {
 .news-summary {
   font-size: 0.875rem;
   line-height: 1.5;
-  color: rgb(var(--v-theme-on-surface-variant));
+  /* Enhanced contrast for WCAG 2.1 AA compliance - targeting 7:1 ratio */
+  color: rgba(var(--v-theme-on-surface), 0.85);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Dark theme summary text with enhanced contrast */
+:root[data-theme="dark"] .news-summary {
+  color: rgba(255, 255, 255, 0.9); /* Higher contrast for dark theme */
 }
 
 /* Action section */
