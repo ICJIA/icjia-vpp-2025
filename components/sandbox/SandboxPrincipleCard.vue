@@ -5,8 +5,9 @@
       class="principle-card-inner"
       role="article"
       tabindex="0"
-      @keydown.enter="handleCardActivation"
-      @keydown.space.prevent="handleCardActivation"
+      @click="handleCardClick"
+      @keydown.enter="handleCardClick"
+      @keydown.space.prevent="handleCardClick"
       :aria-labelledby="`principle-title-${uniqueId}`"
       :aria-describedby="`principle-desc-${uniqueId}`"
     >
@@ -36,22 +37,7 @@
           </p>
         </div>
 
-        <!-- Button Section - Always at bottom -->
-        <div class="button-section">
-          <v-btn
-            :color="principle.color"
-            variant="outlined"
-            size="small"
-            class="learn-more-btn"
-            @click="handleLearnMore"
-            @keydown.enter="handleLearnMore"
-            @keydown.space.prevent="handleLearnMore"
-            :aria-label="`Learn more about ${principle.title}`"
-          >
-            Learn More
-            <v-icon end icon="mdi-arrow-right" size="small" />
-          </v-btn>
-        </div>
+
       </div>
     </v-card>
   </div>
@@ -59,17 +45,16 @@
 
 <script setup>
 /**
- * Sandbox Principle Card Component - Completely Refactored
+ * Sandbox Principle Card Component - Card-Level Click Navigation
  *
- * Displays individual guiding principles with perfect button alignment using CSS Grid.
- * Completely refactored for pixel-perfect horizontal alignment of Learn More buttons
- * across all cards regardless of content length variations.
+ * Displays individual guiding principles with card-level click navigation.
+ * Refactored to remove Learn More buttons and implement entire card as clickable area.
  *
  * Features:
- * - CSS Grid-based layout for perfect button alignment
+ * - CSS Grid-based layout for optimal content organization
  * - Larger icons (size 64) for better visual impact
  * - Responsive design with consistent minimum heights
- * - Perfect button alignment using grid-template-areas
+ * - Card-level click navigation to /about route
  * - Enhanced accessibility with proper ARIA attributes
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
@@ -78,13 +63,13 @@
  *
  * Technical Implementation:
  * - Uses CSS Grid with fixed template areas for content sections
- * - Button section uses grid-area: button for consistent positioning
  * - Description section expands with 1fr to fill available space
  * - Deep selectors override Vuetify card defaults for perfect control
+ * - Entire card is clickable with keyboard navigation support
  *
  * @component
  */
-import { computed, ref, inject } from 'vue';
+import { computed, inject } from 'vue';
 
 /**
  * Get the announce function from the provider for screen reader announcements
@@ -126,32 +111,19 @@ const animationStyle = computed(() => ({
 }));
 
 /**
- * Handle keyboard activation (Enter/Space)
- * Provides keyboard accessibility for interactive card
+ * Handle card click navigation
+ * Provides keyboard accessibility and navigation for interactive card
  */
-const handleCardActivation = () => {
-  console.log('Principle card activated:', props.principle.title);
+const handleCardClick = async () => {
+  console.log('Principle card clicked:', props.principle.title);
 
   // Announce to screen readers for accessibility
   if (announce) {
-    announce(`Principle selected: ${props.principle.title}`);
-  }
-};
-
-/**
- * Handle Learn More button activation
- * Provides additional information about the principle
- */
-const handleLearnMore = () => {
-  console.log('Learn more clicked for principle:', props.principle.title);
-
-  // Announce to screen readers for accessibility
-  if (announce) {
-    announce(`Learn more about ${props.principle.title}`);
+    announce(`Navigating to learn more about ${props.principle.title}`);
   }
 
-  // In a real implementation, this would navigate to detailed principle information
-  // For now, we'll just log the action
+  // Navigate to about page (temporary destination)
+  await navigateTo('/about');
 };
 </script>
 
@@ -183,12 +155,11 @@ const handleLearnMore = () => {
 /* Card Content Grid - Perfect alignment system */
 .card-content-grid {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
     "icon"
     "title"
-    "description"
-    "button";
+    "description";
   height: 100%;
   gap: 1.5rem;
   align-content: start;
@@ -237,23 +208,7 @@ const handleLearnMore = () => {
   color: rgba(var(--v-theme-on-surface), 0.87);
 }
 
-/* Button Section - Always at bottom */
-.button-section {
-  grid-area: button;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-top: auto;
-  padding-top: 1rem;
-}
 
-.learn-more-btn {
-  border-radius: 2rem;
-  text-transform: none;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  min-width: 120px;
-}
 
 /* Hover and Focus States */
 .principle-card-inner:hover,

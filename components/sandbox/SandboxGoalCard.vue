@@ -5,8 +5,9 @@
       class="goal-card-inner"
       role="article"
       tabindex="0"
-      @keydown.enter="handleCardActivation"
-      @keydown.space.prevent="handleCardActivation"
+      @click="handleCardClick"
+      @keydown.enter="handleCardClick"
+      @keydown.space.prevent="handleCardClick"
       :aria-labelledby="`goal-title-${uniqueId}`"
       :aria-describedby="`goal-desc-${uniqueId}`"
     >
@@ -73,22 +74,7 @@
           </v-list>
         </div>
 
-        <!-- Button Section - Always at bottom -->
-        <div class="button-section">
-          <v-btn
-            variant="outlined"
-            :color="goal.color"
-            size="small"
-            class="learn-more-btn"
-            @click="handleLearnMore"
-            @keydown.enter="handleLearnMore"
-            @keydown.space.prevent="handleLearnMore"
-            :aria-label="`Learn more about ${goal.title}`"
-          >
-            Learn More
-            <v-icon end icon="mdi-arrow-right" size="small" />
-          </v-btn>
-        </div>
+
       </div>
     </v-card>
   </div>
@@ -96,17 +82,16 @@
 
 <script setup>
 /**
- * Sandbox Goal Card Component - Completely Refactored
+ * Sandbox Goal Card Component - Card-Level Click Navigation
  *
- * Displays individual strategic goals with perfect button alignment using CSS Grid.
- * Completely refactored for pixel-perfect horizontal alignment of Learn More buttons
- * across all cards regardless of content length variations.
+ * Displays individual strategic goals with card-level click navigation.
+ * Refactored to remove Learn More buttons and implement entire card as clickable area.
  *
  * Features:
- * - CSS Grid-based layout for perfect button alignment
+ * - CSS Grid-based layout for optimal content organization
  * - Larger icons (size 64) for better visual impact
  * - Responsive design with consistent minimum heights
- * - Perfect button alignment using grid-template-areas
+ * - Card-level click navigation to /about route
  * - Enhanced accessibility with proper ARIA attributes
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
@@ -116,14 +101,14 @@
  *
  * Technical Implementation:
  * - Uses CSS Grid with fixed template areas for content sections
- * - Button section uses grid-area: button for consistent positioning
  * - Highlights section expands with 1fr to fill available space
  * - Deep selectors override Vuetify card and list defaults
  * - Enhanced text contrast for optimal readability in both themes
+ * - Entire card is clickable with keyboard navigation support
  *
  * @component
  */
-import { computed, ref, inject } from 'vue';
+import { computed, inject } from 'vue';
 
 /**
  * Get the announce function from the provider for screen reader announcements
@@ -165,24 +150,19 @@ const animationStyle = computed(() => ({
 }));
 
 /**
- * Handle keyboard activation (Enter/Space)
- * Provides keyboard accessibility for interactive card
+ * Handle card click navigation
+ * Provides keyboard accessibility and navigation for interactive card
  */
-const handleCardActivation = () => {
-  console.log('Goal card activated:', props.goal.title);
+const handleCardClick = async () => {
+  console.log('Goal card clicked:', props.goal.title);
 
   // Announce to screen readers for accessibility
   if (announce) {
-    announce(`Goal selected: ${props.goal.title}`);
+    announce(`Navigating to learn more about ${props.goal.title}`);
   }
-};
 
-/**
- * Handle learn more button click
- */
-const handleLearnMore = () => {
-  // This would navigate to detailed goal information
-  console.log('Learn more about goal:', props.goal.title);
+  // Navigate to about page (temporary destination)
+  await navigateTo('/about');
 };
 </script>
 
@@ -214,14 +194,13 @@ const handleLearnMore = () => {
 /* Card Content Grid - Perfect alignment system */
 .card-content-grid {
   display: grid;
-  grid-template-rows: auto auto auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto 1fr;
   grid-template-areas:
     "badge"
     "icon"
     "title"
     "description"
-    "highlights"
-    "button";
+    "highlights";
   height: 100%;
   gap: 1.5rem;
   align-content: start;
@@ -316,23 +295,7 @@ const handleLearnMore = () => {
   color: rgba(var(--v-theme-on-surface), 0.8);
 }
 
-/* Button Section - Always at bottom */
-.button-section {
-  grid-area: button;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-top: auto;
-  padding-top: 1rem;
-}
 
-.learn-more-btn {
-  border-radius: 2rem;
-  text-transform: none;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  min-width: 120px;
-}
 
 /* Hover and Focus States */
 .goal-card-inner:hover,
