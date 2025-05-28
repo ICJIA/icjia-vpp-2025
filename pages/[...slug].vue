@@ -61,11 +61,15 @@
     <!-- Content display -->
     <div v-else-if="content">
       <!-- Use PageTitleSection for standardized header -->
+
+
       <PageTitleSection
         v-if="needsStandardHeader"
         :title="content.title || pageTitle"
         :description="content.description"
         :show-border="true"
+        :show-date="!!(content.meta?.showDate || content.showDate)"
+        :date="content.date"
       />
 
       <!-- Main content section -->
@@ -149,6 +153,8 @@ const { content, pending, error, refresh, markAsRendered } = useContentFetcher({
   path: contentPath.value
 });
 
+
+
 // Check if error is a "not found" error
 const isNotFoundError = computed(() => {
   return error.value && (
@@ -169,6 +175,8 @@ const needsStandardHeader = computed(() => {
                              bodyContent.toString().includes('about-hero') ||
                              bodyContent.toString().includes('hero-section') ||
                              bodyContent.toString().includes('feature-section');
+
+
 
   // If no layout components detected, provide standardized header
   return !hasLayoutComponents;

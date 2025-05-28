@@ -34,8 +34,10 @@
       <!-- Main Content -->
       <div class="page-content">
         <div class="container">
-          <!-- Render content without the hero section -->
-          <ContentRenderer :value="contentWithoutHero" />
+          <!-- Render content with first heading hidden since we use PageTitleSection -->
+          <div class="content-renderer hide-first-heading">
+            <ContentRenderer :value="content" />
+          </div>
         </div>
       </div>
     </div>
@@ -103,31 +105,7 @@ const pageDescription = computed(() => {
   return content.value?.description || 'Learn about the Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.';
 });
 
-/**
- * Filter content to remove the hero section since we're using PageTitleSection
- * This prevents duplicate titles and maintains clean content structure
- */
-const contentWithoutHero = computed(() => {
-  if (!content.value) return null;
 
-  // Create a copy of the content object
-  const filteredContent = { ...content.value };
-
-  // If the content has a body, filter out the about-hero section
-  if (filteredContent.body && typeof filteredContent.body === 'object') {
-    // Filter out about-hero components from the body
-    if (filteredContent.body.children) {
-      filteredContent.body = {
-        ...filteredContent.body,
-        children: filteredContent.body.children.filter(child =>
-          !(child.tag === 'about-hero' || child.type === 'about-hero')
-        )
-      };
-    }
-  }
-
-  return filteredContent;
-});
 
 // Watch for successful content loading
 if (content.value) {
@@ -250,6 +228,90 @@ useSeoMeta({
   :deep(.contact-button:hover),
   :deep(.contact-button:focus-visible) {
     transform: none !important;
+  }
+}
+
+/* Content renderer styling - matches existing components */
+.content-renderer {
+  /* Hide first heading when we have a standardized header */
+  &.hide-first-heading {
+    :deep(h1:first-of-type) {
+      display: none;
+    }
+  }
+
+  /* Heading styles */
+  :deep(h1) {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  :deep(h2) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  :deep(h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  /* Paragraph and list styles */
+  :deep(p) {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  :deep(ul), :deep(ol) {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  :deep(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* Link styles */
+  :deep(a) {
+    color: var(--v-primary-base);
+    text-decoration: underline;
+  }
+
+  :deep(a:hover) {
+    text-decoration: none;
+  }
+
+  :deep(a:focus-visible) {
+    outline: 2px solid var(--v-primary-base);
+    outline-offset: 2px;
+  }
+
+  /* Other elements */
+  :deep(blockquote) {
+    border-left: 4px solid var(--v-primary-lighten-1);
+    padding-left: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+}
+
+/* Dark theme adjustments for content renderer */
+:deep(.v-theme--dark) {
+  .content-renderer {
+    :deep(blockquote) {
+      border-left-color: var(--v-primary-lighten-2);
+    }
   }
 }
 
