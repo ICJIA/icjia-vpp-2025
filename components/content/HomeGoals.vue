@@ -14,7 +14,7 @@
 
       <!-- Goals grid - CSS Grid for perfect alignment -->
       <div class="goals-grid">
-        <SandboxGoalCard
+        <HomeGoalCard
           v-for="(goal, index) in goals"
           :key="index"
           :goal="goal"
@@ -53,7 +53,7 @@
  *
  * @component
  */
-import SandboxGoalCard from './SandboxGoalCard.vue';
+import HomeGoalCard from './HomeGoalCard.vue';
 
 /**
  * Strategic goals from the Violence Prevention Plan analysis

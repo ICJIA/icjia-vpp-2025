@@ -20,14 +20,13 @@ import AboutValues from '~/components/content/AboutValues.vue'
 import AboutApproach from '~/components/content/AboutApproach.vue'
 import AboutContact from '~/components/content/AboutContact.vue'
 
-// Import sandbox components for testing
-import SandboxHomeHero from '~/components/sandbox/SandboxHomeHero.vue'
-import SandboxHomeStatistics from '~/components/sandbox/SandboxHomeStatistics.vue'
-import SandboxHomeGoals from '~/components/sandbox/SandboxHomeGoals.vue'
-import SandboxHomeStakeholders from '~/components/sandbox/SandboxHomeStakeholders.vue'
-import SandboxHomePrinciples from '~/components/sandbox/SandboxHomePrinciples.vue'
-import SandboxHomeApproach from '~/components/sandbox/SandboxHomeApproach.vue'
-import SandboxHomeAction from '~/components/sandbox/SandboxHomeAction.vue'
+// Import home components for production use
+import HomeHero from '~/components/content/HomeHero.vue'
+import HomeStatistics from '~/components/content/HomeStatistics.vue'
+import HomeGoals from '~/components/content/HomeGoals.vue'
+import HomeStakeholders from '~/components/content/HomeStakeholders.vue'
+import HomePrinciples from '~/components/content/HomePrinciples.vue'
+import HomeApproach from '~/components/content/HomeApproach.vue'
 
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -45,18 +44,17 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('AboutApproach', AboutApproach)
   nuxtApp.vueApp.component('AboutContact', AboutContact)
 
-  // Register sandbox components for testing
-  nuxtApp.vueApp.component('SandboxHomeHero', SandboxHomeHero)
-  nuxtApp.vueApp.component('SandboxHomeStatistics', SandboxHomeStatistics)
-  nuxtApp.vueApp.component('SandboxHomeGoals', SandboxHomeGoals)
-  nuxtApp.vueApp.component('SandboxHomeStakeholders', SandboxHomeStakeholders)
-  nuxtApp.vueApp.component('SandboxHomePrinciples', SandboxHomePrinciples)
-  nuxtApp.vueApp.component('SandboxHomeApproach', SandboxHomeApproach)
-  nuxtApp.vueApp.component('SandboxHomeAction', SandboxHomeAction)
+  // Register home components for production use
+  nuxtApp.vueApp.component('HomeHero', HomeHero)
+  nuxtApp.vueApp.component('HomeStatistics', HomeStatistics)
+  nuxtApp.vueApp.component('HomeGoals', HomeGoals)
+  nuxtApp.vueApp.component('HomeStakeholders', HomeStakeholders)
+  nuxtApp.vueApp.component('HomePrinciples', HomePrinciples)
+  nuxtApp.vueApp.component('HomeApproach', HomeApproach)
 
 
   // Log registration in development environment
   if (process.env.NODE_ENV === 'development') {
-    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact')
+    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeStatistics, HomeGoals, HomeStakeholders, HomePrinciples, HomeApproach')
   }
 })

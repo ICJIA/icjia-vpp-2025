@@ -74,7 +74,6 @@
           </v-list>
         </div>
 
-
       </div>
     </v-card>
   </div>
@@ -82,7 +81,7 @@
 
 <script setup>
 /**
- * Sandbox Goal Card Component - Card-Level Click Navigation
+ * Home Goal Card Component - Card-Level Click Navigation
  *
  * Displays individual strategic goals with card-level click navigation.
  * Refactored to remove Learn More buttons and implement entire card as clickable area.
@@ -141,13 +140,13 @@ const props = defineProps({
    *
    * @example
    * // Local navigation
-   * <SandboxGoalCard :goal="goalData" url="/about" />
+   * <HomeGoalCard :goal="goalData" url="/about" />
    *
    * // External navigation
-   * <SandboxGoalCard :goal="goalData" url="https://example.com" />
+   * <HomeGoalCard :goal="goalData" url="https://example.com" />
    *
    * // No navigation (hover effects only)
-   * <SandboxGoalCard :goal="goalData" />
+   * <HomeGoalCard :goal="goalData" />
    */
   url: {
     type: String,
@@ -198,10 +197,10 @@ const animationStyle = computed(() => ({
  *
  * @example
  * // With URL prop
- * <SandboxGoalCard :goal="goalData" url="/about" />
+ * <HomeGoalCard :goal="goalData" url="/about" />
  *
  * // Without URL prop (hover effects only)
- * <SandboxGoalCard :goal="goalData" />
+ * <HomeGoalCard :goal="goalData" />
  */
 const handleCardClick = async () => {
   console.log('Goal card clicked:', props.goal.title);
@@ -366,8 +365,6 @@ const handleCardClick = async () => {
   line-height: 1.5;
   color: rgba(var(--v-theme-on-surface), 0.8);
 }
-
-
 
 /* Hover and Focus States */
 .goal-card-inner:hover,

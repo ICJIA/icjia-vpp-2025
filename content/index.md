@@ -1,83 +1,62 @@
 ---
 title: "Violence Prevention Plan for Illinois: 2025-2029 - Home"
-description: "The Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois."
+description: "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities."
 ogTitle: "Violence Prevention Plan for Illinois: 2025-2029 - Home"
-ogDescription: "Resources and tools for violence prevention initiatives across Illinois."
+ogDescription: "Comprehensive resources and tools for violence prevention initiatives across Illinois communities."
 ogImage: "/images/og-image.jpg"
 twitterCard: "summary_large_image"
 ---
 
-::hero-section
-# Rex adipiscing bis **umbra sol gloria bis amet.**
+::home-hero
+# Violence Prevention Plan for Illinois: 2025-2029
 
-Rex adipiscing bis umbra sol gloria bis amet ventus sit rex caelum est ideme. Stella vox terra carmen anima rex vita sol fine opus pax caelum bellum bellum. Vox jugum gloria caligine vita fine aether jugum terra portitor est elit portitor est.
+Violence is a global public health crisis. The prevention of violence is paramount. Illinois is committed to supporting violence prevention initiatives through trauma-informed, healing-centered practices across communities most impacted by violence.
+
+#primary-button
+View the Plan
+
+#secondary-button
+Learn More
 ::
 
-::feature-section
-# Sit virtus enim
+::home-statistics
+# Violence in Illinois: The Data
 
-Ipsum caelum bellum homo pax amet.
-
-#ipsum-caelum-bellum
-## Ipsum Caelum Bellum
-
-Elit nox virtus caelum Lorem amet ipsum.
-
-#carmen-umbra-stella-vox
-## Carmen umbra stella vox
-
-Elit nox virtus caelum.
-
-#vox-tempus-elit-sol-vox
-## Vox tempus elit sol vox
-
-Orbus amet summo bellum est umbra vox.
-
-#vita-idem-bis-aether-lumen
-## Vita idem bis aether lumen
-
-Caelum orbus opus sanctum amet.
-
-#rex-adipiscing-bis-umbra
-## Rex adipiscing bis umbra
-
-Caligine tempus pax est fassaque.
-
-#stella-vox-terra-carmen-anima-rex
-## Stella vox terra carmen anima rex
-
-Anima Lorem opus fine vox manus opus elit lumen opus stella portitor bellum aether nox. Fassaque consectetur.
+Understanding the scope and impact of violence is the first step in prevention. These statistics highlight the urgent need for comprehensive violence prevention efforts across Illinois.
 ::
 
-::home-highlights
-# Enim manus aether virtus manus mare carmen elit
+::home-goals
+# Strategic Priorities: 2025-2029
 
-Tempus tempus rex terra summo ipsum fine stella portitor enim mare homo bellum deus opus.
+Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
+::
 
-#highlight-1
-Ipsum caelum bellum homax pax
+::home-stakeholders
+# Collaborative Partnership Approach
 
-#highlight-2
-Sanctum sol elit sol
+This plan was developed through an extensive collaborative process involving diverse stakeholders from across Illinois, ensuring community voices are centered in our violence prevention efforts.
+::
 
-#highlight-3
-Umbra fine homo terra
+::home-principles
+# Guiding Principles
 
-#highlight-4
-Sit mare idem jugum gloria
+Five core principles guide our violence prevention efforts, ensuring that our work is grounded in equity, safety, health, belonging, and collaboration across all levels of government.
+::
 
-#highlight-5
-Quam stella dolor anima mare summo
+::home-approach
+# Public Health Approach to Violence Prevention
 
-#button-text
-Ipsum Enim Vita
+Illinois is committed to violence prevention efforts from a public health perspective, utilizing evidence-based practices and addressing violence as a preventable public health crisis.
 ::
 
 ::home-action
-# Ipsum Enim Vita
+# Join the Movement for Violence Prevention
 
-Lorem elit anima lumen manus.
+Together, we can create safer, healthier communities across Illinois. Explore the full plan, get involved with local initiatives, or learn how your organization can contribute to violence prevention efforts.
 
-#button-text
-Ipsum Enim Vita
+#primary-cta
+View the Complete Plan
+
+#secondary-cta
+Get Involved Today
 ::

@@ -22,7 +22,7 @@
           lg="4"
           class="mb-4"
         >
-          <SandboxStatisticCard
+          <HomeStatisticCard
             :title="stat.title"
             :description="stat.description"
             :icon="stat.icon"
@@ -38,7 +38,7 @@
 
 <script setup>
 /**
- * Sandbox Home Statistics Section Component
+ * Home Statistics Section Component
  *
  * Displays key statistics about violence in Illinois based on the VPP analysis.
  * Features visual presentation of data points that demonstrate the need for
@@ -54,7 +54,7 @@
  *
  * @component
  */
-import SandboxStatisticCard from './SandboxStatisticCard.vue';
+import HomeStatisticCard from './HomeStatisticCard.vue';
 
 /**
  * Statistics data from the Violence Prevention Plan analysis

@@ -14,7 +14,7 @@
 
       <!-- Principles grid - CSS Grid for perfect alignment -->
       <div class="principles-grid">
-        <SandboxPrincipleCard
+        <HomePrincipleCard
           v-for="(principle, index) in principles"
           :key="index"
           :principle="principle"
@@ -53,7 +53,7 @@
  *
  * @component
  */
-import SandboxPrincipleCard from './SandboxPrincipleCard.vue';
+import HomePrincipleCard from './HomePrincipleCard.vue';
 
 /**
  * Guiding principles from the Violence Prevention Plan analysis

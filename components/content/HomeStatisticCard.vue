@@ -61,7 +61,7 @@
 
 <script setup>
 /**
- * Sandbox Statistic Card Component - Refactored for Visual Consistency
+ * Home Statistic Card Component - Refactored for Visual Consistency
  *
  * Displays individual statistics with visual emphasis and accessibility features.
  * Completely refactored to match the visual consistency patterns used in other
@@ -128,13 +128,13 @@ const props = defineProps({
    *
    * @example
    * // Local navigation
-   * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="/about" />
+   * <HomeStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="/about" />
    *
    * // External navigation
-   * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="https://example.com" />
+   * <HomeStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="https://example.com" />
    *
    * // No navigation (hover effects only)
-   * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
+   * <HomeStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
    */
   url: {
     type: String,
@@ -200,10 +200,10 @@ const handleCardActivation = () => {
  *
  * @example
  * // With URL prop
- * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="/about" />
+ * <HomeStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="/about" />
  *
  * // Without URL prop (hover effects only)
- * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
+ * <HomeStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
  */
 const handleLearnMore = async () => {
   console.log('Statistic card Learn More clicked:', props.title);

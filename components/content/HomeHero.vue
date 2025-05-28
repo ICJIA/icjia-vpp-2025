@@ -63,9 +63,9 @@
 
 <script setup>
 /**
- * Sandbox Home Hero Section Component
+ * Home Hero Section Component
  *
- * Hero section for the Violence Prevention Plan test homepage.
+ * Hero section for the Violence Prevention Plan homepage.
  * Features mission-driven content based on the VPP analysis with
  * compelling opening statements about violence prevention being paramount.
  *
