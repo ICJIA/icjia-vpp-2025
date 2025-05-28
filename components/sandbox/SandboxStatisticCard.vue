@@ -2,60 +2,80 @@
   <div class="statistic-card" :style="animationStyle">
     <v-card
       variant="elevated"
-      class="h-100 rounded-xl pa-6 statistic-card-inner text-center"
+      class="h-100 rounded-xl statistic-card-inner"
       role="article"
       tabindex="0"
       @keydown.enter="handleCardActivation"
       @keydown.space.prevent="handleCardActivation"
-      :aria-labelledby="`stat-value-${uniqueId}`"
+      :aria-labelledby="`stat-title-${uniqueId}`"
       :aria-describedby="`stat-desc-${uniqueId}`"
     >
-      <!-- Icon -->
-      <div class="statistic-icon-wrapper mb-4" aria-hidden="true">
-        <v-icon
-          :icon="icon"
-          size="x-large"
-          color="primary"
-        />
-      </div>
+      <v-card-text class="pa-0 h-100">
+        <!-- Card Content Grid - Perfect alignment system -->
+        <div class="card-content-grid">
+          <!-- Icon Section -->
+          <div class="icon-section" aria-hidden="true">
+            <div class="statistic-icon-wrapper">
+              <v-icon
+                :icon="icon"
+                size="64"
+                color="primary"
+                class="statistic-icon"
+              />
+            </div>
+          </div>
 
-      <!-- Statistic value -->
-      <div :id="`stat-value-${uniqueId}`" class="statistic-value mb-2">
-        <span class="text-h3 font-weight-bold">
-          {{ statistic }}
-        </span>
-      </div>
+          <!-- Title Section -->
+          <div class="title-section">
+            <h3 :id="`stat-title-${uniqueId}`" class="statistic-title">
+              {{ title }}
+            </h3>
+          </div>
 
-      <!-- Label -->
-      <div class="statistic-label mb-2">
-        <span class="text-h6 font-weight-medium">
-          {{ label }}
-        </span>
-      </div>
+          <!-- Description Section -->
+          <div class="description-section">
+            <p :id="`stat-desc-${uniqueId}`" class="statistic-description">
+              {{ description }}
+            </p>
+          </div>
 
-      <!-- Description -->
-      <div :id="`stat-desc-${uniqueId}`" class="statistic-description">
-        <span class="text-body-2 text-medium-emphasis">
-          {{ description }}
-        </span>
-      </div>
+          <!-- Button Section -->
+          <div class="button-section">
+            <v-btn
+              color="primary"
+              variant="outlined"
+              size="small"
+              class="rounded-pill px-4"
+              @click="handleLearnMore"
+              :aria-label="`Learn more about ${title}`"
+            >
+              Learn More
+              <v-icon end icon="mdi-arrow-right" size="small" />
+            </v-btn>
+          </div>
+        </div>
+      </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script setup>
 /**
- * Sandbox Statistic Card Component
+ * Sandbox Statistic Card Component - Refactored for Visual Consistency
  *
  * Displays individual statistics with visual emphasis and accessibility features.
- * Used in the statistics section to showcase key data points from the VPP analysis.
+ * Completely refactored to match the visual consistency patterns used in other
+ * card sections throughout the page.
  *
  * Features:
- * - Visual statistic presentation with icon and color coding
- * - Keyboard navigation support
- * - Screen reader accessibility
- * - Animation with configurable delay
- * - Hover and focus effects
+ * - CSS Grid-based layout for perfect button alignment
+ * - Consistent card heights with other sections (400px minimum)
+ * - Catchy titles with coherent descriptions
+ * - Action buttons aligned at bottom like other cards
+ * - Enhanced accessibility with proper ARIA attributes
+ * - Smooth animations with reduced motion support
+ * - Professional hover and focus effects
+ * - Full theme compatibility (light/dark)
  * - WCAG 2.1 AA compliance
  *
  * @component
@@ -71,11 +91,7 @@ const announce = inject('announce', null);
  * Component props
  */
 const props = defineProps({
-  statistic: {
-    type: String,
-    required: true
-  },
-  label: {
+  title: {
     type: String,
     required: true
   },
@@ -94,16 +110,20 @@ const props = defineProps({
   delay: {
     type: Number,
     default: 0
+  },
+  actionUrl: {
+    type: String,
+    default: '#'
   }
 });
 
 /**
- * Generate unique ID for accessibility using statistic label for consistency
+ * Generate unique ID for accessibility using statistic title for consistency
  * This ensures the same ID is generated on both server and client
  */
 const uniqueId = computed(() => {
-  // Create a deterministic ID based on the statistic label
-  return props.label
+  // Create a deterministic ID based on the statistic title
+  return props.title
     .toLowerCase()
     .replace(/[^a-z0-9]/g, '-')
     .replace(/-+/g, '-')
@@ -123,12 +143,24 @@ const animationStyle = computed(() => ({
  * Announces selection to screen readers
  */
 const handleCardActivation = () => {
-  // This could expand the card or show more details
-  console.log('Statistic card activated:', props.label);
+  handleLearnMore();
+};
+
+/**
+ * Handle Learn More button click
+ * Navigates to the action URL or shows more details
+ */
+const handleLearnMore = () => {
+  console.log('Statistic card Learn More clicked:', props.title);
 
   // Announce to screen readers for accessibility
   if (announce) {
-    announce(`Statistic selected: ${props.statistic} ${props.label}`);
+    announce(`Learn more about ${props.title}`);
+  }
+
+  // Navigate to action URL if provided
+  if (props.actionUrl && props.actionUrl !== '#') {
+    window.open(props.actionUrl, '_blank');
   }
 };
 </script>
@@ -140,7 +172,13 @@ const handleCardActivation = () => {
   height: 100%;
 }
 
+/* Card styling with perfect height control */
 .statistic-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+  border-radius: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
@@ -171,21 +209,115 @@ const handleCardActivation = () => {
   outline-offset: 2px;
 }
 
-/* Icon wrapper styling - matches original FeatureCard design */
+/* Card Content Grid - Perfect alignment system */
+.card-content-grid {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "icon"
+    "title"
+    "description"
+    "button";
+  height: 100%;
+  gap: 1.5rem;
+  align-content: start;
+  padding: 2rem;
+}
+
+/* Icon Section */
+.icon-section {
+  grid-area: icon;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
 .statistic-icon-wrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
   background-color: rgba(var(--v-theme-primary), 0.1);
   margin: 0 auto;
 }
 
-/* Statistic value emphasis */
-.statistic-value {
-  line-height: 1.2;
+.statistic-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Title Section */
+.title-section {
+  grid-area: title;
+  text-align: center;
+}
+
+.statistic-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: rgb(var(--v-theme-on-surface));
+}
+
+/* Description Section */
+.description-section {
+  grid-area: description;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statistic-description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  color: rgb(var(--v-theme-on-surface-variant));
+}
+
+/* Button Section */
+.button-section {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+/* Enhanced text contrast for light theme */
+:root[data-theme="light"] .statistic-title,
+:root:not([data-theme]) .statistic-title {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+:root[data-theme="light"] .statistic-description,
+:root:not([data-theme]) .statistic-description {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/* Enhanced text contrast for dark theme */
+:root[data-theme="dark"] .statistic-title {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+:root[data-theme="dark"] .statistic-description {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Force Vuetify card to use our grid layout */
+:deep(.v-card) {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+:deep(.v-card__text) {
+  padding: 0 !important;
+  flex: 1 !important;
 }
 
 /* Animation */
@@ -200,17 +332,54 @@ const handleCardActivation = () => {
   }
 }
 
+/* Responsive adjustments */
+@media (max-width: 599px) {
+  .statistic-card-inner {
+    min-height: 350px;
+  }
+
+  .card-content-grid {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .statistic-title {
+    font-size: 1.125rem;
+  }
+
+  .statistic-description {
+    font-size: 0.8125rem;
+  }
+
+  .statistic-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .statistic-card-inner {
+    min-height: 450px;
+  }
+
+  .card-content-grid {
+    padding: 2.5rem;
+    gap: 2rem;
+  }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .statistic-card {
     animation: none;
     opacity: 1;
   }
-  
+
   .statistic-card-inner {
     transition: none;
   }
-  
+
   .statistic-card-inner:hover {
     transform: none;
   }

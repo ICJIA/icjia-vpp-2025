@@ -11,50 +11,69 @@
         </p>
       </div>
 
-      <!-- Action buttons grid -->
-      <v-row justify="center" class="mb-12">
-        <v-col
+      <!-- Action buttons grid with consistent styling -->
+      <div class="actions-grid mb-12">
+        <div
           v-for="(action, index) in callToActions"
           :key="index"
-          cols="12"
-          sm="6"
-          md="4"
-          class="d-flex"
+          class="action-grid-item"
         >
-          <v-card
-            variant="elevated"
-            class="flex-grow-1 pa-6 rounded-xl text-center action-card"
-            :style="{ animationDelay: `${index * 200}ms` }"
-            role="article"
-            tabindex="0"
-            @click="handleActionClick(action)"
-            @keydown.enter="handleActionClick(action)"
-            @keydown.space.prevent="handleActionClick(action)"
-          >
-            <v-icon
-              :icon="action.icon"
-              :color="action.color"
-              size="48"
-              class="mb-4"
-            />
-            <h3 class="text-h6 font-weight-bold mb-3">
-              {{ action.title }}
-            </h3>
-            <p class="text-body-2 text-medium-emphasis mb-4">
-              {{ action.description }}
-            </p>
-            <v-btn
-              :color="action.color"
-              variant="outlined"
-              size="small"
-              class="rounded-pill"
+          <div class="action-card-container" :style="{ animationDelay: `${index * 200}ms` }">
+            <v-card
+              variant="elevated"
+              class="h-100 rounded-xl action-card-inner"
+              role="article"
+              tabindex="0"
+              @click="handleActionClick(action)"
+              @keydown.enter="handleActionClick(action)"
+              @keydown.space.prevent="handleActionClick(action)"
+              :aria-labelledby="`action-title-${index}`"
+              :aria-describedby="`action-desc-${index}`"
             >
-              {{ action.buttonText }}
-              <v-icon end icon="mdi-arrow-right" size="small" />
-            </v-btn>
-          </v-card>
-        </v-col>
-      </v-row>
+              <div class="card-content-grid">
+                <!-- Icon Section -->
+                <div class="icon-section">
+                  <v-icon
+                    :icon="action.icon"
+                    size="64"
+                    color="primary"
+                    class="action-icon"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <!-- Title Section -->
+                <div class="title-section">
+                  <h3 :id="`action-title-${index}`" class="action-title">
+                    {{ action.title }}
+                  </h3>
+                </div>
+
+                <!-- Description Section -->
+                <div :id="`action-desc-${index}`" class="description-section">
+                  <p class="action-description">
+                    {{ action.description }}
+                  </p>
+                </div>
+
+                <!-- Button Section - Always at bottom -->
+                <div class="button-section">
+                  <v-btn
+                    color="primary"
+                    variant="outlined"
+                    size="small"
+                    class="action-btn"
+                    :aria-label="`${action.buttonText} for ${action.title}`"
+                  >
+                    {{ action.buttonText }}
+                    <v-icon end icon="mdi-arrow-right" size="small" />
+                  </v-btn>
+                </div>
+              </div>
+            </v-card>
+          </div>
+        </div>
+      </div>
 
       <!-- Primary CTA -->
       <div class="text-center">
@@ -95,6 +114,7 @@
 
 /**
  * Call-to-action options for user engagement
+ * Using muted, subtle colors for consistent design system
  */
 const callToActions = [
   {
@@ -109,7 +129,7 @@ const callToActions = [
     title: 'Find Local Resources',
     description: 'Connect with violence prevention organizations and resources in your community across Illinois.',
     icon: 'mdi-map-marker-multiple',
-    color: 'secondary',
+    color: 'primary',
     buttonText: 'Find Resources',
     action: 'find-resources'
   },
@@ -117,7 +137,7 @@ const callToActions = [
     title: 'Get Involved',
     description: 'Learn about funding opportunities, partnerships, and ways your organization can contribute to violence prevention.',
     icon: 'mdi-hand-heart',
-    color: 'success',
+    color: 'primary',
     buttonText: 'Learn More',
     action: 'get-involved'
   }
@@ -187,35 +207,222 @@ const handlePrimaryCTA = () => {
   animation-delay: 1.2s;
 }
 
-/* Action card styling */
-.action-card {
+/* CSS Grid for perfect card alignment */
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* Responsive grid adjustments */
+@media (min-width: 600px) {
+  .actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .actions-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* Grid item styling */
+.action-grid-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Container for animation and positioning */
+.action-card-container {
   opacity: 0;
   animation: fadeSlideUp 0.6s forwards;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card styling with perfect height control */
+.action-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+  padding: 2rem;
+  border-radius: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
 }
 
-/* Dark mode action card */
-:root[data-theme="dark"] .action-card {
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* Card Content Grid - Perfect alignment system */
+.card-content-grid {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "icon"
+    "title"
+    "description"
+    "button";
+  height: 100%;
+  gap: 1.5rem;
+  align-content: start;
 }
 
-.action-card:hover,
-.action-card:focus-visible {
+/* Icon Section */
+.icon-section {
+  grid-area: icon;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.action-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Title Section */
+.title-section {
+  grid-area: title;
+  text-align: center;
+}
+
+.action-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: rgb(var(--v-theme-on-surface));
+}
+
+/* Description Section - Expands to fill space */
+.description-section {
+  grid-area: description;
+  display: flex;
+  align-items: flex-start;
+  text-align: center;
+}
+
+.action-description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  /* Enhanced contrast for better readability */
+  color: rgba(var(--v-theme-on-surface), 0.87);
+}
+
+/* Button Section - Always at bottom */
+.button-section {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.action-btn {
+  border-radius: 2rem;
+  text-transform: none;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  min-width: 120px;
+}
+
+/* Hover and Focus States */
+.action-card-inner:hover,
+.action-card-inner:focus-visible {
   transform: translateY(-8px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Dark mode action card hover */
-:root[data-theme="dark"] .action-card:hover,
-:root[data-theme="dark"] .action-card:focus-visible {
+.action-card-inner:focus-visible {
+  outline: 3px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}
+
+/* Dark Theme Adjustments */
+:root[data-theme="dark"] .action-card-inner {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .action-card-inner:hover,
+:root[data-theme="dark"] .action-card-inner:focus-visible {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
-.action-card:focus-visible {
-  outline: 3px solid var(--v-primary-base);
-  outline-offset: 2px;
+:root[data-theme="dark"] .action-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Light theme text contrast */
+:root[data-theme="light"] .action-title,
+:root:not([data-theme]) .action-title {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+:root[data-theme="light"] .action-description,
+:root:not([data-theme]) .action-description {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/* Enhanced text contrast for dark theme */
+:root[data-theme="dark"] .action-title {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+:root[data-theme="dark"] .action-description {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Force Vuetify card to use our grid layout */
+:deep(.v-card) {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+:deep(.v-card__text) {
+  padding: 0 !important;
+  flex: 1 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 599px) {
+  .action-card-inner {
+    min-height: 350px;
+    padding: 1.5rem;
+  }
+
+  .card-content-grid {
+    gap: 1.25rem;
+  }
+
+  .action-title {
+    font-size: 1.125rem;
+  }
+
+  .action-description {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .action-card-inner {
+    min-height: 450px;
+    padding: 2.5rem;
+  }
+
+  .card-content-grid {
+    gap: 2rem;
+  }
 }
 
 /* Primary CTA button styling */
@@ -245,12 +452,16 @@ const handlePrimaryCTA = () => {
   .action-section h2,
   .action-section > .v-container > div:first-child p,
   .action-section .cta-button,
-  .action-card {
+  .action-card-container {
     animation: none;
     opacity: 1;
   }
-  
-  .action-card:hover,
+
+  .action-card-inner {
+    transition: none;
+  }
+
+  .action-card-inner:hover,
   .cta-button:hover {
     transform: none;
   }
