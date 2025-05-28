@@ -117,6 +117,11 @@ const announce = inject('announce', null);
 
 /**
  * Component props
+ *
+ * @typedef {Object} Props
+ * @property {Object} goal - The goal object containing title, description, etc.
+ * @property {number} [delay=0] - Animation delay in milliseconds
+ * @property {string|null} [url=null] - Optional URL for navigation (local or external)
  */
 const props = defineProps({
   goal: {
@@ -126,6 +131,37 @@ const props = defineProps({
   delay: {
     type: Number,
     default: 0
+  },
+  /**
+   * Optional URL for card navigation
+   *
+   * @param {string|null} url - URL for navigation
+   * @returns {boolean} True if URL is valid or null
+   * @throws {Error} When URL format is invalid
+   *
+   * @example
+   * // Local navigation
+   * <SandboxGoalCard :goal="goalData" url="/about" />
+   *
+   * // External navigation
+   * <SandboxGoalCard :goal="goalData" url="https://example.com" />
+   *
+   * // No navigation (hover effects only)
+   * <SandboxGoalCard :goal="goalData" />
+   */
+  url: {
+    type: String,
+    default: null,
+    validator: (value) => {
+      if (value === null) return true;
+      if (typeof value !== 'string') return false;
+      // Allow local paths and external URLs
+      return value.startsWith('/') ||
+             value.startsWith('http://') ||
+             value.startsWith('https://') ||
+             value.startsWith('./') ||
+             value.startsWith('../');
+    }
   }
 });
 
@@ -150,19 +186,55 @@ const animationStyle = computed(() => ({
 }));
 
 /**
- * Handle card click navigation
- * Provides keyboard accessibility and navigation for interactive card
+ * Handle card click navigation with URL support
+ *
+ * Supports both local and external URL navigation:
+ * - Local URLs (starting with '/' or relative paths): Use Nuxt's navigateTo()
+ * - External URLs (starting with 'http://' or 'https://'): Open in new window
+ * - No URL provided: Show hover/focus effects only (no navigation)
+ *
+ * @returns {Promise<void>} Promise that resolves when navigation is complete
+ * @throws {Error} When navigation fails
+ *
+ * @example
+ * // With URL prop
+ * <SandboxGoalCard :goal="goalData" url="/about" />
+ *
+ * // Without URL prop (hover effects only)
+ * <SandboxGoalCard :goal="goalData" />
  */
 const handleCardClick = async () => {
   console.log('Goal card clicked:', props.goal.title);
+
+  // If no URL is provided, only show hover/focus effects (current behavior)
+  if (!props.url) {
+    console.log('No URL provided - showing hover effects only');
+    return;
+  }
 
   // Announce to screen readers for accessibility
   if (announce) {
     announce(`Navigating to learn more about ${props.goal.title}`);
   }
 
-  // Navigate to about page (temporary destination)
-  await navigateTo('/about');
+  try {
+    // Check if it's an external URL
+    if (props.url.startsWith('http://') || props.url.startsWith('https://')) {
+      // External URL - open in new window with security attributes
+      window.open(props.url, '_blank', 'noopener,noreferrer');
+      console.log('Opened external URL:', props.url);
+    } else {
+      // Local URL - use Nuxt navigation
+      await navigateTo(props.url);
+      console.log('Navigated to local URL:', props.url);
+    }
+  } catch (error) {
+    console.error('Navigation failed:', error);
+    // Announce error to screen readers
+    if (announce) {
+      announce('Navigation failed. Please try again.');
+    }
+  }
 };
 </script>
 

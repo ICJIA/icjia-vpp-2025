@@ -8,6 +8,67 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-28 (URL Navigation Enhancement for Sandbox Card Components)
+- **Summary**: Enhanced all sandbox card components with optional URL navigation functionality, supporting both local and external URLs while maintaining backward compatibility and existing hover/focus behaviors for cards without URLs.
+- **Files Modified**:
+  - `components/sandbox/SandboxHomeAction.vue`: Enhanced action cards with URL navigation support
+    - **URL Property Addition**: Added optional `url` property to each action item in `callToActions` array
+    - **JSDoc Documentation**: Added comprehensive `@typedef` for `CallToAction` with all properties including new `url` field
+    - **Navigation Logic Enhancement**: Completely refactored `handleActionClick` function with URL-based navigation
+      - Local URLs (starting with '/' or relative paths): Use Nuxt's `navigateTo()` for client-side navigation
+      - External URLs (starting with 'http://' or 'https://'): Use `window.open()` with security attributes (`noopener,noreferrer`)
+      - No URL provided: Execute legacy action-based navigation for backward compatibility
+    - **Error Handling**: Added try/catch blocks with fallback to legacy navigation on failure
+    - **Testing Setup**: Set all action URLs to '/about' as placeholder for initial testing
+    - **Legacy Support**: Created `handleLegacyAction` function to maintain existing action-based navigation
+  - `components/sandbox/SandboxGoalCard.vue`: Added URL prop with comprehensive navigation support
+    - **Props Enhancement**: Added optional `url` prop with validator for local/external URL formats
+    - **JSDoc Documentation**: Added comprehensive prop documentation with `@param`, `@returns`, `@throws`, and `@example` tags
+    - **Navigation Logic**: Enhanced `handleCardClick` function with URL navigation support
+      - No URL: Show hover/focus effects only (maintains current behavior)
+      - Local URLs: Use `navigateTo()` for client-side navigation
+      - External URLs: Open in new window with security attributes
+    - **Error Handling**: Added comprehensive error handling with screen reader announcements
+    - **Accessibility**: Maintained all existing accessibility features including screen reader support
+  - `components/sandbox/SandboxPrincipleCard.vue`: Applied same URL navigation pattern as goal cards
+    - **Props Enhancement**: Added optional `url` prop with identical validation logic
+    - **JSDoc Documentation**: Comprehensive documentation matching project standards
+    - **Navigation Logic**: Same URL-based navigation implementation as goal cards
+    - **Backward Compatibility**: Cards without URLs function exactly as before
+  - `components/sandbox/SandboxStatisticCard.vue`: Enhanced with new URL prop while maintaining legacy support
+    - **Props Enhancement**: Added new `url` prop alongside existing `actionUrl` for backward compatibility
+    - **Deprecation Notice**: Marked `actionUrl` as deprecated in favor of new `url` prop
+    - **Navigation Logic**: Enhanced `handleLearnMore` function with URL precedence logic
+      - New `url` prop takes precedence over legacy `actionUrl`
+      - Maintains full backward compatibility with existing `actionUrl` usage
+    - **Error Handling**: Added comprehensive error handling and screen reader announcements
+- **Technical Implementation**:
+  - **URL Validation**: Implemented consistent validator across all components supporting local paths (`/`, `./`, `../`) and external URLs (`http://`, `https://`)
+  - **Navigation Strategy**:
+    - Local navigation uses Nuxt's `navigateTo()` for optimal client-side routing
+    - External navigation uses `window.open()` with security attributes to prevent security vulnerabilities
+    - No URL provided maintains existing hover/focus behavior without navigation
+  - **Error Handling**: Comprehensive try/catch blocks with fallback strategies and user feedback
+  - **Accessibility Compliance**: All navigation changes maintain WCAG 2.1 AA compliance with proper screen reader announcements
+  - **JSDoc Standards**: All new props documented with comprehensive `@param`, `@returns`, `@throws`, and `@example` tags per project requirements
+  - **Backward Compatibility**: All existing functionality preserved, new URL prop is optional and non-breaking
+- **Navigation Behavior**:
+  - **Card-Level Navigation**: Entire card becomes clickable when URL is provided (following user preference)
+  - **Keyboard Support**: Full Enter/Space key support maintained for all navigation scenarios
+  - **Security**: External URLs opened with `rel="noopener noreferrer"` attributes for security
+  - **User Feedback**: Console logging and screen reader announcements for all navigation actions
+  - **Fallback Strategy**: Graceful degradation when navigation fails with appropriate user feedback
+- **Testing Configuration**:
+  - All card URLs initially set to '/about' route for testing purposes
+  - Maintains exact styling and theming compatibility with existing cards
+  - Follows 'sandbox-' prefix convention for test implementations
+  - Ready for production use with actual destination URLs
+- **Future Flexibility**:
+  - Easy to configure different URLs per card for production use
+  - Support for both internal site navigation and external resource links
+  - Extensible pattern that can be applied to other card components throughout the project
+  - Maintains clean separation between navigation logic and presentation
+
 ### 2025-05-28 (Card-Level Click Navigation Implementation - Goals and Principles)
 - **Summary**: Removed Learn More buttons from Strategic Priorities (Goals) and Guiding Principles card sections and implemented card-level click navigation, making entire cards clickable while maintaining all accessibility features and visual styling.
 - **Files Modified**:

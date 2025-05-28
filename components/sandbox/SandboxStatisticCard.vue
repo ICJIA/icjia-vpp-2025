@@ -89,6 +89,14 @@ const announce = inject('announce', null);
 
 /**
  * Component props
+ *
+ * @typedef {Object} Props
+ * @property {string} title - The title of the statistic card
+ * @property {string} description - The description text for the statistic
+ * @property {string} icon - Material Design icon name
+ * @property {string} [color='primary'] - Vuetify color theme
+ * @property {number} [delay=0] - Animation delay in milliseconds
+ * @property {string|null} [url=null] - Optional URL for navigation (local or external)
  */
 const props = defineProps({
   title: {
@@ -111,6 +119,38 @@ const props = defineProps({
     type: Number,
     default: 0
   },
+  /**
+   * Optional URL for card navigation
+   *
+   * @param {string|null} url - URL for navigation
+   * @returns {boolean} True if URL is valid or null
+   * @throws {Error} When URL format is invalid
+   *
+   * @example
+   * // Local navigation
+   * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="/about" />
+   *
+   * // External navigation
+   * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="https://example.com" />
+   *
+   * // No navigation (hover effects only)
+   * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
+   */
+  url: {
+    type: String,
+    default: null,
+    validator: (value) => {
+      if (value === null) return true;
+      if (typeof value !== 'string') return false;
+      // Allow local paths and external URLs
+      return value.startsWith('/') ||
+             value.startsWith('http://') ||
+             value.startsWith('https://') ||
+             value.startsWith('./') ||
+             value.startsWith('../');
+    }
+  },
+  // Deprecated: Use 'url' prop instead
   actionUrl: {
     type: String,
     default: '#'
@@ -147,20 +187,58 @@ const handleCardActivation = () => {
 };
 
 /**
- * Handle Learn More button click
- * Navigates to the action URL or shows more details
+ * Handle Learn More button click with URL navigation support
+ *
+ * Supports both local and external URL navigation:
+ * - Local URLs (starting with '/' or relative paths): Use Nuxt's navigateTo()
+ * - External URLs (starting with 'http://' or 'https://'): Open in new window
+ * - No URL provided: Show hover/focus effects only (no navigation)
+ * - Fallback to legacy actionUrl for backward compatibility
+ *
+ * @returns {Promise<void>} Promise that resolves when navigation is complete
+ * @throws {Error} When navigation fails
+ *
+ * @example
+ * // With URL prop
+ * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" url="/about" />
+ *
+ * // Without URL prop (hover effects only)
+ * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
  */
-const handleLearnMore = () => {
+const handleLearnMore = async () => {
   console.log('Statistic card Learn More clicked:', props.title);
+
+  // Determine which URL to use (new 'url' prop takes precedence over legacy 'actionUrl')
+  const targetUrl = props.url || (props.actionUrl !== '#' ? props.actionUrl : null);
+
+  // If no URL is provided, only show hover/focus effects (current behavior)
+  if (!targetUrl) {
+    console.log('No URL provided - showing hover effects only');
+    return;
+  }
 
   // Announce to screen readers for accessibility
   if (announce) {
     announce(`Learn more about ${props.title}`);
   }
 
-  // Navigate to action URL if provided
-  if (props.actionUrl && props.actionUrl !== '#') {
-    window.open(props.actionUrl, '_blank');
+  try {
+    // Check if it's an external URL
+    if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
+      // External URL - open in new window with security attributes
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      console.log('Opened external URL:', targetUrl);
+    } else {
+      // Local URL - use Nuxt navigation
+      await navigateTo(targetUrl);
+      console.log('Navigated to local URL:', targetUrl);
+    }
+  } catch (error) {
+    console.error('Navigation failed:', error);
+    // Announce error to screen readers
+    if (announce) {
+      announce('Navigation failed. Please try again.');
+    }
   }
 };
 </script>

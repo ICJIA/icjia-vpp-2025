@@ -52,10 +52,76 @@
  * - Stakeholder/partnership information
  * - Guiding principles section
  * - Public health approach explanation
- * - Call to action section
+ * - Call to action section with URL navigation support
  * - Full theme compatibility (light/dark)
  * - WCAG 2.1 AA accessibility compliance
  * - Responsive design
+ * - Optional URL navigation for all card components
+ *
+ * Component Props Documentation:
+ *
+ * SandboxHomeHero:
+ * - No props required (self-contained hero section)
+ *
+ * SandboxHomeStatistics:
+ * - No props required (contains SandboxStatisticCard components internally)
+ *
+ * SandboxStatisticCard (used within SandboxHomeStatistics):
+ * - title: string (required) - The title of the statistic card
+ * - description: string (required) - The description text for the statistic
+ * - icon: string (required) - Material Design icon name
+ * - color: string (default: 'primary') - Vuetify color theme
+ * - delay: number (default: 0) - Animation delay in milliseconds
+ * - url: string|null (default: null) - Optional URL for navigation (local or external)
+ * - actionUrl: string (default: '#') - Deprecated: Use 'url' prop instead
+ *
+ * SandboxHomeGoals:
+ * - No props required (contains SandboxGoalCard components internally)
+ *
+ * SandboxGoalCard (used within SandboxHomeGoals):
+ * - goal: object (required) - The goal object containing title, description, etc.
+ * - delay: number (default: 0) - Animation delay in milliseconds
+ * - url: string|null (default: null) - Optional URL for navigation (local or external)
+ *
+ * SandboxHomeStakeholders:
+ * - No props required (self-contained stakeholder information section)
+ *
+ * SandboxHomePrinciples:
+ * - No props required (contains SandboxPrincipleCard components internally)
+ *
+ * SandboxPrincipleCard (used within SandboxHomePrinciples):
+ * - principle: object (required) - The principle object containing title, description, etc.
+ * - delay: number (default: 0) - Animation delay in milliseconds
+ * - url: string|null (default: null) - Optional URL for navigation (local or external)
+ *
+ * SandboxHomeApproach:
+ * - No props required (self-contained public health approach section)
+ *
+ * SandboxHomeAction:
+ * - No props required (contains action items with URL navigation internally)
+ * - Action items support URL navigation through internal callToActions array
+ *
+ * URL Navigation Behavior:
+ * - No URL provided: Cards show hover/focus effects only (current behavior)
+ * - Local URLs (starting with '/' or relative paths): Use Nuxt's navigateTo() for client-side navigation
+ * - External URLs (starting with 'http://' or 'https://'): Open in new window with security attributes
+ * - All URL navigation maintains WCAG 2.1 AA accessibility compliance
+ * - Keyboard navigation (Enter/Space) supported for all interactive cards
+ * - Screen reader announcements provided for navigation actions
+ *
+ * Usage Examples:
+ *
+ * // Card with local navigation
+ * <SandboxGoalCard :goal="goalData" url="/about" />
+ *
+ * // Card with external navigation
+ * <SandboxPrincipleCard :principle="principleData" url="https://example.com" />
+ *
+ * // Card without navigation (hover effects only)
+ * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" />
+ *
+ * // Card with legacy actionUrl (deprecated)
+ * <SandboxStatisticCard title="Stat" description="Desc" icon="mdi-chart" actionUrl="/legacy" />
  *
  * @page
  */

@@ -115,6 +115,15 @@
 /**
  * Call-to-action options for user engagement
  * Using muted, subtle colors for consistent design system
+ *
+ * @typedef {Object} CallToAction
+ * @property {string} title - The title of the action card
+ * @property {string} description - The description text for the action
+ * @property {string} icon - Material Design icon name
+ * @property {string} color - Vuetify color theme
+ * @property {string} buttonText - Text displayed on the action button
+ * @property {string} action - Internal action identifier
+ * @property {string|null} [url] - Optional URL for navigation (local or external)
  */
 const callToActions = [
   {
@@ -123,7 +132,8 @@ const callToActions = [
     icon: 'mdi-book-open-page-variant',
     color: 'primary',
     buttonText: 'View Plan',
-    action: 'view-plan'
+    action: 'view-plan',
+    url: '/about'
   },
   {
     title: 'Find Local Resources',
@@ -131,7 +141,8 @@ const callToActions = [
     icon: 'mdi-map-marker-multiple',
     color: 'primary',
     buttonText: 'Find Resources',
-    action: 'find-resources'
+    action: 'find-resources',
+    url: '/about'
   },
   {
     title: 'Get Involved',
@@ -139,16 +150,67 @@ const callToActions = [
     icon: 'mdi-hand-heart',
     color: 'primary',
     buttonText: 'Learn More',
-    action: 'get-involved'
+    action: 'get-involved',
+    url: '/about'
   }
 ];
 
 /**
- * Handle action card click
+ * Handle action card click with URL navigation support
+ *
+ * Supports both local and external URL navigation:
+ * - Local URLs (starting with '/' or relative paths): Use Nuxt's navigateTo()
+ * - External URLs (starting with 'http://' or 'https://'): Open in new window
+ * - No URL provided: Execute legacy action-based navigation
+ *
+ * @param {CallToAction} action - The action object containing navigation information
+ * @returns {Promise<void>} Promise that resolves when navigation is complete
+ * @throws {Error} When navigation fails
+ *
+ * @example
+ * // Local navigation
+ * handleActionClick({ action: 'view-plan', url: '/about' })
+ *
+ * // External navigation
+ * handleActionClick({ action: 'external', url: 'https://example.com' })
+ *
+ * // Legacy action-based navigation
+ * handleActionClick({ action: 'view-plan' })
  */
-const handleActionClick = (action) => {
+const handleActionClick = async (action) => {
   console.log('Action clicked:', action.action);
-  
+
+  // Handle URL-based navigation if URL is provided
+  if (action.url) {
+    try {
+      // Check if it's an external URL
+      if (action.url.startsWith('http://') || action.url.startsWith('https://')) {
+        // External URL - open in new window with security attributes
+        window.open(action.url, '_blank', 'noopener,noreferrer');
+        console.log('Opened external URL:', action.url);
+      } else {
+        // Local URL - use Nuxt navigation
+        await navigateTo(action.url);
+        console.log('Navigated to local URL:', action.url);
+      }
+    } catch (error) {
+      console.error('Navigation failed:', error);
+      // Fallback to legacy action handling if navigation fails
+      handleLegacyAction(action);
+    }
+  } else {
+    // No URL provided - use legacy action-based navigation
+    handleLegacyAction(action);
+  }
+};
+
+/**
+ * Handle legacy action-based navigation for backward compatibility
+ *
+ * @param {CallToAction} action - The action object
+ * @returns {void}
+ */
+const handleLegacyAction = (action) => {
   switch (action.action) {
     case 'view-plan':
       handlePrimaryCTA();
@@ -161,6 +223,8 @@ const handleActionClick = (action) => {
       // Navigate to involvement/partnership page
       console.log('Navigate to get involved');
       break;
+    default:
+      console.warn('Unknown action:', action.action);
   }
 };
 
