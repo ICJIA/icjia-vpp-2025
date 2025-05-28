@@ -210,16 +210,16 @@ code:not(pre code) {
   font-size: 0.875em;
 }
 
-// Light theme code styling
+// Light theme code styling - softer backgrounds for reduced eye strain
 :root:not([data-theme="dark"]) {
   pre {
-    background-color: #f8f9fa;
+    background-color: #f6f7f8; // Softer grey background (was #f8f9fa)
     color: #24292f;
     border: 1px solid #e1e4e8;
   }
 
   code:not(pre code) {
-    background-color: #f3f4f6;
+    background-color: #f1f2f4; // Softer grey background (was #f3f4f6)
     color: #24292f;
     border: 1px solid #d1d5db;
   }
@@ -602,6 +602,44 @@ p .footnote-ref {
 
   .footnote-ref:hover {
     transform: none !important;
+  }
+}
+
+// Alternating Section Background Pattern for Light Mode
+// Creates subtle visual rhythm and improved section separation
+// Only affects light mode to maintain existing dark mode design
+
+// Primary sections (odd-numbered) - keep current off-white background
+// Higher specificity to ensure these styles take precedence
+section.section-primary,
+.section-primary {
+  // Uses default theme surface color (#F8F8F8 in light mode)
+  background: rgb(var(--v-theme-surface)) !important;
+}
+
+// Secondary sections (even-numbered) - slightly darker but still subtle background
+// Higher specificity to ensure these styles take precedence
+section.section-secondary,
+.section-secondary {
+  // Light mode: subtle grey background for visual differentiation
+  background: #F2F2F2 !important;
+}
+
+// Dark theme override - implement alternating backgrounds for dark mode
+:root[data-theme="dark"] {
+  // Primary sections (odd-numbered) - use default dark background
+  section.section-primary,
+  .section-primary {
+    // Uses default theme background color (darker)
+    background: rgb(var(--v-theme-background)) !important;
+  }
+
+  // Secondary sections (even-numbered) - slightly lighter dark background
+  section.section-secondary,
+  .section-secondary {
+    // Slightly lighter dark background for visual differentiation
+    // Using a subtle blue-grey that's lighter than the primary background
+    background: #1E2A3A !important;
   }
 }
 

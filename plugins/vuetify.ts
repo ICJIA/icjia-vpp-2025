@@ -38,9 +38,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             warning: '#B45309', // Darker amber for better contrast
             error: '#B91C1C', // Darker red for better contrast
             info: '#1E40AF', // Darker blue for better contrast
-            background: '#F8FAFC',
+            background: '#FAFAFA', // Softer off-white background (was #F8FAFC)
             'app-bar': '#F2F2F2', // Light grey for app-bar (distinguishable from white body)
-            surface: '#FFFFFF',
+            surface: '#F8F8F8', // Very subtle off-white surface (was #FFFFFF)
             'on-surface': '#1E293B',
             'on-background': '#1E293B',
             'on-app-bar': '#1E293B', // Same as on-background for consistent text color

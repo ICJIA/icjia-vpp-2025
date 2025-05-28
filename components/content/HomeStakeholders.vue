@@ -1,16 +1,28 @@
 <template>
-  <section class="stakeholders-section section py-16">
+  <section class="stakeholders-section section section-secondary py-16">
     <v-container>
       <v-row align="center">
-        <!-- Content column -->
-        <v-col cols="12" md="6" class="pr-md-12">
+        <!-- Image column - moved to left for alternating layout -->
+        <v-col cols="12" md="6" class="mb-8 mb-md-0">
+          <ImageWithSpinner
+            src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
+            alt="Diverse group of stakeholders collaborating on violence prevention"
+            image-class="rounded-xl shadow-img"
+            aspect-ratio="4/3"
+            cover
+            spinner-color="primary"
+          />
+        </v-col>
+
+        <!-- Content column - moved to right for alternating layout -->
+        <v-col cols="12" md="6" class="pl-md-12">
           <div class="stakeholders-content">
             <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">
               Collaborative Partnership Approach
             </h2>
             <p class="text-h6 text-medium-emphasis mb-6">
-              This plan was developed through an extensive collaborative process involving 
-              diverse stakeholders from across Illinois, ensuring community voices are 
+              This plan was developed through an extensive collaborative process involving
+              diverse stakeholders from across Illinois, ensuring community voices are
               centered in our violence prevention efforts.
             </p>
 
@@ -26,7 +38,7 @@
                 >
                   <template v-slot:prepend>
                     <v-icon
-                      :color="partner.color"
+                      color="primary"
                       :icon="partner.icon"
                       class="mr-3"
                       aria-hidden="true"
@@ -55,19 +67,19 @@
                 </v-col>
                 <v-col cols="6" sm="3">
                   <div class="text-center">
-                    <div class="text-h4 font-weight-bold text-secondary">13</div>
+                    <div class="text-h4 font-weight-bold text-primary">13</div>
                     <div class="text-body-2 text-medium-emphasis">Meetings</div>
                   </div>
                 </v-col>
                 <v-col cols="6" sm="3">
                   <div class="text-center">
-                    <div class="text-h4 font-weight-bold text-accent">3</div>
+                    <div class="text-h4 font-weight-bold text-primary">3</div>
                     <div class="text-body-2 text-medium-emphasis">Workgroups</div>
                   </div>
                 </v-col>
                 <v-col cols="6" sm="3">
                   <div class="text-center">
-                    <div class="text-h4 font-weight-bold text-success">4</div>
+                    <div class="text-h4 font-weight-bold text-primary">4</div>
                     <div class="text-body-2 text-medium-emphasis">Years</div>
                   </div>
                 </v-col>
@@ -86,18 +98,6 @@
             </v-btn>
           </div>
         </v-col>
-
-        <!-- Image column -->
-        <v-col cols="12" md="6" class="mt-8 mt-md-0">
-          <ImageWithSpinner
-            src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
-            alt="Diverse group of stakeholders collaborating on violence prevention"
-            image-class="rounded-xl shadow-img"
-            aspect-ratio="4/3"
-            cover
-            spinner-color="primary"
-          />
-        </v-col>
       </v-row>
     </v-container>
   </section>
@@ -105,18 +105,26 @@
 
 <script setup>
 /**
- * Sandbox Home Stakeholders Section Component
+ * Home Stakeholders Section Component - Alternating Layout
  *
  * Displays information about the collaborative partnership approach
  * and key stakeholders involved in developing the Violence Prevention Plan.
+ * Implements alternating layout pattern with image on left, content on right.
  *
  * Features:
- * - Key partner organizations and their roles
+ * - Alternating layout pattern (image left, content right)
+ * - Key partner organizations with consistent primary color theming
  * - Stakeholder statistics from the planning process
- * - Visual presentation with image
+ * - Subtle, muted color scheme following project design system
  * - Call-to-action to view all partners
  * - WCAG 2.1 AA accessibility compliance
- * - Full theme compatibility
+ * - Full theme compatibility (light/dark)
+ * - Responsive design across all breakpoints
+ *
+ * Layout Pattern:
+ * - Part of alternating section system where consecutive sections alternate image placement
+ * - This section: Image left, Content right
+ * - Next section (HomeApproach): Image left, Content right (maintains alternating pattern)
  *
  * @component
  */
@@ -124,37 +132,33 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 
 /**
  * Key partner organizations from the VPP analysis
+ * Updated to use consistent primary color theming for subtle, muted design
  */
 const keyPartners = [
   {
     name: 'Illinois Criminal Justice Information Authority (ICJIA)',
     role: 'Lead agency coordinating statewide violence prevention efforts',
-    icon: 'mdi-shield-account',
-    color: 'primary'
+    icon: 'mdi-shield-account'
   },
   {
     name: 'University of Illinois Urbana-Champaign',
     role: 'Violence Prevention Research Lab - research and analysis',
-    icon: 'mdi-school',
-    color: 'secondary'
+    icon: 'mdi-school'
   },
   {
     name: 'Violence Prevention Ad Hoc Committee',
     role: 'Quarterly coordination of violence prevention funding',
-    icon: 'mdi-account-group',
-    color: 'accent'
+    icon: 'mdi-account-group'
   },
   {
     name: 'Community-Based Organizations',
     role: 'Frontline violence prevention and community services',
-    icon: 'mdi-heart-multiple',
-    color: 'success'
+    icon: 'mdi-heart-multiple'
   },
   {
     name: 'State & Municipal Agencies',
     role: 'Policy implementation and resource coordination',
-    icon: 'mdi-office-building',
-    color: 'info'
+    icon: 'mdi-office-building'
   }
 ];
 
@@ -169,9 +173,7 @@ const handleViewPartners = () => {
 </script>
 
 <style scoped>
-.stakeholders-section {
-  background: rgb(var(--v-theme-background));
-}
+/* Background handled by global .section-secondary class */
 
 /* Content animations */
 .stakeholders-content h2 {

@@ -1,5 +1,5 @@
 <template>
-  <section class="principles-section section py-16">
+  <section class="principles-section section section-primary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">
@@ -7,8 +7,8 @@
           Guiding Principles
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto">
-          Five core principles guide our violence prevention efforts, ensuring that our work 
-          is grounded in equity, safety, health, belonging, and collaboration across all levels of government.
+          Our foundational values that shape every aspect of violence prevention work,
+          ensuring all efforts are grounded in equity, safety, health, belonging, and collaboration.
         </p>
       </div>
 
@@ -18,6 +18,7 @@
           v-for="(principle, index) in principles"
           :key="index"
           :principle="principle"
+          :url="principle.url"
           :delay="index * 150"
           class="principle-grid-item"
         />
@@ -57,6 +58,7 @@ import HomePrincipleCard from './HomePrincipleCard.vue';
 
 /**
  * Guiding principles from the Violence Prevention Plan analysis
+ * Enhanced with cross-references and dedicated navigation URLs
  * Using consistent primary color scheme to match original home page design
  */
 const principles = [
@@ -64,39 +66,46 @@ const principles = [
     title: 'Foster Belonging and Social Connectedness',
     description: 'Individuals, families, and communities can find acceptance and develop resiliency through healthy, peaceful relationships. Violence prevention programming includes relational opportunities based on developmental stages and risk factors.',
     icon: 'mdi-heart-multiple',
-    color: 'primary'
+    color: 'primary',
+    url: '/principles'
   },
   {
     title: 'Advance Equity',
     description: 'Violence prevention programming addresses inequities by partnering with individuals, families and communities who experience a disproportionate amount of risk factors. State agencies address historical inequities by embedding communities\' true voice in decision-making processes.',
     icon: 'mdi-scale-balance',
-    color: 'primary'
+    color: 'primary',
+    url: '/principles',
+    relatedGoal: 'Strategic Priority #2: Advance Equity'
   },
   {
     title: 'Promote Safety',
     description: 'The ability to live without fear of harm is a fundamental human right and developmentally essential to individual, familial and community success. Violence prevention programming strives to develop culturally responsive, safe, and peaceful environments.',
     icon: 'mdi-shield-account',
-    color: 'primary'
+    color: 'primary',
+    url: '/principles',
+    relatedGoal: 'Strategic Priority #1: Prevent Violence & Promote Safety'
   },
   {
     title: 'Support Health',
-    description: 'Violence prevention programming builds and sustains mentally and physically strong individuals, families, and communities. These trauma informed practices include policies and efforts that support staff in local organizations.',
+    description: 'Violence prevention programming builds and sustains mentally and physically strong individuals, families, and communities. These trauma-informed practices include policies and efforts that support staff in local organizations.',
     icon: 'mdi-heart-pulse',
-    color: 'primary'
+    color: 'primary',
+    url: '/principles',
+    relatedGoal: 'Strategic Priority #1: Prevent Violence & Promote Safety'
   },
   {
     title: 'Engage State Agencies in Collaboration',
     description: 'Violence prevention programming takes place across many state agencies and focuses on similar outcomes. We work more effectively by communicating across agencies quarterly, sharing resources, best practices and data as the norm.',
     icon: 'mdi-account-group',
-    color: 'primary'
+    color: 'primary',
+    url: '/principles',
+    relatedGoal: 'Strategic Priority #3: Promote Collaboration'
   }
 ];
 </script>
 
 <style scoped>
-.principles-section {
-  background: rgb(var(--v-theme-surface));
-}
+/* Background handled by global .section-primary class */
 
 .max-width-800 {
   max-width: 800px;

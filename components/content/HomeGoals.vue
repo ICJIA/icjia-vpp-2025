@@ -1,5 +1,5 @@
 <template>
-  <section class="goals-section section py-16">
+  <section class="goals-section section section-primary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">
@@ -7,8 +7,8 @@
           Strategic Priorities: 2025-2029
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto">
-          Our violence prevention plan is built around three core goals that address the full spectrum 
-          of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
+          Three actionable goals with specific strategies and measurable outcomes
+          that translate our values into concrete violence prevention initiatives across Illinois.
         </p>
       </div>
 
@@ -18,6 +18,7 @@
           v-for="(goal, index) in goals"
           :key="index"
           :goal="goal"
+          :url="goal.url"
           :delay="index * 200"
           class="goal-grid-item"
         />
@@ -57,15 +58,18 @@ import HomeGoalCard from './HomeGoalCard.vue';
 
 /**
  * Strategic goals from the Violence Prevention Plan analysis
+ * Enhanced with cross-references and dedicated navigation URLs
  * Using consistent primary color scheme to match original home page design
  */
 const goals = [
   {
     number: '01',
     title: 'Prevent Violence & Promote Safety',
-    description: 'Prevent violence and promote health and safety through trauma-informed/healing-centered, evidence-based and comprehensive primary, secondary, and/or tertiary prevention efforts.',
+    description: 'Implement evidence-based prevention strategies through trauma-informed/healing-centered approaches that address primary, secondary, and tertiary prevention across all community levels.',
     icon: 'mdi-shield-check',
     color: 'primary',
+    url: '/strategic-priorities',
+    relatedPrinciples: ['Promote Safety', 'Support Health'],
     highlights: [
       'Honor complex histories and provide holistic services',
       'Engage families, schools, and communities',
@@ -77,9 +81,11 @@ const goals = [
   {
     number: '02',
     title: 'Advance Equity',
-    description: 'Advance equity by increasing access to grants and other economic opportunities, with flexible funding that accommodates local community priorities.',
+    description: 'Increase access to grants and economic opportunities through flexible funding that accommodates local community priorities and addresses historical inequities.',
     icon: 'mdi-scale-balance',
     color: 'primary',
+    url: '/strategic-priorities',
+    relatedPrinciples: ['Advance Equity'],
     highlights: [
       'Continue improving access to funding',
       'Support small and medium-sized organizations',
@@ -91,9 +97,11 @@ const goals = [
   {
     number: '03',
     title: 'Promote Collaboration',
-    description: 'Promote collaboration across state, municipal, and community-based agencies, informed by research and data, sharing of best practices and lessons learned.',
+    description: 'Foster partnerships across state, municipal, and community-based agencies through research-informed data sharing and best practice exchange.',
     icon: 'mdi-account-group',
     color: 'primary',
+    url: '/strategic-priorities',
+    relatedPrinciples: ['Engage State Agencies in Collaboration'],
     highlights: [
       'Analyze and disseminate statewide data trends',
       'Coordinate violence prevention funding',
@@ -106,9 +114,7 @@ const goals = [
 </script>
 
 <style scoped>
-.goals-section {
-  background: rgb(var(--v-theme-surface));
-}
+/* Background handled by global .section-primary class */
 
 .max-width-800 {
   max-width: 800px;

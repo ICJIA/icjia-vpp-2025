@@ -1,13 +1,13 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-28T16:04:17.121Z",
+  "generatedAt": "2025-05-28T19:45:48.831Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 10,
-    "contentPages": 8,
-    "vuePages": 6,
+    "totalPages": 18,
+    "contentPages": 15,
+    "vuePages": 7,
     "combinedPages": 4,
     "blacklistedFiles": 4
   },
@@ -75,6 +75,97 @@
       ]
     },
     {
+      "title": "News - Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/news",
+      "fullUrl": "https://vpp-2025.netlify.app/news",
+      "type": "vue",
+      "sources": [
+        {
+          "type": "vue",
+          "source": "pages/news.vue",
+          "title": "News - Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "Illinois Awards $2.3 Million in Community Violence Prevention Grants",
+      "path": "/news/community-violence-prevention-grant-2024",
+      "fullUrl": "https://vpp-2025.netlify.app/news/community-violence-prevention-grant-2024",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/news/community-violence-prevention-grant-2024.md",
+          "title": "Illinois Awards $2.3 Million in Community Violence Prevention Grants"
+        }
+      ]
+    },
+    {
+      "title": "Illinois Launches Statewide Violence Prevention Data Sharing Initiative",
+      "path": "/news/data-sharing-initiative-launch",
+      "fullUrl": "https://vpp-2025.netlify.app/news/data-sharing-initiative-launch",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/news/data-sharing-initiative-launch.md",
+          "title": "Illinois Launches Statewide Violence Prevention Data Sharing Initiative"
+        }
+      ]
+    },
+    {
+      "title": "Hospital Violence Intervention Programs Expand to Five New Illinois Cities",
+      "path": "/news/hospital-violence-intervention-expansion",
+      "fullUrl": "https://vpp-2025.netlify.app/news/hospital-violence-intervention-expansion",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/news/hospital-violence-intervention-expansion.md",
+          "title": "Hospital Violence Intervention Programs Expand to Five New Illinois Cities"
+        }
+      ]
+    },
+    {
+      "title": "New Rural Violence Prevention Network Addresses Unique Challenges in Small Communities",
+      "path": "/news/rural-violence-prevention-network",
+      "fullUrl": "https://vpp-2025.netlify.app/news/rural-violence-prevention-network",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/news/rural-violence-prevention-network.md",
+          "title": "New Rural Violence Prevention Network Addresses Unique Challenges in Small Communities"
+        }
+      ]
+    },
+    {
+      "title": "Statewide Youth Violence Prevention Summit Brings Together 300+ Advocates",
+      "path": "/news/youth-violence-prevention-summit-2024",
+      "fullUrl": "https://vpp-2025.netlify.app/news/youth-violence-prevention-summit-2024",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/news/youth-violence-prevention-summit-2024.md",
+          "title": "Statewide Youth Violence Prevention Summit Brings Together 300+ Advocates"
+        }
+      ]
+    },
+    {
+      "title": "Guiding Principles - Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/principles",
+      "fullUrl": "https://vpp-2025.netlify.app/principles",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/principles.md",
+          "title": "Guiding Principles - Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
       "title": "Community Outreach",
       "path": "/projects/community-outreach",
       "fullUrl": "https://vpp-2025.netlify.app/projects/community-outreach",
@@ -137,6 +228,19 @@
       ]
     },
     {
+      "title": "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois",
+      "path": "/strategic-priorities",
+      "fullUrl": "https://vpp-2025.netlify.app/strategic-priorities",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/strategic-priorities.md",
+          "title": "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois"
+        }
+      ]
+    },
+    {
       "title": "Syntax Highlighting Test",
       "path": "/syntax-highlighting-test",
       "fullUrl": "https://vpp-2025.netlify.app/syntax-highlighting-test",
@@ -164,12 +268,12 @@
     }
   ],
   "stats": {
-    "totalPages": 10,
-    "contentPages": 8,
-    "vuePages": 6,
+    "totalPages": 18,
+    "contentPages": 15,
+    "vuePages": 7,
     "combinedPages": 4,
     "blacklistedFiles": 4,
     "menuIntegratedPages": 3,
-    "orphanedPages": 7
+    "orphanedPages": 15
   }
 }

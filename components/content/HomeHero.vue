@@ -1,5 +1,5 @@
 <template>
-  <section class="hero-section">
+  <section class="hero-section section-primary">
     <v-container class="py-12 py-md-16">
       <v-row align="center" justify="space-between">
         <v-col cols="12" md="6" class="pr-md-12">
@@ -116,7 +116,7 @@ const handleLearnMore = () => {
 .hero-section {
   position: relative;
   overflow: hidden;
-  background: rgb(var(--v-theme-surface));
+  /* Background handled by global .section-primary class */
   color: rgb(var(--v-theme-on-surface));
 }
 

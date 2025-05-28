@@ -1,5 +1,5 @@
 <template>
-  <section class="action-section section py-16 bg-primary-lighten-5">
+  <section class="action-section section section-secondary py-16">
     <v-container>
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">
@@ -86,7 +86,7 @@
           View the Complete Plan
           <v-icon end icon="mdi-download" />
         </v-btn>
-        <p class="text-body-2 text-medium-emphasis mt-4">
+        <p class="text-body-2 text-medium-emphasis mt-8">
           Download the full Violence Prevention Plan for Illinois: 2025-2029
         </p>
       </div>
@@ -239,13 +239,32 @@ const handlePrimaryCTA = () => {
 
 <style scoped>
 .action-section {
-  /* Theme-aware background with slight tint */
+  /* Base background handled by global .section-secondary class */
+  /* Add subtle primary color tint overlay for visual distinction */
+  position: relative;
+}
+
+.action-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgb(var(--v-theme-primary), 0.03);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Dark theme background adjustment */
-:root[data-theme="dark"] .action-section {
+:root[data-theme="dark"] .action-section::before {
   background: rgb(var(--v-theme-primary), 0.05);
+}
+
+/* Ensure content appears above the overlay */
+.action-section > .v-container {
+  position: relative;
+  z-index: 1;
 }
 
 .max-width-800 {

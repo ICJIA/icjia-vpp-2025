@@ -1,5 +1,5 @@
 <template>
-  <section class="approach-section section py-16">
+  <section class="approach-section section section-secondary py-16">
     <v-container>
       <v-row align="center">
         <!-- Image column -->
@@ -179,9 +179,7 @@ const handleLearnMore = () => {
 </script>
 
 <style scoped>
-.approach-section {
-  background: rgb(var(--v-theme-background));
-}
+/* Background handled by global .section-secondary class */
 
 /* Content animations */
 .approach-content h2 {

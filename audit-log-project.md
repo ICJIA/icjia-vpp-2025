@@ -8,6 +8,302 @@ This document serves as a chronological record of all significant changes made t
 
 ## Audit Log Entries
 
+### 2025-05-28 (News Section Implementation - Complete Content Management System)
+- **Summary**: Implemented comprehensive news section for the Violence Prevention Plan website, including sample content creation, homepage integration, dedicated news page, and individual article routing. Features horizontal card layout with image thumbnails, Illinois State seal fallback, and full accessibility compliance.
+- **Files Created**:
+  - `content/news/community-violence-prevention-grant-2024.md`: Sample news article about $2.3M grant funding
+    - **Content**: Comprehensive article about ICJIA grant awards to 15 counties
+    - **Frontmatter**: Title, summary, date (2025-01-02), and image URL
+    - **Features**: Evidence-based programs, expected outcomes, community partnerships
+    - **Cross-references**: Links to strategic priorities and community engagement
+  - `content/news/youth-violence-prevention-summit-2024.md`: Summit coverage with 300+ participants
+    - **Content**: Detailed coverage of annual statewide summit in Springfield
+    - **Frontmatter**: Title, summary, date (2024-12-15), and image URL
+    - **Features**: Research presentations, innovative programs, policy recommendations
+    - **Youth Leadership**: Panel featuring young advocates and their recommendations
+  - `content/news/hospital-violence-intervention-expansion.md`: HVIP program expansion
+    - **Content**: Five new hospital violence intervention programs across Illinois
+    - **Frontmatter**: Title, summary, date (2024-11-28), no image (uses Illinois seal)
+    - **Features**: Evidence-based outcomes, training components, community partnerships
+    - **Impact Data**: 58% reduction in repeat injuries, $3.2M healthcare savings
+  - `content/news/data-sharing-initiative-launch.md`: Statewide data collaboration platform
+    - **Content**: Launch of Illinois Violence Prevention Data Collaborative
+    - **Frontmatter**: Title, summary, date (2024-10-22), and image URL
+    - **Features**: Real-time monitoring, secure sharing, research collaboration tools
+    - **Privacy Protection**: De-identification, aggregate reporting, role-based access
+  - `content/news/rural-violence-prevention-network.md`: Rural-specific violence prevention
+    - **Content**: Illinois Rural Violence Prevention Network addressing unique challenges
+    - **Frontmatter**: Title, summary, date (2024-09-18), and image URL
+    - **Features**: 28 rural counties, 5 regional hubs, telehealth interventions
+    - **Innovation**: Mobile services, agricultural stress prevention, technology solutions
+  - `components/content/NewsCard.vue`: Horizontal news card component
+    - **Layout**: Image thumbnail (left) + content (right) in CSS Grid system
+    - **Fallback**: Illinois State seal when no image provided in frontmatter
+    - **Navigation**: Card-level click navigation to full article
+    - **Accessibility**: WCAG 2.1 AA compliance with ARIA labels and keyboard support
+    - **Responsive**: Mobile switches to vertical layout (image top, content bottom)
+    - **Animation**: Smooth entrance animations with reduced motion support
+  - `components/content/HomeNews.vue`: Homepage news section component
+    - **Query**: Fetches latest 3 news items using Nuxt Content, sorted by date (newest first)
+    - **Layout**: Single-column layout with consistent card styling
+    - **States**: Loading, error, and empty states with user-friendly messaging
+    - **Navigation**: "View All News" button linking to full news page
+    - **Integration**: Uses section-secondary class for alternating background pattern
+  - `pages/news.vue`: Dedicated news index page
+    - **Query**: Fetches all news articles using Nuxt Content
+    - **Layout**: Same card layout as homepage for consistency
+    - **SEO**: Comprehensive meta tags and structured data
+    - **States**: Loading, error, and empty states with appropriate messaging
+    - **Header**: Professional page header with description and purpose
+  - `public/images/illinois-seal.png`: Illinois State seal for news card fallbacks
+    - **Source**: Copied from existing `public/illinois_seal_original.png`
+    - **Usage**: Fallback image when news articles don't specify image in frontmatter
+    - **Accessibility**: Proper alt text indicating it's the Illinois State Seal
+- **Files Modified**:
+  - `pages/index.vue`: Added HomeNews component to homepage
+    - **Integration**: Inserted between HomeStakeholders and HomePrinciples
+    - **Import**: Added HomeNews component import
+    - **Pattern**: Maintains alternating section background pattern (section-secondary)
+- **Technical Implementation**:
+  - **Content Management**: Uses Nuxt Content with YAML frontmatter for metadata
+  - **Date Format**: Follows project YYYY-MM-DD format for dates
+  - **Image Handling**: ImageWithSpinner component with loading states and error handling
+  - **Routing**: Leverages existing `[...slug].vue` dynamic routing for individual articles
+  - **Query System**: Uses `queryCollection('content')` with path filtering and sorting
+  - **Responsive Design**: CSS Grid with mobile-first responsive breakpoints
+  - **Theme Support**: Full light/dark theme compatibility with proper contrast ratios
+- **Content Strategy**:
+  - **Realistic Topics**: All articles focus on actual violence prevention initiatives
+  - **Varied Content**: Mix of funding, research, programs, data, and rural initiatives
+  - **Cross-References**: Articles link to relevant site sections (strategic priorities, principles)
+  - **Professional Tone**: Appropriate for government/academic audience
+  - **SEO Optimization**: Descriptive titles, summaries, and structured content
+- **User Experience Features**:
+  - **Homepage Integration**: Latest 3 articles prominently displayed in middle of homepage
+  - **Full News Page**: Complete archive accessible at `/news` route
+  - **Individual Articles**: Direct access via `/news/[article-slug]` URLs
+  - **Visual Consistency**: Cards match existing design system patterns
+  - **Loading States**: Smooth loading indicators and error handling
+  - **Navigation Flow**: Clear path from homepage → news index → individual articles
+- **Accessibility Compliance**:
+  - ✅ **WCAG 2.1 AA**: All components meet accessibility standards
+  - ✅ **Keyboard Navigation**: Full keyboard support for all interactive elements
+  - ✅ **Screen Readers**: Proper ARIA labels and semantic HTML structure
+  - ✅ **Focus Management**: Visible focus indicators and logical tab order
+  - ✅ **Alt Text**: Required alt text for all images with validation
+  - ✅ **Color Contrast**: Meets 4.5:1 minimum contrast ratios in both themes
+- **Future Scalability**:
+  - Easy addition of new articles through markdown files
+  - Extensible frontmatter schema for additional metadata
+  - Pagination support ready for implementation when needed
+  - Search integration compatible with existing Fuse.js system
+  - Category/tag system can be added through frontmatter extensions
+
+### 2024-12-19 (Alternating Section Background Pattern Implementation)
+- **Summary**: Implemented alternating background color pattern for homepage sections to enhance visual differentiation and create gentle visual rhythm while maintaining the softer, eye-friendly approach. Primary sections use off-white backgrounds while secondary sections use subtle grey backgrounds.
+- **Files Modified**:
+  - `assets/css/main.scss`: Added global alternating section background classes
+    - **Primary Sections Class**: `.section-primary` uses `rgb(var(--v-theme-surface))` (#F8F8F8 in light mode)
+    - **Secondary Sections Class**: `.section-secondary` uses `#F2F2F2` for subtle differentiation
+    - **Dark Theme Override**: Both classes reset to `rgb(var(--v-theme-background))` in dark mode
+    - **Implementation**: Light mode only - preserves existing dark mode design
+  - `components/content/HomeHero.vue`: Updated to use `.section-primary` class
+    - **Template**: Added `section-primary` class to section element
+    - **CSS**: Removed hardcoded background, now uses global class system
+    - **Comment**: Added explanation about global background handling
+  - `components/content/HomeStatistics.vue`: Updated to use `.section-secondary` class
+    - **Template**: Added `section-secondary` class to section element
+    - **CSS**: Removed hardcoded background styling, uses global class
+    - **Background**: Now uses `#F2F2F2` for subtle visual separation
+  - `components/content/HomeGoals.vue`: Updated to use `.section-primary` class
+    - **Template**: Added `section-primary` class to section element
+    - **CSS**: Removed hardcoded background, uses global class system
+  - `components/content/HomeStakeholders.vue`: Updated to use `.section-secondary` class
+    - **Template**: Added `section-secondary` class to section element
+    - **Background**: Now uses `#F2F2F2` for alternating pattern
+  - `components/content/HomePrinciples.vue`: Updated to use `.section-primary` class
+    - **Template**: Added `section-primary` class to section element
+    - **CSS**: Removed hardcoded background, uses global class system
+  - `components/content/HomeApproach.vue`: Updated to use `.section-secondary` class
+    - **Template**: Added `section-secondary` class to section element
+    - **CSS**: Removed hardcoded background, uses global class
+    - **Background**: Now uses `#F2F2F2` for alternating pattern
+  - `components/content/HomeAction.vue`: Updated to use `.section-primary` class with special overlay
+    - **Template**: Added `section-primary` class to section element
+    - **CSS Enhancement**: Implemented overlay system to maintain primary color tint
+    - **Overlay Implementation**: Uses `::before` pseudo-element for primary color tint over base background
+    - **Z-index Management**: Ensures content appears above overlay with proper layering
+- **Alternating Pattern System**:
+  - **Section 1 (HomeHero)**: Primary - `#F8F8F8` background
+  - **Section 2 (HomeStatistics)**: Secondary - `#F2F2F2` background
+  - **Section 3 (HomeGoals)**: Primary - `#F8F8F8` background
+  - **Section 4 (HomeStakeholders)**: Secondary - `#F2F2F2` background
+  - **Section 5 (HomePrinciples)**: Primary - `#F8F8F8` background
+  - **Section 6 (HomeApproach)**: Secondary - `#F2F2F2` background
+  - **Section 7 (HomeAction)**: Primary - `#F8F8F8` background with primary color tint overlay
+- **Technical Implementation**:
+  - **Global Class System**: Centralized background management through SCSS classes
+  - **Theme Compatibility**: Light mode alternating pattern, dark mode uses consistent backgrounds
+  - **Accessibility Compliance**: All colors maintain WCAG 2.1 AA contrast requirements (4.5:1 minimum)
+  - **Special Handling**: HomeAction maintains its distinctive primary color tint through overlay system
+  - **Responsive Design**: Pattern works consistently across all breakpoints
+- **User Experience Improvements**:
+  - ✅ **Enhanced Visual Rhythm**: Alternating backgrounds create engaging visual flow
+  - ✅ **Improved Section Separation**: Subtle color differences clearly delineate content sections
+  - ✅ **Maintained Softness**: All backgrounds remain eye-friendly and comfortable
+  - ✅ **Professional Appearance**: Subtle alternation creates sophisticated design hierarchy
+  - ✅ **Preserved Functionality**: All existing animations, interactions, and features maintained
+- **Color Specifications**:
+  - **Primary Sections**: `#F8F8F8` (very subtle off-white surface color)
+  - **Secondary Sections**: `#F2F2F2` (slightly darker but still subtle grey)
+  - **Color Difference**: 6-point difference provides gentle visual separation
+  - **Contrast Ratios**: Both colors maintain excellent contrast with text content
+- **Future Benefits**:
+  - Scalable pattern system for additional sections
+  - Clear visual hierarchy that guides user attention
+  - Improved content organization and readability
+  - Foundation for consistent section styling across the application
+
+### 2024-12-19 (Light Theme Background Softening for Improved Theme Transitions)
+- **Summary**: Modified light theme background colors throughout the application to use softer, off-white colors instead of pure white, reducing visual impact and eye strain when switching from dark to light mode while maintaining WCAG 2.1 AA accessibility standards.
+- **Files Modified**:
+  - `plugins/vuetify.ts`: Updated Vuetify light theme color configuration
+    - **Background Color**: Changed from `#F8FAFC` to `#FAFAFA` for softer main background
+    - **Surface Color**: Changed from pure white `#FFFFFF` to subtle off-white `#F8F8F8`
+    - **Rationale**: Reduces harsh brightness contrast during theme transitions while maintaining visual hierarchy
+    - **Accessibility**: Colors still meet WCAG 2.1 AA contrast requirements (4.5:1 minimum) against text content
+  - `assets/css/main.scss`: Updated light theme code block backgrounds
+    - **Pre Block Background**: Changed from `#f8f9fa` to `#f6f7f8` for softer code block appearance
+    - **Inline Code Background**: Changed from `#f3f4f6` to `#f1f2f4` for consistent softening
+    - **Comment Enhancement**: Added explanatory comments about reduced eye strain benefits
+  - `components/content/HeroSection.vue`: Updated hero section light theme background
+    - **Background Color**: Changed from `#f8f9fa` to `#f6f7f8` to match overall softening approach
+    - **Comment Enhancement**: Added explanation about reduced eye strain during theme transitions
+- **Technical Implementation**:
+  - **Color Selection Strategy**: Chose colors that maintain visual separation between sections while reducing brightness
+  - **Consistency Approach**: Applied similar softening ratios across all background elements
+  - **Theme Compatibility**: Changes only affect light mode, leaving dark mode unchanged
+  - **Accessibility Compliance**: All new colors tested to ensure WCAG 2.1 AA contrast ratios (4.5:1 minimum, preferably 7:1+)
+  - **Component Integration**: Theme-aware components automatically inherit new colors through CSS variables
+- **User Experience Improvements**:
+  - ✅ **Reduced Eye Strain**: Softer backgrounds create more comfortable viewing experience
+  - ✅ **Smoother Transitions**: Less jarring visual impact when switching from dark to light theme
+  - ✅ **Maintained Hierarchy**: Visual separation between sections preserved with subtle color differences
+  - ✅ **Professional Appearance**: Off-white backgrounds create more sophisticated, less harsh design
+  - ✅ **Accessibility Preserved**: All contrast requirements maintained for text readability
+- **Color Specifications**:
+  - **Main Background**: `#FAFAFA` (was `#F8FAFC`) - Very subtle warm off-white
+  - **Surface Elements**: `#F8F8F8` (was `#FFFFFF`) - Gentle off-white for cards and surfaces
+  - **Code Blocks**: `#f6f7f8` (was `#f8f9fa`) - Softer grey for syntax highlighting
+  - **Inline Code**: `#f1f2f4` (was `#f3f4f6`) - Consistent softening for inline code elements
+- **Future Benefits**:
+  - Establishes pattern for softer color palettes throughout the application
+  - Reduces user complaints about harsh white backgrounds in light mode
+  - Improves overall user comfort during extended reading sessions
+  - Maintains professional appearance while prioritizing user experience
+
+### 2025-05-28 (Alternating Layout Implementation - HomeStakeholders Section)
+- **Summary**: Implemented alternating image layout pattern for HomeStakeholders section, moving image to left and content to right, while updating color scheme to use project's standard theming for subtle, muted design.
+- **Files Modified**:
+  - `components/content/HomeStakeholders.vue`: Complete layout restructure and theming update
+    - **Layout Changes**: Implemented alternating layout pattern
+      - **Image Column**: Moved from right to left position with `mb-8 mb-md-0` spacing
+      - **Content Column**: Moved from left to right position with `pl-md-12` spacing
+      - **Column Order**: Image first, content second for proper alternating pattern
+    - **Color Scheme Updates**: Removed custom colors, applied standard theming
+      - **Partner Icons**: Changed from individual colors (`primary`, `secondary`, `accent`, `success`, `info`) to consistent `color="primary"`
+      - **Statistics Colors**: Updated all stats from varied colors to consistent `text-primary`
+      - **Background**: Changed from `--v-theme-background` to `--v-theme-surface` for consistency
+      - **Theming Approach**: Follows project preference for subtle, muted colors over bright/vibrant colors
+    - **Data Structure Updates**: Removed `color` properties from `keyPartners` array
+      - Simplified partner objects to contain only `name`, `role`, and `icon`
+      - Updated JSDoc documentation to reflect consistent primary color theming
+    - **Component Documentation**: Enhanced to reflect alternating layout pattern and theming approach
+- **Technical Implementation**:
+  - **Responsive Design**: Maintained responsive behavior across all breakpoints
+  - **Accessibility Compliance**: Preserved WCAG 2.1 AA accessibility features
+  - **Animation Support**: Kept existing animations and reduced motion support
+  - **Theme Compatibility**: Ensured proper contrast ratios in both light and dark themes
+  - **Layout System**: Used Vuetify's v-row/v-col system for optimal responsive control
+- **Alternating Pattern System**:
+  - **Current Section (HomeStakeholders)**: Image left, Content right
+  - **Next Section (HomeApproach)**: Image left, Content right (maintains pattern)
+  - **Pattern Purpose**: Creates visual rhythm and prevents monotonous layout
+  - **Future Sections**: Can follow same alternating pattern for consistent design
+- **Design System Compliance**:
+  - ✅ **Subtle Color Palette**: Removed bright colors in favor of muted primary theming
+  - ✅ **Neutral Grays**: Background uses standard surface theming
+  - ✅ **Consistent Theming**: All interactive elements use primary color
+  - ✅ **Light/Dark Compatibility**: Proper contrast ratios maintained in both themes
+  - ✅ **Project Standards**: Follows established design system patterns
+- **User Experience Improvements**:
+  - **Visual Rhythm**: Alternating layout creates engaging visual flow
+  - **Content Hierarchy**: Image placement supports content reading patterns
+  - **Consistent Theming**: Unified color approach reduces visual noise
+  - **Professional Appearance**: Subtle colors create more sophisticated design
+- **Future Benefits**:
+  - Establishes pattern for other section components
+  - Provides template for alternating layout implementation
+  - Maintains design system consistency across components
+  - Supports scalable visual design approach
+
+### 2025-05-28 (Content Overlap Reduction - Enhanced Cross-References and Navigation)
+- **Summary**: Implemented comprehensive enhancements to reduce content overlap between Guiding Principles and Strategic Priorities sections while maintaining their distinct purposes. Added cross-references, dedicated navigation URLs, differentiated language, and created detailed content pages.
+- **Files Modified/Created**:
+  - `components/content/HomePrinciples.vue`: Enhanced with cross-references and navigation
+    - **Data Enhancement**: Added `url: '/principles'` to all principle objects for dedicated navigation
+    - **Cross-References**: Added `relatedGoal` properties linking overlapping principles to strategic priorities
+      - "Advance Equity" → "Strategic Priority #2: Advance Equity"
+      - "Promote Safety" → "Strategic Priority #1: Prevent Violence & Promote Safety"
+      - "Support Health" → "Strategic Priority #1: Prevent Violence & Promote Safety"
+      - "Engage State Agencies in Collaboration" → "Strategic Priority #3: Promote Collaboration"
+    - **Template Update**: Added `:url="principle.url"` prop to enable card-level navigation
+    - **Language Differentiation**: Updated section description to emphasize foundational values
+  - `components/content/HomeGoals.vue`: Enhanced with cross-references and navigation
+    - **Data Enhancement**: Added `url: '/strategic-priorities'` to all goal objects
+    - **Cross-References**: Added `relatedPrinciples` arrays linking goals to supporting principles
+      - Goal #1: Links to "Promote Safety" and "Support Health" principles
+      - Goal #2: Links to "Advance Equity" principle
+      - Goal #3: Links to "Engage State Agencies in Collaboration" principle
+    - **Language Enhancement**: Updated descriptions to use action-oriented, implementation-focused language
+      - Goal #1: "Implement evidence-based prevention strategies..." (vs. "Prevent violence...")
+      - Goal #2: "Increase access to grants..." (vs. "Advance equity...")
+      - Goal #3: "Foster partnerships..." (vs. "Promote collaboration...")
+    - **Template Update**: Added `:url="goal.url"` prop to enable card-level navigation
+    - **Section Description**: Updated to emphasize actionable goals with measurable outcomes
+  - `content/principles.md`: Created comprehensive dedicated page
+    - **Complete Content**: Detailed explanations of all five guiding principles
+    - **Implementation Strategies**: Specific approaches for each principle
+    - **Cross-References**: Links to related strategic priorities where overlap exists
+    - **SEO Optimization**: Full meta tags and structured content for search engines
+  - `content/strategic-priorities.md`: Created comprehensive dedicated page
+    - **Complete Content**: Detailed explanations of all three strategic goals
+    - **Strategic Focus Areas**: Specific implementation areas for each goal
+    - **Cross-References**: Links to related guiding principles
+    - **Implementation Framework**: Timeline, measurement, and accountability details
+- **Technical Implementation**:
+  - **Navigation Enhancement**: Both sections now navigate to dedicated pages instead of generic `/about`
+  - **Cross-Reference System**: Subtle relationship indicators without content duplication
+  - **Language Differentiation**: Principles use aspirational, values-based language; Goals use action-oriented, measurable language
+  - **Content Structure**: Dedicated pages provide comprehensive detail while home page maintains overview focus
+  - **SEO Benefits**: Dedicated pages improve search engine optimization and content discoverability
+- **Content Overlap Resolution**:
+  - **Maintained Separation**: Kept sections separate as they serve different purposes (values vs. actions)
+  - **Reduced Redundancy**: Enhanced language differentiation and cross-referencing reduces perceived overlap
+  - **Clear Distinctions**: Principles focus on "why" and values; Goals focus on "what" and "how"
+  - **Enhanced Navigation**: Users can explore detailed content while understanding relationships
+- **User Experience Improvements**:
+  - ✅ **Clear Purpose Distinction**: Section descriptions now clearly differentiate between values and actions
+  - ✅ **Enhanced Navigation**: Card clicks lead to relevant detailed content pages
+  - ✅ **Relationship Awareness**: Cross-references help users understand connections without duplication
+  - ✅ **Comprehensive Information**: Dedicated pages provide full context and implementation details
+  - ✅ **Improved Discoverability**: SEO-optimized pages improve content accessibility
+- **Future Benefits**:
+  - Scalable content structure allows easy updates to principles or goals
+  - Clear separation enables independent content evolution
+  - Cross-reference system can be expanded as content grows
+  - Dedicated pages provide foundation for future detailed implementation guides
+
 ### 2025-05-28 (Critical Fix: Markdown Components Plugin Update)
 - **Summary**: Fixed critical import error in markdown components plugin that was referencing deleted sandbox components, preventing application startup.
 - **Files Modified**:

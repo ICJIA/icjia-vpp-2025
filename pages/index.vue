@@ -29,6 +29,7 @@
       <HomeStatistics />
       <HomeGoals />
       <HomeStakeholders />
+      <HomeNews />
       <HomePrinciples />
       <HomeApproach />
       <HomeAction />
@@ -135,6 +136,7 @@ import HomeHero from '~/components/content/HomeHero.vue';
 import HomeStatistics from '~/components/content/HomeStatistics.vue';
 import HomeGoals from '~/components/content/HomeGoals.vue';
 import HomeStakeholders from '~/components/content/HomeStakeholders.vue';
+import HomeNews from '~/components/content/HomeNews.vue';
 import HomePrinciples from '~/components/content/HomePrinciples.vue';
 import HomeApproach from '~/components/content/HomeApproach.vue';
 import HomeAction from '~/components/content/HomeAction.vue';

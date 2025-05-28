@@ -1,5 +1,5 @@
 <template>
-  <section class="statistics-section section py-16">
+  <section class="statistics-section section section-secondary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">
@@ -109,9 +109,7 @@ const statistics = [
 </script>
 
 <style scoped>
-.statistics-section {
-  background: rgb(var(--v-theme-background));
-}
+/* Background handled by global .section-secondary class */
 
 .max-width-800 {
   max-width: 800px;

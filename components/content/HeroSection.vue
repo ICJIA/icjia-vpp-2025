@@ -154,9 +154,9 @@ const handleLearnMore = () => {
   color: white; /* White text for dark theme */
 }
 
-/* Light theme specific styling */
+/* Light theme specific styling - softer background for reduced eye strain */
 .v-theme--light .hero-section {
-  background: #f8f9fa; /* Light background for light theme */
+  background: #f6f7f8; /* Softer light background for light theme (was #f8f9fa) */
   color: #2c3e50; /* Dark text for light theme */
 }
 
