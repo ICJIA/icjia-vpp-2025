@@ -87,9 +87,9 @@ The navigation system distinguishes between internal and external links:
 2. **Internal Non-Router Links**: Use the `href` property for links to static files or pages within the same domain.
    ```json
    {
-     "text": "Accessibility Documentation",
-     "href": "/accessibility-documentation.html",
-     "ariaLabel": "View accessibility documentation"
+     "text": "External PDF",
+     "href": "/files/document.pdf",
+     "ariaLabel": "Download PDF document"
    }
    ```
 

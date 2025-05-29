@@ -66,8 +66,8 @@
 
               <!-- Generate items for each section -->
               <template
-                v-for="(item, itemIndex) in section.items"
-                :key="`${sectionIndex}-${itemIndex}`"
+                v-for="(item, _index) in section.items"
+                :key="`${sectionIndex}-${_index}`"
               >
                 <AccessibleTooltip
                   :text="item.tooltip"

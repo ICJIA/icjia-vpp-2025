@@ -112,7 +112,7 @@
                     <!-- Regular dropdown item -->
                     <v-list-item
                       v-else
-                      :value="childIndex"
+                      :value="`desktop-dropdown-${index}-item-${childIndex}`"
                       :to="child.to"
                       :href="child.href"
                       :target="child.isExternal ? child.target : undefined"
@@ -271,7 +271,7 @@
               </template>
 
               <!-- Dropdown children -->
-              <template v-for="(child, childIndex) in item.children" :key="`${index}-${childIndex}`">
+              <template v-for="(child, childIndex) in item.children" :key="`dropdown-${index}-child-${childIndex}`">
                 <!-- Divider item -->
                 <v-divider
                   v-if="child.isDivider"
@@ -282,6 +282,7 @@
                 <!-- Regular dropdown item -->
                 <v-list-item
                   v-else-if="shouldDisplayInMobile(child)"
+                  :value="`dropdown-${index}-item-${childIndex}`"
                   :to="child.to"
                   :href="child.href"
                   :target="child.isExternal ? child.target : undefined"
@@ -308,6 +309,7 @@
           <!-- Regular menu item -->
           <v-list-item
             v-else
+            :value="`mobile-nav-item-${index}`"
             :to="item.to"
             :href="item.href"
             :target="item.isExternal ? item.target : undefined"

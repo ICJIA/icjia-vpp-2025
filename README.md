@@ -467,9 +467,9 @@ This documentation helps ensure that future development maintains the project's 
 
 ### Accessibility Resources
 
-- [Accessibility Documentation](./accessibility-documentation.md): User guide to accessibility features
-- [Accessibility Audit Log](./audit-log-accessibility.md): Technical assessment of compliance status
+- [Accessibility Documentation](/accessibility/documentation): User guide to accessibility features
+- [Accessibility Audit Log](/accessibility/audit-log): Technical assessment of compliance status
 
-These resources are also available as HTML pages directly accessible via URL:
-- `/accessibility-documentation.html`: User-facing documentation
-- `/audit-log-accessibility.html`: Technical audit log
+These resources are available through the Nuxt Content v3 system:
+- `/accessibility/documentation`: User-facing documentation
+- `/accessibility/audit-log`: Technical audit log

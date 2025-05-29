@@ -5,9 +5,33 @@ description: "This document contains a log of accessibility updates andaudits co
 --- 
 
 
-**Last Updated: May 26, 2025**
+**Last Updated: May 29, 2025**
 
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.
+
+## Audit Log Update: 2025-05-29
+
+### Accessibility Documentation Migration to Nuxt Content v3 System
+- **Summary**: Successfully migrated accessibility documentation from static HTML files to the Nuxt Content v3 system for improved searchability, content management, and integration with the site's dynamic content system.
+- **Migration Details**:
+  - **Removed Static Files**: Deleted root-level `accessibility-documentation.md` and `audit-log-accessibility.md` files
+  - **Removed HTML Generation**: Deleted `scripts/create-accessibility-html.js` script and all references
+  - **Updated Navigation**: Modified footer links in `config/menu.config.json` to use Nuxt Content routes:
+    - `/audit-log-accessibility.html` → `/accessibility/audit-log`
+    - `/accessibility-documentation.html` → `/accessibility/documentation`
+  - **Updated Package Scripts**: Removed all `create:accessibility-html` script references from package.json
+  - **Cleaned Generated Files**: Removed generated HTML files from `/public/` directory
+  - **Updated Configuration**: Modified `config/site.config.json` and `nuxt.config.ts` to reflect new routing
+  - **Updated Composable**: Modified `composables/useAccessibilityDocs.js` to return Nuxt Content routes instead of HTML file paths
+- **Benefits of Migration**:
+  - **Searchability**: Accessibility documentation is now fully integrated with the site's search system
+  - **Content Management**: Documentation can be edited as markdown files with full Nuxt Content features
+  - **Dynamic Rendering**: Content is rendered dynamically with proper SEO metadata and accessibility features
+  - **Simplified Build Process**: Eliminated need for HTML generation scripts during build
+  - **Consistent Navigation**: Documentation now uses the same navigation patterns as other site content
+  - **Better Maintenance**: Centralized content management through the `/content/` directory structure
+- **Accessibility Compliance**: All migrated content maintains full WCAG 2.1 AA compliance through the dynamic catch-all page system at `/pages/[...slug].vue`, which includes proper semantic HTML, ARIA attributes, keyboard navigation, and screen reader support.
+- **Technical Implementation**: The migration leverages the existing dynamic content rendering system, ensuring that accessibility documentation benefits from the same accessibility features as all other site content, including proper heading hierarchy, landmark roles, and responsive design.
 
 ## Audit Log Update: 2025-05-28
 

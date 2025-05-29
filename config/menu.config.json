@@ -97,7 +97,7 @@
           },
           {
             "text": "Contact",
-            "to": "/",
+            "to": "/contact",
             "ariaLabel": "Contact us",
             "tooltip": "Contact us",
             "tooltipLocation": "right",
@@ -231,7 +231,7 @@
         "items": [
           {
             "text": "Audit Log",
-            "href": "/audit-log-accessibility.html",
+            "to": "/accessibility/audit-log",
             "ariaLabel": "Accessibility Audit Log",
             "tooltip": "View our accessibility audit log",
             "tooltipLocation": "right",
@@ -239,7 +239,7 @@
           },
           {
             "text": "Documentation",
-            "href": "/accessibility-documentation.html",
+            "to": "/accessibility/documentation",
             "ariaLabel": "Accessibility Documentation",
             "tooltip": "View our accessibility documentation",
             "tooltipLocation": "right",

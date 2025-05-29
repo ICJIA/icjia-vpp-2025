@@ -1,15 +1,15 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-29T12:45:59.977Z",
+  "generatedAt": "2025-05-29T14:30:11.944Z",
   "summary": {
-    "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
-    "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
+    "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+    "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
     "totalPages": 17,
-    "contentPages": 12,
-    "vuePages": 7,
+    "contentPages": 14,
+    "vuePages": 5,
     "combinedPages": 2,
-    "blacklistedFiles": 4
+    "blacklistedFiles": 2
   },
   "pages": [
     {
@@ -26,12 +26,12 @@
         {
           "type": "vue",
           "source": "pages/index.vue",
-          "title": "Violence Prevention Plan for Illinois: 2025-2029"
+          "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
     },
     {
-      "title": "[...slug] - Violence Prevention Plan for Illinois: 2025-2029",
+      "title": "[...slug] - Statewide Violence Prevention Plan for Illinois: 2025-2029",
       "path": "/[...slug]",
       "fullUrl": "https://vpp-2025.netlify.app/[...slug]",
       "type": "vue",
@@ -39,7 +39,7 @@
         {
           "type": "vue",
           "source": "pages/[...slug].vue",
-          "title": "[...slug] - Violence Prevention Plan for Illinois: 2025-2029"
+          "title": "[...slug] - Statewide Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
     },
@@ -57,7 +57,33 @@
         {
           "type": "vue",
           "source": "pages/about.vue",
-          "title": "About - Violence Prevention Plan for Illinois: 2025-2029"
+          "title": "About - Statewide Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "Accessibility Audit Log",
+      "path": "/accessibility/audit-log",
+      "fullUrl": "https://vpp-2025.netlify.app/accessibility/audit-log",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/accessibility/audit-log.md",
+          "title": "Accessibility Audit Log"
+        }
+      ]
+    },
+    {
+      "title": "Accessibility Documentation",
+      "path": "/accessibility/documentation",
+      "fullUrl": "https://vpp-2025.netlify.app/accessibility/documentation",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/accessibility/documentation.md",
+          "title": "Accessibility Documentation"
         }
       ]
     },
@@ -192,32 +218,6 @@
       ]
     },
     {
-      "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}",
-      "path": "/projects/community-outreach",
-      "fullUrl": "https://vpp-2025.netlify.app/projects/community-outreach",
-      "type": "vue",
-      "sources": [
-        {
-          "type": "vue",
-          "source": "pages/projects/community-outreach.vue",
-          "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}"
-        }
-      ]
-    },
-    {
-      "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}",
-      "path": "/projects/youth-intervention",
-      "fullUrl": "https://vpp-2025.netlify.app/projects/youth-intervention",
-      "type": "vue",
-      "sources": [
-        {
-          "type": "vue",
-          "source": "pages/projects/youth-intervention.vue",
-          "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}"
-        }
-      ]
-    },
-    {
       "title": "Search - Violence Prevention Plan for Illinois: 2025-2029",
       "path": "/search",
       "fullUrl": "https://vpp-2025.netlify.app/search",
@@ -246,11 +246,11 @@
   ],
   "stats": {
     "totalPages": 17,
-    "contentPages": 12,
-    "vuePages": 7,
+    "contentPages": 14,
+    "vuePages": 5,
     "combinedPages": 2,
-    "blacklistedFiles": 4,
-    "menuIntegratedPages": 5,
-    "orphanedPages": 12
+    "blacklistedFiles": 2,
+    "menuIntegratedPages": 7,
+    "orphanedPages": 10
   }
 }

@@ -1,14 +1,14 @@
 /**
  * Composable for managing accessibility documentation
  *
- * This composable provides utilities for working with accessibility documentation,
- * including updating the HTML versions of the documentation and retrieving URLs
- * for the HTML documentation files.
+ * This composable provides utilities for working with accessibility documentation
+ * through the Nuxt Content v3 system. The accessibility documentation has been
+ * migrated from static HTML files to the dynamic content management system.
  *
  * Features:
- * - Generate HTML versions of markdown accessibility documentation
- * - Get URLs for accessibility documentation HTML files
+ * - Get URLs for accessibility documentation via Nuxt Content routes
  * - Support for both client and server-side environments
+ * - Integration with dynamic catch-all page system
  *
  * @module useAccessibilityDocs
  *
@@ -17,30 +17,21 @@
  * <script setup>
  * import { getAccessibilityDocUrls } from '~/composables/useAccessibilityDocs';
  *
- * // Get URLs for accessibility documentation
+ * // Get URLs for accessibility documentation via Nuxt Content routes
  * const docUrls = getAccessibilityDocUrls();
  *
  * // Use the URLs in your component
- * const documentationUrl = docUrls.documentation;
- * const auditLogUrl = docUrls.auditLog;
+ * const documentationUrl = docUrls.documentation; // '/accessibility/documentation'
+ * const auditLogUrl = docUrls.auditLog; // '/accessibility/audit-log'
  * </script>
  *
  * @example
- * // Usage in a server-side context (e.g., Nuxt server middleware or API route)
- * <script>
- * import { updateAccessibilityHtml } from '~/composables/useAccessibilityDocs';
- *
- * // After updating markdown documentation, generate HTML versions
- * export default defineEventHandler(async (event) => {
- *   try {
- *     // Update the accessibility documentation HTML files
- *     await updateAccessibilityHtml();
- *     return { success: true, message: 'Accessibility documentation updated' };
- *   } catch (error) {
- *     return { success: false, error: error.message };
- *   }
- * });
- * </script>
+ * // Usage with nuxt-link for navigation
+ * <template>
+ *   <nuxt-link :to="getAccessibilityDocUrls().documentation">
+ *     View Accessibility Documentation
+ *   </nuxt-link>
+ * </template>
  *
  * @example
  * // Usage in a component with links to documentation
@@ -66,117 +57,46 @@
  */
 
 /**
- * Update the HTML versions of the accessibility documentation
+ * Note: HTML generation functionality has been removed as accessibility documentation
+ * has been migrated to the Nuxt Content v3 system. Documentation is now managed
+ * through markdown files in the /content/accessibility/ directory and rendered
+ * dynamically via the catch-all page system at /pages/[...slug].vue.
  *
- * This function is meant to be called after updating the accessibility audit log
- * or documentation. It runs the script to generate HTML versions of the documentation.
- *
- * The function behaves differently depending on the execution environment:
- * - In browser environments, it logs a message explaining that HTML generation
- *   is only available during build or in a Node.js environment
- * - In server environments, it executes the npm script to generate the HTML files
- *
- * Note: This function only works in a development environment with Node.js access.
- * In production, the HTML files are generated during the build process.
- *
- * @returns {Promise<void>} A promise that resolves when the operation is complete
- *
- * @example
- * // Usage in a Nuxt server route
- * export default defineEventHandler(async (event) => {
- *   try {
- *     await updateAccessibilityHtml();
- *     return { success: true };
- *   } catch (error) {
- *     return { success: false, error: error.message };
- *   }
- * });
- *
- * @example
- * // Usage in a component method (will show informational message in browser)
- * <script setup>
- * import { updateAccessibilityHtml } from '~/composables/useAccessibilityDocs';
- *
- * async function regenerateAccessibilityDocs() {
- *   try {
- *     await updateAccessibilityHtml();
- *     // Note: In browser context, this will just log an informational message
- *   } catch (error) {
- *     console.error('Failed to update accessibility docs:', error);
- *   }
- * }
- * </script>
+ * The accessibility documentation is now available at:
+ * - /accessibility/documentation (was /accessibility-documentation.html)
+ * - /accessibility/audit-log (was /audit-log-accessibility.html)
  */
-export async function updateAccessibilityHtml() {
-  // Check if we're in a browser environment using typeof window
-  if (typeof window !== 'undefined') {
-    try {
-      // In a browser environment, we can't run Node.js scripts directly
-      console.log('Accessibility HTML generation is only available during build or in a Node.js environment.');
-      console.log('The HTML files will be automatically generated during the next build.');
-      return;
-    } catch (error) {
-      console.error('Error updating accessibility HTML:', error);
-    }
-  } else {
-    // We're in a server environment (SSR or build process)
-    try {
-      // In a server environment (SSR), we can try to run the script
-      const { exec } = await import('child_process');
-
-      return new Promise((resolve, reject) => {
-        exec('npm run create:accessibility-html', (error, stdout, stderr) => {
-          if (error) {
-            console.error(`Error executing script: ${error.message}`);
-            reject(error);
-            return;
-          }
-
-          if (stderr) {
-            console.error(`Script stderr: ${stderr}`);
-          }
-
-          console.log(`Script output: ${stdout}`);
-          resolve();
-        });
-      });
-    } catch (error) {
-      console.error('Error updating accessibility HTML:', error);
-      throw error; // Re-throw to allow proper error handling by caller
-    }
-  }
-}
 
 /**
- * Get the URLs for the HTML versions of the accessibility documentation
+ * Get the URLs for the accessibility documentation via Nuxt Content routes
  *
- * This function returns an object containing the URLs for the HTML versions
- * of the accessibility documentation. These URLs can be used to create links
- * to the documentation in the application.
+ * This function returns an object containing the URLs for the accessibility
+ * documentation through the Nuxt Content v3 system. These URLs can be used to create
+ * links to the documentation in the application using nuxt-link or regular links.
  *
- * The function automatically prepends the base URL from the environment
- * configuration, ensuring the URLs work correctly in any deployment environment.
+ * The documentation is now served dynamically through the catch-all page system
+ * and is fully integrated with the site's search functionality.
  *
  * @returns {Object} Object containing the URLs for the accessibility documentation
- * @returns {string} documentation - URL for the accessibility documentation HTML file
- * @returns {string} auditLog - URL for the accessibility audit log HTML file
+ * @returns {string} documentation - URL for the accessibility documentation page
+ * @returns {string} auditLog - URL for the accessibility audit log page
  *
  * @example
  * // Basic usage
  * const urls = getAccessibilityDocUrls();
- * console.log(urls.documentation); // '/accessibility-documentation.html'
- * console.log(urls.auditLog); // '/audit-log-accessibility.html'
+ * console.log(urls.documentation); // '/accessibility/documentation'
+ * console.log(urls.auditLog); // '/accessibility/audit-log'
  *
  * @example
- * // Usage in a component template
+ * // Usage in a component template with nuxt-link
  * <template>
  *   <footer>
- *     <a :href="accessibilityUrls.documentation" target="_blank">
+ *     <nuxt-link :to="accessibilityUrls.documentation">
  *       Accessibility Documentation
- *     </a>
- *     <a :href="accessibilityUrls.auditLog" target="_blank">
+ *     </nuxt-link>
+ *     <nuxt-link :to="accessibilityUrls.auditLog">
  *       Accessibility Audit Log
- *     </a>
+ *     </nuxt-link>
  *   </footer>
  * </template>
  *
@@ -187,10 +107,8 @@ export async function updateAccessibilityHtml() {
  * </script>
  */
 export function getAccessibilityDocUrls() {
-  const baseUrl = process.env.BASE_URL || '';
-
   return {
-    documentation: `${baseUrl}/accessibility-documentation.html`,
-    auditLog: `${baseUrl}/audit-log-accessibility.html`
+    documentation: '/accessibility/documentation',
+    auditLog: '/accessibility/audit-log'
   };
 }

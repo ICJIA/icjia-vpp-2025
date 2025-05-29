@@ -162,9 +162,8 @@ export default defineNuxtConfig({
 
       // Explicitly include these routes in static generation
       routes: [
-        // Accessibility documentation HTML files
-        '/accessibility-documentation.html',
-        '/audit-log-accessibility.html'
+        // Accessibility documentation is now handled by Nuxt Content
+        // via the dynamic catch-all page system at /pages/[...slug].vue
       ],
 
       // Exclude these routes from crawling/generation

@@ -61,8 +61,8 @@
     },
     "accessibility": {
       "wcagLevel": "AA",
-      "auditLog": "/audit-log-accessibility.html",
-      "documentation": "/accessibility-documentation.html"
+      "auditLog": "/accessibility/audit-log",
+      "documentation": "/accessibility/documentation"
     },
     "analytics": {
       "enabled": false,
