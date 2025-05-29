@@ -1,6 +1,6 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-29T11:34:57.385Z",
+  "generatedAt": "2025-05-29T12:17:05.763Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
@@ -231,7 +231,7 @@
       ]
     },
     {
-      "title": "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois",
+      "title": "Strategic Priorities: 2025-2029",
       "path": "/strategic-priorities",
       "fullUrl": "https://vpp-2025.netlify.app/strategic-priorities",
       "type": "content",
@@ -239,7 +239,7 @@
         {
           "type": "content",
           "source": "content/strategic-priorities.md",
-          "title": "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois"
+          "title": "Strategic Priorities: 2025-2029"
         }
       ]
     }

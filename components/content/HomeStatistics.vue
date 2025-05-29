@@ -63,12 +63,6 @@ import HomeStatisticCard from './HomeStatisticCard.vue';
  */
 const statistics = [
   {
-    title: 'Youth Sexual Violence Crisis',
-    description: '12% of Illinois high school students experienced sexual violence between 2019-2021. This alarming statistic highlights the urgent need for comprehensive prevention programs in our schools.',
-    icon: 'mdi-account-group',
-    color: 'primary'
-  },
-  {
     title: 'Bullying Affects One in Three',
     description: 'One in three youth in grades 6-12 report experiencing bullying. This widespread issue creates lasting trauma and requires immediate intervention strategies.',
     icon: 'mdi-school',
@@ -78,6 +72,12 @@ const statistics = [
     title: 'Physical Violence Among Youth',
     description: 'One in five Illinois youth report being in physical fights within the past 12 months. These incidents often escalate and require early intervention approaches.',
     icon: 'mdi-account-alert',
+    color: 'primary'
+  },
+  {
+    title: 'Youth Sexual Violence Crisis',
+    description: '12% of Illinois high school students experienced sexual violence between 2019-2021. This alarming statistic highlights the urgent need for comprehensive prevention programs in our schools.',
+    icon: 'mdi-account-group',
     color: 'primary'
   },
   {

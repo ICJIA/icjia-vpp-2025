@@ -1,46 +1,56 @@
 <template>
   <div class="theme-switch-container">
-    <AccessibleTooltip
-      :text="tooltipText"
-      location="bottom"
-    >
-      <template v-slot="{ props }">
-        <v-btn
-          v-bind="props"
-          icon
-          color="on-app-bar"
-          :aria-label="ariaLabel"
-          @click="toggleTheme"
-          @keydown.enter="toggleTheme"
-          @keydown.space.prevent="toggleTheme"
-          class="theme-btn"
-          tabindex="0"
-          role="switch"
-          :aria-checked="isDarkTheme ? 'true' : 'false'"
-        >
-          <v-icon aria-hidden="true">{{ isDarkTheme ? 'mdi-weather-night' : 'mdi-white-balance-sunny' }}</v-icon>
-          <span class="sr-only">{{ isDarkTheme ? 'Currently in dark mode' : 'Currently in light mode' }}</span>
-        </v-btn>
-      </template>
-    </AccessibleTooltip>
+    <div class="theme-switch-wrapper">
+      <!-- Theme icon indicator -->
+      <v-icon
+        :icon="isDarkTheme ? 'mdi-weather-night' : 'mdi-white-balance-sunny'"
+        size="small"
+        :color="isDarkTheme ? 'yellow-lighten-2' : 'orange'"
+        class="theme-icon"
+        aria-hidden="true"
+      />
+
+      <!-- Switch component -->
+      <v-switch
+        :model-value="isDarkTheme"
+        @update:model-value="handleSwitchChange"
+        :aria-label="ariaLabel"
+        color="primary"
+        class="theme-switch"
+        hide-details
+        density="compact"
+        :ripple="false"
+      />
+
+      <!-- Theme label -->
+      <span class="theme-label" :aria-live="'polite'">
+        {{ isDarkTheme ? 'Dark' : 'Light' }}
+      </span>
+
+      <!-- Screen reader announcement -->
+      <span class="sr-only" aria-live="assertive" :key="isDarkTheme">
+        {{ isDarkTheme ? 'Switched to dark mode' : 'Switched to light mode' }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script setup>
 /**
- * Accessible theme switch component for toggling between light and dark themes
+ * Accessible theme switch component with prominent switch and text labels
  *
  * This component provides:
- * - Keyboard accessibility (Enter/Space activation)
- * - Screen reader support with ARIA attributes
- * - Tooltip with descriptive text
- * - Visual indication of current theme
- * - Focus styles for keyboard navigation
+ * - Prominent switch/slider component for better discoverability
+ * - Clear text labels indicating current theme mode
+ * - Visual theme icons (sun/moon) for enhanced clarity
+ * - Keyboard accessibility with proper focus management
+ * - Screen reader support with ARIA attributes and live announcements
+ * - Responsive design that works on mobile and desktop
+ * - WCAG 2.1 AA compliance
  *
  * @component
  */
 import { computed } from 'vue';
-import AccessibleTooltip from './AccessibleTooltip.vue';
 
 /**
  * Component props
@@ -72,7 +82,7 @@ const isDarkTheme = computed({
 });
 
 /**
- * Computed property for the button's aria-label
+ * Computed property for the switch's aria-label
  * Provides context for screen readers
  *
  * @returns {string} Descriptive label for the current action
@@ -82,20 +92,13 @@ const ariaLabel = computed(() =>
 );
 
 /**
- * Computed property for the tooltip text
- * Provides visual description on hover
- *
- * @returns {string} Descriptive tooltip text
- */
-const tooltipText = computed(() =>
-  isDarkTheme.value ? 'Switch to light theme' : 'Switch to dark theme'
-);
-
-/**
- * Toggle theme method
+ * Handle switch value change
  * Emits event to parent component to handle theme change
+ *
+ * @param {boolean} value - New switch value (true for dark, false for light)
  */
-const toggleTheme = () => {
+const handleSwitchChange = (value) => {
+  // Emit toggle event to parent component
   emit('toggle-theme');
 };
 </script>
@@ -107,16 +110,53 @@ const toggleTheme = () => {
   height: 100%;
 }
 
-.theme-btn {
-  margin: 0;
-  padding: 0;
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1.5rem;
+  background-color: rgba(var(--v-theme-surface-variant), 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.theme-switch-wrapper:hover {
+  background-color: rgba(var(--v-theme-surface-variant), 0.15);
+}
+
+.theme-icon {
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.theme-switch {
+  flex-shrink: 0;
+}
+
+/* Override Vuetify switch styles for compact appearance */
+.theme-switch :deep(.v-switch__track) {
+  width: 2rem;
+  height: 1rem;
+}
+
+.theme-switch :deep(.v-switch__thumb) {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.theme-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(var(--v-theme-on-surface));
+  white-space: nowrap;
+  user-select: none;
+  transition: color 0.3s ease;
 }
 
 /* Improve focus visibility for accessibility */
-.theme-btn:focus-visible {
-  outline: 3px solid var(--v-primary-base);
+.theme-switch :deep(.v-switch__input:focus-visible + .v-switch__track) {
+  outline: 3px solid rgb(var(--v-theme-primary));
   outline-offset: 2px;
-  border-radius: 50%;
 }
 
 /* Screen reader only class */
@@ -130,5 +170,42 @@ const toggleTheme = () => {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-switch-wrapper {
+    gap: 0.375rem;
+    padding: 0.25rem 0.375rem;
+  }
+
+  .theme-label {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Very small screens - show icon and switch only */
+@media (max-width: 480px) {
+  .theme-label {
+    display: none;
+  }
+
+  .theme-switch-wrapper {
+    gap: 0.25rem;
+    padding: 0.25rem;
+  }
+}
+
+/* Dark theme adjustments */
+:root[data-theme="dark"] .theme-switch-wrapper {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme="dark"] .theme-switch-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .theme-label {
+  color: rgba(255, 255, 255, 0.9);
 }
 </style>

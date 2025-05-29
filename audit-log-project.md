@@ -6,6 +6,271 @@ This document serves as a chronological record of all significant changes made t
 
 **Important Note**: This audit log does not track git commits or version control history. Instead, it documents the actual iterative development process and working methodology used to create the website. The log serves as a detailed record of specific steps, decisions, and implementation approaches taken during development. The intended audience is future developers, project managers, or stakeholders who need to understand the development workflow and rationale behind implementation choices. Each entry captures the real-time development process, including iterations, refinements, and problem-solving approaches that occurred during the creation of this project.
 
+### 2025-05-29 (Theme Toggle Label Simplification)
+- Simplified theme toggle text labels from "Light Mode"/"Dark Mode" to just "Light"/"Dark" to save space and create more compact appearance in the navigation bar.
+- **Rationale**: Reduced label verbosity to improve space efficiency in navigation bar while maintaining clear meaning, as the switch context makes it obvious these refer to theme modes.
+- Files modified:
+  - `components/content/ThemeSwitch.vue`: Simplified theme label text
+    - **Label Text Reduction**: Changed from "Light Mode"/"Dark Mode" to "Light"/"Dark"
+    - **Space Efficiency**: Shorter labels take up less horizontal space in navigation bar
+    - **Maintained Clarity**: Context of switch component makes "mode" suffix unnecessary
+    - **Screen Reader Preservation**: Kept full "switched to dark/light mode" announcements for accessibility
+- Technical Implementation:
+  - **Template Update**: Modified theme label interpolation to use shorter text
+  - **Accessibility Maintained**: Screen reader announcements still use full descriptive text
+  - **Visual Consistency**: Shorter labels maintain same styling and positioning
+- User Experience Benefits:
+  - **Space Efficiency**: More compact navigation bar appearance
+  - **Reduced Visual Clutter**: Shorter text creates cleaner interface
+  - **Maintained Usability**: Clear meaning preserved despite shorter labels
+  - **Better Mobile Experience**: Less text wrapping on smaller screens
+
+### 2025-05-29 (Navigation Layout Simplification - Clean Left/Right Structure)
+- Simplified the navigation layout to achieve clean left/right structure: title/logo pushed left, menu items and theme toggle pushed right with good spacing between navigation and theme toggle, removing complex layout implementations in favor of simple, maintainable design.
+- **Rationale**: Addressed overly complex navigation layout by implementing simple, clean structure that achieves desired visual hierarchy: title on left, navigation menu items on right, theme toggle with appropriate spacing, eliminating unnecessary complexity.
+- Files modified:
+  - `components/content/AppHeader.vue`: Complete navigation layout simplification
+    - **Layout Structure Simplification**: Removed complex space-between layout and wrapper divs
+      - **Simple Right Alignment**: Changed back to `justify-end` for clean right-aligned navigation
+      - **Removed Wrapper Divs**: Eliminated unnecessary navigation button grouping containers
+      - **Clean Template Structure**: Streamlined template with direct navigation items and theme toggle
+    - **Theme Toggle Spacing**: Simplified to clean `ml-8` class for good separation
+      - **Simple Margin**: Used standard Vuetify margin class (ml-8 = 2rem) for clean spacing
+      - **No Complex CSS**: Removed all custom separator classes and pseudo-elements
+      - **Maintainable Approach**: Standard utility classes instead of custom CSS implementations
+    - **CSS Cleanup**: Removed all complex theme toggle separator styling
+      - **Eliminated Custom Classes**: Removed theme-toggle-separator-max and related styles
+      - **Removed Pseudo-elements**: Eliminated complex ::before separator line implementations
+      - **Simplified Responsive**: No custom responsive adjustments needed with utility classes
+      - **Clean Stylesheet**: Reduced CSS complexity significantly
+- Technical Implementation:
+  - **Standard Flexbox**: Used simple `justify-end` for right alignment of navigation group
+  - **Utility Classes**: Leveraged Vuetify's built-in margin classes (ml-8) for spacing
+  - **Template Simplification**: Direct template structure without unnecessary wrapper elements
+  - **CSS Reduction**: Eliminated 75+ lines of custom CSS in favor of utility classes
+- Visual Design Results:
+  - **Clean Layout**: Title/logo naturally positioned on left, navigation group on right
+  - **Good Spacing**: 2rem (ml-8) provides appropriate separation between menu items and theme toggle
+  - **Professional Appearance**: Simple, clean layout without visual complexity
+  - **Maintainable Design**: Standard utility classes instead of custom CSS implementations
+  - **Responsive Behavior**: Vuetify utility classes handle responsive behavior automatically
+- User Experience Benefits:
+  - **Clear Hierarchy**: Simple left/right layout is immediately understandable
+  - **Reduced Complexity**: Eliminated confusing layout implementations
+  - **Consistent Spacing**: Standard margin provides predictable, professional spacing
+  - **Better Maintainability**: Future developers can easily understand and modify layout
+  - **Performance**: Reduced CSS complexity improves rendering performance
+
+### 2025-05-29 (Theme Toggle Absolute Maximum Separation Implementation)
+- Implemented absolute maximum visual separation between theme toggle switch and navigation buttons by restructuring the navigation container layout and applying extreme spacing values to push the theme toggle to the absolute far-right edge with maximum possible gap.
+- **Rationale**: Addressed insufficient visual separation by completely restructuring navigation layout using justify-space-between and implementing maximum spacing values to create unmistakable visual distinction between navigation and theme toggle utility.
+- Files modified:
+  - `components/content/AppHeader.vue`: Complete navigation layout restructure for maximum theme toggle separation
+    - **Navigation Layout Restructure**: Changed from `justify-end` to `justify-space-between w-100` for maximum space utilization
+      - **Container Structure**: Wrapped navigation buttons in dedicated div group for left positioning
+      - **Theme Toggle Isolation**: Positioned theme toggle as separate element on far right using flexbox space-between
+      - **Full Width Utilization**: Added `w-100` class to utilize entire navigation container width
+    - **Extreme Spacing Implementation**: Created `theme-toggle-separator-max` class with maximum spacing values
+      - **Desktop Maximum**: 4rem padding-left + 3rem margin-left for total 7rem separation buffer
+      - **Tablet Substantial**: 3rem padding-left + 2rem margin-left for 5rem separation buffer
+      - **Mobile Appropriate**: 2rem padding-left + 1.5rem margin-left for 3.5rem separation buffer
+    - **Separator Line Adjustment**: Repositioned vertical separator to accommodate extreme spacing
+      - **Desktop**: Separator positioned at 2rem left for visual balance with maximum spacing
+      - **Responsive Scaling**: Separator position scales proportionally (2rem → 1.5rem → 1rem)
+      - **Theme Compatibility**: Separator styling maintained for both light and dark themes
+    - **Layout Architecture**: Implemented space-between flexbox for absolute maximum separation
+      - **Left Group**: Navigation buttons contained in flex div for left positioning
+      - **Right Element**: Theme toggle positioned independently at far right edge
+      - **Space Utilization**: Full container width used to maximize gap between groups
+- Technical Implementation:
+  - **Flexbox Space-Between**: Used `justify-space-between` to push elements to opposite edges
+  - **Container Width**: Added `w-100` to ensure full width utilization for maximum separation
+  - **Layered Spacing**: Combined container-level separation with element-level padding/margins
+  - **Responsive Scaling**: All spacing values scale proportionally across breakpoints
+  - **Separator Positioning**: Adjusted pseudo-element positioning for visual balance
+- Visual Design Results:
+  - **Absolute Maximum Gap**: Theme toggle now positioned at absolute far-right with enormous separation
+  - **Complete Visual Isolation**: Theme toggle appears entirely separate from navigation button group
+  - **Professional Space Distribution**: Full navigation width utilized for optimal layout balance
+  - **Unmistakable Distinction**: Gap so large that theme toggle clearly appears as separate utility
+  - **Enhanced Visual Hierarchy**: Extreme separation creates strongest possible interface organization
+- User Experience Benefits:
+  - **Zero Ambiguity**: Impossible to confuse theme toggle with navigation buttons
+  - **Clear Interface Zones**: Distinct left (navigation) and right (utilities) interface areas
+  - **Improved Discoverability**: Theme toggle positioned in expected utility location (far right)
+  - **Professional Layout**: Sophisticated space distribution creates premium interface feel
+  - **Reduced Cognitive Load**: Clear spatial organization eliminates interface interpretation effort
+
+### 2025-05-29 (Theme Toggle Maximum Visual Separation Enhancement)
+- Significantly increased visual separation between the theme toggle switch component and navigation buttons by implementing maximum spacing with ml-auto and enhanced padding to push the switch as far right as possible while maintaining visual balance.
+- **Rationale**: Created maximum visual distinction between main navigation and theme toggle utility control by utilizing all available horizontal space, ensuring the theme toggle appears completely separate from navigation buttons.
+- Files modified:
+  - `components/content/AppHeader.vue`: Implemented maximum spacing and visual separation for theme toggle
+    - **Maximum Margin**: Changed from `ml-6` to `ml-auto` to utilize all available space and push switch to far right
+    - **Enhanced Padding**: Increased left padding from 1.5rem to 2.5rem for additional separation
+    - **Additional Margin**: Added 2rem margin-left on top of ml-auto for extra spacing buffer
+    - **Separator Positioning**: Adjusted separator line position to accommodate increased spacing (left: 1.25rem)
+    - **Responsive Scaling**: Maintained proportional spacing across all breakpoints with increased values
+      - **Desktop**: 2.5rem padding + 2rem margin + ml-auto for maximum separation
+      - **Tablet**: 2rem padding + 1.5rem margin + ml-auto for substantial separation
+      - **Mobile**: 1.5rem padding + 1rem margin + ml-auto for appropriate mobile spacing
+- Technical Implementation:
+  - **Flexbox Auto-Margin**: Used `ml-auto` to push theme toggle to far right edge of available space
+  - **Layered Spacing**: Combined auto-margin with additional fixed margins and padding for maximum effect
+  - **Separator Adjustment**: Repositioned vertical separator line to maintain visual balance with increased spacing
+  - **Responsive Consistency**: Scaled all spacing values proportionally across breakpoints
+- Visual Design Benefits:
+  - **Maximum Separation**: Theme toggle now positioned at far right with substantial gap from navigation
+  - **Clear Isolation**: Complete visual isolation makes theme toggle unmistakably separate from main navigation
+  - **Professional Layout**: Utilizes full navigation bar width for optimal space distribution
+  - **Enhanced Hierarchy**: Extreme separation creates strongest possible visual hierarchy distinction
+  - **Balanced Composition**: Despite maximum spacing, maintains overall navigation bar visual balance
+
+### 2025-05-29 (Theme Toggle Visual Separation Enhancement)
+- Increased visual separation between the theme toggle switch component and navigation buttons in the top navigation bar by adding enhanced spacing and a subtle visual separator to make the theme toggle appear as a distinct utility control.
+- **Rationale**: Improved visual hierarchy and user interface clarity by creating clear distinction between main navigation buttons and the theme toggle utility control, enhancing overall navigation bar organization.
+- Files modified:
+  - `components/content/AppHeader.vue`: Enhanced spacing and visual separation for theme toggle
+    - **Increased Margin**: Changed from `ml-2` to `ml-6` for significantly more space between navigation buttons and theme toggle
+    - **Visual Separator**: Added `theme-toggle-separator` class with subtle vertical line separator
+      - **Separator Line**: 1px vertical line positioned between navigation and theme toggle
+      - **Responsive Height**: Line height adapts across breakpoints (1.5rem desktop, 1.25rem tablet, 1rem mobile)
+      - **Theme Compatibility**: Separator color adapts to light/dark themes with appropriate opacity
+    - **Enhanced Padding**: Additional left padding (1.5rem desktop, 1rem tablet, 0.75rem mobile) for proper spacing
+    - **Responsive Behavior**: Spacing and separator scale appropriately across desktop, tablet, and mobile breakpoints
+    - **Alignment Preservation**: Maintained proper vertical alignment within navigation bar
+- Technical Implementation:
+  - **CSS Pseudo-element**: Used ::before pseudo-element for clean separator line implementation
+  - **Responsive Design**: Media queries ensure appropriate spacing across all screen sizes
+  - **Theme Integration**: Separator colors use theme-aware CSS variables for consistency
+  - **Position Management**: Absolute positioning for separator with proper centering
+  - **Transition Effects**: Smooth color transitions for theme switching
+- Visual Design Benefits:
+  - **Clear Hierarchy**: Theme toggle now appears as distinct utility control separate from main navigation
+  - **Professional Appearance**: Subtle separator line creates polished, organized navigation layout
+  - **Improved Scanning**: Users can easily distinguish between navigation links and utility controls
+  - **Visual Balance**: Enhanced spacing creates better proportional balance in navigation bar
+  - **Consistent Spacing**: Responsive adjustments maintain visual harmony across all screen sizes
+- User Experience Improvements:
+  - **Reduced Cognitive Load**: Clear visual separation helps users understand interface organization
+  - **Better Navigation**: Distinct grouping makes it easier to locate theme toggle when needed
+  - **Professional Feel**: Enhanced spacing creates more sophisticated, well-organized interface
+  - **Accessibility**: Visual separation aids users with cognitive disabilities in understanding interface structure
+
+### 2025-05-29 (Theme Toggle Enhancement - Switch Component with Text Labels)
+- Replaced the current icon-only theme toggle in the top navigation bar with a more prominent switch/slider component that includes clear text labels indicating the current theme mode, addressing usability issues identified during user testing.
+- **Rationale**: Enhanced discoverability and usability of the theme toggle after user testing revealed that the icon-only toggle was not easily discoverable, improving overall user experience and accessibility.
+- Files modified:
+  - `components/content/ThemeSwitch.vue`: Complete redesign from icon button to prominent switch component
+    - **Component Replacement**: Replaced icon-only button with v-switch component and text labels
+      - **Switch Implementation**: Used Vuetify's v-switch with compact density and primary color
+      - **Text Labels**: Display "Light Mode" or "Dark Mode" based on current theme state
+      - **Visual Icons**: Added sun/moon icons alongside switch for enhanced visual clarity
+      - **Responsive Design**: Labels hide on very small screens (≤480px) with icon and switch remaining
+    - **Enhanced Accessibility**: Improved WCAG 2.1 AA compliance and screen reader support
+      - **ARIA Labels**: Proper aria-label for switch indicating available action
+      - **Live Announcements**: Added aria-live regions for theme change announcements
+      - **Focus Management**: Enhanced focus visibility with proper outline styles
+      - **Screen Reader Support**: Clear announcements when theme changes occur
+    - **Visual Design Integration**: Seamless integration with existing navigation bar design
+      - **Background Container**: Subtle background with hover effects for visual grouping
+      - **Proper Spacing**: Optimized gap and padding for professional appearance
+      - **Theme Compatibility**: Works seamlessly in both light and dark themes
+      - **Compact Layout**: Maintains navigation bar proportions without overwhelming other elements
+    - **Responsive Behavior**: Adaptive layout for different screen sizes
+      - **Desktop**: Full layout with icon, switch, and text label
+      - **Tablet**: Slightly reduced spacing and font sizes
+      - **Mobile**: Icon and switch only, text label hidden for space efficiency
+      - **Touch-Friendly**: Proper sizing for mobile interaction
+    - **Functionality Preservation**: Maintained all existing theme switching logic
+      - **State Management**: Same theme state management and localStorage persistence
+      - **Event Handling**: Preserved existing toggle-theme event emission
+      - **Theme Application**: No changes to theme application or CSS variable system
+- Technical Implementation:
+  - **Switch Component**: Vuetify v-switch with custom styling and compact density
+  - **Layout Structure**: Flexbox layout with icon, switch, and label in horizontal arrangement
+  - **CSS Customization**: Custom styles for switch track and thumb sizing
+  - **Event Management**: handleSwitchChange function that maintains existing emit pattern
+  - **Responsive CSS**: Media queries for adaptive behavior across screen sizes
+- User Experience Benefits:
+  - **Improved Discoverability**: Switch component is more recognizable than icon-only button
+  - **Clear State Indication**: Text labels clearly communicate current theme mode
+  - **Enhanced Usability**: Larger interaction area and clearer visual feedback
+  - **Better Accessibility**: Improved screen reader support and keyboard navigation
+  - **Professional Appearance**: Modern switch design aligns with contemporary UI patterns
+- Accessibility Improvements:
+  - **Screen Reader Announcements**: Live regions announce theme changes
+  - **Keyboard Navigation**: Proper focus management and keyboard accessibility
+  - **Visual Clarity**: Clear text labels reduce cognitive load for all users
+  - **WCAG Compliance**: Maintains and enhances WCAG 2.1 AA standards
+  - **Reduced Confusion**: Eliminates guesswork about current theme state
+
+### 2025-05-29 (Violence Data Cards - Content Order Rearrangement)
+- Rearranged the order of cards in "The Data" section to move "Youth Sexual Violence Crisis" from the first position to the third position for improved content flow and presentation.
+- **Rationale**: Repositioned the sexual violence statistic to create a more logical progression of violence data presentation, potentially improving user engagement and content comprehension flow.
+- Files modified:
+  - `components/content/HomeStatistics.vue`: Reordered statistics array for improved content presentation
+    - **Card Order Change**: Moved "Youth Sexual Violence Crisis" from position 1 to position 3
+    - **New Order**:
+      1. "Bullying Affects One in Three" (previously 2nd)
+      2. "Physical Violence Among Youth" (previously 3rd)
+      3. "Youth Sexual Violence Crisis" (previously 1st)
+      4. "Child Maltreatment Rates" (unchanged - 4th)
+      5. "Rising Firearm Mortality" (unchanged - 5th)
+      6. "Racial Disparities in Violence" (unchanged - 6th)
+    - **Content Preservation**: All card content, styling, and functionality remain identical
+    - **Animation Timing**: Maintained existing staggered animation delays based on array index
+- Technical Implementation:
+  - **Array Reordering**: Simple repositioning of objects within the statistics array
+  - **No Functional Changes**: All card properties, icons, descriptions, and styling preserved
+  - **Animation Consistency**: Entrance animations continue to work with 100ms delays per card
+  - **Responsive Behavior**: Grid layout and responsive behavior unaffected by content reordering
+- User Experience Benefits:
+  - **Improved Flow**: New ordering may provide better content progression for users
+  - **Maintained Functionality**: All interactive and visual elements work identically
+  - **Consistent Presentation**: Visual design and accessibility features unchanged
+  - **Content Accessibility**: All statistical information remains equally accessible
+
+### 2025-05-29 (Strategic Priorities Cards - Learn More Buttons Implementation)
+- Added "Learn More" buttons to the Strategic Priorities cards on the homepage (HomeGoals component) with bottom-aligned positioning and consistent styling that matches the project's design system patterns.
+- **Rationale**: Enhanced user experience by providing clear call-to-action buttons while maintaining existing card-level click functionality, creating dual navigation options that improve accessibility and user interaction clarity.
+- Files modified:
+  - `components/content/HomeGoalCard.vue`: Comprehensive enhancement to add Learn More buttons with perfect alignment
+    - **Button Implementation**: Added "Learn More" buttons with consistent project styling
+      - **Button Styling**: Outlined primary buttons with rounded-pill styling and mdi-arrow-right icon
+      - **Design Consistency**: Matches established button patterns used throughout the project
+      - **Accessibility**: Proper ARIA labels and keyboard navigation support
+    - **Layout Enhancement**: Updated CSS Grid system for bottom-aligned button positioning
+      - **Grid Template**: Extended from 5-row to 6-row grid (badge, icon, title, description, highlights, button)
+      - **Button Alignment**: All buttons vertically aligned at bottom regardless of content length differences
+      - **Equal Heights**: Maintained equal card heights across responsive grid layout
+      - **Flexible Layout**: Highlights section expands with 1fr to fill available space above buttons
+    - **Navigation Behavior**: Implemented dual navigation system
+      - **Card Click**: Maintains existing card-level click navigation to `/strategic-priorities`
+      - **Button Click**: Dedicated "Learn More" button click with same navigation destination
+      - **Event Handling**: Used @click.stop to prevent button clicks from triggering card clicks
+      - **Consistent Behavior**: Both navigation methods use identical URL handling logic
+    - **Component Documentation**: Updated JSDoc to reflect dual navigation and button alignment features
+    - **Responsive Design**: Button section maintains proper alignment across all screen sizes
+    - **Theme Compatibility**: Button styling works seamlessly with both light and dark themes
+- Technical Implementation:
+  - **CSS Grid Enhancement**: Added "button" grid area with auto height and centered content
+  - **Event Management**: Implemented handleLearnMoreClick function that reuses existing navigation logic
+  - **Accessibility Compliance**: Maintained WCAG 2.1 AA standards with proper focus management
+  - **Design System Consistency**: Applied established button styling patterns from other card components
+  - **Responsive Behavior**: Ensured button alignment works across mobile, tablet, and desktop breakpoints
+- User Experience Benefits:
+  - **Clear Call-to-Action**: Dedicated buttons provide obvious interaction points for users
+  - **Dual Navigation Options**: Users can click either the card or button for the same destination
+  - **Visual Consistency**: Button styling matches other interactive elements throughout the site
+  - **Improved Accessibility**: Clear button labels and keyboard navigation enhance screen reader experience
+  - **Professional Appearance**: Bottom-aligned buttons create polished, magazine-style card layout
+- Design System Improvements:
+  - **Consistent Patterns**: Strategic priority cards now match the interaction patterns of other navigational cards
+  - **Button Alignment**: Established template for bottom-aligned buttons in card-based layouts
+  - **Accessibility Standards**: Demonstrated proper implementation of dual navigation with accessibility compliance
+  - **Visual Hierarchy**: Enhanced content organization with clear action areas at card bottoms
+
 ### 2025-05-29 (Violence Data Cards Final Enhancements - Background Contrast and Hover Removal)
 - Applied final enhancements to the six data cards in the "Violence in Illinois: The Data" section by implementing background contrast enhancement and ensuring complete removal of any remaining hover effects for a fully static, professional card-like appearance.
 - **Rationale**: Completed the transformation to professional infographic-style cards by adding visual separation from page backgrounds and confirming completely static behavior, following established design system patterns from NewsCard and other card components.

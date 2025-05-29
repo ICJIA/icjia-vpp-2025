@@ -1,7 +1,7 @@
 ---
-title: "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois"
+title: "Strategic Priorities: 2025-2029"
 description: "Three core strategic goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities."
-ogTitle: "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois"
+ogTitle: "Strategic Priorities: 2025-2029"
 ogDescription: "Three core strategic goals for violence prevention across Illinois communities."
 ogImage: "/images/og-image-strategic-priorities.jpg"
 twitterCard: "summary_large_image"

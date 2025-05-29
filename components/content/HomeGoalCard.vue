@@ -74,6 +74,21 @@
           </v-list>
         </div>
 
+        <!-- Button Section -->
+        <div class="button-section">
+          <v-btn
+            color="primary"
+            variant="outlined"
+            size="default"
+            class="rounded-pill px-6"
+            append-icon="mdi-arrow-right"
+            @click.stop="handleLearnMoreClick"
+            :aria-label="`Learn more about ${goal.title}`"
+          >
+            Learn More
+          </v-btn>
+        </div>
+
       </div>
     </v-card>
   </div>
@@ -81,17 +96,18 @@
 
 <script setup>
 /**
- * Home Goal Card Component - Card-Level Click Navigation
+ * Home Goal Card Component - Dual Navigation with Learn More Buttons
  *
- * Displays individual strategic goals with card-level click navigation.
- * Refactored to remove Learn More buttons and implement entire card as clickable area.
+ * Displays individual strategic goals with both card-level click navigation and dedicated
+ * "Learn More" buttons for enhanced user experience and clear call-to-action.
  *
  * Features:
- * - CSS Grid-based layout for optimal content organization
+ * - CSS Grid-based layout for optimal content organization with bottom-aligned buttons
  * - Larger icons (size 64) for better visual impact
- * - Responsive design with consistent minimum heights
- * - Card-level click navigation to /about route
- * - Enhanced accessibility with proper ARIA attributes
+ * - Responsive design with consistent minimum heights and equal card heights
+ * - Dual navigation: card-level click and dedicated "Learn More" buttons
+ * - Bottom-aligned buttons regardless of content length differences
+ * - Enhanced accessibility with proper ARIA attributes and keyboard navigation
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
  * - Full theme compatibility (light/dark)
@@ -99,11 +115,12 @@
  * - Goal number badges and key focus areas with checkmarks
  *
  * Technical Implementation:
- * - Uses CSS Grid with fixed template areas for content sections
+ * - Uses CSS Grid with 6-row template for perfect button alignment
  * - Highlights section expands with 1fr to fill available space
+ * - Button section uses auto height and centers content
  * - Deep selectors override Vuetify card and list defaults
  * - Enhanced text contrast for optimal readability in both themes
- * - Entire card is clickable with keyboard navigation support
+ * - Event handling prevents button click from triggering card click
  *
  * @component
  */
@@ -235,6 +252,20 @@ const handleCardClick = async () => {
     }
   }
 };
+
+/**
+ * Handle Learn More button click
+ * Uses the same navigation logic as card click but with button-specific logging
+ * The @click.stop prevents event bubbling to avoid triggering card click
+ *
+ * @returns {Promise<void>} Promise that resolves when navigation is complete
+ */
+const handleLearnMoreClick = async () => {
+  console.log('Learn More button clicked:', props.goal.title);
+
+  // Use the same navigation logic as card click
+  await handleCardClick();
+};
 </script>
 
 <style scoped>
@@ -262,16 +293,17 @@ const handleCardClick = async () => {
   cursor: pointer;
 }
 
-/* Card Content Grid - Perfect alignment system */
+/* Card Content Grid - Perfect alignment system with button */
 .card-content-grid {
   display: grid;
-  grid-template-rows: auto auto auto auto 1fr;
+  grid-template-rows: auto auto auto auto 1fr auto;
   grid-template-areas:
     "badge"
     "icon"
     "title"
     "description"
-    "highlights";
+    "highlights"
+    "button";
   height: 100%;
   gap: 1.5rem;
   align-content: start;
@@ -364,6 +396,15 @@ const handleCardClick = async () => {
   font-size: 0.875rem;
   line-height: 1.5;
   color: rgba(var(--v-theme-on-surface), 0.8);
+}
+
+/* Button Section */
+.button-section {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
 }
 
 /* Hover and Focus States */

@@ -210,10 +210,11 @@
           </template>
         </template>
 
+        <!-- Theme toggle with good spacing -->
         <ThemeSwitch
           :theme="theme"
           @toggle-theme="$emit('toggle-theme')"
-          class="ml-2"
+          class="ml-8"
         />
       </nav>
     </div>
@@ -702,6 +703,8 @@ const handleHomeClick = () => {
   color: #BFDBFE !important; /* Lighter blue on hover */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
 }
+
+/* Simple theme toggle spacing */
 
 /* Mobile navigation styles */
 .mobile-nav-drawer {
