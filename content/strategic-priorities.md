@@ -10,7 +10,7 @@ twitterCard: "summary_large_image"
 Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
 
 
-## Goal #1: Prevent Violence & Promote Safety {#prevent-violence-promote-safety}
+## Goal #1: Prevent Violence & Promote Safety
 
 Implement evidence-based prevention strategies through trauma-informed/healing-centered approaches that address primary, secondary, and tertiary prevention across all community levels.
 
@@ -49,7 +49,7 @@ Implement evidence-based prevention strategies through trauma-informed/healing-c
 ### Related Guiding Principles
 This strategic priority is directly supported by our principles of [Promote Safety](/principles#promote-safety) and [Support Health](/principles#support-health).
 
-## Goal #2: Advance Equity {#advance-equity}
+## Goal #2: Advance Equity
 
 Increase access to grants and economic opportunities through flexible funding that accommodates local community priorities and addresses historical inequities.
 
@@ -90,7 +90,7 @@ This strategic priority directly implements our principle of [Advance Equity](/p
 
 
 
-## Goal #3: Promote Collaboration {#promote-collaboration}
+## Goal #3: Promote Collaboration
 
 Foster partnerships across state, municipal, and community-based agencies through research-informed data sharing and best practice exchange.
 

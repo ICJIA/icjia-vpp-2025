@@ -336,6 +336,8 @@ const handleLearnMoreClick = async () => {
 :root[data-theme="dark"] .principle-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  /* Enhanced background for better contrast against dark page backgrounds */
+  background: #2A3441 !important;
 }
 
 :root[data-theme="dark"] .principle-card-inner:hover,
