@@ -31,6 +31,9 @@
           />
         </v-col>
       </v-row>
+
+      <!-- Download CTA -->
+      <DownloadPlanButton container-class="mt-12 download-cta-section" />
     </v-container>
   </section>
 </template>
@@ -47,13 +50,14 @@
  * - Key statistics from the VPP analysis
  * - Visual card-based presentation
  * - Animated entrance effects
- * - Disparities callout section
+ * - Download CTA button for plan access
  * - WCAG 2.1 AA accessibility compliance
  * - Full theme compatibility
  *
  * @component
  */
 import HomeStatisticCard from './HomeStatisticCard.vue';
+import DownloadPlanButton from './DownloadPlanButton.vue';
 
 /**
  * Statistics data from the Violence Prevention Plan analysis
@@ -125,6 +129,12 @@ const statistics = [
   animation-delay: 0.4s;
 }
 
+.statistics-section .download-cta-section {
+  opacity: 0;
+  animation: fadeSlideUp 0.8s forwards;
+  animation-delay: 1.0s;
+}
+
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
@@ -139,5 +149,15 @@ const statistics = [
 /* Dark theme card adjustments */
 :root[data-theme="dark"] .v-card {
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .statistics-section h2,
+  .statistics-section p,
+  .statistics-section .download-cta-section {
+    animation: none;
+    opacity: 1;
+  }
 }
 </style>

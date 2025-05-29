@@ -27,7 +27,7 @@
         <h1 class="text-h2 font-weight-bold mb-4">Page Not Found</h1>
 
         <p class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text">
-          Violence Prevention Plan for Illinois: 2025-2029
+          Statewide Violence Prevention Plan for Illinois: 2025-2029
         </p>
 
         <p class="text-body-1 mb-8 max-width-text">
@@ -199,10 +199,10 @@ const pageTitle = computed(() => {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-    return `${titleFromSlug} - Violence Prevention Plan for Illinois: 2025-2029`;
+    return `${titleFromSlug} - Statewide Violence Prevention Plan for Illinois: 2025-2029`;
   }
 
-  return 'Violence Prevention Plan for Illinois: 2025-2029';
+  return 'Statewide Violence Prevention Plan for Illinois: 2025-2029';
 });
 
 // Generate page description
@@ -211,7 +211,7 @@ const pageDescription = computed(() => {
     return content.value.description;
   }
 
-  return 'Violence Prevention Plan for Illinois: 2025-2029 - Building safer communities through evidence-based violence prevention strategies.';
+  return 'Statewide Violence Prevention Plan for Illinois: 2025-2029 - Building safer communities through evidence-based violence prevention strategies.';
 });
 
 // Navigation helper

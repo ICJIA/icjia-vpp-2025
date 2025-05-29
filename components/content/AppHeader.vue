@@ -101,35 +101,44 @@
 
               <v-card class="dropdown-menu" elevation="4">
                 <v-list density="compact" nav>
-                  <v-list-item
-                    v-for="(child, childIndex) in item.children"
-                    :key="childIndex"
-                    :value="childIndex"
-                    :to="child.to"
-                    :href="child.href"
-                    :target="child.isExternal ? child.target : undefined"
-                    :rel="child.isExternal ? child.rel : undefined"
-                    :aria-label="child.ariaLabel"
-                    :class="child.class"
-                    :color="child.color"
-                    @focus="openDropdowns[index] = true"
-                    @click="handleDropdownItemClick(index)"
-                    @keydown.esc="openDropdowns[index] = false"
-                    @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
-                    @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
-                    @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
-                  >
-                    <v-list-item-title>
-                      {{ child.text }}
-                      <v-icon
-                        v-if="child.isExternal && child.externalIcon"
-                        :icon="child.externalIcon"
-                        size="small"
-                        class="ml-1"
-                        aria-hidden="true"
-                      ></v-icon>
-                    </v-list-item-title>
-                  </v-list-item>
+                  <template v-for="(child, childIndex) in item.children" :key="childIndex">
+                    <!-- Divider item -->
+                    <v-divider
+                      v-if="child.isDivider"
+                      class="dropdown-divider"
+                      :class="child.class"
+                    ></v-divider>
+
+                    <!-- Regular dropdown item -->
+                    <v-list-item
+                      v-else
+                      :value="childIndex"
+                      :to="child.to"
+                      :href="child.href"
+                      :target="child.isExternal ? child.target : undefined"
+                      :rel="child.isExternal ? child.rel : undefined"
+                      :aria-label="child.ariaLabel"
+                      :class="child.class"
+                      :color="child.color"
+                      @focus="openDropdowns[index] = true"
+                      @click="handleDropdownItemClick(index)"
+                      @keydown.esc="openDropdowns[index] = false"
+                      @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
+                      @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
+                      @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
+                    >
+                      <v-list-item-title>
+                        {{ child.text }}
+                        <v-icon
+                          v-if="child.isExternal && child.externalIcon"
+                          :icon="child.externalIcon"
+                          size="small"
+                          class="ml-1"
+                          aria-hidden="true"
+                        ></v-icon>
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
                 </v-list>
               </v-card>
             </v-menu>
@@ -263,8 +272,16 @@
 
               <!-- Dropdown children -->
               <template v-for="(child, childIndex) in item.children" :key="`${index}-${childIndex}`">
+                <!-- Divider item -->
+                <v-divider
+                  v-if="child.isDivider"
+                  class="dropdown-divider-mobile"
+                  :class="child.mobileClass"
+                ></v-divider>
+
+                <!-- Regular dropdown item -->
                 <v-list-item
-                  v-if="shouldDisplayInMobile(child)"
+                  v-else-if="shouldDisplayInMobile(child)"
                   :to="child.to"
                   :href="child.href"
                   :target="child.isExternal ? child.target : undefined"
@@ -673,6 +690,17 @@ const handleHomeClick = () => {
 .dropdown-item:focus-visible {
   outline: 2px solid var(--v-theme-primary);
   outline-offset: -2px;
+}
+
+/* Dropdown divider styles */
+.dropdown-divider {
+  margin: 8px 0;
+  opacity: 0.3;
+}
+
+.dropdown-divider-mobile {
+  margin: 8px 16px;
+  opacity: 0.3;
 }
 
 /* Navigation download button custom styling - subtle card-like approach */

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the Defuddle-enhanced search index generation system implemented for the Violence Prevention Plan for Illinois: 2025-2029 project. This system significantly improves search functionality by capturing all visible content from rendered pages, including content that was previously missing from the search index.
+This document describes the Defuddle-enhanced search index generation system implemented for the Statewide Violence Prevention Plan for Illinois: 2025-2029 project. This system significantly improves search functionality by capturing all visible content from rendered pages, including content that was previously missing from the search index.
 
 ## Purpose
 
@@ -56,15 +56,15 @@ The generated search index follows this enhanced structure with both `path` and 
 ```json
 [
   {
-    "title": "Violence Prevention Plan for Illinois: 2025-2029 - Home",
+    "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Home",
     "content": "Rex adipiscing bis umbra sol gloria bis amet. Rex adipiscing bis umbra sol gloria bis amet ventus sit rex caelum est ideme...",
     "path": "/",
     "fullPath": "https://vpp-2025.netlify.app",
-    "description": "The Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.",
+    "description": "The Statewide Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.",
     "frontmatter": {
-      "title": "Violence Prevention Plan for Illinois: 2025-2029 - Home",
-      "description": "The Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.",
-      "ogTitle": "Violence Prevention Plan for Illinois: 2025-2029 - Home",
+      "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Home",
+      "description": "The Statewide Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.",
+      "ogTitle": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Home",
       "ogDescription": "Resources and tools for violence prevention initiatives across Illinois."
     },
     "type": "markdown",
@@ -72,14 +72,14 @@ The generated search index follows this enhanced structure with both `path` and 
     "wordCount": 197
   },
   {
-    "title": "Violence Prevention Plan for Illinois: 2025-2029 - About Us",
+    "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - About Us",
     "content": "About Us Sed do eiusmod tempor incididunt. Anima Lumen Manus Carmen mare vita idem Lorem elit anima lumen manus...",
     "path": "/about",
     "fullPath": "https://vpp-2025.netlify.app/about",
-    "description": "Learn about the Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.",
+    "description": "Learn about the Statewide Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.",
     "frontmatter": {
-      "title": "Violence Prevention Plan for Illinois: 2025-2029 - About Us",
-      "description": "Learn about the Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois."
+      "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - About Us",
+      "description": "Learn about the Statewide Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois."
     },
     "type": "markdown",
     "sourceFile": "about.md",

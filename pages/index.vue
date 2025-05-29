@@ -40,7 +40,7 @@
 
 <script setup>
 /**
- * Home Page for Violence Prevention Plan for Illinois: 2025-2029
+ * Home Page for Statewide Violence Prevention Plan for Illinois: 2025-2029
  *
  * This is a comprehensive implementation of the new homepage design
  * based on the Violence Prevention Plan analysis. It maintains the exact

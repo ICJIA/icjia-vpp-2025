@@ -76,20 +76,7 @@
       </div>
 
       <!-- Primary CTA -->
-      <div class="text-center">
-        <v-btn
-          color="primary"
-          size="x-large"
-          class="rounded-pill px-8 py-3 elevation-3 cta-button"
-          @click="handlePrimaryCTA"
-        >
-          Download the Plan
-          <v-icon end icon="mdi-download" />
-        </v-btn>
-        <p class="text-body-2 text-medium-emphasis mt-8">
-          Download the complete Violence Prevention Plan for Illinois: 2025-2029
-        </p>
-      </div>
+      <DownloadPlanButton container-class="cta-button-section" />
     </v-container>
   </section>
 </template>
@@ -111,6 +98,7 @@
  *
  * @component
  */
+import DownloadPlanButton from './DownloadPlanButton.vue';
 
 /**
  * Call-to-action options for user engagement
@@ -213,7 +201,8 @@ const handleActionClick = async (action) => {
 const handleLegacyAction = (action) => {
   switch (action.action) {
     case 'view-plan':
-      handlePrimaryCTA();
+      // Open the complete Violence Prevention Plan PDF
+      window.open('/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf', '_blank');
       break;
     case 'find-resources':
       // Navigate to resources page
@@ -228,13 +217,7 @@ const handleLegacyAction = (action) => {
   }
 };
 
-/**
- * Handle primary CTA button click
- */
-const handlePrimaryCTA = () => {
-  // Open the complete Violence Prevention Plan PDF
-  window.open('/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf', '_blank');
-};
+
 </script>
 
 <style scoped>
@@ -284,7 +267,7 @@ const handlePrimaryCTA = () => {
   animation-delay: 0.4s;
 }
 
-.action-section .cta-button {
+.action-section .cta-button-section {
   opacity: 0;
   animation: fadeSlideUp 0.8s forwards;
   animation-delay: 1.2s;
@@ -508,16 +491,6 @@ const handlePrimaryCTA = () => {
   }
 }
 
-/* Primary CTA button styling */
-.cta-button {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
 /* Animations */
 @keyframes fadeSlideUp {
   from {
@@ -534,7 +507,7 @@ const handlePrimaryCTA = () => {
 @media (prefers-reduced-motion: reduce) {
   .action-section h2,
   .action-section > .v-container > div:first-child p,
-  .action-section .cta-button,
+  .action-section .cta-button-section,
   .action-card-container {
     animation: none;
     opacity: 1;
@@ -544,8 +517,7 @@ const handlePrimaryCTA = () => {
     transition: none;
   }
 
-  .action-card-inner:hover,
-  .cta-button:hover {
+  .action-card-inner:hover {
     transform: none;
   }
 }

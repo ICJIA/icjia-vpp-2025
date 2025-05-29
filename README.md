@@ -1,4 +1,4 @@
-# Violence Prevention Plan for Illinois: 2025-2029
+# Statewide Violence Prevention Plan for Illinois: 2025-2029
 
 The first Statewide Violence Prevention Plan, for 2020-2024, was released in 2021. Since then, a
 variety of implementation, research, and activities have taken place. The Ad Hoc Violence Prevention
@@ -8,7 +8,7 @@ which this work could be used to inform the next violence prevention plan, colle
 
 ## Project Overview
 
-This project serves as the official web presence for the Violence Prevention Plan for Illinois: 2025-2029. It features:
+This project serves as the official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029. It features:
 
 - Modern, responsive design using Vuetify 3 components
 - Accessibility-first development approach (WCAG 2.1 AA compliant)

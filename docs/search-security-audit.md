@@ -219,7 +219,7 @@ const dangerousPatterns = [
 
 ## Conclusion
 
-The search functionality for the Violence Prevention Plan for Illinois: 2025-2029 has been comprehensively secured against common web application vulnerabilities. The implemented security measures provide robust protection while maintaining full functionality and accessibility compliance.
+The search functionality for the Statewide Violence Prevention Plan for Illinois: 2025-2029 has been comprehensively secured against common web application vulnerabilities. The implemented security measures provide robust protection while maintaining full functionality and accessibility compliance.
 
 **Security Status**: ✅ **FULLY SECURE**
 **Risk Level**: 🟢 **LOW**

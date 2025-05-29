@@ -25,36 +25,88 @@
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "class": "font-weight-medium mx-2 nav-link",
-        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "class": "font-weight-bold mx-2 nav-link",
+        "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
         "order": 10
       },
       {
         "text": "About",
-        "to": "/about",
-        "ariaLabel": "Learn more about our project",
-        "tooltip": "Learn more about our project",
+        "ariaLabel": "Learn more about our project and latest updates",
+        "tooltip": "Learn more about our project and latest updates",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "class": "font-weight-medium mx-2 nav-link",
-        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "class": "font-weight-bold mx-2 nav-link",
+        "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
-        "order": 20
-      },
-      {
-        "text": "News",
-        "to": "/news",
-        "ariaLabel": "View latest news and updates",
-        "tooltip": "View latest news and updates",
-        "tooltipLocation": "bottom",
-        "variant": "text",
-        "color": "on-app-bar",
-        "class": "font-weight-medium mx-2 nav-link",
-        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
-        "displayMode": "both",
-        "order": 30
+        "hasDropdown": true,
+        "dropdownIcon": "mdi-chevron-down",
+        "mobileDropdownIcon": "mdi-chevron-right",
+        "order": 20,
+        "children": [
+          {
+            "text": "About Us",
+            "to": "/about",
+            "ariaLabel": "Learn more about our project",
+            "tooltip": "Learn more about our project",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
+            "text": "News and Updates",
+            "to": "/news",
+            "ariaLabel": "View news and updates",
+            "tooltip": "View news and updates",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
+            "text": "Strategic Priorities",
+            "to": "/strategic-priorities",
+            "ariaLabel": "View our strategic priorities for 2025-2029",
+            "tooltip": "View our strategic priorities for 2025-2029",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
+            "text": "Guiding Principles",
+            "to": "/principles",
+            "ariaLabel": "View our guiding principles",
+            "tooltip": "View our guiding principles",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
+            "isDivider": true,
+            "class": "my-2",
+            "mobileClass": "my-2",
+            "displayMode": "both"
+          },
+          {
+            "text": "Contact",
+            "to": "/",
+            "ariaLabel": "Contact us",
+            "tooltip": "Contact us",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          }
+        ]
       },
       {
         "text": "Download the Plan",
@@ -82,8 +134,8 @@
         "variant": "text",
         "color": "on-app-bar",
         "icon": "mdi-magnify",
-        "class": "font-weight-medium mx-2 nav-link",
-        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "class": "font-weight-bold mx-2 nav-link",
+        "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
         "iconOnly": true,
         "order": 95
@@ -101,7 +153,7 @@
       "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
       "tooltip": "Return to homepage"
     },
-    "description": "Tempor magna proident qui dolore ipsum ut mollit reprehenderit labore duis. Qui commodo culpa ullamco in sit veniam id minim laborum velit. Duis cillum nisi sint minim sint reprehenderit amet eu consectetur officia do.",
+    "description": "The first Statewide Violence Prevention Plan, for 2020-2024, was released in 2021. Since then, a variety of implementation, research, and activities have taken place. The Ad Hoc Violence Prevention Committee and its workgroups reviewed these activities, reports, and research, discussing ways in which this work could be used to inform the next violence prevention plan, collectively writing the 2025-2029 goals and recommendations.",
     "sections": [
       {
         "title": "Navigation",

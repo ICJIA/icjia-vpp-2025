@@ -5,7 +5,7 @@
         <v-col cols="12" md="6" class="pr-md-12">
           <div class="hero-content mb-8">
             <h1 class="hero-title mb-6">
-              Violence Prevention Plan for Illinois: 2025-2029
+              Statewide Violence Prevention Plan for Illinois: 2025-2029
             </h1>
             <p class="hero-description mb-8">
               Violence is a global public health crisis. The prevention of violence is paramount. 

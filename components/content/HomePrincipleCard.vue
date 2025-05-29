@@ -37,6 +37,20 @@
           </p>
         </div>
 
+        <!-- Button Section -->
+        <div class="button-section">
+          <v-btn
+            color="primary"
+            variant="outlined"
+            size="default"
+            class="rounded-pill px-6"
+            append-icon="mdi-arrow-right"
+            @click.stop="handleLearnMoreClick"
+            :aria-label="`Learn more about ${principle.title}`"
+          >
+            Learn More
+          </v-btn>
+        </div>
 
       </div>
     </v-card>
@@ -45,27 +59,29 @@
 
 <script setup>
 /**
- * Sandbox Principle Card Component - Card-Level Click Navigation
+ * Principle Card Component - Dual Navigation with Learn More Buttons
  *
- * Displays individual guiding principles with card-level click navigation.
- * Refactored to remove Learn More buttons and implement entire card as clickable area.
+ * Displays individual guiding principles with both card-level click navigation and dedicated
+ * "Learn More" buttons for enhanced user experience and clear call-to-action.
  *
  * Features:
- * - CSS Grid-based layout for optimal content organization
+ * - CSS Grid-based layout for optimal content organization with bottom-aligned buttons
  * - Larger icons (size 64) for better visual impact
- * - Responsive design with consistent minimum heights
- * - Card-level click navigation to /about route
- * - Enhanced accessibility with proper ARIA attributes
+ * - Responsive design with consistent minimum heights and equal card heights
+ * - Dual navigation: card-level click and dedicated "Learn More" buttons
+ * - Bottom-aligned buttons regardless of content length differences
+ * - Enhanced accessibility with proper ARIA attributes and keyboard navigation
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
  * - Full theme compatibility (light/dark)
  * - WCAG 2.1 AA compliance maintained
  *
  * Technical Implementation:
- * - Uses CSS Grid with fixed template areas for content sections
+ * - Uses CSS Grid with fixed template areas including button section
  * - Description section expands with 1fr to fill available space
+ * - Button section uses auto height with bottom alignment
  * - Deep selectors override Vuetify card defaults for perfect control
- * - Entire card is clickable with keyboard navigation support
+ * - Dual navigation with @click.stop to prevent event bubbling
  *
  * @component
  */
@@ -197,6 +213,20 @@ const handleCardClick = async () => {
     }
   }
 };
+
+/**
+ * Handle Learn More button click
+ * Uses the same navigation logic as card click but with button-specific logging
+ * The @click.stop prevents event bubbling to avoid triggering card click
+ *
+ * @returns {Promise<void>} Promise that resolves when navigation is complete
+ */
+const handleLearnMoreClick = async () => {
+  console.log('Learn More button clicked:', props.principle.title);
+
+  // Use the same navigation logic as card click
+  await handleCardClick();
+};
 </script>
 
 <style scoped>
@@ -227,11 +257,12 @@ const handleCardClick = async () => {
 /* Card Content Grid - Perfect alignment system */
 .card-content-grid {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
     "icon"
     "title"
-    "description";
+    "description"
+    "button";
   height: 100%;
   gap: 1.5rem;
   align-content: start;
@@ -280,7 +311,14 @@ const handleCardClick = async () => {
   color: rgba(var(--v-theme-on-surface), 0.87);
 }
 
-
+/* Button Section - Bottom aligned */
+.button-section {
+  grid-area: button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
 
 /* Hover and Focus States */
 .principle-card-inner:hover,

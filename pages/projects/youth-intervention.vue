@@ -56,7 +56,7 @@
 
 <script setup>
 /**
- * Youth Intervention page for the Violence Prevention Plan for Illinois: 2025-2029
+ * Youth Intervention page for the Statewide Violence Prevention Plan for Illinois: 2025-2029
  *
  * This page now uses the standardized PageTitleSection component for consistent
  * typography and styling across the site. It dynamically fetches and renders content

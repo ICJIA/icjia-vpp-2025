@@ -23,13 +23,13 @@ This file contains all general site configuration settings:
 ```json
 {
   "metadata": {
-    "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
-    "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
+    "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+    "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
     "lastUpdated": "2025-05-25"
   },
   "branding": {
-    "siteName": "Violence Prevention Plan for Illinois: 2025-2029",
+    "siteName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "shortName": "Illinois Violence Prevention Plan",
     "tagline": "Building safer communities through evidence-based violence prevention strategies",
     "logo": {

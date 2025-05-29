@@ -67,11 +67,11 @@ class SiteConfigGenerator {
           markdown: ['sandbox.md', 'sandbox-*.md']
         },
         titleExtraction: siteConfig.routing?.titleExtraction || {
-          fallbackPattern: 'Violence Prevention Plan for Illinois: 2025-2029',
+          fallbackPattern: 'Statewide Violence Prevention Plan for Illinois: 2025-2029',
           maxLength: 100
         },
         summary: siteConfig.metadata || {
-          projectName: 'Violence Prevention Plan for Illinois: 2025-2029',
+          projectName: 'Statewide Violence Prevention Plan for Illinois: 2025-2029',
           description: 'Comprehensive site configuration for automatic page discovery and cataloging',
           version: '1.0.0'
         }
@@ -87,11 +87,11 @@ class SiteConfigGenerator {
           markdown: ['sandbox.md', 'sandbox-*.md']
         },
         titleExtraction: {
-          fallbackPattern: 'Violence Prevention Plan for Illinois: 2025-2029',
+          fallbackPattern: 'Statewide Violence Prevention Plan for Illinois: 2025-2029',
           maxLength: 100
         },
         summary: {
-          projectName: 'Violence Prevention Plan for Illinois: 2025-2029',
+          projectName: 'Statewide Violence Prevention Plan for Illinois: 2025-2029',
           description: 'Comprehensive site configuration for automatic page discovery and cataloging',
           version: '1.0.0'
         }
@@ -316,7 +316,7 @@ class SiteConfigGenerator {
    */
   generateFallbackTitle(urlPath) {
     if (urlPath === '/' || urlPath === '') {
-      return this.baseConfig.titleExtraction?.fallbackPattern || 'Violence Prevention Plan for Illinois: 2025-2029';
+      return this.baseConfig.titleExtraction?.fallbackPattern || 'Statewide Violence Prevention Plan for Illinois: 2025-2029';
     }
 
     // Convert path to title case
@@ -327,7 +327,7 @@ class SiteConfigGenerator {
       ).join(' '))
       .join(' - ');
 
-    const baseName = this.baseConfig.titleExtraction?.fallbackPattern || 'Violence Prevention Plan for Illinois: 2025-2029';
+    const baseName = this.baseConfig.titleExtraction?.fallbackPattern || 'Statewide Violence Prevention Plan for Illinois: 2025-2029';
     return `${title} - ${baseName}`;
   }
 

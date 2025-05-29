@@ -1,7 +1,7 @@
 ---
 title: "Privacy Policy"
 date: 2025-05-28
-description: "This Privacy Policy describes how the Violence Prevention Plan for Illinois: 2025-2029 website collects, uses, and shares information about you when you visit our website."
+description: "This Privacy Policy describes how the Statewide Violence Prevention Plan for Illinois: 2025-2029 website collects, uses, and shares information about you when you visit our website."
 --- 
 
 **Last Updated: May 21, 2025**
@@ -116,7 +116,7 @@ Neither the State of Illinois, nor any of its agencies nor any of its employees 
 
 ### Disclaimer of Warranties and Accuracy of Data
 
-Although the data found using the Violence Prevention Plan for Illinois: 2025-2029 website has been produced and processed from sources believed to be reliable, no warranty, expressed or implied, is made regarding accuracy, adequacy, completeness, legality, reliability, or usefulness of any information. This disclaimer applies to both isolated and aggregate uses of the information. The State provides this information on an "as is" basis. All warranties of any kind, express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, freedom from contamination by computer viruses, and non-infringement of proprietary rights are disclaimed.
+Although the data found using the Statewide Violence Prevention Plan for Illinois: 2025-2029 website has been produced and processed from sources believed to be reliable, no warranty, expressed or implied, is made regarding accuracy, adequacy, completeness, legality, reliability, or usefulness of any information. This disclaimer applies to both isolated and aggregate uses of the information. The State provides this information on an "as is" basis. All warranties of any kind, express or implied, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, freedom from contamination by computer viruses, and non-infringement of proprietary rights are disclaimed.
 
 ### Disclaimer of Endorsement
 

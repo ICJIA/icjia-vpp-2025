@@ -6,6 +6,293 @@ This document serves as a chronological record of all significant changes made t
 
 **Important Note**: This audit log does not track git commits or version control history. Instead, it documents the actual iterative development process and working methodology used to create the website. The log serves as a detailed record of specific steps, decisions, and implementation approaches taken during development. The intended audience is future developers, project managers, or stakeholders who need to understand the development workflow and rationale behind implementation choices. Each entry captures the real-time development process, including iterations, refinements, and problem-solving approaches that occurred during the creation of this project.
 
+### 2025-05-29 (Guiding Principles Cards - Learn More Buttons Implementation)
+- Added "Learn More" buttons to the Guiding Principles cards on the homepage (HomePrincipleCard component) with bottom-aligned positioning and consistent styling that matches the project's design system patterns.
+- **Rationale**: Enhanced user experience by providing clear call-to-action buttons while maintaining existing card-level click functionality, creating dual navigation options that improve accessibility and user interaction clarity for the principles section.
+- Files modified:
+  - `components/content/HomePrincipleCard.vue`: Comprehensive enhancement to add Learn More buttons with perfect alignment
+    - **Button Implementation**: Added "Learn More" buttons with consistent project styling
+      - **Button Styling**: `color="primary" variant="outlined" size="default" class="rounded-pill px-6"`
+      - **Icon Integration**: `append-icon="mdi-arrow-right"` positioned at button end
+      - **Accessibility**: Proper `aria-label` with principle-specific descriptions
+      - **Event Handling**: `@click.stop` to prevent button clicks from triggering card clicks
+    - **CSS Grid Enhancement**: Updated grid layout to include button section
+      - **Grid Template**: Added "button" area to grid-template-areas
+      - **Grid Rows**: Updated from `auto auto 1fr` to `auto auto 1fr auto`
+      - **Button Positioning**: Bottom-aligned with `margin-top: auto` for consistent alignment
+      - **Responsive Design**: Button section maintains proper alignment across all screen sizes
+    - **Navigation Behavior**: Implemented dual navigation system
+      - **Card Click**: Maintains existing card-level click navigation to `/principles`
+      - **Button Click**: Dedicated "Learn More" button click with same navigation destination
+      - **Event Handling**: Used @click.stop to prevent button clicks from triggering card clicks
+      - **Consistent Behavior**: Both navigation methods use identical URL handling logic
+    - **Component Documentation**: Updated JSDoc to reflect dual navigation and button alignment features
+      - **Title Update**: Changed from "Card-Level Click Navigation" to "Dual Navigation with Learn More Buttons"
+      - **Feature Documentation**: Added comprehensive documentation of button alignment and dual navigation
+      - **Technical Implementation**: Documented CSS Grid enhancements and event handling approach
+    - **Theme Compatibility**: Button styling works seamlessly with both light and dark themes
+- Technical Implementation:
+  - **CSS Grid Enhancement**: Added "button" grid area with auto height and centered content
+  - **Event Management**: Implemented handleLearnMoreClick function that reuses existing navigation logic
+  - **Accessibility Compliance**: Maintained WCAG 2.1 AA standards with proper focus management
+  - **Design System Consistency**: Applied established button styling patterns from HomeGoalCard component
+  - **Responsive Behavior**: Ensured button alignment works across mobile, tablet, and desktop breakpoints
+- User Experience Benefits:
+  - **Clear Call-to-Action**: Dedicated buttons provide obvious interaction points for users
+  - **Dual Navigation Options**: Users can click either the card or button for the same destination
+  - **Consistent Button Alignment**: All "Learn More" buttons align perfectly at the bottom of cards
+  - **Visual Hierarchy**: Buttons provide clear next-step guidance after reading principle descriptions
+  - **Accessibility Excellence**: Multiple navigation methods accommodate different user preferences
+- Design System Improvements:
+  - **Component Consistency**: Guiding Principles cards now match Strategic Priorities cards in functionality
+  - **Button Standardization**: Consistent "Learn More" button styling across all card components
+  - **Grid Layout Mastery**: Demonstrated advanced CSS Grid usage for perfect content alignment
+  - **Navigation Patterns**: Established dual navigation as standard pattern for card-based content
+
+### 2025-05-29 (Project Title Standardization - Full "Statewide" Title Implementation)
+- Updated all instances of "Violence Prevention Plan for Illinois: 2025-2029" to the complete "Statewide Violence Prevention Plan for Illinois: 2025-2029" throughout the codebase to ensure accurate, consistent use of the full official title.
+- **Rationale**: Standardized the project title to use the complete, official name "Statewide Violence Prevention Plan for Illinois: 2025-2029" across all content areas (excluding navigation and footer as requested) to maintain accuracy and consistency with official documentation.
+- Files modified:
+  - `components/content/DownloadPlanButton.vue`: Updated reusable download button component
+    - **Default Text**: Changed descriptiveText default from "Download the complete Violence Prevention Plan for Illinois: 2025-2029" to "Download the complete Statewide Violence Prevention Plan for Illinois: 2025-2029"
+    - **JSDoc Documentation**: Updated prop documentation to reflect the full title
+    - **Component Impact**: All instances of DownloadPlanButton now display the complete title
+  - `components/content/HomeHero.vue`: Updated hero section main title
+    - **Hero Title**: Changed h1 text from "Violence Prevention Plan for Illinois: 2025-2029" to "Statewide Violence Prevention Plan for Illinois: 2025-2029"
+    - **Visual Impact**: Main homepage title now displays the complete official name
+  - `pages/[...slug].vue`: Updated dynamic page routing and 404 error page
+    - **404 Page**: Updated subtitle text to display "Statewide Violence Prevention Plan for Illinois: 2025-2029"
+    - **Page Title Generation**: Updated titleFromSlug function to use complete title in generated page titles
+    - **Fallback Title**: Updated default fallback title to use "Statewide" prefix
+    - **Page Description**: Updated default page description to include complete title
+  - `pages/index.vue`: Updated homepage component documentation
+    - **JSDoc Comment**: Updated component description to reference "Statewide Violence Prevention Plan for Illinois: 2025-2029"
+  - `pages/projects/youth-intervention.vue`: Updated page component documentation
+    - **JSDoc Comment**: Updated component description to reference complete title
+  - `README.md`: Updated project documentation
+    - **Main Title**: Changed README title from "Violence Prevention Plan for Illinois: 2025-2029" to "Statewide Violence Prevention Plan for Illinois: 2025-2029"
+    - **Project Overview**: Updated project description to reference complete title
+  - `scripts/generate-site-config.js`: Updated site configuration generation
+    - **Fallback Pattern**: Updated titleExtraction.fallbackPattern to use complete title
+    - **Project Name**: Updated summary.projectName to use "Statewide" prefix
+    - **Default Configuration**: Updated all default fallback values to use complete title
+    - **Title Generation**: Updated generateFallbackTitle function to use complete title
+- Technical Implementation:
+  - **Systematic Updates**: Methodically updated all instances while preserving navigation and footer as requested
+  - **Configuration Consistency**: Ensured site generation scripts use complete title for all auto-generated content
+  - **Component Reusability**: DownloadPlanButton component now displays complete title across all usage instances
+  - **SEO Impact**: Page titles and descriptions now include complete official title for better search visibility
+- User Experience Benefits:
+  - **Title Accuracy**: All content areas now display the complete, official project title
+  - **Professional Consistency**: Uniform use of complete title enhances credibility and official appearance
+  - **Brand Recognition**: Consistent use of "Statewide" prefix reinforces the comprehensive scope of the plan
+  - **Documentation Clarity**: README and component documentation accurately reflect the full project name
+- Design System Improvements:
+  - **Content Standards**: Established consistent use of complete official title across all content areas
+  - **Configuration Management**: Centralized title management through site configuration system
+  - **Component Consistency**: Reusable components now display standardized complete title
+  - **Documentation Accuracy**: All technical documentation reflects accurate project naming
+
+### 2025-05-29 (Reusable Download Button Component Creation and Spacing Standardization)
+- Created a reusable DownloadPlanButton component and standardized spacing between download buttons and descriptive text across all sections, ensuring consistent user experience and maintainable code architecture.
+- **Rationale**: Improved code maintainability and design consistency by extracting download button functionality into a reusable component, while correcting spacing inconsistencies to match the HomeAction component's established pattern (mt-8 instead of mt-4).
+- Files modified:
+  - `components/content/DownloadPlanButton.vue`: Created new reusable component for download functionality
+    - **Component Architecture**: Self-contained component with all download functionality and styling
+      - **Props System**: Customizable buttonText, descriptiveText, ariaLabel, and containerClass props
+      - **Default Values**: Sensible defaults matching existing implementation
+      - **Functionality**: Built-in handleDownloadPlan function with PDF link and new tab opening
+      - **Event Handling**: Complete keyboard accessibility with Enter and Space key support
+    - **Styling Consistency**: Identical styling to HomeAction component implementation
+      - **Button Classes**: `color="primary" size="x-large" class="rounded-pill px-8 py-3 elevation-3"`
+      - **Icon Implementation**: mdi-download icon with `end` positioning
+      - **Spacing Standardization**: mt-8 spacing between button and descriptive text (corrected from mt-4)
+      - **Hover Effects**: Identical transform and box-shadow effects
+    - **Accessibility Excellence**: Comprehensive WCAG 2.1 AA compliance
+      - **ARIA Labels**: Proper aria-label with customizable text
+      - **Keyboard Navigation**: Full keyboard accessibility support
+      - **Screen Reader Support**: Clear button purpose and descriptive text
+      - **Reduced Motion**: Respects prefers-reduced-motion preferences
+    - **Theme Compatibility**: Seamless integration with both light and dark themes
+      - **Color Adaptation**: Primary color scheme adapts to theme
+      - **Contrast Compliance**: Maintains proper contrast ratios
+  - `components/content/HomeStatistics.vue`: Updated to use reusable DownloadPlanButton component
+    - **Component Integration**: Replaced inline button implementation with DownloadPlanButton
+    - **Spacing Correction**: Fixed spacing from mt-4 to mt-8 to match HomeAction standard
+    - **Code Simplification**: Removed duplicate handleDownloadPlan function and button styling
+    - **Animation Integration**: Maintained entrance animation with download-cta-section class
+    - **Import Addition**: Added DownloadPlanButton import for component usage
+  - `components/content/HomeAction.vue`: Refactored to use reusable DownloadPlanButton component
+    - **Component Replacement**: Replaced inline button implementation with DownloadPlanButton
+    - **Code Cleanup**: Removed duplicate handlePrimaryCTA function and button styling
+    - **Legacy Support**: Updated handleLegacyAction to maintain backward compatibility
+    - **Animation Preservation**: Maintained existing animation timing and effects
+    - **Import Addition**: Added DownloadPlanButton import for component usage
+- Technical Implementation:
+  - **Component Reusability**: Single component handles all download button instances
+  - **Props Flexibility**: Customizable text content while maintaining consistent functionality
+  - **Code Reduction**: Eliminated duplicate code across multiple components
+  - **Maintainability**: Centralized download functionality for easier updates
+  - **Animation Support**: Component supports entrance animations in different contexts
+- User Experience Benefits:
+  - **Consistent Spacing**: Standardized mt-8 spacing creates uniform visual rhythm
+  - **Identical Functionality**: All download buttons behave identically across the site
+  - **Accessibility Excellence**: Consistent accessibility implementation across all instances
+  - **Visual Harmony**: Uniform button appearance and spacing enhances professional design
+  - **Reliable Interaction**: Predictable button behavior improves user confidence
+- Design System Improvements:
+  - **Component Library**: Established reusable component pattern for common UI elements
+  - **Spacing Standards**: Enforced consistent spacing patterns across download buttons
+  - **Code Architecture**: Demonstrated proper component extraction and reusability
+  - **Maintenance Efficiency**: Single component to update for all download button changes
+  - **Accessibility Standards**: Centralized accessibility implementation ensures compliance
+
+### 2025-05-29 (Statistics Section Download Button Addition)
+- Added a "Download the Plan" button to the bottom of "The Data" section (HomeStatistics component) to provide convenient access to the Violence Prevention Plan PDF after users review the statistical data.
+- **Rationale**: Enhanced user experience by providing an additional strategic download opportunity immediately after users have reviewed compelling violence statistics, using consistent design patterns that match the existing download button in the "For More Information" section.
+- Files modified:
+  - `components/content/HomeStatistics.vue`: Added download CTA button with identical styling to HomeAction component
+    - **Button Implementation**: Added centered download button below statistics grid with identical styling
+      - **Styling Match**: Used exact same classes as HomeAction: `color="primary" size="x-large" class="rounded-pill px-8 py-3 elevation-3"`
+      - **Icon Consistency**: Applied same mdi-download icon with `end` positioning
+      - **Typography Match**: Identical button text "Download the Plan" and descriptive text below
+      - **Spacing**: Added mt-12 for appropriate separation from statistics cards
+    - **Functionality Implementation**: Added handleDownloadPlan function matching HomeAction and HomeHero components
+      - **PDF Link**: Links to same PDF file `/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf`
+      - **New Tab**: Opens PDF in new tab with `window.open()` and `_blank` target
+      - **Event Handling**: Supports click, Enter key, and Space key activation
+    - **Accessibility Enhancement**: Comprehensive WCAG 2.1 AA compliance implementation
+      - **ARIA Labels**: Proper aria-label "Download the complete Violence Prevention Plan PDF"
+      - **Keyboard Navigation**: Full keyboard accessibility with Enter and Space key support
+      - **Focus Management**: Proper focus states and outline styles
+      - **Screen Reader Support**: Clear button purpose and descriptive text
+    - **Animation Integration**: Seamless integration with existing section animations
+      - **Entrance Animation**: Button fades in with 1.0s delay after statistics cards
+      - **Hover Effects**: Identical transform and box-shadow effects as HomeAction button
+      - **Reduced Motion**: Respects prefers-reduced-motion for accessibility
+    - **Theme Compatibility**: Works seamlessly in both light and dark themes
+      - **Color Adaptation**: Primary color scheme adapts to theme
+      - **Contrast Compliance**: Maintains proper contrast ratios in both themes
+      - **Visual Consistency**: Button appearance matches theme-appropriate styling
+    - **Responsive Design**: Optimal display across all device breakpoints
+      - **Mobile Optimization**: Button scales appropriately for touch interaction
+      - **Tablet/Desktop**: Maintains consistent appearance across larger screens
+      - **Text Wrapping**: Descriptive text handles responsive layout properly
+- Technical Implementation:
+  - **Component Integration**: Added button directly to HomeStatistics template after statistics grid
+  - **Function Reuse**: Implemented same handleDownloadPlan pattern used in other components
+  - **CSS Consistency**: Applied identical button styling classes and hover effects
+  - **Animation Timing**: Coordinated with existing section animation sequence
+  - **Documentation Update**: Updated component JSDoc to reflect download CTA feature
+- User Experience Benefits:
+  - **Strategic Placement**: Download opportunity immediately after compelling statistical data
+  - **Consistent Design**: Identical appearance to other download buttons creates familiar interaction
+  - **Convenient Access**: Users don't need to scroll to find download after reviewing data
+  - **Clear Call-to-Action**: Prominent button with clear purpose and descriptive text
+  - **Accessibility Excellence**: Full keyboard navigation and screen reader support
+- Design System Improvements:
+  - **Pattern Consistency**: Reinforced download button design pattern across multiple sections
+  - **User Journey**: Enhanced conversion funnel by providing download at key decision point
+  - **Accessibility Standards**: Maintained WCAG 2.1 AA compliance throughout implementation
+  - **Component Reusability**: Demonstrated consistent implementation of download functionality
+
+### 2025-05-29 (Navigation Font Weight Enhancement)
+- Increased font weight of all main navigation bar items from medium to bold for improved visual prominence and readability in both light and dark themes.
+- **Rationale**: Enhanced navigation visibility and hierarchy by making navigation text bolder, improving user interface clarity and ensuring navigation items have appropriate visual weight for their importance.
+- Files modified:
+  - `config/menu.config.json`: Updated font weight classes for all main navigation items
+    - **Home Navigation**: Changed from "font-weight-medium" to "font-weight-bold" for both desktop and mobile classes
+    - **About Dropdown**: Updated main dropdown button to use "font-weight-bold" for enhanced visibility
+    - **Search Icon**: Applied "font-weight-bold" to search navigation item for consistency
+    - **Consistent Application**: All main navigation items now use bold font weight across desktop and mobile views
+    - **Theme Compatibility**: Bold font weight works effectively in both light and dark theme modes
+- Technical Implementation:
+  - **Class Updates**: Systematically replaced "font-weight-medium" with "font-weight-bold" across all navigation items
+  - **Desktop Classes**: Updated desktop navigation classes to use bold font weight
+  - **Mobile Classes**: Applied bold font weight to mobile navigation drawer items
+  - **Visual Consistency**: Maintained consistent font weight across all navigation elements
+  - **Responsive Design**: Bold font weight scales appropriately across all screen sizes
+- User Experience Benefits:
+  - **Improved Readability**: Bolder text is easier to read and scan in navigation bar
+  - **Enhanced Hierarchy**: Navigation items now have appropriate visual weight for their functional importance
+  - **Better Contrast**: Bold font weight provides better contrast against navigation bar backgrounds
+  - **Professional Appearance**: Stronger font weight creates more confident, authoritative navigation design
+  - **Theme Optimization**: Enhanced visibility works effectively in both light and dark theme modes
+- Design System Improvements:
+  - **Navigation Standards**: Established bold font weight as standard for primary navigation elements
+  - **Visual Hierarchy**: Strengthened navigation prominence within overall page layout
+  - **Accessibility Enhancement**: Improved text visibility aids users with visual impairments
+  - **Brand Consistency**: Bold navigation aligns with professional, authoritative design aesthetic
+
+### 2025-05-29 (Dropdown Divider Support and About Menu Enhancement)
+- Added divider functionality to dropdown menus and enhanced the About dropdown with a divider and Contact link, while simplifying the news item text for better readability.
+- **Rationale**: Improved dropdown organization by adding visual separation capabilities and providing access to contact information through the main navigation, while streamlining text labels for better space efficiency.
+- Files modified:
+  - `components/content/AppHeader.vue`: Added comprehensive divider support for dropdown menus
+    - **Desktop Dropdown Dividers**: Added conditional rendering for v-divider components in desktop dropdown menus
+    - **Mobile Dropdown Dividers**: Implemented divider support in mobile navigation drawer dropdowns
+    - **Template Enhancement**: Used template loops with conditional v-if/v-else logic to handle both dividers and regular items
+    - **CSS Styling**: Added dropdown-divider and dropdown-divider-mobile classes with appropriate margins and opacity
+    - **Accessibility Preservation**: Maintained all existing keyboard navigation and ARIA attributes
+    - **Theme Compatibility**: Dividers work seamlessly with both light and dark themes
+  - `config/menu.config.json`: Enhanced About dropdown with divider and contact link
+    - **Text Simplification**: Changed "Latest News and Updates" to "News and Updates" for better space efficiency
+    - **Divider Addition**: Added divider item after "Guiding Principles" with isDivider: true property
+    - **Contact Link**: Added "Contact" item linking to "/" (temporary placeholder for future contact page)
+    - **Proper Configuration**: Applied standard dropdown styling classes and accessibility attributes
+    - **Display Mode**: Ensured divider and contact link work in both desktop and mobile navigation
+- Technical Implementation:
+  - **Divider Detection**: Used isDivider property to conditionally render v-divider components
+  - **Template Structure**: Wrapped dropdown children in template loops for flexible item rendering
+  - **CSS Classes**: Added specific styling for desktop (.dropdown-divider) and mobile (.dropdown-divider-mobile) dividers
+  - **Responsive Design**: Dividers adapt properly across all screen sizes and navigation modes
+  - **Configuration Schema**: Established pattern for adding dividers to any dropdown menu
+- User Experience Benefits:
+  - **Visual Organization**: Dividers provide clear visual separation between related groups of dropdown items
+  - **Contact Access**: Contact information now easily accessible through main navigation
+  - **Improved Readability**: Shorter "News and Updates" text creates cleaner dropdown appearance
+  - **Professional Layout**: Dividers create more sophisticated, organized dropdown structure
+  - **Future Flexibility**: Divider system can be used in other dropdown menus throughout the site
+- Design System Improvements:
+  - **Dropdown Enhancement**: Established reusable divider pattern for all dropdown menus
+  - **Navigation Organization**: Demonstrated effective use of dividers for content grouping
+  - **Accessibility Standards**: Maintained WCAG 2.1 AA compliance throughout divider implementation
+  - **Configuration Flexibility**: Created extensible system for dropdown customization
+
+### 2025-05-29 (Navigation Consolidation - About Dropdown Menu Implementation)
+- Consolidated the navigation bar by combining 'About' and 'News' into a single dropdown menu called 'About' to save space due to the length of the project title, while maintaining access to all key pages through organized dropdown structure.
+- **Rationale**: Addressed navigation space constraints by creating a logical grouping of related content under a single 'About' dropdown, improving navigation efficiency while preserving access to all important pages.
+- Files modified:
+  - `config/menu.config.json`: Complete navigation restructure to implement About dropdown
+    - **Removed Standalone News Item**: Eliminated the separate "News" navigation item (previously at order 30)
+    - **Converted About to Dropdown**: Transformed "About" from simple link to dropdown menu with hasDropdown: true
+    - **Added Dropdown Children**: Implemented four dropdown items with proper navigation structure:
+      - **"About Us"**: Links to `/about` - main project information page
+      - **"Latest News and Updates"**: Links to `/news` - news listing page (replaces removed News button)
+      - **"Strategic Priorities"**: Links to `/strategic-priorities` - strategic priorities content page
+      - **"Guiding Principles"**: Links to `/principles` - guiding principles content page
+    - **Dropdown Configuration**: Added proper dropdown icons (mdi-chevron-down for desktop, mdi-chevron-right for mobile)
+    - **Accessibility Enhancement**: Updated ARIA labels and tooltips to reflect expanded About section scope
+    - **Responsive Design**: Dropdown works seamlessly across desktop and mobile navigation patterns
+    - **Visual Consistency**: Applied standard dropdown styling classes matching existing design patterns
+- Technical Implementation:
+  - **Dropdown Structure**: Used existing AppHeader dropdown functionality with hasDropdown property
+  - **Navigation Preservation**: All original navigation destinations remain accessible through dropdown structure
+  - **Mobile Compatibility**: Dropdown expands properly in mobile navigation drawer
+  - **Keyboard Navigation**: Full keyboard accessibility maintained for dropdown items
+  - **Theme Integration**: Dropdown styling works seamlessly with both light and dark themes
+- User Experience Benefits:
+  - **Space Efficiency**: Reduced navigation bar width by consolidating two items into one dropdown
+  - **Logical Grouping**: Related content (about, news, priorities, principles) organized under cohesive About section
+  - **Maintained Access**: All pages remain easily accessible through intuitive dropdown organization
+  - **Improved Discoverability**: Strategic priorities and guiding principles now more discoverable through main navigation
+  - **Professional Organization**: Dropdown structure creates more sophisticated navigation hierarchy
+- Design System Improvements:
+  - **Navigation Efficiency**: Demonstrated effective use of dropdown menus for space-constrained navigation
+  - **Content Organization**: Established logical grouping patterns for related site content
+  - **Accessibility Standards**: Maintained WCAG 2.1 AA compliance throughout dropdown implementation
+  - **Responsive Navigation**: Enhanced mobile navigation experience with organized dropdown structure
+
 ### 2025-05-29 (Navigation and Footer Icon Update - Collaborative Mission Representation)
 - Replaced the navigation and footer branding icons from "mdi-cube-outline" to "mdi-account-group" to better represent the collaborative nature of the violence prevention mission and emphasize community partnership.
 - **Rationale**: Updated branding iconography to better reflect the collaborative, community-focused approach of the violence prevention initiative, moving from abstract geometric icon to people-centered representation.
