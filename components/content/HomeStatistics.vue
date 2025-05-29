@@ -28,7 +28,6 @@
             :icon="stat.icon"
             :color="stat.color"
             :delay="index * 100"
-            :action-url="stat.actionUrl"
           />
         </v-col>
       </v-row>
@@ -67,43 +66,37 @@ const statistics = [
     title: 'Youth Sexual Violence Crisis',
     description: '12% of Illinois high school students experienced sexual violence between 2019-2021. This alarming statistic highlights the urgent need for comprehensive prevention programs in our schools.',
     icon: 'mdi-account-group',
-    color: 'primary',
-    actionUrl: '#'
+    color: 'primary'
   },
   {
     title: 'Bullying Affects One in Three',
     description: 'One in three youth in grades 6-12 report experiencing bullying. This widespread issue creates lasting trauma and requires immediate intervention strategies.',
     icon: 'mdi-school',
-    color: 'primary',
-    actionUrl: '#'
+    color: 'primary'
   },
   {
     title: 'Physical Violence Among Youth',
     description: 'One in five Illinois youth report being in physical fights within the past 12 months. These incidents often escalate and require early intervention approaches.',
     icon: 'mdi-account-alert',
-    color: 'primary',
-    actionUrl: '#'
+    color: 'primary'
   },
   {
     title: 'Child Maltreatment Rates',
     description: 'Illinois shows higher child maltreatment rates than national averages from 2018-2021. Strengthening family support systems is critical for prevention.',
     icon: 'mdi-shield-alert',
-    color: 'primary',
-    actionUrl: '#'
+    color: 'primary'
   },
   {
     title: 'Rising Firearm Mortality',
     description: 'Firearm mortality rates increased significantly in 2020 and 2021. Community-based violence intervention programs are essential to reverse this trend.',
     icon: 'mdi-alert-octagon',
-    color: 'primary',
-    actionUrl: '#'
+    color: 'primary'
   },
   {
     title: 'Racial Disparities in Violence',
     description: 'Black men aged 15-34 face significant disparities in gun violence exposure. Addressing systemic inequities is fundamental to effective prevention.',
     icon: 'mdi-scale-unbalanced',
-    color: 'primary',
-    actionUrl: '#'
+    color: 'primary'
   }
 ];
 </script>

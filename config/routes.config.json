@@ -1,6 +1,6 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-29T11:17:23.954Z",
+  "generatedAt": "2025-05-29T11:34:57.385Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
@@ -179,7 +179,7 @@
       ]
     },
     {
-      "title": "Guiding Principles - Violence Prevention Plan for Illinois: 2025-2029",
+      "title": "Guiding Principles",
       "path": "/principles",
       "fullUrl": "https://vpp-2025.netlify.app/principles",
       "type": "content",
@@ -187,7 +187,7 @@
         {
           "type": "content",
           "source": "content/principles.md",
-          "title": "Guiding Principles - Violence Prevention Plan for Illinois: 2025-2029"
+          "title": "Guiding Principles"
         }
       ]
     },
