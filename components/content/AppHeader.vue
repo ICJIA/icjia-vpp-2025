@@ -8,233 +8,206 @@
   >
     <div class="header-container d-flex align-center justify-space-between py-0">
       <!-- Site logo/branding -->
-      <AccessibleTooltip
-        :text="menuConfig.header.branding.tooltip"
-        :location="$vuetify.display.smAndDown ? 'bottom' : 'bottom'"
+      <a
+        :href="menuConfig.header.branding.href"
+        class="text-decoration-none"
+        :aria-label="menuConfig.header.branding.ariaLabel"
+        @click.prevent="handleHomeClick"
       >
-        <template v-slot="{ props }">
-          <a
-            :href="menuConfig.header.branding.href"
-            class="text-decoration-none"
-            v-bind="props"
-            :aria-label="menuConfig.header.branding.ariaLabel"
-            @click.prevent="handleHomeClick"
-          >
-            <v-row no-gutters align="center">
-              <v-col cols="auto">
-                <div class="logo d-flex align-center">
-                  <v-icon
-                    :icon="menuConfig.header.branding.icon"
-                    :size="$vuetify.display.smAndDown ? 'large' : 'x-large'"
-                    color="primary"
-                    :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
-                    aria-hidden="true"
-                  />
-                  <!-- Responsive title display based on screen size -->
-                  <span class="d-none d-xl-block text-h6 font-weight-bold text-primary">
-                    {{ menuConfig.header.branding.text }}
-                  </span>
-                  <span class="d-none d-lg-block d-xl-none text-h6 font-weight-bold text-primary">
-                    {{ menuConfig.header.branding.textMd }}
-                  </span>
-                  <span class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary">
-                    {{ menuConfig.header.branding.textSm }}
-                  </span>
-                  <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
-                    {{ menuConfig.header.branding.textXs }}
-                  </span>
-                </div>
-              </v-col>
-            </v-row>
-          </a>
-        </template>
-      </AccessibleTooltip>
+        <v-row no-gutters align="center">
+          <v-col cols="auto">
+            <div class="logo d-flex align-center">
+              <v-icon
+                :icon="menuConfig.header.branding.icon"
+                :size="$vuetify.display.smAndDown ? 'large' : 'x-large'"
+                color="primary"
+                :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
+                aria-hidden="true"
+              />
+              <!-- Responsive title display based on screen size -->
+              <span class="d-none d-xl-block text-h6 font-weight-bold text-primary">
+                {{ menuConfig.header.branding.text }}
+              </span>
+              <span class="d-none d-lg-block d-xl-none text-h6 font-weight-bold text-primary">
+                {{ menuConfig.header.branding.textMd }}
+              </span>
+              <span class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary">
+                {{ menuConfig.header.branding.textSm }}
+              </span>
+              <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
+                {{ menuConfig.header.branding.textXs }}
+              </span>
+            </div>
+          </v-col>
+        </v-row>
+      </a>
 
       <!-- Mobile hamburger menu button (visible on sm and down) -->
       <div class="d-md-none">
-        <AccessibleTooltip
-          :text="menuConfig.header.mobile.tooltip"
-          location="bottom"
+        <v-btn
+          icon
+          variant="text"
+          color="primary"
+          :aria-label="menuConfig.header.mobile.ariaLabel"
+          @click="mobileDrawerOpen = !mobileDrawerOpen"
         >
-          <template v-slot="{ props }">
-            <v-btn
-              v-bind="props"
-              icon
-              variant="text"
-              color="primary"
-              :aria-label="menuConfig.header.mobile.ariaLabel"
-              @click="mobileDrawerOpen = !mobileDrawerOpen"
-            >
-              <v-icon
-                :icon="mobileDrawerOpen ? menuConfig.header.mobile.closeIcon : menuConfig.header.mobile.menuIcon"
-                size="large"
-              ></v-icon>
-            </v-btn>
-          </template>
-        </AccessibleTooltip>
+          <v-icon
+            :icon="mobileDrawerOpen ? menuConfig.header.mobile.closeIcon : menuConfig.header.mobile.menuIcon"
+            size="large"
+          ></v-icon>
+        </v-btn>
       </div>
 
       <!-- Desktop navigation (visible on md and up) -->
       <nav class="d-none d-md-flex align-center justify-end" aria-label="Main Navigation">
         <!-- Dynamically generate navigation items from config, sorted by order property -->
         <template v-for="(item, index) in sortedHeaderItems" :key="index">
-          <AccessibleTooltip
-            v-if="shouldDisplayInDesktop(item)"
-            :text="item.tooltip"
-            :location="item.tooltipLocation || 'bottom'"
-          >
-            <template v-slot="{ props }">
-              <!-- Dropdown menu -->
-              <v-menu
-                v-if="item.hasDropdown"
-                open-on-hover
-                :close-on-content-click="true"
-                location="bottom"
-                offset="5"
-                :model-value="openDropdowns[index]"
-                @update:model-value="openDropdowns[index] = $event"
-                @mouseleave="handleDropdownMouseLeave(index)"
-              >
-                <template v-slot:activator="{ props: menuProps }">
-                  <v-btn
-                    v-bind="{ ...props, ...menuProps }"
-                    :variant="item.variant"
-                    :class="item.class"
-                    :color="item.color"
-                    :aria-label="item.ariaLabel"
-                    :aria-haspopup="true"
-                    :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
+          <template v-if="shouldDisplayInDesktop(item)">
+            <!-- Dropdown menu -->
+            <v-menu
+              v-if="item.hasDropdown"
+              open-on-hover
+              :close-on-content-click="true"
+              location="bottom"
+              offset="5"
+              :model-value="openDropdowns[index]"
+              @update:model-value="openDropdowns[index] = $event"
+              @mouseleave="handleDropdownMouseLeave(index)"
+            >
+              <template v-slot:activator="{ props: menuProps }">
+                <v-btn
+                  v-bind="menuProps"
+                  :variant="item.variant"
+                  :class="item.class"
+                  :color="item.color"
+                  :aria-label="item.ariaLabel"
+                  :aria-haspopup="true"
+                  :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
+                  @focus="openDropdowns[index] = true"
+                  @blur="handleDropdownBlur(index)"
+                  @keydown.esc="openDropdowns[index] = false"
+                  @keydown.down.prevent="focusNextDropdownItem(index, 0)"
+                >
+                  {{ item.text }}
+                  <v-icon
+                    v-if="item.dropdownIcon"
+                    :icon="item.dropdownIcon"
+                    size="small"
+                    class="ml-1"
+                    aria-hidden="true"
+                  ></v-icon>
+                </v-btn>
+              </template>
+
+              <v-card class="dropdown-menu" elevation="4">
+                <v-list density="compact" nav>
+                  <v-list-item
+                    v-for="(child, childIndex) in item.children"
+                    :key="childIndex"
+                    :value="childIndex"
+                    :to="child.to"
+                    :href="child.href"
+                    :target="child.isExternal ? child.target : undefined"
+                    :rel="child.isExternal ? child.rel : undefined"
+                    :aria-label="child.ariaLabel"
+                    :class="child.class"
+                    :color="child.color"
                     @focus="openDropdowns[index] = true"
-                    @blur="handleDropdownBlur(index)"
+                    @click="handleDropdownItemClick(index)"
                     @keydown.esc="openDropdowns[index] = false"
-                    @keydown.down.prevent="focusNextDropdownItem(index, 0)"
+                    @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
+                    @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
+                    @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
                   >
-                    {{ item.text }}
-                    <v-icon
-                      v-if="item.dropdownIcon"
-                      :icon="item.dropdownIcon"
-                      size="small"
-                      class="ml-1"
-                      aria-hidden="true"
-                    ></v-icon>
-                  </v-btn>
-                </template>
+                    <v-list-item-title>
+                      {{ child.text }}
+                      <v-icon
+                        v-if="child.isExternal && child.externalIcon"
+                        :icon="child.externalIcon"
+                        size="small"
+                        class="ml-1"
+                        aria-hidden="true"
+                      ></v-icon>
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-card>
+            </v-menu>
 
-                <v-card class="dropdown-menu" elevation="4">
-                  <v-list density="compact" nav>
-                    <v-list-item
-                      v-for="(child, childIndex) in item.children"
-                      :key="childIndex"
-                      :value="childIndex"
-                      :to="child.to"
-                      :href="child.href"
-                      :target="child.isExternal ? child.target : undefined"
-                      :rel="child.isExternal ? child.rel : undefined"
-                      :aria-label="child.ariaLabel"
-                      :class="child.class"
-                      :color="child.color"
-                      @focus="openDropdowns[index] = true"
-                      @click="handleDropdownItemClick(index)"
-                      @keydown.esc="openDropdowns[index] = false"
-                      @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
-                      @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
-                      @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
-                    >
-                      <v-list-item-title>
-                        {{ child.text }}
-                        <v-icon
-                          v-if="child.isExternal && child.externalIcon"
-                          :icon="child.externalIcon"
-                          size="small"
-                          class="ml-1"
-                          aria-hidden="true"
-                        ></v-icon>
-                      </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-card>
-              </v-menu>
+            <!-- Icon-only internal link with Vue Router -->
+            <v-btn
+              v-else-if="item.to && !item.isExternal && item.iconOnly"
+              icon
+              :variant="item.variant"
+              :class="item.class"
+              :to="item.to"
+              :color="item.color"
+              :aria-label="item.ariaLabel"
+              :aria-current="route.path === item.to ? 'page' : undefined"
+            >
+              <v-icon :icon="item.icon"></v-icon>
+            </v-btn>
 
-              <!-- Icon-only internal link with Vue Router -->
-              <v-btn
-                v-else-if="item.to && !item.isExternal && item.iconOnly"
-                v-bind="props"
-                icon
-                :variant="item.variant"
-                :class="item.class"
-                :to="item.to"
-                :color="item.color"
-                :aria-label="item.ariaLabel"
-                :aria-current="route.path === item.to ? 'page' : undefined"
-              >
-                <v-icon :icon="item.icon"></v-icon>
-              </v-btn>
+            <!-- Regular internal link with Vue Router -->
+            <v-btn
+              v-else-if="item.to && !item.isExternal"
+              :variant="item.variant"
+              :class="item.class"
+              :to="item.to"
+              :color="item.color"
+              :aria-label="item.ariaLabel"
+              :aria-current="route.path === item.to ? 'page' : undefined"
+            >
+              {{ item.text }}
+            </v-btn>
 
-              <!-- Regular internal link with Vue Router -->
-              <v-btn
-                v-else-if="item.to && !item.isExternal"
-                v-bind="props"
-                :variant="item.variant"
-                :class="item.class"
-                :to="item.to"
-                :color="item.color"
-                :aria-label="item.ariaLabel"
-                :aria-current="route.path === item.to ? 'page' : undefined"
-              >
-                {{ item.text }}
-              </v-btn>
+            <!-- Home link with special handling -->
+            <v-btn
+              v-else-if="item.href === '/'"
+              :variant="item.variant"
+              :class="item.class"
+              :href="item.href"
+              :color="item.color"
+              :aria-label="item.ariaLabel"
+              :aria-current="route.path === '/' ? 'page' : undefined"
+              @click.prevent="handleHomeClick"
+            >
+              {{ item.text }}
+            </v-btn>
 
-              <!-- Home link with special handling -->
-              <v-btn
-                v-else-if="item.href === '/'"
-                v-bind="props"
-                :variant="item.variant"
-                :class="item.class"
-                :href="item.href"
-                :color="item.color"
-                :aria-label="item.ariaLabel"
-                :aria-current="route.path === '/' ? 'page' : undefined"
-                @click.prevent="handleHomeClick"
-              >
-                {{ item.text }}
-              </v-btn>
+            <!-- External link -->
+            <v-btn
+              v-else-if="item.isExternal"
+              :variant="item.variant"
+              :class="item.class"
+              :href="item.href"
+              :color="item.color"
+              :aria-label="item.ariaLabel"
+              :target="item.target"
+              :rel="item.rel"
+            >
+              {{ item.text }}
+              <v-icon
+                v-if="item.externalIcon"
+                :icon="item.externalIcon"
+                size="small"
+                class="ml-1"
+                aria-hidden="true"
+              ></v-icon>
+            </v-btn>
 
-              <!-- External link -->
-              <v-btn
-                v-else-if="item.isExternal"
-                v-bind="props"
-                :variant="item.variant"
-                :class="item.class"
-                :href="item.href"
-                :color="item.color"
-                :aria-label="item.ariaLabel"
-                :target="item.target"
-                :rel="item.rel"
-              >
-                {{ item.text }}
-                <v-icon
-                  v-if="item.externalIcon"
-                  :icon="item.externalIcon"
-                  size="small"
-                  class="ml-1"
-                  aria-hidden="true"
-                ></v-icon>
-              </v-btn>
-
-              <!-- Default link (internal non-router links) -->
-              <v-btn
-                v-else
-                v-bind="props"
-                :variant="item.variant"
-                :class="item.class"
-                :href="item.href"
-                :color="item.color"
-                :aria-label="item.ariaLabel"
-              >
-                {{ item.text }}
-              </v-btn>
-            </template>
-          </AccessibleTooltip>
+            <!-- Default link (internal non-router links) -->
+            <v-btn
+              v-else
+              :variant="item.variant"
+              :class="item.class"
+              :href="item.href"
+              :color="item.color"
+              :aria-label="item.ariaLabel"
+            >
+              {{ item.text }}
+            </v-btn>
+          </template>
         </template>
 
         <ThemeSwitch
@@ -368,7 +341,6 @@
  * - Main site navigation with accessible links
  * - Site branding and logo
  * - Theme toggle switch
- * - Tooltips for improved usability
  * - Proper ARIA attributes for accessibility
  * - Scroll to top functionality for homepage links
  * - Configuration-based navigation structure
@@ -376,7 +348,6 @@
  * @component
  */
 import ThemeSwitch from './ThemeSwitch.vue';
-import AccessibleTooltip from './AccessibleTooltip.vue';
 import { useRouter, useRoute, ref, onMounted, onBeforeUnmount } from '#imports';
 import menuConfig from '~/config/menu.config.json';
 

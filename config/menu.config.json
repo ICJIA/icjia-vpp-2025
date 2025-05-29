@@ -62,7 +62,7 @@
         "ariaLabel": "Download the Violence Prevention Plan PDF",
         "tooltip": "Download the complete Violence Prevention Plan",
         "tooltipLocation": "bottom",
-        "variant": "filled",
+        "variant": "elevated",
         "color": "primary",
         "class": "ml-4 font-weight-bold rounded-pill elevation-2 hidden-sm-and-down nav-download-btn",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
