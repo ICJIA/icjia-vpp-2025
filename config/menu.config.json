@@ -1,13 +1,13 @@
 {
   "header": {
     "branding": {
-      "icon": "mdi-cube-outline",
-      "text": "Violence Prevention Plan for Illinois: 2025-2029",
-      "textMd": "Violence Prevention Plan for Illinois: 2025-2029",
-      "textSm": "Violence Prevention Plan: 2025-2029",
-      "textXs": "Violence Prevention",
+      "icon": "mdi-account-group",
+      "text": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "textMd": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "textSm": "Statewide Violence Prevention Plan: 2025-2029",
+      "textXs": "Statewide Violence Prevention",
       "href": "/",
-      "ariaLabel": "Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
+      "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
       "tooltip": "Return to homepage"
     },
     "mobile": {
@@ -92,13 +92,13 @@
   },
   "footer": {
     "branding": {
-      "icon": "mdi-cube-outline",
-      "text": "Violence Prevention Plan for Illinois: 2025-2029",
-      "textMd": "Violence Prevention Plan for Illinois: 2025-2029",
-      "textSm": "Illinois Violence Prevention Plan",
-      "textXs": "Illinois Violence Prevention Plan",
+      "icon": "mdi-account-group",
+      "text": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "textMd": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "textSm": "Statewide Violence Prevention Plan",
+      "textXs": "Statewide Violence Prevention Plan",
       "href": "/",
-      "ariaLabel": "VPPI - Return to homepage",
+      "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
       "tooltip": "Return to homepage"
     },
     "description": "Tempor magna proident qui dolore ipsum ut mollit reprehenderit labore duis. Qui commodo culpa ullamco in sit veniam id minim laborum velit. Duis cillum nisi sint minim sint reprehenderit amet eu consectetur officia do.",
