@@ -14,9 +14,9 @@
             </p>
             <div class="hero-buttons d-flex flex-column flex-sm-row" style="gap: 20px;">
               <v-btn
-                color="primary"
+                variant="outlined"
                 size="large"
-                class="rounded-pill px-8 py-3 elevation-2 hero-button"
+                class="rounded-pill px-8 py-3 elevation-2 hero-download-btn"
                 @click="handleDownloadPlan"
                 @keydown.enter="handleDownloadPlan"
                 @keydown.space.prevent="handleDownloadPlan"

@@ -32,6 +32,66 @@ This document serves as a chronological record of all significant changes made t
   - **Theme Consistency**: Enhanced contrast works seamlessly in both light and dark themes
   - **Design System Alignment**: Maintains consistency with NewsCard components and project's established color palette
 
+### 2025-05-28 (Navigation Download Button Subtle Card-Style Refinement)
+- Refined the navigation bar "Download the Plan" button styling to use the same subtle card-like approach as NewsCard and search result cards, replacing the overly prominent blue background with a more harmonious design that provides dimension without being visually jarring.
+- **Rationale**: The previous bright blue background was too prominent and jarring against the subtle design aesthetic. Adopted the same background approach used throughout the site's card system for visual consistency and professional appearance.
+- Files modified:
+  - **Header Component Styling** (`components/content/AppHeader.vue`):
+    - **Light Theme**: Changed from bright blue (#0747A6) to pure white (#FFFFFF) background matching NewsCard/search cards
+    - **Text Color**: Primary blue (#0747A6) text instead of white for better integration
+    - **Border**: Added subtle border (rgba(0, 0, 0, 0.05)) matching card styling patterns
+    - **Dark Theme**: Changed to lighter surface (#2A3441) background matching NewsCard/search cards
+    - **Dark Text**: Theme primary (#93C5FD) text for optimal contrast
+    - **Hover Effects**: Refined to use subtle background shifts and card-style shadows
+    - **Design Consistency**: Now matches the visual treatment of all other cards on the site
+- Technical Implementation:
+  - **Light Mode**: White background (#FFFFFF) with primary text (#0747A6) against light grey nav bar (#F2F2F2)
+  - **Dark Mode**: Lighter surface background (#2A3441) with theme primary text (#93C5FD) against dark nav bar (#1A2234)
+  - **Card-Style Borders**: Subtle borders matching the card system throughout the site
+  - **Hover States**: Gentle background shifts (#F8F8F8 light, #334155 dark) with card-style shadows
+  - **Visual Harmony**: Button now provides dimension without overwhelming the navigation design
+  - **Accessibility**: Maintains WCAG 2.1 AA contrast ratios with improved visual integration
+- User Experience Benefits:
+  - **Subtle Distinction**: Button provides clear dimension without being visually overwhelming
+  - **Design Harmony**: Consistent with the site's established card-based design language
+  - **Professional Appearance**: Refined styling creates polished, intentional design
+  - **Visual Balance**: Button no longer dominates the navigation bar while remaining clearly actionable
+  - **Brand Consistency**: Aligns with the project's preference for subtle, muted design aesthetics
+- Design System Improvements:
+  - **Card Consistency**: Established consistent card-style treatment across all elevated elements
+  - **Subtle Contrast**: Demonstrated how to provide dimension without jarring color contrasts
+  - **Visual Hierarchy**: Button maintains importance while integrating harmoniously with overall design
+  - **Theme Integration**: Seamless integration with both light and dark theme color schemes
+
+### 2025-05-28 (Navigation Button Visual Consistency - Filled Style Matching)
+- Updated the main navigation bar "Download the Plan" button styling to match the visual appearance of the primary download button in the Homepage Hero section, creating consistent visual treatment across both primary download buttons.
+- **Rationale**: Established visual consistency between the two primary download buttons on the homepage to reinforce their importance and create a cohesive design system where both buttons have the same visual weight and treatment.
+- Files modified:
+  - **Main Navigation Bar** (`config/menu.config.json`):
+    - **Variant Change**: "outlined" → "filled" to match Hero section button's solid background
+    - **Elevation Update**: "elevation-0" → "elevation-2" to match Hero section button's shadow depth
+    - **Visual Result**: Navigation button now has solid primary background instead of outlined border
+    - **Consistency**: Both download buttons now use filled/solid appearance with matching elevation
+    - **Preserved Features**: Maintained all existing functionality, accessibility attributes, responsive behavior, and download icon
+- Technical Implementation:
+  - **Visual Matching**: Navigation button now visually matches Hero section button's filled appearance
+  - **Color Scheme**: Both buttons use identical primary color treatment
+  - **Elevation Consistency**: Both buttons use "elevation-2" for consistent shadow depth
+  - **Styling Preservation**: Maintained rounded-pill styling, download icon, and responsive classes
+  - **Theme Compatibility**: Filled variant works properly in both light and dark themes
+  - **Accessibility**: All ARIA labels, tooltips, and keyboard navigation preserved
+- User Experience Benefits:
+  - **Visual Hierarchy**: Both primary download buttons now have equal visual weight and importance
+  - **Design Consistency**: Unified appearance reinforces that both buttons perform the same action
+  - **Professional Appearance**: Consistent styling creates more polished, cohesive user interface
+  - **Clear Call-to-Action**: Filled buttons provide stronger visual emphasis for primary actions
+  - **Brand Consistency**: Unified button treatment strengthens design system coherence
+- Design System Improvements:
+  - **Button Hierarchy**: Established filled variant as standard for primary download actions
+  - **Visual Weight**: Both download buttons now have appropriate emphasis for their importance
+  - **Consistency Standards**: Set precedent for primary action button styling across the site
+  - **Theme Integration**: Filled buttons integrate seamlessly with both light and dark themes
+
 ### 2025-05-28 (Consistent "Download the Plan" Messaging Across Site)
 - Updated navigation text and functionality across multiple components to provide consistent "Download the Plan" messaging, replacing various plan-related button texts with unified terminology and ensuring all download links point to the correct PDF file.
 - **Rationale**: Established consistent user experience where "Download the Plan" clearly indicates users will be downloading the complete Violence Prevention Plan PDF document, eliminating confusion from mixed messaging like "Full Report", "View the Plan", and "View the Complete Plan".

@@ -703,6 +703,35 @@ const handleHomeClick = () => {
   outline-offset: -2px;
 }
 
+/* Navigation download button custom styling - subtle card-like approach */
+.nav-download-btn {
+  /* Light theme: pure white background like cards for subtle contrast against light grey nav bar */
+  background-color: #FFFFFF !important; /* Same as NewsCard and search cards */
+  color: #0747A6 !important; /* Primary color text */
+  border: 1px solid rgba(0, 0, 0, 0.05) !important; /* Subtle border like cards */
+  transition: all 0.3s ease;
+}
+
+.nav-download-btn:hover {
+  background-color: #F8F8F8 !important; /* Slightly darker on hover */
+  color: #053285 !important; /* Darker primary on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Dark theme: lighter surface background like cards for contrast against dark nav bar */
+:root[data-theme="dark"] .nav-download-btn {
+  background-color: #2A3441 !important; /* Same as NewsCard and search cards */
+  color: #93C5FD !important; /* Theme primary color text */
+  border: 1px solid rgba(255, 255, 255, 0.05) !important; /* Subtle border like cards */
+}
+
+:root[data-theme="dark"] .nav-download-btn:hover {
+  background-color: #334155 !important; /* Slightly lighter on hover */
+  color: #BFDBFE !important; /* Lighter blue on hover */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
+}
+
 /* Mobile navigation styles */
 .mobile-nav-drawer {
   z-index: 1000;
