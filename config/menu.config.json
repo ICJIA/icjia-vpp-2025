@@ -44,73 +44,17 @@
         "order": 20
       },
       {
-        "text": "Projects",
-        "ariaLabel": "Browse our projects",
-        "tooltip": "Browse our violence prevention projects",
+        "text": "News",
+        "to": "/news",
+        "ariaLabel": "View latest news and updates",
+        "tooltip": "View latest news and updates",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
         "class": "font-weight-medium mx-2 nav-link",
         "mobileClass": "font-weight-medium py-2 nav-link-mobile",
         "displayMode": "both",
-        "hasDropdown": true,
-        "dropdownIcon": "mdi-chevron-down",
-        "mobileDropdownIcon": "mdi-chevron-right",
-        "order": 30,
-        "children": [
-          {
-            "text": "Youth Intervention",
-            "to": "/projects/youth-intervention",
-            "ariaLabel": "Learn about youth intervention projects",
-            "tooltip": "Learn about youth intervention projects",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both"
-          },
-          {
-            "text": "Community Outreach",
-            "to": "/projects/community-outreach",
-            "ariaLabel": "Learn about community outreach projects",
-            "tooltip": "Learn about community outreach projects",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both"
-          },
-          {
-            "text": "CDC Violence Prevention",
-            "href": "https://www.cdc.gov/violenceprevention/",
-            "ariaLabel": "Visit CDC Violence Prevention website",
-            "tooltip": "Visit CDC Violence Prevention website",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-open-in-new",
-            "displayMode": "both"
-          },
-          {
-            "text": "WHO Violence Prevention",
-            "href": "https://www.who.int/health-topics/violence",
-            "ariaLabel": "Visit WHO Violence Prevention resources",
-            "tooltip": "Visit WHO Violence Prevention resources",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-open-in-new",
-            "displayMode": "both"
-          }
-        ]
+        "order": 30
       },
       {
         "text": "Sandbox",

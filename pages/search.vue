@@ -443,7 +443,8 @@ onMounted(() => {
  *
  * Implements the standardized page layout with soft light theme background,
  * consistent spacing, and proper content structure to match other pages
- * using the PageTitleSection component.
+ * using the PageTitleSection component. Features enhanced visual contrast
+ * for search result cards to improve readability and user experience.
  */
 
 /* Page structure with soft light theme background */
@@ -520,9 +521,28 @@ onMounted(() => {
 }
 
 .search-result-card {
+  /* Enhanced background for better contrast against page backgrounds */
+  background: #FFFFFF !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
   &:focus {
     outline: 2px solid rgba(var(--v-theme-primary), 0.7);
     outline-offset: 2px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Dark mode styling with enhanced contrast */
+:root[data-theme="dark"] .search-result-card {
+  /* Lighter surface color for better contrast against dark page backgrounds */
+  background: #2A3441 !important;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 }
 

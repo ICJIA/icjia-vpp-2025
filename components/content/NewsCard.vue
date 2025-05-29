@@ -88,6 +88,7 @@
  * - Enhanced accessibility with ARIA attributes
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
+ * - Enhanced visual contrast with distinct card backgrounds
  * - Full theme compatibility (light/dark)
  * - WCAG 2.1 AA compliance
  *
@@ -195,12 +196,16 @@ const handleCardClick = () => {
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
+  /* Enhanced background for better contrast against page backgrounds */
+  background: #FFFFFF;
 }
 
-/* Dark mode box shadow */
+/* Dark mode styling with enhanced contrast */
 :root[data-theme="dark"] .news-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  /* Lighter surface color for better contrast against dark page backgrounds */
+  background: #2A3441;
 }
 
 /* Hover and focus effects */

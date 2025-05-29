@@ -1,15 +1,15 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-28T22:00:08.814Z",
+  "generatedAt": "2025-05-29T03:03:02.029Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
     "totalPages": 18,
-    "contentPages": 15,
+    "contentPages": 13,
     "vuePages": 7,
-    "combinedPages": 4,
-    "blacklistedFiles": 6
+    "combinedPages": 2,
+    "blacklistedFiles": 5
   },
   "pages": [
     {
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "title": "Illinois Awards $2.3 Million in Community Violence Prevention Grants",
+      "title": "Orbus tempus mare orbus caelum bis tempus umbra stella rex lumen",
       "path": "/news/community-violence-prevention-grant-2024",
       "fullUrl": "https://vpp-2025.netlify.app/news/community-violence-prevention-grant-2024",
       "type": "content",
@@ -96,12 +96,12 @@
         {
           "type": "content",
           "source": "content/news/community-violence-prevention-grant-2024.md",
-          "title": "Illinois Awards $2.3 Million in Community Violence Prevention Grants"
+          "title": "Orbus tempus mare orbus caelum bis tempus umbra stella rex lumen"
         }
       ]
     },
     {
-      "title": "Illinois Launches Statewide Violence Prevention Data Sharing Initiative",
+      "title": "Deus anima jugum sit elit caligine ipsum opus vita bis",
       "path": "/news/data-sharing-initiative-launch",
       "fullUrl": "https://vpp-2025.netlify.app/news/data-sharing-initiative-launch",
       "type": "content",
@@ -109,12 +109,12 @@
         {
           "type": "content",
           "source": "content/news/data-sharing-initiative-launch.md",
-          "title": "Illinois Launches Statewide Violence Prevention Data Sharing Initiative"
+          "title": "Deus anima jugum sit elit caligine ipsum opus vita bis"
         }
       ]
     },
     {
-      "title": "Hospital Violence Intervention Programs Expand to Five New Illinois Cities",
+      "title": "Sanguine mendaci in supplex vertitur moenia",
       "path": "/news/hospital-violence-intervention-expansion",
       "fullUrl": "https://vpp-2025.netlify.app/news/hospital-violence-intervention-expansion",
       "type": "content",
@@ -122,12 +122,12 @@
         {
           "type": "content",
           "source": "content/news/hospital-violence-intervention-expansion.md",
-          "title": "Hospital Violence Intervention Programs Expand to Five New Illinois Cities"
+          "title": "Sanguine mendaci in supplex vertitur moenia"
         }
       ]
     },
     {
-      "title": "New Rural Violence Prevention Network Addresses Unique Challenges in Small Communities",
+      "title": "Vox carmen bellum idem jugum ipsum gloria gloria tempus",
       "path": "/news/rural-violence-prevention-network",
       "fullUrl": "https://vpp-2025.netlify.app/news/rural-violence-prevention-network",
       "type": "content",
@@ -135,12 +135,12 @@
         {
           "type": "content",
           "source": "content/news/rural-violence-prevention-network.md",
-          "title": "New Rural Violence Prevention Network Addresses Unique Challenges in Small Communities"
+          "title": "Vox carmen bellum idem jugum ipsum gloria gloria tempus"
         }
       ]
     },
     {
-      "title": "Statewide Youth Violence Prevention Summit Brings Together 300+ Advocates",
+      "title": "Terra umbra idem portitor bellum opus ipsum sanctum Lorem deus amet bellum aether",
       "path": "/news/youth-violence-prevention-summit-2024",
       "fullUrl": "https://vpp-2025.netlify.app/news/youth-violence-prevention-summit-2024",
       "type": "content",
@@ -148,7 +148,7 @@
         {
           "type": "content",
           "source": "content/news/youth-violence-prevention-summit-2024.md",
-          "title": "Statewide Youth Violence Prevention Summit Brings Together 300+ Advocates"
+          "title": "Terra umbra idem portitor bellum opus ipsum sanctum Lorem deus amet bellum aether"
         }
       ]
     },
@@ -166,16 +166,11 @@
       ]
     },
     {
-      "title": "Community Outreach",
+      "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}",
       "path": "/projects/community-outreach",
       "fullUrl": "https://vpp-2025.netlify.app/projects/community-outreach",
-      "type": "combined",
+      "type": "vue",
       "sources": [
-        {
-          "type": "content",
-          "source": "content/projects/community-outreach.md",
-          "title": "Community Outreach"
-        },
         {
           "type": "vue",
           "source": "pages/projects/community-outreach.vue",
@@ -184,16 +179,11 @@
       ]
     },
     {
-      "title": "Youth Intervention",
+      "title": "Violence Prevention Plan for Illinois: 2025-2029 - ${pageTitle.value}",
       "path": "/projects/youth-intervention",
       "fullUrl": "https://vpp-2025.netlify.app/projects/youth-intervention",
-      "type": "combined",
+      "type": "vue",
       "sources": [
-        {
-          "type": "content",
-          "source": "content/projects/youth-intervention.md",
-          "title": "Youth Intervention"
-        },
         {
           "type": "vue",
           "source": "pages/projects/youth-intervention.vue",
@@ -269,11 +259,11 @@
   ],
   "stats": {
     "totalPages": 18,
-    "contentPages": 15,
+    "contentPages": 13,
     "vuePages": 7,
-    "combinedPages": 4,
-    "blacklistedFiles": 6,
-    "menuIntegratedPages": 3,
-    "orphanedPages": 15
+    "combinedPages": 2,
+    "blacklistedFiles": 5,
+    "menuIntegratedPages": 4,
+    "orphanedPages": 14
   }
 }

@@ -6,6 +6,98 @@ This document serves as a chronological record of all significant changes made t
 
 **Important Note**: This audit log does not track git commits or version control history. Instead, it documents the actual iterative development process and working methodology used to create the website. The log serves as a detailed record of specific steps, decisions, and implementation approaches taken during development. The intended audience is future developers, project managers, or stakeholders who need to understand the development workflow and rationale behind implementation choices. Each entry captures the real-time development process, including iterations, refinements, and problem-solving approaches that occurred during the creation of this project.
 
+### 2025-05-28 (Search Result Cards Visual Contrast Enhancement)
+- Applied the same visual contrast enhancement to search result cards on the `/search` page to create better visual separation from the page background, especially improving readability in dark mode.
+- **Problem Solved**: Search result cards had similar background colors to the page background, making individual results difficult to distinguish and reducing the professional appearance of the search interface.
+- Files modified:
+  - `pages/search.vue`: Enhanced search result card background styling for better visual contrast
+    - **Light Theme**: Added pure white (`#FFFFFF`) background for search result cards against soft page background (`#FAFAFA`)
+    - **Dark Theme**: Added lighter surface color (`#2A3441`) for search result cards against darker page backgrounds
+    - **Hover Effects**: Enhanced hover animations with subtle lift effect (`translateY(-2px)`) and improved shadow depth
+    - **Visual Impact**: Creates clear visual boundaries around each search result, matching professional design system standards
+    - **Documentation**: Updated CSS comments to highlight enhanced visual contrast feature
+    - **Accessibility**: Maintains WCAG 2.1 AA contrast ratio standards for all text on new backgrounds
+    - **Theme Compatibility**: Seamless integration with both light and dark themes
+- Technical Implementation:
+  - **Consistent Styling**: Uses identical background colors as NewsCard components for design system consistency
+  - **Light Mode Contrast**: White cards (`#FFFFFF`) against soft background (`#FAFAFA`) provide clear visual separation
+  - **Dark Mode Contrast**: Lighter surface cards (`#2A3441`) against darker backgrounds maintain professional appearance
+  - **Enhanced Transitions**: Added smooth transitions for background-color changes during theme switching
+  - **Improved Hover States**: Enhanced box-shadow effects for better user feedback (light: `rgba(0, 0, 0, 0.12)`, dark: `rgba(0, 0, 0, 0.3)`)
+  - **Responsive Design**: Background enhancements work properly across all screen sizes and device types
+- User Experience Benefits:
+  - **Clear Boundaries**: Each search result now has distinct visual boundaries making content easier to scan
+  - **Professional Appearance**: Card-like appearance matches modern design system standards and NewsCard styling
+  - **Improved Readability**: Better visual separation reduces cognitive load when browsing search results
+  - **Theme Consistency**: Enhanced contrast works seamlessly in both light and dark themes
+  - **Design System Alignment**: Maintains consistency with NewsCard components and project's established color palette
+
+### 2025-05-28 (Search Result Cards Visual Contrast Enhancement)
+- Applied the same visual contrast enhancement to search result cards on the `/search` page to create better visual separation from the page background, especially improving readability in dark mode.
+- **Problem Solved**: Search result cards had similar background colors to the page background, making individual results difficult to distinguish and reducing the professional appearance of the search interface.
+- Files modified:
+  - `pages/search.vue`: Enhanced search result card background styling for better visual contrast
+    - **Light Theme**: Added pure white (`#FFFFFF`) background for search result cards against soft page background (`#FAFAFA`)
+    - **Dark Theme**: Added lighter surface color (`#2A3441`) for search result cards against darker page backgrounds
+    - **Hover Effects**: Enhanced hover animations with subtle lift effect (`translateY(-2px)`) and improved shadow depth
+    - **Visual Impact**: Creates clear visual boundaries around each search result, matching professional design system standards
+    - **Documentation**: Updated CSS comments to highlight enhanced visual contrast feature
+    - **Accessibility**: Maintains WCAG 2.1 AA contrast ratio standards for all text on new backgrounds
+    - **Theme Compatibility**: Seamless integration with both light and dark themes
+- Technical Implementation:
+  - **Consistent Styling**: Uses identical background colors as NewsCard components for design system consistency
+  - **Light Mode Contrast**: White cards (`#FFFFFF`) against soft background (`#FAFAFA`) provide clear visual separation
+  - **Dark Mode Contrast**: Lighter surface cards (`#2A3441`) against darker backgrounds maintain professional appearance
+  - **Enhanced Transitions**: Added smooth transitions for background-color changes during theme switching
+  - **Improved Hover States**: Enhanced box-shadow effects for better user feedback
+  - **Responsive Design**: Background enhancements work properly across all screen sizes and device types
+- User Experience Benefits:
+  - **Clear Boundaries**: Each search result now has distinct visual boundaries making content easier to scan
+  - **Professional Appearance**: Card-like appearance matches modern design system standards and NewsCard styling
+  - **Improved Readability**: Better visual separation reduces cognitive load when browsing search results
+  - **Theme Consistency**: Enhanced contrast works seamlessly in both light and dark themes
+  - **Design System Alignment**: Maintains consistency with NewsCard components and project's established color palette
+
+### 2025-05-28 (NewsCard Visual Contrast Enhancement)
+- Enhanced visual contrast between NewsCard components and page backgrounds by implementing distinct card background colors for better visual separation and professional card-like appearance.
+- **Problem Solved**: Previously, news cards had similar background colors to page backgrounds, making individual cards difficult to distinguish, especially in dark mode.
+- Files modified:
+  - `components/content/NewsCard.vue`: Enhanced card background styling for better visual contrast
+    - **Light Theme**: Added pure white (`#FFFFFF`) background for cards against soft page backgrounds (`#FAFAFA`, `#F8F8F8`)
+    - **Dark Theme**: Added lighter surface color (`#2A3441`) for cards against darker page backgrounds
+    - **Visual Impact**: Creates clear visual boundaries around each news card, similar to professional design systems
+    - **Documentation**: Updated component JSDoc to highlight enhanced visual contrast feature
+    - **Accessibility**: Maintains WCAG 2.1 AA contrast ratio standards for all text on new backgrounds
+    - **Theme Compatibility**: Seamless integration with both light and dark themes
+- Technical Implementation:
+  - **Light Mode Contrast**: White cards (`#FFFFFF`) against soft backgrounds provide clear visual separation
+  - **Dark Mode Contrast**: Lighter surface cards (`#2A3441`) against darker backgrounds maintain professional appearance
+  - **Consistent Application**: Changes apply to both `/news` page listing and homepage news section (HomeNews component)
+  - **Responsive Design**: Background enhancements work properly across all screen sizes and device types
+  - **Design System Alignment**: Uses colors that align with project's established subtle, muted color palette
+- User Experience Benefits:
+  - **Clear Boundaries**: Each news item now has distinct visual boundaries making content easier to scan
+  - **Professional Appearance**: Card-like appearance matches modern design system standards
+  - **Improved Readability**: Better visual separation reduces cognitive load when browsing news items
+  - **Theme Consistency**: Enhanced contrast works seamlessly in both light and dark themes
+  - **Accessibility Compliance**: All text maintains proper contrast ratios on new background colors
+
+### 2025-05-28 (Navigation Update - Projects Dropdown Replaced with News Link)
+- Replaced the 'Projects' dropdown menu in the main navigation with a simple 'News' link that navigates directly to the `/news` page.
+- **Rationale**: Simplified navigation structure by removing complex dropdown functionality in favor of direct access to news content.
+- Files modified:
+  - `config/menu.config.json`: Replaced entire Projects dropdown section with simple News navigation item
+    - **Removed**: Projects dropdown with 4 child items (Youth Intervention, Community Outreach, CDC Violence Prevention, WHO Violence Prevention)
+    - **Added**: Simple News link with proper ARIA labels, tooltip, and accessibility attributes
+    - **Navigation Properties**: Uses `/news` route, maintains order position 30, includes proper mobile/desktop styling classes
+    - **Accessibility**: Includes descriptive ARIA label "View latest news and updates" and matching tooltip
+- Technical Notes:
+  - Maintains existing navigation order and styling patterns
+  - Preserves all accessibility features including ARIA labels and keyboard navigation
+  - Uses standard navigation link structure without dropdown functionality
+  - Follows established navigation configuration patterns for consistency
+  - News link styling matches other navigation items with proper hover states and responsive behavior
+
 ### 2025-05-28 (Date Display Bug Fix)
 - Fixed critical bug preventing date display on news article pages.
 - **Root Cause**: The `showDate` property was nested in `content.meta.showDate` rather than at the top level like `content.date`.
