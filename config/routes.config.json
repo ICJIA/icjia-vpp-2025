@@ -1,14 +1,14 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-29T14:30:11.944Z",
+  "generatedAt": "2025-05-29T15:11:19.503Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 17,
-    "contentPages": 14,
-    "vuePages": 5,
-    "combinedPages": 2,
+    "totalPages": 18,
+    "contentPages": 15,
+    "vuePages": 4,
+    "combinedPages": 1,
     "blacklistedFiles": 2
   },
   "pages": [
@@ -47,17 +47,12 @@
       "title": "About Us",
       "path": "/about",
       "fullUrl": "https://vpp-2025.netlify.app/about",
-      "type": "combined",
+      "type": "content",
       "sources": [
         {
           "type": "content",
           "source": "content/about.md",
           "title": "About Us"
-        },
-        {
-          "type": "vue",
-          "source": "pages/about.vue",
-          "title": "About - Statewide Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
     },
@@ -84,6 +79,19 @@
           "type": "content",
           "source": "content/accessibility/documentation.md",
           "title": "Accessibility Documentation"
+        }
+      ]
+    },
+    {
+      "title": "Contact Us",
+      "path": "/contact",
+      "fullUrl": "https://vpp-2025.netlify.app/contact",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/contact.md",
+          "title": "Contact Us"
         }
       ]
     },
@@ -231,7 +239,7 @@
       ]
     },
     {
-      "title": "Strategic Priorities: 2025-2029",
+      "title": "Strategic Priorities",
       "path": "/strategic-priorities",
       "fullUrl": "https://vpp-2025.netlify.app/strategic-priorities",
       "type": "content",
@@ -239,18 +247,18 @@
         {
           "type": "content",
           "source": "content/strategic-priorities.md",
-          "title": "Strategic Priorities: 2025-2029"
+          "title": "Strategic Priorities"
         }
       ]
     }
   ],
   "stats": {
-    "totalPages": 17,
-    "contentPages": 14,
-    "vuePages": 5,
-    "combinedPages": 2,
+    "totalPages": 18,
+    "contentPages": 15,
+    "vuePages": 4,
+    "combinedPages": 1,
     "blacklistedFiles": 2,
     "menuIntegratedPages": 7,
-    "orphanedPages": 10
+    "orphanedPages": 11
   }
 }

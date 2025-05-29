@@ -164,7 +164,7 @@ const preventionLevels = [
   {
     name: 'Tertiary',
     description: 'Indicated services after violence has occurred',
-    icon: 'mdi-shield-heart',
+    icon: 'mdi-shield-account',
     color: 'primary'
   }
 ];

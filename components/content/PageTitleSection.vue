@@ -179,14 +179,22 @@ const formattedDate = computed(() => {
 
 /* Main page title section container */
 .page-title-section {
-  padding: 3rem 0 2.5rem;
-  /* Soft light theme background to reduce eye strain */
-  background: #FAFAFA;
+  padding: 0; /* Remove default padding, will be handled by flexbox centering */
+  /* Slightly lighter than navigation for subtle visual hierarchy */
+  background: #F5F5F5; /* Lighter than nav's #F2F2F2 */
+  /* Extend background to reach navigation */
+  margin-top: -60px; /* Account for header height */
+  /* Center content vertically and horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(25vh + 60px); /* Reduced height for tighter layout */
 }
 
 /* Dark theme background override */
 :root[data-theme="dark"] .page-title-section {
-  background: rgb(var(--v-theme-surface));
+  /* Slightly lighter than navigation for subtle visual hierarchy */
+  background: #1E2A3A; /* Lighter than nav's #1A2234 */
 }
 
 /* Optional border separator for visual hierarchy */
@@ -198,7 +206,8 @@ const formattedDate = computed(() => {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 2rem 1.5rem; /* Add vertical padding for content breathing room */
+  width: 100%;
 }
 
 /* Title content wrapper for centering and max-width */
@@ -206,6 +215,7 @@ const formattedDate = computed(() => {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* Infographic-style main page title */
@@ -308,7 +318,7 @@ const formattedDate = computed(() => {
 
 @media (max-width: 768px) {
   .page-title-section {
-    padding: 2.5rem 0 2rem;
+    min-height: calc(20vh + 60px); /* Smaller height on mobile */
   }
 
   .main-page-title {
@@ -320,7 +330,7 @@ const formattedDate = computed(() => {
   }
 
   .container {
-    padding: 0 1rem;
+    padding: 1.5rem 1rem; /* Reduced vertical padding on mobile */
   }
 }
 

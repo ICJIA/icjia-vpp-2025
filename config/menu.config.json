@@ -31,7 +31,7 @@
         "order": 10
       },
       {
-        "text": "About",
+        "text": "About Us",
         "ariaLabel": "Learn more about our project and latest updates",
         "tooltip": "Learn more about our project and latest updates",
         "tooltipLocation": "bottom",
@@ -46,7 +46,7 @@
         "order": 20,
         "children": [
           {
-            "text": "About Us",
+            "text": "About the Project",
             "to": "/about",
             "ariaLabel": "Learn more about our project",
             "tooltip": "Learn more about our project",
@@ -167,7 +167,7 @@
             "class": "footer-link mb-2"
           },
           {
-            "text": "About",
+            "text": "About Us",
             "to": "/about",
             "ariaLabel": "Learn more about our project",
             "tooltip": "Learn more about our project",

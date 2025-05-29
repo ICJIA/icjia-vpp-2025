@@ -460,6 +460,8 @@ useSeoMeta({
     margin-top: 1.5rem;
     margin-bottom: 1rem;
     line-height: 1.3;
+    /* Ensure H2 headings remain flush left */
+    margin-left: 0;
   }
 
   :deep(h3) {
@@ -468,6 +470,37 @@ useSeoMeta({
     margin-top: 1.25rem;
     margin-bottom: 0.75rem;
     line-height: 1.3;
+  }
+
+  /*
+   * Visual Hierarchy: Content Indentation System
+   *
+   * Creates visual hierarchy by indenting all content that follows H2 headings.
+   * H2 headings remain flush left, while all subsequent content (until the next H2)
+   * is indented to show the relationship and create clear content sections.
+   */
+
+  /* Indent all content following H2 headings */
+  :deep(h2 ~ *) {
+    margin-left: 2rem; /* 32px indentation for clear visual hierarchy */
+  }
+
+  /* Ensure H2 headings themselves are not indented (override the sibling selector) */
+  :deep(h2 ~ h2) {
+    margin-left: 0;
+  }
+
+  /* Responsive indentation - reduce on smaller screens */
+  @media (max-width: 768px) {
+    :deep(h2 ~ *) {
+      margin-left: 1.5rem; /* 24px on tablets */
+    }
+  }
+
+  @media (max-width: 480px) {
+    :deep(h2 ~ *) {
+      margin-left: 1rem; /* 16px on mobile */
+    }
   }
 
   /* Paragraph and list styles */

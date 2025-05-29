@@ -44,8 +44,8 @@
         <v-col cols="12" md="6" class="mt-8 mt-md-0">
           <div class="hero-image-container">
             <ImageWithSpinner
-              src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
-              alt="Community members working together for violence prevention"
+              src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
+              alt="Youth violence prevention summit participants collaborating on community safety initiatives"
               image-class="hero-image rounded-xl"
               cover
               aspect-ratio="4/3"

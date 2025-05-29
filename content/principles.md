@@ -10,7 +10,6 @@ twitterCard: "summary_large_image"
 
 Five core principles guide our violence prevention efforts, ensuring that our work is grounded in equity, safety, health, belonging, and collaboration across all levels of government.
 
----
 
 ## Foster Belonging and Social Connectedness
 
@@ -28,7 +27,6 @@ Individuals, families, and communities can find acceptance and develop resilienc
 - Family engagement initiatives
 - Youth development programs focused on positive relationships
 
----
 
 ## Advance Equity
 
@@ -48,8 +46,6 @@ Violence prevention programming addresses inequities by partnering with individu
 
 **Related Strategic Priority**: [Strategic Priority #2: Advance Equity](/strategic-priorities#advance-equity)
 
----
-
 ## Promote Safety
 
 The ability to live without fear of harm is a fundamental human right and developmentally essential to individual, familial and community success. Violence prevention programming strives to develop culturally responsive, safe, and peaceful environments.
@@ -68,7 +64,6 @@ The ability to live without fear of harm is a fundamental human right and develo
 
 **Related Strategic Priority**: [Strategic Priority #1: Prevent Violence & Promote Safety](/strategic-priorities#prevent-violence-promote-safety)
 
----
 
 ## Support Health
 
@@ -88,8 +83,6 @@ Violence prevention programming builds and sustains mentally and physically stro
 
 **Related Strategic Priority**: [Strategic Priority #1: Prevent Violence & Promote Safety](/strategic-priorities#prevent-violence-promote-safety)
 
----
-
 ## Engage State Agencies in Collaboration
 
 Violence prevention programming takes place across many state agencies and focuses on similar outcomes. We work more effectively by communicating across agencies quarterly, sharing resources, best practices and data as the norm.
@@ -108,7 +101,6 @@ Violence prevention programming takes place across many state agencies and focus
 
 **Related Strategic Priority**: [Strategic Priority #3: Promote Collaboration](/strategic-priorities#promote-collaboration)
 
----
 
 ## How Principles Guide Our Work
 
@@ -123,6 +115,3 @@ These five principles work together to create a comprehensive framework for viol
 
 Our guiding principles directly inform and support our [Strategic Priorities: 2025-2029](/strategic-priorities), creating a cohesive approach to violence prevention that is both values-driven and action-oriented.
 
----
-
-*Last Updated: May 28, 2025*

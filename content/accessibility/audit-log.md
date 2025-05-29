@@ -2,7 +2,7 @@
 title: "Accessibility Audit Log"
 date: 2025-05-29
 description: "This document contains a log of accessibility updates andaudits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
---- 
+---
 
 
 **Last Updated: May 29, 2025**
@@ -10,6 +10,80 @@ description: "This document contains a log of accessibility updates andaudits co
 This document serves as a comprehensive assessment of the accessibility features and compliance level of the Violence Prevention Plan for Illinois: 2025-2029. It provides a detailed analysis of the project's accessibility status based on WCAG 2.1 AA standards, which is our primary compliance target, with some AAA features implemented where feasible.
 
 ## Audit Log Update: 2025-05-29
+
+### Tertiary Prevention Icon Fix - Visual Consistency Enhancement
+- **Summary**: Fixed missing icon for the Tertiary prevention level in the "Prevention Levels" section on the homepage to ensure consistent visual presentation and accessibility.
+- **Issue Identified**: The Tertiary prevention level was missing its icon while Primary and Secondary levels displayed properly with their shield icons
+- **Root Cause**: Invalid Material Design Icon name `mdi-shield-heart` was specified, which doesn't exist in the MDI library
+- **Technical Fix**:
+  - **File Modified**: `components/content/HomeApproach.vue` - Updated prevention levels icon configuration
+  - **Icon Changed**: From `mdi-shield-heart` (invalid) to `mdi-shield-account` (valid)
+  - **Icon Meaning**: `mdi-shield-account` represents individual/personal services, perfectly aligning with tertiary prevention's focus on "indicated services after violence has occurred"
+  - **Consistency Maintained**: All three prevention levels now use shield-based icons with consistent primary color scheme
+- **Accessibility Benefits**:
+  - **Visual Consistency**: All prevention levels now have consistent icon presentation for better user comprehension
+  - **Content Completeness**: No missing visual elements that could confuse users or screen reader users
+  - **Information Hierarchy**: Clear visual distinction between the three prevention levels through appropriate iconography
+  - **Cognitive Accessibility**: Consistent visual patterns help users with cognitive disabilities understand content structure
+- **WCAG 2.1 AA Compliance Verification**:
+  - **1.1.1 Non-text Content**: ✅ All prevention levels now have appropriate visual icons with meaningful representations
+  - **3.2.4 Consistent Identification**: ✅ Consistent icon treatment across all prevention levels
+  - **1.4.1 Use of Color**: ✅ Icons provide visual information that complements text descriptions
+- **Icon Semantics**:
+  - **Primary**: `mdi-shield-check` (universal protection/prevention)
+  - **Secondary**: `mdi-shield-alert` (targeted intervention for at-risk populations)
+  - **Tertiary**: `mdi-shield-account` (individual services after violence has occurred)
+
+### H2 Heading Border Fix - Content Consistency Enhancement
+- **Summary**: Fixed missing border styling on first H2 headings across all content pages to ensure consistent visual hierarchy and section separation throughout the site.
+- **Issue Identified**: First H2 heading on content pages was missing the bottom border that appears on subsequent H2 headings, creating inconsistent visual hierarchy
+- **Root Cause**: Overly broad CSS selector in `assets/css/main.scss` was incorrectly removing borders from first H2 elements in content with `.hide-first-heading` class
+- **Technical Fix**:
+  - **File Modified**: `assets/css/main.scss` - Refined CSS selector specificity
+  - **Removed Problematic Rule**: `.content-renderer.hide-first-heading h2:first-of-type` from border removal selectors
+  - **Preserved Intended Functionality**: Maintained border removal for actual page title sections and hero elements
+  - **Result**: All H2 headings now consistently display bottom borders for proper section separation
+- **Accessibility Benefits**:
+  - **Visual Consistency**: Uniform heading treatment improves content predictability for all users
+  - **Section Identification**: Clear visual boundaries help users with cognitive disabilities navigate content
+  - **Screen Reader Enhancement**: Consistent visual structure complements semantic HTML navigation
+  - **Content Scanning**: Improved ability to quickly identify content sections and their boundaries
+- **WCAG 2.1 AA Compliance Verification**:
+  - **3.2.4 Consistent Identification**: ✅ H2 headings now have consistent visual treatment across all pages
+  - **1.4.8 Visual Presentation**: ✅ Improved content organization through consistent section separation
+  - **2.4.6 Headings and Labels**: ✅ Enhanced heading hierarchy through uniform visual design
+- **Pages Affected**: All content pages using the dynamic catch-all route system, including strategic priorities, principles, and other markdown content
+
+### Visual Content Hierarchy Implementation - Strategic Priorities Page
+- **Summary**: Implemented visual indentation system for content hierarchy in the strategic priorities page to improve content organization and accessibility for users with cognitive disabilities and screen reader users.
+- **Accessibility Enhancement Details**:
+  - **Visual Hierarchy**: Created clear visual relationships between H2 headings and their associated content
+  - **Content Organization**: H2 headings remain flush left while all subsequent content is indented (2rem/32px on desktop, responsive scaling)
+  - **Cognitive Accessibility**: Improved content scanning and comprehension for users with cognitive disabilities
+  - **Screen Reader Benefits**: Enhanced content structure understanding through visual cues that complement semantic HTML
+  - **Responsive Design**: Indentation scales appropriately across devices (2rem desktop, 1.5rem tablet, 1rem mobile)
+- **Technical Implementation**:
+  - **File Modified**: `pages/[...slug].vue` - Enhanced content renderer CSS styling
+  - **CSS Selectors Used**:
+    - `h2 ~ *` to target all content following H2 headings
+    - `h2 ~ h2` to ensure subsequent H2 headings reset to flush left
+  - **Responsive Breakpoints**:
+    - Desktop (>768px): 2rem (32px) indentation
+    - Tablet (≤768px): 1.5rem (24px) indentation
+    - Mobile (≤480px): 1rem (16px) indentation
+  - **Accessibility Preservation**: All existing accessibility features maintained (focus states, contrast ratios, keyboard navigation)
+- **WCAG 2.1 AA Compliance Verification**:
+  - **1.3.1 Info and Relationships**: ✅ Visual hierarchy enhances semantic structure without replacing it
+  - **1.4.8 Visual Presentation**: ✅ Improved content organization and readability
+  - **2.4.6 Headings and Labels**: ✅ Enhanced heading hierarchy through visual design
+  - **3.2.4 Consistent Identification**: ✅ Consistent indentation pattern across all content sections
+- **User Experience Benefits**:
+  - **Cognitive Disabilities**: Clearer content organization reduces cognitive load
+  - **Screen Reader Users**: Visual structure complements semantic navigation
+  - **Low Vision Users**: Enhanced content scanning through improved visual hierarchy
+  - **All Users**: Better content comprehension and navigation experience
+- **Content Areas Affected**: All markdown content rendered through the dynamic catch-all route system, with immediate impact on strategic priorities page and future benefit for all content pages
+- **Future Maintenance**: Implementation is automatic for all content using the H2 heading structure, requiring no additional maintenance for new content
 
 ### Accessibility Documentation Migration to Nuxt Content v3 System
 - **Summary**: Successfully migrated accessibility documentation from static HTML files to the Nuxt Content v3 system for improved searchability, content management, and integration with the site's dynamic content system.

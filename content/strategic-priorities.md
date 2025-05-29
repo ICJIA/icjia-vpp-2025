@@ -1,17 +1,14 @@
 ---
-title: "Strategic Priorities: 2025-2029"
+title: "Strategic Priorities"
 description: "Three core strategic goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities."
-ogTitle: "Strategic Priorities: 2025-2029"
+ogTitle: "Strategic Priorities"
 ogDescription: "Three core strategic goals for violence prevention across Illinois communities."
 ogImage: "/images/og-image-strategic-priorities.jpg"
 twitterCard: "summary_large_image"
 ---
 
-# Strategic Priorities: 2025-2029
-
 Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
 
----
 
 ## Goal #1: Prevent Violence & Promote Safety {#prevent-violence-promote-safety}
 
@@ -52,8 +49,6 @@ Implement evidence-based prevention strategies through trauma-informed/healing-c
 ### Related Guiding Principles
 This strategic priority is directly supported by our principles of [Promote Safety](/principles#promote-safety) and [Support Health](/principles#support-health).
 
----
-
 ## Goal #2: Advance Equity {#advance-equity}
 
 Increase access to grants and economic opportunities through flexible funding that accommodates local community priorities and addresses historical inequities.
@@ -93,7 +88,7 @@ Increase access to grants and economic opportunities through flexible funding th
 ### Related Guiding Principles
 This strategic priority directly implements our principle of [Advance Equity](/principles#advance-equity).
 
----
+
 
 ## Goal #3: Promote Collaboration {#promote-collaboration}
 
@@ -134,7 +129,7 @@ Foster partnerships across state, municipal, and community-based agencies throug
 ### Related Guiding Principles
 This strategic priority directly implements our principle of [Engage State Agencies in Collaboration](/principles#engage-state-agencies-in-collaboration).
 
----
+
 
 ## Implementation Framework
 
@@ -151,12 +146,9 @@ Success will be measured through:
 ### Accountability and Oversight
 The Ad Hoc Violence Prevention Committee provides ongoing oversight and accountability for strategic priority implementation, with regular reporting to stakeholders and communities.
 
----
+
 
 ## Connection to Guiding Principles
 
 These strategic priorities are grounded in and guided by our [Five Guiding Principles](/principles), ensuring that all implementation efforts remain true to our core values while achieving measurable outcomes.
 
----
-
-*Last Updated: May 28, 2025*
