@@ -1,15 +1,15 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-05-29T03:03:02.029Z",
+  "generatedAt": "2025-05-29T04:04:42.421Z",
   "summary": {
     "projectName": "Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 18,
-    "contentPages": 13,
+    "totalPages": 17,
+    "contentPages": 12,
     "vuePages": 7,
     "combinedPages": 2,
-    "blacklistedFiles": 5
+    "blacklistedFiles": 4
   },
   "pages": [
     {
@@ -71,6 +71,32 @@
           "type": "content",
           "source": "content/footnote-scroll-test.md",
           "title": "Footnote Scrolling Test"
+        }
+      ]
+    },
+    {
+      "title": "Privacy Policy",
+      "path": "/legal/privacy-policy",
+      "fullUrl": "https://vpp-2025.netlify.app/legal/privacy-policy",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/legal/privacy-policy.md",
+          "title": "Privacy Policy"
+        }
+      ]
+    },
+    {
+      "title": "Terms of Service",
+      "path": "/legal/terms-of-service",
+      "fullUrl": "https://vpp-2025.netlify.app/legal/terms-of-service",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/legal/terms-of-service.md",
+          "title": "Terms of Service"
         }
       ]
     },
@@ -205,19 +231,6 @@
       ]
     },
     {
-      "title": "Simple Test Page",
-      "path": "/simple-test",
-      "fullUrl": "https://vpp-2025.netlify.app/simple-test",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/simple-test.md",
-          "title": "Simple Test Page"
-        }
-      ]
-    },
-    {
       "title": "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois",
       "path": "/strategic-priorities",
       "fullUrl": "https://vpp-2025.netlify.app/strategic-priorities",
@@ -229,41 +242,15 @@
           "title": "Strategic Priorities: 2025-2029 - Violence Prevention Plan for Illinois"
         }
       ]
-    },
-    {
-      "title": "Syntax Highlighting Test",
-      "path": "/syntax-highlighting-test",
-      "fullUrl": "https://vpp-2025.netlify.app/syntax-highlighting-test",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/syntax-highlighting-test.md",
-          "title": "Syntax Highlighting Test"
-        }
-      ]
-    },
-    {
-      "title": "Test Dynamic Route",
-      "path": "/test-dynamic-route",
-      "fullUrl": "https://vpp-2025.netlify.app/test-dynamic-route",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/test-dynamic-route.md",
-          "title": "Test Dynamic Route"
-        }
-      ]
     }
   ],
   "stats": {
-    "totalPages": 18,
-    "contentPages": 13,
+    "totalPages": 17,
+    "contentPages": 12,
     "vuePages": 7,
     "combinedPages": 2,
-    "blacklistedFiles": 5,
-    "menuIntegratedPages": 4,
-    "orphanedPages": 14
+    "blacklistedFiles": 4,
+    "menuIntegratedPages": 6,
+    "orphanedPages": 11
   }
 }

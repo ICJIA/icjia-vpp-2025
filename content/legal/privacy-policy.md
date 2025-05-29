@@ -1,10 +1,12 @@
-# Privacy Policy: Violence Prevention Plan for Illinois: 2025-2029
+---
+title: "Privacy Policy"
+date: 2025-05-28
+description: "This Privacy Policy describes how the Violence Prevention Plan for Illinois: 2025-2029 website collects, uses, and shares information about you when you visit our website."
+--- 
 
 **Last Updated: May 21, 2025**
 
 This Privacy Policy describes how the Violence Prevention Plan for Illinois: 2025-2029 website ("we," "our," or "us") collects, uses, and shares information about you when you visit our website. This policy is based on the State of Illinois Privacy Notice and has been enhanced to address specific aspects of this website.
-
-> **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
 
 ## Introduction
 

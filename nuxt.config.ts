@@ -164,10 +164,7 @@ export default defineNuxtConfig({
       routes: [
         // Accessibility documentation HTML files
         '/accessibility-documentation.html',
-        '/audit-log-accessibility.html',
-        // Legal documentation HTML files
-        '/privacy-policy.html',
-        '/terms-of-service.html'
+        '/audit-log-accessibility.html'
       ],
 
       // Exclude these routes from crawling/generation

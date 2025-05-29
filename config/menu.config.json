@@ -57,15 +57,19 @@
         "order": 30
       },
       {
-        "text": "Sandbox",
-        "to": "/sandbox-refactored",
-        "ariaLabel": "Get Started with our application",
-        "tooltip": "Begin using our application",
-        "tooltipLocation": "right",
+        "text": "Download the Plan",
+        "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
+        "ariaLabel": "Download the Violence Prevention Plan PDF",
+        "tooltip": "Download the complete Violence Prevention Plan",
+        "tooltipLocation": "bottom",
         "variant": "outlined",
         "color": "primary",
         "class": "ml-4 font-weight-medium rounded-pill elevation-0 hidden-sm-and-down",
         "mobileClass": "font-weight-medium py-2 nav-link-mobile",
+        "isExternal": true,
+        "target": "_blank",
+        "rel": "noopener noreferrer",
+        "externalIcon": "mdi-download",
         "displayMode": "both",
         "order": 40
       },
@@ -83,23 +87,6 @@
         "displayMode": "both",
         "iconOnly": true,
         "order": 95
-      },
-      {
-        "text": "ICJIA",
-        "href": "https://icjia.illinois.gov",
-        "ariaLabel": "Visit the Illinois Criminal Justice Information Authority website",
-        "tooltip": "Visit the Illinois Criminal Justice Information Authority website",
-        "tooltipLocation": "bottom",
-        "variant": "text",
-        "color": "on-app-bar",
-        "class": "font-weight-medium mx-2 nav-link",
-        "mobileClass": "font-weight-medium py-2 nav-link-mobile",
-        "isExternal": true,
-        "target": "_blank",
-        "rel": "noopener noreferrer",
-        "externalIcon": "mdi-open-in-new",
-        "displayMode": "both",
-        "order": 50
       }
     ]
   },
@@ -171,7 +158,7 @@
         "items": [
           {
             "text": "Privacy Policy",
-            "href": "/privacy-policy.html",
+            "to": "/legal/privacy-policy",
             "ariaLabel": "Privacy Policy",
             "tooltip": "Read our privacy policy",
             "tooltipLocation": "right",
@@ -179,7 +166,7 @@
           },
           {
             "text": "Terms of Service",
-            "href": "/terms-of-service.html",
+            "to": "/legal/terms-of-service",
             "ariaLabel": "Terms of Service",
             "tooltip": "View our terms of service",
             "tooltipLocation": "right",

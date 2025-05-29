@@ -53,28 +53,29 @@
  *
  * @page
  */
-import { useHead, useSeoMeta, useNuxtApp, navigateTo } from '#imports';
+import { useHead, useSeoMeta, useNuxtApp, navigateTo } from "#imports";
 
 // Define props for the error page
 const props = defineProps({
   error: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 });
 
 // Set page title and HTML attributes for accessibility and SEO
 useHead({
-  title: 'Page Not Found - Violence Prevention Plan for Illinois: 2025-2029',
+  title: "Page Not Found - Violence Prevention Plan for Illinois: 2025-2029",
   htmlAttrs: {
-    lang: 'en'
-  }
+    lang: "en",
+  },
 });
 
 // Set SEO metadata
 useSeoMeta({
-  description: 'Page not found. Return to the Violence Prevention Plan for Illinois: 2025-2029 homepage.',
-  robots: 'noindex, nofollow'
+  description:
+    "Page not found. Return to the Violence Prevention Plan for Illinois: 2025-2029 homepage.",
+  robots: "noindex, nofollow",
 });
 
 /**
@@ -88,10 +89,10 @@ const handleReturn = () => {
   const nuxtApp = useNuxtApp();
 
   // Clear the error and navigate to homepage
-  nuxtApp.callHook('app:error:cleared');
+  nuxtApp.callHook("app:error:cleared");
 
   // Navigate to homepage and ensure scroll to top
-  navigateTo('/', {
+  navigateTo("/", {
     onFinish: () => {
       // Use setTimeout to ensure this runs after navigation completes
       setTimeout(() => {
@@ -99,10 +100,10 @@ const handleReturn = () => {
           nuxtApp.$scrollToTop();
         } else {
           // Fallback if plugin not available
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       }, 100);
-    }
+    },
   });
 };
 </script>

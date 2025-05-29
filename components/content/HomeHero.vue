@@ -17,13 +17,13 @@
                 color="primary"
                 size="large"
                 class="rounded-pill px-8 py-3 elevation-2 hero-button"
-                @click="handleGetStarted"
-                @keydown.enter="handleGetStarted"
-                @keydown.space.prevent="handleGetStarted"
-                aria-label="View the complete Violence Prevention Plan"
+                @click="handleDownloadPlan"
+                @keydown.enter="handleDownloadPlan"
+                @keydown.space.prevent="handleDownloadPlan"
+                aria-label="Download the complete Violence Prevention Plan PDF"
               >
-                View the Plan
-                <v-icon end icon="mdi-arrow-right" />
+                Download the Plan
+                <v-icon end icon="mdi-download" />
               </v-btn>
               <v-btn
                 variant="outlined"
@@ -84,12 +84,12 @@
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 
 /**
- * Handle Get Started button activation
- * Navigates to the full Violence Prevention Plan document
+ * Handle Download the Plan button activation
+ * Downloads the complete Violence Prevention Plan PDF document
  */
-const handleGetStarted = () => {
-  // Navigate to the full plan document
-  window.open('/files/vpp_plan.md', '_blank');
+const handleDownloadPlan = () => {
+  // Open the complete Violence Prevention Plan PDF in a new tab
+  window.open('/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf', '_blank');
 };
 
 /**

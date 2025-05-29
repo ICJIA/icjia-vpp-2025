@@ -32,6 +32,122 @@ This document serves as a chronological record of all significant changes made t
   - **Theme Consistency**: Enhanced contrast works seamlessly in both light and dark themes
   - **Design System Alignment**: Maintains consistency with NewsCard components and project's established color palette
 
+### 2025-05-28 (Consistent "Download the Plan" Messaging Across Site)
+- Updated navigation text and functionality across multiple components to provide consistent "Download the Plan" messaging, replacing various plan-related button texts with unified terminology and ensuring all download links point to the correct PDF file.
+- **Rationale**: Established consistent user experience where "Download the Plan" clearly indicates users will be downloading the complete Violence Prevention Plan PDF document, eliminating confusion from mixed messaging like "Full Report", "View the Plan", and "View the Complete Plan".
+- Files modified:
+  - **Main Navigation Bar** (`config/menu.config.json`):
+    - **Text Change**: "Full Report" → "Download the Plan"
+    - **ARIA Label**: Updated to "Download the Violence Prevention Plan PDF" (simplified from longer version)
+    - **Tooltip**: Updated to "Download the complete Violence Prevention Plan" (simplified)
+    - **Functionality**: Maintained existing PDF link, styling, accessibility attributes, and download behavior
+    - **Icon**: Kept "mdi-download" icon for clear download indication
+  - **Homepage Hero Section** (`components/content/HomeHero.vue`):
+    - **Button Text**: "View the Plan" → "Download the Plan"
+    - **Function Name**: `handleGetStarted` → `handleDownloadPlan` for semantic clarity
+    - **ARIA Label**: Updated to "Download the complete Violence Prevention Plan PDF"
+    - **Icon**: Changed from "mdi-arrow-right" to "mdi-download" for consistency
+    - **Functionality**: Updated to link directly to correct PDF file instead of markdown file
+    - **Target**: Maintained `_blank` for new tab opening
+  - **Homepage Action Section** (`components/content/HomeAction.vue`):
+    - **Button Text**: "View the Complete Plan" → "Download the Plan"
+    - **Function**: Updated `handlePrimaryCTA` to link to correct PDF file
+    - **Description**: Updated to "Download the complete Violence Prevention Plan for Illinois: 2025-2029"
+    - **Functionality**: Changed from linking to markdown file to PDF file
+- Technical Implementation:
+  - **Consistent PDF Link**: All download buttons now point to `/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf`
+  - **Unified Messaging**: Standardized on "Download the Plan" across all components
+  - **Icon Consistency**: All download buttons use "mdi-download" icon
+  - **Accessibility**: Maintained WCAG 2.1 AA compliance with descriptive ARIA labels
+  - **New Tab Behavior**: All PDF links open in new tabs for better user experience
+  - **Function Naming**: Updated function names to reflect actual functionality (download vs. view)
+- User Experience Benefits:
+  - **Clear Intent**: "Download the Plan" immediately communicates the action and outcome
+  - **Consistent Experience**: Same terminology and functionality across all site locations
+  - **Reduced Confusion**: Eliminated mixed messaging between "View", "Full Report", and "Complete Plan"
+  - **Predictable Behavior**: Users know exactly what to expect when clicking any plan download button
+  - **Accessibility**: Screen readers get consistent, descriptive information about download functionality
+- Design System Improvements:
+  - **Unified Terminology**: Established "Download the Plan" as the standard call-to-action text
+  - **Icon Standardization**: Download icon consistently used across all plan download buttons
+  - **Semantic Clarity**: Function names and labels accurately reflect actual functionality
+  - **Brand Consistency**: Unified messaging reinforces professional, cohesive user experience
+
+### 2025-05-28 (Legal Pages Migration to Nuxt Content - Complete HTML Generation Cleanup)
+- Completed comprehensive migration of privacy policy and terms of service from standalone HTML files to integrated Nuxt Content markdown files, removing all HTML generation processes and updating all navigation references.
+- **Rationale**: Integrated legal documents into the main site structure for better content management, search functionality, and consistent styling while eliminating duplicate HTML generation processes.
+- Files modified/removed:
+  - **Navigation Updates**:
+    - `config/menu.config.json`: Updated footer navigation links from `.html` to `/legal/` routes
+      - Privacy Policy: `/privacy-policy.html` → `/legal/privacy-policy`
+      - Terms of Service: `/terms-of-service.html` → `/legal/terms-of-service`
+      - Changed from `href` to `to` properties for proper Nuxt routing
+    - `config/site.config.json`: Updated legal section URLs to use new Nuxt Content routes
+  - **HTML Generation Cleanup**:
+    - `scripts/create-accessibility-html.js`: Removed privacy policy and terms of service from HTML generation array
+    - `scripts/create-accessibility-html.js`: Updated footer navigation links in accessibility HTML files
+    - `package.json`: Updated clean script to only remove accessibility HTML files, not all HTML files
+    - `nuxt.config.ts`: Removed privacy-policy.html and terms-of-service.html from prerender routes
+  - **File Cleanup**:
+    - **Removed**: `public/privacy-policy.html` (generated HTML file)
+    - **Removed**: `public/terms-of-service.html` (generated HTML file)
+    - **Removed**: `privacy-policy.md` (root directory markdown file)
+    - **Removed**: `terms-of-service.md` (root directory markdown file)
+    - **Updated**: `public/accessibility-documentation.html` - Updated footer links to new routes
+    - **Updated**: `public/audit-log-accessibility.html` - Updated footer links to new routes
+  - **Content Structure**:
+    - Legal documents now properly integrated as Nuxt Content at `/content/legal/`
+    - Documents include proper frontmatter with title, date, and description
+    - Removed "HTML availability" notes from markdown content
+  - **Documentation Updates**:
+    - `config/menu.config.md`: Updated example to use accessibility documentation instead of privacy policy
+- Technical Implementation:
+  - **Content Management**: Legal documents now use Nuxt Content system for consistent styling and layout
+  - **Search Integration**: Documents are automatically included in site search index through standard content processing
+  - **Routing**: Uses standard Nuxt Content routing (`/legal/privacy-policy`, `/legal/terms-of-service`)
+  - **Accessibility**: Maintains WCAG 2.1 AA compliance through standard page templates
+  - **Build Process**: Eliminated duplicate HTML generation, reducing build complexity
+  - **Navigation**: Consistent navigation behavior using Nuxt router instead of direct HTML links
+- User Experience Benefits:
+  - **Unified Experience**: Legal documents now have same styling, navigation, and functionality as other content pages
+  - **Search Integration**: Privacy policy and terms of service are now searchable through site search
+  - **Consistent Navigation**: All internal links use Nuxt router for better performance and user experience
+  - **Content Management**: Legal documents can be updated through standard content management workflow
+  - **Accessibility**: Documents inherit all accessibility features from standard page templates
+- Build Process Improvements:
+  - **Simplified Build**: Removed redundant HTML generation for legal documents
+  - **Reduced Complexity**: Eliminated dual content management (markdown + HTML generation)
+  - **Faster Builds**: Fewer files to generate during build process
+  - **Cleaner Output**: No duplicate HTML files in public directory
+  - **Maintenance**: Single source of truth for legal document content
+
+### 2025-05-28 (Navigation Menu Updates - ICJIA Link Removal and Full Report Download)
+- Modified the main navigation bar by removing the ICJIA external link and replacing the Sandbox button with a "Full Report" download link for direct access to the complete Violence Prevention Plan PDF.
+- **Rationale**: Streamlined navigation by removing external link and providing direct access to the complete report document for users who want the full content.
+- Files modified:
+  - `config/menu.config.json`: Updated header navigation items with two key changes
+    - **Removed**: ICJIA external link that linked to "https://icjia.illinois.gov" (order: 50)
+    - **Replaced**: Sandbox button ("/sandbox-refactored") with "Full Report" download link
+    - **New Full Report Link**: Direct download link to PDF at "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf"
+    - **Link Configuration**: Configured as external link with `target="_blank"` and `rel="noopener noreferrer"` for security
+    - **Accessibility**: Includes descriptive ARIA label "Download the full Violence Prevention Plan report PDF" and tooltip
+    - **Visual Design**: Maintains same styling as previous Sandbox button (outlined, primary color, rounded pill)
+    - **Icon**: Uses "mdi-download" icon to clearly indicate download functionality
+    - **Responsive**: Maintains same responsive behavior with proper mobile/desktop classes
+- Technical Implementation:
+  - **External Link Handling**: Uses `href` instead of `to` for direct file download
+  - **Security**: Includes proper `rel="noopener noreferrer"` for external link security
+  - **Accessibility**: Descriptive ARIA labels and tooltips for screen reader compatibility
+  - **Order Preservation**: Maintains order 40 for consistent navigation positioning
+  - **Styling Consistency**: Preserves existing button styling and responsive classes
+  - **Icon Integration**: Download icon provides clear visual indication of functionality
+- User Experience Benefits:
+  - **Simplified Navigation**: Removed external link reduces navigation complexity
+  - **Direct Access**: Users can immediately download the complete report without navigation
+  - **Clear Intent**: Download icon and descriptive text clearly communicate functionality
+  - **Accessibility**: Proper ARIA labels ensure screen reader compatibility
+  - **Security**: Safe external link handling with proper security attributes
+
 ### 2025-05-28 (Search Result Cards Visual Contrast Enhancement)
 - Applied the same visual contrast enhancement to search result cards on the `/search` page to create better visual separation from the page background, especially improving readability in dark mode.
 - **Problem Solved**: Search result cards had similar background colors to the page background, making individual results difficult to distinguish and reducing the professional appearance of the search interface.

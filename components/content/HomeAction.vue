@@ -83,11 +83,11 @@
           class="rounded-pill px-8 py-3 elevation-3 cta-button"
           @click="handlePrimaryCTA"
         >
-          View the Complete Plan
+          Download the Plan
           <v-icon end icon="mdi-download" />
         </v-btn>
         <p class="text-body-2 text-medium-emphasis mt-8">
-          Download the full Violence Prevention Plan for Illinois: 2025-2029
+          Download the complete Violence Prevention Plan for Illinois: 2025-2029
         </p>
       </div>
     </v-container>
@@ -232,8 +232,8 @@ const handleLegacyAction = (action) => {
  * Handle primary CTA button click
  */
 const handlePrimaryCTA = () => {
-  // Open the full plan document
-  window.open('/files/vpp_plan.md', '_blank');
+  // Open the complete Violence Prevention Plan PDF
+  window.open('/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf', '_blank');
 };
 </script>
 

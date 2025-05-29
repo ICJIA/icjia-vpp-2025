@@ -1,10 +1,12 @@
-# Terms of Service: Violence Prevention Plan for Illinois: 2025-2029
+---
+title: "Terms of Service"
+date: 2025-05-28
+description: "These Terms of Service govern your access to and use of the StatewideViolence Prevention Plan for Illinois: 2025-2029 website."
+--- 
 
 **Last Updated: May 21, 2025**
 
 These Terms of Service ("Terms") govern your access to and use of the Violence Prevention Plan for Illinois: 2025-2029 website ("we," "our," or "us"). Please read these Terms carefully before using our website.
-
-> **Note**: This document is also available as an HTML page on our website for direct access without requiring JavaScript.
 
 ## Acceptance of Terms
 
