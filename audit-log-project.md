@@ -2,6 +2,27 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-01-27 (PageTitleSection Dynamic Layout and TOC Positioning Simplification)
+- **Summary**: Modified PageTitleSection component to dynamically adjust its column layout based on TOC visibility for proper visual alignment with main content, and reverted TOC positioning to a simpler fixed approach for better performance and maintainability.
+
+- **Files Modified**:
+  - `components/content/PageTitleSection.vue`: Added responsive column layout system with `tocVisible` prop, integrated Vuetify 3 grid system, and updated CSS to work with new grid structure
+  - `pages/sandbox-toc.vue`: Passed TOC visibility state to PageTitleSection, reverted to simple fixed TOC positioning (80px from top), and removed complex scroll-based positioning logic
+
+- **Technical Implementation**:
+  - **Dynamic Column Layout**: PageTitleSection now uses conditional column classes (`cols="12" md="9"` when TOC enabled, `cols="12"` when disabled) to align with main content area
+  - **Responsive Design**: Maintains mobile-first approach with full width on mobile devices regardless of TOC state
+  - **Simplified TOC Positioning**: Reverted from dynamic scroll-based positioning to fixed 80px offset for better performance and reduced complexity
+  - **Grid System Integration**: Replaced custom container CSS with Vuetify 3 grid system for consistent layout behavior
+  - **Prop-Based Communication**: Added `tocVisible` prop to PageTitleSection for clean component communication
+
+- **Benefits Achieved**:
+  - **Visual Alignment**: PageTitleSection title text now aligns perfectly with main content text when TOC is present
+  - **Improved Performance**: Removed expensive scroll calculations and DOM queries from TOC positioning
+  - **Better Maintainability**: Simplified positioning logic reduces complexity and potential bugs
+  - **Consistent Layout**: Vuetify grid system ensures consistent responsive behavior across all screen sizes
+  - **Clean Architecture**: Prop-based communication between components follows Vue.js best practices
+
 ## 2025-05-30 (Sticky Table of Contents Component - CSS Grid Layout with True Fixed Positioning)
 - **Summary**: Completely restructured the sticky table of contents (TOC) component using CSS Grid layout to achieve true fixed positioning. Replaced flexbox-based layout with a comprehensive CSS Grid solution that ensures the TOC remains absolutely stationary during page scrolling while maintaining all modern styling and accessibility features.
 - **Files Modified/Created**:

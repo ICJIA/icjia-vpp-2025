@@ -1,26 +1,37 @@
 <template>
   <section class="page-title-section" :class="{ 'with-border': showBorder }">
-    <div class="container">
-      <div class="title-content">
-        <h1 class="main-page-title">
-          <slot name="title">{{ title }}</slot>
-        </h1>
+    <v-container>
+      <v-row>
+        <!-- Dynamic column layout based on TOC visibility -->
+        <v-col
+          :cols="titleColumnWidth.cols"
+          :sm="titleColumnWidth.sm"
+          :md="titleColumnWidth.md"
+          :lg="titleColumnWidth.lg"
+          :xl="titleColumnWidth.xl"
+        >
+          <div class="title-content">
+            <h1 class="main-page-title">
+              <slot name="title">{{ title }}</slot>
+            </h1>
 
-        <!-- Date display section - positioned between title and description -->
-        <div v-if="showDate && date" class="page-date-section">
-          <div class="page-date-chip">
-            <v-icon icon="mdi-calendar" size="small" class="date-icon" aria-hidden="true" />
-            <time :datetime="date" class="date-text">{{ formattedDate }}</time>
+            <!-- Date display section - positioned between title and description -->
+            <div v-if="showDate && date" class="page-date-section">
+              <div class="page-date-chip">
+                <v-icon icon="mdi-calendar" size="small" class="date-icon" aria-hidden="true" />
+                <time :datetime="date" class="date-text">{{ formattedDate }}</time>
+              </div>
+            </div>
+
+            <div v-if="$slots.description || description" class="page-description">
+              <slot name="description">
+                <p>{{ description }}</p>
+              </slot>
+            </div>
           </div>
-        </div>
-
-        <div v-if="$slots.description || description" class="page-description">
-          <slot name="description">
-            <p>{{ description }}</p>
-          </slot>
-        </div>
-      </div>
-    </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </section>
 </template>
 
@@ -82,6 +93,7 @@
  * @property {boolean} [showBorder=false] - Whether to show the bottom border separator
  * @property {boolean} [showDate=false] - Whether to display the publication date
  * @property {string} [date] - The publication date in YYYY-MM-DD format
+ * @property {boolean} [tocVisible=false] - Whether the Table of Contents is visible for layout alignment
  */
 
 import { computed } from 'vue';
@@ -140,6 +152,15 @@ const props = defineProps({
       const date = new Date(value);
       return !isNaN(date.getTime());
     }
+  },
+
+  /**
+   * Whether the Table of Contents is visible/enabled
+   * Used to adjust column layout for proper alignment with main content
+   */
+  tocVisible: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -161,6 +182,22 @@ const formattedDate = computed(() => {
     console.warn('Invalid date format:', props.date);
     return props.date;
   }
+});
+
+/**
+ * Compute responsive column widths for title section based on TOC visibility
+ * Matches main content area layout for proper visual alignment
+ * @returns {Object} Object with responsive column widths
+ */
+const titleColumnWidth = computed(() => {
+  const hasTOC = props.tocVisible;
+  return {
+    cols: 12, // Always full width on mobile
+    sm: 12, // Always full width on small screens
+    md: hasTOC ? 8 : 12, // 8 cols when TOC enabled, 12 when disabled on tablet
+    lg: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on desktop
+    xl: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on large desktop
+  };
 });
 </script>
 
@@ -202,20 +239,13 @@ const formattedDate = computed(() => {
   border-bottom: 1px solid rgba(var(--v-theme-on-surface), 0.12);
 }
 
-/* Container with consistent max-width and centering */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem; /* Add vertical padding for content breathing room */
-  width: 100%;
-}
-
 /* Title content wrapper for centering and max-width */
 .title-content {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
+  padding: 2rem 1.5rem; /* Add vertical padding for content breathing room */
 }
 
 /* Infographic-style main page title */
@@ -329,7 +359,7 @@ const formattedDate = computed(() => {
     font-size: 1rem;
   }
 
-  .container {
+  .title-content {
     padding: 1.5rem 1rem; /* Reduced vertical padding on mobile */
   }
 }
