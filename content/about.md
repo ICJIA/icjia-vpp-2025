@@ -5,6 +5,7 @@ ogTitle: "About Us"
 ogDescription: "Learn about our mission, values, and approach to violence prevention across Illinois."
 ogImage: "/images/og-image-about.jpg"
 twitterCard: "summary_large_image"
+showTOC: true
 ---
 
 ## Our Mission: Creating Safer Communities Across Illinois

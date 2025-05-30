@@ -11,7 +11,9 @@ export default defineContentConfig({
         summary: z.string().optional(),
         description: z.string().optional(),
         date: z.string().optional(),
-        image: z.string().optional()
+        image: z.string().optional(),
+        mdRaw: z.string().optional(),
+        showToc: z.boolean().optional()
       })
     })
   }

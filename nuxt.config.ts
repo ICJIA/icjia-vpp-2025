@@ -50,6 +50,7 @@ export default defineNuxtConfig({
    * @see https://content.nuxt.com/get-started/configuration
    */
   content: {
+    
     // Configure content rendering
     renderer: {
       // Disable automatic anchor link generation for headings
@@ -63,7 +64,10 @@ export default defineNuxtConfig({
       markdown: {
         // Disable Shiki syntax highlighting due to accessibility issues
         // We'll implement custom highlighting with better contrast
-        highlight: false
+        highlight: false,
+         toc: {
+          depth: 2, // include h2 headings
+        }
       }
     }
   },
