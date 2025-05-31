@@ -1,37 +1,24 @@
 <template>
   <section class="page-title-section" :class="{ 'with-border': showBorder }">
-    <v-container>
-      <v-row>
-        <!-- Dynamic column layout based on TOC visibility -->
-        <v-col
-          :cols="titleColumnWidth.cols"
-          :sm="titleColumnWidth.sm"
-          :md="titleColumnWidth.md"
-          :lg="titleColumnWidth.lg"
-          :xl="titleColumnWidth.xl"
-        >
-          <div class="title-content">
-            <h1 class="main-page-title">
-              <slot name="title">{{ title }}</slot>
-            </h1>
+    <div class="title-content">
+      <h1 class="main-page-title">
+        <slot name="title">{{ title }}</slot>
+      </h1>
 
-            <!-- Date display section - positioned between title and description -->
-            <div v-if="showDate && date" class="page-date-section">
-              <div class="page-date-chip">
-                <v-icon icon="mdi-calendar" size="small" class="date-icon" aria-hidden="true" />
-                <time :datetime="date" class="date-text">{{ formattedDate }}</time>
-              </div>
-            </div>
+      <!-- Date display section - positioned between title and description -->
+      <div v-if="showDate && date" class="page-date-section">
+        <div class="page-date-chip">
+          <v-icon icon="mdi-calendar" size="small" class="date-icon" aria-hidden="true" />
+          <time :datetime="date" class="date-text">{{ formattedDate }}</time>
+        </div>
+      </div>
 
-            <div v-if="$slots.description || description" class="page-description">
-              <slot name="description">
-                <p>{{ description }}</p>
-              </slot>
-            </div>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
+      <div v-if="$slots.description || description" class="page-description">
+        <slot name="description">
+          <p>{{ description }}</p>
+        </slot>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -93,7 +80,6 @@
  * @property {boolean} [showBorder=false] - Whether to show the bottom border separator
  * @property {boolean} [showDate=false] - Whether to display the publication date
  * @property {string} [date] - The publication date in YYYY-MM-DD format
- * @property {boolean} [tocVisible=false] - Whether the Table of Contents is visible for layout alignment
  */
 
 import { computed } from 'vue';
@@ -152,15 +138,6 @@ const props = defineProps({
       const date = new Date(value);
       return !isNaN(date.getTime());
     }
-  },
-
-  /**
-   * Whether the Table of Contents is visible/enabled
-   * Used to adjust column layout for proper alignment with main content
-   */
-  tocVisible: {
-    type: Boolean,
-    default: false
   }
 });
 
@@ -184,21 +161,8 @@ const formattedDate = computed(() => {
   }
 });
 
-/**
- * Compute responsive column widths for title section based on TOC visibility
- * Matches main content area layout for proper visual alignment
- * @returns {Object} Object with responsive column widths
- */
-const titleColumnWidth = computed(() => {
-  const hasTOC = props.tocVisible;
-  return {
-    cols: 12, // Always full width on mobile
-    sm: 12, // Always full width on small screens
-    md: hasTOC ? 8 : 12, // 8 cols when TOC enabled, 12 when disabled on tablet
-    lg: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on desktop
-    xl: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on large desktop
-  };
-});
+// Note: Column width management is now handled by the parent component
+// since PageTitleSection is placed inside a v-col in the parent layout
 </script>
 
 <style scoped>

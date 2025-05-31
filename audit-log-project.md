@@ -2,6 +2,90 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-01-27 (Simple Solution: Direct Title in Content Column)
+- **Summary**: Replaced complex PageTitleSection component with simple, direct HTML title elements inside the content column. This eliminates all margin/padding issues and ensures the title stretches edge-to-edge within the column boundaries without any gaps.
+
+- **Simple Approach**:
+  - Removed PageTitleSection component entirely from sandbox-toc.vue
+  - Added direct `<h1>` and `<p>` elements inside the content column
+  - Applied simple CSS styling for edge-to-edge background within column
+
+- **Files Modified**:
+  - `pages/sandbox-toc.vue`: Replaced PageTitleSection with simple title HTML, added `.simple-title-section` styling
+
+- **Technical Implementation**:
+  - **Direct HTML**: `<h1>` and `<p>` elements directly in content column
+  - **Edge-to-Edge Styling**: `width: 100%` with background color spanning full column width
+  - **No Extra Margins**: Zero margins on container, proper padding for content
+  - **Responsive Typography**: Appropriate font sizes and spacing
+
+- **Benefits Achieved**:
+  - **Perfect Column Fit**: Title spans exactly from left edge to right edge of column
+  - **No Gap Issues**: Eliminated all margin/padding conflicts
+  - **Simple Architecture**: No complex component nesting or prop management
+  - **Immediate Visual Alignment**: Title and content perfectly aligned
+
+### 2025-01-27 (Critical Fix: PageTitleSection Column Constraint Architecture)
+- **Summary**: Fixed fundamental architectural issue where PageTitleSection was positioned outside the Vuetify grid system, causing it to span full viewport width regardless of column settings. Moved PageTitleSection inside the column structure and simplified its internal layout to properly respect column boundaries.
+
+- **Root Cause Identified**:
+  - PageTitleSection was placed **before** `<v-container>` and `<v-row>` in page layouts
+  - Component had its own internal grid system (`v-container` > `v-row` > `v-col`) creating nested grid conflicts
+  - Title text was not constrained by any column boundaries, always spanning full width
+
+- **Files Modified**:
+  - `pages/sandbox-toc.vue`: Moved PageTitleSection inside the main content column, removed `toc-visible` prop
+  - `components/content/PageTitleSection.vue`: Removed internal grid system, simplified to direct content layout, removed `tocVisible` prop and `titleColumnWidth` computed property
+
+- **Technical Implementation**:
+  - **Architectural Fix**: PageTitleSection now placed inside `<v-col>` instead of outside grid system
+  - **Grid Simplification**: Removed internal `v-container`/`v-row`/`v-col` structure from PageTitleSection
+  - **Column Constraint**: Title content now properly constrained by parent column boundaries
+  - **Prop Cleanup**: Removed unnecessary `tocVisible` prop since column width is now managed by parent
+
+- **Benefits Achieved**:
+  - **Proper Column Constraint**: Title text now stays within designated column boundaries
+  - **Simplified Architecture**: Eliminated nested grid conflicts and complexity
+  - **True Responsive Alignment**: Title aligns with content because both are in same column
+  - **Cleaner Component API**: Removed unnecessary props and computed properties
+
+### 2025-01-27 (Responsive Column Alignment and Mobile TOC Optimization)
+- **Summary**: Enhanced the PageTitleSection and TOC layout system to ensure perfect responsive column alignment across all screen sizes, with optimized mobile experience that completely hides the TOC sidebar and provides full-width content layout.
+
+- **Files Modified**:
+  - `pages/sandbox-toc.vue`: Added responsive display classes (`d-none d-md-block`) to hide TOC on mobile, updated column width comments for clarity
+  - `components/content/PageTitleSection.vue`: Enhanced documentation to clarify mobile behavior and TOC interaction
+
+- **Technical Implementation**:
+  - **Mobile TOC Hiding**: Applied Vuetify responsive display classes to completely hide TOC sidebar on mobile screens (< md breakpoint)
+  - **Perfect Column Alignment**: Ensured PageTitleSection and main content use identical column widths for visual alignment
+  - **Responsive Grid System**: Both components use matching responsive breakpoints: cols="12" (mobile), md="8/9" (TOC enabled), md="12" (TOC disabled)
+  - **Mobile-First Design**: Full-width layout on mobile devices regardless of TOC toggle state
+
+- **Benefits Achieved**:
+  - **Perfect Visual Alignment**: Title text aligns exactly with main content text on all screen sizes
+  - **Clean Mobile Experience**: No TOC sidebar clutter on mobile devices, providing optimal reading experience
+  - **Consistent Responsive Behavior**: Unified grid system ensures predictable layout across all breakpoints
+  - **Improved Accessibility**: Better mobile navigation and content focus without TOC distractions
+
+### 2025-01-27 (Removal of Yarn DLX References for Yarn 1.22.22 Compatibility)
+- **Summary**: Removed all references to 'yarn dlx' commands throughout the project to ensure compatibility with Yarn 1.22.22, which does not support the dlx feature. Updated documentation and project rules to reflect proper package execution methods.
+
+- **Files Modified**:
+  - `docs/project-rules.md`: Updated package execution guidelines to use `npx` instead of `yarn dlx` with clarification that Yarn 1.22.22 does not support dlx
+  - `README.md`: Updated package manager standard documentation to reflect npx usage for package execution
+  - `audit-log-project.md`: Updated historical references to yarn dlx usage to reflect current standards
+
+- **Technical Implementation**:
+  - **Package Execution Standard**: Established `npx` as the standard for package execution since Yarn 1.22.22 lacks dlx support
+  - **Documentation Consistency**: Ensured all documentation reflects the correct package execution method for the project's Yarn version
+  - **Project Rules Update**: Modified project standards to accurately reflect Yarn 1.22.22 capabilities and limitations
+
+- **Benefits Achieved**:
+  - **Version Compatibility**: Eliminated confusion about unsupported dlx commands in Yarn 1.22.22
+  - **Clear Documentation**: Provided accurate guidance for developers using the project's specified Yarn version
+  - **Consistent Standards**: Aligned all documentation with the actual capabilities of the project's package manager version
+
 ### 2025-01-27 (PageTitleSection Dynamic Layout and TOC Positioning Simplification)
 - **Summary**: Modified PageTitleSection component to dynamically adjust its column layout based on TOC visibility for proper visual alignment with main content, and reverted TOC positioning to a simpler fixed approach for better performance and maintainability.
 
@@ -3293,7 +3377,7 @@ This document serves as a chronological record of all significant changes made t
 - **Summary**: Standardized all script run examples and package.json scripts to use Yarn instead of npm, establishing Yarn as the official package manager for the project and ensuring consistency across all documentation and build processes.
 
 - **Files Modified**:
-  - `package.json`: Updated all internal script references from `npm run` to `yarn` and replaced `npx serve` with `yarn dlx serve`
+  - `package.json`: Updated all internal script references from `npm run` to `yarn` and maintained `npx serve` for package execution
   - `docs/logging-system.md`: Updated all command examples to use `yarn` instead of `npm run`
   - `README.md`: Updated auto-generated configuration documentation to reference `yarn` commands
   - `config/routes.config.md`: Updated build process documentation to use `yarn` commands
@@ -3301,7 +3385,7 @@ This document serves as a chronological record of all significant changes made t
 - **Technical Notes**:
   - **Script Consistency**: All package.json scripts now use `yarn` for internal script calls instead of `npm run`
   - **Documentation Alignment**: All documentation examples now consistently show `yarn` commands
-  - **Yarn DLX Usage**: Replaced `npx serve` with `yarn dlx serve` for package execution
+  - **Package Execution**: Maintained `npx serve` for package execution (Yarn 1.22.22 does not support dlx)
   - **Maintained Compatibility**: README still shows both yarn and npm examples for user choice, with yarn listed first as recommended
   - **Build Process**: All build, dev, and generate commands now use yarn internally for consistency
 

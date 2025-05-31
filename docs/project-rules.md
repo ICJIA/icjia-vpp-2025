@@ -34,13 +34,12 @@ This document defines the mandatory rules and standards for the Violence Prevent
    }
    ```
 
-3. **Package Execution**: Use `yarn dlx` instead of `npx` for package execution
+3. **Package Execution**: Use `npx` for package execution (Yarn 1.22.22 does not support dlx)
    ```bash
    # Correct
-   yarn dlx serve .output/public
-
-   # Incorrect
    npx serve .output/public
+
+   # Note: yarn dlx is not available in Yarn 1.22.22
    ```
 
 #### Exceptions

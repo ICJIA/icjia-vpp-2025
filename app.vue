@@ -5,8 +5,8 @@
  * This ensures the page always starts at the top when loaded.
  * Multiple methods are used for maximum browser compatibility.
  */
-if (typeof window !== 'undefined') {
-  window.addEventListener('load', () => {
+if (typeof window !== "undefined") {
+  window.addEventListener("load", () => {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -16,7 +16,7 @@ if (typeof window !== 'undefined') {
 
 <template>
   <NuxtLayout>
-    <NuxtPage style="min-height: 70vh !important;" />
+    <NuxtPage style="min-height: 70vh !important" />
   </NuxtLayout>
 </template>
 

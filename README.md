@@ -346,7 +346,7 @@ The project follows mandatory standards and rules documented in [Project Rules](
 - **Yarn is the official package manager** for all operations
 - All script examples and documentation use `yarn` commands
 - Internal package.json scripts use `yarn` instead of `npm run`
-- Package execution uses `yarn dlx` instead of `npx`
+- Package execution uses `npx` (Yarn 1.22.22 does not support dlx)
 
 #### Development Standards
 - **WCAG 2.1 AA compliance** is mandatory for all UI/UX updates

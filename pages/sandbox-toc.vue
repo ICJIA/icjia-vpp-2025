@@ -1,19 +1,10 @@
 <template>
   <div>
-    <!-- Page Title Section -->
-    <PageTitleSection
-      :title="about?.title || 'TOC Layout Test'"
-      :description="
-        about?.description || 'Testing Table of Contents layout with visual indicators'
-      "
-      :show-border="true"
-      :toc-visible="showTOC"
-    />
+    <!-- Main content layout with responsive TOC and PageTitleSection -->
 
-    <!-- Main content layout with responsive TOC -->
-    <v-container>
+    <v-container fluid style="margin: 0; padding: 0">
       <v-row>
-        <!-- Main content area -->
+        <!-- Main content area with PageTitleSection inside -->
         <v-col
           :cols="contentColumnWidth.cols"
           :sm="contentColumnWidth.sm"
@@ -21,12 +12,27 @@
           :lg="contentColumnWidth.lg"
           :xl="contentColumnWidth.xl"
         >
-          <ContentRenderer v-if="about" :value="about" />
+          <v-container
+            fluid
+            style="margin: 0; padding: 0; background: #aaa; height: 200px"
+            ><v-row><v-col>Title here</v-col></v-row></v-container
+          >
+          <!-- Simple title directly in content area - no extra components -->
+
+          <ContentRenderer v-if="about" :value="about" class="mt-10" />
           <div v-else>About not found</div>
         </v-col>
 
-        <!-- TOC Sidebar -->
-        <v-col v-if="showTOC && about" cols="12" sm="12" md="4" lg="3" xl="3">
+        <!-- TOC Sidebar - Hidden on mobile, visible on md+ screens -->
+        <v-col
+          v-if="showTOC && about"
+          cols="12"
+          sm="12"
+          md="4"
+          lg="3"
+          xl="3"
+          class="d-none d-md-block"
+        >
           <div
             ref="tocContainer"
             class="toc-fixed-container"
@@ -101,7 +107,7 @@
     </v-container>
 
     <!-- Toggle for testing TOC visibility -->
-    <v-container>
+    <v-container style="position: sticky; top: 0; z-index: 1000; align-self: flex-start">
       <v-row>
         <v-col
           :cols="contentColumnWidth.cols"
@@ -310,13 +316,14 @@ onMounted(() => {
 
 /**
  * Compute responsive column widths for main content based on TOC toggle state
+ * Ensures perfect alignment with PageTitleSection column layout
  * @returns {Object} Object with responsive column widths
  */
 const contentColumnWidth = computed(() => {
-  const hasTOC = showTOC.value; // Use showTOC for layout, not shouldShowTOC
+  const hasTOC = showTOC.value;
   return {
-    cols: 12, // Always full width on mobile
-    sm: 12, // Always full width on small screens
+    cols: 12, // Always full width on mobile (TOC hidden via d-none d-md-block)
+    sm: 12, // Always full width on small screens (TOC hidden)
     md: hasTOC ? 8 : 12, // 8 cols when TOC enabled, 12 when disabled on tablet
     lg: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on desktop
     xl: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on large desktop
@@ -367,9 +374,11 @@ useHead({
 
 /* TOC Fixed Container */
 .toc-fixed-container {
-  position: fixed;
+  position: sticky;
+  top: 0;
   height: fit-content;
   z-index: 10;
+  align-self: flex-start;
   transition: top 0.3s ease-in-out;
 }
 
@@ -498,6 +507,38 @@ useHead({
 /* Dark theme support */
 .v-theme--dark .toc-link {
   color: rgba(255, 255, 255, 0.87) !important;
+}
+
+/* Simple title styling - edge to edge within column */
+.simple-title-section {
+  width: 100%;
+  margin: 0;
+  padding: 2rem 0;
+  background: #f5f5f5;
+  margin-bottom: 2rem;
+}
+
+.v-theme--dark .simple-title-section {
+  background: #1e2a3a;
+}
+
+.simple-page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+  color: rgba(var(--v-theme-on-surface), 0.95);
+  text-align: center;
+}
+
+.simple-page-description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: rgba(var(--v-theme-on-surface), 0.8);
+  margin: 0;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .v-theme--dark .toc-link--active {

@@ -8200,6 +8200,11 @@ std-env@^3.7.0, std-env@^3.8.1, std-env@^3.9.0:
   resolved "https://registry.yarnpkg.com/std-env/-/std-env-3.9.0.tgz#1a6f7243b339dca4c9fd55e1c7504c77ef23e8f1"
   integrity sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==
 
+stickybits@^3.7.11:
+  version "3.7.11"
+  resolved "https://registry.yarnpkg.com/stickybits/-/stickybits-3.7.11.tgz#4609f3a91ef4209987c1a45b313e5f682b248bf6"
+  integrity sha512-WO+ns7BYZqGS4jWVTg5JNhIvNV4LGbUtNTSck4zAkWRQzA1IfxwIkMGc0BbdGy4PGIjK7kKo5CZcN6Sd5dHVlw==
+
 stop-iteration-iterator@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/stop-iteration-iterator/-/stop-iteration-iterator-1.1.0.tgz#f481ff70a548f6124d0312c3aa14cbfa7aa542ad"

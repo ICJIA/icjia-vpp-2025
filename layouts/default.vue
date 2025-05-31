@@ -31,12 +31,12 @@
  * @requires ~/components/content/AppFooter
  */
 // Vue core imports
-import { ref, watch, onMounted, provide } from 'vue';
+import { ref, watch, onMounted, provide } from "vue";
 
 // Composables and components
-import { useAnnouncer } from '~/composables/useAnnouncer';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
-import ConsoleLogger from '~/components/dev/ConsoleLogger.vue';
+import { useAnnouncer } from "~/composables/useAnnouncer";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
+import ConsoleLogger from "~/components/dev/ConsoleLogger.vue";
 
 // Get logger instance for theme logging
 // NOTE: Console logging is intentionally enabled in all environments (including production)
@@ -62,7 +62,7 @@ const showConsoleLogger = true; // Intentionally enabled in all environments for
  *
  * @type {import('vue').Ref<'light'|'dark'>}
  */
-const theme = ref('light');
+const theme = ref("light");
 
 /**
  * Skip link visibility state
@@ -88,7 +88,7 @@ const { announcePolite, announceAssertive, announce } = useAnnouncer();
  * This allows any component in the application to make screen reader
  * announcements without having to import the useAnnouncer composable.
  */
-provide('announce', announce);
+provide("announce", announce);
 
 /**
  * Client-side detection
@@ -98,7 +98,7 @@ provide('announce', announce);
  *
  * @type {boolean}
  */
-const isClient = typeof window !== 'undefined';
+const isClient = typeof window !== "undefined";
 
 /**
  * Initialize theme settings on component mount
@@ -135,32 +135,32 @@ onMounted(() => {
 function initTheme() {
   try {
     // Check if there's a theme preference in localStorage
-    const savedTheme = localStorage.getItem('theme-preference');
+    const savedTheme = localStorage.getItem("theme-preference");
 
     // Set theme based on localStorage or default to light
-    theme.value = savedTheme || 'light';
+    theme.value = savedTheme || "light";
 
     // Apply theme class to document for CSS variable access
-    document.documentElement.setAttribute('data-theme', theme.value);
+    document.documentElement.setAttribute("data-theme", theme.value);
 
     // Log theme initialization
-    logTheme('Theme initialized', {
+    logTheme("Theme initialized", {
       theme: theme.value,
-      source: savedTheme ? 'localStorage' : 'default',
+      source: savedTheme ? "localStorage" : "default",
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
-      viewportWidth: window.innerWidth
+      viewportWidth: window.innerWidth,
     });
   } catch (e) {
     // Fallback if localStorage is not available (e.g., private browsing)
-    logError('Error accessing localStorage during theme initialization', e);
-    theme.value = 'light';
+    logError("Error accessing localStorage during theme initialization", e);
+    theme.value = "light";
 
     // Log fallback theme
-    logTheme('Theme initialized with fallback', {
-      theme: 'light',
-      reason: 'localStorage error',
-      timestamp: new Date().toISOString()
+    logTheme("Theme initialized with fallback", {
+      theme: "light",
+      reason: "localStorage error",
+      timestamp: new Date().toISOString(),
     });
   }
 }
@@ -191,26 +191,26 @@ const toggleTheme = () => {
   const originalTheme = theme.value;
 
   // Toggle between light and dark
-  theme.value = theme.value === 'light' ? 'dark' : 'light';
+  theme.value = theme.value === "light" ? "dark" : "light";
 
   // Log theme change with both origin and destination themes
-  logTheme('Theme switched', {
+  logTheme("Theme switched", {
     from: originalTheme,
     to: theme.value,
     timestamp: new Date().toISOString(),
     userAgent: navigator.userAgent,
-    viewportWidth: window.innerWidth
+    viewportWidth: window.innerWidth,
   });
 
   try {
     // Store the user's preference in localStorage for persistence
-    localStorage.setItem('theme-preference', theme.value);
+    localStorage.setItem("theme-preference", theme.value);
 
     // Update document attribute for CSS variables
-    document.documentElement.setAttribute('data-theme', theme.value);
+    document.documentElement.setAttribute("data-theme", theme.value);
   } catch (e) {
     // Handle localStorage errors (e.g., private browsing, storage quota)
-    logError('Error saving theme preference', e);
+    logError("Error saving theme preference", e);
   }
 };
 
@@ -234,16 +234,16 @@ onMounted(() => {
   // Watch for theme changes and update document attributes
   watch(theme, (newTheme, oldTheme) => {
     // Update document attribute for CSS variables
-    document.documentElement.setAttribute('data-theme', newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
 
     // Only log if this change wasn't already logged by toggleTheme
     // This helps avoid duplicate logs for the same theme change
     if (oldTheme && newTheme !== oldTheme) {
-      logTheme('Theme changed via watcher', {
+      logTheme("Theme changed via watcher", {
         from: oldTheme,
         to: newTheme,
         timestamp: new Date().toISOString(),
-        source: 'watcher'
+        source: "watcher",
       });
     }
   });
@@ -251,11 +251,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-app :theme="theme">
-    <a href="#main-content"
-       class="skip-link"
-       @focus="skipLinkVisible = true"
-       @blur="skipLinkVisible = false">
+  <v-app :theme="theme" style="">
+    <a
+      href="#main-content"
+      class="skip-link"
+      @focus="skipLinkVisible = true"
+      @blur="skipLinkVisible = false"
+    >
       Skip to main content
     </a>
 
@@ -270,17 +272,11 @@ onMounted(() => {
     <AppFooter role="contentinfo" />
 
     <!-- Screen reader announcer elements -->
-    <div
-      aria-live="polite"
-      aria-atomic="true"
-      class="sr-only"
-    >{{ announcePolite }}</div>
+    <div aria-live="polite" aria-atomic="true" class="sr-only">{{ announcePolite }}</div>
 
-    <div
-      aria-live="assertive"
-      aria-atomic="true"
-      class="sr-only"
-    >{{ announceAssertive }}</div>
+    <div aria-live="assertive" aria-atomic="true" class="sr-only">
+      {{ announceAssertive }}
+    </div>
 
     <!-- Console Logger (enabled in all environments for pre-launch debugging) -->
     <ClientOnly>
@@ -290,7 +286,6 @@ onMounted(() => {
 </template>
 
 <style>
-
 .skip-link {
   position: absolute;
   top: -40px;
