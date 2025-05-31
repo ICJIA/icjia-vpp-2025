@@ -2,6 +2,57 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (TOC Column Width Adjustment - 8/4 Split Implementation)
+- **Summary**: Adjusted the Table of Contents column layout from 9/3 to 8/4 split to provide more space for the TOC sidebar, improving readability and accommodating longer section titles.
+- **Files Modified**:
+  - `pages/[...slug].vue`: Updated responsive column width calculations for better TOC space allocation
+    - **Content Column**: Changed from 9 columns to 8 columns when TOC is enabled (md/lg/xl breakpoints)
+    - **TOC Column**: Changed from 3 columns to 4 columns when TOC is enabled (md/lg/xl breakpoints)
+    - **Mobile Behavior**: Maintained full-width content (12 columns) with hidden TOC on mobile devices
+    - **Responsive Consistency**: Applied 8/4 split across all desktop breakpoints (md, lg, xl)
+- **Technical Implementation**:
+  - **Column Width Functions**: Updated `contentColumnWidth` and `tocColumnWidth` computed properties
+  - **Grid System**: Maintained Vuetify 3 grid system with updated column proportions
+  - **Responsive Design**: Preserved mobile-first approach with TOC hidden on small screens
+  - **Layout Balance**: Improved content-to-TOC ratio for better visual hierarchy
+- **User Experience Benefits**:
+  - **Improved TOC Readability**: Wider TOC column accommodates longer section titles without truncation
+  - **Better Visual Balance**: More proportional layout between content and navigation areas
+  - **Enhanced Navigation**: Increased TOC space improves usability and section visibility
+  - **Maintained Responsiveness**: Optimal experience preserved across all device sizes
+
+### 2025-05-31 (Enhanced Catch-All Page with Conditional Table of Contents)
+- **Summary**: Replaced the existing catch-all page at `pages/[...slug].vue` with an enhanced version that includes conditional Table of Contents functionality based on frontmatter metadata, combining all existing functionality with advanced TOC features from the sandbox implementation.
+- **Files Modified**:
+  - `pages/[...slug].vue`: Complete enhancement with TOC functionality while preserving all existing features
+    - **TOC Integration**: Added conditional TOC display based on `showTOC` frontmatter property
+    - **Fixed Positioning System**: Implemented scroll detection and fixed positioning for TOC sidebar
+    - **H2 Heading Navigation**: Added automatic extraction and navigation for H2-level headings
+    - **Active Section Highlighting**: Implemented visual indicators showing current section in viewport
+    - **Responsive Grid Layout**: Added 8/4 desktop split (content/TOC) with mobile-first responsive design
+    - **Smooth Scrolling**: Added header offset compensation and accessibility focus management
+    - **Template Refs**: Added titleRow, stickyElement, and sidebarCol refs for TOC functionality
+    - **Lifecycle Management**: Added scroll and resize event listeners with proper cleanup
+    - **Computed Properties**: Added showTOC, fixedStyles, tocH2Items, contentColumnWidth, and tocColumnWidth
+    - **TOC Methods**: Added updateScroll, updateTitleVisibility, updateFixedPosition, updateActiveSection, scrollToHeading, and scrollToTop
+    - **Visual Indicators**: Added TOC indicator line, dots, and active state styling
+    - **Keyboard Navigation**: Full keyboard accessibility for TOC navigation
+- **Technical Implementation**:
+  - **Preserved Functionality**: Maintained all existing dynamic content loading, error handling, SEO optimization, and accessibility features
+  - **Conditional Display**: TOC only appears when `showTOC: true` is set in page frontmatter metadata
+  - **Fixed Positioning**: Uses position: fixed with 80px navbar offset for TOC sidebar
+  - **Scroll Detection**: Monitors PageTitleSection visibility to trigger fixed positioning
+  - **Active Section Detection**: Uses intersection logic with 120px header offset for accurate highlighting
+  - **Responsive Design**: TOC hidden on mobile (d-none d-md-block), 8/4 column split on desktop
+  - **Performance Optimization**: Throttled scroll events and efficient DOM queries
+  - **Accessibility Compliance**: WCAG 2.1 AA standards with proper ARIA labels and keyboard navigation
+- **User Experience Benefits**:
+  - **Seamless Integration**: Pages without `showTOC: true` appear identical to previous implementation
+  - **Enhanced Navigation**: Pages with TOC provide advanced navigation and section awareness
+  - **Visual Hierarchy**: TOC provides clear content structure and navigation assistance
+  - **Responsive Excellence**: Optimal experience across all device sizes
+  - **Accessibility Excellence**: Full keyboard navigation and screen reader support
+
 ### 2025-05-31 (SSR Hydration Mismatch Fix for TOC Component)
 - **Summary**: Fixed hydration mismatch error in sandbox-toc.vue by properly handling client-side initialization of TOC visibility state to prevent SSR/client-side differences.
 - **Files Modified**:
