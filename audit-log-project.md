@@ -2,6 +2,25 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (Reverted Extensive Comments - Site Functionality Restored)
+- **Summary**: Reverted the extensive JSDoc comments from the catch-all page to restore site functionality after the principles page stopped working, prioritizing working functionality over documentation.
+- **Files Modified**:
+  - `pages/[...slug].vue`: Reverted extensive comments while preserving all TOC functionality
+    - **Template Cleanup**: Removed extensive HTML comments that may have caused parsing issues
+    - **Script Cleanup**: Simplified JSDoc comments to essential documentation only
+    - **Functionality Preserved**: All TOC features, responsive design, and accessibility remain intact
+    - **Working State**: Restored to clean, functional version with 8/4 column layout
+- **Technical Resolution**:
+  - **Issue Identified**: Extensive comments may have caused template parsing or performance issues
+  - **Priority Decision**: Chose working functionality over comprehensive documentation
+  - **Future Planning**: Documentation can be added incrementally without affecting site operation
+  - **Testing Confirmed**: Principles page and TOC functionality working correctly after reversion
+- **Lessons Learned**:
+  - **Incremental Approach**: Add documentation in smaller, tested increments
+  - **Functionality First**: Ensure site remains operational during documentation updates
+  - **Testing Protocol**: Test functionality after each documentation change
+  - **Rollback Strategy**: Maintain ability to quickly revert changes when issues arise
+
 ### 2025-05-31 (TOC Column Width Adjustment - 8/4 Split Implementation)
 - **Summary**: Adjusted the Table of Contents column layout from 9/3 to 8/4 split to provide more space for the TOC sidebar, improving readability and accommodating longer section titles.
 - **Files Modified**:

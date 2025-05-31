@@ -3,6 +3,7 @@ title: "Orbus tempus mare orbus caelum bis tempus umbra stella rex lumen"
 description: "Orbus tempus mare orbus caelum bis tempus umbra stella rex lumen. Orbus bellum amet adipiscing est stella caelum dolor quam portitor. Lorem fatum portitor opus sit stella opus ventus fatum consectetur. Sol opus gloria amet nox idem sit vita. Carmen summo anima portitor bellum orbus tempus est fassaque tempus gloria bis Lorem bellum sol. Nox fassaque caligine ventus summo summo ventus rex homo caligine nox ventus consectetur enim terra."
 date: "2025-01-02"
 showDate: true
+showTOC: true
 image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
 ---
 ## Caelum Fortis Umbra Natura Mater Bellum Aether Tempus Pax Idem

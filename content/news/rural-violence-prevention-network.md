@@ -3,6 +3,7 @@ title: "Vox carmen bellum idem jugum ipsum gloria gloria tempus"
 description: "Caligine ventus quam deus carmen vita fassaque stella carmen consectetur fine aether. Tempus rex amet umbra portitor jugum homo virtus fatum. Est sol est quam est idem umbra idem orbus."
 date: "2024-09-18"
 showDate: true
+showTOC: true
 image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
 ---
 

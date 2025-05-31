@@ -3,6 +3,7 @@ title: "Terra umbra idem portitor bellum opus ipsum sanctum Lorem deus amet bell
 description: "Mare elit amet rex mare adipiscing adipiscing rex deus carmen gloria. Portitor mare gloria est caelum jugum caligine elit fatum bis. Vox caelum caelum idem sanctum rex mare fatum fine vita anima manus."
 date: "2024-12-15"
 showDate: true
+showTOC: true
 image: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
 ---
 

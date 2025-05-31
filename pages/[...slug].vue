@@ -2,11 +2,7 @@
   <div class="dynamic-content-page">
     <!-- Loading state -->
     <div v-if="pending" class="text-center py-16">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        size="64"
-      ></v-progress-circular>
+      <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
       <p class="text-body-1 mt-4">Loading content...</p>
     </div>
 
@@ -61,6 +57,7 @@
     <!-- Content display -->
     <div v-else-if="content">
       <!-- Use PageTitleSection for standardized header -->
+
       <PageTitleSection
         v-if="needsStandardHeader"
         ref="titleRow"
@@ -86,7 +83,10 @@
               class="main-content-col"
             >
               <!-- Content Renderer for Nuxt Content -->
-              <div class="content-renderer" :class="{ 'hide-first-heading': needsStandardHeader }">
+              <div
+                class="content-renderer"
+                :class="{ 'hide-first-heading': needsStandardHeader }"
+              >
                 <ContentRenderer :value="content" @rendered="markAsRendered" />
               </div>
             </v-col>
@@ -229,11 +229,11 @@
  * @accessibility WCAG 2.1 AA compliant
  * @seo Dynamic metadata from frontmatter
  */
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useRoute, useHead, useSeoMeta, navigateTo } from '#imports';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
-import useContentFetcher from '~/composables/useContentFetcher';
-import PageTitleSection from '~/components/content/PageTitleSection.vue';
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useRoute, useHead, useSeoMeta, navigateTo } from "#imports";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
+import useContentFetcher from "~/composables/useContentFetcher";
+import PageTitleSection from "~/components/content/PageTitleSection.vue";
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
@@ -244,12 +244,12 @@ const route = useRoute();
 // Build content path from route params
 const contentPath = computed(() => {
   const slugArray = route.params.slug || [];
-  const path = Array.isArray(slugArray) ? `/${slugArray.join('/')}` : `/${slugArray}`;
+  const path = Array.isArray(slugArray) ? `/${slugArray.join("/")}` : `/${slugArray}`;
 
-  log('content', 'Dynamic route - resolving content path', {
+  log("content", "Dynamic route - resolving content path", {
     routePath: route.path,
     contentPath: path,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 
   return path;
@@ -257,7 +257,7 @@ const contentPath = computed(() => {
 
 // Use the project's content fetcher composable
 const { content, pending, error, refresh, markAsRendered } = useContentFetcher({
-  path: contentPath.value
+  path: contentPath.value,
 });
 
 /**
@@ -315,47 +315,86 @@ const fixedWidth = ref(0);
 // Calculated left position for the fixed element (matches natural position)
 const fixedLeft = ref(0);
 
-
+// =============================================================================
+// COMPUTED PROPERTIES
+// =============================================================================
 
 /**
- * =============================================================================
- * COMPUTED PROPERTIES
- * =============================================================================
+ * Determines if the current error is a "not found" (404) error
+ *
+ * Checks various error properties to identify 404 errors specifically,
+ * which are handled differently from other errors (custom 404 page vs generic error).
+ *
+ * @returns {boolean} True if error is a 404/not found error
  */
-
-// Check if error is a "not found" error
 const isNotFoundError = computed(() => {
-  return error.value && (
-    error.value.code === 'NOT_FOUND' ||
-    error.value.message?.includes('not found') ||
-    error.value.statusCode === 404
+  return (
+    error.value &&
+    (error.value.code === "NOT_FOUND" ||
+      error.value.message?.includes("not found") ||
+      error.value.statusCode === 404)
   );
 });
 
-// Detect if content needs a standardized header
-// This applies to plain markdown content that doesn't use layout components
+/**
+ * Determines if content needs a standardized PageTitleSection header
+ *
+ * Plain markdown content gets a standardized header, while content with
+ * layout components (like ::hero-section, ::about-hero) handles its own header.
+ *
+ * Detection logic:
+ * - Checks for MDC layout component syntax (::component-name)
+ * - Checks for specific known layout components
+ * - Returns true for plain markdown, false for component-rich content
+ *
+ * @returns {boolean} True if content should get PageTitleSection header
+ */
 const needsStandardHeader = computed(() => {
   if (!content.value) return false;
 
-  // Check if content body contains layout components (like ::about-hero, ::hero-section, etc.)
-  const bodyContent = content.value.body || content.value._body || '';
-  const hasLayoutComponents = bodyContent.toString().includes('::') ||
-                             bodyContent.toString().includes('about-hero') ||
-                             bodyContent.toString().includes('hero-section') ||
-                             bodyContent.toString().includes('feature-section');
+  // Check if content body contains layout components
+  const bodyContent = content.value.body || content.value._body || "";
+  const hasLayoutComponents =
+    bodyContent.toString().includes("::") ||
+    bodyContent.toString().includes("about-hero") ||
+    bodyContent.toString().includes("hero-section") ||
+    bodyContent.toString().includes("feature-section");
 
   // If no layout components detected, provide standardized header
   return !hasLayoutComponents;
 });
 
-// Check if TOC should be displayed based on frontmatter
+/**
+ * Determines if Table of Contents should be displayed
+ *
+ * Checks frontmatter for showTOC property in multiple possible locations:
+ * - content.showTOC (direct property)
+ * - content.meta.showTOC (nested in meta object)
+ *
+ * Only displays TOC when explicitly set to true in frontmatter.
+ *
+ * @returns {boolean} True if TOC should be displayed
+ */
 const showTOC = computed(() => {
   return !!(content.value?.showTOC || content.value?.meta?.showTOC);
 });
 
 /**
- * Computed styles for the fixed positioning
- * Returns positioning styles only when the element should be fixed
+ * Computed styles for fixed positioning of the TOC
+ *
+ * Returns CSS styles object that positions the TOC element as fixed
+ * when it should be "stuck" to the viewport during scrolling.
+ *
+ * Fixed positioning is activated when:
+ * - isFixed.value is true (PageTitleSection scrolled out of view)
+ * - Returns empty object when in normal flow
+ *
+ * @returns {Object} CSS styles object for fixed positioning
+ * @property {string} position - "fixed" when active
+ * @property {string} top - Distance from top of viewport (below navbar)
+ * @property {string} left - Horizontal position (maintains natural position)
+ * @property {string} width - Width in pixels (maintains natural width)
+ * @property {number} zIndex - Stacking order (above other content)
  */
 const fixedStyles = computed(() => {
   if (isFixed.value) {
@@ -372,8 +411,25 @@ const fixedStyles = computed(() => {
 });
 
 /**
- * Extract and process TOC data to get H2-level headings only
- * @returns {Array} Array of H2 TOC items with text and id properties
+ * Extracts and processes H2-level headings for Table of Contents
+ *
+ * Automatically parses the content's TOC data (generated by Nuxt Content)
+ * and filters for H2 headings only, which provide the main section structure.
+ *
+ * TOC Data Sources (in order of preference):
+ * 1. content.body.toc - Standard Nuxt Content v3 location
+ * 2. content.toc - Alternative location
+ * 3. content._toc - Legacy location
+ *
+ * Processing Logic:
+ * - Handles both array and object TOC data structures
+ * - Filters for depth === 2 (H2 headings only)
+ * - Extracts text and id for navigation
+ * - Validates that both text and id exist
+ *
+ * @returns {Array<Object>} Array of TOC items for H2 headings
+ * @property {string} text - Heading text for display
+ * @property {string} id - Heading ID for scroll targeting
  */
 const tocH2Items = computed(() => {
   // Try different possible TOC data paths
@@ -390,7 +446,7 @@ const tocH2Items = computed(() => {
     // If tocData is directly an array
     linksArray = tocData;
   } else if (tocData.links && Array.isArray(tocData.links)) {
-    // If tocData has a links property (like in our case)
+    // If tocData has a links property (most common structure)
     linksArray = tocData.links;
   } else {
     return [];
@@ -407,8 +463,22 @@ const tocH2Items = computed(() => {
 });
 
 /**
- * Compute responsive column widths for main content based on TOC toggle state
- * @returns {Object} Object with responsive column widths
+ * Computes responsive column widths for main content based on TOC visibility
+ *
+ * Dynamically adjusts the content column width based on whether TOC is enabled.
+ * Uses Vuetify 3 grid system with 12-column layout.
+ *
+ * Layout Logic:
+ * - Mobile (xs, sm): Always 12 columns (full width) - TOC is hidden
+ * - Desktop (md+) with TOC: 8 columns (leaves 4 for TOC sidebar)
+ * - Desktop (md+) without TOC: 12 columns (full width)
+ *
+ * @returns {Object} Vuetify column width configuration
+ * @property {number} cols - Mobile column width (always 12)
+ * @property {number} sm - Small screen column width (always 12)
+ * @property {number} md - Medium screen column width (8 or 12)
+ * @property {number} lg - Large screen column width (8 or 12)
+ * @property {number} xl - Extra large screen column width (8 or 12)
  */
 const contentColumnWidth = computed(() => {
   const hasTOC = showTOC.value;
@@ -422,8 +492,21 @@ const contentColumnWidth = computed(() => {
 });
 
 /**
- * Compute responsive column widths for TOC sidebar
- * @returns {Object} Object with responsive column widths
+ * Computes responsive column widths for TOC sidebar
+ *
+ * Defines the TOC sidebar column widths across all breakpoints.
+ * The TOC is hidden on mobile via CSS classes (d-none d-md-block).
+ *
+ * Layout Logic:
+ * - Mobile (xs, sm): Hidden via CSS, but would be 12 columns if shown
+ * - Desktop (md+): 4 columns (complements 8-column content area)
+ *
+ * @returns {Object} Vuetify column width configuration
+ * @property {number} cols - Mobile column width (12, but hidden via CSS)
+ * @property {number} sm - Small screen column width (12, but hidden via CSS)
+ * @property {number} md - Medium screen column width (4)
+ * @property {number} lg - Large screen column width (4)
+ * @property {number} xl - Extra large screen column width (4)
  */
 const tocColumnWidth = computed(() => {
   return {
@@ -435,7 +518,21 @@ const tocColumnWidth = computed(() => {
   };
 });
 
-// Generate page title from slug or content
+/**
+ * Generates page title from content frontmatter or URL slug
+ *
+ * Priority order:
+ * 1. content.title from frontmatter (preferred)
+ * 2. Generated from URL slug (kebab-case to Title Case) + project title
+ * 3. Fallback to project title only
+ *
+ * Slug Processing:
+ * - Takes the last segment of the URL path
+ * - Converts kebab-case to Title Case (e.g., "youth-intervention" → "Youth Intervention")
+ * - Appends project title for SEO consistency
+ *
+ * @returns {string} Page title for display and SEO
+ */
 const pageTitle = computed(() => {
   if (content.value?.title) {
     return content.value.title;
@@ -448,37 +545,70 @@ const pageTitle = computed(() => {
   if (lastSlug) {
     // Convert kebab-case to Title Case
     const titleFromSlug = lastSlug
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
 
     return `${titleFromSlug} - Statewide Violence Prevention Plan for Illinois: 2025-2029`;
   }
 
-  return 'Statewide Violence Prevention Plan for Illinois: 2025-2029';
+  return "Statewide Violence Prevention Plan for Illinois: 2025-2029";
 });
 
-// Generate page description
+/**
+ * Generates page description from content frontmatter or default
+ *
+ * Priority order:
+ * 1. content.description from frontmatter (preferred)
+ * 2. Default project description with tagline
+ *
+ * Used for:
+ * - Meta description tag for SEO
+ * - Open Graph description
+ * - Twitter Card description
+ *
+ * @returns {string} Page description for SEO and social sharing
+ */
 const pageDescription = computed(() => {
   if (content.value?.description) {
     return content.value.description;
   }
 
-  return 'Statewide Violence Prevention Plan for Illinois: 2025-2029 - Building safer communities through evidence-based violence prevention strategies.';
+  return "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Building safer communities through evidence-based violence prevention strategies.";
 });
 
-/**
- * =============================================================================
- * CORE FUNCTIONALITY METHODS
- * =============================================================================
- */
+// =============================================================================
+// CORE FUNCTIONALITY METHODS
+// =============================================================================
 
 /**
- * Main scroll event handler
- * Called on every scroll event to update positioning state
+ * Main scroll event handler for TOC positioning and active section detection
+ *
+ * This is the primary scroll event handler that coordinates all scroll-based
+ * functionality for the Table of Contents system. Called on every scroll event
+ * to maintain accurate positioning and highlighting.
+ *
+ * Responsibilities:
+ * - Updates current scroll position tracking
+ * - Determines when to activate/deactivate fixed positioning
+ * - Calculates exact positioning values for fixed mode
+ * - Updates active section highlighting based on viewport
+ *
+ * Error Handling:
+ * - Gracefully handles DOM-related errors during development
+ * - Continues operation even if individual functions fail
+ * - Logs warnings for debugging purposes
+ *
+ * Performance Considerations:
+ * - Called on every scroll event (high frequency)
+ * - Uses try/catch to prevent scroll event blocking
+ * - Efficient DOM queries with early returns
+ *
+ * @function updateScroll
+ * @returns {void}
  */
 const updateScroll = () => {
-  // Update current scroll position
+  // Update current scroll position for debugging and calculations
   scrollY.value = window.scrollY;
 
   try {
@@ -497,8 +627,24 @@ const updateScroll = () => {
 };
 
 /**
- * Monitors the title row visibility and determines when to activate fixed positioning
- * The TOC becomes fixed when the title row disappears behind the navbar
+ * Monitors PageTitleSection visibility to determine fixed positioning activation
+ *
+ * This function tracks when the PageTitleSection component scrolls out of view
+ * behind the fixed navbar, which triggers the TOC to become position: fixed.
+ *
+ * Logic:
+ * - Gets the PageTitleSection element (handles Vue component refs)
+ * - Measures its bounding rectangle relative to viewport
+ * - Activates fixed positioning when title bottom <= navbar height
+ * - Stores title bottom position for debugging purposes
+ *
+ * Vue Component Handling:
+ * - Handles both component instances ($el) and direct DOM elements
+ * - Safely checks for getBoundingClientRect method existence
+ * - Gracefully handles component mounting/unmounting
+ *
+ * @function updateTitleVisibility
+ * @returns {void}
  */
 const updateTitleVisibility = () => {
   // Handle Vue component instance (PageTitleSection) - get the root element
@@ -507,7 +653,7 @@ const updateTitleVisibility = () => {
   if (titleElement && typeof titleElement.getBoundingClientRect === "function") {
     const rect = titleElement.getBoundingClientRect();
 
-    // Store title bottom position for display purposes
+    // Store title bottom position for debugging and display purposes
     titleBottom.value = rect.bottom;
 
     // Activate fixed positioning when title bottom edge reaches/passes navbar
@@ -517,8 +663,27 @@ const updateTitleVisibility = () => {
 };
 
 /**
- * Calculates and stores the exact positioning values for fixed mode
- * This ensures the fixed element appears in exactly the same position as natural positioning
+ * Calculates and stores exact positioning values for fixed mode
+ *
+ * This function ensures that when the TOC becomes position: fixed, it appears
+ * in exactly the same position as it had in normal document flow. This prevents
+ * visual jumping or layout shifts during the transition.
+ *
+ * Critical Timing:
+ * - ONLY measures position when element is in natural (not fixed) state
+ * - Prevents measurement of already-fixed positioning (which would be incorrect)
+ * - Stores values for use when transitioning to fixed state
+ *
+ * Measurements Stored:
+ * - fixedWidth: Exact width to maintain during fixed positioning
+ * - fixedLeft: Exact horizontal position relative to viewport
+ *
+ * Vue Component Handling:
+ * - Handles both component instances ($el) and direct DOM elements
+ * - Safely checks for getBoundingClientRect method existence
+ *
+ * @function updateFixedPosition
+ * @returns {void}
  */
 const updateFixedPosition = () => {
   // Get reference to the TOC content element
@@ -539,126 +704,232 @@ const updateFixedPosition = () => {
 };
 
 /**
- * Detect which section is currently in the viewport
+ * Detects which H2 section is currently most visible in the viewport
+ *
+ * This function implements intelligent section detection to highlight the
+ * appropriate TOC item based on what content is currently visible to the user.
+ *
+ * Detection Algorithm:
+ * 1. Iterates through all H2 headings in document order
+ * 2. Checks if each heading is within the "active zone" (considering header offset)
+ * 3. Uses the first heading that intersects with the active zone
+ * 4. Falls back to the last heading above the viewport if none intersect
+ *
+ * Active Zone Logic:
+ * - Uses 120px header offset for better detection accuracy
+ * - Considers a heading "active" if it's near the top of the viewport
+ * - Handles edge cases like very short sections or long content
+ *
+ * Performance Considerations:
+ * - Early return if no TOC items exist
+ * - Efficient DOM queries with getElementById
+ * - Only updates state when active section actually changes
+ *
+ * @function updateActiveSection
  * @returns {void}
  */
 const updateActiveSection = () => {
+  // Early return if no TOC items to process
   if (!tocH2Items.value.length) return;
 
-  const headerOffset = 120; // Slightly larger offset for better detection
+  const headerOffset = 120; // Slightly larger offset for better detection accuracy
   let currentActiveId = "";
 
-  // Find the section that's currently most visible
+  // Find the section that's currently most visible in the viewport
   for (const item of tocH2Items.value) {
     const element = document.getElementById(item.id);
-    if (!element) continue;
+    if (!element) continue; // Skip if heading element not found
 
     const rect = element.getBoundingClientRect();
-    // Check if element is in viewport (considering header offset)
+
+    // Check if element is in the "active zone" (considering header offset)
     if (rect.top <= headerOffset && rect.bottom > headerOffset) {
       currentActiveId = item.id;
-      break;
+      break; // Found the active section, stop searching
     }
-    // If we're past all sections, use the last one
+
+    // If we're past all sections (heading is below viewport), use the last one
     if (rect.top > headerOffset) {
       break;
     }
-    // If element is above viewport, it could be the active one
+
+    // If element is above viewport but still visible, it could be the active one
     if (rect.bottom > 0) {
       currentActiveId = item.id;
     }
   }
 
+  // Only update state if the active section has actually changed
   if (currentActiveId && currentActiveId !== activeItemId.value) {
     activeItemId.value = currentActiveId;
   }
 };
 
 /**
- * Smooth scroll to a heading with header offset compensation
- * @param {string} headingId - The ID of the heading to scroll to
+ * Smooth scrolls to a specific heading with header offset compensation
+ *
+ * This function provides the core navigation functionality for TOC items.
+ * It handles smooth scrolling to headings while accounting for the fixed
+ * navbar and providing proper accessibility support.
+ *
+ * Functionality:
+ * - Validates heading ID and target element existence
+ * - Immediately updates active state for responsive UI feedback
+ * - Calculates scroll position with header offset compensation
+ * - Performs smooth scroll animation
+ * - Sets focus to target element for accessibility
+ *
+ * Header Offset Logic:
+ * - Uses 80px offset to account for fixed navbar
+ * - Ensures target heading is visible below the navbar
+ * - Consistent with other scroll positioning in the app
+ *
+ * Accessibility Features:
+ * - Sets focus to target element for screen readers
+ * - Uses preventScroll to avoid double scrolling
+ * - Provides immediate visual feedback via active state
+ *
+ * Error Handling:
+ * - Validates headingId parameter
+ * - Checks for target element existence
+ * - Logs warnings for debugging when elements not found
+ *
+ * @function scrollToHeading
+ * @param {string} headingId - The HTML ID of the heading element to scroll to
+ * @returns {void}
  */
 const scrollToHeading = (headingId) => {
+  // Validate input parameter
   if (!headingId) return;
 
+  // Find the target heading element in the DOM
   const targetElement = document.getElementById(headingId);
   if (!targetElement) {
     console.warn(`TOC: Could not find element with ID: ${headingId}`);
     return;
   }
 
-  // Update active state immediately for better UX
+  // Update active state immediately for better UX responsiveness
   activeItemId.value = headingId;
 
-  // Calculate scroll position with header offset (use same as TOC positioning)
-  const headerOffset = 80; // Keep consistent with original offset for content visibility
+  // Calculate scroll position with header offset compensation
+  const headerOffset = 80; // Keep consistent with navbar height for content visibility
   const elementPosition = targetElement.getBoundingClientRect().top;
   const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
-  // Smooth scroll to target
+  // Perform smooth scroll animation to target position
   window.scrollTo({
     top: offsetPosition,
     behavior: "smooth",
   });
 
-  // Set focus to target element for accessibility
+  // Set focus to target element for accessibility (screen readers)
   targetElement.focus({ preventScroll: true });
 };
 
 /**
- * Smooth scroll to the top of the page
- * Used when clicking on the "Table of Contents" title
+ * Smooth scrolls to the top of the page
+ *
+ * This function is triggered when users click on the "Table of Contents" title.
+ * It provides a quick way to return to the beginning of the page content.
+ *
+ * Functionality:
+ * - Clears active TOC item highlighting (no section is active at top)
+ * - Performs smooth scroll animation to page top
+ * - Resets TOC visual state appropriately
+ *
+ * User Experience:
+ * - Provides intuitive "back to top" functionality
+ * - Maintains smooth animation consistency
+ * - Clears section highlighting when appropriate
+ *
+ * @function scrollToTop
+ * @returns {void}
  */
 const scrollToTop = () => {
-  // Clear active item when scrolling to top
+  // Clear active item when scrolling to top (no section is active)
   activeItemId.value = "";
 
-  // Smooth scroll to top
+  // Perform smooth scroll animation to page top
   window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
 };
 
-// Navigation helper
+/**
+ * Navigation helper function to return to homepage
+ *
+ * Used in error states (404 page, general errors) to provide users
+ * with a way to navigate back to the main site when content fails to load.
+ *
+ * Uses Nuxt's navigateTo function for proper SPA navigation.
+ *
+ * @function navigateToHome
+ * @returns {void}
+ */
 const navigateToHome = () => {
-  navigateTo('/');
+  navigateTo("/");
 };
 
-// Watch for successful content loading
+// =============================================================================
+// CONTENT LOADING MONITORING
+// =============================================================================
+
+/**
+ * Monitor successful content loading for debugging and analytics
+ *
+ * Logs content loading events when content is successfully fetched and parsed.
+ * Useful for debugging content resolution and monitoring page performance.
+ */
 if (content.value) {
-  log('content', 'Dynamic route content loaded', {
+  log("content", "Dynamic route content loaded", {
     title: content.value.title,
     path: contentPath.value,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
 
-// Watch for errors
+/**
+ * Monitor content loading errors for debugging and error tracking
+ *
+ * Logs detailed error information when content fails to load.
+ * Helps with debugging content resolution issues and monitoring site health.
+ */
 if (error.value) {
-  logError('Dynamic route content error', {
+  logError("Dynamic route content error", {
     path: contentPath.value,
     error: error.value.message,
     code: error.value.code,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
 
-/**
- * =============================================================================
- * LIFECYCLE MANAGEMENT
- * =============================================================================
- */
+// =============================================================================
+// LIFECYCLE MANAGEMENT
+// =============================================================================
 
 /**
- * Component initialization
- * Sets up event listeners and performs initial calculations
+ * Component initialization and event listener setup
+ *
+ * Sets up all necessary event listeners and performs initial calculations
+ * for the Table of Contents positioning system.
+ *
+ * Event Listeners:
+ * - scroll: Updates TOC positioning and active section highlighting
+ * - resize: Recalculates positioning when window size changes
+ *
+ * Initialization Timing:
+ * - Uses setTimeout to ensure Vuetify components are fully rendered
+ * - 100ms delay allows for proper DOM measurement
+ *
+ * @lifecycle onMounted
  */
 onMounted(() => {
-  // Listen for scroll events to update positioning
+  // Listen for scroll events to update TOC positioning and active sections
   window.addEventListener("scroll", updateScroll);
 
-  // Listen for resize events to recalculate positioning
+  // Listen for resize events to recalculate TOC positioning
   window.addEventListener("resize", updateScroll);
 
   // Perform initial calculation after DOM is ready
@@ -669,43 +940,84 @@ onMounted(() => {
 });
 
 /**
- * Component cleanup
- * Removes event listeners to prevent memory leaks
+ * Component cleanup and memory leak prevention
+ *
+ * Removes all event listeners to prevent memory leaks when the component
+ * is unmounted or the route changes.
+ *
+ * Critical for SPA performance as components may be created/destroyed
+ * frequently during navigation.
+ *
+ * @lifecycle onUnmounted
  */
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScroll);
   window.removeEventListener("resize", updateScroll);
 });
 
+// =============================================================================
+// SEO AND METADATA CONFIGURATION
+// =============================================================================
+
 /**
- * Set page title and HTML attributes for accessibility and SEO
- * Uses content frontmatter when available, falls back to generated titles
+ * Configure page title and HTML attributes for accessibility and SEO
+ *
+ * Sets the document title and language attribute for proper SEO indexing
+ * and accessibility compliance.
+ *
+ * Title Priority:
+ * 1. content.title from frontmatter
+ * 2. Generated from URL slug + project title
+ * 3. Project title fallback
+ *
+ * @seo Page title configuration
+ * @accessibility Language attribute for screen readers
  */
 useHead({
   title: pageTitle,
   htmlAttrs: {
-    lang: 'en'
-  }
+    lang: "en",
+  },
 });
 
 /**
- * Set SEO metadata based on content frontmatter or generated values
- * Includes Open Graph and Twitter Card metadata
+ * Configure comprehensive SEO metadata for search engines and social sharing
+ *
+ * Sets up all necessary meta tags for optimal SEO performance and social
+ * media sharing appearance.
+ *
+ * Metadata Sources:
+ * - Frontmatter properties (preferred)
+ * - Generated fallbacks for consistency
+ *
+ * Social Sharing:
+ * - Open Graph tags for Facebook, LinkedIn
+ * - Twitter Card tags for Twitter
+ * - Fallback images and descriptions
+ *
+ * SEO Features:
+ * - Dynamic robots meta based on content type
+ * - 404 pages marked as noindex, nofollow
+ * - Regular content marked as index, follow
+ *
+ * @seo Complete metadata configuration
+ * @social Open Graph and Twitter Card support
  */
 useSeoMeta({
   title: pageTitle,
   description: pageDescription,
   ogTitle: computed(() => content.value?.ogTitle || pageTitle.value),
   ogDescription: computed(() => content.value?.ogDescription || pageDescription.value),
-  ogImage: computed(() => content.value?.ogImage || '/images/og-image-default.jpg'),
-  twitterCard: computed(() => content.value?.twitterCard || 'summary_large_image'),
+  ogImage: computed(() => content.value?.ogImage || "/images/og-image-default.jpg"),
+  twitterCard: computed(() => content.value?.twitterCard || "summary_large_image"),
   robots: computed(() => {
-    // Don't index 404 pages
+    // Don't index 404 pages to avoid SEO penalties
     if (isNotFoundError.value) {
-      return 'noindex, nofollow';
+      return "noindex, nofollow";
     }
-    return content.value?.robots || 'index, follow';
-  })
+    // Allow indexing of regular content
+    return content.value?.robots || "index, follow";
+  }),
 });
 </script>
 
@@ -724,7 +1036,7 @@ useSeoMeta({
   padding-top: 60px; /* Account for sticky header */
   overflow-x: hidden;
   /* Soft light theme background to reduce eye strain */
-  background: #FAFAFA;
+  background: #fafafa;
 }
 
 /* Dark theme background override */
@@ -794,7 +1106,8 @@ useSeoMeta({
 
 /* Animation for error icon */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -948,7 +1261,8 @@ useSeoMeta({
     line-height: 1.6;
   }
 
-  :deep(ul), :deep(ol) {
+  :deep(ul),
+  :deep(ol) {
     margin-bottom: 1rem;
     padding-left: 1.5rem;
   }
