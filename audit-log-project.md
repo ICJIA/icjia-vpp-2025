@@ -2,6 +2,40 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (TOC Layout Architecture Restructure - Edge-to-Edge Title with Proper Content Margins)
+- Completely restructured the sandbox-toc.vue layout architecture to implement the proper spacing pattern where the PageTitleSection extends edge-to-edge across the full viewport while content and TOC are positioned within a proper container system with appropriate margins.
+- Files modified/created:
+  - `pages/sandbox-toc.vue`: Complete layout restructure to match catch-all page pattern with edge-to-edge title and proper content margins
+- Technical Notes:
+  - **Layout Architecture**: Replaced v-app/v-main/v-container structure with div-based layout matching catch-all page pattern for proper edge-to-edge title display
+  - **Container System**: Implemented proper container/content area structure where PageTitleSection extends edge-to-edge while content has appropriate margins (max-width: 1200px, centered)
+  - **Grid Integration**: Used Vuetify 3 grid system within content area for 9/3 column split (content/TOC) on desktop, responsive behavior on mobile
+  - **TOC Positioning**: Maintained fixed positioning system within content area margins rather than edge-to-edge positioning
+  - **Component Architecture**: Used standardized PageTitleSection component directly without container wrapper to achieve edge-to-edge layout
+  - **Responsive Design**: Maintained mobile-first approach with TOC hidden on mobile (d-none d-md-block) and full-width content
+  - **Styling Consistency**: Updated CSS to match catch-all page structure with proper page background, container styling, and content padding
+  - **Accessibility**: Maintained WCAG 2.1 AA compliance with proper focus styles and semantic structure
+  - **Performance**: Preserved all existing TOC functionality including scroll monitoring, fixed positioning, active section highlighting, and smooth scrolling
+
+### 2025-05-31 (TOC Layout Integration and PageTitleSection Component Migration)
+- Integrated PageTitleSection-style banner with sticky TOC behavior in sandbox-toc.vue, creating a unified layout that combines edge-to-edge title banners with advanced TOC functionality. Subsequently migrated to use the proper PageTitleSection component for consistency with project architecture.
+- Files modified/created:
+  - `pages/sandbox-toc.vue`: Complete restructure to implement working scaffold pattern from sandbox-draft.vue while maintaining existing TOC functionality, then migrated to use standardized PageTitleSection component
+- Technical Notes:
+  - **Initial Implementation**: Replaced simple gray title section with proper PageTitleSection-style banner that stretches edge-to-edge
+  - **Component Migration**: Replaced inline HTML title section with proper PageTitleSection component import and usage
+  - **Props Configuration**: Used PageTitleSection with title="Table of Contents Layout Test", description text, and show-border="false"
+  - **CSS Cleanup**: Removed all inline PageTitleSection-related CSS styles (.page-title-section, .title-content, .main-page-title, .page-description) since these are now handled by the component
+  - **Scroll Monitoring**: Maintained scroll monitoring functionality with titleRow ref to ensure sticky TOC behavior continues to work correctly
+  - **Component Architecture**: Achieved same visual appearance and functionality while using standardized component architecture used throughout the project
+  - Implemented scroll monitoring and fixed positioning logic from sandbox-draft.vue for sticky TOC behavior
+  - Maintained all existing TOC functionality including active section highlighting, smooth scrolling, and visual indicators
+  - Used proper Vuetify grid system with responsive column widths (9/3 desktop, 8/4 tablet, hidden on mobile)
+  - Added comprehensive styling for both light and dark themes with WCAG 2.1 AA accessibility compliance
+  - Integrated status display showing "Fixed" vs "Normal" state and current scroll position for testing purposes
+  - Used position: fixed technique for TOC sidebar positioning as preferred over sticky positioning
+  - Implemented comprehensive lifecycle management with scroll and resize event listeners
+
 ### 2025-01-27 (Simple Solution: Direct Title in Content Column)
 - **Summary**: Replaced complex PageTitleSection component with simple, direct HTML title elements inside the content column. This eliminates all margin/padding issues and ensures the title stretches edge-to-edge within the column boundaries without any gaps.
 

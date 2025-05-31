@@ -1,145 +1,188 @@
 <template>
-  <div>
-    <!-- Main content layout with responsive TOC and PageTitleSection -->
+  <div class="sandbox-toc-page">
+    <!-- Edge-to-edge PageTitleSection - no container wrapper -->
+    <PageTitleSection
+      ref="titleRow"
+      title="Test Page"
+      description="Testing the integration of PageTitleSection-style banner with sticky TOC behavior from sandbox-draft.vue"
+      :show-border="true"
+    />
 
-    <v-container fluid style="margin: 0; padding: 0">
-      <v-row>
-        <!-- Main content area with PageTitleSection inside -->
-        <v-col
-          :cols="contentColumnWidth.cols"
-          :sm="contentColumnWidth.sm"
-          :md="contentColumnWidth.md"
-          :lg="contentColumnWidth.lg"
-          :xl="contentColumnWidth.xl"
-        >
-          <v-container
-            fluid
-            style="margin: 0; padding: 0; background: #aaa; height: 200px"
-            ><v-row><v-col>Title here</v-col></v-row></v-container
+    <!-- Main content section with proper container margins -->
+    <div class="page-content">
+      <div class="container">
+        <!-- Content and TOC Layout using Vuetify Grid -->
+        <v-row>
+          <!-- Main Content Column -->
+          <v-col
+            :cols="contentColumnWidth.cols"
+            :sm="contentColumnWidth.sm"
+            :md="contentColumnWidth.md"
+            :lg="contentColumnWidth.lg"
+            :xl="contentColumnWidth.xl"
+            class="main-content-col"
           >
-          <!-- Simple title directly in content area - no extra components -->
+            <!-- Content Renderer for Nuxt Content - Structure matches catch-all page -->
+            <div v-if="about" class="content-renderer">
+              <ContentRenderer :value="about" />
+            </div>
+            <div v-else class="pa-4">
+              <p>About content not found</p>
+            </div>
+          </v-col>
 
-          <ContentRenderer v-if="about" :value="about" class="mt-10" />
-          <div v-else>About not found</div>
-        </v-col>
-
-        <!-- TOC Sidebar - Hidden on mobile, visible on md+ screens -->
-        <v-col
-          v-if="showTOC && about"
-          cols="12"
-          sm="12"
-          md="4"
-          lg="3"
-          xl="3"
-          class="d-none d-md-block"
-        >
-          <div
-            ref="tocContainer"
-            class="toc-fixed-container"
-            :style="{ top: `${tocTopOffset}px` }"
+          <!-- TOC Sidebar Column - Hidden on mobile, visible on md+ screens -->
+          <v-col
+            v-if="showTOC && about"
+            :cols="tocColumnWidth.cols"
+            :sm="tocColumnWidth.sm"
+            :md="tocColumnWidth.md"
+            :lg="tocColumnWidth.lg"
+            :xl="tocColumnWidth.xl"
+            class="sidebar-col d-none d-md-block"
+            ref="sidebarCol"
           >
-            <v-card elevation="0" class="toc-card">
-              <v-card-title
-                class="text-subtitle-1 pb-2 px-3 pt-3 toc-title-clickable"
-                @click="scrollToTop"
-                role="button"
-                tabindex="0"
-                @keydown.enter="scrollToTop"
-                @keydown.space.prevent="scrollToTop"
-                aria-label="Scroll to top of page"
+            <div class="sidebar-wrapper">
+              <!--
+                The actual TOC content element that becomes fixed
+                - ref="stickyElement": Used to measure dimensions and apply fixed positioning
+                - :class="{ 'is-fixed': isFixed }": Applies fixed styling when positioned
+                - :style="fixedStyles": Applies computed fixed positioning styles
+              -->
+              <div
+                ref="stickyElement"
+                class="toc-content"
+                :class="{ 'is-fixed': isFixed }"
+                :style="fixedStyles"
               >
-                Table of Contents
-              </v-card-title>
-              <v-card-text class="pt-0 px-0 pb-3">
-                <!-- Functional TOC List with Visual Indicator -->
-                <div v-if="tocH2Items.length > 0" class="toc-container">
-                  <!-- Left border indicator line -->
-                  <div class="toc-indicator-line"></div>
+                <v-sheet class="toc-sheet" color="transparent">
+                  <div
+                    class="text-subtitle-1 pb-2 px-3 pt-3 toc-title-clickable"
+                    @click="scrollToTop"
+                    role="button"
+                    tabindex="0"
+                    @keydown.enter="scrollToTop"
+                    @keydown.space.prevent="scrollToTop"
+                    aria-label="Scroll to top of page"
+                  >
+                    Table of Contents
+                  </div>
+                  <div class="pt-0 px-0 pb-3">
+                    <!-- Status Information for Testing -->
+                    <!-- <div class="px-3 mb-3">
+                      <p class="text-caption mb-1">
+                        <strong>Status:</strong> {{ isFixed ? "FIXED" : "NORMAL" }}
+                      </p>
+                      <p class="text-caption mb-0">
+                        <strong>Scroll:</strong> {{ scrollY }}px
+                      </p>
+                    </div> -->
 
-                  <v-list density="compact" class="toc-list" bg-color="transparent">
-                    <v-list-item
-                      v-for="(item, index) in tocH2Items"
-                      :key="`toc-${index}`"
-                      @click="scrollToHeading(item.id)"
-                      :class="[
-                        'toc-item',
-                        { 'toc-item--active': activeItemId === item.id },
-                      ]"
-                      :ripple="true"
-                      :tabindex="0"
-                      @keydown.enter="scrollToHeading(item.id)"
-                      @keydown.space.prevent="scrollToHeading(item.id)"
-                      :aria-label="`Navigate to section: ${item.text}`"
-                      :aria-current="activeItemId === item.id ? 'true' : 'false'"
-                      role="button"
-                    >
-                      <!-- Visual indicator dot positioned absolutely relative to container -->
-                      <div
-                        :class="[
-                          'toc-indicator-dot',
-                          { 'toc-indicator-dot--active': activeItemId === item.id },
-                        ]"
-                      ></div>
+                    <!-- Functional TOC List with Visual Indicator -->
+                    <div v-if="tocH2Items.length > 0" class="toc-container">
+                      <!-- Left border indicator line -->
+                      <div class="toc-indicator-line"></div>
 
-                      <v-list-item-title
-                        :class="[
-                          'text-body-2 toc-link',
-                          { 'toc-link--active': activeItemId === item.id },
-                        ]"
-                      >
-                        {{ item.text }}
-                      </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </div>
+                      <v-list density="compact" class="toc-list" bg-color="transparent">
+                        <v-list-item
+                          v-for="(item, index) in tocH2Items"
+                          :key="`toc-${index}`"
+                          @click="scrollToHeading(item.id)"
+                          :class="[
+                            'toc-item',
+                            { 'toc-item--active': activeItemId === item.id },
+                          ]"
+                          :ripple="true"
+                          :tabindex="0"
+                          @keydown.enter="scrollToHeading(item.id)"
+                          @keydown.space.prevent="scrollToHeading(item.id)"
+                          :aria-label="`Navigate to section: ${item.text}`"
+                          :aria-current="activeItemId === item.id ? 'true' : 'false'"
+                          role="button"
+                        >
+                          <!-- Visual indicator dot positioned absolutely relative to container -->
+                          <div
+                            :class="[
+                              'toc-indicator-dot',
+                              { 'toc-indicator-dot--active': activeItemId === item.id },
+                            ]"
+                          ></div>
 
-                <!-- Fallback for no TOC data -->
-                <div v-else class="px-3">
-                  <p class="text-body-2 text-medium-emphasis mb-0">
-                    No table of contents available
-                  </p>
-                </div>
+                          <v-list-item-title
+                            :class="[
+                              'text-body-2 toc-link',
+                              { 'toc-link--active': activeItemId === item.id },
+                            ]"
+                          >
+                            {{ item.text }}
+                          </v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </div>
+
+                    <!-- Fallback for no TOC data -->
+                    <div v-else class="px-3">
+                      <p class="text-body-2 text-medium-emphasis mb-0">
+                        No table of contents available
+                      </p>
+                    </div>
+                  </div>
+                </v-sheet>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+
+        <!-- Toggle for testing TOC visibility -->
+        <v-row class="mt-8">
+          <v-col
+            :cols="contentColumnWidth.cols"
+            :sm="contentColumnWidth.sm"
+            :md="contentColumnWidth.md"
+            :lg="contentColumnWidth.lg"
+            :xl="contentColumnWidth.xl"
+          >
+            <v-card>
+              <v-card-text class="py-3">
+                <v-switch
+                  v-model="showTOC"
+                  :label="`TOC ${showTOC ? 'Enabled' : 'Disabled'}`"
+                  color="primary"
+                  inset
+                  hide-details
+                />
               </v-card-text>
             </v-card>
-          </div>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <!-- Toggle for testing TOC visibility -->
-    <v-container style="position: sticky; top: 0; z-index: 1000; align-self: flex-start">
-      <v-row>
-        <v-col
-          :cols="contentColumnWidth.cols"
-          :sm="contentColumnWidth.sm"
-          :md="contentColumnWidth.md"
-          :lg="contentColumnWidth.lg"
-          :xl="contentColumnWidth.xl"
-        >
-          <v-card>
-            <v-card-text class="py-3">
-              <v-switch
-                v-model="showTOC"
-                :label="`TOC ${showTOC ? 'Enabled' : 'Disabled'}`"
-                color="primary"
-                inset
-                hide-details
-              />
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+          </v-col>
+        </v-row>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import PageTitleSection from "~/components/content/PageTitleSection.vue";
 
 // Fetch content from Nuxt Content v3 system
 const { data: about } = await useAsyncData(() =>
   queryCollection("content").path("/about").first()
 );
+
+/**
+ * =============================================================================
+ * REACTIVE STATE VARIABLES
+ * =============================================================================
+ */
+
+// Current scroll position of the window (used for display and calculations)
+const scrollY = ref(0);
+
+// Whether the TOC sidebar is currently in fixed position mode
+const isFixed = ref(false);
+
+// Position of the title row's bottom edge relative to viewport
+const titleBottom = ref(0);
 
 // Reactive state for TOC visibility (initialize to true for testing)
 const showTOC = ref(true);
@@ -147,9 +190,66 @@ const showTOC = ref(true);
 // Reactive state for active TOC item
 const activeItemId = ref("");
 
-// Reactive state for TOC positioning
-const tocTopOffset = ref(80); // Fixed offset from top
-const tocContainer = ref(null);
+/**
+ * =============================================================================
+ * TEMPLATE REFS (DOM ELEMENT REFERENCES)
+ * =============================================================================
+ */
+
+// Reference to the TOC content element (the actual fixed element)
+const stickyElement = ref(null);
+
+// Reference to the title row element (monitored for visibility)
+const titleRow = ref(null);
+
+// Reference to the sidebar column element (used for width calculations)
+const sidebarCol = ref(null);
+
+/**
+ * =============================================================================
+ * CONFIGURATION CONSTANTS
+ * =============================================================================
+ */
+
+// Height of the fixed navbar at the top of the page
+// The TOC becomes fixed when the title disappears behind this navbar
+const NAVBAR_HEIGHT = 80; // pixels
+
+/**
+ * =============================================================================
+ * FIXED POSITIONING STATE
+ * =============================================================================
+ */
+
+// Calculated width for the fixed element (matches natural width)
+const fixedWidth = ref(0);
+
+// Calculated left position for the fixed element (matches natural position)
+const fixedLeft = ref(0);
+
+/**
+ * =============================================================================
+ * COMPUTED PROPERTIES
+ * =============================================================================
+ */
+
+/**
+ * Computed styles for the fixed positioning
+ * Returns positioning styles only when the element should be fixed
+ */
+const fixedStyles = computed(() => {
+  if (isFixed.value) {
+    return {
+      position: "fixed",
+      top: `${NAVBAR_HEIGHT}px`, // Position below the fixed navbar
+      left: `${fixedLeft.value}px`, // Maintain horizontal position
+      width: `${fixedWidth.value}px`, // Maintain exact width
+      zIndex: 1000, // Ensure it appears above other content
+    };
+  }
+  // Return empty object when not fixed (uses natural positioning)
+  return {};
+});
 
 /**
  * Extract and process TOC data to get H2-level headings only
@@ -185,6 +285,106 @@ const tocH2Items = computed(() => {
     }))
     .filter((item) => item.text && item.id); // Only include items with both text and valid IDs
 });
+
+/**
+ * Compute responsive column widths for main content based on TOC toggle state
+ * @returns {Object} Object with responsive column widths
+ */
+const contentColumnWidth = computed(() => {
+  const hasTOC = showTOC.value;
+  return {
+    cols: 12, // Always full width on mobile (TOC hidden via d-none d-md-block)
+    sm: 12, // Always full width on small screens (TOC hidden)
+    md: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on tablet
+    lg: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on desktop
+    xl: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on large desktop
+  };
+});
+
+/**
+ * Compute responsive column widths for TOC sidebar
+ * @returns {Object} Object with responsive column widths
+ */
+const tocColumnWidth = computed(() => {
+  return {
+    cols: 12, // Full width on mobile (but hidden via d-none d-md-block)
+    sm: 12, // Full width on small screens (but hidden)
+    md: 3, // 3 cols on tablet
+    lg: 3, // 3 cols on desktop
+    xl: 3, // 3 cols on large desktop
+  };
+});
+
+/**
+ * =============================================================================
+ * CORE FUNCTIONALITY METHODS
+ * =============================================================================
+ */
+
+/**
+ * Main scroll event handler
+ * Called on every scroll event to update positioning state
+ */
+const updateScroll = () => {
+  // Update current scroll position
+  scrollY.value = window.scrollY;
+
+  try {
+    // Check if title is still visible and update fixed state
+    updateTitleVisibility();
+
+    // Calculate positioning for fixed state
+    updateFixedPosition();
+
+    // Update active section for TOC highlighting
+    updateActiveSection();
+  } catch (error) {
+    // Gracefully handle any DOM-related errors during development
+    console.warn("Error updating scroll position:", error);
+  }
+};
+
+/**
+ * Monitors the title row visibility and determines when to activate fixed positioning
+ * The TOC becomes fixed when the title row disappears behind the navbar
+ */
+const updateTitleVisibility = () => {
+  // Handle Vue component instance (PageTitleSection) - get the root element
+  const titleElement = titleRow.value?.$el || titleRow.value;
+
+  if (titleElement && typeof titleElement.getBoundingClientRect === "function") {
+    const rect = titleElement.getBoundingClientRect();
+
+    // Store title bottom position for display purposes
+    titleBottom.value = rect.bottom;
+
+    // Activate fixed positioning when title bottom edge reaches/passes navbar
+    // rect.bottom <= NAVBAR_HEIGHT means the title is completely hidden behind navbar
+    isFixed.value = rect.bottom <= NAVBAR_HEIGHT;
+  }
+};
+
+/**
+ * Calculates and stores the exact positioning values for fixed mode
+ * This ensures the fixed element appears in exactly the same position as natural positioning
+ */
+const updateFixedPosition = () => {
+  // Get reference to the TOC content element
+  const contentElement = stickyElement.value?.$el || stickyElement.value;
+
+  if (contentElement && typeof contentElement.getBoundingClientRect === "function") {
+    // CRITICAL: Only measure position when element is in natural (not fixed) state
+    // This prevents measurement of already-fixed positioning which would be incorrect
+    if (!isFixed.value) {
+      const rect = contentElement.getBoundingClientRect();
+
+      // Store the exact natural dimensions and position
+      // These values will be used when the element becomes fixed
+      fixedWidth.value = rect.width; // Maintain exact width
+      fixedLeft.value = rect.left; // Maintain exact horizontal position
+    }
+  }
+};
 
 /**
  * Detect which section is currently in the viewport
@@ -269,65 +469,36 @@ const scrollToTop = () => {
 };
 
 /**
- * Calculate the top offset for TOC positioning
- * Simple fixed positioning approach
+ * =============================================================================
+ * LIFECYCLE MANAGEMENT
+ * =============================================================================
  */
-const calculateTocOffset = () => {
-  // Fixed offset: 60px header + 20px buffer = 80px total
-  tocTopOffset.value = 80;
-};
 
-// Set up scroll listener for active section detection
+/**
+ * Component initialization
+ * Sets up event listeners and performs initial calculations
+ */
 onMounted(() => {
-  // Calculate initial TOC offset
-  nextTick(() => {
-    calculateTocOffset();
-  });
+  // Listen for scroll events to update positioning
+  window.addEventListener("scroll", updateScroll);
 
-  // Initial active section detection
-  updateActiveSection();
+  // Listen for resize events to recalculate positioning
+  window.addEventListener("resize", updateScroll);
 
-  // Throttled scroll listener for performance
-  let ticking = false;
-  const handleScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateActiveSection();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  };
-
-  // Resize listener to recalculate TOC offset
-  const handleResize = () => {
-    calculateTocOffset();
-  };
-
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  window.addEventListener("resize", handleResize, { passive: true });
-
-  // Cleanup on unmount
-  onUnmounted(() => {
-    window.removeEventListener("scroll", handleScroll);
-    window.removeEventListener("resize", handleResize);
-  });
+  // Perform initial calculation after DOM is ready
+  // setTimeout ensures all Vuetify components are fully rendered
+  setTimeout(() => {
+    updateScroll();
+  }, 100);
 });
 
 /**
- * Compute responsive column widths for main content based on TOC toggle state
- * Ensures perfect alignment with PageTitleSection column layout
- * @returns {Object} Object with responsive column widths
+ * Component cleanup
+ * Removes event listeners to prevent memory leaks
  */
-const contentColumnWidth = computed(() => {
-  const hasTOC = showTOC.value;
-  return {
-    cols: 12, // Always full width on mobile (TOC hidden via d-none d-md-block)
-    sm: 12, // Always full width on small screens (TOC hidden)
-    md: hasTOC ? 8 : 12, // 8 cols when TOC enabled, 12 when disabled on tablet
-    lg: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on desktop
-    xl: hasTOC ? 9 : 12, // 9 cols when TOC enabled, 12 when disabled on large desktop
-  };
+onUnmounted(() => {
+  window.removeEventListener("scroll", updateScroll);
+  window.removeEventListener("resize", updateScroll);
 });
 
 // Set page title
@@ -336,16 +507,254 @@ useHead({
 });
 </script>
 
-<style scoped>
-/* TOC Card Styling - Sleek, blended appearance */
-.toc-card {
-  background-color: transparent !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  border-radius: 8px !important;
+<style>
+/**
+ * =============================================================================
+ * PAGE STRUCTURE STYLES
+ * =============================================================================
+ */
+
+/* Main page container - matches catch-all page structure */
+.sandbox-toc-page {
+  min-height: 100vh;
+  padding-top: 60px; /* Account for sticky header */
+  overflow-x: hidden;
+  /* Soft light theme background to reduce eye strain */
+  background: #fafafa;
 }
 
-.v-theme--dark .toc-card {
-  border-color: rgba(255, 255, 255, 0.08) !important;
+/* Dark theme background override */
+:root[data-theme="dark"] .sandbox-toc-page {
+  background: rgb(var(--v-theme-surface));
+}
+
+/* Container styling for content areas - matches catch-all page */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Main content spacing - matches catch-all page */
+.page-content {
+  padding: 4.5rem 0; /* Consistent with other pages */
+}
+
+/* Main content column styling - matches catch-all page structure */
+.main-content-col {
+  background-color: transparent;
+}
+
+/* Add focus styles for accessibility - matching existing pages */
+:deep(*:focus-visible) {
+  outline: 2px solid var(--v-primary-base);
+  outline-offset: 2px;
+}
+
+/* Responsive content spacing */
+@media (max-width: 768px) {
+  .page-content {
+    padding: 3rem 0; /* Responsive spacing - reduced from 4.5rem for mobile */
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/**
+ * =============================================================================
+ * CONTENT RENDERER STYLES (Matching catch-all page)
+ * =============================================================================
+ */
+
+/* Content renderer styling - sandbox page specific with global scope */
+.sandbox-toc-page .content-renderer {
+  /* Heading styles with stronger specificity to override global styles */
+  h1 {
+    font-size: 1.8rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.3 !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.3 !important;
+    /* Ensure H2 headings remain flush left - override global styles */
+    margin-left: 0 !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    margin-top: 1.25rem !important;
+    margin-bottom: 0.75rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /*
+   * Visual Hierarchy: Content Indentation System
+   *
+   * Creates visual hierarchy by indenting all content that follows H2 headings.
+   * H2 headings remain flush left, while all subsequent content (until the next H2)
+   * is indented to show the relationship and create clear content sections.
+   *
+   * Using !important to override global styles from main.scss
+   */
+
+  /* Indent all content following H2 headings - CRITICAL: Use !important to override global styles */
+  h2 ~ * {
+    margin-left: 2rem !important; /* 32px indentation for clear visual hierarchy */
+  }
+
+  /* Ensure H2 headings themselves are not indented (override the sibling selector) */
+  h2 ~ h2 {
+    margin-left: 0 !important;
+  }
+
+  /* Responsive indentation - reduce on smaller screens with !important */
+  @media (max-width: 768px) {
+    h2 ~ * {
+      margin-left: 1.5rem !important; /* 24px on tablets */
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2 ~ * {
+      margin-left: 1rem !important; /* 16px on mobile */
+    }
+  }
+
+  /* Paragraph and list styles with stronger specificity */
+  p {
+    margin-bottom: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 1rem !important;
+    padding-left: 1.5rem !important;
+  }
+
+  li {
+    margin-bottom: 0.5rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Link styles */
+  a {
+    color: var(--v-primary-base) !important;
+    text-decoration: underline !important;
+  }
+
+  a:hover {
+    text-decoration: none !important;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--v-primary-base) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Other elements */
+  blockquote {
+    border-left: 4px solid var(--v-primary-lighten-1) !important;
+    padding-left: 1rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 1rem !important;
+    font-style: italic !important;
+  }
+}
+
+/* Dark theme adjustments for content renderer */
+.v-theme--dark .sandbox-toc-page .content-renderer {
+  blockquote {
+    border-left-color: var(--v-primary-lighten-2) !important;
+  }
+}
+
+/**
+ * =============================================================================
+ * LAYOUT COLUMN STYLES
+ * =============================================================================
+ */
+
+/* Sidebar column styling - transparent to use page background */
+.sidebar-col {
+  background-color: transparent;
+}
+
+/* Sidebar wrapper for flex layout with increased left spacing */
+.sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem 2rem 3rem; /* Increased left padding from 1.5rem to 3rem */
+}
+
+/* Responsive sidebar padding */
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    padding: 1.5rem 1rem 1.5rem 2rem; /* Increased left padding from 1rem to 2rem on mobile */
+  }
+}
+
+/**
+ * =============================================================================
+ * TOC CONTENT STYLES (Fixed Positioning)
+ * =============================================================================
+ */
+
+/* Base styles for the TOC content (both normal and fixed states) */
+.toc-content {
+  width: 100%;
+  box-sizing: border-box; /* Include padding and border in width calculations */
+
+  /* Prevent unexpected sizing issues */
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Enhanced styling when in fixed position mode - NO BOX SHADOW */
+.toc-content.is-fixed {
+  /* Ensure consistent sizing in fixed state */
+  box-sizing: border-box;
+  /* Explicitly remove any box shadows */
+  box-shadow: none !important;
+}
+
+/* TOC Sheet Styling - Completely blended into background with no hover effects */
+.toc-sheet {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  /* Remove all hover effects and transitions */
+  transition: none !important;
+}
+
+.toc-sheet:hover {
+  box-shadow: none !important;
+  transform: none !important;
+  background-color: transparent !important;
+}
+
+.toc-sheet::before,
+.toc-sheet::after {
+  box-shadow: none !important;
+}
+
+/* Remove hover effects from all sheet states */
+.toc-sheet:hover::before,
+.toc-sheet:hover::after,
+.toc-sheet:focus::before,
+.toc-sheet:focus::after {
+  box-shadow: none !important;
 }
 
 /* Clickable TOC Title */
@@ -421,6 +830,21 @@ useHead({
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: relative;
+
+  /* Ensure TOC items can expand to accommodate wrapped text */
+  height: auto !important; /* Allow dynamic height for wrapped text */
+  align-items: flex-start !important; /* Align content to top when text wraps */
+}
+
+/* Override Vuetify v-list-item-title default truncation styles */
+.toc-item .v-list-item-title {
+  white-space: normal !important; /* Allow text wrapping */
+  text-overflow: unset !important; /* Remove ellipsis */
+  overflow: visible !important; /* Show all content */
+  word-wrap: break-word !important; /* Break long words */
+  hyphens: auto !important; /* Add hyphens for better readability */
+  line-height: 1.4 !important; /* Consistent line height */
+  padding: 0.25rem 0 !important; /* Add vertical padding for better spacing */
 }
 
 .toc-item:hover {
@@ -444,7 +868,7 @@ useHead({
   background-color: rgba(var(--v-theme-primary), 0.16) !important;
 }
 
-/* Visual Indicator Dots */
+/* Visual Indicator Dots - Adjusted for wrapped text */
 .toc-indicator-dot {
   width: 12px;
   height: 12px;
@@ -455,8 +879,8 @@ useHead({
   flex-shrink: 0;
   position: absolute;
   left: 15px; /* Position relative to the toc-item */
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0.75rem; /* Fixed position relative to top instead of center for wrapped text */
+  transform: translateY(0); /* Remove vertical centering transform */
   z-index: 3;
 }
 
@@ -469,25 +893,32 @@ useHead({
 .toc-indicator-dot--active {
   background-color: #4caf50 !important; /* High contrast green for selected items */
   border-color: rgba(76, 175, 80, 0.3) !important;
-  transform: translateY(-50%) scale(1.2);
+  transform: scale(1.2); /* Remove translateY since we're using fixed top positioning */
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
 }
 
 .toc-item:hover .toc-indicator-dot {
   background-color: rgba(var(--v-theme-primary), 0.6);
-  transform: scale(1.1);
+  transform: scale(1.1); /* Consistent scaling without translateY */
 }
 
 .toc-item:hover .toc-indicator-dot--active {
-  transform: scale(1.3);
+  transform: scale(1.3); /* Consistent scaling without translateY */
 }
 
-/* TOC Link Text Styling */
+/* TOC Link Text Styling - Fix truncation and allow text wrapping */
 .toc-link {
   color: rgba(var(--v-theme-on-surface), 0.87) !important;
   font-weight: 400 !important;
   line-height: 1.4 !important;
   transition: all 0.3s ease-in-out;
+
+  /* Override Vuetify's default text truncation */
+  white-space: normal !important; /* Allow text to wrap instead of truncating */
+  text-overflow: unset !important; /* Remove ellipsis truncation */
+  overflow: visible !important; /* Show all text content */
+  word-wrap: break-word !important; /* Break long words if necessary */
+  hyphens: auto !important; /* Add hyphens for better word breaking */
 }
 
 .toc-link--active {
@@ -509,38 +940,6 @@ useHead({
   color: rgba(255, 255, 255, 0.87) !important;
 }
 
-/* Simple title styling - edge to edge within column */
-.simple-title-section {
-  width: 100%;
-  margin: 0;
-  padding: 2rem 0;
-  background: #f5f5f5;
-  margin-bottom: 2rem;
-}
-
-.v-theme--dark .simple-title-section {
-  background: #1e2a3a;
-}
-
-.simple-page-title {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 0 0 1rem 0;
-  color: rgba(var(--v-theme-on-surface), 0.95);
-  text-align: center;
-}
-
-.simple-page-description {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  color: rgba(var(--v-theme-on-surface), 0.8);
-  margin: 0;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
 .v-theme--dark .toc-link--active {
   color: rgb(var(--v-theme-primary)) !important;
 }
@@ -560,5 +959,41 @@ useHead({
 .toc-indicator-dot,
 .toc-link {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/**
+ * =============================================================================
+ * RESPONSIVE DESIGN
+ * =============================================================================
+ */
+
+/* Responsive design with proportional scaling */
+
+/**
+ * =============================================================================
+ * ANIMATION KEYFRAMES
+ * =============================================================================
+ */
+
+/* Animation keyframes */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .toc-item,
+  .toc-indicator-dot,
+  .toc-link {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 </style>

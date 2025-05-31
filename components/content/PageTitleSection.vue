@@ -181,8 +181,8 @@ const formattedDate = computed(() => {
 /* Main page title section container */
 .page-title-section {
   padding: 0; /* Remove default padding, will be handled by flexbox centering */
-  /* Slightly lighter than navigation for subtle visual hierarchy */
-  background: #F5F5F5; /* Lighter than nav's #F2F2F2 */
+  /* Darker background for better distinction from content */
+  background: #EEEEEE; /* Darker than previous #F5F5F5 for better contrast */
   /* Extend background to reach navigation */
   margin-top: -60px; /* Account for header height */
   /* Center content vertically and horizontally */
@@ -194,8 +194,8 @@ const formattedDate = computed(() => {
 
 /* Dark theme background override */
 :root[data-theme="dark"] .page-title-section {
-  /* Slightly lighter than navigation for subtle visual hierarchy */
-  background: #1E2A3A; /* Lighter than nav's #1A2234 */
+  /* Darker background for better distinction from content */
+  background: #1B2530; /* Darker than previous #1E2A3A for better contrast */
 }
 
 /* Optional border separator for visual hierarchy */

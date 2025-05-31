@@ -25,7 +25,7 @@
           <!-- Main Content Column (8/12 width on medium+ screens) -->
           <v-col cols="12" md="8" class="main-content-col">
             <div class="pa-4">
-              <h1>Main Scrollable Content</h1>
+              <h1>This is Nuxt Content (the normal page content)</h1>
               <!-- Generate multiple paragraphs to create scrollable content -->
               <p v-for="i in 70" :key="'main-p-' + i" class="mb-4">
                 <strong>Paragraph {{ i }}</strong
@@ -43,7 +43,46 @@
                 tincidunt. Et malesuada fames ac turpis egestas maecenas pharetra. Id
                 aliquet lectus proin nibh nisl condimentum id. Nunc lobortis mattis
                 aliquam faucibus purus in massa tempor nec. Sed velit dignissim sodales ut
-                eu sem integer vitae.
+                eu sem integer vitae.Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Sit
+                amet consectetur adipiscing elit duis tristique. Ullamcorper dignissim
+                cras tincidunt lobortis feugiat vivamus at augue. Posuere sollicitudin
+                aliquam ultrices sagittis orci a scelerisque. Eget felis eget nunc
+                lobortis mattis aliquam faucibus purus. Tellus orci ac auctor augue mauris
+                augue neque gravida. Amet nisl purus in mollis nunc sed id semper. Vitae
+                justo eget magna fermentum iaculis eu non diam. Turpis egestas integer
+                eget aliquet nibh praesent. Faucibus pulvinar elementum integer enim neque
+                volutpat ac tincidunt. Et malesuada fames ac turpis egestas maecenas
+                pharetra. Id aliquet lectus proin nibh nisl condimentum id. Nunc lobortis
+                mattis aliquam faucibus purus in massa tempor nec. Sed velit dignissim
+                sodales ut eu sem integer vitae.Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Rhoncus dolor purus non enim praesent elementum facilisis
+                leo vel. Sit amet consectetur adipiscing elit duis tristique. Ullamcorper
+                dignissim cras tincidunt lobortis feugiat vivamus at augue. Posuere
+                sollicitudin aliquam ultrices sagittis orci a scelerisque. Eget felis eget
+                nunc lobortis mattis aliquam faucibus purus. Tellus orci ac auctor augue
+                mauris augue neque gravida. Amet nisl purus in mollis nunc sed id semper.
+                Vitae justo eget magna fermentum iaculis eu non diam. Turpis egestas
+                integer eget aliquet nibh praesent. Faucibus pulvinar elementum integer
+                enim neque volutpat ac tincidunt. Et malesuada fames ac turpis egestas
+                maecenas pharetra. Id aliquet lectus proin nibh nisl condimentum id. Nunc
+                lobortis mattis aliquam faucibus purus in massa tempor nec. Sed velit
+                dignissim sodales ut eu sem integer vitae.Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
+                facilisis leo vel. Sit amet consectetur adipiscing elit duis tristique.
+                Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue.
+                Posuere sollicitudin aliquam ultrices sagittis orci a scelerisque. Eget
+                felis eget nunc lobortis mattis aliquam faucibus purus. Tellus orci ac
+                auctor augue mauris augue neque gravida. Amet nisl purus in mollis nunc
+                sed id semper. Vitae justo eget magna fermentum iaculis eu non diam.
+                Turpis egestas integer eget aliquet nibh praesent. Faucibus pulvinar
+                elementum integer enim neque volutpat ac tincidunt. Et malesuada fames ac
+                turpis egestas maecenas pharetra. Id aliquet lectus proin nibh nisl
+                condimentum id. Nunc lobortis mattis aliquam faucibus purus in massa
+                tempor nec. Sed velit dignissim sodales ut eu sem integer vitae.
               </p>
             </div>
           </v-col>
@@ -64,7 +103,7 @@
                 :style="fixedStyles"
               >
                 <!-- Sidebar Header with Dynamic Status -->
-                <h2>{{ isFixed ? "Fixed" : "Normal" }} Sidebar</h2>
+                <h2>{{ isFixed ? "Fixed" : "Normal" }} Table of Contents</h2>
                 <p>
                   This sidebar becomes fixed when the title disappears behind the navbar.
                 </p>
