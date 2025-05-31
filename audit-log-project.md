@@ -2,6 +2,30 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (Reverted TOC Animation - Fixed Width Calculation Issues)
+- **Summary**: Reverted the smooth CSS transition animations from the TOC component due to layout issues where the TOC would expand to a larger width and then snap back to normal width during the fixed positioning transition.
+- **Files Modified**:
+  - `pages/[...slug].vue`: Reverted TOC styling back to clean, functional state
+    - **Animation Removal**: Removed all CSS transitions, transforms, and visual effects
+    - **Width Stability**: Restored stable width calculations without animation interference
+    - **Clean Styling**: Returned to minimal styling with no box shadows or background effects
+    - **Functionality Preserved**: All TOC features remain intact and working correctly
+- **Issue Resolution**:
+  - **Problem Identified**: CSS animations interfered with precise width calculations during fixed positioning
+  - **Visual Issue**: TOC would expand wider than intended before snapping to correct width
+  - **User Experience**: Animation created more visual jarring than the original instant transition
+  - **Performance Impact**: Removed unnecessary CSS processing during scroll events
+- **Technical Decision**:
+  - **Simplicity Over Enhancement**: Chose functional simplicity over visual enhancement
+  - **Width Calculation Priority**: Preserved precise positioning calculations over animations
+  - **User Feedback**: Responded to immediate user feedback about degraded experience
+  - **Rollback Strategy**: Quick reversion to known working state
+- **Current State**:
+  - **Clean TOC**: Minimal styling with no visual effects or animations
+  - **Stable Positioning**: Precise width and position calculations without interference
+  - **Full Functionality**: All scroll detection, active highlighting, and navigation working perfectly
+  - **Performance Optimized**: No unnecessary CSS processing during scroll events
+
 ### 2025-05-31 (Reverted Extensive Comments - Site Functionality Restored)
 - **Summary**: Reverted the extensive JSDoc comments from the catch-all page to restore site functionality after the principles page stopped working, prioritizing working functionality over documentation.
 - **Files Modified**:
