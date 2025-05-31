@@ -5,6 +5,7 @@ ogTitle: "Strategic Priorities"
 ogDescription: "Three core strategic goals for violence prevention across Illinois communities."
 ogImage: "/images/og-image-strategic-priorities.jpg"
 twitterCard: "summary_large_image"
+showTOC: true
 ---
 
 Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.

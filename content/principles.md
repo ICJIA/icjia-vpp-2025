@@ -5,6 +5,7 @@ ogTitle: "Guiding Principles - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Five core principles that guide our violence prevention efforts across Illinois communities."
 ogImage: "/images/og-image-principles.jpg"
 twitterCard: "summary_large_image"
+showTOC: true
 ---
 
 

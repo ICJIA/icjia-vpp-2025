@@ -184,8 +184,8 @@ const isFixed = ref(false);
 // Position of the title row's bottom edge relative to viewport
 const titleBottom = ref(0);
 
-// Reactive state for TOC visibility (initialize to true for testing)
-const showTOC = ref(true);
+// Reactive state for TOC visibility (initialize to false to prevent hydration mismatch)
+const showTOC = ref(false);
 
 // Reactive state for active TOC item
 const activeItemId = ref("");
@@ -479,6 +479,9 @@ const scrollToTop = () => {
  * Sets up event listeners and performs initial calculations
  */
 onMounted(() => {
+  // Enable TOC after hydration to prevent SSR mismatch
+  showTOC.value = true;
+
   // Listen for scroll events to update positioning
   window.addEventListener("scroll", updateScroll);
 

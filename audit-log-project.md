@@ -2,6 +2,53 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (SSR Hydration Mismatch Fix for TOC Component)
+- **Summary**: Fixed hydration mismatch error in sandbox-toc.vue by properly handling client-side initialization of TOC visibility state to prevent SSR/client-side differences.
+- **Files Modified**:
+  - `pages/sandbox-toc.vue`: Fixed hydration mismatch in TOC component
+    - **State Initialization**: Changed `showTOC` ref initial value from `true` to `false` to match SSR state
+    - **Client-side Activation**: Added `showTOC.value = true` in `onMounted()` to enable TOC after hydration
+    - **Documentation Update**: Updated comments to explain hydration mismatch prevention
+- **Technical Implementation**:
+  - **Hydration Safety**: Ensures server-rendered HTML matches initial client-side state
+  - **Progressive Enhancement**: TOC becomes available after component mounts on client
+  - **Error Prevention**: Eliminates "Server rendered element contains fewer child nodes than client vdom" console errors
+  - **User Experience**: Maintains functionality while preventing hydration warnings
+- **Testing**: Verified that console hydration mismatch errors are resolved while TOC functionality remains intact
+
+### 2025-05-31 (Automatic TOC Visibility Control Implementation)
+- **Summary**: Replaced manual TOC toggle switch with automatic visibility control based on page metadata, implementing a cleaner, metadata-driven TOC system that respects page-level configuration without requiring user interaction.
+
+- **Files Modified/Created**:
+  - `pages/sandbox-toc.vue`: Complete refactoring to remove toggle switch and implement metadata-based TOC control
+    - **Removed**: All toggle switch template elements, CSS styling, and JavaScript logic
+    - **Added**: Computed property `showTOC` that reads `showTOC` metadata from page frontmatter
+    - **Updated**: Column width calculations to automatically adjust layout based on TOC visibility
+    - **Enhanced**: Debugging information to display metadata values for testing
+  - `content/test-no-toc.md`: Created test content file with `showTOC: false` to demonstrate automatic hiding functionality
+
+- **Technical Implementation**:
+  - **Metadata Reading**: TOC visibility determined by checking `showTOC` property in page frontmatter/metadata
+  - **Default Behavior**: TOC shows by default when `showTOC` is `true`, `undefined`, or not present
+  - **Hide Condition**: TOC hidden only when `showTOC` is explicitly set to `false`
+  - **Responsive Layout**: Content automatically spans full width (12 columns) when TOC hidden, maintains 8/4 split when shown
+  - **Property Access**: Uses bracket notation to safely access metadata properties without TypeScript errors
+  - **Multiple Path Support**: Checks `about.value?.['showTOC']`, `about.value?.meta?.['showTOC']`, and `about.value?.frontmatter?.['showTOC']`
+
+- **Removed Components**:
+  - TOC toggle switch component and all associated template elements
+  - All CSS styling for toggle container, switch, and label (85+ lines of CSS removed)
+  - Toggle row layout and positioning styles
+  - Dark theme adjustments for toggle components
+  - Focus states and responsive adjustments for toggle elements
+
+- **Benefits**:
+  - **Cleaner Interface**: Eliminates manual toggle switch for streamlined user experience
+  - **Content-Driven**: TOC visibility controlled by content creators through frontmatter
+  - **Automatic Layout**: Responsive layout adjusts automatically based on metadata
+  - **Maintainable**: Simpler codebase without toggle state management
+  - **Consistent**: Behavior determined by content metadata rather than user preferences
+
 ### 2025-05-31 (TOC Layout Architecture Restructure - Edge-to-Edge Title with Proper Content Margins)
 - Completely restructured the sandbox-toc.vue layout architecture to implement the proper spacing pattern where the PageTitleSection extends edge-to-edge across the full viewport while content and TOC are positioned within a proper container system with appropriate margins.
 - Files modified/created:
