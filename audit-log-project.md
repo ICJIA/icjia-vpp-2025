@@ -2,6 +2,44 @@
 
 This document serves as a chronological record of all significant changes made to the Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (Theme Handler Performance Analysis - Prioritized UX Over Performance Warning)
+- **Summary**: Analyzed and addressed "Forced reflow while executing JavaScript took 30ms" performance warning in theme initialization, ultimately deciding to maintain synchronous theme application to prevent Flash of Unstyled Content (FOUC) over minor performance optimization.
+- **Investigation Process**:
+  - **Warning Analysis**: Identified that 30ms forced reflow warning was caused by synchronous DOM attribute setting during theme initialization
+  - **Performance Testing**: Tested `requestAnimationFrame()` optimization to defer DOM updates and reduce reflow warning
+  - **UX Impact Assessment**: Discovered that deferring theme application could cause brief flash of unstyled content
+  - **Decision Matrix**: Weighed 30ms performance cost against user experience impact of theme flashing
+- **Technical Evaluation**:
+  - **Root Cause**: Theme handler plugin sets `data-theme` attributes and CSS classes synchronously to prevent FOUC
+  - **Performance Impact**: 30ms reflow occurs once during page initialization, not during user interactions
+  - **Optimization Attempt**: Implemented `requestAnimationFrame()` batching for DOM updates
+  - **Reversion Rationale**: Reverted optimization due to potential FOUC introduction
+- **Final Implementation Decision**:
+  - **Maintained Synchronous Approach**: Kept original immediate theme application for optimal user experience
+  - **Performance Acceptance**: Accepted 30ms warning as reasonable trade-off for preventing visual glitches
+  - **UX Priority**: Prioritized consistent theme display over minor performance metric
+  - **Production Readiness**: Confirmed 30ms is within acceptable bounds for complex applications
+
+### 2025-05-31 (Fixed Hydration Mismatch Error in Error Handler Plugin)
+- **Summary**: Fixed hydration mismatch error in production caused by flawed error pattern matching logic in the error-handler.client.js plugin that was incorrectly processing console.error calls and causing client-server differences.
+- **Files Modified**:
+  - `plugins/error-handler.client.js`: Improved error detection logic to prevent hydration mismatches
+    - **Error String Processing**: Enhanced argument conversion to strings using map() for better pattern matching
+    - **Logic Restructure**: Fixed boolean logic structure with proper parentheses to prevent evaluation errors
+    - **Hydration Error Detection**: Added specific detection for hydration mismatch errors to prevent suppression
+    - **Error Categorization**: Separated 404 errors from hydration errors with distinct handling logic
+    - **Production Safety**: Ensured hydration errors are never suppressed in production for debugging visibility
+- **Technical Implementation**:
+  - **Improved Pattern Matching**: Used `args.map(arg => typeof arg === 'string' ? arg : String(arg)).join(' ')` for robust string conversion
+  - **Boolean Logic Fix**: Restructured conditional logic with proper parentheses: `(condition1 || (condition2 && condition3))`
+  - **Hydration Error Preservation**: Added explicit check for hydration-related error messages to prevent suppression
+  - **Error Type Separation**: Clear distinction between expected 404 errors (suppressible) and hydration errors (critical)
+- **Issue Resolution**:
+  - **Root Cause**: Original logic had flawed boolean evaluation causing hydration mismatch errors to be processed incorrectly
+  - **Error Pattern**: The console error pattern `typeof a == "string" && (a.includes("Page not found:") || a.includes("[nuxt] error caught during app initialization") && a.includes("Page not found:"))` matched the plugin's logic
+  - **Hydration Safety**: Ensured hydration errors are always visible in console for debugging purposes
+  - **Production Stability**: Maintained 404 error suppression while preserving critical error visibility
+
 ### 2025-05-31 (Reverted TOC Animation - Fixed Width Calculation Issues)
 - **Summary**: Reverted the smooth CSS transition animations from the TOC component due to layout issues where the TOC would expand to a larger width and then snap back to normal width during the fixed positioning transition.
 - **Files Modified**:

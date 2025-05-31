@@ -15,23 +15,34 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Override console.error to filter out expected 404 errors
   console.error = (...args) => {
-    // Check if this is a "Page not found" error
-    const errorString = args.join(' ');
-    const is404Error =
-      (typeof errorString === 'string' &&
-       (errorString.includes('Page not found:') ||
-        errorString.includes('[nuxt] error caught during app initialization') &&
-        errorString.includes('Page not found:')));
+    // Convert all arguments to strings for pattern matching
+    const errorString = args.map(arg =>
+      typeof arg === 'string' ? arg : String(arg)
+    ).join(' ');
 
-    // In production, suppress 404 errors from the console
-    // They're expected when users navigate to non-existent pages
-    if (process.env.NODE_ENV === 'production' && is404Error) {
+    // Check if this is a "Page not found" error with improved logic
+    const is404Error = typeof errorString === 'string' && (
+      errorString.includes('Page not found:') ||
+      (errorString.includes('[nuxt] error caught during app initialization') &&
+       errorString.includes('Page not found:'))
+    );
+
+    // Check if this is a hydration mismatch error (should not be suppressed)
+    const isHydrationError = typeof errorString === 'string' && (
+      errorString.includes('Hydration completed but contains mismatches') ||
+      errorString.includes('hydration mismatch') ||
+      errorString.includes('hydration error')
+    );
+
+    // In production, suppress only 404 errors from the console
+    // Never suppress hydration errors as they indicate real issues
+    if (process.env.NODE_ENV === 'production' && is404Error && !isHydrationError) {
       // Optionally, we could log a more friendly message here
       // console.info('User navigated to a non-existent page, showing 404 page');
       return;
     }
 
-    // For all other errors, or in development mode, use the original console.error
+    // For all other errors, hydration errors, or in development mode, use the original console.error
     originalConsoleError.apply(console, args);
   };
 
