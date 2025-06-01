@@ -2,6 +2,25 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-05-31 (Fixed Image Loading Error in News Content)
+- **Summary**: Fixed image loading error in community violence prevention grant news article by replacing broken Unsplash image URLs with working Pexels image URLs to ensure all images display properly.
+- **Files Modified**:
+  - `content/news/community-violence-prevention-grant-2024.md`: Replaced three broken Unsplash image URLs with working Pexels alternatives
+    - **First Image (line 11)**: Changed from `https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=200&h=200&fit=crop&crop=center` to `https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop`
+    - **Second Image (line 40)**: Changed from `https://images.unsplash.com/photo-1552664730-d307ca884978?w=190&h=190&fit=crop&crop=center` to `https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=190&h=190&fit=crop`
+    - **Third Image (line 69)**: Changed from `https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=210&h=210&fit=crop&crop=center` to `https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=210&h=210&fit=crop`
+- **Technical Implementation**:
+  - **Image Source Migration**: Replaced failing Unsplash URLs with reliable Pexels URLs that use consistent parameter format
+  - **URL Parameter Consistency**: Used Pexels format `?auto=compress&cs=tinysrgb&w=X&h=Y&fit=crop` for optimal image delivery
+  - **Alt Text Preservation**: Maintained all existing alt text descriptions for accessibility compliance
+  - **Dimension Preservation**: Kept original width and height specifications for layout consistency
+  - **Caption Preservation**: Maintained all existing image captions and alignment settings
+- **Issue Resolution**:
+  - **Root Cause**: Unsplash image URLs were returning loading errors, causing "Image failed to load" messages
+  - **Solution Strategy**: Replaced with Pexels URLs that are already successfully used in other news articles
+  - **Quality Assurance**: Selected Pexels images with similar themes and appropriate dimensions
+  - **Consistency**: Used same Pexels domain and parameter format as other working images in the project
+
 ### 2025-05-31 (Theme Handler Performance Analysis - Prioritized UX Over Performance Warning)
 - **Summary**: Analyzed and addressed "Forced reflow while executing JavaScript took 30ms" performance warning in theme initialization, ultimately deciding to maintain synchronous theme application to prevent Flash of Unstyled Content (FOUC) over minor performance optimization.
 - **Investigation Process**:
