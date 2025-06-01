@@ -29,7 +29,7 @@ Individuals, families, and communities can find acceptance and develop resilienc
 - Youth development programs focused on positive relationships
 
 
-## Advance Equity
+## Advance Equity {#advance-equity}
 
 Violence prevention programming addresses inequities by partnering with individuals, families and communities who experience a disproportionate amount of risk factors. State agencies address historical inequities by embedding communities' true voice in decision-making processes.
 
@@ -47,7 +47,7 @@ Violence prevention programming addresses inequities by partnering with individu
 
 **Related Strategic Priority**: [Strategic Priority #2: Advance Equity](/strategic-priorities#advance-equity)
 
-## Promote Safety
+## Promote Safety {#promote-safety}
 
 The ability to live without fear of harm is a fundamental human right and developmentally essential to individual, familial and community success. Violence prevention programming strives to develop culturally responsive, safe, and peaceful environments.
 
@@ -66,7 +66,7 @@ The ability to live without fear of harm is a fundamental human right and develo
 **Related Strategic Priority**: [Strategic Priority #1: Prevent Violence & Promote Safety](/strategic-priorities#prevent-violence-promote-safety)
 
 
-## Support Health
+## Support Health {#support-health}
 
 Violence prevention programming builds and sustains mentally and physically strong individuals, families, and communities. These trauma-informed practices include policies and efforts that support staff in local organizations.
 
@@ -84,7 +84,7 @@ Violence prevention programming builds and sustains mentally and physically stro
 
 **Related Strategic Priority**: [Strategic Priority #1: Prevent Violence & Promote Safety](/strategic-priorities#prevent-violence-promote-safety)
 
-## Engage State Agencies in Collaboration
+## Engage State Agencies in Collaboration {#engage-state-agencies-in-collaboration}
 
 Violence prevention programming takes place across many state agencies and focuses on similar outcomes. We work more effectively by communicating across agencies quarterly, sharing resources, best practices and data as the norm.
 

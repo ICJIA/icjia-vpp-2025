@@ -1,6 +1,6 @@
 /**
  * Router options for Nuxt 3
- * 
+ *
  * This file configures the router behavior for the application,
  * specifically setting the scroll behavior to always scroll to the top
  * on route changes and page refresh.

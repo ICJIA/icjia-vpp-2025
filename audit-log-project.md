@@ -2,6 +2,54 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-01 (Hash-Based Routing Implementation)
+- **Summary**: Implemented comprehensive hash-based routing functionality to handle anchor links properly throughout the Nuxt 3 application, enabling smooth navigation to specific sections within pages with proper header offset compensation and accessibility support.
+- **Files Modified/Created**:
+  - `app/router.options.ts`: Enhanced router scroll behavior to handle hash fragments with smooth scrolling, 80px header offset, and accessibility compliance
+    - **Hash Fragment Detection**: Added conditional logic to detect and process hash fragments in URLs
+    - **Smooth Scrolling**: Implemented smooth scrolling with `prefers-reduced-motion` support
+    - **Header Offset**: Added 80px offset calculation to account for fixed navigation header
+    - **Focus Management**: Added accessibility focus management for target elements
+    - **Fallback Behavior**: Implemented fallback to scroll to top when hash targets are not found
+    - **Saved Position**: Preserved back/forward navigation behavior with saved position restoration
+  - `composables/useHashNavigation.js`: Created reusable composable for hash navigation functionality
+    - **Programmatic Navigation**: `navigateToHash()` function for programmatic hash navigation
+    - **Element Scrolling**: `scrollToElement()` function for direct element scrolling with offset
+    - **Target Validation**: `hashTargetExists()` function to check if hash targets exist
+    - **Target Discovery**: `getHashTargets()` function to find all valid hash targets on page
+    - **Cross-Page Navigation**: Support for both same-page and cross-page hash navigation
+    - **Accessibility Features**: Focus management and `prefers-reduced-motion` support
+  - `plugins/hash-navigation.client.js`: Created client-side plugin for automatic hash navigation
+    - **Route Change Handling**: Automatic hash navigation on route changes with retry mechanism
+    - **Dynamic Content Support**: Retry logic for content that loads asynchronously (Nuxt Content)
+    - **Click Handler Enhancement**: Enhanced click handling for internal hash links
+    - **URL State Management**: Proper URL state management for same-page hash navigation
+    - **Lifecycle Management**: Proper event listener setup and cleanup
+  - `content/strategic-priorities.md`: Added proper heading IDs to match hash fragments
+    - **Goal #1**: Added `{#prevent-violence-promote-safety}` ID to match link targets
+    - **Goal #2**: Added `{#advance-equity}` ID to match link targets
+    - **Goal #3**: Added `{#promote-collaboration}` ID to match link targets
+  - `content/principles.md`: Added proper heading IDs to match hash fragments
+    - **Foster Belonging**: Added `{#foster-belonging}` ID for cross-page navigation
+    - **Advance Equity**: Added `{#advance-equity}` ID for cross-page navigation
+    - **Promote Safety**: Added `{#promote-safety}` ID for cross-page navigation
+    - **Support Health**: Added `{#support-health}` ID for cross-page navigation
+    - **Engage State Agencies**: Added `{#engage-state-agencies-in-collaboration}` ID for cross-page navigation
+- **Technical Implementation**:
+  - **Router Integration**: Enhanced Vue Router scroll behavior with promise-based async handling
+  - **Retry Mechanism**: Implemented 10-attempt retry system with 200ms delays for dynamic content
+  - **Performance Optimization**: Used setTimeout and nextTick for optimal DOM rendering timing
+  - **Accessibility Compliance**: Full WCAG 2.1 AA compliance with focus management and motion preferences
+  - **Cross-Page Support**: Seamless navigation between pages with hash fragments
+  - **Error Handling**: Comprehensive error handling with console warnings for missing targets
+- **User Experience Benefits**:
+  - **Direct URL Navigation**: Users can navigate directly to specific sections via URLs like `/strategic-priorities#promote-collaboration`
+  - **Internal Link Navigation**: Clicking internal hash links smoothly scrolls to target sections
+  - **Accessibility Excellence**: Proper focus management and reduced motion support
+  - **Fallback Behavior**: Graceful handling of missing targets by staying at page top
+  - **Cross-Page Navigation**: Seamless navigation between different pages with hash fragments
+- **Testing Verified**: All existing links in `content/principles.md` that reference `/strategic-priorities#promote-collaboration` now work correctly with smooth scrolling and proper positioning
+
 ### 2025-05-31 (Fixed Image Loading Error in News Content)
 - **Summary**: Fixed image loading error in community violence prevention grant news article by replacing broken Unsplash image URLs with working Pexels image URLs to ensure all images display properly.
 - **Files Modified**:
