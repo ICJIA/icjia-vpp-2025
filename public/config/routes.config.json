@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-01T14:48:50.518Z",
+  "generatedAt": "2025-06-02T11:28:57.096Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 18,
-    "contentPages": 15,
+    "totalPages": 17,
+    "contentPages": 14,
     "vuePages": 4,
     "combinedPages": 1,
     "blacklistedFiles": 5
@@ -200,15 +200,15 @@
       ]
     },
     {
-      "title": "Guiding Principles",
-      "path": "/principles",
-      "fullUrl": "https://vpp-2025.netlify.app/principles",
+      "title": "Planning Process",
+      "path": "/planning-process",
+      "fullUrl": "https://vpp-2025.netlify.app/planning-process",
       "type": "content",
       "sources": [
         {
           "type": "content",
-          "source": "content/principles.md",
-          "title": "Guiding Principles"
+          "source": "content/planning-process.md",
+          "title": "Planning Process"
         }
       ]
     },
@@ -237,28 +237,15 @@
           "title": "Strategic Priorities"
         }
       ]
-    },
-    {
-      "title": "Hash Navigation Test Page",
-      "path": "/test-hash-navigation",
-      "fullUrl": "https://vpp-2025.netlify.app/test-hash-navigation",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/test-hash-navigation.md",
-          "title": "Hash Navigation Test Page"
-        }
-      ]
     }
   ],
   "stats": {
-    "totalPages": 18,
-    "contentPages": 15,
+    "totalPages": 17,
+    "contentPages": 14,
     "vuePages": 4,
     "combinedPages": 1,
     "blacklistedFiles": 5,
     "menuIntegratedPages": 7,
-    "orphanedPages": 11
+    "orphanedPages": 10
   }
 }
