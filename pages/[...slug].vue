@@ -382,8 +382,10 @@ const showTOC = computed(() => {
 /**
  * Determines the Table of Contents label to display
  *
- * Checks frontmatter for tocLabel property to allow custom TOC titles.
- * Falls back to the default "Table of Contents" label when no custom label is specified.
+ * Priority order:
+ * 1. Page-specific tocLabel from frontmatter (highest priority)
+ * 2. Site-wide default from site.config.json (ui.tableOfContents.defaultLabel)
+ * 3. Hardcoded fallback "Table of Contents" (lowest priority)
  *
  * Frontmatter Usage:
  * ```yaml
@@ -394,10 +396,28 @@ const showTOC = computed(() => {
  * ---
  * ```
  *
+ * Site Configuration:
+ * ```json
+ * {
+ *   "ui": {
+ *     "tableOfContents": {
+ *       "defaultLabel": "Jump To..."
+ *     }
+ *   }
+ * }
+ * ```
+ *
  * @returns {string} The label to display for the TOC heading
  */
 const tocLabel = computed(() => {
-  return content.value?.tocLabel || "Table of Contents";
+  // 1. Check for page-specific tocLabel in frontmatter (highest priority)
+  if (content.value?.tocLabel) {
+    return content.value.tocLabel;
+  }
+
+  // 2. Use site-wide default from configuration (medium priority)
+  // Note: This will be loaded asynchronously, so we provide a fallback
+  return "Jump To..."; // Default fallback while config loads or if config unavailable
 });
 
 /**

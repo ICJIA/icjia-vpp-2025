@@ -6,6 +6,7 @@ ogDescription: "Planning Process."
 ogImage: "/images/og-image-planning.jpg"
 twitterCard: "summary_large_image"
 showTOC: true
+
 ---
 
 In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback. The goals and recommendations in this plan are a result of this collaborative effort.

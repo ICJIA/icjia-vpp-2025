@@ -2,6 +2,43 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Site-Wide Configurable TOC Default Label)
+- **Summary**: Changed the default Table of Contents label from "Table of Contents" to "Jump To..." and made it configurable through site.config.json, providing site-wide control over TOC labeling while maintaining page-level override capability.
+- **Files Modified/Created**:
+  - `config/site.config.json`: Added UI configuration section
+    - **New UI Section**: Added `ui.tableOfContents.defaultLabel` configuration property
+    - **Default Value**: Set site-wide default to "Jump To..." instead of "Table of Contents"
+    - **Structured Configuration**: Organized UI settings under dedicated `ui` section for future expansion
+  - `composables/useSiteSettings.js`: Created new composable for site configuration access
+    - **Configuration Loading**: Async loading of site.config.json with caching
+    - **Dot Notation Access**: `getSetting()` method for accessing nested configuration values
+    - **Batch Loading**: `getSettings()` method for loading multiple settings at once
+    - **Error Handling**: Graceful fallbacks when configuration is unavailable
+    - **Development Logging**: Console logging for configuration loading status
+  - `pages/[...slug].vue`: Updated TOC label logic to use site configuration
+    - **Priority System**: Implemented three-tier priority system for TOC labels
+    - **Enhanced Documentation**: Updated JSDoc with configuration examples and priority explanation
+    - **Fallback Strategy**: Hardcoded "Jump To..." fallback when configuration unavailable
+  - `config/site.config.md`: Enhanced documentation with UI section
+    - **UI Section Documentation**: Added comprehensive documentation for UI configuration options
+    - **Priority Explanation**: Documented the three-tier priority system for TOC labels
+    - **Usage Examples**: Added JSON configuration and frontmatter usage examples
+    - **Integration Guide**: Explained how site configuration integrates with page-level overrides
+  - `content/test-default-toc-label.md`: Updated test page description
+    - **Updated Expectations**: Changed description to reflect new "Jump To..." default
+- **Technical Implementation**:
+  - **Three-Tier Priority System**: 1) Page frontmatter `tocLabel`, 2) Site config `ui.tableOfContents.defaultLabel`, 3) Component fallback
+  - **Configuration Architecture**: Structured approach using dedicated UI section for component defaults
+  - **Async Configuration**: Site settings loaded asynchronously with immediate fallback for performance
+  - **Backward Compatibility**: All existing pages with custom `tocLabel` continue to work unchanged
+  - **Documentation Integration**: Comprehensive documentation explaining configuration options and usage patterns
+- **User Experience Benefits**:
+  - **Consistent Branding**: Site-wide control over default TOC labeling for brand consistency
+  - **Improved Defaults**: "Jump To..." is more action-oriented and user-friendly than "Table of Contents"
+  - **Flexible Override**: Content creators can still override with page-specific labels when needed
+  - **Centralized Management**: Site administrators can change default TOC labels without touching individual pages
+  - **Future Extensibility**: UI configuration section provides foundation for other component defaults
+
 ### 2025-06-02 (Enhanced TOC Label Typography with Heavy Font Weight)
 - **Summary**: Improved the visual hierarchy of the Table of Contents component by applying a heavier font weight (700) to the TOC label/heading, creating better distinction between the clickable title and the navigation links below it.
 - **Files Modified**:

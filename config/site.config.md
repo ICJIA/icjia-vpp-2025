@@ -138,6 +138,38 @@ Controls site functionality and features:
 | `accessibility.auditLog` | String | Accessibility audit log path |
 | `accessibility.documentation` | String | Accessibility documentation path |
 
+### UI Section
+Controls user interface defaults and component behavior:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `tableOfContents.defaultLabel` | String | Default label for Table of Contents components when no page-specific `tocLabel` is provided in frontmatter |
+
+**Table of Contents Label Priority:**
+1. Page-specific `tocLabel` in frontmatter (highest priority)
+2. Site-wide `ui.tableOfContents.defaultLabel` from configuration
+3. Component fallback (lowest priority)
+
+**Example Configuration:**
+```json
+{
+  "ui": {
+    "tableOfContents": {
+      "defaultLabel": "Jump To..."
+    }
+  }
+}
+```
+
+**Usage in Frontmatter:**
+```yaml
+---
+title: "Page Title"
+showTOC: true
+tocLabel: "Custom Label"  # Overrides site default
+---
+```
+
 ### Routing Section
 Configuration for routing and page discovery:
 
