@@ -72,6 +72,54 @@
   "ui": {
     "tableOfContents": {
       "defaultLabel": "Jump To..."
+    },
+    "navigation": {
+      "moreMenu": {
+        "enabled": true,
+        "desktopIcon": "mdi-dots-vertical",
+        "mobileText": "More",
+        "ariaLabel": "More options menu",
+        "tooltip": "More options",
+        "items": {
+          "contact": {
+            "enabled": true,
+            "text": "Contact",
+            "to": "/contact",
+            "icon": "mdi-email-outline",
+            "ariaLabel": "Contact us",
+            "tooltip": "Contact us"
+          },
+          "search": {
+            "enabled": true,
+            "text": "Search",
+            "to": "/search",
+            "icon": "mdi-magnify",
+            "ariaLabel": "Search",
+            "tooltip": "Search"
+          },
+          "translate": {
+            "enabled": false,
+            "text": "Translate",
+            "href": "#",
+            "icon": "mdi-translate",
+            "ariaLabel": "Translate page",
+            "tooltip": "Translate page",
+            "isExternal": false
+          }
+        },
+        "accessibility": {
+          "announceMenuState": true,
+          "keyboardNavigation": true,
+          "focusManagement": true,
+          "contrastRatio": "8:1"
+        },
+        "behavior": {
+          "closeOnClickOutside": true,
+          "closeOnEscape": true,
+          "openOnHover": false,
+          "transitionDuration": "250ms"
+        }
+      }
     }
   },
   "routing": {

@@ -2,6 +2,216 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Download Button Text Enhancement)
+- **Summary**: Enhanced the Download navigation button to display "Download the PDF" text instead of just "Download", improving user clarity about the downloadable content while maintaining the familiar download arrow icon.
+- **Files Modified**:
+  - `config/menu.config.json`: Updated Download button text
+    - **Text Change**: Changed button text from "Download" to "Download the PDF" for better clarity
+    - **Icon Preservation**: Kept `externalIcon` as `"mdi-download"` (download arrow) for familiar visual recognition
+    - **Accessibility Preservation**: Maintained existing `ariaLabel` and `tooltip` text for consistent accessibility
+    - **Configuration Consistency**: All other button properties (styling, behavior, tooltip functionality) remain unchanged
+- **User Experience Benefits**:
+  - **Clear Communication**: Users immediately understand they're downloading a PDF document
+  - **Familiar Icon**: Download arrow icon provides familiar and universally recognized download indication
+  - **Descriptive Text**: "Download the PDF" is more informative than generic "Download"
+  - **Consistent Branding**: Aligns with document-focused nature of the violence prevention plan
+- **Technical Implementation**:
+  - **Icon Consistency**: Uses familiar Material Design Icons `mdi-download` for universal download recognition
+  - **Text Update**: Updated button text while preserving all existing functionality
+  - **Backward Compatibility**: All existing tooltip, accessibility, and navigation functionality preserved
+  - **Mobile Consistency**: Changes apply to both desktop and mobile navigation implementations
+
+### 2025-06-02 (Mobile-Responsive Tooltip System Implementation)
+- **Summary**: Enhanced the navigation tooltip system to be mobile-responsive, ensuring tooltips are completely disabled on mobile devices while maintaining full functionality on desktop, providing optimal user experience across all device types.
+- **Files Modified**:
+  - `components/content/AppHeader.vue`: Added mobile detection and responsive tooltip behavior
+    - **Mobile Detection**: Imported and implemented Vuetify's `useDisplay` composable for responsive breakpoint detection
+    - **Responsive Logic**: Added `tooltipsEnabled` computed property that disables tooltips on mobile (`!mobile.value`)
+    - **Template Conditions**: Updated all tooltip conditions to check `tooltipsEnabled` before rendering tooltips
+    - **Event Handler Guards**: Added mobile checks to all tooltip event handlers to prevent execution on mobile
+    - **Fallback Elements**: Added mobile-specific fallback elements for icon-only dropdowns without tooltips
+    - **State Management**: Tooltip state initialization and cleanup respect mobile detection
+- **Technical Implementation**:
+  - **Vuetify Integration**: Uses `useDisplay` composable for reliable mobile detection based on Vuetify breakpoints
+  - **Conditional Rendering**: Five-tier template structure with mobile-aware tooltip conditions
+  - **Event Handler Protection**: All tooltip event handlers check `tooltipsEnabled.value` before executing
+  - **Performance Optimization**: Tooltip timers and state management only active on desktop
+  - **Responsive Architecture**: Clean separation between desktop tooltip behavior and mobile navigation
+- **Mobile Behavior**:
+  - **No Tooltips**: Tooltips completely disabled on mobile devices (phones and small tablets)
+  - **Direct Navigation**: All navigation elements work directly without tooltip interference
+  - **Touch Optimization**: Navigation optimized for touch interaction without hover states
+  - **Performance**: No tooltip-related JavaScript execution on mobile devices
+- **Desktop Behavior**:
+  - **Full Tooltip Functionality**: All tooltip features remain active on desktop and large tablets
+  - **Hover Interactions**: Mouse hover shows tooltips with 2-second auto-dismiss
+  - **Click Behavior**: Click hides tooltips and performs navigation actions
+  - **Keyboard Support**: Full keyboard navigation with tooltip support maintained
+- **User Experience Results**:
+  - **Mobile**: Clean, direct navigation without tooltip interference or accidental triggers
+  - **Desktop**: Enhanced navigation with contextual tooltips for improved discoverability
+  - **Responsive**: Seamless experience across all device types with appropriate interaction patterns
+  - **Performance**: Optimal performance on mobile with no unnecessary tooltip processing
+
+### 2025-06-02 (Complete Navigation Tooltip System Implementation)
+- **Summary**: Added accessible tooltips to News and Download navigation buttons, completing the comprehensive tooltip system across all navigation elements with consistent 2-second auto-dismiss, click dismissal, and mouse-leave dismissal behavior.
+- **Files Modified**:
+  - `config/menu.config.json`: Enabled tooltips for News and Download buttons
+    - **News Button**: Added `"enableTooltip": true` and updated tooltip text to "Latest News and Updates"
+    - **Download Button**: Added `"enableTooltip": true` and updated tooltip text to "Download the PDF of the plan"
+    - **Consistent Configuration**: Maintains same tooltip location and behavior settings as other navigation items
+  - `components/content/AppHeader.vue`: Extended tooltip system to support all navigation link types
+    - **Regular Internal Links**: Added conditional tooltip wrapper for Vue Router links with `enableTooltip: true`
+    - **External Links**: Added conditional tooltip wrapper for external links (like Download) with `enableTooltip: true`
+    - **Event Handler Addition**: Added `handleTooltipClick` function for regular navigation link tooltips
+    - **Template Enhancement**: Four-tier conditional rendering (internal with tooltip, internal without, external with tooltip, external without)
+    - **State Management**: Extended tooltip state initialization to include all navigation link types
+    - **Positioning Fix**: Used wrapper div approach to prevent tooltip interference with link functionality
+- **Technical Implementation**:
+  - **Universal Tooltip Support**: All navigation element types now support optional tooltip functionality
+  - **Consistent Event Handling**: Same tooltip behavior patterns (mouseenter, mouseleave, click) across all element types
+  - **Wrapper Architecture**: Position-relative wrapper divs with activator="parent" for proper tooltip positioning
+  - **State Consistency**: Unified tooltip state management across dropdowns, icon-only items, and regular links
+  - **Accessibility Preservation**: All existing navigation functionality and accessibility features maintained
+- **User Experience Results**:
+  - **News Button**: Hover shows "Latest News and Updates" tooltip for 2 seconds, then auto-dismisses
+  - **Download Button**: Hover shows "Download the PDF of the plan" tooltip for 2 seconds, then auto-dismisses
+  - **Consistent Behavior**: All navigation elements now have identical tooltip functionality when enabled
+  - **Enhanced Discoverability**: Users can hover over any navigation element to see contextual information
+  - **Unified Interface**: Complete tooltip system across all navigation types (dropdowns, links, buttons)
+
+### 2025-06-02 (Plan Year Update and Extended Tooltip System)
+- **Summary**: Updated the plan year from "2025-2029" to "2024-2029" and extended the accessible tooltip system to support regular dropdown menu items, adding tooltip functionality to "The 2024-2029 Plan" dropdown with the same 2-second auto-dismiss, click dismissal, and mouse-leave dismissal behavior.
+- **Files Modified**:
+  - `config/menu.config.json`: Updated plan year and enabled tooltip for main dropdown
+    - **Year Change**: Changed "The 2025-2029 Plan" to "The 2024-2029 Plan" throughout navigation
+    - **Tooltip Enablement**: Added `"enableTooltip": true` property to "The 2024-2029 Plan" dropdown menu item
+    - **Consistent Configuration**: Maintains existing tooltip text and location settings
+  - `components/content/AppHeader.vue`: Extended tooltip system for regular dropdown items
+    - **Template Enhancement**: Added conditional tooltip wrapper for dropdown items with `enableTooltip: true`
+    - **Event Handler Addition**: Added `handleRegularDropdownClick` and `handleRegularDropdownFocus` functions
+    - **State Management**: Extended tooltip state initialization to include items with `enableTooltip` property
+    - **Interaction Behavior**: Hover shows tooltip, click hides tooltip and opens dropdown (same as More menu)
+    - **Accessibility Preservation**: All existing keyboard navigation and screen reader support maintained
+- **Technical Implementation**:
+  - **Conditional Tooltip Rendering**: Three-tier template structure (icon-only with tooltip, regular with tooltip, regular without tooltip)
+  - **Unified Event Handling**: Same tooltip behavior patterns applied to both icon-only and regular dropdown items
+  - **State Consistency**: Tooltip states managed consistently across all menu item types
+  - **Props Merging**: Proper combination of menu props and tooltip props for all dropdown types
+- **User Experience Benefits**:
+  - **Consistent Behavior**: Both "The 2024-2029 Plan" and "More" menus now have identical tooltip functionality
+  - **Enhanced Discoverability**: Users can hover over dropdown activators to see contextual information
+  - **Year Accuracy**: Updated plan year reflects correct timeframe (2024-2029)
+  - **Unified Interface**: Consistent tooltip behavior across all navigation elements
+
+### 2025-06-02 (Accessible Tooltip Implementation for More Menu)
+- **Summary**: Added an accessible tooltip to the vertical dots "More" menu icon that displays "More" text on hover, with automatic dismissal after 2 seconds, click dismissal, and mouse-leave dismissal to enhance user experience while maintaining full accessibility compliance. Fixed interaction behavior to ensure hover triggers tooltip and click triggers dropdown menu.
+- **Files Modified**:
+  - `components/content/AppHeader.vue`: Enhanced "More" menu with accessible tooltip functionality
+    - **Tooltip Integration**: Added `v-tooltip` component wrapping the icon-only dropdown button for the "More" menu
+    - **Conditional Rendering**: Tooltip only applies to icon-only dropdown items (like the "More" menu), regular text dropdowns remain unchanged
+    - **Accessibility Features**: Tooltip disabled when dropdown is open to prevent conflicting UI states
+    - **State Management**: Added `tooltipStates` and `tooltipTimers` reactive references for tooltip visibility and auto-dismiss timers
+    - **Event Handlers**: Added `handleTooltipMouseEnter`, `handleTooltipMouseLeave`, and `handleTooltipClick` functions
+    - **Auto-Dismiss Timer**: 2-second timeout automatically hides tooltip after display
+    - **Immediate Dismissal**: Mouse leave and click events immediately hide tooltip and clear timers
+    - **Outside Click Handling**: Enhanced `handleOutsideClick` to close tooltips when clicking outside
+    - **Lifecycle Management**: Proper initialization and cleanup of tooltip states and timers
+    - **Interaction Behavior Fix**: Separated hover and click behaviors for optimal user experience
+      - **Hover Behavior**: Mouse hover shows tooltip with "More" text for 2 seconds
+      - **Click Behavior**: Mouse click hides tooltip and opens dropdown menu
+      - **Focus Behavior**: Keyboard focus hides tooltip and opens dropdown menu
+      - **Menu Configuration**: Disabled `open-on-hover` for icon-only dropdowns to prevent conflicts
+      - **Event Handlers**: Added `handleIconOnlyDropdownClick` and `handleIconOnlyDropdownFocus` for proper interaction
+- **Technical Implementation**:
+  - **Vuetify Tooltip**: Uses `v-tooltip` component with proper accessibility attributes and ARIA support
+  - **Timer Management**: JavaScript `setTimeout` with proper cleanup to prevent memory leaks
+  - **Event Binding**: Multiple event handlers for comprehensive tooltip control (mouseenter, mouseleave, click)
+  - **State Isolation**: Tooltip state managed separately from dropdown state to prevent conflicts
+  - **Props Merging**: Combines menu props and tooltip props using spread operator for proper event handling
+  - **Conditional Display**: Tooltip disabled when dropdown menu is open to avoid UI confusion
+- **Accessibility Features**:
+  - **WCAG 2.1 AA Compliance**: Tooltip provides additional context without interfering with keyboard navigation
+  - **Screen Reader Support**: Tooltip text supplements existing ARIA labels for enhanced accessibility
+  - **Keyboard Accessibility**: Tooltip doesn't interfere with existing keyboard navigation patterns
+  - **Focus Management**: Tooltip state doesn't affect focus behavior or dropdown functionality
+  - **Auto-Dismiss**: 2-second auto-dismiss prevents tooltip from staying on screen indefinitely
+  - **User Control**: Multiple dismissal methods (click, mouse leave, outside click) give users control
+- **User Experience Benefits**:
+  - **Enhanced Discoverability**: Users can quickly understand what the vertical dots icon does
+  - **Non-Intrusive**: Tooltip appears on hover but doesn't interfere with normal navigation
+  - **Responsive Feedback**: Immediate dismissal on interaction provides responsive user experience
+  - **Consistent Behavior**: Tooltip behavior aligns with modern UI patterns and user expectations
+  - **Accessibility Excellence**: Provides additional context for users while maintaining full accessibility
+
+### 2025-06-02 (More Menu Icon Update - Vertical Dots Implementation)
+- **Summary**: Updated the consolidated "More" menu system to use three vertical dots (⋮) instead of horizontal dots (⋯) for the desktop navigation icon, improving visual consistency and user recognition while maintaining all existing functionality and accessibility features.
+- **Files Modified**:
+  - `config/site.config.json`: Updated desktop icon configuration
+    - **Icon Change**: Changed `ui.navigation.moreMenu.desktopIcon` from `"mdi-dots-horizontal"` to `"mdi-dots-vertical"`
+    - **Desktop Display**: Desktop navbar now shows three vertical dots (⋮) for the "More" menu activator
+    - **Mobile Unchanged**: Mobile sidebar continues to display "More" text as configured
+    - **Configuration Consistency**: All other "More" menu settings remain unchanged
+- **Technical Implementation**:
+  - **Simple Configuration Update**: Single property change in site configuration file
+  - **Hot Module Reload**: Change applied immediately via Nuxt 3 HMR without server restart
+  - **Icon Compatibility**: Material Design Icons (MDI) `mdi-dots-vertical` provides consistent styling
+  - **Responsive Behavior**: Vertical dots display only on desktop (md and up), mobile continues with text
+- **User Experience Benefits**:
+  - **Improved Recognition**: Vertical dots (⋮) are more commonly associated with "more options" menus
+  - **Visual Consistency**: Aligns with modern UI patterns where vertical dots indicate additional actions
+  - **Maintained Functionality**: All existing hover, click, keyboard navigation, and accessibility features unchanged
+  - **Platform Appropriate**: Desktop uses icon, mobile uses descriptive text for optimal UX
+- **Accessibility Preservation**:
+  - **ARIA Labels**: All existing ARIA labels ("More options menu") remain unchanged
+  - **Keyboard Navigation**: Tab, Enter, Space, Escape, and arrow key functionality preserved
+  - **Screen Reader Support**: No changes to assistive technology compatibility
+  - **Focus Management**: All focus indicators and management behavior unchanged
+  - **Contrast Compliance**: Icon maintains same 8:1 contrast ratios in both themes
+
+### 2025-06-02 (Consolidated "More" Menu System Implementation)
+- **Summary**: Implemented a consolidated "More" menu system to reduce navbar clutter by combining Contact and Search links into a single dropdown menu with three-dot icon on desktop and "More" text on mobile, fully configurable through site.config.json with comprehensive accessibility support.
+- **Files Modified/Created**:
+  - `config/site.config.json`: Added comprehensive "More" menu configuration section
+    - **Navigation Configuration**: Added `ui.navigation.moreMenu` section with enabled/disabled toggles for Contact, Search, and future Translate functionality
+    - **Desktop/Mobile Settings**: Configured `desktopIcon: "mdi-dots-horizontal"` and `mobileText: "More"` for platform-specific display
+    - **Item Configuration**: Individual enable/disable controls for Contact (`/contact`), Search (`/search`), and Translate (disabled by default)
+    - **Accessibility Settings**: Comprehensive accessibility configuration including announcements, keyboard navigation, focus management, and 8:1 contrast ratio compliance
+    - **Behavior Controls**: Configurable menu behavior including click-outside-to-close, escape key support, hover settings, and 250ms transition duration
+  - `config/menu.config.json`: Restructured navigation to implement "More" menu
+    - **Contact Link Removal**: Removed "Contact Us" from "The 2025-2029 Plan" dropdown menu to reduce clutter
+    - **Search Link Replacement**: Replaced standalone Search icon link with new "More" dropdown menu
+    - **More Menu Creation**: Added new menu item with `isMoreMenu: true` flag, three-dot icon, dropdown functionality, and proper order (95)
+    - **Dynamic Children**: Configured empty children array to be populated dynamically from site configuration
+  - `components/content/AppHeader.vue`: Enhanced navigation component with dynamic "More" menu support
+    - **Site Configuration Import**: Added import of `siteConfig` for accessing "More" menu configuration
+    - **Dynamic Children Generation**: Added `moreMenuChildren` computed property to generate menu items from site configuration
+    - **Menu Item Enhancement**: Enhanced `sortedHeaderItems` to inject dynamic children into "More" menu items
+    - **Icon Support**: Added icon display support for dropdown children in both desktop and mobile views
+    - **Mobile Text Handling**: Enhanced mobile navigation to display "More" text for icon-only "More" menu
+    - **CSS Class Integration**: Added conditional CSS classes for "More" menu styling (`more-menu-btn`, `more-menu-dropdown`, `more-menu-item`)
+  - `assets/css/main.scss`: Added comprehensive "More" menu styling system
+    - **Button Styling**: Added `.more-menu-btn` styling with 250ms transitions, hover effects (scale 1.05), and focus-visible outlines
+    - **Dropdown Styling**: Added `.more-menu-dropdown` styling with rounded corners (12px), enhanced shadows, and minimum width (180px)
+    - **Item Styling**: Added hover/focus effects with primary color backgrounds and left border indicators
+    - **Theme Support**: Light theme (white background, black text) and dark theme (dark surface, white text) with 8:1 contrast ratios
+    - **Mobile Styling**: Enhanced mobile navigation styling for "More" menu items with icon opacity transitions
+    - **High Contrast Support**: Enhanced borders (4px), shadows, and font weights for accessibility
+    - **Reduced Motion Support**: Disabled all transitions and transforms for users who prefer reduced motion
+- **Technical Implementation**:
+  - **Configuration-Driven**: All menu items configurable through site.config.json without code changes
+  - **Dynamic Generation**: Menu children generated dynamically from configuration with proper Vue reactivity
+  - **Accessibility Excellence**: Full WCAG 2.1 AA compliance with keyboard navigation, focus management, and screen reader support
+  - **Theme Integration**: Seamless integration with existing light/dark theme system
+  - **Responsive Design**: Platform-specific display (three-dot icon on desktop, "More" text on mobile)
+  - **Future-Proof**: Ready for Translate functionality addition without code modifications
+- **User Experience Benefits**:
+  - **Reduced Navbar Clutter**: Consolidated two separate links into single organized dropdown menu
+  - **Improved Organization**: Logical grouping of secondary navigation items under "More" menu
+  - **Enhanced Accessibility**: Comprehensive keyboard navigation, screen reader support, and high contrast compliance
+  - **Consistent Behavior**: Maintains all existing navigation functionality while improving organization
+  - **Future Extensibility**: Easy addition of new menu items (like Translate) through configuration only
+
 ### 2025-06-02 (Dark Mode Default Theme Implementation)
 - **Summary**: Configured the application's theme system to default to dark mode on initial launch while preserving all existing user preference functionality and theme switching capabilities.
 - **Files Modified**:

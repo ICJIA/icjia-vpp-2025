@@ -635,6 +635,137 @@ h2.main-page-title {
   }
 }
 
+// More Menu Styling
+// Provides enhanced styling for the consolidated "More" menu system
+// Ensures WCAG 2.1 AA compliance with 8:1 contrast ratios
+
+// More menu button styling
+.more-menu-btn {
+  transition: all 250ms ease;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: rgba(var(--v-theme-primary), 0.08) !important;
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--v-theme-primary);
+    outline-offset: 2px;
+  }
+}
+
+// More menu dropdown styling
+.more-menu-dropdown {
+  .v-card {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    min-width: 180px;
+    overflow: hidden;
+  }
+
+  .v-list-item {
+    transition: all 200ms ease;
+    border-left: 3px solid transparent;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(var(--v-theme-primary), 0.08) !important;
+      border-left-color: var(--v-theme-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--v-theme-primary);
+      outline-offset: -2px;
+    }
+  }
+
+  .v-list-item-title {
+    font-weight: 500;
+
+    .v-icon {
+      opacity: 0.8;
+      transition: opacity 200ms ease;
+    }
+
+    &:hover .v-icon {
+      opacity: 1;
+    }
+  }
+}
+
+// Theme-specific more menu styling
+// Light theme
+:root:not([data-theme="dark"]) {
+  .more-menu-dropdown .v-card {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .more-menu-dropdown .v-list-item-title {
+    color: rgba(0, 0, 0, 0.87) !important; // 8:1 contrast ratio
+  }
+}
+
+// Dark theme
+:root[data-theme="dark"] {
+  .more-menu-dropdown .v-card {
+    background-color: #2A3441 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .more-menu-dropdown .v-list-item-title {
+    color: rgba(255, 255, 255, 0.87) !important; // 8:1 contrast ratio
+  }
+}
+
+// Mobile more menu styling
+.mobile-nav-drawer {
+  .more-menu-item {
+    .v-list-item-title {
+      font-weight: 500;
+
+      .v-icon {
+        opacity: 0.8;
+        transition: opacity 200ms ease;
+      }
+    }
+
+    &:hover .v-list-item-title .v-icon {
+      opacity: 1;
+    }
+  }
+}
+
+// High contrast mode support for more menu
+@media (prefers-contrast: high) {
+  .more-menu-dropdown .v-list-item {
+    border-left-width: 4px;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(var(--v-theme-primary), 0.15) !important;
+    }
+  }
+
+  .more-menu-dropdown .v-list-item-title {
+    font-weight: 600 !important;
+  }
+}
+
+// Reduced motion support for more menu
+@media (prefers-reduced-motion: reduce) {
+  .more-menu-btn,
+  .more-menu-dropdown .v-list-item,
+  .more-menu-dropdown .v-list-item-title .v-icon {
+    transition: none !important;
+  }
+
+  .more-menu-btn:hover {
+    transform: none !important;
+  }
+}
+
 // Blockquote Styling for Visual Callouts
 // Creates distinct callout boxes with proper indentation hierarchy
 // and WCAG 2.1 AA compliant contrast ratios (8:1+) in both themes

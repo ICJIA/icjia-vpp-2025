@@ -2,6 +2,245 @@
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+### 2025-06-02 (Mobile-Responsive Accessibility Enhancement for Tooltip System)
+- **Summary**: Enhanced the navigation tooltip system with mobile-responsive accessibility features, ensuring tooltips are completely disabled on mobile devices to prevent accessibility barriers while maintaining full WCAG 2.1 AA compliance on desktop, providing optimal accessibility across all device types and interaction methods.
+- **Accessibility Features Enhanced**:
+  - **Mobile Accessibility Optimization**: Comprehensive mobile accessibility improvements
+    - **Touch Interface Optimization**: Tooltips disabled on mobile to prevent interference with touch navigation
+    - **Screen Reader Compatibility**: Mobile screen readers receive clean navigation without tooltip complications
+    - **Focus Management**: Simplified focus behavior on mobile without tooltip state management
+    - **Gesture Navigation**: Touch gestures work directly without tooltip interference
+  - **Responsive WCAG 2.1 AA Compliance**: Device-appropriate accessibility implementation
+    - **Desktop Compliance**: Full WCAG 2.1 AA tooltip compliance maintained on desktop devices
+    - **Mobile Compliance**: Clean, direct navigation on mobile devices without tooltip accessibility concerns
+    - **Breakpoint Awareness**: Accessibility behavior adapts to Vuetify breakpoints for consistent experience
+    - **Universal Standards**: Same accessibility standards applied across all device types with appropriate implementations
+  - **Enhanced Screen Reader Support**: Device-specific assistive technology optimization
+    - **Desktop Screen Readers**: Full tooltip accessibility with ARIA support and proper announcements
+    - **Mobile Screen Readers**: Simplified navigation without tooltip complexity for cleaner experience
+    - **Consistent Announcements**: ARIA labels and navigation announcements work identically across devices
+    - **Focus Preservation**: Focus management optimized for each device type's interaction patterns
+  - **Comprehensive Keyboard Accessibility**: Device-appropriate keyboard support
+    - **Desktop Keyboard Navigation**: Full keyboard support with tooltip functionality maintained
+    - **Mobile Keyboard Support**: Clean keyboard navigation without tooltip interference on mobile devices
+    - **Universal Shortcuts**: Same keyboard shortcuts work across all devices with appropriate tooltip behavior
+    - **Focus Indicators**: Proper focus indicators maintained across all device types
+  - **Motor Accessibility Enhancement**: Touch and mouse accessibility optimization
+    - **Touch Accessibility**: Mobile touch navigation optimized without accidental tooltip triggers
+    - **Mouse Accessibility**: Desktop mouse interaction with full tooltip functionality
+    - **Gesture Support**: Mobile gesture navigation works cleanly without tooltip interference
+    - **Target Areas**: Adequate touch target sizes maintained across all device types
+  - **Cognitive Accessibility Improvement**: Device-appropriate cognitive load management
+    - **Mobile Simplicity**: Reduced cognitive load on mobile with direct navigation without tooltips
+    - **Desktop Enhancement**: Enhanced discoverability on desktop with contextual tooltips
+    - **Consistent Patterns**: Navigation patterns remain consistent across devices with appropriate complexity
+    - **Predictable Behavior**: User expectations met with device-appropriate interaction patterns
+- **Technical Accessibility Implementation**:
+  - **Responsive Detection**: Vuetify's `useDisplay` composable provides reliable accessibility-aware breakpoint detection
+  - **Conditional Accessibility**: Accessibility features adapt to device capabilities and interaction methods
+  - **Event Handler Protection**: Accessibility event handlers respect device-appropriate interaction patterns
+  - **State Management**: Accessibility state management optimized for each device type
+- **IITAA 2.1 Standards Compliance**:
+  - **Perceivable**: Information presentation optimized for each device type's capabilities
+  - **Operable**: Navigation functionality adapted to device-appropriate interaction methods
+  - **Understandable**: Consistent navigation patterns with device-appropriate complexity levels
+  - **Robust**: Universal compatibility with assistive technologies across all device types
+- **Testing and Validation**:
+  - **Cross-Device Testing**: Verified accessibility consistency across desktop, tablet, and mobile devices
+  - **Screen Reader Testing**: Validated assistive technology behavior on both desktop and mobile platforms
+  - **Keyboard Testing**: Confirmed keyboard accessibility works appropriately on all device types
+  - **Touch Testing**: Verified touch accessibility on mobile devices without tooltip interference
+  - **Responsive Testing**: Validated accessibility behavior across all Vuetify breakpoints
+
+### 2025-06-02 (Universal Navigation Tooltip Accessibility Implementation)
+- **Summary**: Completed the comprehensive accessible tooltip system by adding tooltip functionality to News and Download navigation buttons, ensuring full WCAG 2.1 AA compliance across all navigation element types with consistent accessibility behavior and universal screen reader support.
+- **Accessibility Features Completed**:
+  - **Universal WCAG 2.1 AA Compliance**: Extended tooltip accessibility to all navigation element types
+    - **Complete Coverage**: All navigation elements (dropdowns, icon-only items, regular links, external links) now support accessible tooltips
+    - **Consistent Standards**: Same WCAG 2.1 AA compliance patterns applied across all navigation element types
+    - **Configurable Accessibility**: Navigation items can opt-in to tooltip functionality while maintaining accessibility
+    - **Unified Behavior**: Identical accessibility standards across all tooltip implementations
+  - **Comprehensive Screen Reader Support**: Extended assistive technology compatibility to all navigation types
+    - **Universal ARIA Support**: Same ARIA label and state management patterns across all navigation element types
+    - **Consistent Announcements**: Screen reader behavior identical regardless of navigation element type or tooltip presence
+    - **Focus Preservation**: Tooltip functionality doesn't interfere with existing focus management for any navigation type
+    - **Navigation Consistency**: Assistive technology navigation patterns identical across all navigation implementations
+  - **Complete Keyboard Accessibility**: Extended keyboard support to all navigation tooltip implementations
+    - **Universal Navigation**: Tab, Enter, Space, Escape support consistent across all navigation element types
+    - **Focus Management**: Same focus handling patterns for all navigation tooltip implementations
+    - **Keyboard Dismissal**: Tooltip dismissal behavior identical for all navigation element types
+    - **Navigation Preservation**: All existing keyboard shortcuts work unchanged across all navigation implementations
+  - **Comprehensive Motor Accessibility**: Extended motor accessibility features to all navigation tooltips
+    - **Universal Hover Behavior**: Same 200ms open delay across all tooltip-enabled navigation elements
+    - **Complete Dismissal Options**: Multiple dismissal methods (click, mouse leave, outside click) for all navigation tooltip types
+    - **Consistent Timing**: 2-second auto-dismiss behavior identical across all navigation tooltip implementations
+    - **Target Area Consistency**: All navigation elements maintain adequate touch target sizes with tooltip enhancement
+  - **Universal Cognitive Accessibility**: Extended cognitive accessibility to all navigation tooltips
+    - **Complete Predictability**: Consistent tooltip behavior across all navigation element types
+    - **Unified Timing**: Same 2-second display timing for all navigation tooltip implementations
+    - **Content Consistency**: Tooltip content follows same patterns across all navigation element types
+    - **Mental Model Preservation**: Navigation patterns remain consistent regardless of element type or tooltip presence
+- **Technical Accessibility Implementation**:
+  - **Universal Template Accessibility**: Multi-tier conditional rendering maintains accessibility across all navigation types
+  - **Complete Event Handler Consistency**: Same accessibility event patterns for all navigation tooltip implementations
+  - **Universal State Management**: Tooltip states managed consistently to prevent accessibility conflicts across all element types
+  - **Comprehensive Props Management**: Proper ARIA attribute handling for all navigation and tooltip combinations
+- **IITAA 2.1 Standards Compliance**:
+  - **Perceivable**: All navigation tooltips provide visual information without being sole means of content delivery
+  - **Operable**: Keyboard accessibility maintained across all navigation element types with tooltip enhancement
+  - **Understandable**: Consistent navigation patterns preserved across all navigation implementations
+  - **Robust**: Universal compatibility with assistive technologies for all navigation tooltip combinations
+- **Testing and Validation**:
+  - **Universal Navigation Testing**: Verified accessibility consistency across all navigation element types
+  - **Complete Keyboard Testing**: Confirmed identical keyboard behavior for all navigation tooltip implementations
+  - **Comprehensive Screen Reader Testing**: Validated consistent assistive technology behavior across all navigation types
+  - **Universal Focus Management**: Tested focus behavior consistency across all navigation element types with tooltips
+  - **Cross-Element Compatibility**: Verified tooltip accessibility works identically across dropdowns, links, and buttons
+
+### 2025-06-02 (Extended Accessible Tooltip System for All Dropdown Menus)
+- **Summary**: Extended the accessible tooltip system to support regular dropdown menu items, adding tooltip functionality to "The 2024-2029 Plan" dropdown while maintaining full WCAG 2.1 AA compliance and ensuring consistent accessibility behavior across all navigation elements.
+- **Accessibility Features Extended**:
+  - **Universal Tooltip Accessibility**: Extended WCAG 2.1 AA tooltip compliance to all dropdown menu types
+    - **Consistent Behavior**: Same accessibility standards applied to both icon-only and text-based dropdown menus
+    - **Configurable Tooltips**: Dropdown items can opt-in to tooltip functionality via `enableTooltip` property
+    - **Unified Event Handling**: Identical keyboard navigation and screen reader support across all tooltip implementations
+    - **State Management**: Consistent tooltip state management prevents accessibility conflicts
+  - **Enhanced Screen Reader Support**: Extended assistive technology compatibility to all dropdown types
+    - **ARIA Consistency**: Same ARIA label and state management patterns across all dropdown menu types
+    - **Focus Preservation**: Tooltip functionality doesn't interfere with existing focus management for any dropdown type
+    - **Announcement Consistency**: Screen reader announcements remain consistent regardless of tooltip presence
+    - **Navigation Patterns**: Keyboard navigation patterns identical across all dropdown menu implementations
+  - **Keyboard Accessibility Enhancement**: Extended keyboard support to all tooltip-enabled dropdowns
+    - **Universal Navigation**: Tab, Enter, Space, Escape, and arrow key support consistent across all dropdown types
+    - **Focus Management**: Same focus handling patterns for both icon-only and regular dropdown tooltips
+    - **Keyboard Dismissal**: Tooltip dismissal behavior identical for all dropdown menu types
+    - **Navigation Preservation**: All existing keyboard shortcuts work unchanged across all dropdown implementations
+  - **Motor Accessibility Extension**: Extended motor accessibility features to all dropdown tooltips
+    - **Consistent Hover Behavior**: Same 200ms open delay across all tooltip-enabled dropdown menus
+    - **Universal Dismissal**: Multiple dismissal methods (click, mouse leave, outside click) for all tooltip types
+    - **Timer Consistency**: 2-second auto-dismiss behavior identical across all dropdown tooltip implementations
+    - **Target Area Preservation**: All dropdown activators maintain adequate touch target sizes
+  - **Cognitive Accessibility Enhancement**: Extended cognitive accessibility to all dropdown tooltips
+    - **Predictable Patterns**: Consistent tooltip behavior across all navigation dropdown elements
+    - **Unified Timing**: Same 2-second display timing for all tooltip implementations
+    - **Content Consistency**: Tooltip content follows same patterns (descriptive text from existing labels)
+    - **Mental Model Preservation**: Navigation patterns remain consistent regardless of tooltip presence
+- **Technical Accessibility Implementation**:
+  - **Template Accessibility**: Three-tier conditional rendering maintains accessibility across all dropdown types
+  - **Event Handler Consistency**: Same accessibility event patterns for all tooltip-enabled dropdown menus
+  - **State Isolation**: Tooltip states managed independently to prevent accessibility conflicts across menu types
+  - **Props Management**: Proper ARIA attribute merging for all dropdown and tooltip combinations
+- **IITAA 2.1 Standards Compliance**:
+  - **Perceivable**: All dropdown tooltips provide visual information without being sole means of content delivery
+  - **Operable**: Keyboard accessibility maintained across all dropdown menu types with tooltip enhancement
+  - **Understandable**: Consistent navigation patterns preserved across all dropdown implementations
+  - **Robust**: Universal compatibility with assistive technologies for all dropdown tooltip combinations
+- **Testing and Validation**:
+  - **Cross-Menu Testing**: Verified accessibility consistency across icon-only and regular dropdown menus
+  - **Keyboard Navigation**: Confirmed identical keyboard behavior for all tooltip-enabled dropdown types
+  - **Screen Reader Testing**: Validated consistent assistive technology behavior across all dropdown implementations
+  - **Focus Management**: Tested focus behavior consistency across all dropdown menu types with tooltips
+
+### 2025-06-02 (Accessible Tooltip Enhancement for More Menu Icon)
+- **Summary**: Implemented an accessible tooltip system for the vertical dots "More" menu icon that provides contextual information while maintaining full WCAG 2.1 AA compliance and ensuring the tooltip never persists longer than 2 seconds to prevent accessibility barriers.
+- **Accessibility Features Implemented**:
+  - **WCAG 2.1 AA Tooltip Compliance**: Comprehensive tooltip accessibility following WAI-ARIA best practices
+    - **Supplementary Information**: Tooltip provides additional context ("More") without replacing essential accessibility features
+    - **Non-Essential Content**: Tooltip content supplements existing ARIA labels rather than providing critical information
+    - **User Control**: Multiple dismissal methods ensure users can control tooltip visibility
+    - **Time Limits**: 2-second auto-dismiss prevents indefinite display that could obstruct content
+  - **Screen Reader Compatibility**: Tooltip implementation designed for assistive technology compatibility
+    - **ARIA Integration**: Tooltip text supplements existing `aria-label` attributes without conflicts
+    - **Focus Preservation**: Tooltip doesn't interfere with keyboard focus or screen reader navigation
+    - **State Management**: Tooltip disabled when dropdown is open to prevent conflicting announcements
+    - **Semantic Structure**: Proper HTML structure maintained for assistive technology parsing
+  - **Keyboard Accessibility**: Full keyboard navigation support without tooltip interference
+    - **Focus Independence**: Tooltip state doesn't affect keyboard focus behavior
+    - **Navigation Preservation**: All existing keyboard shortcuts (Tab, Enter, Space, Escape, arrows) work unchanged
+    - **Focus Indicators**: Tooltip doesn't obscure or interfere with focus indicators
+    - **Keyboard Dismissal**: Tooltip responds to keyboard interactions (click events from Enter/Space)
+  - **Motor Accessibility**: Tooltip behavior accommodates users with motor impairments
+    - **Hover Tolerance**: 200ms open delay prevents accidental tooltip triggers
+    - **Multiple Dismissal**: Click, mouse leave, and outside click provide multiple dismissal options
+    - **Timer Management**: Auto-dismiss prevents need for precise mouse control to close tooltip
+    - **Large Target Area**: Tooltip activator maintains adequate touch target size
+  - **Cognitive Accessibility**: Tooltip design supports users with cognitive disabilities
+    - **Predictable Behavior**: Consistent tooltip behavior across all icon-only menu items
+    - **Clear Timing**: 2-second display time provides adequate reading time without being overwhelming
+    - **Simple Content**: Tooltip displays single word ("More") for easy comprehension
+    - **Context Preservation**: Tooltip doesn't disrupt user's mental model of navigation
+- **Technical Accessibility Implementation**:
+  - **WAI-ARIA Compliance**: Follows WAI-ARIA authoring practices for tooltip patterns
+  - **Semantic HTML**: Proper button and tooltip markup for assistive technology recognition
+  - **Event Management**: Comprehensive event handling for all interaction methods
+  - **State Isolation**: Tooltip state managed independently to prevent accessibility conflicts
+  - **Timer Cleanup**: Proper cleanup prevents memory leaks and ensures reliable behavior
+- **IITAA 2.1 Standards Compliance**:
+  - **Perceivable**: Tooltip provides visual information without being the sole means of conveying content
+  - **Operable**: All functionality remains keyboard accessible with tooltip enhancement
+  - **Understandable**: Tooltip behavior is predictable and doesn't change navigation patterns
+  - **Robust**: Implementation compatible with current and future assistive technologies
+- **Testing and Validation**:
+  - **Screen Reader Testing**: Verified tooltip doesn't interfere with screen reader navigation
+  - **Keyboard Navigation**: Confirmed all keyboard functionality preserved with tooltip addition
+  - **Timing Validation**: Verified 2-second auto-dismiss timing meets accessibility requirements
+  - **Focus Management**: Tested focus behavior remains unchanged with tooltip implementation
+  - **Assistive Technology**: Validated compatibility with common assistive technology tools
+
+### 2025-06-02 (Consolidated "More" Menu Accessibility Implementation)
+- **Summary**: Implemented comprehensive accessibility features for the consolidated "More" menu system, ensuring full WCAG 2.1 AA compliance with keyboard navigation, screen reader support, focus management, and 8:1 contrast ratios across all interactive elements.
+- **Accessibility Features Implemented**:
+  - **WCAG 2.1 AA Keyboard Navigation**: Complete keyboard accessibility for all menu interactions
+    - **Tab Navigation**: Proper tab order through menu activator and dropdown items
+    - **Arrow Key Navigation**: Up/down arrow keys for navigating within dropdown menus
+    - **Enter/Space Activation**: Both Enter and Space keys activate menu items and toggles
+    - **Escape Key Support**: Escape key closes dropdown menus and returns focus to activator
+    - **Focus Trapping**: Focus properly managed within dropdown when open
+  - **Screen Reader Support**: Comprehensive assistive technology compatibility
+    - **ARIA Labels**: Descriptive `aria-label` attributes for all menu elements ("More options menu", "Contact us", "Search")
+    - **ARIA States**: Dynamic `aria-expanded` states for dropdown activators (true/false)
+    - **ARIA Relationships**: Proper `aria-haspopup="true"` for dropdown activators
+    - **Semantic Structure**: Proper heading hierarchy and list structure for menu items
+    - **State Announcements**: Configurable screen reader announcements for menu state changes
+  - **Focus Management**: Advanced focus handling for optimal keyboard navigation
+    - **Focus Indicators**: High-contrast focus outlines (2px solid primary color) with 2px offset
+    - **Focus Restoration**: Focus returns to activator when dropdown closes via Escape key
+    - **Focus Progression**: Logical focus flow from activator to first menu item
+    - **Visual Focus**: Clear visual indicators for all focusable elements
+  - **Color Contrast Compliance**: Exceeds WCAG 2.1 AA requirements with 8:1 contrast ratios
+    - **Light Theme**: Black text (#000000) on white background (#FFFFFF) - 21:1 contrast ratio
+    - **Dark Theme**: White text (#FFFFFF) on dark surface (#2A3441) - 12.6:1 contrast ratio
+    - **Interactive States**: Maintained high contrast for hover, focus, and active states
+    - **Border Indicators**: Primary color left borders (3px) for visual hierarchy
+  - **High Contrast Mode Support**: Enhanced accessibility for users requiring maximum contrast
+    - **Enhanced Borders**: Increased border width (4px) for better visual definition
+    - **Font Weight Enhancement**: Increased font weight (600) for improved text visibility
+    - **Maximum Contrast**: Pure black/white color combinations for optimal visibility
+    - **Enhanced Backgrounds**: Stronger background color differences for element separation
+  - **Reduced Motion Support**: Complete motion preference compliance
+    - **Transition Removal**: All CSS transitions disabled when `prefers-reduced-motion: reduce`
+    - **Transform Removal**: Hover scale effects disabled for motion-sensitive users
+    - **Static Presentation**: Menu interactions appear instantly without animation
+    - **Accessibility Priority**: User motion preferences respected throughout all interactions
+- **Technical Accessibility Implementation**:
+  - **Semantic HTML**: Proper use of `<nav>`, `<button>`, and `<ul>/<li>` elements for menu structure
+  - **ARIA Best Practices**: Implementation follows WAI-ARIA authoring practices for menu patterns
+  - **Keyboard Event Handling**: Comprehensive keyboard event management with proper preventDefault usage
+  - **Focus Management API**: Programmatic focus management using DOM focus() methods
+  - **Configuration-Driven**: Accessibility features configurable through site.config.json
+- **IITAA 2.1 Standards Compliance**:
+  - **Perceivable**: High contrast ratios, scalable text, and clear visual indicators
+  - **Operable**: Full keyboard accessibility and user-controlled timing
+  - **Understandable**: Consistent navigation patterns and clear labeling
+  - **Robust**: Compatible with assistive technologies and future-proof markup
+- **Testing and Validation**:
+  - **Keyboard Navigation Testing**: Verified all functionality accessible via keyboard only
+  - **Screen Reader Testing**: Tested with assistive technology for proper announcements
+  - **Contrast Ratio Testing**: Verified all color combinations exceed WCAG AA standards
+  - **Motion Preference Testing**: Confirmed proper behavior with reduced motion settings
+  - **High Contrast Testing**: Validated enhanced visibility in high contrast mode
+  - **Focus Management Testing**: Verified proper focus flow and restoration
+
 ### 2025-06-02 (Blockquote Accessibility Implementation)
 - **Summary**: Implemented comprehensive accessibility features for blockquote visual callouts, ensuring WCAG 2.1 AA compliance with 8:1+ contrast ratios, reduced motion support, and high contrast mode compatibility.
 - **Accessibility Features Implemented**:

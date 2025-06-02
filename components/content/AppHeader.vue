@@ -66,19 +66,115 @@
             <!-- Dropdown menu -->
             <v-menu
               v-if="item.hasDropdown"
-              open-on-hover
+              :open-on-hover="!item.iconOnly && !item.enableTooltip"
               :close-on-content-click="true"
-              location="bottom"
+              location="bottom start"
               offset="5"
               :model-value="openDropdowns[index]"
               @update:model-value="openDropdowns[index] = $event"
               @mouseleave="handleDropdownMouseLeave(index)"
+              :class="{ 'more-menu-dropdown': item.isMoreMenu }"
             >
               <template v-slot:activator="{ props: menuProps }">
+                <!-- Icon-only dropdown with tooltip (like More menu) -->
+                <v-tooltip
+                  v-if="item.iconOnly && tooltipsEnabled"
+                  :model-value="tooltipStates[index]"
+                  @update:model-value="tooltipStates[index] = $event"
+                  location="bottom"
+                  :text="item.tooltip || item.ariaLabel"
+                  :disabled="openDropdowns[index]"
+                  open-delay="200"
+                  close-delay="0"
+                >
+                  <template v-slot:activator="{ props: tooltipProps }">
+                    <v-btn
+                      v-bind="{ ...menuProps, ...tooltipProps }"
+                      :variant="item.variant"
+                      :class="[item.class, { 'more-menu-btn': item.isMoreMenu }]"
+                      :color="item.color"
+                      :aria-label="item.ariaLabel"
+                      :aria-haspopup="true"
+                      :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
+                      @focus="handleIconOnlyDropdownFocus(index)"
+                      @blur="handleDropdownBlur(index)"
+                      @keydown.esc="openDropdowns[index] = false"
+                      @keydown.down.prevent="focusNextDropdownItem(index, 0)"
+                      @mouseenter="handleTooltipMouseEnter(index)"
+                      @mouseleave="handleTooltipMouseLeave(index)"
+                      @click="handleIconOnlyDropdownClick(index)"
+                    >
+                      <v-icon :icon="item.icon" size="default"></v-icon>
+                    </v-btn>
+                  </template>
+                </v-tooltip>
+
+                <!-- Icon-only dropdown without tooltip (mobile) -->
                 <v-btn
+                  v-else-if="item.iconOnly"
                   v-bind="menuProps"
                   :variant="item.variant"
-                  :class="item.class"
+                  :class="[item.class, { 'more-menu-btn': item.isMoreMenu }]"
+                  :color="item.color"
+                  :aria-label="item.ariaLabel"
+                  :aria-haspopup="true"
+                  :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
+                  @focus="handleIconOnlyDropdownFocus(index)"
+                  @blur="handleDropdownBlur(index)"
+                  @keydown.esc="openDropdowns[index] = false"
+                  @keydown.down.prevent="focusNextDropdownItem(index, 0)"
+                  @click="handleIconOnlyDropdownClick(index)"
+                >
+                  <v-icon :icon="item.icon" size="default"></v-icon>
+                </v-btn>
+
+                <!-- Regular dropdown button with text and optional tooltip -->
+                <div v-else-if="item.enableTooltip && tooltipsEnabled" class="position-relative">
+                  <v-btn
+                    v-bind="menuProps"
+                    :variant="item.variant"
+                    :class="[item.class, { 'more-menu-btn': item.isMoreMenu }]"
+                    :color="item.color"
+                    :aria-label="item.ariaLabel"
+                    :aria-haspopup="true"
+                    :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
+                    @focus="handleRegularDropdownFocus(index)"
+                    @blur="handleDropdownBlur(index)"
+                    @keydown.esc="openDropdowns[index] = false"
+                    @keydown.down.prevent="focusNextDropdownItem(index, 0)"
+                    @mouseenter="handleTooltipMouseEnter(index)"
+                    @mouseleave="handleTooltipMouseLeave(index)"
+                    @click="handleRegularDropdownClick(index)"
+                  >
+                    {{ item.text }}
+                    <v-icon
+                      v-if="item.dropdownIcon"
+                      :icon="item.dropdownIcon"
+                      size="large"
+                      class="ml-1 dropdown-chevron"
+                      aria-hidden="true"
+                    ></v-icon>
+                  </v-btn>
+
+                  <!-- Separate tooltip positioned relative to button -->
+                  <v-tooltip
+                    :model-value="tooltipStates[index]"
+                    @update:model-value="tooltipStates[index] = $event"
+                    location="bottom"
+                    :text="item.tooltip || item.ariaLabel"
+                    :disabled="openDropdowns[index]"
+                    open-delay="200"
+                    close-delay="0"
+                    activator="parent"
+                  />
+                </div>
+
+                <!-- Regular dropdown button without tooltip -->
+                <v-btn
+                  v-else
+                  v-bind="menuProps"
+                  :variant="item.variant"
+                  :class="[item.class, { 'more-menu-btn': item.isMoreMenu }]"
                   :color="item.color"
                   :aria-label="item.ariaLabel"
                   :aria-haspopup="true"
@@ -127,7 +223,14 @@
                       @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
                       @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
                     >
-                      <v-list-item-title>
+                      <v-list-item-title class="d-flex align-center">
+                        <v-icon
+                          v-if="child.icon"
+                          :icon="child.icon"
+                          size="small"
+                          class="mr-2"
+                          aria-hidden="true"
+                        ></v-icon>
                         {{ child.text }}
                         <v-icon
                           v-if="child.isExternal && child.externalIcon"
@@ -157,7 +260,35 @@
               <v-icon :icon="item.icon"></v-icon>
             </v-btn>
 
-            <!-- Regular internal link with Vue Router -->
+            <!-- Regular internal link with Vue Router and optional tooltip -->
+            <div v-else-if="item.to && !item.isExternal && item.enableTooltip && tooltipsEnabled" class="position-relative">
+              <v-btn
+                :variant="item.variant"
+                :class="item.class"
+                :to="item.to"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+                :aria-current="route.path === item.to ? 'page' : undefined"
+                @mouseenter="handleTooltipMouseEnter(index)"
+                @mouseleave="handleTooltipMouseLeave(index)"
+                @click="handleTooltipClick(index)"
+              >
+                {{ item.text }}
+              </v-btn>
+
+              <!-- Separate tooltip positioned relative to button -->
+              <v-tooltip
+                :model-value="tooltipStates[index]"
+                @update:model-value="tooltipStates[index] = $event"
+                location="bottom"
+                :text="item.tooltip || item.ariaLabel"
+                open-delay="200"
+                close-delay="0"
+                activator="parent"
+              />
+            </div>
+
+            <!-- Regular internal link with Vue Router without tooltip -->
             <v-btn
               v-else-if="item.to && !item.isExternal"
               :variant="item.variant"
@@ -184,7 +315,43 @@
               {{ item.text }}
             </v-btn>
 
-            <!-- External link -->
+            <!-- External link with optional tooltip -->
+            <div v-else-if="item.isExternal && item.enableTooltip && tooltipsEnabled" class="position-relative">
+              <v-btn
+                :variant="item.variant"
+                :class="item.class"
+                :href="item.href"
+                :color="item.color"
+                :aria-label="item.ariaLabel"
+                :target="item.target"
+                :rel="item.rel"
+                @mouseenter="handleTooltipMouseEnter(index)"
+                @mouseleave="handleTooltipMouseLeave(index)"
+                @click="handleTooltipClick(index)"
+              >
+                {{ item.text }}
+                <v-icon
+                  v-if="item.externalIcon"
+                  :icon="item.externalIcon"
+                  size="small"
+                  class="ml-1"
+                  aria-hidden="true"
+                ></v-icon>
+              </v-btn>
+
+              <!-- Separate tooltip positioned relative to button -->
+              <v-tooltip
+                :model-value="tooltipStates[index]"
+                @update:model-value="tooltipStates[index] = $event"
+                location="bottom"
+                :text="item.tooltip || item.ariaLabel"
+                open-delay="200"
+                close-delay="0"
+                activator="parent"
+              />
+            </div>
+
+            <!-- External link without tooltip -->
             <v-btn
               v-else-if="item.isExternal"
               :variant="item.variant"
@@ -287,11 +454,18 @@
                   :href="child.href"
                   :target="child.isExternal ? child.target : undefined"
                   :rel="child.isExternal ? child.rel : undefined"
-                  :class="child.mobileClass"
+                  :class="[child.mobileClass, { 'more-menu-item': item.isMoreMenu }]"
                   :aria-label="child.ariaLabel"
                   @click="handleMobileDropdownItemClick(index, child.href)"
                 >
                   <v-list-item-title class="d-flex align-center">
+                    <v-icon
+                      v-if="child.icon"
+                      :icon="child.icon"
+                      size="small"
+                      class="mr-2"
+                      aria-hidden="true"
+                    ></v-icon>
                     {{ child.text }}
                     <v-icon
                       v-if="child.isExternal && child.externalIcon"
@@ -326,7 +500,7 @@
                 class="mr-2"
                 aria-hidden="true"
               ></v-icon>
-              {{ item.iconOnly ? 'Search' : item.text }}
+              {{ item.iconOnly ? (item.isMoreMenu ? item.text : 'Search') : item.text }}
               <v-icon
                 v-if="item.isExternal && item.externalIcon"
                 :icon="item.externalIcon"
@@ -368,8 +542,9 @@
  * @component
  */
 import ThemeSwitch from './ThemeSwitch.vue';
-import { useRouter, useRoute, ref, onMounted, onBeforeUnmount } from '#imports';
+import { useRouter, useRoute, ref, onMounted, onBeforeUnmount, computed } from '#imports';
 import menuConfig from '~/config/menu.config.json';
+import siteConfig from '~/config/site.config.json';
 
 /**
  * Component props
@@ -393,6 +568,9 @@ defineProps({
   }
 });
 
+// Import Vuetify's useDisplay composable for responsive detection
+import { useDisplay } from 'vuetify';
+
 /**
  * Define emits for the component
  * toggle-theme: Emitted when theme switch is toggled
@@ -403,6 +581,9 @@ defineEmits(['toggle-theme']);
 const nuxtApp = useNuxtApp();
 const router = useRouter();
 const route = useRoute();
+
+// Get Vuetify display breakpoints for responsive behavior
+const { mobile } = useDisplay();
 
 /**
  * State for tracking open dropdown menus in desktop view
@@ -421,11 +602,75 @@ const mobileDrawerOpen = ref(false);
 const mobileExpandedDropdowns = ref({});
 
 /**
- * Computed property to sort header items by order property
+ * State for tracking tooltip visibility for icon-only menu items
+ */
+const tooltipStates = ref({});
+
+/**
+ * Timers for auto-dismissing tooltips after 2 seconds
+ */
+const tooltipTimers = ref({});
+
+/**
+ * Computed property to determine if tooltips should be enabled
+ * Tooltips are only enabled on desktop (not mobile)
+ */
+const tooltipsEnabled = computed(() => !mobile.value);
+
+/**
+ * Computed property to generate dynamic "More" menu children from site config
+ */
+const moreMenuChildren = computed(() => {
+  if (!siteConfig.ui?.navigation?.moreMenu?.enabled) {
+    return [];
+  }
+
+  const moreMenuConfig = siteConfig.ui.navigation.moreMenu;
+  const children = [];
+
+  // Add enabled items from site config
+  Object.entries(moreMenuConfig.items).forEach(([key, item]) => {
+    if (item.enabled) {
+      children.push({
+        text: item.text,
+        to: item.to,
+        href: item.href,
+        ariaLabel: item.ariaLabel,
+        tooltip: item.tooltip,
+        tooltipLocation: 'right',
+        class: 'dropdown-item',
+        mobileClass: 'dropdown-item-mobile ml-4',
+        color: 'on-app-bar',
+        displayMode: 'both',
+        icon: item.icon,
+        isExternal: item.isExternal || false,
+        target: item.isExternal ? '_blank' : undefined,
+        rel: item.isExternal ? 'noopener noreferrer' : undefined
+      });
+    }
+  });
+
+  return children;
+});
+
+/**
+ * Computed property to sort header items by order property and inject dynamic children
  * Items without an order property will be placed at the end
  */
 const sortedHeaderItems = computed(() => {
-  return [...menuConfig.header.items].sort((a, b) => {
+  const items = [...menuConfig.header.items].map(item => {
+    // If this is the "More" menu, inject dynamic children
+    if (item.isMoreMenu && siteConfig.ui?.navigation?.moreMenu?.enabled) {
+      return {
+        ...item,
+        children: moreMenuChildren.value,
+        text: siteConfig.ui.navigation.moreMenu.mobileText || 'More'
+      };
+    }
+    return item;
+  });
+
+  return items.sort((a, b) => {
     // Default order for items without an order property
     const orderA = a.order || 1000;
     const orderB = b.order || 1000;
@@ -463,20 +708,24 @@ const toggleMobileDropdown = (index) => {
  * Initialize dropdown state for each navigation item
  */
 onMounted(() => {
-  // Initialize all dropdowns as closed
+  // Initialize all dropdowns and tooltips as closed
   menuConfig.header.items.forEach((item, index) => {
     if (item.hasDropdown) {
       openDropdowns.value[index] = false;
       mobileExpandedDropdowns.value[index] = false;
     }
+    // Initialize tooltip state for icon-only items and items with enableTooltip
+    if (item.iconOnly || item.enableTooltip) {
+      tooltipStates.value[index] = false;
+    }
   });
 
-  // Add global click handler to close dropdowns when clicking outside
+  // Add global click handler to close dropdowns and tooltips when clicking outside
   if (typeof window !== 'undefined') {
     window.addEventListener('click', handleOutsideClick);
   }
 
-  // Add router navigation hook to close all dropdowns when navigation occurs
+  // Add router navigation hook to close all dropdowns and tooltips when navigation occurs
   router.afterEach(() => {
     // Close all desktop dropdowns
     Object.keys(openDropdowns.value).forEach(key => {
@@ -488,32 +737,64 @@ onMounted(() => {
       mobileExpandedDropdowns.value[key] = false;
     });
 
+    // Close all tooltips and clear timers
+    Object.keys(tooltipStates.value).forEach(key => {
+      tooltipStates.value[key] = false;
+      if (tooltipTimers.value[key]) {
+        clearTimeout(tooltipTimers.value[key]);
+        delete tooltipTimers.value[key];
+      }
+    });
+
     // Close mobile drawer
     mobileDrawerOpen.value = false;
   });
 });
 
 /**
- * Clean up event listeners on component unmount
+ * Clean up event listeners and timers on component unmount
  */
 onBeforeUnmount(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('click', handleOutsideClick);
   }
+
+  // Clear all tooltip timers
+  Object.keys(tooltipTimers.value).forEach(key => {
+    if (tooltipTimers.value[key]) {
+      clearTimeout(tooltipTimers.value[key]);
+      delete tooltipTimers.value[key];
+    }
+  });
 });
 
 /**
- * Close dropdowns when clicking outside
+ * Close dropdowns and tooltips when clicking outside
  */
 const handleOutsideClick = (event) => {
   // Check if click is outside dropdown menus and their activators
   const isOutsideDropdown = !event.target.closest('.v-menu') &&
                            !event.target.closest('.v-btn[aria-haspopup="true"]');
 
+  // Check if click is outside tooltips and their activators
+  const isOutsideTooltip = !event.target.closest('.v-tooltip') &&
+                          !event.target.closest('.v-btn');
+
   if (isOutsideDropdown) {
     // Close all dropdowns
     Object.keys(openDropdowns.value).forEach(key => {
       openDropdowns.value[key] = false;
+    });
+  }
+
+  if (isOutsideTooltip) {
+    // Close all tooltips and clear timers
+    Object.keys(tooltipStates.value).forEach(key => {
+      tooltipStates.value[key] = false;
+      if (tooltipTimers.value[key]) {
+        clearTimeout(tooltipTimers.value[key]);
+        delete tooltipTimers.value[key];
+      }
     });
   }
 };
@@ -630,6 +911,145 @@ const handleHomeClick = () => {
     // Navigate to homepage
     router.push('/');
   }
+};
+
+/**
+ * Handle mouse enter on tooltip activator
+ * Shows tooltip and sets auto-dismiss timer (only on desktop)
+ * @param {number} index - Index of the menu item
+ */
+const handleTooltipMouseEnter = (index) => {
+  // Only show tooltips on desktop
+  if (!tooltipsEnabled.value) return;
+
+  // Clear any existing timer
+  if (tooltipTimers.value[index]) {
+    clearTimeout(tooltipTimers.value[index]);
+    delete tooltipTimers.value[index];
+  }
+
+  // Show tooltip
+  tooltipStates.value[index] = true;
+
+  // Set auto-dismiss timer for 2 seconds
+  tooltipTimers.value[index] = setTimeout(() => {
+    tooltipStates.value[index] = false;
+    delete tooltipTimers.value[index];
+  }, 2000);
+};
+
+/**
+ * Handle mouse leave on tooltip activator
+ * Hides tooltip immediately (only on desktop)
+ * @param {number} index - Index of the menu item
+ */
+const handleTooltipMouseLeave = (index) => {
+  // Only handle tooltips on desktop
+  if (!tooltipsEnabled.value) return;
+
+  // Clear timer
+  if (tooltipTimers.value[index]) {
+    clearTimeout(tooltipTimers.value[index]);
+    delete tooltipTimers.value[index];
+  }
+
+  // Hide tooltip
+  tooltipStates.value[index] = false;
+};
+
+/**
+ * Handle click on tooltip activator (for regular navigation links)
+ * Hides tooltip immediately (only on desktop)
+ * @param {number} index - Index of the menu item
+ */
+const handleTooltipClick = (index) => {
+  // Only handle tooltips on desktop
+  if (!tooltipsEnabled.value) return;
+
+  // Clear timer
+  if (tooltipTimers.value[index]) {
+    clearTimeout(tooltipTimers.value[index]);
+    delete tooltipTimers.value[index];
+  }
+
+  // Hide tooltip
+  tooltipStates.value[index] = false;
+};
+
+/**
+ * Handle click on icon-only dropdown activator
+ * Hides tooltip and opens dropdown
+ * @param {number} index - Index of the menu item
+ */
+const handleIconOnlyDropdownClick = (index) => {
+  // Clear tooltip timer and hide tooltip (only on desktop)
+  if (tooltipsEnabled.value) {
+    if (tooltipTimers.value[index]) {
+      clearTimeout(tooltipTimers.value[index]);
+      delete tooltipTimers.value[index];
+    }
+    tooltipStates.value[index] = false;
+  }
+
+  // Toggle dropdown
+  openDropdowns.value[index] = !openDropdowns.value[index];
+};
+
+/**
+ * Handle focus on icon-only dropdown activator
+ * Hides tooltip and opens dropdown
+ * @param {number} index - Index of the menu item
+ */
+const handleIconOnlyDropdownFocus = (index) => {
+  // Clear tooltip timer and hide tooltip (only on desktop)
+  if (tooltipsEnabled.value) {
+    if (tooltipTimers.value[index]) {
+      clearTimeout(tooltipTimers.value[index]);
+      delete tooltipTimers.value[index];
+    }
+    tooltipStates.value[index] = false;
+  }
+
+  // Open dropdown on focus
+  openDropdowns.value[index] = true;
+};
+
+/**
+ * Handle click on regular dropdown activator with tooltip
+ * Hides tooltip and opens dropdown
+ * @param {number} index - Index of the menu item
+ */
+const handleRegularDropdownClick = (index) => {
+  // Clear tooltip timer and hide tooltip (only on desktop)
+  if (tooltipsEnabled.value) {
+    if (tooltipTimers.value[index]) {
+      clearTimeout(tooltipTimers.value[index]);
+      delete tooltipTimers.value[index];
+    }
+    tooltipStates.value[index] = false;
+  }
+
+  // Toggle dropdown
+  openDropdowns.value[index] = !openDropdowns.value[index];
+};
+
+/**
+ * Handle focus on regular dropdown activator with tooltip
+ * Hides tooltip and opens dropdown
+ * @param {number} index - Index of the menu item
+ */
+const handleRegularDropdownFocus = (index) => {
+  // Clear tooltip timer and hide tooltip (only on desktop)
+  if (tooltipsEnabled.value) {
+    if (tooltipTimers.value[index]) {
+      clearTimeout(tooltipTimers.value[index]);
+      delete tooltipTimers.value[index];
+    }
+    tooltipStates.value[index] = false;
+  }
+
+  // Open dropdown on focus
+  openDropdowns.value[index] = true;
 };
 </script>
 

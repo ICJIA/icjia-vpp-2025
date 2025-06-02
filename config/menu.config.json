@@ -30,6 +30,7 @@
         "hasDropdown": true,
         "dropdownIcon": "mdi-chevron-down",
         "mobileDropdownIcon": "mdi-chevron-right",
+        "enableTooltip": true,
         "order": 20,
         "children": [
           {
@@ -97,23 +98,6 @@
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
             "displayMode": "both"
-          },
-          {
-            "isDivider": true,
-            "class": "my-2",
-            "mobileClass": "my-2",
-            "displayMode": "both"
-          },
-          {
-            "text": "Contact Us",
-            "to": "/contact",
-            "ariaLabel": "Contact us",
-            "tooltip": "Contact us",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both"
           }
         ]
       },
@@ -121,20 +105,21 @@
         "text": "News",
         "to": "/news",
         "ariaLabel": "View news and updates",
-        "tooltip": "View news and updates",
+        "tooltip": "Latest News and Updates",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
         "class": "font-weight-bold mx-2 nav-link",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
+        "enableTooltip": true,
         "order": 30
       },
       {
-        "text": "Download",
+        "text": "Download the PDF",
         "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
         "ariaLabel": "Download the Violence Prevention Plan PDF",
-        "tooltip": "Download the complete Violence Prevention Plan",
+        "tooltip": "Download the PDF of the plan",
         "tooltipLocation": "bottom",
         "variant": "elevated",
         "color": "primary",
@@ -145,22 +130,27 @@
         "rel": "noopener noreferrer",
         "externalIcon": "mdi-download",
         "displayMode": "both",
+        "enableTooltip": true,
         "order": 40
       },
       {
         "text": "",
-        "to": "/search",
-        "ariaLabel": "Search",
-        "tooltip": "Search",
+        "ariaLabel": "More options menu",
+        "tooltip": "More options",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "icon": "mdi-magnify",
+        "icon": "mdi-dots-vertical",
         "class": "font-weight-bold mx-2 nav-link",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
         "iconOnly": true,
-        "order": 95
+        "hasDropdown": true,
+        "dropdownIcon": "mdi-chevron-down",
+        "mobileDropdownIcon": "mdi-chevron-right",
+        "isMoreMenu": true,
+        "order": 95,
+        "children": []
       }
     ]
   },
