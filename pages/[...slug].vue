@@ -125,7 +125,7 @@
                       @keydown.space.prevent="scrollToTop"
                       aria-label="Scroll to top of page"
                     >
-                      Table of Contents
+                      {{ tocLabel }}
                     </div>
                     <div class="pt-0 px-0 pb-3">
                       <!-- Functional TOC List with Visual Indicator -->
@@ -377,6 +377,27 @@ const needsStandardHeader = computed(() => {
  */
 const showTOC = computed(() => {
   return !!(content.value?.showTOC || content.value?.meta?.showTOC);
+});
+
+/**
+ * Determines the Table of Contents label to display
+ *
+ * Checks frontmatter for tocLabel property to allow custom TOC titles.
+ * Falls back to the default "Table of Contents" label when no custom label is specified.
+ *
+ * Frontmatter Usage:
+ * ```yaml
+ * ---
+ * title: "Page Title"
+ * showTOC: true
+ * tocLabel: "Jump To"
+ * ---
+ * ```
+ *
+ * @returns {string} The label to display for the TOC heading
+ */
+const tocLabel = computed(() => {
+  return content.value?.tocLabel || "Table of Contents";
 });
 
 /**
@@ -1398,6 +1419,7 @@ useSeoMeta({
   transition: all 0.3s ease-in-out;
   border-radius: 6px;
   user-select: none;
+  font-weight: 700 !important; /* Heavy font weight for better visual hierarchy */
 }
 
 .toc-title-clickable:hover {

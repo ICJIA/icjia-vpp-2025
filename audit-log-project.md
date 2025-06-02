@@ -2,6 +2,56 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Enhanced TOC Label Typography with Heavy Font Weight)
+- **Summary**: Improved the visual hierarchy of the Table of Contents component by applying a heavier font weight (700) to the TOC label/heading, creating better distinction between the clickable title and the navigation links below it.
+- **Files Modified**:
+  - `pages/[...slug].vue`: Enhanced TOC title styling
+    - **Font Weight Enhancement**: Added `font-weight: 700 !important` to `.toc-title-clickable` CSS class
+    - **Visual Hierarchy**: Creates clear distinction between TOC label and section navigation links
+    - **Consistent Application**: Uses `!important` to ensure consistent styling across all themes and states
+- **Technical Implementation**:
+  - **CSS Targeting**: Applied styling to existing `.toc-title-clickable` class without affecting other elements
+  - **Theme Compatibility**: Heavy font weight works consistently in both light and dark themes
+  - **Responsive Design**: Maintains proper styling across all device sizes and breakpoints
+  - **Functionality Preservation**: All existing click-to-scroll-to-top behavior and accessibility features remain intact
+- **User Experience Benefits**:
+  - **Improved Visual Hierarchy**: TOC label now stands out more prominently from section links
+  - **Better Readability**: Heavier font weight makes the TOC label easier to identify and read
+  - **Enhanced Navigation**: Users can more easily distinguish between the TOC title and clickable section links
+  - **Professional Appearance**: Consistent with modern UI design patterns for navigation components
+  - **Accessibility Maintained**: All WCAG 2.1 AA compliance features preserved including keyboard navigation and screen reader support
+
+### 2025-06-02 (Configurable TOC Labels Through Markdown Frontmatter)
+- **Summary**: Enhanced the Table of Contents (TOC) component to support configurable labels through markdown frontmatter, allowing content creators to customize the TOC heading while maintaining all existing functionality and accessibility features.
+- **Files Modified**:
+  - `pages/[...slug].vue`: Added configurable TOC label functionality
+    - **New Computed Property**: Added `tocLabel` computed property that checks `content.value?.tocLabel` from frontmatter
+    - **Default Fallback**: Falls back to "Table of Contents" when no custom label is specified
+    - **Template Update**: Replaced hardcoded "Table of Contents" text with reactive `{{ tocLabel }}` binding
+    - **JSDoc Documentation**: Added comprehensive documentation with frontmatter usage examples
+  - `content.config.ts`: Added `tocLabel` to Nuxt Content schema
+    - **Schema Extension**: Added `tocLabel: z.string().optional()` to content collection schema
+    - **Property Recognition**: Ensures Nuxt Content recognizes and processes the custom `tocLabel` frontmatter property
+- **Technical Implementation**:
+  - **Schema Requirement**: Custom frontmatter properties must be defined in Nuxt Content schema to be accessible
+  - **Frontmatter Integration**: Uses same pattern as other frontmatter properties (`content.value?.propertyName`)
+  - **Reactive Updates**: Label changes automatically when navigating between pages with different `tocLabel` values
+  - **Backward Compatibility**: All existing pages continue to display "Table of Contents" by default
+  - **No Functional Changes**: All existing TOC features (visibility controls, positioning, styling, navigation) remain unchanged
+- **Usage Example**:
+  ```yaml
+  ---
+  title: "Page Title"
+  showTOC: true
+  tocLabel: "Jump To"
+  ---
+  ```
+- **User Experience Benefits**:
+  - **Content Creator Flexibility**: Authors can customize TOC labels to match page context (e.g., "Jump To", "Sections", "Contents")
+  - **Seamless Integration**: Custom labels integrate seamlessly with existing TOC functionality
+  - **Consistent Behavior**: All TOC features (scroll-to-top, active highlighting, keyboard navigation) work identically with custom labels
+  - **Accessibility Maintained**: All WCAG 2.1 AA compliance features preserved including ARIA labels and keyboard navigation
+
 ### 2025-06-02 (Enhanced Dropdown Icon Visibility in Navigation Menus)
 - **Summary**: Improved the visibility and prominence of dropdown icons in both desktop and mobile navigation menus by increasing their size, adding font-weight styling, and enhancing visual appearance while maintaining full accessibility compliance.
 - **Files Modified**:
