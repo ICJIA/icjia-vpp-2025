@@ -31,7 +31,7 @@
         "order": 10
       },
       {
-        "text": "About Us",
+        "text": "About the Plan",
         "ariaLabel": "Learn more about our project and latest updates",
         "tooltip": "Learn more about our project and latest updates",
         "tooltipLocation": "bottom",
@@ -46,10 +46,10 @@
         "order": 20,
         "children": [
           {
-            "text": "About Us",
-            "to": "/about",
-            "ariaLabel": "Learn more about our project",
-            "tooltip": "Learn more about our project",
+            "text": "Executive Summary",
+            "to": "/executive-summary",
+            "ariaLabel": "Read the executive summary of our violence prevention plan",
+            "tooltip": "Read the executive summary of our violence prevention plan",
             "tooltipLocation": "right",
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
@@ -57,10 +57,21 @@
             "displayMode": "both"
           },
           {
-            "text": "Strategic Priorities",
-            "to": "/strategic-priorities",
-            "ariaLabel": "View our strategic priorities for 2025-2029",
-            "tooltip": "View our strategic priorities for 2025-2029",
+            "text": "Violence Prevention from a Public Health Approach",
+            "to": "/public-health-approach",
+            "ariaLabel": "Learn about our public health approach to violence prevention",
+            "tooltip": "Learn about our public health approach to violence prevention",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
+            "text": "Guiding Principles",
+            "to": "/guiding-principles",
+            "ariaLabel": "View our guiding principles",
+            "tooltip": "View our guiding principles",
             "tooltipLocation": "right",
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
@@ -85,17 +96,6 @@
             "displayMode": "both"
           },
           {
-            "text": "News and Updates",
-            "to": "/news",
-            "ariaLabel": "View news and updates",
-            "tooltip": "View news and updates",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both"
-          },
-          {
             "text": "Contact Us",
             "to": "/contact",
             "ariaLabel": "Contact us",
@@ -109,7 +109,20 @@
         ]
       },
       {
-        "text": "Download the Plan",
+        "text": "News",
+        "to": "/news",
+        "ariaLabel": "View news and updates",
+        "tooltip": "View news and updates",
+        "tooltipLocation": "bottom",
+        "variant": "text",
+        "color": "on-app-bar",
+        "class": "font-weight-bold mx-2 nav-link",
+        "mobileClass": "font-weight-bold py-2 nav-link-mobile",
+        "displayMode": "both",
+        "order": 30
+      },
+      {
+        "text": "Download",
         "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
         "ariaLabel": "Download the Violence Prevention Plan PDF",
         "tooltip": "Download the complete Violence Prevention Plan",
@@ -167,10 +180,10 @@
             "class": "footer-link mb-2"
           },
           {
-            "text": "About Us",
-            "to": "/about",
-            "ariaLabel": "Learn more about our project",
-            "tooltip": "Learn more about our project",
+            "text": "Executive Summary",
+            "to": "/executive-summary",
+            "ariaLabel": "Read the executive summary of our violence prevention plan",
+            "tooltip": "Read the executive summary of our violence prevention plan",
             "tooltipLocation": "left",
             "class": "footer-link mb-2"
           }

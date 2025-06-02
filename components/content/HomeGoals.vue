@@ -4,7 +4,7 @@
       <!-- Section header -->
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-4">
-          Strategic Priorities: 2025-2029
+          Our Goals: 2025-2029
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto">
           Three actionable goals with specific strategies and measurable outcomes
@@ -68,7 +68,7 @@ const goals = [
     description: 'Implement evidence-based prevention strategies through trauma-informed/healing-centered approaches that address primary, secondary, and tertiary prevention across all community levels.',
     icon: 'mdi-shield-check',
     color: 'primary',
-    url: '/strategic-priorities',
+    url: '/executive-summary',
     relatedPrinciples: ['Promote Safety', 'Support Health'],
     highlights: [
       'Honor complex histories and provide holistic services',
@@ -84,7 +84,7 @@ const goals = [
     description: 'Increase access to grants and economic opportunities through flexible funding that accommodates local community priorities and addresses historical inequities.',
     icon: 'mdi-scale-balance',
     color: 'primary',
-    url: '/strategic-priorities',
+    url: '/executive-summary',
     relatedPrinciples: ['Advance Equity'],
     highlights: [
       'Continue improving access to funding',
@@ -100,7 +100,7 @@ const goals = [
     description: 'Foster partnerships across state, municipal, and community-based agencies through research-informed data sharing and best practice exchange.',
     icon: 'mdi-account-group',
     color: 'primary',
-    url: '/strategic-priorities',
+    url: '/executive-summary',
     relatedPrinciples: ['Engage State Agencies in Collaboration'],
     highlights: [
       'Analyze and disseminate statewide data trends',

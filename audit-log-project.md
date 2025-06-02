@@ -2,6 +2,74 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Content Synchronization and Navigation Menu Restructuring)
+- **Summary**: Synchronized content files with source document to ensure exact content matching, restructured navigation menu to improve organization, and updated navbar button text for better space utilization.
+- **Files Modified**:
+  - `content/executive-summary.md`: Updated content to match source document exactly from `public/files/vpp_plan.md` (lines 124-167)
+    - **Content Formatting**: Adjusted spacing and punctuation to match source document precisely
+    - **Goal Structure**: Updated goal presentation format to match source document layout
+    - **Text Alignment**: Ensured all text content matches source exactly with proper spacing
+  - `content/public-health-approach.md`: Updated content to match source document exactly from `public/files/vpp_plan.md` (lines 183-280)
+    - **Bullet Point Format**: Changed from dash (-) to bullet (•) format to match source
+    - **Spacing Consistency**: Added proper spacing after periods to match source formatting
+    - **Footnote Format**: Updated footnote formatting to match source document style
+    - **Section Alignment**: Ensured all sections match source document structure and content
+  - `config/menu.config.json`: Restructured navigation menu organization and updated button text
+    - **Menu Reordering**: Reordered "About the Plan" dropdown items to specified sequence:
+      1. Executive Summary
+      2. Violence Prevention from a Public Health Approach
+      3. Guiding Principles
+      4. Planning Process
+      5. [divider]
+      6. Contact Us
+    - **News Menu Creation**: Removed "News and Updates" from dropdown and created standalone "News" top-level menu item with order: 30
+    - **Button Text Update**: Changed "Download the Plan" to "Download" for better navbar space utilization
+- **Technical Implementation**:
+  - **Content Preservation**: Maintained all existing frontmatter and structural formatting while updating content
+  - **Source Accuracy**: Ensured exact content matching with source document including spacing and punctuation
+  - **Navigation Logic**: Preserved all existing navigation functionality while improving organization
+  - **Menu Ordering**: Used proper order values (10, 20, 30, 40) for consistent menu item positioning
+  - **Responsive Design**: Maintained responsive navigation behavior across all device sizes
+- **User Experience Benefits**:
+  - **Content Accuracy**: Executive Summary and Public Health Approach pages now match source document exactly
+  - **Improved Navigation**: More logical menu organization with Executive Summary first in dropdown
+  - **Cleaner Interface**: Standalone News menu item reduces dropdown complexity
+  - **Better Space Usage**: Shorter "Download" button text improves navbar layout on smaller screens
+  - **Consistent Structure**: Menu organization follows logical content hierarchy
+
+### 2025-06-02 (Stock Images Added to Content Pages with MDC Syntax)
+- **Summary**: Added appropriate stock images to three main content pages using proper Nuxt Content v3 (MDC) syntax with alternating left-right layout patterns to enhance visual appeal and break up text-heavy content while maintaining accessibility standards.
+- **Files Modified**:
+  - `content/about.md`: Added 3 images with alternating left-right alignment
+    - **Image 1 (Left, 220x220px)**: Community collaboration image representing unity in violence prevention efforts
+    - **Image 2 (Right, 200x200px)**: Professional team reviewing grants representing equity in funding access
+    - **Image 3 (Left, 210x210px)**: Multi-agency collaboration meeting representing data-driven partnerships
+  - `content/strategic-priorities.md`: Added 2 images with alternating left-right alignment
+    - **Image 1 (Left, 200x200px)**: Healthcare professionals providing trauma-informed care
+    - **Image 2 (Right, 190x190px)**: Diverse stakeholders collaborating around conference table
+  - `content/planning-process.md`: Added 3 images with alternating left-right alignment
+    - **Image 1 (Left, 200x200px)**: Collaborative planning process with professionals at conference table
+    - **Image 2 (Right, 180x180px)**: Research analysts reviewing data and statistical reports
+    - **Image 3 (Left, 190x190px)**: Professional meeting room with committee members
+- **Technical Implementation**:
+  - **MDC Syntax**: Used proper Nuxt Content v3 syntax `::TextWrapImage{props}` with closing `::` tags
+  - **Component Integration**: Leveraged existing TextWrapImage component with all required props
+  - **Alternating Layout**: Implemented left-right-left pattern for visual balance across all files
+  - **Responsive Sizing**: Images sized between 180-220px for optimal display across devices
+  - **High-Quality Sources**: Used Unsplash images with proper optimization parameters (w=800&q=80)
+  - **Strategic Placement**: Positioned images at logical content breaks between major sections
+- **Accessibility Features**:
+  - **Comprehensive Alt Text**: All images include detailed, descriptive alt text explaining content and context
+  - **Professional Captions**: Descriptive captions that enhance understanding of image relevance
+  - **ARIA Compliance**: Component includes proper ARIA attributes and relationships
+  - **Keyboard Navigation**: All images remain keyboard accessible through component implementation
+  - **Screen Reader Support**: Comprehensive descriptions for assistive technology users
+- **Content Enhancement**:
+  - **Thematic Relevance**: All images relate to violence prevention, community safety, collaboration, or public health
+  - **Visual Interest**: Images break up text-heavy content for improved readability
+  - **Professional Appearance**: Stock images maintain professional tone appropriate for government publication
+  - **Content Flow**: Images positioned to complement and enhance understanding of adjacent text content
+
 ### 2025-06-01 (Hash-Based Routing Implementation)
 - **Summary**: Implemented comprehensive hash-based routing functionality to handle anchor links properly throughout the Nuxt 3 application, enabling smooth navigation to specific sections within pages with proper header offset compensation and accessibility support.
 - **Files Modified/Created**:

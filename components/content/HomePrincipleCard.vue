@@ -175,7 +175,7 @@ const animationStyle = computed(() => ({
  *
  * @example
  * // With URL prop
- * <SandboxPrincipleCard :principle="principleData" url="/about" />
+ * <SandboxPrincipleCard :principle="principleData" url="/guiding-principles" />
  *
  * // Without URL prop (hover effects only)
  * <SandboxPrincipleCard :principle="principleData" />

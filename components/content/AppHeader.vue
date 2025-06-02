@@ -673,7 +673,7 @@ const handleHomeClick = () => {
 .dropdown-menu {
   border-radius: 4px;
   min-width: 200px;
-  max-width: 300px;
+  width: max-content;
   overflow: hidden;
 }
 

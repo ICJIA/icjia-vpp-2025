@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-02T11:28:57.096Z",
+  "generatedAt": "2025-06-02T13:18:34.788Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 17,
-    "contentPages": 14,
+    "totalPages": 18,
+    "contentPages": 15,
     "vuePages": 4,
     "combinedPages": 1,
     "blacklistedFiles": 5
@@ -40,19 +40,6 @@
           "type": "vue",
           "source": "pages/[...slug].vue",
           "title": "[...slug] - Statewide Violence Prevention Plan for Illinois: 2025-2029"
-        }
-      ]
-    },
-    {
-      "title": "About Us",
-      "path": "/about",
-      "fullUrl": "https://vpp-2025.netlify.app/about",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/about.md",
-          "title": "About Us"
         }
       ]
     },
@@ -92,6 +79,32 @@
           "type": "content",
           "source": "content/contact.md",
           "title": "Contact Us"
+        }
+      ]
+    },
+    {
+      "title": "Executive Summary",
+      "path": "/executive-summary",
+      "fullUrl": "https://vpp-2025.netlify.app/executive-summary",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/executive-summary.md",
+          "title": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "title": "Guiding Principles",
+      "path": "/guiding-principles",
+      "fullUrl": "https://vpp-2025.netlify.app/guiding-principles",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/guiding-principles.md",
+          "title": "Guiding Principles"
         }
       ]
     },
@@ -213,6 +226,19 @@
       ]
     },
     {
+      "title": "Violence Prevention from a Public Health Approach",
+      "path": "/public-health-approach",
+      "fullUrl": "https://vpp-2025.netlify.app/public-health-approach",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/public-health-approach.md",
+          "title": "Violence Prevention from a Public Health Approach"
+        }
+      ]
+    },
+    {
       "title": "Search - Violence Prevention Plan for Illinois: 2025-2029",
       "path": "/search",
       "fullUrl": "https://vpp-2025.netlify.app/search",
@@ -224,28 +250,15 @@
           "title": "Search - Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
-    },
-    {
-      "title": "Strategic Priorities",
-      "path": "/strategic-priorities",
-      "fullUrl": "https://vpp-2025.netlify.app/strategic-priorities",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/strategic-priorities.md",
-          "title": "Strategic Priorities"
-        }
-      ]
     }
   ],
   "stats": {
-    "totalPages": 17,
-    "contentPages": 14,
+    "totalPages": 18,
+    "contentPages": 15,
     "vuePages": 4,
     "combinedPages": 1,
     "blacklistedFiles": 5,
-    "menuIntegratedPages": 7,
+    "menuIntegratedPages": 8,
     "orphanedPages": 10
   }
 }

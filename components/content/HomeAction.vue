@@ -121,7 +121,7 @@ const callToActions = [
     color: 'primary',
     buttonText: 'View Plan',
     action: 'view-plan',
-    url: '/about'
+    url: '/executive-summary'
   },
   {
     title: 'Find Local Resources',
@@ -130,7 +130,7 @@ const callToActions = [
     color: 'primary',
     buttonText: 'Find Resources',
     action: 'find-resources',
-    url: '/about'
+    url: '/executive-summary'
   },
   {
     title: 'Get Involved',
@@ -139,7 +139,7 @@ const callToActions = [
     color: 'primary',
     buttonText: 'Learn More',
     action: 'get-involved',
-    url: '/about'
+    url: '/executive-summary'
   }
 ];
 
@@ -157,7 +157,7 @@ const callToActions = [
  *
  * @example
  * // Local navigation
- * handleActionClick({ action: 'view-plan', url: '/about' })
+ * handleActionClick({ action: 'view-plan', url: '/executive-summary' })
  *
  * // External navigation
  * handleActionClick({ action: 'external', url: 'https://example.com' })

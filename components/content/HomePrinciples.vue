@@ -67,14 +67,14 @@ const principles = [
     description: 'Individuals, families, and communities can find acceptance and develop resiliency through healthy, peaceful relationships. Violence prevention programming includes relational opportunities based on developmental stages and risk factors.',
     icon: 'mdi-heart-multiple',
     color: 'primary',
-    url: '/about'
+    url: '/guiding-principles'
   },
   {
     title: 'Advance Equity',
     description: 'Violence prevention programming addresses inequities by partnering with individuals, families and communities who experience a disproportionate amount of risk factors. State agencies address historical inequities by embedding communities\' true voice in decision-making processes.',
     icon: 'mdi-scale-balance',
     color: 'primary',
-    url: '/about',
+    url: '/guiding-principles',
     relatedGoal: 'Strategic Priority #2: Advance Equity'
   },
   {
@@ -82,7 +82,7 @@ const principles = [
     description: 'The ability to live without fear of harm is a fundamental human right and developmentally essential to individual, familial and community success. Violence prevention programming strives to develop culturally responsive, safe, and peaceful environments.',
     icon: 'mdi-shield-account',
     color: 'primary',
-    url: '/about',
+    url: '/guiding-principles',
     relatedGoal: 'Strategic Priority #1: Prevent Violence & Promote Safety'
   },
   {
@@ -90,7 +90,7 @@ const principles = [
     description: 'Violence prevention programming builds and sustains mentally and physically strong individuals, families, and communities. These trauma-informed practices include policies and efforts that support staff in local organizations.',
     icon: 'mdi-heart-pulse',
     color: 'primary',
-    url: '/about',
+    url: '/guiding-principles',
     relatedGoal: 'Strategic Priority #1: Prevent Violence & Promote Safety'
   },
   {
@@ -98,7 +98,7 @@ const principles = [
     description: 'Violence prevention programming takes place across many state agencies and focuses on similar outcomes. We work more effectively by communicating across agencies quarterly, sharing resources, best practices and data as the norm.',
     icon: 'mdi-account-group',
     color: 'primary',
-    url: '/about',
+    url: '/guiding-principles',
     relatedGoal: 'Strategic Priority #3: Promote Collaboration'
   }
 ];

@@ -7,7 +7,11 @@
 
     <!-- Error State -->
     <div v-else-if="error" class="error-state">
-      <v-alert type="error" title="Error Loading Content" :text="error && error.message ? error.message : 'Failed to load content'" />
+      <v-alert
+        type="error"
+        title="Error Loading Content"
+        :text="error && error.message ? error.message : 'Failed to load content'"
+      />
     </div>
 
     <!-- Content Display -->
@@ -32,7 +36,11 @@
 
     <!-- No Content State -->
     <div v-else class="empty-state">
-      <v-alert type="info" title="No Content Found" text="The requested content could not be found." />
+      <v-alert
+        type="info"
+        title="No Content Found"
+        text="The requested content could not be found."
+      />
     </div>
   </div>
 </template>
@@ -62,8 +70,8 @@
  * />
  * ```
  */
-import { ContentRenderer } from '#components';
-import useContentFetcher from '~/composables/useContentFetcher';
+import { ContentRenderer } from "#components";
+import useContentFetcher from "~/composables/useContentFetcher";
 
 const props = defineProps({
   /**
@@ -71,7 +79,7 @@ const props = defineProps({
    */
   path: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -97,13 +105,13 @@ const props = defineProps({
    */
   debug: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 // Use the content fetcher composable with minimal options
 const { content, pending, error } = useContentFetcher({
-  path: props.path
+  path: props.path,
 });
 </script>
 
@@ -161,7 +169,8 @@ const { content, pending, error } = useContentFetcher({
       line-height: 1.6;
     }
 
-    :deep(ul), :deep(ol) {
+    :deep(ul),
+    :deep(ol) {
       margin-bottom: 1rem;
       padding-left: 1.5rem;
     }
@@ -228,7 +237,7 @@ const { content, pending, error } = useContentFetcher({
     border-radius: 8px;
 
     .debug-content {
-      font-family: 'Roboto Mono', monospace;
+      font-family: "Roboto Mono", monospace;
       background-color: rgba(0, 0, 0, 0.03);
       padding: 1.5rem;
       overflow-x: auto;
