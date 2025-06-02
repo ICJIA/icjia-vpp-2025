@@ -1,15 +1,15 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-02T15:59:15.294Z",
+  "generatedAt": "2025-06-02T16:26:52.615Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 22,
-    "contentPages": 19,
-    "vuePages": 4,
+    "totalPages": 19,
+    "contentPages": 17,
+    "vuePages": 3,
     "combinedPages": 1,
-    "blacklistedFiles": 0
+    "blacklistedFiles": 1
   },
   "pages": [
     {
@@ -27,19 +27,6 @@
           "type": "vue",
           "source": "pages/index.vue",
           "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029"
-        }
-      ]
-    },
-    {
-      "title": "[...slug] - Statewide Violence Prevention Plan for Illinois: 2025-2029",
-      "path": "/[...slug]",
-      "fullUrl": "https://vpp-2025.netlify.app/[...slug]",
-      "type": "vue",
-      "sources": [
-        {
-          "type": "vue",
-          "source": "pages/[...slug].vue",
-          "title": "[...slug] - Statewide Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
     },
@@ -276,41 +263,15 @@
           "title": "Search - Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
-    },
-    {
-      "title": "Test Page for Custom TOC Label",
-      "path": "/test-custom-toc-label",
-      "fullUrl": "https://vpp-2025.netlify.app/test-custom-toc-label",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/test-custom-toc-label.md",
-          "title": "Test Page for Custom TOC Label"
-        }
-      ]
-    },
-    {
-      "title": "Test Page for Default TOC Label",
-      "path": "/test-default-toc-label",
-      "fullUrl": "https://vpp-2025.netlify.app/test-default-toc-label",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/test-default-toc-label.md",
-          "title": "Test Page for Default TOC Label"
-        }
-      ]
     }
   ],
   "stats": {
-    "totalPages": 22,
-    "contentPages": 19,
-    "vuePages": 4,
+    "totalPages": 19,
+    "contentPages": 17,
+    "vuePages": 3,
     "combinedPages": 1,
-    "blacklistedFiles": 0,
+    "blacklistedFiles": 1,
     "menuIntegratedPages": 9,
-    "orphanedPages": 13
+    "orphanedPages": 10
   }
 }

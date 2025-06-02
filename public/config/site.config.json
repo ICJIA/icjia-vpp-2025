@@ -78,7 +78,8 @@
     "blacklist": {
       "vue": [
         "sandbox.vue",
-        "sandbox-*.vue"
+        "sandbox-*.vue",
+        "[...slug].vue"
       ],
       "markdown": [
         "sandbox.md",

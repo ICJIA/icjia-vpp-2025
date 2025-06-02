@@ -2,6 +2,52 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Footer Navigation Column Removal)
+- **Summary**: Removed the entire 'Navigation' column from the footer to streamline the footer layout and reduce redundancy with the main navigation menu.
+- **Files Modified**:
+  - `config/menu.config.json`: Removed the 'Navigation' section from footer configuration
+    - **Section Removed**: Deleted the entire 'Navigation' section (lines 180-208) containing Home, Executive Summary, and References links
+    - **Footer Restructure**: Footer now contains only Connect, Legal, and Accessibility sections
+    - **Link Cleanup**: Removed redundant footer navigation links that duplicate main navigation functionality
+- **Technical Implementation**:
+  - **Configuration Update**: Removed the first section from `footer.sections` array in menu configuration
+  - **Layout Optimization**: Footer now displays three columns instead of four, improving visual balance
+  - **Navigation Consolidation**: Main navigation menu remains the primary navigation method
+  - **Accessibility Maintained**: All removed links remain accessible through the main navigation menu
+- **User Experience Benefits**:
+  - **Cleaner Footer**: Simplified footer layout with reduced visual clutter
+  - **Focused Content**: Footer now focuses on external connections, legal information, and accessibility resources
+  - **Reduced Redundancy**: Eliminated duplicate navigation links that were already available in the main menu
+  - **Improved Hierarchy**: Clear separation between primary navigation (header) and secondary information (footer)
+
+### 2025-06-02 (Sitemap Generation Fix - Excluded Catch-All Route)
+- **Summary**: Fixed sitemap generation to exclude the catch-all route `[...slug]` from both sitemap.xml and routes.json files, preventing the dynamic route template from appearing as a standalone entry in search engine sitemaps.
+- **Files Modified**:
+  - `config/site.config.json`: Added catch-all route to Vue blacklist patterns
+    - **Blacklist Addition**: Added `"[...slug].vue"` to `routing.blacklist.vue` array
+    - **Route Exclusion**: Prevents the dynamic catch-all page from being included in site configuration
+    - **Preserved Patterns**: Maintained existing sandbox blacklist patterns
+  - `config/sitemap.config.json`: Added catch-all route to sitemap exclusion patterns
+    - **Exclusion Addition**: Added `"/[...slug]"` to `sitemap.exclusions.patterns` array
+    - **Pattern Matching**: Ensures the catch-all route path is excluded from sitemap generation
+    - **Maintained Exclusions**: Preserved existing exclusion patterns for sandbox and error pages
+- **Technical Implementation**:
+  - **Blacklist Processing**: Site configuration generator now excludes `[...slug].vue` during Vue file processing
+  - **Route Filtering**: Sitemap generator filters out `/[...slug]` path during route processing
+  - **Statistics Update**: Blacklisted files count increased to 1, reflecting the excluded catch-all route
+  - **Content Preservation**: Individual content pages from `/content` directory remain properly included in sitemap
+  - **Configuration Sync**: Both config and public config files updated consistently
+- **Issue Resolution**:
+  - **Problem**: Sitemap.xml contained invalid entry `<loc>https://vpp-2025.netlify.app/[...slug]</loc>`
+  - **Root Cause**: Dynamic route template was being processed as a regular page by site configuration generator
+  - **Solution**: Added catch-all route pattern to blacklist in both site and sitemap configurations
+  - **Verification**: Confirmed catch-all route no longer appears in sitemap.xml or routes.json files
+- **SEO Benefits**:
+  - **Clean Sitemap**: Search engines no longer encounter invalid catch-all route entries
+  - **Proper Indexing**: Only actual content pages are included in sitemap for search engine crawling
+  - **URL Validity**: All sitemap URLs now represent actual accessible content pages
+  - **Maintained Coverage**: All legitimate content pages remain properly indexed in sitemap
+
 ### 2025-06-02 (Site-Wide Configurable TOC Default Label)
 - **Summary**: Changed the default Table of Contents label from "Table of Contents" to "Jump To..." and made it configurable through site.config.json, providing site-wide control over TOC labeling while maintaining page-level override capability.
 - **Files Modified/Created**:

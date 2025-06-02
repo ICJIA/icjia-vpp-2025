@@ -6,8 +6,10 @@ ogDescription: "Understanding violence as a public health concern and utilizing 
 ogImage: "/images/og-image-public-health.jpg"
 twitterCard: "summary_large_image"
 showTOC: true
-tocLabel: "Jump To"
+
 ---
+
+## Overview
 
 Violence is a global public health concern.  Violence is defined as "the intentional use of physical force or power, threatened or actual, against oneself, another person, or against a group or community, that results in or has a high likelihood of resulting in injury, death, psychological harm, maldevelopment, or deprivation" (World Health Organization, 2002).  Violence can include child abuse and neglect, bullying and cyberbullying, teen dating violence, youth physical fighting and weapon carrying, adult intimate partner violence, sexual violence, violent crime (e.g., homicides, aggravated assault, criminal sexual assault, robbery), and abuse against older adults and adults with disabilities.  People are exposed to violence within their homes, at school or work, and in their communities.
 

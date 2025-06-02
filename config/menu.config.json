@@ -178,35 +178,6 @@
     "description": "The first Statewide Violence Prevention Plan, for 2020-2024, was released in 2021. Since then, a variety of implementation, research, and activities have taken place. The Ad Hoc Violence Prevention Committee and its workgroups reviewed these activities, reports, and research, discussing ways in which this work could be used to inform the next violence prevention plan, collectively writing the 2025-2029 goals and recommendations.",
     "sections": [
       {
-        "title": "Navigation",
-        "items": [
-          {
-            "text": "Home",
-            "href": "/",
-            "ariaLabel": "Navigate to home page",
-            "tooltip": "Navigate to home page",
-            "tooltipLocation": "left",
-            "class": "footer-link mb-2"
-          },
-          {
-            "text": "Executive Summary",
-            "to": "/executive-summary",
-            "ariaLabel": "Read the executive summary of our violence prevention plan",
-            "tooltip": "Read the executive summary of our violence prevention plan",
-            "tooltipLocation": "left",
-            "class": "footer-link mb-2"
-          },
-          {
-            "text": "References",
-            "to": "/references",
-            "ariaLabel": "View references and bibliography",
-            "tooltip": "View references and bibliography",
-            "tooltipLocation": "left",
-            "class": "footer-link mb-2"
-          }
-        ]
-      },
-      {
         "title": "Connect",
         "items": [
           {

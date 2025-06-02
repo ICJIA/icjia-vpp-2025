@@ -25,7 +25,8 @@
         "/sandbox",
         "/sandbox-*",
         "/404",
-        "/error"
+        "/error",
+        "/[...slug]"
       ]
     }
   },

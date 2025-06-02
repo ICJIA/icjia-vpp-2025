@@ -8,6 +8,7 @@ twitterCard: "summary_large_image"
 showTOC: true
 ---
 
+## Overview
 
 Violence is a global public health crisis. Violence is prevalent for many individuals and communities in Illinois (Garthe et al., 2021), and a leading cause of death (Illinois Department of Public Health, 2022).  Experiencing or perpetrating violence can result in an array of negative health, mental health, economic, and relational impacts (World Health Organization, 2023).  Thus, the prevention of violence is paramount.
 
