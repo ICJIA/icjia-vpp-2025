@@ -31,7 +31,7 @@
         "order": 10
       },
       {
-        "text": "About the Plan",
+        "text": "The 2025-2029 Plan",
         "ariaLabel": "Learn more about our project and latest updates",
         "tooltip": "Learn more about our project and latest updates",
         "tooltipLocation": "bottom",
@@ -83,6 +83,17 @@
             "to": "/planning-process",
             "ariaLabel": "View our planning process",
             "tooltip": "View our planning process",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
+            "text": "Goals and Recommendations",
+            "to": "/goals-and-recommendations",
+            "ariaLabel": "View our goals and recommendations",
+            "tooltip": "View our goals and recommendations",
             "tooltipLocation": "right",
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
