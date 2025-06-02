@@ -92,8 +92,8 @@
                   <v-icon
                     v-if="item.dropdownIcon"
                     :icon="item.dropdownIcon"
-                    size="small"
-                    class="ml-1"
+                    size="large"
+                    class="ml-1 dropdown-chevron"
                     aria-hidden="true"
                   ></v-icon>
                 </v-btn>
@@ -262,8 +262,8 @@
                   <template v-slot:append>
                     <v-icon
                       :icon="item.mobileDropdownIcon || 'mdi-chevron-right'"
-                      size="small"
-                      :class="{ 'rotate-90': mobileExpandedDropdowns[index] }"
+                      size="large"
+                      :class="{ 'rotate-90': mobileExpandedDropdowns[index], 'mobile-dropdown-chevron': true }"
                       aria-hidden="true"
                     ></v-icon>
                   </template>
@@ -763,6 +763,33 @@ const handleHomeClick = () => {
 .dropdown-item-mobile.router-link-active {
   background-color: rgba(var(--v-theme-primary), 0.05) !important;
   border-left-color: var(--v-theme-primary);
+}
+
+/* Enhanced dropdown chevron styling for better visibility */
+.dropdown-chevron {
+  font-weight: 900 !important;
+  opacity: 1 !important;
+  font-size: 1.25rem !important;
+  transform: scale(1.2);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.dropdown-chevron:hover {
+  transform: scale(1.3);
+  opacity: 1 !important;
+}
+
+.mobile-dropdown-chevron {
+  font-weight: 900 !important;
+  opacity: 1 !important;
+  font-size: 1.25rem !important;
+  transform: scale(1.2);
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.mobile-dropdown-chevron:hover {
+  transform: scale(1.3);
+  opacity: 1 !important;
 }
 
 /* Animation for mobile dropdown chevron */

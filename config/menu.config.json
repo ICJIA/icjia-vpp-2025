@@ -18,19 +18,6 @@
     },
     "items": [
       {
-        "text": "Home",
-        "href": "/",
-        "ariaLabel": "Navigate to home page",
-        "tooltip": "Navigate to home page",
-        "tooltipLocation": "bottom",
-        "variant": "text",
-        "color": "on-app-bar",
-        "class": "font-weight-bold mx-2 nav-link",
-        "mobileClass": "font-weight-bold py-2 nav-link-mobile",
-        "displayMode": "both",
-        "order": 10
-      },
-      {
         "text": "The 2025-2029 Plan",
         "ariaLabel": "Learn more about our project and latest updates",
         "tooltip": "Learn more about our project and latest updates",

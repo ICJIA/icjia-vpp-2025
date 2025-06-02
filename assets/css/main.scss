@@ -224,6 +224,107 @@ a {
   }
 }
 
+// Navigation Link Consistency - Remove visited state distinctions
+// Ensures navigation links maintain consistent appearance regardless of visited state
+// Applies only to navigation components, preserving content link behavior
+
+// Header Navigation Links - Desktop and Mobile
+.nav-link,
+.nav-link-mobile,
+.dropdown-item,
+.dropdown-item-mobile {
+  // Override visited state to match normal state
+  &:visited {
+    color: inherit !important;
+    text-decoration-color: inherit !important;
+  }
+
+  // Ensure hover and focus states work consistently
+  &:hover,
+  &:focus {
+    color: inherit;
+    text-decoration-color: inherit;
+  }
+}
+
+// Footer Navigation Links
+.footer-link {
+  // Override visited state to match normal state
+  &:visited {
+    color: rgba(var(--v-theme-on-background), 0.87) !important;
+    text-decoration-color: rgba(var(--v-theme-on-background), 0.87) !important;
+  }
+
+  // Ensure hover state works consistently
+  &:hover {
+    color: var(--v-primary-base) !important;
+    text-decoration-color: var(--v-primary-base) !important;
+  }
+
+  // Ensure focus state works consistently
+  &:focus {
+    color: var(--v-primary-base) !important;
+    text-decoration-color: var(--v-primary-base) !important;
+  }
+}
+
+// Vuetify Button Components in Navigation (v-btn elements)
+// Target buttons within navigation components specifically
+.app-header .v-btn,
+.mobile-nav-drawer .v-btn {
+  // Override any visited state styling that might affect button text
+  &:visited {
+    color: inherit !important;
+  }
+}
+
+// Nuxt-link components in footer navigation
+.app-footer .nuxt-link-active,
+.app-footer nuxt-link {
+  &:visited {
+    color: rgba(var(--v-theme-on-background), 0.87) !important;
+  }
+}
+
+// Theme-specific overrides for navigation consistency
+// Light Theme Navigation Links
+:root:not([data-theme="dark"]) {
+  .nav-link,
+  .nav-link-mobile,
+  .dropdown-item,
+  .dropdown-item-mobile {
+    &:visited {
+      color: rgba(var(--v-theme-on-surface), 0.87) !important;
+    }
+  }
+}
+
+// Dark Theme Navigation Links
+:root[data-theme="dark"] {
+  .nav-link,
+  .nav-link-mobile,
+  .dropdown-item,
+  .dropdown-item-mobile {
+    &:visited {
+      color: rgba(var(--v-theme-on-surface), 0.87) !important;
+    }
+  }
+}
+
+// High Contrast Mode - Maintain navigation consistency
+@media (prefers-contrast: high) {
+  .nav-link,
+  .nav-link-mobile,
+  .dropdown-item,
+  .dropdown-item-mobile,
+  .footer-link {
+    &:visited {
+      color: inherit !important;
+      font-weight: inherit !important;
+    }
+  }
+}
+
 // Variables
 $spacing-unit: 8px;
 $border-radius-sm: 8px;

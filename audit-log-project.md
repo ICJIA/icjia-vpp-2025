@@ -2,6 +2,55 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Enhanced Dropdown Icon Visibility in Navigation Menus)
+- **Summary**: Improved the visibility and prominence of dropdown icons in both desktop and mobile navigation menus by increasing their size, adding font-weight styling, and enhancing visual appearance while maintaining full accessibility compliance.
+- **Files Modified**:
+  - `components/content/AppHeader.vue`: Enhanced dropdown icon styling and visibility
+    - **Desktop Dropdown Icons**: Changed size from "small" to "default" and added "dropdown-chevron" CSS class
+    - **Mobile Dropdown Icons**: Changed size from "small" to "default" and added "mobile-dropdown-chevron" CSS class
+    - **CSS Styling**: Added comprehensive styling for enhanced visibility with font-weight: 900, opacity adjustments, and smooth transitions
+    - **Hover Effects**: Added hover state styling to increase opacity to 1.0 for better user feedback
+    - **Transition Effects**: Added smooth transitions for transform, opacity changes during interactions
+- **Technical Implementation**:
+  - **Size Enhancement**: Upgraded icon size from Vuetify's "small" to "default" for better visibility
+  - **Font Weight**: Applied font-weight: 900 !important to make icons appear bolder and more prominent
+  - **Opacity Control**: Set base opacity to 0.9 with hover state increasing to 1.0 for subtle visual feedback
+  - **CSS Classes**: Added specific classes "dropdown-chevron" and "mobile-dropdown-chevron" for targeted styling
+  - **Accessibility Preservation**: Maintained aria-hidden="true" and all existing accessibility attributes
+  - **Animation Compatibility**: Preserved existing rotation animations for mobile dropdown state changes
+- **User Experience Benefits**:
+  - **Improved Visibility**: Dropdown indicators are now more prominent and easier to identify
+  - **Better User Guidance**: Users can more easily recognize interactive dropdown elements
+  - **Enhanced Accessibility**: Larger, bolder icons benefit users with visual impairments
+  - **Consistent Styling**: Unified approach across both desktop and mobile navigation interfaces
+  - **Smooth Interactions**: Subtle hover effects provide clear visual feedback without being distracting
+
+### 2025-06-02 (Navigation Link Consistency - Removed Visited State Distinctions)
+- **Summary**: Implemented CSS styling to ensure navigation links in both the top navbar and footer maintain consistent visual appearance regardless of their visited/unvisited state, while preserving all existing hover, focus, and accessibility features.
+- **Files Modified**:
+  - `assets/css/main.scss`: Added comprehensive navigation link consistency rules
+    - **Navigation Link Overrides**: Added CSS rules for `.nav-link`, `.nav-link-mobile`, `.dropdown-item`, `.dropdown-item-mobile` to override visited states
+    - **Footer Link Consistency**: Added specific styling for `.footer-link` to maintain consistent color regardless of visited state
+    - **Vuetify Button Integration**: Added rules for `v-btn` elements within navigation components to prevent visited state styling
+    - **Theme-Specific Overrides**: Added light and dark theme specific rules to ensure consistent colors across themes
+    - **High Contrast Support**: Added `@media (prefers-contrast: high)` rules to maintain navigation consistency in high contrast mode
+    - **Scope Limitation**: Applied styling only to navigation components, preserving global content link behavior
+  - `components/content/AppFooter.vue`: Added `app-footer` class for CSS targeting
+    - **Class Addition**: Added `app-footer` class to `v-footer` element for specific CSS selector targeting
+    - **Preserved Functionality**: Maintained all existing footer functionality and styling
+- **Technical Implementation**:
+  - **Visited State Removal**: Used `color: inherit !important` and `text-decoration-color: inherit !important` to override visited link styling
+  - **Hover/Focus Preservation**: Maintained existing hover and focus effects while ensuring consistent base states
+  - **Theme Compatibility**: Ensured styling works correctly with both light and dark themes using CSS custom properties
+  - **WCAG Compliance**: Maintained 8:1 contrast ratio compliance and all accessibility features
+  - **Selective Targeting**: Used specific CSS selectors to target only navigation links, not affecting content area links
+- **User Experience Benefits**:
+  - **Consistent Navigation**: Users cannot distinguish between visited and unvisited navigation links
+  - **Reduced Cognitive Load**: Uniform navigation appearance eliminates visual distractions
+  - **Preserved Functionality**: All hover, focus, and keyboard navigation behaviors remain intact
+  - **Content Links Unaffected**: Global link styling in content areas maintains visited state distinctions for user benefit
+  - **Accessibility Maintained**: All WCAG 2.1 AA compliance features preserved including focus indicators and screen reader support
+
 ### 2025-06-02 (References Page Creation and Navigation Integration)
 - **Summary**: Created comprehensive References page by extracting the complete bibliography from the source document and integrated it into the navigation menu structure, providing users with access to all academic citations and resources referenced in the Violence Prevention Plan.
 - **Files Modified/Created**:
