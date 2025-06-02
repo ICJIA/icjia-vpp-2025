@@ -69,6 +69,7 @@ export default defineNuxtConfig({
           depth: 2, // include h2 headings
         },
 
+
       }
     }
   },

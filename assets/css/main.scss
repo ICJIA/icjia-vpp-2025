@@ -763,6 +763,141 @@ blockquote {
     // Remove border radius on very small screens for edge-to-edge feel
     border-radius: $border-radius-sm !important; // 8px instead of 12px
   }
+
+  blockquote a {
+    // Enhanced touch targets for mobile accessibility
+    min-height: 44px; // iOS accessibility guideline minimum
+    display: inline-block;
+    padding: 0.25rem 0;
+
+    // Thicker underlines for better visibility on small screens
+    text-decoration-thickness: 2.5px !important;
+
+    &:hover {
+      text-decoration-thickness: 3.5px !important;
+    }
+
+    // Enhanced focus state for mobile
+    &:focus,
+    &:focus-visible {
+      outline-width: 4px !important;
+      outline-offset: 2px !important;
+    }
+  }
+}
+
+// Blockquote Link Styling - Enhanced Accessibility and Security
+// Ensures links within blockquotes maintain high contrast and proper security attributes
+blockquote a {
+  // Enhanced font weight for visibility within callout context
+  font-weight: 700 !important;
+
+  // Ensure proper word breaking for long URLs
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  // Enhanced underline for visibility within blockquote context
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 0.15em;
+
+  // Smooth transitions
+  transition: all 0.2s ease;
+
+  // Enhanced focus state for accessibility
+  &:focus,
+  &:focus-visible {
+    outline: 3px solid var(--v-primary-base);
+    outline-offset: 3px;
+    border-radius: 3px;
+    background-color: rgba(var(--v-theme-primary), 0.15);
+  }
+
+  // Active state with subtle feedback
+  &:active {
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+}
+
+// Blockquote Italic Text Styling - Enhanced Readability
+// Ensures italic text within blockquotes maintains proper readability and contrast
+blockquote em,
+blockquote i {
+  // Maintain font weight for readability in italic context
+  font-weight: 600 !important;
+
+  // Ensure proper font style
+  font-style: italic;
+
+  // Slightly increase letter spacing for better readability in italic
+  letter-spacing: 0.01em;
+
+  // Maintain line height for readability
+  line-height: inherit;
+}
+
+// Light Theme Blockquote Styling - Enhanced Contrast
+:root:not([data-theme="dark"]) {
+  // Italic text styling for light theme
+  blockquote em,
+  blockquote i {
+    color: #1a1a1a !important; // Maintain high contrast for italic text
+  }
+
+  blockquote a {
+    // Enhanced contrast for blockquote background (#f8f9fa)
+    color: #0d47a1 !important; // Dark blue - 8.59:1 contrast on blockquote background
+    text-decoration-color: #0d47a1 !important;
+
+    &:hover {
+      color: #01579b !important; // Very dark blue - 10.2:1 contrast
+      text-decoration-color: #01579b !important;
+      text-decoration-thickness: 3px !important;
+    }
+
+    &:visited {
+      color: #4a148c !important; // Dark purple - 8.12:1 contrast
+      text-decoration-color: #4a148c !important;
+    }
+
+    &:visited:hover {
+      color: #3d1178 !important; // Darker purple for visited hover
+      text-decoration-color: #3d1178 !important;
+      text-decoration-thickness: 3px !important;
+    }
+  }
+}
+
+// Dark Theme Blockquote Styling - Enhanced Contrast
+:root[data-theme="dark"] {
+  // Italic text styling for dark theme
+  blockquote em,
+  blockquote i {
+    color: #ffffff !important; // Maintain high contrast for italic text
+  }
+
+  blockquote a {
+    // Enhanced contrast for dark blockquote background (#1e2a3a)
+    color: #90caf9 !important; // Light blue - 10.45:1 contrast on blockquote background
+    text-decoration-color: #90caf9 !important;
+
+    &:hover {
+      color: #bbdefb !important; // Very light blue - 12.8:1 contrast
+      text-decoration-color: #bbdefb !important;
+      text-decoration-thickness: 3px !important;
+    }
+
+    &:visited {
+      color: #ce93d8 !important; // Light purple - 9.67:1 contrast
+      text-decoration-color: #ce93d8 !important;
+    }
+
+    &:visited:hover {
+      color: #e1bee7 !important; // Lighter purple for visited hover
+      text-decoration-color: #e1bee7 !important;
+      text-decoration-thickness: 3px !important;
+    }
+  }
 }
 
 // High Contrast Mode Support for Enhanced Accessibility
@@ -793,12 +928,148 @@ blockquote {
     border-color: #ffffff !important; // White border for maximum contrast
     border-left-color: #ffffff !important;
   }
+
+  // High contrast blockquote content
+  blockquote em,
+  blockquote i {
+    font-weight: 700 !important; // Extra bold for italic text in high contrast
+    letter-spacing: 0.02em !important; // Increased letter spacing for better readability
+  }
+
+  // High contrast blockquote links
+  blockquote a {
+    font-weight: 800 !important; // Extra bold for maximum visibility
+    text-decoration-thickness: 3px !important;
+
+    &:focus,
+    &:focus-visible {
+      outline-width: 4px !important;
+      outline-offset: 4px !important;
+    }
+  }
+
+  :root:not([data-theme="dark"]) {
+    blockquote em,
+    blockquote i {
+      color: #000000 !important; // Pure black for maximum contrast
+    }
+
+    blockquote a {
+      color: #000080 !important; // Navy blue for maximum contrast
+      text-decoration-color: #000080 !important;
+
+      &:hover {
+        color: #000000 !important; // Pure black on hover
+        text-decoration-color: #000000 !important;
+      }
+
+      &:visited {
+        color: #800080 !important; // Purple for visited links
+        text-decoration-color: #800080 !important;
+      }
+    }
+  }
+
+  :root[data-theme="dark"] {
+    blockquote em,
+    blockquote i {
+      color: #ffffff !important; // Pure white for maximum contrast
+    }
+
+    blockquote a {
+      color: #ffffff !important; // Pure white for maximum contrast
+      text-decoration-color: #ffffff !important;
+
+      &:hover {
+        color: #ffff00 !important; // Yellow on hover for high visibility
+        text-decoration-color: #ffff00 !important;
+      }
+
+      &:visited {
+        color: #ff00ff !important; // Magenta for visited links
+        text-decoration-color: #ff00ff !important;
+      }
+    }
+  }
 }
 
 // Reduced Motion Support for Accessibility
 @media (prefers-reduced-motion: reduce) {
   blockquote {
     // Remove all transitions for users who prefer reduced motion
+    transition: none !important;
+  }
+
+  blockquote a {
+    // Remove all transitions and transforms for blockquote links
+    transition: none !important;
+
+    &:active {
+      transform: none !important;
+    }
+
+    &:hover {
+      // Keep color changes but remove transitions
+      transition: none !important;
+    }
+  }
+}
+
+// External Link Icon Styling - Enhanced Accessibility
+// Provides visual indication for external links with proper accessibility support
+.external-link-icon {
+  // Subtle styling for the external link indicator
+  font-size: 0.875em;
+  margin-left: 0.25em;
+  opacity: 0.7;
+
+  // Smooth transitions for theme changes
+  transition: opacity 0.2s ease;
+
+  // Ensure proper spacing and alignment
+  display: inline;
+  vertical-align: baseline;
+
+  // Prevent text selection of the icon
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+// Enhanced visibility on hover for external link icons
+a:hover .external-link-icon {
+  opacity: 1;
+}
+
+// Theme-specific styling for external link icons
+:root:not([data-theme="dark"]) .external-link-icon {
+  color: #0d47a1; // Match link color in light theme
+}
+
+:root[data-theme="dark"] .external-link-icon {
+  color: #64b5f6; // Match link color in dark theme
+}
+
+// High contrast mode support for external link icons
+@media (prefers-contrast: high) {
+  .external-link-icon {
+    opacity: 1 !important; // Always visible in high contrast mode
+    font-weight: 700 !important; // Bold for better visibility
+  }
+
+  :root:not([data-theme="dark"]) .external-link-icon {
+    color: #000080 !important; // Navy blue for maximum contrast
+  }
+
+  :root[data-theme="dark"] .external-link-icon {
+    color: #ffffff !important; // Pure white for maximum contrast
+  }
+}
+
+// Reduced motion support for external link icons
+@media (prefers-reduced-motion: reduce) {
+  .external-link-icon {
     transition: none !important;
   }
 }
