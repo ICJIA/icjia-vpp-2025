@@ -53,7 +53,7 @@
     },
     "themes": {
       "enabled": true,
-      "default": "light",
+      "default": "dark",
       "options": [
         "light",
         "dark"

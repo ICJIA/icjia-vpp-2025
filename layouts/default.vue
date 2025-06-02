@@ -108,18 +108,18 @@ const isClient = typeof window !== "undefined";
  * The theme initialization is separated from the component setup to ensure
  * it only runs in the browser environment.
  */
-onMounted(() => {
+onMounted(async () => {
   if (isClient) {
-    initTheme();
+    await initTheme();
   }
 });
 
 /**
- * Initialize theme from localStorage or use default
+ * Initialize theme from localStorage or use configured default
  *
  * This function:
  * 1. Attempts to retrieve the user's theme preference from localStorage
- * 2. Sets the theme state based on the saved preference or falls back to 'light'
+ * 2. Sets the theme state based on the saved preference or falls back to site config default
  * 3. Applies the theme to the document by setting a data-theme attribute
  * 4. Handles errors if localStorage is unavailable (e.g., in private browsing)
  * 5. Logs theme initialization for debugging purposes
@@ -132,13 +132,22 @@ onMounted(() => {
  *
  * @returns {void}
  */
-function initTheme() {
+async function initTheme() {
+  // Load site configuration to get default theme
+  let defaultTheme = 'dark'; // Fallback default
+  try {
+    const { getSetting } = useSiteSettings();
+    defaultTheme = await getSetting('features.themes.default', 'dark');
+  } catch (configError) {
+    logError('Could not load site configuration for theme default, using fallback', configError);
+  }
+
   try {
     // Check if there's a theme preference in localStorage
     const savedTheme = localStorage.getItem("theme-preference");
 
-    // Set theme based on localStorage or default to light
-    theme.value = savedTheme || "light";
+    // Set theme based on localStorage or configured default
+    theme.value = savedTheme || defaultTheme;
 
     // Apply theme class to document for CSS variable access
     document.documentElement.setAttribute("data-theme", theme.value);
@@ -146,7 +155,8 @@ function initTheme() {
     // Log theme initialization
     logTheme("Theme initialized", {
       theme: theme.value,
-      source: savedTheme ? "localStorage" : "default",
+      source: savedTheme ? "localStorage" : "site-config-default",
+      defaultTheme: defaultTheme,
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
       viewportWidth: window.innerWidth,
@@ -154,12 +164,13 @@ function initTheme() {
   } catch (e) {
     // Fallback if localStorage is not available (e.g., private browsing)
     logError("Error accessing localStorage during theme initialization", e);
-    theme.value = "light";
+    theme.value = defaultTheme;
 
     // Log fallback theme
     logTheme("Theme initialized with fallback", {
-      theme: "light",
+      theme: defaultTheme,
       reason: "localStorage error",
+      defaultTheme: defaultTheme,
       timestamp: new Date().toISOString(),
     });
   }

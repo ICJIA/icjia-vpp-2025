@@ -2,6 +2,41 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-02 (Dark Mode Default Theme Implementation)
+- **Summary**: Configured the application's theme system to default to dark mode on initial launch while preserving all existing user preference functionality and theme switching capabilities.
+- **Files Modified**:
+  - `config/site.config.json`: Updated theme configuration
+    - **Default Theme Change**: Changed `features.themes.default` from "light" to "dark"
+    - **Site-Wide Configuration**: Centralized theme default setting for consistent application behavior
+  - `public/config/site.config.json`: Updated public configuration copy
+    - **Configuration Sync**: Updated public copy to match main configuration for API consistency
+    - **Runtime Access**: Ensures client-side configuration access reflects new dark mode default
+  - `plugins/theme-handler.client.js`: Enhanced theme initialization with site configuration integration
+    - **Configuration Loading**: Added async loading of site configuration to get default theme setting
+    - **Dynamic Default**: Changed from hardcoded "light" to configurable default from site.config.json
+    - **Fallback Strategy**: Maintains "dark" as fallback when configuration is unavailable
+    - **Enhanced Logging**: Added source tracking for theme initialization (site-config, site-config-fallback)
+  - `layouts/default.vue`: Updated theme initialization logic
+    - **Site Settings Integration**: Added useSiteSettings composable to load theme default from configuration
+    - **Async Theme Init**: Modified initTheme() function to be async for configuration loading
+    - **Priority System**: Maintains localStorage preference > site config default > fallback hierarchy
+    - **Enhanced Logging**: Added defaultTheme tracking in log messages for debugging
+  - `plugins/vuetify.ts`: Updated Vuetify default theme
+    - **Vuetify Integration**: Changed Vuetify defaultTheme from "light" to "dark"
+    - **Component Consistency**: Ensures Vuetify components default to dark theme during SSR
+- **Technical Implementation**:
+  - **Configuration-Driven**: Theme default now controlled by site.config.json for centralized management
+  - **SSR Compatibility**: Proper handling of theme initialization during server-side rendering
+  - **User Preference Priority**: Existing localStorage preferences continue to override defaults
+  - **Async Loading**: Site configuration loaded asynchronously with proper fallbacks
+  - **Multi-Layer Integration**: Updated theme handling at plugin, layout, and Vuetify levels
+- **User Experience Benefits**:
+  - **Dark Mode First**: Application now launches in dark mode by default for new users
+  - **Preference Preservation**: Existing users' theme preferences remain unchanged
+  - **Seamless Switching**: All existing theme toggle functionality continues to work identically
+  - **Consistent Behavior**: Theme persistence and switching behavior unchanged
+  - **Configuration Control**: Site administrators can change default theme through configuration
+
 ### 2025-06-02 (Blockquote Italic Text Styling Enhancement)
 - **Summary**: Enhanced blockquote styling to support italic text formatting while preserving all existing visual hierarchy, accessibility features, and security attributes for external links.
 - **Files Modified**:
