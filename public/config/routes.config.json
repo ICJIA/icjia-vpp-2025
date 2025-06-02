@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-02T14:19:13.202Z",
+  "generatedAt": "2025-06-02T14:49:43.133Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 19,
-    "contentPages": 16,
+    "totalPages": 20,
+    "contentPages": 17,
     "vuePages": 4,
     "combinedPages": 1,
     "blacklistedFiles": 0
@@ -252,6 +252,19 @@
       ]
     },
     {
+      "title": "References",
+      "path": "/references",
+      "fullUrl": "https://vpp-2025.netlify.app/references",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/references.md",
+          "title": "References"
+        }
+      ]
+    },
+    {
       "title": "Search - Violence Prevention Plan for Illinois: 2025-2029",
       "path": "/search",
       "fullUrl": "https://vpp-2025.netlify.app/search",
@@ -266,12 +279,12 @@
     }
   ],
   "stats": {
-    "totalPages": 19,
-    "contentPages": 16,
+    "totalPages": 20,
+    "contentPages": 17,
     "vuePages": 4,
     "combinedPages": 1,
     "blacklistedFiles": 0,
-    "menuIntegratedPages": 8,
+    "menuIntegratedPages": 9,
     "orphanedPages": 11
   }
 }

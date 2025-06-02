@@ -101,6 +101,17 @@
             "displayMode": "both"
           },
           {
+            "text": "References",
+            "to": "/references",
+            "ariaLabel": "View references and bibliography",
+            "tooltip": "View references and bibliography",
+            "tooltipLocation": "right",
+            "class": "dropdown-item",
+            "mobileClass": "dropdown-item-mobile ml-4",
+            "color": "on-app-bar",
+            "displayMode": "both"
+          },
+          {
             "isDivider": true,
             "class": "my-2",
             "mobileClass": "my-2",
@@ -195,6 +206,14 @@
             "to": "/executive-summary",
             "ariaLabel": "Read the executive summary of our violence prevention plan",
             "tooltip": "Read the executive summary of our violence prevention plan",
+            "tooltipLocation": "left",
+            "class": "footer-link mb-2"
+          },
+          {
+            "text": "References",
+            "to": "/references",
+            "ariaLabel": "View references and bibliography",
+            "tooltip": "View references and bibliography",
             "tooltipLocation": "left",
             "class": "footer-link mb-2"
           }
