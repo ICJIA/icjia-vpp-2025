@@ -22,16 +22,13 @@ In Illinois, violence is prevalent. For example:
 
 Across these rates of violence in Illinois, disparities exist for minoritized groups.  For example, Black or African American men who are between the ages of 15-34 faced significant disparities in rates of experiencing gun violence and violent offenses.  Also, transgendera and gender expansiveb youth reported substantially higher rates of violence compared to male and female youth.  Societal inequities result from oppression and discrimination, and these inequities result in limited economic opportunities, a disinvestment in education, fewer social services, fewer affordable and quality housing options, and systemic racism, all of which can increase the likelihood of experiencing violence and trauma (Armstead et al., 2021).
 
-a Transgender: gender identity or expression is not congruent with traits culturally associated with sex assigned at birth;
-b Gender expansive: gender is beyond the male-female binary or not identifying with one specific gender (Garthe et al., 2021)
-
 Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.  Violence prevention efforts are crucial so that we can reduce rates of violence and prevent future violence.  Additionally, work is needed to address societal inequities to prevent violence and begin the healing process (i.e., healing-centered care) in communities impacted by these persistent inequities.
 
 ## Creation of a Statewide Violence Prevention Plan
 
 The Illinois Criminal Justice Information Authority (ICJIA) is a state agency whose mission is to improve the administration of justice in Illinois.  ICJIA brings together key leaders from the justice system and the public to identify critical issues facing the justice system in Illinois, and to propose and evaluate policies, programs, and legislation that address those issues.  ICJIA aims to continue funding and supporting violence prevention efforts across Illinois.  In 2020, ICJIA's authorizing statue included the requirement of a four-year statewide violence prevention plan:
 
-To coordinate statewide violence prevention efforts and assist in the implementation of trauma recovery centers and analyze trauma recovery services, the Authority shall develop, publish, and facilitate the implementation of a 4-year statewide violence prevention plan, which shall incorporate public health, public safety, victim services, and trauma recovery centers and services. 20 ILCS 3930/7(x)
+> To coordinate statewide violence prevention efforts and assist in the implementation of trauma recovery centers and analyze trauma recovery services, the Authority shall develop, publish, and facilitate the implementation of a 4-year statewide violence prevention plan, which shall incorporate public health, public safety, victim services, and trauma recovery centers and services. 20 ILCS 3930/7(x)
 
 The first four-year Statewide Violence Prevention Plan was released in 2021. Since then, a variety of implementation, research, and activities have taken place.  ICJIA created the Violence Prevention Ad Hoc Committee, a group that convenes quarterly under the ICJIA Board.  This committee meets to coordinate violence prevention funding in Illinois, share updates and resources, and stay informed about partnerships and opportunities.
 
