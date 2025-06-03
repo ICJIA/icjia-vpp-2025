@@ -2,18 +2,18 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
-### 2025-06-03 (Enhanced Linear Navigation with Page Summaries)
-- Enhanced linear navigation component to display actual page summaries instead of generic navigation text using menu config as single source of truth.
+### 2025-06-03 (Enhanced Navigation with Background Shading and Improved UX)
+- Enhanced linear navigation component with background shading, improved text labels, and menu reorganization for better user experience.
 - Files modified/created:
-  - `config/menu.config.json`: Added `summary` field to each report page containing actual page descriptions from frontmatter
-  - `composables/useReportNavigation.js`: Modified to extract summary field along with title when building report pages array, removed complex async content fetching
-  - `components/content/ReportNavigation.vue`: Updated template to display summaries, implemented uniform card heights using flexbox layout, restructured card content with navigation-top and navigation-bottom sections for better vertical alignment
+  - `config/menu.config.json`: Added `summary` field to each report page, reorganized menu order (News first, then Read the Plan), simplified button text to "Read the Plan" and "Download the Plan"
+  - `composables/useReportNavigation.js`: Updated to search for "Read the Plan" menu item, simplified content fetching logic
+  - `components/content/ReportNavigation.vue`: Added background shading matching PageTitleSection, updated direction labels to "Previous Section"/"Next Section", implemented uniform card heights, added full plan title above section indicator
 - Technical Notes:
-  - Uses menu config as single source of truth for both titles and summaries
-  - Simple, synchronous operation without async content fetching
-  - Implements CSS flexbox for uniform card heights regardless of content length
-  - Preserves existing "Section X of Y" terminology and WCAG 2.1 AA compliance
-  - Respects prefers-reduced-motion settings for smooth transitions
+  - Background shading uses same colors as PageTitleSection (#EEEEEE light, #1B2530 dark) for visual consistency
+  - Full-width background with TOC-responsive content alignment (respects 8-column content width when TOC present)
+  - Menu order: News (20), Read the Plan (30), Download the Plan (40) for logical user flow
+  - Enhanced accessibility with descriptive direction labels and proper contrast ratios
+  - Maintains WCAG 2.1 AA compliance and responsive design principles
 
 ### 2025-06-03 (CHECKPOINT: Working Report Navigation System)
 - **Summary**: ✅ STABLE CHECKPOINT - Established fully functional report navigation system with linear navigation, two-column layout, section terminology, and TOC-responsive design.

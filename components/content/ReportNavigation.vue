@@ -1,7 +1,23 @@
 <template>
   <div v-if="navigationData" class="report-navigation">
-    <!-- Use responsive container based on TOC presence -->
-    <div :class="containerClass">
+      <!-- Progress indicator -->
+      <div class="navigation-progress" role="status" :aria-label="progressAriaLabel">
+        <div class="plan-title">
+          Statewide Violence Prevention Plan for Illinois: 2025-2029
+        </div>
+        <div class="progress-text">
+          Section {{ navigationData.currentIndex + 1 }} of {{ navigationData.totalPages }}
+        </div>
+        <v-progress-linear
+          :model-value="progressPercentage"
+          color="primary"
+          height="4"
+          rounded
+          class="progress-bar"
+          :aria-label="`Reading progress: ${progressPercentage}% complete`"
+        />
+      </div>
+
       <v-row class="navigation-row">
         <!-- Previous Page Column - Always present (left column) -->
         <v-col cols="12" md="6" class="navigation-col">
@@ -95,25 +111,6 @@
           </v-card>
         </v-col>
       </v-row>
-
-      <!-- Progress indicator -->
-      <div class="navigation-progress" role="status" :aria-label="progressAriaLabel">
-        <div class="plan-title">
-          Statewide Violence Prevention Plan for Illinois: 2025-2029
-        </div>
-        <div class="progress-text">
-          Section {{ navigationData.currentIndex + 1 }} of {{ navigationData.totalPages }}
-        </div>
-        <v-progress-linear
-          :model-value="progressPercentage"
-          color="primary"
-          height="4"
-          rounded
-          class="progress-bar"
-          :aria-label="`Reading progress: ${progressPercentage}% complete`"
-        />
-      </div>
-    </div>
   </div>
 </template>
 
@@ -157,15 +154,6 @@ const props = defineProps({
   currentPath: {
     type: String,
     default: null
-  },
-  /**
-   * Whether Table of Contents is present on the page
-   * Used to determine responsive layout behavior
-   * @type {boolean}
-   */
-  hasTOC: {
-    type: Boolean,
-    default: false
   }
 });
 
@@ -174,16 +162,6 @@ const currentPath = computed(() => props.currentPath || route.path);
 
 // Get navigation data from composable
 const navigationData = computed(() => getNavigationData(currentPath.value));
-
-/**
- * Compute container class based on TOC presence
- * When TOC is present, use content column width to align with main content
- * When TOC is absent, use full container width
- * @returns {string} CSS class for container
- */
-const containerClass = computed(() => {
-  return props.hasTOC ? 'navigation-content-width' : 'container';
-});
 
 /**
  * Calculate progress percentage for progress bar
@@ -222,7 +200,6 @@ if (navigationData.value) {
   log('navigation', 'Report navigation component initialized', {
     currentPath: currentPath.value,
     hasNavigation: !!navigationData.value,
-    hasTOC: props.hasTOC,
     timestamp: new Date().toISOString()
   });
 }
@@ -244,38 +221,17 @@ if (navigationData.value) {
 .report-navigation {
   margin-top: 4rem;
   margin-bottom: 2rem;
-  padding: 2rem 0;
 }
 
-/* Container classes for TOC-responsive layout */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
 
-.navigation-content-width {
-  /* When TOC is present, align with content column width */
-  /* This matches the 8-column content area when TOC takes 4 columns */
-  max-width: calc(66.666667% - 2rem); /* 8/12 columns minus padding */
-  margin: 0;
-  padding: 0;
-}
 
-/* Responsive adjustments for navigation content width */
-@media (max-width: 959px) {
-  .navigation-content-width {
-    /* On mobile/tablet, TOC is hidden so use full width */
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-}
+
 
 
 
 /* Navigation row spacing */
 .navigation-row {
+  margin-top: 3rem; /* Add more space between progress indicator and cards */
   margin-bottom: 2rem;
   /* Ensure equal height cards using flexbox */
   display: flex;
@@ -295,8 +251,9 @@ if (navigationData.value) {
   height: 100%;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
-  background: rgb(var(--v-theme-surface));
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #FFFFFF; /* Light mode - pure white like home page cards */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   /* Ensure card takes full height of its container */
   display: flex;
   flex-direction: column;
@@ -456,23 +413,24 @@ if (navigationData.value) {
 }
 
 /* Dark theme adjustments */
-:deep(.v-theme--dark) {
-  .navigation-card {
-    background: rgb(var(--v-theme-surface));
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  .navigation-card:hover {
-    border-color: rgba(var(--v-theme-primary), 0.4);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
-  }
-
-  .plan-title {
-    /* Ensure high contrast in dark mode */
-    color: rgb(var(--v-theme-on-surface));
-    opacity: 0.95;
-  }
+:root[data-theme="dark"] .navigation-card {
+  background: #2A3441 !important; /* Dark mode - same color as home page cards */
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
 }
+
+:root[data-theme="dark"] .navigation-card:hover {
+  border-color: rgba(var(--v-theme-primary), 0.4) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+:root[data-theme="dark"] .plan-title {
+  /* Ensure high contrast in dark mode */
+  color: rgb(var(--v-theme-on-surface));
+  opacity: 0.95;
+}
+
+
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {

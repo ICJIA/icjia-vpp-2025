@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-03T12:57:43.281Z",
+  "generatedAt": "2025-06-03T14:28:40.046Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 20,
-    "contentPages": 18,
+    "totalPages": 22,
+    "contentPages": 20,
     "vuePages": 3,
     "combinedPages": 1,
     "blacklistedFiles": 1
@@ -57,6 +57,19 @@
       ]
     },
     {
+      "title": "Back Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/back-cover",
+      "fullUrl": "https://vpp-2025.netlify.app/back-cover",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/back-cover.md",
+          "title": "Back Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
       "title": "Contact Us",
       "path": "/contact",
       "fullUrl": "https://vpp-2025.netlify.app/contact",
@@ -79,6 +92,19 @@
           "type": "content",
           "source": "content/executive-summary.md",
           "title": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/front-cover",
+      "fullUrl": "https://vpp-2025.netlify.app/front-cover",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/front-cover.md",
+          "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
         }
       ]
     },
@@ -279,12 +305,12 @@
     }
   ],
   "stats": {
-    "totalPages": 20,
-    "contentPages": 18,
+    "totalPages": 22,
+    "contentPages": 20,
     "vuePages": 3,
     "combinedPages": 1,
     "blacklistedFiles": 1,
     "menuIntegratedPages": 5,
-    "orphanedPages": 15
+    "orphanedPages": 17
   }
 }

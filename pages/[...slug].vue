@@ -89,6 +89,12 @@
               >
                 <ContentRenderer :value="content" @rendered="markAsRendered" />
               </div>
+
+              <!-- Report Navigation - Only show for report pages -->
+              <ReportNavigation
+                v-if="showReportNavigation"
+                :current-path="route.path"
+              />
             </v-col>
 
             <!-- TOC Sidebar Column - Hidden on mobile, visible on md+ screens -->
@@ -182,13 +188,6 @@
               </div>
             </v-col>
           </v-row>
-
-          <!-- Report Navigation - Only show for report pages -->
-          <ReportNavigation
-            v-if="showReportNavigation"
-            :current-path="route.path"
-            :has-t-o-c="showTOC"
-          />
         </div>
       </div>
     </div>

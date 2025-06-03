@@ -2,121 +2,133 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://vpp-2025.netlify.app/</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.334Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/accessibility/audit-log</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/accessibility/documentation</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://vpp-2025.netlify.app/back-cover</loc>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/contact</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/executive-summary</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://vpp-2025.netlify.app/front-cover</loc>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/goals-and-recommendations</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/guiding-principles</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/legal/privacy-policy</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/legal/terms-of-service</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/letters/executive-director</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/news</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/news/community-violence-prevention-grant-2024</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/news/data-sharing-initiative-launch</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/news/hospital-violence-intervention-expansion</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/news/rural-violence-prevention-network</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/news/youth-violence-prevention-summit-2024</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/planning-process</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/public-health-approach</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/references</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://vpp-2025.netlify.app/search</loc>
-    <lastmod>2025-06-03T12:57:43.586Z</lastmod>
+    <lastmod>2025-06-03T14:28:40.335Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
