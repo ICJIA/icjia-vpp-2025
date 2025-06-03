@@ -182,6 +182,13 @@
               </div>
             </v-col>
           </v-row>
+
+          <!-- Report Navigation - Only show for report pages -->
+          <ReportNavigation
+            v-if="showReportNavigation"
+            :current-path="route.path"
+            :has-t-o-c="showTOC"
+          />
         </div>
       </div>
     </div>
@@ -233,13 +240,18 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRoute, useHead, useSeoMeta, navigateTo } from "#imports";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
 import useContentFetcher from "~/composables/useContentFetcher";
+import useReportNavigation from "~/composables/useReportNavigation";
 import PageTitleSection from "~/components/content/PageTitleSection.vue";
+import ReportNavigation from "~/components/content/ReportNavigation.vue";
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
 
 // Get current route
 const route = useRoute();
+
+// Initialize report navigation composable
+const { isReportPage } = useReportNavigation();
 
 // Build content path from route params
 const contentPath = computed(() => {
@@ -616,6 +628,19 @@ const pageDescription = computed(() => {
   }
 
   return "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Building safer communities through evidence-based violence prevention strategies.";
+});
+
+/**
+ * Determines if report navigation should be displayed
+ *
+ * Shows navigation only for pages that are part of the report section
+ * (defined in "The 2025-2029 Plan" menu dropdown). This ensures navigation
+ * appears only where it's relevant and maintains clean UI on other pages.
+ *
+ * @returns {boolean} True if current page is a report page
+ */
+const showReportNavigation = computed(() => {
+  return isReportPage(route.path);
 });
 
 // =============================================================================

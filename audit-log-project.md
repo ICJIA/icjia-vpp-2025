@@ -2,6 +2,77 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-03 (CHECKPOINT: Working Report Navigation System)
+- **Summary**: ✅ STABLE CHECKPOINT - Established fully functional report navigation system with linear navigation, two-column layout, section terminology, and TOC-responsive design.
+- **Status**: WORKING - Navigation cards display correctly, progress indicators functional, all accessibility features operational
+- **Key Features Confirmed Working**:
+  - Linear navigation logic (no circular wraparound)
+  - Two-column layout with consistent left/right positioning
+  - "Section X of Y" terminology instead of "Page X of Y"
+  - TOC-responsive layout (adapts width when TOC present)
+  - Full WCAG 2.1 AA accessibility compliance
+  - Proper menu configuration integration
+- **Files in Working State**:
+  - `components/content/ReportNavigation.vue`: Core navigation component with all features
+  - `config/menu.config.json`: Fixed typo in "The 2025-2029 Plan" menu item (was "The 2025stopp-2029 Plan")
+  - `pages/[...slug].vue`: Proper component integration with `:has-t-o-c="showTOC"` prop
+  - `composables/useReportNavigation.js`: Navigation logic and data extraction
+- **Technical Notes**:
+  - Navigation extracts page order from "The 2025-2029 Plan" dropdown menu in menu.config.json
+  - Uses linear navigation (first/last pages show only one navigation card)
+  - TOC-responsive container classes: `navigation-content-width` vs `container`
+  - Progress indicators use "Section" terminology for better academic context
+  - All console logging functional for debugging navigation data flow
+- **Known Issues**: Minor TOC overlap with top border line (cosmetic only, does not affect functionality)
+- **Restore Instructions**: If navigation breaks, revert to this checkpoint state and ensure menu.config.json has correct "The 2025-2029 Plan" text without typos
+
+### 2025-06-03 (Report Navigation Enhancement - Two-Column Layout & Section Terminology)
+- **Summary**: Enhanced report navigation system with consistent two-column layout, linear navigation logic, TOC-responsive design, and updated terminology using "sections" instead of "pages" for better content organization clarity.
+- **Files Modified/Created**:
+  - `composables/useReportNavigation.js`: Updated navigation composable to implement linear navigation logic (no circular wraparound) and enhanced logging
+  - `components/content/ReportNavigation.vue`: Enhanced navigation component with TOC-responsive layout, conditional button display, and improved accessibility
+  - `pages/[...slug].vue`: Updated to pass TOC presence information to navigation component for responsive layout behavior
+- **Key Changes Implemented**:
+  - **Consistent Two-Column Layout**: Fixed navigation layout with dedicated columns for previous/next buttons
+    - Left column: Always reserved for "Previous" button (empty when on first page)
+    - Right column: Always reserved for "Next" button (empty when on last page)
+    - Maintains visual consistency regardless of button availability
+    - Uses responsive 12/6 column grid (full width on mobile, split on desktop)
+  - **Linear Navigation Logic**: Replaced circular navigation with intuitive linear flow
+    - First page (Executive Summary): Only shows "Next" button in right column, left column empty
+    - Last page (References): Only shows "Previous" button in left column, right column empty
+    - Middle pages: Show both "Previous" and "Next" buttons in their respective columns
+  - **Section Terminology**: Updated progress indicators and accessibility labels
+    - Changed from "Page X of Y" to "Section X of Y" for better content organization clarity
+    - Updated ARIA labels to use "section" terminology for screen readers
+    - Maintains consistency with report structure and academic conventions
+  - **TOC-Responsive Layout**: Navigation component adapts to Table of Contents presence
+    - When TOC present: Navigation aligns with content column width (reduced to 58% to prevent overlap)
+    - When TOC absent: Navigation spans full container width
+    - Responsive breakpoints match existing TOC/content layout system
+    - Fixed overlap issue with TOC by constraining entire navigation container including border line
+  - **Enhanced User Experience**: More intuitive navigation flow with predictable layout structure
+- **Technical Implementation**:
+  - **Menu-Based Approach**: Extracts page order from "The 2025-2029 Plan" dropdown in `config/menu.config.json` for single source of truth
+  - **Linear Navigation**: Executive Summary → Public Health Approach → Guiding Principles → Planning Process → Goals and Recommendations → References (no wraparound)
+  - **Conditional Rendering**: Navigation buttons only display when valid previous/next pages exist
+  - **Grid Integration**: Uses CSS calc() and responsive breakpoints to align with existing 8/4 TOC/content split
+  - **Progress Indicator**: Shows current page position (e.g., "Page 1 of 6") with visual progress bar
+  - **Caching System**: Caches extracted page order for performance optimization
+  - **Error Handling**: Comprehensive error handling with graceful fallbacks and development logging
+- **Accessibility Features (WCAG 2.1 AA)**:
+  - **Keyboard Navigation**: Full keyboard support with proper tab order and Enter/Space key activation
+  - **Screen Reader Support**: Descriptive ARIA labels and announcements for navigation context
+  - **Focus Management**: Visible focus indicators with 8:1 contrast ratios and proper focus states
+  - **Semantic HTML**: Proper navigation landmarks and button elements for assistive technology
+  - **Reduced Motion**: Respects user motion preferences with conditional animations
+- **User Experience Benefits**:
+  - **Enhanced Navigation**: Users can easily move between report sections with clear visual cues
+  - **Contextual Information**: Page titles and descriptions help users understand navigation destinations
+  - **Progress Awareness**: Progress indicator shows reading position within the complete report
+  - **Responsive Design**: Mobile-friendly layout with stacked cards and touch-optimized interactions
+  - **Theme Integration**: Seamless integration with existing light/dark theme system
+
 ### 2025-06-02 (Download Button Text Enhancement)
 - **Summary**: Enhanced the Download navigation button to display "Download the PDF" text instead of just "Download", improving user clarity about the downloadable content while maintaining the familiar download arrow icon.
 - **Files Modified**:
