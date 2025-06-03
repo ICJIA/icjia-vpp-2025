@@ -198,31 +198,43 @@
     "description": "The first Statewide Violence Prevention Plan, for 2020-2024, was released in 2021. Since then, a variety of implementation, research, and activities have taken place. The Ad Hoc Violence Prevention Committee and its workgroups reviewed these activities, reports, and research, discussing ways in which this work could be used to inform the next violence prevention plan, collectively writing the 2025-2029 goals and recommendations.",
     "sections": [
       {
-        "title": "Connect",
+        "title": "Downloads",
         "items": [
           {
-            "text": "GitHub",
-            "href": "https://github.com/ICJIA/icjia-vpp-2025",
-            "ariaLabel": "View our code on GitHub",
-            "tooltip": "View our code on GitHub",
+            "text": "PDF",
+            "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
+            "ariaLabel": "Download the complete PDF report",
+            "tooltip": "Download the complete PDF report",
             "tooltipLocation": "top",
             "class": "footer-link mb-2",
             "isExternal": true,
             "target": "_blank",
             "rel": "noopener noreferrer",
-            "externalIcon": "mdi-github"
+            "externalIcon": "mdi-file-pdf-box"
           },
           {
-            "text": "ICJIA Website",
-            "href": "https://icjia.illinois.gov",
-            "ariaLabel": "Visit the Illinois Criminal Justice Information Authority website",
-            "tooltip": "Visit the Illinois Criminal Justice Information Authority website",
+            "text": "JSON",
+            "href": "/plan.json",
+            "ariaLabel": "Download JSON data format",
+            "tooltip": "Download JSON data format",
             "tooltipLocation": "top",
             "class": "footer-link mb-2",
             "isExternal": true,
             "target": "_blank",
             "rel": "noopener noreferrer",
-            "externalIcon": "mdi-open-in-new"
+            "externalIcon": "mdi-code-json"
+          },
+          {
+            "text": "LLMs",
+            "href": "/llms.txt",
+            "ariaLabel": "Download LLM-friendly text format",
+            "tooltip": "For use by LLM models - follows the llms.org format",
+            "tooltipLocation": "top",
+            "class": "footer-link mb-2",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-robot"
           }
         ]
       },

@@ -1,0 +1,129 @@
+---
+title: "Download the Plan"
+description: "Download the complete Violence Prevention Plan for Illinois: 2025-2029 in multiple formats including PDF, JSON, and LLM-friendly text."
+ogTitle: "Download - Violence Prevention Plan for Illinois: 2025-2029"
+ogDescription: "Download the complete Violence Prevention Plan for Illinois: 2025-2029 in multiple formats including PDF, JSON, and LLM-friendly text."
+ogImage: "/images/og-image-download.jpg"
+twitterCard: "summary_large_image"
+showTOC: false
+---
+
+<div class="download-page">
+
+## Download the Complete Plan
+
+<div class="download-sections">
+
+### Primary Download
+
+<div class="primary-download-card">
+  <div class="download-icon-container">
+    <v-icon size="80" color="primary" class="download-main-icon">mdi-file-pdf-box</v-icon>
+  </div>
+  <div class="download-content">
+    <h3 class="download-title">Complete PDF Report</h3>
+    <p class="download-description">
+      The official, comprehensive Violence Prevention Plan for Illinois: 2025-2029. This complete document includes all sections, research, recommendations, and appendices in a PDF.
+    </p>
+    <div class="download-details">
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-file-document</v-icon>
+        <span>Full Report</span>
+      </div>
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-printer</v-icon>
+        <span>Print-Ready</span>
+      </div>
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-share-variant</v-icon>
+        <span>Shareable</span>
+      </div>
+    </div>
+    <v-btn
+      href="/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      color="primary"
+      size="large"
+      class="download-btn primary-download-btn"
+      prepend-icon="mdi-download"
+    >
+      Download PDF Report
+    </v-btn>
+  </div>
+</div>
+
+### Developer & Technical Downloads
+
+<div class="primary-download-card">
+  <div class="download-icon-container">
+    <v-icon size="80" color="info" class="download-main-icon">mdi-code-braces</v-icon>
+  </div>
+  <div class="download-content">
+    <h3 class="download-title">Developer & Technical Downloads</h3>
+    <p class="download-description">
+      Access the plan data in machine-readable formats for development, analysis, and integration with other systems. The llms.txt format follows the guidelines from <a href="https://llmstxt.org/" target="_blank" rel="noopener noreferrer" class="external-link">llms.org</a> and is especially created for Large Language Models (LLMs) to easily process and understand the content.
+    </p>
+    <div class="download-details">
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-robot</v-icon>
+        <span>LLM-Friendly</span>
+      </div>
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-code-json</v-icon>
+        <span>JSON Format</span>
+      </div>
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-api</v-icon>
+        <span>API Ready</span>
+      </div>
+    </div>
+    <div class="download-buttons">
+      <v-btn
+        href="/llms.txt"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="primary"
+        variant="outlined"
+        size="large"
+        class="download-btn secondary-download-btn"
+        prepend-icon="mdi-download"
+      >
+        llms.txt
+      </v-btn>
+      <v-btn
+        href="/plan.json"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="primary"
+        variant="outlined"
+        size="large"
+        class="download-btn secondary-download-btn"
+        prepend-icon="mdi-download"
+      >
+        JSON
+      </v-btn>
+    </div>
+  </div>
+</div>
+
+</div>
+
+### Need Help?
+
+<div class="help-section">
+  <div class="help-content">
+    <v-icon size="32" color="warning" class="help-icon">mdi-help-circle</v-icon>
+    <div class="help-text">
+      <h4>Questions about these downloads?</h4>
+      <p>
+        If you need assistance with any of these file formats or have questions about how to use them,
+        please visit our <nuxt-link to="/contact" class="internal-link">contact page</nuxt-link> or
+        check the <a href="https://github.com/ICJIA/icjia-vpp-2025" target="_blank" rel="noopener noreferrer" class="external-link">project repository</a>
+        for technical documentation.
+      </p>
+    </div>
+  </div>
+</div>
+
+</div>

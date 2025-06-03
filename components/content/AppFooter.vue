@@ -108,14 +108,14 @@
                       :rel="item.rel"
                     >
                       <span class="d-flex align-center">
-                        {{ item.text }}
                         <v-icon
                           v-if="item.externalIcon"
                           :icon="item.externalIcon"
                           size="small"
-                          class="ml-1"
+                          class="mr-1"
                           aria-hidden="true"
                         ></v-icon>
+                        {{ item.text }}
                       </span>
                     </a>
 
