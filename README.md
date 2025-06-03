@@ -38,50 +38,33 @@ This project is built on several exceptional open-source libraries that make our
 
 These dependencies enable us to provide a modern, accessible, and highly functional web experience while maintaining excellent performance and developer experience.
 
-## Recent Major Updates (May 25, 2025)
+## Recent Major Updates (June 2025)
 
-### Defuddle-Enhanced Search Index with fullPath Implementation
-- **Enhanced Search Index**: Implemented comprehensive fullPath field providing complete URL information for all indexed content
-- **Homepage Path Normalization**: Standardized homepage path from `/index` to `/` following web conventions
-- **Site Configuration Integration**: Enhanced baseURL integration with fallback defaults for robust URL construction
-- **6x Performance Improvement**: Achieved dramatic improvement in content capture (from ~500 to 3,267 words across all content)
-- **Clean Search Results**: Removed HTML tags and markdown formatting for professional, readable search results
-- **Comprehensive Documentation**: Updated all search-related documentation with fullPath implementation details
+### Enhanced Navigation and User Experience (June 2-3, 2025)
+- **Report Navigation System**: Implemented comprehensive linear navigation with two-column layout, section-based terminology, and TOC-responsive design
+- **Enhanced Download Options**: Added YAML and CSV download formats alongside existing PDF, JSON, and llms.txt options
+- **Consolidated "More" Menu**: Streamlined navigation by consolidating Contact and Search into a configurable dropdown menu with three-dot icon
+- **Accessible Tooltip System**: Added comprehensive tooltip functionality across all navigation elements with 2-second auto-dismiss and mobile-responsive behavior
+- **Dark Mode Default**: Configured application to default to dark theme while preserving user preference functionality
 
-### Comprehensive Search Security Audit and Enhancement
-- **Security**: Conducted comprehensive security audit and implemented robust multi-layered protection
-- **XSS Protection**: Enhanced sanitization, dangerous content detection, and safe result rendering
-- **DoS Prevention**: Query length limits, debouncing, and rate limiting measures
-- **Content Security**: Comprehensive search index sanitization removing potentially dangerous code
-- **Compliance**: Meets OWASP security standards while maintaining full accessibility
+### Accessibility Excellence (WCAG 2.1 AA+ Compliance)
+- **Universal Accessibility**: All new features exceed WCAG 2.1 AA standards with 8:1+ contrast ratios
+- **Mobile-Responsive Tooltips**: Tooltips disabled on mobile devices to prevent accessibility barriers while maintaining desktop functionality
+- **Keyboard Navigation**: Complete keyboard accessibility across all navigation elements with proper focus management
+- **Screen Reader Support**: Comprehensive ARIA labels, semantic HTML, and assistive technology compatibility
+- **Reduced Motion Support**: All animations respect user motion preferences
 
-### Comprehensive Sitemap Generation System
-- **New**: Automated XML sitemap generation following sitemaps.org protocol
-- **Features**: Configurable priorities, change frequencies, intelligent exclusions, URL sanitization
-- **Integration**: Seamlessly integrates with existing site configuration and build pipeline
-- **SEO**: Automatically referenced in robots.txt for optimal search engine discovery
+### Enhanced Content Presentation
+- **Blockquote Visual Callouts**: Implemented styled blockquotes with proper indentation hierarchy and theme-aware colors
+- **TOC Improvements**: Configurable "Jump To..." default label with site-wide control and page-level overrides
+- **Typography Enhancements**: Heavy font weights for TOC labels and improved visual hierarchy throughout
 
-### Unified Logging System
-- **New**: Comprehensive logging system that works consistently across Node.js and browser environments
-- **Features**: Configurable verbosity levels (DETAILED, NORMAL, CONCISE), color-coded output, message grouping
-- **Command Line**: Support for `--verbose` and `--quiet` flags on all build scripts
-
-### Configuration System Reorganization
-- **Reorganized**: Site configuration system for improved clarity and separation of concerns
-- **New**: `site.config.json` for general site configuration (metadata, branding, contact info, logging)
-- **Updated**: `routes.config.json` focuses specifically on page discovery and routing metadata
-- **Removed**: `site.config.base.json` (consolidated into `site.config.json`)
-
-### Package Manager Standardization
-- **Standardized**: Yarn as the official package manager for all operations
-- **Updated**: All script examples and documentation now use `yarn` commands
-- **New**: Verbose and quiet script variants (e.g., `yarn dev:verbose`, `yarn build:quiet`)
-
-### Documentation and Standards
-- **New**: [Project Rules](./docs/project-rules.md) document establishing mandatory development standards
-- **New**: [Logging System](./docs/logging-system.md) comprehensive documentation
-- **New**: [Sitemap Configuration](./docs/sitemap.config.md) comprehensive sitemap documentation
-- **Updated**: All configuration documentation to reflect new system organization
+### Technical Infrastructure (May 2025)
+- **Defuddle-Enhanced Search**: 6x performance improvement with fullPath implementation and clean, readable results
+- **Security Enhancements**: Comprehensive search security audit with XSS protection and DoS prevention
+- **Sitemap Generation**: Automated XML sitemap following sitemaps.org protocol with SEO optimization
+- **Unified Logging System**: Configurable verbosity levels (DETAILED, NORMAL, CONCISE) across Node.js and browser environments
+- **Configuration Reorganization**: Streamlined site configuration system with improved separation of concerns
 
 ## Site Structure
 
@@ -113,7 +96,7 @@ The navigation also provides quick access to external resources:
 - **Package Manager**: Yarn is the official package manager with verbose/quiet script variants
 - **Configuration Management**: Centralized configuration system with comprehensive documentation
 
-*Last Updated: May 25, 2025*
+*Last Updated: June 03, 2025*
 
 ## Dev Site
 

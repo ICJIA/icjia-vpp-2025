@@ -2,6 +2,40 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-03 (Comprehensive CSS Fix for Download Button Underlines)
+- Implemented aggressive CSS rules to completely eliminate underlines from visited download buttons on the download page.
+- Files modified/created:
+  - `assets/css/main.scss`: Added "ANTIMATTER BOMB" CSS targeting specifically for visited links in buttons
+    - Added comprehensive targeting for all visited button states (`.v-btn:visited`, `.v-btn:visited *`, etc.)
+    - Targeted button content when visited (`.v-btn:visited .v-btn__content` and nested elements)
+    - Added download page specific targeting with extra specificity
+    - Included anchor tag variations (both `a.v-btn:visited` and `.v-btn a:visited`)
+    - Applied all possible text decoration properties including modern CSS properties
+- Technical Notes:
+  - The issue was browser default underline styling for `:visited` links in Vuetify buttons with `to` prop
+  - Vuetify's `v-btn` with `to` prop creates internal router links that get visited link styling
+  - Solution targets every possible element, pseudo-state, and text decoration property
+  - Includes `text-decoration-line`, `text-decoration-style`, `text-decoration-color`, `text-decoration-thickness`, `text-underline-offset`, `text-decoration-skip`, and `text-decoration-skip-ink`
+  - Uses `!important` declarations to override any conflicting styles
+  - Maintains user preference for clean button styling without underlined links
+
+### 2025-06-03 (README Update and Documentation Consolidation)
+- Updated README.md to reflect the latest round of changes from June 2-3, 2025, condensing information where possible.
+- Files modified/created:
+  - `README.md`: Comprehensive update reflecting recent changes
+    - **Recent Major Updates**: Reorganized from "May 25, 2025" to "June 2025" with condensed sections
+    - **Enhanced Navigation**: Consolidated report navigation, download options, "More" menu, tooltips, and dark mode default
+    - **Accessibility Excellence**: Highlighted WCAG 2.1 AA+ compliance, mobile-responsive features, and universal accessibility
+    - **Content Presentation**: Summarized blockquote callouts, TOC improvements, and typography enhancements
+    - **Technical Infrastructure**: Moved May 2025 technical updates to separate section for better organization
+    - **Date Update**: Changed "Last Updated" from "May 25, 2025" to "June 03, 2025"
+- Technical Notes:
+  - Condensed detailed feature descriptions into high-level summaries for better readability
+  - Maintained all essential information while reducing verbosity
+  - Organized updates chronologically with clear section headers
+  - Preserved all technical details in audit logs while providing executive summary in README
+  - Reflects comprehensive changes from recent development cycle including navigation, accessibility, and user experience enhancements
+
 ### 2025-06-03 (Added YAML and CSV Download Formats)
 - Added YAML and CSV download formats to complement existing JSON and llms.txt downloads for enhanced developer accessibility.
 - Files modified/created:
