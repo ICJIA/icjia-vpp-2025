@@ -60,14 +60,14 @@ function extractReportPages() {
   }
 
   try {
-    // Find "The 2025-2029 Plan" menu item
+    // Find "Read the Plan Online" menu item
     const headerItems = menuConfig.header?.items || [];
-    const planMenuItem = headerItems.find(item => 
-      item.text === "The 2025-2029 Plan" && item.hasDropdown && item.children
+    const planMenuItem = headerItems.find(item =>
+      item.text === "Read the Plan Online" && item.hasDropdown && item.children
     );
 
     if (!planMenuItem) {
-      logError('Report navigation: Could not find "The 2025-2029 Plan" menu item');
+      logError('Report navigation: Could not find "Read the Plan Online" menu item');
       return [];
     }
 

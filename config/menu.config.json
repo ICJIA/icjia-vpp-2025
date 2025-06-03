@@ -18,9 +18,9 @@
     },
     "items": [
       {
-        "text": "The 2025-2029 Plan",
-        "ariaLabel": "Learn more about our project and latest updates",
-        "tooltip": "Learn more about our project and latest updates",
+        "text": "Read the Plan Online",
+        "ariaLabel": "Read the Violence Prevention Plan online",
+        "tooltip": "Read the Violence Prevention Plan online",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
@@ -122,10 +122,10 @@
         "order": 30
       },
       {
-        "text": "Download the PDF",
+        "text": "Download the Plan as PDF",
         "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
-        "ariaLabel": "Download the Violence Prevention Plan PDF",
-        "tooltip": "Download the PDF of the plan",
+        "ariaLabel": "Download the Violence Prevention Plan as PDF",
+        "tooltip": "Download the plan as PDF",
         "tooltipLocation": "bottom",
         "variant": "elevated",
         "color": "primary",
