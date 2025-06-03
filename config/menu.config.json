@@ -18,9 +18,9 @@
     },
     "items": [
       {
-        "text": "Read the Plan Online",
-        "ariaLabel": "Read the Violence Prevention Plan online",
-        "tooltip": "Read the Violence Prevention Plan online",
+        "text": "Read the Plan",
+        "ariaLabel": "Read the Violence Prevention Plan",
+        "tooltip": "Read the Violence Prevention Plan",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
@@ -31,7 +31,7 @@
         "dropdownIcon": "mdi-chevron-down",
         "mobileDropdownIcon": "mdi-chevron-right",
         "enableTooltip": true,
-        "order": 20,
+        "order": 30,
         "children": [
           {
             "text": "Executive Summary",
@@ -119,13 +119,13 @@
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
         "enableTooltip": true,
-        "order": 30
+        "order": 20
       },
       {
-        "text": "Download the Plan as PDF",
+        "text": "Download the Plan",
         "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
-        "ariaLabel": "Download the Violence Prevention Plan as PDF",
-        "tooltip": "Download the plan as PDF",
+        "ariaLabel": "Download the Violence Prevention Plan PDF",
+        "tooltip": "Download the plan PDF",
         "tooltipLocation": "bottom",
         "variant": "elevated",
         "color": "primary",

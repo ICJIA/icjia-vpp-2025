@@ -60,14 +60,14 @@ function extractReportPages() {
   }
 
   try {
-    // Find "Read the Plan Online" menu item
+    // Find "Read the Plan" menu item
     const headerItems = menuConfig.header?.items || [];
     const planMenuItem = headerItems.find(item =>
-      item.text === "Read the Plan Online" && item.hasDropdown && item.children
+      item.text === "Read the Plan" && item.hasDropdown && item.children
     );
 
     if (!planMenuItem) {
-      logError('Report navigation: Could not find "Read the Plan Online" menu item');
+      logError('Report navigation: Could not find "Read the Plan" menu item');
       return [];
     }
 

@@ -29,7 +29,7 @@
                     class="direction-icon"
                     aria-hidden="true"
                   />
-                  <span class="direction-text">Previous</span>
+                  <span class="direction-text">Previous Section</span>
                 </div>
 
                 <!-- Page title -->
@@ -69,7 +69,7 @@
               <div class="navigation-top">
                 <!-- Direction indicator -->
                 <div class="navigation-direction navigation-direction--next">
-                  <span class="direction-text">Next</span>
+                  <span class="direction-text">Next Section</span>
                   <v-icon
                     icon="mdi-chevron-right"
                     size="small"
