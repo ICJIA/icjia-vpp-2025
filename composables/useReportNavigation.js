@@ -77,6 +77,7 @@ function extractReportPages() {
       .map(child => ({
         path: child.to,
         title: child.text,
+        summary: child.summary || 'Navigate to this section of the report',
         ariaLabel: child.ariaLabel || child.text,
         tooltip: child.tooltip || child.text
       }));
@@ -124,13 +125,13 @@ function findCurrentPageIndex(currentPath, reportPages) {
 /**
  * Get navigation data for a specific page
  *
- * Provides previous and next page information for circular navigation.
+ * Provides previous and next page information for linear navigation.
  * Returns null if the current page is not a report page.
  *
  * @param {string} currentPath - Current page path
  * @returns {Object|null} Navigation data or null
- * @property {Object|null} previous - Previous page data
- * @property {Object|null} next - Next page data
+ * @property {Object|null} previous - Previous page data with summary
+ * @property {Object|null} next - Next page data with summary
  * @property {number} currentIndex - Current page index
  * @property {number} totalPages - Total number of report pages
  */
@@ -159,11 +160,11 @@ function getNavigationData(currentPath) {
   const navigationData = {
     previous: previousPage ? {
       ...previousPage,
-      description: 'Navigate to the previous section of the report'
+      description: previousPage.summary // Keep for backward compatibility
     } : null,
     next: nextPage ? {
       ...nextPage,
-      description: 'Navigate to the next section of the report'
+      description: nextPage.summary // Keep for backward compatibility
     } : null,
     currentIndex,
     totalPages,
@@ -171,12 +172,14 @@ function getNavigationData(currentPath) {
     isLastPage: currentIndex === totalPages - 1
   };
 
-  log('navigation', 'Navigation data generated', {
+  log('navigation', 'Navigation data generated with summaries', {
     currentPath,
     currentIndex,
     totalPages,
     previousPage: previousPage?.title || 'none (first page)',
     nextPage: nextPage?.title || 'none (last page)',
+    previousSummary: previousPage?.summary?.substring(0, 50) + '...' || 'none',
+    nextSummary: nextPage?.summary?.substring(0, 50) + '...' || 'none',
     isFirstPage: navigationData.isFirstPage,
     isLastPage: navigationData.isLastPage,
     timestamp: new Date().toISOString()

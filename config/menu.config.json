@@ -42,7 +42,8 @@
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
-            "displayMode": "both"
+            "displayMode": "both",
+            "summary": "Learn about our mission, values, and approach to violence prevention across Illinois."
           },
           {
             "text": "Violence Prevention from a Public Health Approach",
@@ -53,7 +54,8 @@
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
-            "displayMode": "both"
+            "displayMode": "both",
+            "summary": "Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities."
           },
           {
             "text": "Guiding Principles",
@@ -64,7 +66,8 @@
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
-            "displayMode": "both"
+            "displayMode": "both",
+            "summary": "Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration."
           },
           {
             "text": "Planning Process",
@@ -75,7 +78,8 @@
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
-            "displayMode": "both"
+            "displayMode": "both",
+            "summary": "In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback."
           },
           {
             "text": "Goals and Recommendations",
@@ -86,7 +90,8 @@
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
-            "displayMode": "both"
+            "displayMode": "both",
+            "summary": "Comprehensive goals and actionable recommendations for preventing violence and promoting health and safety through evidence-based practices, advancing equity, and fostering collaboration across Illinois."
           },
           {
             "text": "References",
@@ -97,7 +102,8 @@
             "class": "dropdown-item",
             "mobileClass": "dropdown-item-mobile ml-4",
             "color": "on-app-bar",
-            "displayMode": "both"
+            "displayMode": "both",
+            "summary": "Complete bibliography and citations for all research, data sources, and evidence-based practices referenced throughout the Violence Prevention Plan."
           }
         ]
       },

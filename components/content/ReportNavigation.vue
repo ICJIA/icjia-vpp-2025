@@ -19,26 +19,32 @@
             @keydown.space.prevent="navigateToPage(navigationData.previous.path)"
           >
             <v-card-text class="navigation-content">
-              <!-- Direction indicator -->
-              <div class="navigation-direction">
-                <v-icon
-                  icon="mdi-chevron-left"
-                  size="small"
-                  class="direction-icon"
-                  aria-hidden="true"
-                />
-                <span class="direction-text">Previous</span>
-              </div>
-              
-              <!-- Page title -->
-              <h3 class="navigation-title">
-                {{ navigationData.previous.title }}
-              </h3>
+              <!-- Top section with direction and title -->
+              <div class="navigation-top">
+                <!-- Direction indicator -->
+                <div class="navigation-direction">
+                  <v-icon
+                    icon="mdi-chevron-left"
+                    size="small"
+                    class="direction-icon"
+                    aria-hidden="true"
+                  />
+                  <span class="direction-text">Previous</span>
+                </div>
 
-              <!-- Page description -->
-              <p class="navigation-description">
-                {{ navigationData.previous.description }}
-              </p>
+                <!-- Page title -->
+                <h3 class="navigation-title">
+                  {{ navigationData.previous.title }}
+                </h3>
+              </div>
+
+              <!-- Bottom section with summary -->
+              <div class="navigation-bottom">
+                <!-- Page summary -->
+                <p class="navigation-summary">
+                  {{ navigationData.previous.summary }}
+                </p>
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -59,26 +65,32 @@
             @keydown.space.prevent="navigateToPage(navigationData.next.path)"
           >
             <v-card-text class="navigation-content">
-              <!-- Direction indicator -->
-              <div class="navigation-direction navigation-direction--next">
-                <span class="direction-text">Next</span>
-                <v-icon
-                  icon="mdi-chevron-right"
-                  size="small"
-                  class="direction-icon"
-                  aria-hidden="true"
-                />
-              </div>
-              
-              <!-- Page title -->
-              <h3 class="navigation-title">
-                {{ navigationData.next.title }}
-              </h3>
+              <!-- Top section with direction and title -->
+              <div class="navigation-top">
+                <!-- Direction indicator -->
+                <div class="navigation-direction navigation-direction--next">
+                  <span class="direction-text">Next</span>
+                  <v-icon
+                    icon="mdi-chevron-right"
+                    size="small"
+                    class="direction-icon"
+                    aria-hidden="true"
+                  />
+                </div>
 
-              <!-- Page description -->
-              <p class="navigation-description">
-                {{ navigationData.next.description }}
-              </p>
+                <!-- Page title -->
+                <h3 class="navigation-title">
+                  {{ navigationData.next.title }}
+                </h3>
+              </div>
+
+              <!-- Bottom section with summary -->
+              <div class="navigation-bottom">
+                <!-- Page summary -->
+                <p class="navigation-summary">
+                  {{ navigationData.next.summary }}
+                </p>
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -86,6 +98,9 @@
 
       <!-- Progress indicator -->
       <div class="navigation-progress" role="status" :aria-label="progressAriaLabel">
+        <div class="plan-title">
+          Statewide Violence Prevention Plan for Illinois: 2025-2029
+        </div>
         <div class="progress-text">
           Section {{ navigationData.currentIndex + 1 }} of {{ navigationData.totalPages }}
         </div>
@@ -262,11 +277,17 @@ if (navigationData.value) {
 /* Navigation row spacing */
 .navigation-row {
   margin-bottom: 2rem;
+  /* Ensure equal height cards using flexbox */
+  display: flex;
+  align-items: stretch;
 }
 
 /* Navigation column spacing */
 .navigation-col {
   padding: 0.75rem;
+  /* Ensure columns stretch to full height */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Navigation card base styles */
@@ -276,6 +297,9 @@ if (navigationData.value) {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
   background: rgb(var(--v-theme-surface));
+  /* Ensure card takes full height of its container */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Card hover effects */
@@ -303,6 +327,31 @@ if (navigationData.value) {
 /* Navigation content padding */
 .navigation-content {
   padding: 1.5rem !important;
+  /* Ensure content takes full height and allows proper vertical alignment */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0; /* Allow flex items to shrink */
+}
+
+/* Navigation content sections */
+.navigation-top {
+  /* Contains direction indicator and title */
+  flex-shrink: 0;
+  /* Ensure consistent height for top sections */
+  min-height: 4rem; /* Adjust based on direction indicator + title height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.navigation-bottom {
+  /* Contains summary text */
+  flex: 1;
+  display: flex;
+  align-items: flex-start; /* Align text to top of bottom section */
+  margin-top: 1rem;
 }
 
 /* Direction indicator styling */
@@ -315,6 +364,9 @@ if (navigationData.value) {
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  /* Ensure consistent height for direction indicators */
+  height: 1.25rem;
+  flex-shrink: 0;
 }
 
 .navigation-direction--next {
@@ -334,14 +386,33 @@ if (navigationData.value) {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.3;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
   color: rgb(var(--v-theme-on-surface));
   /* Allow title to wrap on multiple lines */
   word-wrap: break-word;
   hyphens: auto;
+  /* Ensure titles take remaining space in top section */
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
 }
 
-/* Navigation description styling */
+/* Navigation summary styling */
+.navigation-summary {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgba(var(--v-theme-on-surface), 0.7);
+  margin-bottom: 0;
+  margin-top: 0;
+  /* Allow summary to wrap naturally */
+  word-wrap: break-word;
+  hyphens: auto;
+  /* Ensure summary text fills available space and aligns to top */
+  flex: 1;
+  align-self: flex-start;
+}
+
+/* Legacy navigation description styling (for backward compatibility) */
 .navigation-description {
   font-size: 0.875rem;
   line-height: 1.5;
@@ -350,6 +421,8 @@ if (navigationData.value) {
   /* Allow description to wrap naturally */
   word-wrap: break-word;
   hyphens: auto;
+  /* Ensure description text fills available space */
+  flex: 1;
 }
 
 /* Progress indicator styling */
@@ -357,6 +430,17 @@ if (navigationData.value) {
   text-align: center;
   padding-top: 1rem;
   border-top: 1px solid rgba(var(--v-theme-on-surface), 0.08);
+}
+
+/* Plan title styling */
+.plan-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(var(--v-theme-on-surface));
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  /* Ensure proper contrast ratio (8:1 target) */
+  opacity: 0.9;
 }
 
 .progress-text {
@@ -377,10 +461,16 @@ if (navigationData.value) {
     background: rgb(var(--v-theme-surface));
     border-color: rgba(255, 255, 255, 0.08);
   }
-  
+
   .navigation-card:hover {
     border-color: rgba(var(--v-theme-primary), 0.4);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .plan-title {
+    /* Ensure high contrast in dark mode */
+    color: rgb(var(--v-theme-on-surface));
+    opacity: 0.95;
   }
 }
 
@@ -404,14 +494,20 @@ if (navigationData.value) {
   .navigation-card {
     border-width: 2px;
   }
-  
+
   .navigation-direction,
   .direction-icon {
     color: rgb(var(--v-theme-primary)) !important;
   }
-  
+
   .navigation-title {
     font-weight: 700;
+  }
+
+  .plan-title {
+    font-weight: 700;
+    opacity: 1;
+    color: rgb(var(--v-theme-on-surface)) !important;
   }
 }
 
@@ -434,7 +530,8 @@ if (navigationData.value) {
     font-size: 1.125rem;
   }
   
-  .navigation-description {
+  .navigation-description,
+  .navigation-summary {
     font-size: 0.8125rem;
   }
 }
