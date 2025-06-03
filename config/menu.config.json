@@ -116,18 +116,6 @@
             "color": "on-app-bar",
             "displayMode": "both",
             "summary": "Complete bibliography and citations for all research, data sources, and evidence-based practices referenced throughout the Violence Prevention Plan."
-          },
-          {
-            "text": "Back Cover: Statewide Violence Plan for Illinois: 2025-2029",
-            "to": "/back-cover",
-            "ariaLabel": "View the back cover of the violence prevention plan",
-            "tooltip": "View the back cover of the violence prevention plan",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "The back cover of the Statewide Violence Prevention Plan for Illinois: 2025-2029."
           }
         ]
       },
@@ -147,18 +135,14 @@
       },
       {
         "text": "Download the Plan",
-        "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
-        "ariaLabel": "Download the Violence Prevention Plan PDF",
-        "tooltip": "Download the plan PDF",
+        "to": "/download",
+        "ariaLabel": "Go to download page for the Violence Prevention Plan",
+        "tooltip": "Go to download page",
         "tooltipLocation": "bottom",
         "variant": "elevated",
         "color": "primary",
         "class": "ml-4 font-weight-bold rounded-pill elevation-2 hidden-sm-and-down nav-download-btn",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
-        "isExternal": true,
-        "target": "_blank",
-        "rel": "noopener noreferrer",
-        "externalIcon": "mdi-download",
         "displayMode": "both",
         "enableTooltip": true,
         "order": 40
@@ -209,12 +193,11 @@
             "class": "footer-link mb-2",
             "isExternal": true,
             "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-file-pdf-box"
+            "rel": "noopener noreferrer"
           },
           {
             "text": "JSON",
-            "href": "/plan.json",
+            "href": "/vpp-plan-2025-2029.json",
             "ariaLabel": "Download JSON data format",
             "tooltip": "Download JSON data format",
             "tooltipLocation": "top",
@@ -223,6 +206,30 @@
             "target": "_blank",
             "rel": "noopener noreferrer",
             "externalIcon": "mdi-code-json"
+          },
+          {
+            "text": "YAML",
+            "href": "/vpp-plan-2025-2029.yaml",
+            "ariaLabel": "Download YAML data format",
+            "tooltip": "Download YAML data format",
+            "tooltipLocation": "top",
+            "class": "footer-link mb-2",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-code-braces"
+          },
+          {
+            "text": "CSV",
+            "href": "/vpp-plan-2025-2029.csv",
+            "ariaLabel": "Download CSV data format",
+            "tooltip": "Download CSV data format",
+            "tooltipLocation": "top",
+            "class": "footer-link mb-2",
+            "isExternal": true,
+            "target": "_blank",
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-file-delimited"
           },
           {
             "text": "LLMs",

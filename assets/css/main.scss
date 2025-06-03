@@ -1902,6 +1902,114 @@ section.section-secondary,
   }
 }
 
+// HYDROGEN BOMB OPTION - Completely obliterate ALL underlines from download page buttons
+.download-page {
+  // Target EVERYTHING that could possibly have an underline
+  :deep(.v-btn),
+  :deep(.v-btn *),
+  :deep(.v-btn):link,
+  :deep(.v-btn):visited,
+  :deep(.v-btn):hover,
+  :deep(.v-btn):active,
+  :deep(.v-btn):focus,
+  :deep(.v-btn .v-btn__content),
+  :deep(.v-btn .v-btn__content *),
+  :deep(.v-btn .v-btn__content):link,
+  :deep(.v-btn .v-btn__content):visited,
+  :deep(.v-btn .v-btn__content):hover,
+  :deep(.v-btn .v-btn__content):active,
+  :deep(.v-btn .v-btn__content):focus,
+  :deep(.v-btn a),
+  :deep(.v-btn a *),
+  :deep(.v-btn a):link,
+  :deep(.v-btn a):visited,
+  :deep(.v-btn a):hover,
+  :deep(.v-btn a):active,
+  :deep(.v-btn a):focus,
+  :deep(.router-link-active),
+  :deep(.router-link-exact-active),
+  :deep(.nuxt-link-active),
+  :deep(.nuxt-link-exact-active) {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-style: none !important;
+    text-decoration-color: transparent !important;
+    text-decoration-thickness: 0 !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    text-underline-offset: 0 !important;
+    text-decoration-skip: none !important;
+    text-decoration-skip-ink: none !important;
+  }
+}
+
+// GLOBAL HYDROGEN BOMB - Target router links in buttons EVERYWHERE
+.v-btn {
+  &.router-link-active,
+  &.router-link-exact-active,
+  &.nuxt-link-active,
+  &.nuxt-link-exact-active {
+    text-decoration: none !important;
+
+    * {
+      text-decoration: none !important;
+    }
+  }
+
+  // Target the internal router link element that Vuetify creates
+  :deep(.v-btn__content) {
+    text-decoration: none !important;
+
+    * {
+      text-decoration: none !important;
+    }
+  }
+}
+
+// ANTIMATTER BOMB - Specifically target visited links in buttons
+.v-btn:visited,
+.v-btn:visited *,
+.v-btn:visited .v-btn__content,
+.v-btn:visited .v-btn__content *,
+.download-page .v-btn:visited,
+.download-page .v-btn:visited *,
+.download-page .v-btn:visited .v-btn__content,
+.download-page .v-btn:visited .v-btn__content * {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+  text-decoration-thickness: 0 !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-skip: none !important;
+  text-decoration-skip-ink: none !important;
+}
+
+// Target any anchor tags that might be inside buttons when visited
+a.v-btn:visited,
+a.v-btn:visited *,
+.v-btn a:visited,
+.v-btn a:visited *,
+.download-page a.v-btn:visited,
+.download-page a.v-btn:visited *,
+.download-page .v-btn a:visited,
+.download-page .v-btn a:visited * {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-style: none !important;
+  text-decoration-color: transparent !important;
+  text-decoration-thickness: 0 !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-skip: none !important;
+  text-decoration-skip-ink: none !important;
+}
+
+
+
 // Help Section
 .help-section {
   margin-top: 3rem;

@@ -29,9 +29,12 @@ import HomeNews from '~/components/content/HomeNews.vue'
 import HomePrinciples from '~/components/content/HomePrinciples.vue'
 import HomeApproach from '~/components/content/HomeApproach.vue'
 
+// Import Vuetify components for use in markdown
+import { VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider } from 'vuetify/components'
+
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // Register components for use in markdown
+  // Register custom components for use in markdown
   nuxtApp.vueApp.component('TextWrapImage', TextWrapImage)
   nuxtApp.vueApp.component('ImageWithSpinner', ImageWithSpinner)
   nuxtApp.vueApp.component('CenteredImage', CenteredImage)
@@ -54,9 +57,19 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('HomePrinciples', HomePrinciples)
   nuxtApp.vueApp.component('HomeApproach', HomeApproach)
 
+  // Register Vuetify components for use in markdown
+  nuxtApp.vueApp.component('VBtn', VBtn)
+  nuxtApp.vueApp.component('VIcon', VIcon)
+  nuxtApp.vueApp.component('VAlert', VAlert)
+  nuxtApp.vueApp.component('VCard', VCard)
+  nuxtApp.vueApp.component('VCardTitle', VCardTitle)
+  nuxtApp.vueApp.component('VCardText', VCardText)
+  nuxtApp.vueApp.component('VCardActions', VCardActions)
+  nuxtApp.vueApp.component('VDivider', VDivider)
 
   // Log registration in development environment
   if (process.env.NODE_ENV === 'development') {
     console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
+    console.log('📝 Registered Vuetify components for markdown: VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider')
   }
 })

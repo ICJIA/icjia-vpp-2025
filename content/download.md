@@ -40,7 +40,7 @@ showTOC: false
       </div>
     </div>
     <v-btn
-      href="/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf"
+      to="/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf"
       target="_blank"
       rel="noopener noreferrer"
       color="primary"
@@ -80,7 +80,7 @@ showTOC: false
     </div>
     <div class="download-buttons">
       <v-btn
-        href="/llms.txt"
+        to="/llms.txt"
         target="_blank"
         rel="noopener noreferrer"
         color="primary"
@@ -89,10 +89,10 @@ showTOC: false
         class="download-btn secondary-download-btn"
         prepend-icon="mdi-download"
       >
-        llms.txt
+        LLMS.TXT
       </v-btn>
       <v-btn
-        href="/plan.json"
+        to="/vpp-plan-2025-2029.json"
         target="_blank"
         rel="noopener noreferrer"
         color="primary"
@@ -102,6 +102,30 @@ showTOC: false
         prepend-icon="mdi-download"
       >
         JSON
+      </v-btn>
+      <v-btn
+        to="/vpp-plan-2025-2029.yaml"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="primary"
+        variant="outlined"
+        size="large"
+        class="download-btn secondary-download-btn"
+        prepend-icon="mdi-download"
+      >
+        YAML
+      </v-btn>
+      <v-btn
+        to="/vpp-plan-2025-2029.csv"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="primary"
+        variant="outlined"
+        size="large"
+        class="download-btn secondary-download-btn"
+        prepend-icon="mdi-download"
+      >
+        CSV
       </v-btn>
     </div>
   </div>

@@ -1,11 +1,11 @@
 /**
  * Plan JSON Generator
  *
- * Automatically generates a comprehensive plan.json file containing all content
+ * Automatically generates a comprehensive vpp-plan-2025-2029.json file containing all content
  * from report pages (those under the "Read the Plan" menu section) with both
  * metadata and body content in JSON format.
  *
- * The generated file is placed in public/plan.json to be accessible at the site root.
+ * The generated file is placed in public/vpp-plan-2025-2029.json to be accessible at the site root.
  *
  * @author Violence Prevention Plan for Illinois: 2025-2029
  * @version 1.0.0
@@ -14,6 +14,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import yaml from 'yaml';
 
 import { createLogger } from '../utils/logger.js';
 import { createScriptLoggerConfig, getVerbosityFromArgs } from '../utils/config-loader.js';
@@ -26,6 +27,7 @@ import { createScriptLoggerConfig, getVerbosityFromArgs } from '../utils/config-
 class PlanJsonGenerator {
   constructor(options = {}) {
     this.menuConfig = null;
+    this.siteConfig = null;
     this.reportPages = [];
     this.stats = {
       totalPages: 0,
@@ -36,6 +38,23 @@ class PlanJsonGenerator {
     };
     this.logger = null; // Will be initialized in generate()
     this.options = options;
+  }
+
+  /**
+   * Load site configuration to get base URL and other settings
+   *
+   * @returns {Promise<void>}
+   */
+  async loadSiteConfig() {
+    try {
+      const siteConfigPath = path.join(process.cwd(), 'config/site.config.json');
+      const siteConfigContent = await fs.readFile(siteConfigPath, 'utf-8');
+      this.siteConfig = JSON.parse(siteConfigContent);
+      this.logger?.info('Loaded site configuration');
+    } catch (error) {
+      this.logger?.error('Failed to load site configuration');
+      throw error;
+    }
   }
 
   /**
@@ -115,28 +134,32 @@ class PlanJsonGenerator {
       this.stats.totalMetadataFields += Object.keys(frontmatter).length;
       this.stats.processedPages++;
 
+      // Get base URL from site configuration for fullPath generation
+      const baseUrl = this.siteConfig?.urls?.baseUrl?.replace(/\/$/, '') || "https://vpp-2025.netlify.app";
+
       // Create comprehensive page object
       const pageObject = {
         // URL and identification
         path: contentPath,
+        fullPath: `${baseUrl}${contentPath}`,
         slug: contentPath.replace(/^\//, ''),
-        
+
         // Menu metadata
         menuTitle: menuData.title,
         menuSummary: menuData.summary,
         menuAriaLabel: menuData.ariaLabel,
-        
+
         // File metadata
         sourceFile: filePath.replace(process.cwd(), ''),
-        
+
         // Frontmatter metadata (all YAML fields)
         meta: {
           ...frontmatter
         },
-        
+
         // Body content
         body: cleanContent,
-        
+
         // Content statistics
         stats: {
           contentLength: cleanContent.length,
@@ -161,6 +184,10 @@ class PlanJsonGenerator {
    * @returns {Object} Complete plan JSON object
    */
   generatePlanJson(processedPages) {
+    // Get base URL from site configuration, removing trailing slash if present
+    const baseUrl = this.siteConfig?.urls?.baseUrl?.replace(/\/$/, '') || "https://vpp-2025.netlify.app";
+    const validPages = processedPages.filter(page => page !== null);
+
     const planJson = {
       // Plan metadata
       planInfo: {
@@ -169,9 +196,9 @@ class PlanJsonGenerator {
         version: "2025-2029",
         organization: "Illinois Criminal Justice Information Authority (ICJIA)",
         generatedAt: new Date().toISOString(),
-        baseUrl: "https://vpp-2025.netlify.app"
+        baseUrl: baseUrl
       },
-      
+
       // Generation statistics
       generationStats: {
         totalPages: this.stats.totalPages,
@@ -182,16 +209,19 @@ class PlanJsonGenerator {
         averageContentLength: Math.round(this.stats.totalContentLength / this.stats.processedPages),
         averageMetadataFields: Math.round(this.stats.totalMetadataFields / this.stats.processedPages)
       },
-      
+
       // All plan pages with complete content and metadata
-      pages: processedPages.filter(page => page !== null),
-      
+      pages: validPages,
+
       // Quick reference index
       index: {
-        pageCount: processedPages.filter(page => page !== null).length,
-        paths: processedPages.filter(page => page !== null).map(page => page.path),
-        titles: processedPages.filter(page => page !== null).map(page => page.meta.title || page.menuTitle),
-        slugs: processedPages.filter(page => page !== null).map(page => page.slug)
+        pageCount: validPages.length,
+        paths: validPages.map(page => ({
+          path: page.path,
+          fullPath: `${baseUrl}${page.path}`
+        })),
+        titles: validPages.map(page => page.meta.title || page.menuTitle),
+        slugs: validPages.map(page => page.slug)
       }
     };
 
@@ -210,15 +240,110 @@ class PlanJsonGenerator {
       const publicDir = path.join(process.cwd(), 'public');
       await fs.mkdir(publicDir, { recursive: true });
 
-      // Write the plan.json file with pretty formatting
-      const outputPath = path.join(publicDir, 'plan.json');
+      // Write the vpp-plan-2025-2029.json file with pretty formatting
+      const outputPath = path.join(publicDir, 'vpp-plan-2025-2029.json');
       const jsonContent = JSON.stringify(planJson, null, 2);
       await fs.writeFile(outputPath, jsonContent, 'utf-8');
 
-      this.logger?.success(`✅ Generated plan.json file: ${outputPath}`);
+      this.logger?.success(`✅ Generated vpp-plan-2025-2029.json file: ${outputPath}`);
       this.logger?.info(`📊 File size: ${(jsonContent.length / 1024).toFixed(2)} KB`);
     } catch (error) {
-      this.logger?.error(`Failed to write plan.json file: ${error.message}`);
+      this.logger?.error(`Failed to write vpp-plan-2025-2029.json file: ${error.message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Write the generated plan data as YAML to the public directory
+   *
+   * @param {Object} planData - The complete plan data object
+   * @returns {Promise<void>}
+   */
+  async writePlanYamlFile(planData) {
+    try {
+      // Ensure public directory exists
+      const publicDir = path.join(process.cwd(), 'public');
+      await fs.mkdir(publicDir, { recursive: true });
+
+      // Write the vpp-plan-2025-2029.yaml file with pretty formatting
+      const outputPath = path.join(publicDir, 'vpp-plan-2025-2029.yaml');
+      const yamlContent = yaml.stringify(planData, {
+        indent: 2,
+        lineWidth: 120,
+        minContentWidth: 20,
+        doubleQuotedAsJSON: false
+      });
+      await fs.writeFile(outputPath, yamlContent, 'utf-8');
+
+      this.logger?.success(`✅ Generated vpp-plan-2025-2029.yaml file: ${outputPath}`);
+      this.logger?.info(`📊 File size: ${(yamlContent.length / 1024).toFixed(2)} KB`);
+
+    } catch (error) {
+      this.logger?.error(`Failed to write vpp-plan-2025-2029.yaml file: ${error.message}`);
+      throw error;
+    }
+  }
+
+  /**
+   * Write the generated plan data as CSV to the public directory
+   *
+   * @param {Object} planData - The complete plan data object
+   * @returns {Promise<void>}
+   */
+  async writePlanCsvFile(planData) {
+    try {
+      // Ensure public directory exists
+      const publicDir = path.join(process.cwd(), 'public');
+      await fs.mkdir(publicDir, { recursive: true });
+
+      // Create CSV headers
+      const headers = [
+        'path',
+        'fullPath',
+        'slug',
+        'menuTitle',
+        'menuSummary',
+        'menuAriaLabel',
+        'sourceFile',
+        'title',
+        'description',
+        'keywords',
+        'contentLength',
+        'metadataFields',
+        'estimatedReadingTime',
+        'bodyContent'
+      ];
+
+      // Create CSV rows from pages data
+      const rows = planData.pages.map(page => [
+        `"${(page.path || '').replace(/"/g, '""')}"`,
+        `"${(page.fullPath || '').replace(/"/g, '""')}"`,
+        `"${(page.slug || '').replace(/"/g, '""')}"`,
+        `"${(page.menuTitle || '').replace(/"/g, '""')}"`,
+        `"${(page.menuSummary || '').replace(/"/g, '""')}"`,
+        `"${(page.menuAriaLabel || '').replace(/"/g, '""')}"`,
+        `"${(page.sourceFile || '').replace(/"/g, '""')}"`,
+        `"${(page.meta?.title || '').replace(/"/g, '""')}"`,
+        `"${(page.meta?.description || '').replace(/"/g, '""')}"`,
+        `"${(Array.isArray(page.meta?.keywords) ? page.meta.keywords.join('; ') : '').replace(/"/g, '""')}"`,
+        page.stats?.contentLength || 0,
+        page.stats?.metadataFields || 0,
+        page.stats?.estimatedReadingTime || 0,
+        `"${(page.body || '').replace(/"/g, '""').replace(/\n/g, '\\n')}"`
+      ]);
+
+      // Combine headers and rows
+      const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+
+      // Write the vpp-plan-2025-2029.csv file
+      const outputPath = path.join(publicDir, 'vpp-plan-2025-2029.csv');
+      await fs.writeFile(outputPath, csvContent, 'utf-8');
+
+      this.logger?.success(`✅ Generated vpp-plan-2025-2029.csv file: ${outputPath}`);
+      this.logger?.info(`📊 File size: ${(csvContent.length / 1024).toFixed(2)} KB`);
+
+    } catch (error) {
+      this.logger?.error(`Failed to write vpp-plan-2025-2029.csv file: ${error.message}`);
       throw error;
     }
   }
@@ -252,7 +377,8 @@ class PlanJsonGenerator {
     this.logger?.info('🚀 Starting Plan JSON generation...');
 
     try {
-      // Load menu configuration
+      // Load configurations
+      await this.loadSiteConfig();
       await this.loadMenuConfig();
 
       // Get report pages from menu
@@ -274,8 +400,10 @@ class PlanJsonGenerator {
       // Generate comprehensive plan JSON
       const planJson = this.generatePlanJson(processedPages);
 
-      // Write to public directory
+      // Write to public directory in multiple formats
       await this.writePlanJsonFile(planJson);
+      await this.writePlanYamlFile(planJson);
+      await this.writePlanCsvFile(planJson);
 
       // Display statistics
       this.displayStats();

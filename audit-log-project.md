@@ -2,6 +2,20 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-03 (Added YAML and CSV Download Formats)
+- Added YAML and CSV download formats to complement existing JSON and llms.txt downloads for enhanced developer accessibility.
+- Files modified/created:
+  - `scripts/generate-plan-json.js`: Added YAML and CSV generation methods with proper formatting and error handling
+  - `config/menu.config.json`: Added YAML and CSV download links to footer navigation with appropriate icons
+  - `content/download.md`: Added YAML and CSV download buttons to the developer downloads section
+  - `package.json`: Added yaml dependency for YAML file generation
+- Technical Notes:
+  - YAML format uses human-readable formatting with 2-space indentation and 120-character line width
+  - CSV format includes all page data with proper escaping for quotes and newlines
+  - Both formats are generated automatically during the build process alongside existing JSON format
+  - Download links use appropriate Material Design icons (mdi-code-braces for YAML, mdi-file-delimited for CSV)
+  - All formats maintain consistent data structure and content from the same source
+
 ### 2025-06-03 (Enhanced Navigation with Background Shading and Improved UX)
 - Enhanced linear navigation component with background shading, improved text labels, and menu reorganization for better user experience.
 - Files modified/created:

@@ -4,7 +4,7 @@
     "description": "Comprehensive violence prevention plan outlining Illinois's strategic approach to preventing violence through evidence-based practices, equity advancement, and collaborative efforts across state, municipal, and community-based agencies for 2025-2029.",
     "version": "2025-2029",
     "organization": "Illinois Criminal Justice Information Authority (ICJIA)",
-    "generatedAt": "2025-06-03T15:34:11.238Z",
+    "generatedAt": "2025-06-03T18:14:19.460Z",
     "baseUrl": "https://vpp-2025.netlify.app"
   },
   "generationStats": {
@@ -19,6 +19,7 @@
   "pages": [
     {
       "path": "/front-cover",
+      "fullPath": "https://vpp-2025.netlify.app/front-cover",
       "slug": "front-cover",
       "menuTitle": "Front Cover: Statewide Violence Plan for Illinois: 2025-2029",
       "menuSummary": "The cover page of the Statewide Violence Prevention Plan for Illinois: 2025-2029.",
@@ -39,6 +40,7 @@
     },
     {
       "path": "/executive-summary",
+      "fullPath": "https://vpp-2025.netlify.app/executive-summary",
       "slug": "executive-summary",
       "menuTitle": "Executive Summary",
       "menuSummary": "Learn about our mission, values, and approach to violence prevention across Illinois.",
@@ -62,6 +64,7 @@
     },
     {
       "path": "/public-health-approach",
+      "fullPath": "https://vpp-2025.netlify.app/public-health-approach",
       "slug": "public-health-approach",
       "menuTitle": "Violence Prevention from a Public Health Approach",
       "menuSummary": "Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities.",
@@ -85,6 +88,7 @@
     },
     {
       "path": "/guiding-principles",
+      "fullPath": "https://vpp-2025.netlify.app/guiding-principles",
       "slug": "guiding-principles",
       "menuTitle": "Guiding Principles",
       "menuSummary": "Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration.",
@@ -108,6 +112,7 @@
     },
     {
       "path": "/planning-process",
+      "fullPath": "https://vpp-2025.netlify.app/planning-process",
       "slug": "planning-process",
       "menuTitle": "Planning Process",
       "menuSummary": "In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback.",
@@ -131,6 +136,7 @@
     },
     {
       "path": "/goals-and-recommendations",
+      "fullPath": "https://vpp-2025.netlify.app/goals-and-recommendations",
       "slug": "goals-and-recommendations",
       "menuTitle": "Goals and Recommendations",
       "menuSummary": "Comprehensive goals and actionable recommendations for preventing violence and promoting health and safety through evidence-based practices, advancing equity, and fostering collaboration across Illinois.",
@@ -154,6 +160,7 @@
     },
     {
       "path": "/references",
+      "fullPath": "https://vpp-2025.netlify.app/references",
       "slug": "references",
       "menuTitle": "References",
       "menuSummary": "Complete bibliography and citations for all research, data sources, and evidence-based practices referenced throughout the Violence Prevention Plan.",
@@ -172,6 +179,7 @@
     },
     {
       "path": "/back-cover",
+      "fullPath": "https://vpp-2025.netlify.app/back-cover",
       "slug": "back-cover",
       "menuTitle": "Back Cover: Statewide Violence Plan for Illinois: 2025-2029",
       "menuSummary": "The back cover of the Statewide Violence Prevention Plan for Illinois: 2025-2029.",
@@ -194,14 +202,38 @@
   "index": {
     "pageCount": 8,
     "paths": [
-      "/front-cover",
-      "/executive-summary",
-      "/public-health-approach",
-      "/guiding-principles",
-      "/planning-process",
-      "/goals-and-recommendations",
-      "/references",
-      "/back-cover"
+      {
+        "path": "/front-cover",
+        "fullPath": "https://vpp-2025.netlify.app/front-cover"
+      },
+      {
+        "path": "/executive-summary",
+        "fullPath": "https://vpp-2025.netlify.app/executive-summary"
+      },
+      {
+        "path": "/public-health-approach",
+        "fullPath": "https://vpp-2025.netlify.app/public-health-approach"
+      },
+      {
+        "path": "/guiding-principles",
+        "fullPath": "https://vpp-2025.netlify.app/guiding-principles"
+      },
+      {
+        "path": "/planning-process",
+        "fullPath": "https://vpp-2025.netlify.app/planning-process"
+      },
+      {
+        "path": "/goals-and-recommendations",
+        "fullPath": "https://vpp-2025.netlify.app/goals-and-recommendations"
+      },
+      {
+        "path": "/references",
+        "fullPath": "https://vpp-2025.netlify.app/references"
+      },
+      {
+        "path": "/back-cover",
+        "fullPath": "https://vpp-2025.netlify.app/back-cover"
+      }
     ],
     "titles": [
       "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029",

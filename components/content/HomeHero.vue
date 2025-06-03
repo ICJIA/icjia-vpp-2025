@@ -20,7 +20,7 @@
                 @click="handleDownloadPlan"
                 @keydown.enter="handleDownloadPlan"
                 @keydown.space.prevent="handleDownloadPlan"
-                aria-label="Download the complete Violence Prevention Plan PDF"
+                aria-label="Go to download page for the Violence Prevention Plan"
               >
                 Download the Plan
                 <v-icon end icon="mdi-download" />
@@ -85,11 +85,11 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
 
 /**
  * Handle Download the Plan button activation
- * Downloads the complete Violence Prevention Plan PDF document
+ * Navigates to the download page where users can choose from multiple formats
  */
 const handleDownloadPlan = () => {
-  // Open the complete Violence Prevention Plan PDF in a new tab
-  window.open('/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf', '_blank');
+  // Navigate to the download page
+  navigateTo('/download');
 };
 
 /**
