@@ -5,15 +5,15 @@ planInfo:
     community-based agencies for 2025-2029.
   version: 2025-2029
   organization: Illinois Criminal Justice Information Authority (ICJIA)
-  generatedAt: 2025-06-03T18:14:19.460Z
+  generatedAt: 2025-06-04T11:07:14.371Z
   baseUrl: https://vpp-2025.netlify.app
 generationStats:
-  totalPages: 8
-  processedPages: 8
+  totalPages: 7
+  processedPages: 7
   skippedPages: 0
-  totalContentLength: 39992
-  totalMetadataFields: 45
-  averageContentLength: 4999
+  totalContentLength: 40405
+  totalMetadataFields: 41
+  averageContentLength: 5772
   averageMetadataFields: 6
 pages:
   - path: /front-cover
@@ -50,10 +50,11 @@ pages:
       twitterCard: summary_large_image
       showTOC: true
     body: >-
-      ## OverviewViolence is a global public health crisis. Violence is prevalent for many individuals and communities
-      in Illinois (Garthe et al., 2021), and a leading cause of death (Illinois Department of Public Health,
-      2022).  Experiencing or perpetrating violence can result in an array of negative health, mental health, economic,
-      and relational impacts (World Health Organization, 2023).  Thus, the prevention of violence is paramount.The
+      Violence is a global public health crisis. Violence is prevalent for many individuals and communities in Illinois
+      <span data-ref="garthe-2021-1">(Garthe et al., 2021)</span>, and a leading cause of death <span
+      data-ref="illinois-2022">(Illinois Department of Public Health, 2022)</span>.  Experiencing or perpetrating
+      violence can result in an array of negative health, mental health, economic, and relational impacts <span
+      data-ref="world-2023">(World Health Organization, 2023)</span>.  Thus, the prevention of violence is paramount.The
       Illinois Criminal Justice Information Authority (ICJIA) aims to continue funding and supporting violence
       prevention efforts across Illinois. This report was written to inform ICJIA'S violence prevention planning for
       2025-2029, but also with the intent to be utilized by any state or community group interested in violence
@@ -121,7 +122,7 @@ pages:
       systemic barriers.  Furthermore, Illinois is committed to violence prevention efforts from a public health
       perspective, utilizing evidence-based practices.
     stats:
-      contentLength: 5210
+      contentLength: 5310
       metadataFields: 7
       estimatedReadingTime: 4
   - path: /public-health-approach
@@ -143,15 +144,15 @@ pages:
       twitterCard: summary_large_image
       showTOC: true
     body: >-
-      ## OverviewViolence is a global public health concern.  Violence is defined as "the intentional use of physical
-      force or power, threatened or actual, against oneself, another person, or against a group or community, that
-      results in or has a high likelihood of resulting in injury, death, psychological harm, maldevelopment, or
-      deprivation" (World Health Organization, 2002).  Violence can include child abuse and neglect, bullying and
-      cyberbullying, teen dating violence, youth physical fighting and weapon carrying, adult intimate partner violence,
-      sexual violence, violent crime (e.g., homicides, aggravated assault, criminal sexual assault, robbery), and abuse
-      against older adults and adults with disabilities.  People are exposed to violence within their homes, at school
-      or work, and in their communities.In Illinois, violence is prevalent. For example:- Rates of child maltreatment
-      are higher in Illinois than national rates (2018-2021)
+      Violence is a global public health concern.  Violence is defined as "the intentional use of physical force or
+      power, threatened or actual, against oneself, another person, or against a group or community, that results in or
+      has a high likelihood of resulting in injury, death, psychological harm, maldevelopment, or deprivation" <span
+      data-ref="world-2002">(World Health Organization, 2002)</span>.  Violence can include child abuse and neglect,
+      bullying and cyberbullying, teen dating violence, youth physical fighting and weapon carrying, adult intimate
+      partner violence, sexual violence, violent crime (e.g., homicides, aggravated assault, criminal sexual assault,
+      robbery), and abuse against older adults and adults with disabilities.  People are exposed to violence within
+      their homes, at school or work, and in their communities.In Illinois, violence is prevalent. For example:- Rates
+      of child maltreatment are higher in Illinois than national rates (2018-2021)
 
       - About 12% of high school youth have experienced sexual violence (2019-2021)
 
@@ -165,20 +166,20 @@ pages:
       female youth.  Societal inequities result from oppression and discrimination, and these inequities result in
       limited economic opportunities, a disinvestment in education, fewer social services, fewer affordable and quality
       housing options, and systemic racism, all of which can increase the likelihood of experiencing violence and trauma
-      (Armstead et al., 2021).Due to the high prevalence of violence, and the persistent disparities, violence is seen
-      as an epidemic impacting our state and our society.  Violence prevention efforts are crucial so that we can reduce
-      rates of violence and prevent future violence.  Additionally, work is needed to address societal inequities to
-      prevent violence and begin the healing process (i.e., healing-centered care) in communities impacted by these
-      persistent inequities.## Creation of a Statewide Violence Prevention PlanThe Illinois Criminal Justice Information
-      Authority (ICJIA) is a state agency whose mission is to improve the administration of justice in Illinois.  ICJIA
-      brings together key leaders from the justice system and the public to identify critical issues facing the justice
-      system in Illinois, and to propose and evaluate policies, programs, and legislation that address those
-      issues.  ICJIA aims to continue funding and supporting violence prevention efforts across Illinois.  In 2020,
-      ICJIA's authorizing statue included the requirement of a four-year statewide violence prevention plan:> *To
-      coordinate statewide violence prevention efforts and assist in the implementation of trauma recovery centers and
-      analyze trauma recovery services, the Authority shall develop, publish, and facilitate the implementation of a
-      4-year statewide violence prevention plan, which shall incorporate public health, public safety, victim services,
-      and trauma recovery centers and services.* [20 ILCS
+      <span data-ref="armstead-2021">(Armstead et al., 2021)</span>.Due to the high prevalence of violence, and the
+      persistent disparities, violence is seen as an epidemic impacting our state and our society.  Violence prevention
+      efforts are crucial so that we can reduce rates of violence and prevent future violence.  Additionally, work is
+      needed to address societal inequities to prevent violence and begin the healing process (i.e., healing-centered
+      care) in communities impacted by these persistent inequities.## Creation of a Statewide Violence Prevention
+      PlanThe Illinois Criminal Justice Information Authority (ICJIA) is a state agency whose mission is to improve the
+      administration of justice in Illinois.  ICJIA brings together key leaders from the justice system and the public
+      to identify critical issues facing the justice system in Illinois, and to propose and evaluate policies, programs,
+      and legislation that address those issues.  ICJIA aims to continue funding and supporting violence prevention
+      efforts across Illinois.  In 2020, ICJIA's authorizing statue included the requirement of a four-year statewide
+      violence prevention plan:> *To coordinate statewide violence prevention efforts and assist in the implementation
+      of trauma recovery centers and analyze trauma recovery services, the Authority shall develop, publish, and
+      facilitate the implementation of a 4-year statewide violence prevention plan, which shall incorporate public
+      health, public safety, victim services, and trauma recovery centers and services.* [20 ILCS
       3930/7(x)](https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=397    ){target="_blank" rel="noopener
       noreferrer"}The first four-year Statewide Violence Prevention Plan was released in 2021. Since then, a variety of
       implementation, research, and activities have taken place.  ICJIA created the Violence Prevention Ad Hoc
@@ -189,16 +190,16 @@ pages:
       prevention efforts or in developing their own localized plan.  This report utilizes a public health approach to
       violence prevention.## The Public Health FrameworkEvidence-informed violence prevention efforts utilize a public
       health framework to prevent violence.  This approach is grounded in the scientific method and includes four steps
-      (Centers for Disease Control and Prevention [CDC], 2024):### Define and monitor the problemUnderstanding who
-      experiences violence, as well as when and where it occurs, is the first step in preventing violence.  Data can
-      help us understand the prevalence of violence, where it occurs, trends in violence rates over time, and who it
-      impacts.  In defining violence, it is also critical to find appropriate, validated measurements.### Identify risk
-      and protective factorsWe need to understand what factors protect individuals from experiencing or perpetrating
-      violence, and what factors place individuals at greater risk for victimization or perpetration.  These factors can
-      help providers know where to focus violence prevention efforts.### Develop and test prevention
-      strategiesPrevention efforts are developed and modified based on community needs, practitioner and organizational
-      expertise and experience, and participant, stakeholder, and collaborator feedback.  Once prevention strategies are
-      developed or identified for implementation, strategies should be evaluated to ensure they are
+      <span data-ref="cdc-2024">(Centers for Disease Control and Prevention [CDC], 2024)</span>:### Define and monitor
+      the problemUnderstanding who experiences violence, as well as when and where it occurs, is the first step in
+      preventing violence.  Data can help us understand the prevalence of violence, where it occurs, trends in violence
+      rates over time, and who it impacts.  In defining violence, it is also critical to find appropriate, validated
+      measurements.### Identify risk and protective factorsWe need to understand what factors protect individuals from
+      experiencing or perpetrating violence, and what factors place individuals at greater risk for victimization or
+      perpetration.  These factors can help providers know where to focus violence prevention efforts.### Develop and
+      test prevention strategiesPrevention efforts are developed and modified based on community needs, practitioner and
+      organizational expertise and experience, and participant, stakeholder, and collaborator feedback.  Once prevention
+      strategies are developed or identified for implementation, strategies should be evaluated to ensure they are
       effective.  Evidence-based practices are vital to ensure programs are doing what they set out to do.### Assure
       widespread adoptionCommunities are encouraged to implement evidence-based programs.  Additionally, they should
       continually assess if the strategy is a good match for their participants or community area, evaluating any
@@ -212,15 +213,16 @@ pages:
       factors that place individuals at a higher risk for violence victimization or perpetration) and strengthen
       protection (i.e., factors that protect individuals from experiencing or perpetrating violence).  Risk and
       protective factors exist at various levels of the social-ecological model, including individual, relational,
-      community, and societal factors (CDC, 2019; Wilkins et al., 2014).  Comprehensive efforts that address prevention
-      across multiple levels of the social-ecological model are more sustainable and can have more of a long-term
-      impact.  Thus, violence prevention efforts should aim to address factors across the social-ecological model
-      whenever possible.The Centers for Disease Control and Prevention have urged researchers to consider how multiple
-      forms of violence can share many of the same risk and protective factors (Wilkins et al., 2014).  By considering
-      these shared factors, programs can be expanded or enhanced to prevent multiple forms of violence.## Primary,
-      Secondary, and Tertiary PreventionViolence prevention efforts can also be organized by when they take place and
-      who is the focus of prevention efforts (CDC, 2019):- **Primary prevention** is considered universal, occurring for
-      an entire population; primary prevention efforts take place before violence occurs
+      community, and societal factors <span data-ref="centers-2019,wilkins-2014">(CDC, 2019; Wilkins et al.,
+      2014)</span>.  Comprehensive efforts that address prevention across multiple levels of the social-ecological model
+      are more sustainable and can have more of a long-term impact.  Thus, violence prevention efforts should aim to
+      address factors across the social-ecological model whenever possible.The Centers for Disease Control and
+      Prevention have urged researchers to consider how multiple forms of violence can share many of the same risk and
+      protective factors <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>.  By considering these shared
+      factors, programs can be expanded or enhanced to prevent multiple forms of violence.## Primary, Secondary, and
+      Tertiary PreventionViolence prevention efforts can also be organized by when they take place and who is the focus
+      of prevention efforts <span data-ref="centers-2019">(CDC, 2019)</span>:- **Primary prevention** is considered
+      universal, occurring for an entire population; primary prevention efforts take place before violence occurs
 
       - **Secondary prevention** is considered selected, or focused on those with one or more risk factors for violence.
       Secondary prevention efforts take place immediately after violence occurs, or interventions occur when violence is
@@ -229,12 +231,13 @@ pages:
       - **Tertiary prevention** is considered indicated, or efforts for those who have already experienced or
       perpetrated violence. Tertiary prevention efforts, or long-term recovery services and supports, occur after
       violence has occurred## Health EquityFinally, a public health approach aims to achieve health equity (i.e., all
-      people have the opportunity to attain their highest level of health; CDC, 2019).  By addressing systemic
-      inequities in social and healthcare systems, like increasing access to affordable housing, income, education, and
-      healthcare, we can reduce the risk of violence that is associated with these inequities.  Thus, in aims to achieve
-      health equity, collective work is needed from all sectors, stakeholders, and policymakers.
+      people have the opportunity to attain their highest level of health; <span data-ref="centers-2019">(CDC,
+      2019</span>).  By addressing systemic inequities in social and healthcare systems, like increasing access to
+      affordable housing, income, education, and healthcare, we can reduce the risk of violence that is associated with
+      these inequities.  Thus, in aims to achieve health equity, collective work is needed from all sectors,
+      stakeholders, and policymakers.
     stats:
-      contentLength: 9035
+      contentLength: 9292
       metadataFields: 7
       estimatedReadingTime: 7
   - path: /guiding-principles
@@ -354,9 +357,9 @@ pages:
       twitterCard: summary_large_image
       showTOC: true
     body: |-
-      ## Goal #1 - Prevent violence and promote health and safety through trauma-informed/healing-centered, evidence-based and comprehensive primary, secondary, and/or tertiary prevention efforts.### Understanding Goal #1 ComponentsTo articulate components of Goal #1, we provide further definitions and graphics to describe what is meant by trauma-informed/healing-centered practices, evidence-based, and comprehensive primary, secondary, and/or tertiary prevention efforts.#### Trauma-informed and healing-centered practicesThe Substance Abuse and Mental Health Services Administration (SAMSHA, 2014) provides six guiding principles for trauma-informed efforts:**Safety:** Within an organization or setting, clients/patients and staff feel safe physically and psychologically.**Trustworthiness and transparency:** Throughout the process of care, decisions are transparent to build and sustain trust.**Peer support:** Services include connecting individuals with other individuals with shared lived experiences.**Collaboration and mutuality:** The power differential is eliminated to promote shared decision-making.**Empowerment, voice and choice:** Clients/patients are supported in determining what they need and want for healing and the next steps they would like to pursue. Staff are seen as facilitators of healing, also empowered and supported in their work.**Cultural, historical and gender considerations:** Services and organizational policies are responsive to socio-demographic and intersectional needs of participants, while also recognizing and addressing the roles of historical trauma, biases and stereotypes, and discrimination.Trauma-informed practices realize the impact of trauma, recognize the signs and impacts of trauma among clients/patients and staff, respond by integrating knowledge of trauma into policies and practices, and resist re-traumatization (i.e., stemming from a triggering event, you are reminded of an earlier trauma; SAMHSA, 2017). For a list of key references and resources, please see:- [SAMHSA's Concept of Trauma and Guidance for Trauma-Informed Approach](https://store.samhsa.gov/product/samhsas-concept-trauma-and-guidance-trauma-informed-approach/sma14-4884)
+      ## Goal #1 - Prevent violence and promote health and safety through trauma-informed/healing-centered, evidence-based and comprehensive primary, secondary, and/or tertiary prevention efforts.### Understanding Goal #1 ComponentsTo articulate components of Goal #1, we provide further definitions and graphics to describe what is meant by trauma-informed/healing-centered practices, evidence-based, and comprehensive primary, secondary, and/or tertiary prevention efforts.#### Trauma-informed and healing-centered practicesThe Substance Abuse and Mental Health Services Administration <span data-ref="substance-2014">(SAMSHA, 2014)</span> provides six guiding principles for trauma-informed efforts:**Safety:** Within an organization or setting, clients/patients and staff feel safe physically and psychologically.**Trustworthiness and transparency:** Throughout the process of care, decisions are transparent to build and sustain trust.**Peer support:** Services include connecting individuals with other individuals with shared lived experiences.**Collaboration and mutuality:** The power differential is eliminated to promote shared decision-making.**Empowerment, voice and choice:** Clients/patients are supported in determining what they need and want for healing and the next steps they would like to pursue. Staff are seen as facilitators of healing, also empowered and supported in their work.**Cultural, historical and gender considerations:** Services and organizational policies are responsive to socio-demographic and intersectional needs of participants, while also recognizing and addressing the roles of historical trauma, biases and stereotypes, and discrimination.Trauma-informed practices realize the impact of trauma, recognize the signs and impacts of trauma among clients/patients and staff, respond by integrating knowledge of trauma into policies and practices, and resist re-traumatization (i.e., stemming from a triggering event, you are reminded of an earlier trauma; <span data-ref="samhsa-2017">SAMHSA, 2017</span>). For a list of key references and resources, please see:- [SAMHSA's Concept of Trauma and Guidance for Trauma-Informed Approach](https://store.samhsa.gov/product/samhsas-concept-trauma-and-guidance-trauma-informed-approach/sma14-4884)
       - [What is Trauma-Informed Care?](https://www.traumainformedcare.chcs.org/what-is-trauma-informed-care/)
-      - [CDC: Trauma-Informed Care](https://blogs.cdc.gov/publichealthmatters/2022/05/trauma-informed/)While trauma-informed practices are important, they are incomplete. They focus on the harm and injury resulting from trauma, individual experiences (rather than collective), and they lack a strengths-based perspective. An approach to address these limitations is called healing-centered practice, which involves "culture, spirituality, civic action and collective healing... highlighting the ways in which trauma and healing are experienced collectively." Thus, healing-centered moves away from a risk reduction model, and instead provides an asset driven and restorative approach that focuses on well-being as the goal (rather than focusing on what we want to reduce or suppress; Ginwright, 2018).#### Evidence-based practicesIn social services, evidence-based practices integrate the best research or evaluation evidence, clinical expertise, and participant or community values to meet the needs of a participant or community (Bent-Goodley et al., 2019). For evidence-based resources across types of violence prevention, please see: [Healthy People 2030 Evidence-Based Resources](https://health.gov/healthypeople/objectives-and-data/browse-objectives/violence-prevention/evidence-based-resources)#### Comprehensive practicesComprehensive practices mean addressing risk and protective factors across the social-ecological model (Wilkins et al., 2014). The social-ecological model is a useful framework for understanding where to target violence prevention efforts. As shown in Figure 1, violence prevention efforts may address factors at the individual, relational, community, or society level. These efforts may also target factors at multiple levels. Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact. Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.##### WHERE Violence Prevention Efforts Occur:**Societal Level**
+      - [CDC: Trauma-Informed Care](https://blogs.cdc.gov/publichealthmatters/2022/05/trauma-informed/)While trauma-informed practices are important, they are incomplete. They focus on the harm and injury resulting from trauma, individual experiences (rather than collective), and they lack a strengths-based perspective. An approach to address these limitations is called healing-centered practice, which involves "culture, spirituality, civic action and collective healing... highlighting the ways in which trauma and healing are experienced collectively." Thus, healing-centered moves away from a risk reduction model, and instead provides an asset driven and restorative approach that focuses on well-being as the goal (rather than focusing on what we want to reduce or suppress; <span data-ref="ginwright-2018">Ginwright, 2018</span>).#### Evidence-based practicesIn social services, evidence-based practices integrate the best research or evaluation evidence, clinical expertise, and participant or community values to meet the needs of a participant or community <span data-ref="bentgoodley-2019">(Bent-Goodley et al., 2019)</span>. For evidence-based resources across types of violence prevention, please see: [Healthy People 2030 Evidence-Based Resources](https://health.gov/healthypeople/objectives-and-data/browse-objectives/violence-prevention/evidence-based-resources)#### Comprehensive practicesComprehensive practices mean addressing risk and protective factors across the social-ecological model <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>. The social-ecological model is a useful framework for understanding where to target violence prevention efforts. As shown in Figure 1, violence prevention efforts may address factors at the individual, relational, community, or society level. These efforts may also target factors at multiple levels. Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact. Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.##### WHERE Violence Prevention Efforts Occur:**Societal Level**
       The role of the economy, cultural norms, media, policies, and laws (e.g., policies that create or maintain inequities or cultural norms that encourage violence)
       Prevention efforts aim to address norms/attitudes, offer equitable services and opportunities, or focus on policy proposals/changes**Community Level**
       The role of places (e.g., school, work, neighborhood) and conditions that contribute to violence (e.g., poverty, residential segregation)
@@ -411,7 +414,7 @@ pages:
       - Identify possible projects, key contacts within agencies, and develop a project timeline. This collaborative project should include at least two state agencies and relevant community partners.
       - Host a statewide violence prevention event to highlight research and program evaluation findings, as well as the work of community-based organizations leading violence prevention work. This event could also encourage governmental partnerships and build community across grantees, evaluators, governmental officials, stakeholders, and researchers.
     stats:
-      contentLength: 14646
+      contentLength: 14838
       metadataFields: 7
       estimatedReadingTime: 10
   - path: /references
@@ -445,26 +448,8 @@ pages:
       contentLength: 6369
       metadataFields: 2
       estimatedReadingTime: 3
-  - path: /back-cover
-    fullPath: https://vpp-2025.netlify.app/back-cover
-    slug: back-cover
-    menuTitle: "Back Cover: Statewide Violence Plan for Illinois: 2025-2029"
-    menuSummary: "The back cover of the Statewide Violence Prevention Plan for Illinois: 2025-2029."
-    menuAriaLabel: View the back cover of the violence prevention plan
-    sourceFile: /content/back-cover.md
-    meta:
-      title: "Back Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
-      description: "The Statewide Violence Prevention Plan for Illinois: 2025-2029."
-      keywords: []
-      showBorder: true
-    body: '<div style="text-align: center;">![Back Cover: Statewide Violence Prevention Plan for Illinois:
-      2025-2029](/images/back-cover.png)</div>'
-    stats:
-      contentLength: 136
-      metadataFields: 4
-      estimatedReadingTime: 1
 index:
-  pageCount: 8
+  pageCount: 7
   paths:
     - path: /front-cover
       fullPath: https://vpp-2025.netlify.app/front-cover
@@ -480,8 +465,6 @@ index:
       fullPath: https://vpp-2025.netlify.app/goals-and-recommendations
     - path: /references
       fullPath: https://vpp-2025.netlify.app/references
-    - path: /back-cover
-      fullPath: https://vpp-2025.netlify.app/back-cover
   titles:
     - "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
     - Executive Summary
@@ -490,7 +473,6 @@ index:
     - Planning Process
     - Goals and Recommendations
     - References
-    - "Back Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
   slugs:
     - front-cover
     - executive-summary
@@ -499,4 +481,3 @@ index:
     - planning-process
     - goals-and-recommendations
     - references
-    - back-cover

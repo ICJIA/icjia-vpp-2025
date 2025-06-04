@@ -9,7 +9,7 @@ showTOC: true
 
 ---
 
-Violence is a global public health concern.  Violence is defined as "the intentional use of physical force or power, threatened or actual, against oneself, another person, or against a group or community, that results in or has a high likelihood of resulting in injury, death, psychological harm, maldevelopment, or deprivation" (World Health Organization, 2002).  Violence can include child abuse and neglect, bullying and cyberbullying, teen dating violence, youth physical fighting and weapon carrying, adult intimate partner violence, sexual violence, violent crime (e.g., homicides, aggravated assault, criminal sexual assault, robbery), and abuse against older adults and adults with disabilities.  People are exposed to violence within their homes, at school or work, and in their communities.
+Violence is a global public health concern.  Violence is defined as "the intentional use of physical force or power, threatened or actual, against oneself, another person, or against a group or community, that results in or has a high likelihood of resulting in injury, death, psychological harm, maldevelopment, or deprivation" <span data-ref="world-2002">(World Health Organization, 2002)</span>.  Violence can include child abuse and neglect, bullying and cyberbullying, teen dating violence, youth physical fighting and weapon carrying, adult intimate partner violence, sexual violence, violent crime (e.g., homicides, aggravated assault, criminal sexual assault, robbery), and abuse against older adults and adults with disabilities.  People are exposed to violence within their homes, at school or work, and in their communities.
 
 In Illinois, violence is prevalent. For example:
 
@@ -18,7 +18,7 @@ In Illinois, violence is prevalent. For example:
 - 1 in 3 youth in 6th to 12th grades report experiencing a form of bullying, and 1 in 5 report having been in a physical fight in the past 12 months (2018-2022)
 - In 2020 and 2021, Illinois saw an increase in the firearm mortality rate
 
-Across these rates of violence in Illinois, disparities exist for minoritized groups.  For example, Black or African American men who are between the ages of 15-34 faced significant disparities in rates of experiencing gun violence and violent offenses.  Also, transgendera and gender expansiveb youth reported substantially higher rates of violence compared to male and female youth.  Societal inequities result from oppression and discrimination, and these inequities result in limited economic opportunities, a disinvestment in education, fewer social services, fewer affordable and quality housing options, and systemic racism, all of which can increase the likelihood of experiencing violence and trauma (Armstead et al., 2021).
+Across these rates of violence in Illinois, disparities exist for minoritized groups.  For example, Black or African American men who are between the ages of 15-34 faced significant disparities in rates of experiencing gun violence and violent offenses.  Also, transgendera and gender expansiveb youth reported substantially higher rates of violence compared to male and female youth.  Societal inequities result from oppression and discrimination, and these inequities result in limited economic opportunities, a disinvestment in education, fewer social services, fewer affordable and quality housing options, and systemic racism, all of which can increase the likelihood of experiencing violence and trauma <span data-ref="armstead-2021">(Armstead et al., 2021)</span>.
 
 Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.  Violence prevention efforts are crucial so that we can reduce rates of violence and prevent future violence.  Additionally, work is needed to address societal inequities to prevent violence and begin the healing process (i.e., healing-centered care) in communities impacted by these persistent inequities.
 
@@ -34,7 +34,7 @@ The current report was written to inform ICJIA's violence prevention planning fo
 
 ## The Public Health Framework
 
-Evidence-informed violence prevention efforts utilize a public health framework to prevent violence.  This approach is grounded in the scientific method and includes four steps (Centers for Disease Control and Prevention [CDC], 2024):
+Evidence-informed violence prevention efforts utilize a public health framework to prevent violence.  This approach is grounded in the scientific method and includes four steps <span data-ref="cdc-2024">(Centers for Disease Control and Prevention [CDC], 2024)</span>:
 
 ### Define and monitor the problem
 
@@ -56,13 +56,13 @@ Communities are encouraged to implement evidence-based programs.  Additionally, 
 
 Within the public health approach, further guidance is provided to organize strategies for better synergy.  This guidance includes utilizing the social-ecological model to examine risk and protective factors, as well as providing organization for prevention strategies based on when and to whom services are targeted.  The social-ecological model is a framework for understanding where to target violence prevention efforts, including addressing factors at the individual, relational, community, or society level.
 
-Violence prevention efforts aim to decrease risks (i.e., factors that place individuals at a higher risk for violence victimization or perpetration) and strengthen protection (i.e., factors that protect individuals from experiencing or perpetrating violence).  Risk and protective factors exist at various levels of the social-ecological model, including individual, relational, community, and societal factors (CDC, 2019; Wilkins et al., 2014).  Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact.  Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.
+Violence prevention efforts aim to decrease risks (i.e., factors that place individuals at a higher risk for violence victimization or perpetration) and strengthen protection (i.e., factors that protect individuals from experiencing or perpetrating violence).  Risk and protective factors exist at various levels of the social-ecological model, including individual, relational, community, and societal factors <span data-ref="centers-2019,wilkins-2014">(CDC, 2019; Wilkins et al., 2014)</span>.  Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact.  Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.
 
-The Centers for Disease Control and Prevention have urged researchers to consider how multiple forms of violence can share many of the same risk and protective factors (Wilkins et al., 2014).  By considering these shared factors, programs can be expanded or enhanced to prevent multiple forms of violence.
+The Centers for Disease Control and Prevention have urged researchers to consider how multiple forms of violence can share many of the same risk and protective factors <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>.  By considering these shared factors, programs can be expanded or enhanced to prevent multiple forms of violence.
 
 ## Primary, Secondary, and Tertiary Prevention
 
-Violence prevention efforts can also be organized by when they take place and who is the focus of prevention efforts (CDC, 2019):
+Violence prevention efforts can also be organized by when they take place and who is the focus of prevention efforts <span data-ref="centers-2019">(CDC, 2019)</span>:
 
 - **Primary prevention** is considered universal, occurring for an entire population; primary prevention efforts take place before violence occurs
 - **Secondary prevention** is considered selected, or focused on those with one or more risk factors for violence. Secondary prevention efforts take place immediately after violence occurs, or interventions occur when violence is about to occur
@@ -70,4 +70,4 @@ Violence prevention efforts can also be organized by when they take place and wh
 
 ## Health Equity
 
-Finally, a public health approach aims to achieve health equity (i.e., all people have the opportunity to attain their highest level of health; CDC, 2019).  By addressing systemic inequities in social and healthcare systems, like increasing access to affordable housing, income, education, and healthcare, we can reduce the risk of violence that is associated with these inequities.  Thus, in aims to achieve health equity, collective work is needed from all sectors, stakeholders, and policymakers.
+Finally, a public health approach aims to achieve health equity (i.e., all people have the opportunity to attain their highest level of health; <span data-ref="centers-2019">(CDC, 2019</span>).  By addressing systemic inequities in social and healthcare systems, like increasing access to affordable housing, income, education, and healthcare, we can reduce the risk of violence that is associated with these inequities.  Thus, in aims to achieve health equity, collective work is needed from all sectors, stakeholders, and policymakers.

@@ -18,7 +18,6 @@ The plan was developed by the Illinois Criminal Justice Information Authority (I
 - [Planning Process](https://vpp-2025.netlify.app/planning-process): In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback.
 - [Goals and Recommendations](https://vpp-2025.netlify.app/goals-and-recommendations): Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029, focusing on evidence-based practices, equity, and collaboration.
 - [References](https://vpp-2025.netlify.app/references): Complete bibliography and references for the Illinois Statewide Violence Prevention Plan 2025-2029
-- [Back Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](https://vpp-2025.netlify.app/back-cover): The Statewide Violence Prevention Plan for Illinois: 2025-2029.
 
 ## Optional
 

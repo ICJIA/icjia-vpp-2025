@@ -26,6 +26,7 @@
     "create:sitemap": "node scripts/generate-sitemap.js",
     "create:llms-txt": "node scripts/generate-llms-txt.js",
     "create:plan-json": "node scripts/generate-plan-json.js",
+    "create:references": "node scripts/generate-references.js",
     "clean": "rm -rf .output .nuxt dist node_modules/.cache",
     "clean:data": "rm -rf public/data config/site.config.json",
     "debug:search": "node scripts/generate-search-index-defuddle.js --log-level Detailed",

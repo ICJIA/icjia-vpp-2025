@@ -30,7 +30,7 @@ import HomePrinciples from '~/components/content/HomePrinciples.vue'
 import HomeApproach from '~/components/content/HomeApproach.vue'
 
 // Import Vuetify components for use in markdown
-import { VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider } from 'vuetify/components'
+import { VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider, VTooltip } from 'vuetify/components'
 
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -58,18 +58,19 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('HomeApproach', HomeApproach)
 
   // Register Vuetify components for use in markdown
-  nuxtApp.vueApp.component('VBtn', VBtn)
-  nuxtApp.vueApp.component('VIcon', VIcon)
-  nuxtApp.vueApp.component('VAlert', VAlert)
-  nuxtApp.vueApp.component('VCard', VCard)
-  nuxtApp.vueApp.component('VCardTitle', VCardTitle)
-  nuxtApp.vueApp.component('VCardText', VCardText)
-  nuxtApp.vueApp.component('VCardActions', VCardActions)
-  nuxtApp.vueApp.component('VDivider', VDivider)
+  // nuxtApp.vueApp.component('VBtn', VBtn)
+  // nuxtApp.vueApp.component('VIcon', VIcon)
+  // nuxtApp.vueApp.component('VAlert', VAlert)
+  // nuxtApp.vueApp.component('VCard', VCard)
+  // nuxtApp.vueApp.component('VCardTitle', VCardTitle)
+  // nuxtApp.vueApp.component('VCardText', VCardText)
+  // nuxtApp.vueApp.component('VCardActions', VCardActions)
+  // nuxtApp.vueApp.component('VDivider', VDivider)
+  // nuxtApp.vueApp.component('VTooltip', VTooltip)
 
   // Log registration in development environment
   if (process.env.NODE_ENV === 'development') {
     console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
-    console.log('📝 Registered Vuetify components for markdown: VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider')
+    console.log('📝 Registered Vuetify components for markdown: VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider, VTooltip')
   }
 })
