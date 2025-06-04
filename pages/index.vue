@@ -159,7 +159,7 @@ log('content', 'Home page - loading MDC content', {
 
 console.log('DEBUG: contentPath is:', contentPath);
 
-// Use the project's content fetcher composable
+// Use the project's content fetcher composable for homepage content
 const { content, pending, error, refresh } = useContentFetcher({
   path: contentPath
 });

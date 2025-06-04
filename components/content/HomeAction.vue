@@ -1,5 +1,5 @@
 <template>
-  <section class="action-section section section-secondary py-16">
+  <section class="action-section section section-primary py-16">
     <v-container>
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">

@@ -22,6 +22,7 @@ import AboutContact from '~/components/content/AboutContact.vue'
 
 // Import home components for production use
 import HomeHero from '~/components/content/HomeHero.vue'
+import HomeLetters from '~/components/content/HomeLetters.vue'
 import HomeStatistics from '~/components/content/HomeStatistics.vue'
 import HomeGoals from '~/components/content/HomeGoals.vue'
 import HomeStakeholders from '~/components/content/HomeStakeholders.vue'
@@ -50,6 +51,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Register home components for production use
   nuxtApp.vueApp.component('HomeHero', HomeHero)
+  nuxtApp.vueApp.component('HomeLetters', HomeLetters)
   nuxtApp.vueApp.component('HomeStatistics', HomeStatistics)
   nuxtApp.vueApp.component('HomeGoals', HomeGoals)
   nuxtApp.vueApp.component('HomeStakeholders', HomeStakeholders)
@@ -70,7 +72,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Log registration in development environment
   if (process.env.NODE_ENV === 'development') {
-    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
+    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeLetters, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
     console.log('📝 Registered Vuetify components for markdown: VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider, VTooltip')
   }
 })
