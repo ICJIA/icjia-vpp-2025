@@ -76,7 +76,7 @@
     "navigation": {
       "moreMenu": {
         "enabled": true,
-        "desktopIcon": "mdi-dots-vertical",
+        "desktopIcon": "mdi-dots-horizontal",
         "mobileText": "More",
         "ariaLabel": "More options menu",
         "tooltip": "More options",

@@ -646,6 +646,9 @@ const showReportNavigation = computed(() => {
 // CORE FUNCTIONALITY METHODS
 // =============================================================================
 
+// Performance optimization: throttle scroll updates using requestAnimationFrame
+let scrollUpdatePending = false;
+
 /**
  * Main scroll event handler for TOC positioning and active section detection
  *
@@ -664,30 +667,42 @@ const showReportNavigation = computed(() => {
  * - Continues operation even if individual functions fail
  * - Logs warnings for debugging purposes
  *
- * Performance Considerations:
- * - Called on every scroll event (high frequency)
- * - Uses try/catch to prevent scroll event blocking
- * - Efficient DOM queries with early returns
+ * Performance Optimizations:
+ * - Uses requestAnimationFrame to throttle expensive DOM measurements
+ * - Prevents multiple getBoundingClientRect calls per frame
+ * - Reduces forced reflow by batching DOM reads
+ * - Called on every scroll event but DOM measurements are throttled
  *
  * @function updateScroll
  * @returns {void}
  */
 const updateScroll = () => {
-  // Update current scroll position for debugging and calculations
+  // Update current scroll position immediately (lightweight operation)
   scrollY.value = window.scrollY;
 
-  try {
-    // Check if title is still visible and update fixed state
-    updateTitleVisibility();
+  // Throttle expensive DOM measurements using requestAnimationFrame
+  if (!scrollUpdatePending) {
+    scrollUpdatePending = true;
 
-    // Calculate positioning for fixed state
-    updateFixedPosition();
+    requestAnimationFrame(() => {
+      try {
+        // Batch all DOM measurements in a single frame
+        // Check if title is still visible and update fixed state
+        updateTitleVisibility();
 
-    // Update active section for TOC highlighting
-    updateActiveSection();
-  } catch (error) {
-    // Gracefully handle any DOM-related errors during development
-    console.warn("Error updating scroll position:", error);
+        // Calculate positioning for fixed state
+        updateFixedPosition();
+
+        // Update active section for TOC highlighting
+        updateActiveSection();
+      } catch (error) {
+        // Gracefully handle any DOM-related errors during development
+        console.warn("Error updating scroll position:", error);
+      } finally {
+        // Reset throttle flag
+        scrollUpdatePending = false;
+      }
+    });
   }
 };
 

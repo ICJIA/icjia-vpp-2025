@@ -265,10 +265,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       element.addEventListener('blur', hideTooltip);
 
       // Mobile support - auto-hide after delay
+      // Use passive: true to improve scroll performance and avoid console warnings
       element.addEventListener('touchstart', (event) => {
         showTooltip(event);
         setTimeout(hideTooltip, 4000); // Auto-hide on mobile
-      });
+      }, { passive: true });
 
       // Keyboard support
       element.addEventListener('keydown', (event) => {

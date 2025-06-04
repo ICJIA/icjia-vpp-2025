@@ -2,6 +2,42 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-04 (Scroll Performance Optimization - Forced Reflow Fix)
+- Optimized scroll event handling to eliminate forced reflow warnings and improve performance by throttling DOM measurements using requestAnimationFrame.
+- Files modified:
+  - `pages/[...slug].vue`: Enhanced scroll event handler with performance optimizations
+    - **RequestAnimationFrame Throttling**: Added `scrollUpdatePending` flag and `requestAnimationFrame` to throttle expensive DOM measurements
+    - **Batched DOM Reads**: All `getBoundingClientRect()` calls now batched in a single animation frame to prevent forced reflow
+    - **Performance Improvement**: Eliminates "[Violation] Forced reflow while executing JavaScript" warnings
+    - **Scroll Position Tracking**: Immediate scroll position updates (lightweight) with throttled DOM measurements (expensive)
+    - **Error Handling**: Maintained all existing error handling with proper cleanup in finally block
+    - **Functionality Preservation**: All TOC positioning and active section detection functionality preserved
+- Technical Notes:
+  - **Root Cause**: Multiple `getBoundingClientRect()` calls in scroll event handler were causing forced reflow on every scroll event
+  - **Solution**: Throttle DOM measurements using `requestAnimationFrame` to batch reads and prevent layout thrashing
+  - **Performance Impact**: Reduces forced reflow from every scroll event to at most once per animation frame (60fps)
+  - **Browser Optimization**: Allows browser to optimize scroll performance by batching layout calculations
+  - **Backward Compatibility**: No functional changes, only performance improvements
+
+### 2025-06-04 (Non-Passive Event Listener Warning Fix)
+- Fixed console warning about non-passive touchstart event listeners that was affecting scroll performance on mobile devices.
+- Files modified:
+  - `plugins/references.client.js`: Added passive option to touchstart event listener
+    - **Performance Fix**: Added `{ passive: true }` option to touchstart event listener on line 268
+    - **Warning Resolution**: Eliminates browser console warning "[Violation] Added non-passive event listener to a scroll-blocking 'touchstart' event"
+    - **Mobile Optimization**: Improves scroll performance on mobile devices by allowing browser to optimize touch handling
+    - **Functionality Preservation**: Maintains all existing tooltip functionality while improving performance
+  - `package.json`: Removed unused stickybits dependency
+    - **Cleanup**: Removed `stickybits@^3.7.11` dependency that was not being used in the codebase
+    - **Bundle Size**: Reduces bundle size by eliminating unnecessary dependency
+    - **Maintenance**: Simplifies dependency management by removing unused packages
+- Technical Notes:
+  - **Root Cause**: The touchstart event listener in the reference tooltip system was not marked as passive, causing browser performance warnings
+  - **Solution**: Added passive option to allow browser to optimize scroll performance while maintaining tooltip functionality
+  - **Impact**: Eliminates console warnings during page navigation and improves mobile scroll performance
+  - **Compatibility**: Change is backward compatible and doesn't affect any existing functionality
+  - **Best Practice**: Follows modern web standards for touch event handling on mobile devices
+
 ### 2026-06-04 (Executive Director Message Component Implementation)
 - Implemented comprehensive executive director message component for homepage integration with infographic-style design and full accessibility compliance.
 - Files created/modified:

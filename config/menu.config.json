@@ -154,7 +154,7 @@
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "icon": "mdi-dots-vertical",
+        "icon": "mdi-dots-horizontal",
         "class": "font-weight-bold mx-2 nav-link",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
@@ -197,10 +197,10 @@
             "externalIcon": "mdi-file-pdf-box"
           },
           {
-            "text": "JSON",
-            "href": "/vpp-plan-2025-2029.json",
-            "ariaLabel": "Download JSON data format",
-            "tooltip": "Download JSON data format",
+            "text": "LLMs",
+            "href": "/llms.txt",
+            "ariaLabel": "Download LLMs.txt file",
+            "tooltip": "Download LLMs.txt file",
             "tooltipLocation": "top",
             "class": "footer-link mb-2",
             "isExternal": true,
