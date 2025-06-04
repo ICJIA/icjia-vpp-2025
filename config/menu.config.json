@@ -35,7 +35,7 @@
         "children": [
           {
             "text": "Front Cover: Statewide Violence Plan for Illinois: 2025-2029",
-            "to": "/front-cover",
+            "to": "/plan/front-cover",
             "ariaLabel": "View the cover page of the violence prevention plan",
             "tooltip": "View the cover page of the violence prevention plan",
             "tooltipLocation": "right",
@@ -47,7 +47,7 @@
           },
           {
             "text": "Executive Summary",
-            "to": "/executive-summary",
+            "to": "/plan/executive-summary",
             "ariaLabel": "Read the executive summary of our violence prevention plan",
             "tooltip": "Read the executive summary of our violence prevention plan",
             "tooltipLocation": "right",
@@ -59,7 +59,7 @@
           },
           {
             "text": "Violence Prevention from a Public Health Approach",
-            "to": "/public-health-approach",
+            "to": "/plan/public-health-approach",
             "ariaLabel": "Learn about our public health approach to violence prevention",
             "tooltip": "Learn about our public health approach to violence prevention",
             "tooltipLocation": "right",
@@ -71,7 +71,7 @@
           },
           {
             "text": "Guiding Principles",
-            "to": "/guiding-principles",
+            "to": "/plan/guiding-principles",
             "ariaLabel": "View our guiding principles",
             "tooltip": "View our guiding principles",
             "tooltipLocation": "right",
@@ -83,7 +83,7 @@
           },
           {
             "text": "Planning Process",
-            "to": "/planning-process",
+            "to": "/plan/planning-process",
             "ariaLabel": "View our planning process",
             "tooltip": "View our planning process",
             "tooltipLocation": "right",
@@ -95,7 +95,7 @@
           },
           {
             "text": "Goals and Recommendations",
-            "to": "/goals-and-recommendations",
+            "to": "/plan/goals-and-recommendations",
             "ariaLabel": "View our goals and recommendations",
             "tooltip": "View our goals and recommendations",
             "tooltipLocation": "right",
@@ -107,7 +107,7 @@
           },
           {
             "text": "References",
-            "to": "/references",
+            "to": "/plan/references",
             "ariaLabel": "View references and bibliography",
             "tooltip": "View references and bibliography",
             "tooltipLocation": "right",
@@ -193,7 +193,8 @@
             "class": "footer-link mb-2",
             "isExternal": true,
             "target": "_blank",
-            "rel": "noopener noreferrer"
+            "rel": "noopener noreferrer",
+            "externalIcon": "mdi-file-pdf-box"
           },
           {
             "text": "JSON",
@@ -206,42 +207,6 @@
             "target": "_blank",
             "rel": "noopener noreferrer",
             "externalIcon": "mdi-code-json"
-          },
-          {
-            "text": "YAML",
-            "href": "/vpp-plan-2025-2029.yaml",
-            "ariaLabel": "Download YAML data format",
-            "tooltip": "Download YAML data format",
-            "tooltipLocation": "top",
-            "class": "footer-link mb-2",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-code-braces"
-          },
-          {
-            "text": "CSV",
-            "href": "/vpp-plan-2025-2029.csv",
-            "ariaLabel": "Download CSV data format",
-            "tooltip": "Download CSV data format",
-            "tooltipLocation": "top",
-            "class": "footer-link mb-2",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-file-delimited"
-          },
-          {
-            "text": "LLMs",
-            "href": "/llms.txt",
-            "ariaLabel": "Download LLM-friendly text format",
-            "tooltip": "For use by LLM models - follows the llms.org format",
-            "tooltipLocation": "top",
-            "class": "footer-link mb-2",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-robot"
           }
         ]
       },

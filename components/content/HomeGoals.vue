@@ -68,7 +68,7 @@ const goals = [
     description: 'Implement evidence-based prevention strategies through trauma-informed/healing-centered approaches that address primary, secondary, and tertiary prevention across all community levels.',
     icon: 'mdi-shield-check',
     color: 'primary',
-    url: '/executive-summary',
+    url: '/plan/executive-summary',
     relatedPrinciples: ['Promote Safety', 'Support Health'],
     highlights: [
       'Honor complex histories and provide holistic services',
@@ -84,7 +84,7 @@ const goals = [
     description: 'Increase access to grants and economic opportunities through flexible funding that accommodates local community priorities and addresses historical inequities.',
     icon: 'mdi-scale-balance',
     color: 'primary',
-    url: '/executive-summary',
+    url: '/plan/executive-summary',
     relatedPrinciples: ['Advance Equity'],
     highlights: [
       'Continue improving access to funding',
@@ -100,7 +100,7 @@ const goals = [
     description: 'Foster partnerships across state, municipal, and community-based agencies through research-informed data sharing and best practice exchange.',
     icon: 'mdi-account-group',
     color: 'primary',
-    url: '/executive-summary',
+    url: '/plan/executive-summary',
     relatedPrinciples: ['Engage State Agencies in Collaboration'],
     highlights: [
       'Analyze and disseminate statewide data trends',

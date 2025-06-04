@@ -95,7 +95,7 @@ const props = defineProps({
    */
   openDelay: {
     type: Number,
-    default: 200
+    default: 50
   },
 
   /**

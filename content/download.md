@@ -21,9 +21,9 @@ showTOC: false
     <v-icon size="80" color="primary" class="download-main-icon">mdi-file-pdf-box</v-icon>
   </div>
   <div class="download-content">
-    <h3 class="download-title">Complete PDF Report</h3>
+    <h3 class="download-title">Statewide Violence Prevention Plan for Illinois: 2025-2029</h3>
     <p class="download-description">
-      The official, comprehensive Violence Prevention Plan for Illinois: 2025-2029. This complete document includes all sections, research, recommendations, and appendices in a PDF.
+      The official, comprehensive Statewide Violence Prevention Plan for Illinois: 2025-2029. This complete document includes all sections, research, recommendations, and references in a PDF.
     </p>
     <div class="download-details">
       <div class="detail-item">
@@ -48,7 +48,7 @@ showTOC: false
       class="download-btn primary-download-btn"
       prepend-icon="mdi-download"
     >
-      Download PDF Report
+      Download PDF
     </v-btn>
   </div>
 </div>

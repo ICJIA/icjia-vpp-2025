@@ -121,7 +121,7 @@ const callToActions = [
     color: 'primary',
     buttonText: 'View Plan',
     action: 'view-plan',
-    url: '/executive-summary'
+    url: '/plan/executive-summary'
   },
   {
     title: 'Find Local Resources',
@@ -130,7 +130,7 @@ const callToActions = [
     color: 'primary',
     buttonText: 'Find Resources',
     action: 'find-resources',
-    url: '/executive-summary'
+    url: '/plan/executive-summary'
   },
   {
     title: 'Get Involved',

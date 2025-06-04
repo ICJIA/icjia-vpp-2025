@@ -2,6 +2,54 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-04 (Accessibility Audit Log Synchronization System)
+- Implemented automated synchronization system for accessibility audit logs to ensure consistency between root and content directory versions.
+- Files created/modified:
+  - `scripts/sync-accessibility-audit-logs.js`: Created automated sync script that copies content from root `audit-log-accessibility.md` to `content/accessibility/audit-log.md` with proper Nuxt Content frontmatter
+  - `package.json`: Added `sync:accessibility-audit` script and integrated it into all build/dev/generate commands to ensure logs are always synchronized
+- Technical Notes:
+  - **Automatic Sync**: All build processes now automatically sync accessibility audit logs before generation
+  - **Date Management**: Script automatically updates dates in frontmatter and "Last Updated" sections using Chicago timezone
+  - **Frontmatter Integration**: Converts root markdown to Nuxt Content format with proper YAML frontmatter
+  - **Build Integration**: Sync runs before all other generation scripts to ensure content is current
+  - **Single Source of Truth**: Root `audit-log-accessibility.md` remains the authoritative source, content version is auto-generated
+  - **Route Serving**: Website serves `/accessibility/audit-log` from the content directory version
+  - **Consistency Guarantee**: Eliminates possibility of outdated or incorrect dates in accessibility documentation
+- Problem Solved:
+  - **Date Inconsistencies**: Fixed incorrect dates (January 02, 2025) in content accessibility audit log
+  - **Content Drift**: Eliminated manual sync requirements that led to outdated content in served version
+  - **Build Process**: Ensures accessibility documentation is always current with every build/deployment
+  - **Developer Experience**: Developers only need to update root file, content version updates automatically
+
+### 2025-06-04 (Content Structure Reorganization - Plan Directory)
+- Reorganized content structure by creating a new `/content/plan/` directory and moving all plan-related markdown files to establish cleaner URL structure with `/plan/` prefix for all report content.
+- Files moved:
+  - `content/front-cover.md` → `content/plan/front-cover.md`
+  - `content/executive-summary.md` → `content/plan/executive-summary.md`
+  - `content/public-health-approach.md` → `content/plan/public-health-approach.md`
+  - `content/guiding-principles.md` → `content/plan/guiding-principles.md`
+  - `content/planning-process.md` → `content/plan/planning-process.md`
+  - `content/goals-and-recommendations.md` → `content/plan/goals-and-recommendations.md`
+  - `content/references.md` → `content/plan/references.md`
+- Files modified:
+  - `config/menu.config.json`: Updated all "Read the Plan" dropdown menu paths from root-level routes (e.g., `/front-cover`) to plan-prefixed routes (e.g., `/plan/front-cover`)
+  - `components/content/HomeAction.vue`: Updated hardcoded `/executive-summary` URLs to `/plan/executive-summary`
+  - `components/content/HomeGoals.vue`: Updated hardcoded `/executive-summary` URLs to `/plan/executive-summary`
+- Auto-generated files updated:
+  - `public/vpp-plan-2025-2029.json`: Automatically regenerated with new `/plan/` paths
+  - `public/vpp-plan-2025-2029.yaml`: Automatically regenerated with new `/plan/` paths
+  - `public/vpp-plan-2025-2029.csv`: Automatically regenerated with new `/plan/` paths
+  - `config/routes.config.json`: Automatically updated by site config generation script
+- Technical Notes:
+  - **URL Structure Change**: All plan content now accessible under `/plan/` routes instead of root-level routes
+  - **Navigation Integration**: Report navigation system automatically adapted to new paths via menu configuration
+  - **Script Compatibility**: All generation scripts (plan JSON, site config, search index) automatically discovered new file locations
+  - **SEO Impact**: URLs changed from `/guiding-principles` to `/plan/guiding-principles` format
+  - **Internal Links**: No internal markdown links required updating as none existed
+  - **Backward Compatibility**: Old URLs will return 404 errors; consider implementing redirects if needed
+  - **Content Integrity**: All file content remained unchanged, only file locations and URL paths modified
+  - **Build Process**: All build scripts continue to work without modification due to automatic content discovery
+
 ### 2025-06-04 (Reference Tooltip Padding Enhancement)
 - Added comfortable padding around reference tooltip content to improve readability and prevent text from appearing too close to tooltip container edges.
 - Files modified:

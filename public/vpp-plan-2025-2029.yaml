@@ -5,7 +5,7 @@ planInfo:
     community-based agencies for 2025-2029.
   version: 2025-2029
   organization: Illinois Criminal Justice Information Authority (ICJIA)
-  generatedAt: 2025-06-04T11:07:14.371Z
+  generatedAt: 2025-06-04T12:19:32.356Z
   baseUrl: https://vpp-2025.netlify.app
 generationStats:
   totalPages: 7
@@ -16,13 +16,13 @@ generationStats:
   averageContentLength: 5772
   averageMetadataFields: 6
 pages:
-  - path: /front-cover
-    fullPath: https://vpp-2025.netlify.app/front-cover
-    slug: front-cover
+  - path: /plan/front-cover
+    fullPath: https://vpp-2025.netlify.app/plan/front-cover
+    slug: plan/front-cover
     menuTitle: "Front Cover: Statewide Violence Plan for Illinois: 2025-2029"
     menuSummary: "The cover page of the Statewide Violence Prevention Plan for Illinois: 2025-2029."
     menuAriaLabel: View the cover page of the violence prevention plan
-    sourceFile: /content/front-cover.md
+    sourceFile: /content/plan/front-cover.md
     meta:
       title: "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
       description: "The Statewide Violence Prevention Plan for Illinois: 2025-2029."
@@ -34,13 +34,13 @@ pages:
       contentLength: 138
       metadataFields: 4
       estimatedReadingTime: 1
-  - path: /executive-summary
-    fullPath: https://vpp-2025.netlify.app/executive-summary
-    slug: executive-summary
+  - path: /plan/executive-summary
+    fullPath: https://vpp-2025.netlify.app/plan/executive-summary
+    slug: plan/executive-summary
     menuTitle: Executive Summary
     menuSummary: Learn about our mission, values, and approach to violence prevention across Illinois.
     menuAriaLabel: Read the executive summary of our violence prevention plan
-    sourceFile: /content/executive-summary.md
+    sourceFile: /content/plan/executive-summary.md
     meta:
       title: Executive Summary
       description: Learn about our mission, values, and approach to violence prevention across Illinois.
@@ -125,14 +125,14 @@ pages:
       contentLength: 5310
       metadataFields: 7
       estimatedReadingTime: 4
-  - path: /public-health-approach
-    fullPath: https://vpp-2025.netlify.app/public-health-approach
-    slug: public-health-approach
+  - path: /plan/public-health-approach
+    fullPath: https://vpp-2025.netlify.app/plan/public-health-approach
+    slug: plan/public-health-approach
     menuTitle: Violence Prevention from a Public Health Approach
     menuSummary: Understanding violence as a public health concern and utilizing evidence-informed strategies through the
       four-step public health framework to prevent violence across Illinois communities.
     menuAriaLabel: Learn about our public health approach to violence prevention
-    sourceFile: /content/public-health-approach.md
+    sourceFile: /content/plan/public-health-approach.md
     meta:
       title: Violence Prevention from a Public Health Approach
       description: Understanding violence as a public health concern and utilizing evidence-informed strategies through the
@@ -240,14 +240,14 @@ pages:
       contentLength: 9292
       metadataFields: 7
       estimatedReadingTime: 7
-  - path: /guiding-principles
-    fullPath: https://vpp-2025.netlify.app/guiding-principles
-    slug: guiding-principles
+  - path: /plan/guiding-principles
+    fullPath: https://vpp-2025.netlify.app/plan/guiding-principles
+    slug: plan/guiding-principles
     menuTitle: Guiding Principles
     menuSummary: Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is
       grounded in equity, safety, health, belonging, and collaboration.
     menuAriaLabel: View our guiding principles
-    sourceFile: /content/guiding-principles.md
+    sourceFile: /content/plan/guiding-principles.md
     meta:
       title: Guiding Principles
       description: Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is
@@ -277,15 +277,15 @@ pages:
       contentLength: 1709
       metadataFields: 7
       estimatedReadingTime: 2
-  - path: /planning-process
-    fullPath: https://vpp-2025.netlify.app/planning-process
-    slug: planning-process
+  - path: /plan/planning-process
+    fullPath: https://vpp-2025.netlify.app/plan/planning-process
+    slug: plan/planning-process
     menuTitle: Planning Process
     menuSummary: In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and
       research, hear updates on violence prevention efforts across the state, review previous recommendations, and
       contribute feedback.
     menuAriaLabel: View our planning process
-    sourceFile: /content/planning-process.md
+    sourceFile: /content/plan/planning-process.md
     meta:
       title: Planning Process
       description: In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and
@@ -339,14 +339,14 @@ pages:
       contentLength: 2749
       metadataFields: 7
       estimatedReadingTime: 3
-  - path: /goals-and-recommendations
-    fullPath: https://vpp-2025.netlify.app/goals-and-recommendations
-    slug: goals-and-recommendations
+  - path: /plan/goals-and-recommendations
+    fullPath: https://vpp-2025.netlify.app/plan/goals-and-recommendations
+    slug: plan/goals-and-recommendations
     menuTitle: Goals and Recommendations
     menuSummary: Comprehensive goals and actionable recommendations for preventing violence and promoting health and safety
       through evidence-based practices, advancing equity, and fostering collaboration across Illinois.
     menuAriaLabel: View our goals and recommendations
-    sourceFile: /content/goals-and-recommendations.md
+    sourceFile: /content/plan/goals-and-recommendations.md
     meta:
       title: Goals and Recommendations
       description: Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029,
@@ -417,14 +417,14 @@ pages:
       contentLength: 14838
       metadataFields: 7
       estimatedReadingTime: 10
-  - path: /references
-    fullPath: https://vpp-2025.netlify.app/references
-    slug: references
+  - path: /plan/references
+    fullPath: https://vpp-2025.netlify.app/plan/references
+    slug: plan/references
     menuTitle: References
     menuSummary: Complete bibliography and citations for all research, data sources, and evidence-based practices referenced
       throughout the Violence Prevention Plan.
     menuAriaLabel: View references and bibliography
-    sourceFile: /content/references.md
+    sourceFile: /content/plan/references.md
     meta:
       title: References
       description: Complete bibliography and references for the Illinois Statewide Violence Prevention Plan 2025-2029
@@ -451,20 +451,20 @@ pages:
 index:
   pageCount: 7
   paths:
-    - path: /front-cover
-      fullPath: https://vpp-2025.netlify.app/front-cover
-    - path: /executive-summary
-      fullPath: https://vpp-2025.netlify.app/executive-summary
-    - path: /public-health-approach
-      fullPath: https://vpp-2025.netlify.app/public-health-approach
-    - path: /guiding-principles
-      fullPath: https://vpp-2025.netlify.app/guiding-principles
-    - path: /planning-process
-      fullPath: https://vpp-2025.netlify.app/planning-process
-    - path: /goals-and-recommendations
-      fullPath: https://vpp-2025.netlify.app/goals-and-recommendations
-    - path: /references
-      fullPath: https://vpp-2025.netlify.app/references
+    - path: /plan/front-cover
+      fullPath: https://vpp-2025.netlify.app/plan/front-cover
+    - path: /plan/executive-summary
+      fullPath: https://vpp-2025.netlify.app/plan/executive-summary
+    - path: /plan/public-health-approach
+      fullPath: https://vpp-2025.netlify.app/plan/public-health-approach
+    - path: /plan/guiding-principles
+      fullPath: https://vpp-2025.netlify.app/plan/guiding-principles
+    - path: /plan/planning-process
+      fullPath: https://vpp-2025.netlify.app/plan/planning-process
+    - path: /plan/goals-and-recommendations
+      fullPath: https://vpp-2025.netlify.app/plan/goals-and-recommendations
+    - path: /plan/references
+      fullPath: https://vpp-2025.netlify.app/plan/references
   titles:
     - "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
     - Executive Summary
@@ -474,10 +474,10 @@ index:
     - Goals and Recommendations
     - References
   slugs:
-    - front-cover
-    - executive-summary
-    - public-health-approach
-    - guiding-principles
-    - planning-process
-    - goals-and-recommendations
-    - references
+    - plan/front-cover
+    - plan/executive-summary
+    - plan/public-health-approach
+    - plan/guiding-principles
+    - plan/planning-process
+    - plan/goals-and-recommendations
+    - plan/references

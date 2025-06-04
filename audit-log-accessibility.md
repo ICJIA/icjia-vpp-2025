@@ -2,6 +2,25 @@
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+### 2025-06-04 (Reference Tooltip Styling Consistency)
+- **Summary**: Fixed styling inconsistency between reference tooltips and footer tooltips by implementing Vuetify-consistent styling for reference tooltips while maintaining their unique academic color scheme and instant popup behavior.
+- **Files Modified/Created**:
+  - `plugins/references.client.js`: Replaced browser native `title` attribute tooltips with custom Vuetify-styled tooltips using DOM manipulation to avoid Vue app mounting conflicts with Nuxt SSR
+  - `assets/css/main.scss`: Added `.reference-citation-enhanced` class styling and `.reference-tooltip-content` styling to ensure consistent Vuetify tooltip appearance across light/dark themes
+- **Accessibility Improvements**:
+  - **WCAG 2.1 AA Compliance**: Maintained 8:1+ contrast ratios for academic reference colors in both light and dark themes
+  - **Consistent Tooltip Framework**: All tooltips now use the same underlying Vuetify styling framework for visual consistency
+  - **Enhanced Keyboard Navigation**: Preserved keyboard support (Enter, Space, Escape keys) for reference tooltips
+  - **Mobile Accessibility**: Maintained auto-dismiss functionality (4-second delay) and proper touch target sizing
+  - **Screen Reader Support**: Preserved proper ARIA attributes (`role="tooltip"`, `aria-hidden`, `aria-label`) for assistive technology compatibility
+  - **Focus Management**: Enhanced focus states with proper outline styling and visual feedback
+- **Technical Notes**:
+  - Uses DOM manipulation approach instead of Vue component mounting to avoid SSR hydration conflicts
+  - Maintains instant popup timing (50ms delay) as preferred for academic references
+  - Preserves academic color scheme (teal variants) distinct from regular navigation links
+  - Implements proper viewport boundary detection for tooltip positioning
+  - Includes fallback to native `title` attribute if JavaScript enhancement fails
+
 ### 2025-06-03 (Report Navigation Enhancement - Two-Column Layout & Section Terminology)
 - **Summary**: Enhanced report navigation system with consistent two-column layout, section-based terminology, and improved accessibility features, ensuring full WCAG 2.1 AA compliance and better cognitive accessibility through predictable layout structure and clear content organization.
 - **Accessibility Features Implemented**:

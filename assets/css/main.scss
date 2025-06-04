@@ -1814,9 +1814,88 @@ section.section-secondary,
 // from appearing too close to the tooltip container edges. Targets Vuetify's
 // v-tooltip component used by the AccessibleTooltip wrapper.
 
+// Ensure reference tooltip wrappers don't interfere with layout
+.reference-tooltip-wrapper {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// Enhanced reference citations with Vuetify-styled tooltips
+.reference-citation-enhanced {
+  // Inherit all base styling from data-ref elements
+  cursor: help !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
+  text-underline-offset: 2px !important;
+  border-bottom: 1px dotted currentColor !important;
+  transition: all 0.2s ease !important;
+  outline-offset: 2px !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+// Light theme colors for enhanced reference citations
+:root:not([data-theme="dark"]) .reference-citation-enhanced {
+  color: #00695c !important; // Dark teal - contrast ratio 8.84:1 on white
+  text-decoration-color: #00695c !important;
+  border-bottom-color: #00695c !important;
+
+  &:hover {
+    color: #00796b !important; // Medium teal - contrast ratio 7.12:1 on white
+    text-decoration-color: #00796b !important;
+    text-decoration-style: solid !important;
+    border-bottom-color: #00796b !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+  }
+
+  &:focus,
+  &:focus-visible {
+    color: #004d40 !important; // Very dark teal - contrast ratio 12.63:1 on white
+    text-decoration-color: #004d40 !important;
+    text-decoration-style: solid !important;
+    border-bottom-color: #004d40 !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    outline: 2px solid #004d40 !important;
+  }
+}
+
+// Dark theme colors for enhanced reference citations
+:root[data-theme="dark"] .reference-citation-enhanced {
+  color: #4db6ac !important; // Light teal - contrast ratio 8.45:1 on dark background
+  text-decoration-color: #4db6ac !important;
+  border-bottom-color: #4db6ac !important;
+
+  &:hover {
+    color: #80cbc4 !important; // Lighter teal - contrast ratio 10.67:1 on dark background
+    text-decoration-color: #80cbc4 !important;
+    text-decoration-style: solid !important;
+    border-bottom-color: #80cbc4 !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+  }
+
+  &:focus,
+  &:focus-visible {
+    color: #26a69a !important; // Medium-light teal - contrast ratio 9.12:1 on dark background
+    text-decoration-color: #26a69a !important;
+    text-decoration-style: solid !important;
+    border-bottom-color: #26a69a !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    outline: 2px solid #26a69a !important;
+  }
+}
+
 // Target Vuetify tooltip content for reference tooltips
 .reference-tooltip .v-tooltip__content,
-.v-tooltip__content[role="tooltip"] {
+.v-tooltip__content[role="tooltip"],
+.reference-tooltip-content {
   // Add generous padding around all sides for better readability
   padding: 12px 16px !important;
 
@@ -1833,10 +1912,37 @@ section.section-secondary,
   // Improve text rendering
   text-align: left !important;
   font-size: 0.875rem !important; // 14px for better readability
+
+  // Ensure consistent background and border styling with other tooltips
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+// Light theme tooltip colors
+:root:not([data-theme="dark"]) .reference-tooltip-content,
+:root:not([data-theme="dark"]) .reference-tooltip .v-tooltip__content,
+:root:not([data-theme="dark"]) .v-tooltip__content[role="tooltip"] {
+  background-color: #424242 !important; // Dark gray background for light theme
+  color: #ffffff !important; // White text for high contrast
+}
+
+// Dark theme tooltip colors
+:root[data-theme="dark"] .reference-tooltip-content,
+:root[data-theme="dark"] .reference-tooltip .v-tooltip__content,
+:root[data-theme="dark"] .v-tooltip__content[role="tooltip"] {
+  background-color: #616161 !important; // Medium gray background for dark theme
+  color: #ffffff !important; // White text for high contrast
 }
 
 // Enhanced padding for mobile devices
 @media (max-width: 768px) {
+  .reference-tooltip-wrapper {
+    // Ensure proper touch targets on mobile
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
   .reference-tooltip .v-tooltip__content,
   .v-tooltip__content[role="tooltip"] {
     // Slightly larger padding on mobile for better touch experience

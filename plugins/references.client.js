@@ -48,7 +48,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   let debounceTimer = null;
 
   /**
-   * Create and enhance an element with reference tooltip functionality
+   * Create and enhance an element with reference tooltip functionality using Vuetify styling
    *
    * @param {HTMLElement} element - The element to enhance
    * @param {string} referenceId - The reference ID(s) from data-ref attribute
@@ -60,10 +60,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         return;
       }
 
-      console.log('REFERENCE PLUGIN: Creating tooltip for element with ref:', referenceId);
-
-      // Note: Visual styling is now handled entirely by CSS in assets/css/main.scss
-      // This ensures consistent theming and accessibility compliance
+      console.log('REFERENCE PLUGIN: Creating enhanced tooltip for element with ref:', referenceId);
 
       // Import and use the references composable
       import('~/composables/useReferences.js').then(({ useReferences }) => {
@@ -75,6 +72,8 @@ export default defineNuxtPlugin((nuxtApp) => {
           try {
             console.log('REFERENCE PLUGIN: Loading reference data for:', referenceId);
             let references = [];
+            let tooltipText = '';
+            let hasError = false;
 
             if (referenceId.includes(',')) {
               console.log('REFERENCE PLUGIN: Loading multiple references:', referenceId);
@@ -89,23 +88,28 @@ export default defineNuxtPlugin((nuxtApp) => {
 
             if (references.length === 0) {
               console.warn('REFERENCE PLUGIN: No references found for:', referenceId);
-              element.title = `Reference not found: ${referenceId}`;
-              element.classList.add('reference-error'); // Use CSS class for error styling
-              return;
-            }
-
-            // Set tooltip text
-            if (references.length === 1) {
-              element.title = references[0].fullCitation || references[0].shortCitation || 'Citation unavailable';
+              tooltipText = `Reference not found: ${referenceId}`;
+              hasError = true;
+              element.classList.add('reference-error');
             } else {
-              element.title = formatMultipleReferences(references);
+              // Set tooltip text
+              if (references.length === 1) {
+                tooltipText = references[0].fullCitation || references[0].shortCitation || 'Citation unavailable';
+              } else {
+                tooltipText = formatMultipleReferences(references);
+              }
+              console.log('REFERENCE PLUGIN: Reference loaded for:', referenceId);
             }
 
-            console.log('REFERENCE PLUGIN: Reference loaded for:', referenceId);
+            // Create a custom Vuetify-styled tooltip using DOM manipulation
+            // This approach avoids Vue app mounting conflicts with Nuxt SSR
+            createVuetifyTooltip(element, tooltipText, hasError, referenceId);
+
           } catch (error) {
             console.warn('REFERENCE PLUGIN: Failed to load reference:', referenceId, error);
+            // Fallback to native title attribute
             element.title = `Reference error: ${error.message}`;
-            element.classList.add('reference-error'); // Use CSS class for error styling
+            element.classList.add('reference-error');
           }
         };
 
@@ -113,19 +117,175 @@ export default defineNuxtPlugin((nuxtApp) => {
         loadReferenceData();
       }).catch(error => {
         console.error('REFERENCE PLUGIN: Failed to import useReferences:', error);
+        // Fallback to native title attribute
         element.title = `Reference: ${referenceId}`;
+        element.classList.add('reference-error');
       });
 
       // Mark as enhanced
       enhancedElements.add(element);
 
-      console.log('REFERENCE PLUGIN: Successfully enhanced element with ref:', referenceId);
+      console.log('REFERENCE PLUGIN: Successfully initiated enhancement for ref:', referenceId);
     } catch (error) {
       console.error('REFERENCE PLUGIN: Failed to create tooltip for ref:', referenceId, error);
 
-      // Fallback: add basic tooltip and error class (styling handled by CSS)
+      // Fallback: add basic tooltip and error class
       element.title = `Reference: ${referenceId}`;
       element.classList.add('reference-error');
+    }
+  };
+
+  /**
+   * Create a Vuetify-styled tooltip using DOM manipulation
+   * This approach provides consistent styling without Vue app mounting conflicts
+   *
+   * @param {HTMLElement} element - The element to enhance
+   * @param {string} tooltipText - The tooltip content
+   * @param {boolean} hasError - Whether this is an error state
+   * @param {string} referenceId - The reference ID for debugging
+   */
+  const createVuetifyTooltip = (element, tooltipText, hasError, referenceId) => {
+    try {
+      console.log('REFERENCE PLUGIN: Creating Vuetify-styled tooltip for:', referenceId);
+
+      // Remove any existing title attribute to prevent browser default tooltip
+      element.removeAttribute('title');
+
+      // Add appropriate CSS classes for styling
+      element.classList.add('reference-citation-enhanced');
+      if (hasError) {
+        element.classList.add('reference-error');
+      }
+
+      // Create tooltip element
+      let tooltipElement = null;
+      let showTimeout = null;
+      let hideTimeout = null;
+
+      const showTooltip = (event) => {
+        // Clear any existing timeouts
+        if (hideTimeout) {
+          clearTimeout(hideTimeout);
+          hideTimeout = null;
+        }
+
+        // Create tooltip if it doesn't exist
+        if (!tooltipElement) {
+          tooltipElement = document.createElement('div');
+          tooltipElement.className = 'v-tooltip__content reference-tooltip-content';
+          tooltipElement.setAttribute('role', 'tooltip');
+          tooltipElement.setAttribute('aria-hidden', 'true');
+          tooltipElement.textContent = tooltipText;
+
+          // Apply Vuetify-consistent styling with theme-aware colors
+          const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+          const backgroundColor = isDarkTheme ? '#616161' : '#424242';
+          const textColor = '#ffffff';
+
+          tooltipElement.style.cssText = `
+            position: absolute;
+            z-index: 2000;
+            padding: 12px 16px;
+            background-color: ${backgroundColor};
+            color: ${textColor};
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            max-width: 400px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+          `;
+
+          document.body.appendChild(tooltipElement);
+        }
+
+        // Position tooltip
+        const rect = element.getBoundingClientRect();
+        const tooltipRect = tooltipElement.getBoundingClientRect();
+
+        let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+        let top = rect.top - tooltipRect.height - 8;
+
+        // Adjust for viewport boundaries
+        if (left < 8) left = 8;
+        if (left + tooltipRect.width > window.innerWidth - 8) {
+          left = window.innerWidth - tooltipRect.width - 8;
+        }
+        if (top < 8) {
+          top = rect.bottom + 8; // Show below if no room above
+        }
+
+        tooltipElement.style.left = `${left + window.scrollX}px`;
+        tooltipElement.style.top = `${top + window.scrollY}px`;
+
+        // Show tooltip with delay for instant popup
+        showTimeout = setTimeout(() => {
+          if (tooltipElement) {
+            tooltipElement.style.opacity = '1';
+            tooltipElement.style.transform = 'translateY(0)';
+            tooltipElement.setAttribute('aria-hidden', 'false');
+          }
+        }, 50); // Instant popup timing
+      };
+
+      const hideTooltip = () => {
+        if (showTimeout) {
+          clearTimeout(showTimeout);
+          showTimeout = null;
+        }
+
+        if (tooltipElement) {
+          hideTimeout = setTimeout(() => {
+            if (tooltipElement) {
+              tooltipElement.style.opacity = '0';
+              tooltipElement.style.transform = 'translateY(-8px)';
+              tooltipElement.setAttribute('aria-hidden', 'true');
+
+              setTimeout(() => {
+                if (tooltipElement && tooltipElement.parentNode) {
+                  tooltipElement.parentNode.removeChild(tooltipElement);
+                  tooltipElement = null;
+                }
+              }, 200); // Wait for transition to complete
+            }
+          }, 0); // No delay for hiding
+        }
+      };
+
+      // Add event listeners
+      element.addEventListener('mouseenter', showTooltip);
+      element.addEventListener('mouseleave', hideTooltip);
+      element.addEventListener('focus', showTooltip);
+      element.addEventListener('blur', hideTooltip);
+
+      // Mobile support - auto-hide after delay
+      element.addEventListener('touchstart', (event) => {
+        showTooltip(event);
+        setTimeout(hideTooltip, 4000); // Auto-hide on mobile
+      });
+
+      // Keyboard support
+      element.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          showTooltip(event);
+        } else if (event.key === 'Escape') {
+          hideTooltip();
+        }
+      });
+
+      console.log('REFERENCE PLUGIN: Successfully created Vuetify-styled tooltip for:', referenceId);
+
+    } catch (error) {
+      console.error('REFERENCE PLUGIN: Failed to create Vuetify tooltip for:', referenceId, error);
+      // Fallback to native title
+      element.title = tooltipText;
     }
   };
 

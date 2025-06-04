@@ -11,13 +11,13 @@ The plan was developed by the Illinois Criminal Justice Information Authority (I
 
 ## Plan Content
 
-- [Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](https://vpp-2025.netlify.app/front-cover): The Statewide Violence Prevention Plan for Illinois: 2025-2029.
-- [Executive Summary](https://vpp-2025.netlify.app/executive-summary): Learn about our mission, values, and approach to violence prevention across Illinois.
-- [Violence Prevention from a Public Health Approach](https://vpp-2025.netlify.app/public-health-approach): Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities.
-- [Guiding Principles](https://vpp-2025.netlify.app/guiding-principles): Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration.
-- [Planning Process](https://vpp-2025.netlify.app/planning-process): In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback.
-- [Goals and Recommendations](https://vpp-2025.netlify.app/goals-and-recommendations): Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029, focusing on evidence-based practices, equity, and collaboration.
-- [References](https://vpp-2025.netlify.app/references): Complete bibliography and references for the Illinois Statewide Violence Prevention Plan 2025-2029
+- [Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](https://vpp-2025.netlify.app/plan/front-cover): The Statewide Violence Prevention Plan for Illinois: 2025-2029.
+- [Executive Summary](https://vpp-2025.netlify.app/plan/executive-summary): Learn about our mission, values, and approach to violence prevention across Illinois.
+- [Violence Prevention from a Public Health Approach](https://vpp-2025.netlify.app/plan/public-health-approach): Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities.
+- [Guiding Principles](https://vpp-2025.netlify.app/plan/guiding-principles): Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration.
+- [Planning Process](https://vpp-2025.netlify.app/plan/planning-process): In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback.
+- [Goals and Recommendations](https://vpp-2025.netlify.app/plan/goals-and-recommendations): Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029, focusing on evidence-based practices, equity, and collaboration.
+- [References](https://vpp-2025.netlify.app/plan/references): Complete bibliography and references for the Illinois Statewide Violence Prevention Plan 2025-2029
 
 ## Optional
 

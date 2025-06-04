@@ -1,6 +1,6 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-04T11:07:13.483Z",
+  "generatedAt": "2025-06-04T12:48:43.046Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
@@ -79,58 +79,6 @@
           "type": "content",
           "source": "content/download.md",
           "title": "Download the Plan"
-        }
-      ]
-    },
-    {
-      "title": "Executive Summary",
-      "path": "/executive-summary",
-      "fullUrl": "https://vpp-2025.netlify.app/executive-summary",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/executive-summary.md",
-          "title": "Executive Summary"
-        }
-      ]
-    },
-    {
-      "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029",
-      "path": "/front-cover",
-      "fullUrl": "https://vpp-2025.netlify.app/front-cover",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/front-cover.md",
-          "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
-        }
-      ]
-    },
-    {
-      "title": "Goals and Recommendations",
-      "path": "/goals-and-recommendations",
-      "fullUrl": "https://vpp-2025.netlify.app/goals-and-recommendations",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/goals-and-recommendations.md",
-          "title": "Goals and Recommendations"
-        }
-      ]
-    },
-    {
-      "title": "Guiding Principles",
-      "path": "/guiding-principles",
-      "fullUrl": "https://vpp-2025.netlify.app/guiding-principles",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/guiding-principles.md",
-          "title": "Guiding Principles"
         }
       ]
     },
@@ -252,40 +200,92 @@
       ]
     },
     {
-      "title": "Planning Process",
-      "path": "/planning-process",
-      "fullUrl": "https://vpp-2025.netlify.app/planning-process",
+      "title": "Executive Summary",
+      "path": "/plan/executive-summary",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/executive-summary",
       "type": "content",
       "sources": [
         {
           "type": "content",
-          "source": "content/planning-process.md",
+          "source": "content/plan/executive-summary.md",
+          "title": "Executive Summary"
+        }
+      ]
+    },
+    {
+      "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029",
+      "path": "/plan/front-cover",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/front-cover",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/plan/front-cover.md",
+          "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029"
+        }
+      ]
+    },
+    {
+      "title": "Goals and Recommendations",
+      "path": "/plan/goals-and-recommendations",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/goals-and-recommendations",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/plan/goals-and-recommendations.md",
+          "title": "Goals and Recommendations"
+        }
+      ]
+    },
+    {
+      "title": "Guiding Principles",
+      "path": "/plan/guiding-principles",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/guiding-principles",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/plan/guiding-principles.md",
+          "title": "Guiding Principles"
+        }
+      ]
+    },
+    {
+      "title": "Planning Process",
+      "path": "/plan/planning-process",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/planning-process",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/plan/planning-process.md",
           "title": "Planning Process"
         }
       ]
     },
     {
       "title": "Violence Prevention from a Public Health Approach",
-      "path": "/public-health-approach",
-      "fullUrl": "https://vpp-2025.netlify.app/public-health-approach",
+      "path": "/plan/public-health-approach",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/public-health-approach",
       "type": "content",
       "sources": [
         {
           "type": "content",
-          "source": "content/public-health-approach.md",
+          "source": "content/plan/public-health-approach.md",
           "title": "Violence Prevention from a Public Health Approach"
         }
       ]
     },
     {
       "title": "References",
-      "path": "/references",
-      "fullUrl": "https://vpp-2025.netlify.app/references",
+      "path": "/plan/references",
+      "fullUrl": "https://vpp-2025.netlify.app/plan/references",
       "type": "content",
       "sources": [
         {
           "type": "content",
-          "source": "content/references.md",
+          "source": "content/plan/references.md",
           "title": "References"
         }
       ]
