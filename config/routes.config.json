@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp-2025.netlify.app/",
-  "generatedAt": "2025-06-04T14:33:58.146Z",
+  "generatedAt": "2025-06-04T16:34:04.728Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 22,
-    "contentPages": 20,
+    "totalPages": 21,
+    "contentPages": 19,
     "vuePages": 3,
     "combinedPages": 1,
     "blacklistedFiles": 2
@@ -105,19 +105,6 @@
           "type": "content",
           "source": "content/legal/terms-of-service.md",
           "title": "Terms of Service"
-        }
-      ]
-    },
-    {
-      "title": "Letter from the Executive Director",
-      "path": "/letters/executive-director",
-      "fullUrl": "https://vpp-2025.netlify.app/letters/executive-director",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/letters/executive-director.md",
-          "title": "Letter from the Executive Director"
         }
       ]
     },
@@ -305,12 +292,12 @@
     }
   ],
   "stats": {
-    "totalPages": 22,
-    "contentPages": 20,
+    "totalPages": 21,
+    "contentPages": 19,
     "vuePages": 3,
     "combinedPages": 1,
     "blacklistedFiles": 2,
     "menuIntegratedPages": 6,
-    "orphanedPages": 16
+    "orphanedPages": 15
   }
 }
