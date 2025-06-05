@@ -49,23 +49,9 @@ In social services, evidence-based practices integrate the best research or eval
 
 Comprehensive practices mean addressing risk and protective factors across the social-ecological model <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>. The social-ecological model is a useful framework for understanding where to target violence prevention efforts. As shown in Figure 1, violence prevention efforts may address factors at the individual, relational, community, or society level. These efforts may also target factors at multiple levels. Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact. Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.
 
-##### WHERE Violence Prevention Efforts Occur:
 
-**Societal Level**
-The role of the economy, cultural norms, media, policies, and laws (e.g., policies that create or maintain inequities or cultural norms that encourage violence)
-Prevention efforts aim to address norms/attitudes, offer equitable services and opportunities, or focus on policy proposals/changes
-
-**Community Level**
-The role of places (e.g., school, work, neighborhood) and conditions that contribute to violence (e.g., poverty, residential segregation)
-Prevention efforts aim to improve physical or social aspects of a setting, strengthen setting characteristics, climates, or connections, or address structural conditions
-
-**Relational Level**
-The role of interactions with peers, partners, family members, etc. (e.g., a family member may encourage or promote violence)
-Prevention efforts involve strengthening or improving relationships (e.g., a family-based program that focuses on strengthening parent-child communication) and can involve mentoring
-
-**Individual Level**
-The role of personal characteristics, behaviors, and experiences that may protect and/or increase the risk for violence victimization or perpetration (e.g., history of experiencing abuse, age)
-Prevention efforts teach individual skills, behaviors, and awareness (e.g., social-emotional skills, conflict management, healthy relationship skills, or safe dating)
+::text-centered-image{src="/images/PPT_circles.png" alt="Image: Where Violence Prevention Efforts Occur" spacing="medium" caption="Figure 1. Social-ecological model (Click to view)"}
+::
 
 For additional resources regarding the socio-ecological model and coordinated and comprehensive violence prevention efforts, please see:
 - [CDC Violence Prevention](https://www.cdc.gov/violence-prevention/about/index.html)
@@ -73,7 +59,7 @@ For additional resources regarding the socio-ecological model and coordinated an
 
 ##### WHEN Violence Prevention Efforts Occur:
 
-"Primary, Secondary, and Tertiary Prevention Efforts" organize violence prevention approaches to specify when programming or services takes place, and who violence prevention efforts occur with. Primary prevention is considered universal, occurring for an entire population; secondary prevention is considered selected or focused on those with one or more risk factors for violence; tertiary prevention is considered indicated, or efforts for those who have already experienced or perpetrated violence.
+"Primary, Secondary, and Tertiary Prevention Efforts" organize violence prevention approaches to specify when programming or services takes place, and who violence prevention efforts occur with. Primary prevention is considered universal, occurring for an entire population; secondary prevention is considered selected or focused on those with one or more risk factors for violence; tertiary prevention is considered indicated, or efforts for those who have already experienced or perpetrated violence (Figure 2). 
 
 **Primary Prevention (Universal)**
 Efforts take place before violence occurs
@@ -90,6 +76,8 @@ Focus on rehabilitative and healing supports and services
 Primary prevention efforts include programs and services that prioritize child and family support and healthy relationships and development by reducing risk factors and strengthening protective factors for an entire population. These services foster social connections and belonging.
 
 Secondary prevention efforts include intervention programs for those at highest risk of violence (e.g., community violence interventions like street outreach, Trauma Recovery Centers, hospital-based intervention programs), focus on de-escalation and comprehensive case management, as well as clinical support for participants and their families.
+
+
 
 ##### WHO Violence Prevention Efforts Occur With:
 

@@ -554,6 +554,32 @@ code:not(pre code) {
   }
 }
 
+// Responsive image styling for markdown content
+// Ensure all images in content are properly constrained and responsive
+.content-renderer img,
+.content-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto; // Center images with vertical spacing
+  border-radius: 0.5rem; // Subtle rounded corners
+
+  // Add subtle shadow for better visual separation
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  // Smooth transitions for theme changes
+  transition: box-shadow 0.3s ease;
+}
+
+// Dark theme image styling
+:root[data-theme="dark"] {
+  .content-renderer img,
+  .content-container img {
+    // Enhanced shadow for dark theme
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
 // High contrast mode support for accessibility
 @media (prefers-contrast: high) {
   code {

@@ -2,6 +2,74 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-05 (TextCenteredImage Component Implementation)
+- Implemented comprehensive TextCenteredImage component for displaying centered images in markdown content with full accessibility compliance and responsive design.
+- Files created/modified:
+  - `components/content/TextCenteredImage.vue`: Created new Vue component for centered image display
+    - **Core Functionality**: Horizontally centers images within container using CSS flexbox with full responsive design
+    - **Component Integration**: Uses existing ImageWithSpinner component for consistent loading states and error handling
+    - **Accessibility Features**: Implements AccessibleTooltip for enhanced accessibility with WCAG 2.1 AA compliance
+    - **Props System**: Comprehensive props including src (required), alt (required with validation), width, height, aspectRatio, spacing, caption, and styling options
+    - **Spacing Options**: Configurable spacing (small, medium, large, xlarge) with responsive margin adjustments
+    - **Caption Support**: Optional semantic figcaption with proper ARIA relationships and unique ID generation
+    - **Tooltip Integration**: Alt text displayed as tooltip on hover/click with instant popup timing for reference tooltips
+    - **Responsive Design**: Mobile-optimized layout with adjusted spacing, font sizes, and proper breakpoint handling
+    - **Theme Support**: Full light/dark theme compatibility with proper contrast ratios and color schemes
+    - **Reduced Motion**: Respects prefers-reduced-motion user preferences for accessibility
+    - **Print Optimization**: Proper rendering when printed with break-inside: avoid and color adjustments
+  - `plugins/markdown-components.ts`: Registered TextCenteredImage component for use in Nuxt Content
+    - **Component Registration**: Added import and registration for TextCenteredImage component
+    - **MDC Compatibility**: Enables usage with Nuxt Content v3 MDC syntax using `::text-centered-image` block markers
+    - **Development Logging**: Updated console log to include TextCenteredImage in registered components list
+  - `content/plan/goals-and-recommendations.md`: Component usage example with MDC syntax
+    - **Implementation**: Uses `::text-centered-image{src="/images/PPT_circles.png" alt="Community grant recipients working together on violence prevention initiatives and programs" spacing="medium" caption="Grant Recipients"}` syntax
+    - **Proper Integration**: Demonstrates correct MDC block syntax with props and caption
+- Technical Notes:
+  - **Template Structure**: Uses semantic HTML with figure/figcaption elements for proper document structure
+  - **CSS Architecture**: Unscoped styles for markdown context compatibility with responsive breakpoints and spacing variations
+  - **Prop Validation**: Comprehensive alt text validation ensuring descriptive content (>5 characters, not generic terms)
+  - **State Management**: Reactive caption ID generation for proper ARIA relationships and accessibility
+  - **Performance**: Optimized with computed properties for spacing classes and efficient re-rendering
+  - **Error Handling**: Graceful fallbacks and proper error states through ImageWithSpinner integration
+  - **Accessibility Excellence**: WCAG 2.1 AA compliance with proper focus states, keyboard navigation, and screen reader support
+  - **MDC Integration**: Full compatibility with Nuxt Content v3 markdown component syntax for seamless content authoring
+
+### 2026-06-05 (CenteredImage Component Simplification)
+- Completely simplified the CenteredImage component to remove all modal functionality and complex features, focusing only on centering images with optional captions.
+- Files modified:
+  - `components/content/CenteredImage.vue`: Removed modal functionality, tooltips, click handlers, and complex styling. Now simply displays a centered image with optional caption using basic HTML img element and minimal CSS.
+- Technical Notes:
+  - Removed all Vue imports (ref, onMounted) and dependencies (ImageWithSpinner, AccessibleTooltip)
+  - Simplified template to just img element and caption div
+  - Reduced props to essential ones: src, alt, width, height, caption
+  - Replaced complex styling with simple flexbox centering and basic responsive design
+  - Component now uses scoped styles for better encapsulation
+  - Maintains accessibility with proper alt text requirements
+
+### 2025-06-05 (Image Modal Implementation)
+- Implemented click-to-open modal functionality for CenteredImage component, allowing users to view images at 95% viewport width for better detail viewing.
+- Files modified:
+  - `components/content/CenteredImage.vue`: Added comprehensive modal functionality
+    - **Modal Integration**: Added Vuetify v-dialog component with 95vw max-width for optimal image viewing
+    - **Click Interaction**: Made images clickable with cursor pointer, hover effects (scale 1.02, opacity 0.9), and keyboard support
+    - **Accessibility Features**: Added proper ARIA labels, keyboard navigation (Enter/Space to open, Esc to close), and focus management
+    - **Modal Content**: Full-size image display with title bar, close button, and optional caption in modal footer
+    - **Responsive Design**: Modal adapts to viewport size with max-height 95vh and proper image containment
+    - **Visual Feedback**: Added hover effects and focus states to indicate clickable images
+    - **Theme Integration**: Modal styling adapts to light/dark themes using Vuetify surface colors
+    - **Performance**: Eager loading for modal images and proper cleanup of event listeners
+  - `content/plan/goals-and-recommendations.md`: Reduced image dimensions from 600x450 to 500x375 pixels
+    - **Container Fit**: Ensures image respects content container boundaries and doesn't overlap with TOC
+    - **Aspect Ratio**: Maintains proper 4:3 aspect ratio while fitting within content column
+- Technical Notes:
+  - **Vuetify Components**: Uses v-dialog, v-card, v-card-title, v-card-text, v-card-actions for modal structure
+  - **Event Handling**: Supports both mouse clicks and keyboard interactions (Enter/Space) for accessibility
+  - **Modal State**: Reactive modal state management with proper open/close methods
+  - **CSS Enhancements**: Added clickable-image class with hover effects and reduced motion support
+  - **Container Constraints**: Updated max-width to calc(100% - 2rem) to prevent content overflow
+  - **Image Sizing**: Modal images use object-fit: contain for proper scaling within viewport
+  - **Auto-Import**: Leverages existing Vuetify component auto-imports from plugins/vuetify.ts
+
 ### 2025-06-04 (Scroll Performance Optimization - Forced Reflow Fix)
 - Optimized scroll event handling to eliminate forced reflow warnings and improve performance by throttling DOM measurements using requestAnimationFrame.
 - Files modified:

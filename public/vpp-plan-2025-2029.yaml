@@ -5,15 +5,15 @@ planInfo:
     community-based agencies for 2025-2029.
   version: 2025-2029
   organization: Illinois Criminal Justice Information Authority (ICJIA)
-  generatedAt: 2025-06-04T21:05:09.456Z
+  generatedAt: 2025-06-05T12:01:23.674Z
   baseUrl: https://vpp-2025.netlify.app
 generationStats:
   totalPages: 7
   processedPages: 7
   skippedPages: 0
-  totalContentLength: 40405
+  totalContentLength: 39875
   totalMetadataFields: 41
-  averageContentLength: 5772
+  averageContentLength: 5696
   averageMetadataFields: 6
 pages:
   - path: /plan/front-cover
@@ -28,10 +28,25 @@ pages:
       description: "The Statewide Violence Prevention Plan for Illinois: 2025-2029."
       keywords: []
       showBorder: true
-    body: '<div style="text-align: center;">![Front Cover: Statewide Violence Prevention Plan for Illinois:
-      2025-2029](/images/front-cover.png)</div>'
+    body: >-
+      <div style="text-align: center;" class="mb-12">![Front Cover: Statewide Violence Prevention Plan for Illinois:
+      2025-2029](/images/front-cover.png)</div>This report was supported through an interagency agreement between the
+      Illinois Criminal Justice
+
+      Information Authority and the University of Illinois at Urbana-Champaign School of Social Work
+
+      (Principal Investigator: Rachel Garthe, PhD).Suggested Citation:
+
+      Garthe, R. C. (2025). Statewide Violence Prevention Plan for Illinois: 2025-2029. Illinois Criminal
+
+      Justice Information Authority.A special thank you to the faculty, staff, interns, and research assistants within
+      the Violence
+
+      Prevention Research Lab at the University of Illinois Urbana-Champaign who assisted with this
+
+      project at various stages.Stock photos are free from Pexels.com
     stats:
-      contentLength: 138
+      contentLength: 792
       metadataFields: 4
       estimatedReadingTime: 1
   - path: /plan/executive-summary
@@ -359,17 +374,10 @@ pages:
     body: |-
       ## Goal #1 - Prevent violence and promote health and safety through trauma-informed/healing-centered, evidence-based and comprehensive primary, secondary, and/or tertiary prevention efforts.### Understanding Goal #1 ComponentsTo articulate components of Goal #1, we provide further definitions and graphics to describe what is meant by trauma-informed/healing-centered practices, evidence-based, and comprehensive primary, secondary, and/or tertiary prevention efforts.#### Trauma-informed and healing-centered practicesThe Substance Abuse and Mental Health Services Administration <span data-ref="substance-2014">(SAMSHA, 2014)</span> provides six guiding principles for trauma-informed efforts:**Safety:** Within an organization or setting, clients/patients and staff feel safe physically and psychologically.**Trustworthiness and transparency:** Throughout the process of care, decisions are transparent to build and sustain trust.**Peer support:** Services include connecting individuals with other individuals with shared lived experiences.**Collaboration and mutuality:** The power differential is eliminated to promote shared decision-making.**Empowerment, voice and choice:** Clients/patients are supported in determining what they need and want for healing and the next steps they would like to pursue. Staff are seen as facilitators of healing, also empowered and supported in their work.**Cultural, historical and gender considerations:** Services and organizational policies are responsive to socio-demographic and intersectional needs of participants, while also recognizing and addressing the roles of historical trauma, biases and stereotypes, and discrimination.Trauma-informed practices realize the impact of trauma, recognize the signs and impacts of trauma among clients/patients and staff, respond by integrating knowledge of trauma into policies and practices, and resist re-traumatization (i.e., stemming from a triggering event, you are reminded of an earlier trauma; <span data-ref="samhsa-2017">SAMHSA, 2017</span>). For a list of key references and resources, please see:- [SAMHSA's Concept of Trauma and Guidance for Trauma-Informed Approach](https://store.samhsa.gov/product/samhsas-concept-trauma-and-guidance-trauma-informed-approach/sma14-4884)
       - [What is Trauma-Informed Care?](https://www.traumainformedcare.chcs.org/what-is-trauma-informed-care/)
-      - [CDC: Trauma-Informed Care](https://blogs.cdc.gov/publichealthmatters/2022/05/trauma-informed/)While trauma-informed practices are important, they are incomplete. They focus on the harm and injury resulting from trauma, individual experiences (rather than collective), and they lack a strengths-based perspective. An approach to address these limitations is called healing-centered practice, which involves "culture, spirituality, civic action and collective healing... highlighting the ways in which trauma and healing are experienced collectively." Thus, healing-centered moves away from a risk reduction model, and instead provides an asset driven and restorative approach that focuses on well-being as the goal (rather than focusing on what we want to reduce or suppress; <span data-ref="ginwright-2018">Ginwright, 2018</span>).#### Evidence-based practicesIn social services, evidence-based practices integrate the best research or evaluation evidence, clinical expertise, and participant or community values to meet the needs of a participant or community <span data-ref="bentgoodley-2019">(Bent-Goodley et al., 2019)</span>. For evidence-based resources across types of violence prevention, please see: [Healthy People 2030 Evidence-Based Resources](https://health.gov/healthypeople/objectives-and-data/browse-objectives/violence-prevention/evidence-based-resources)#### Comprehensive practicesComprehensive practices mean addressing risk and protective factors across the social-ecological model <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>. The social-ecological model is a useful framework for understanding where to target violence prevention efforts. As shown in Figure 1, violence prevention efforts may address factors at the individual, relational, community, or society level. These efforts may also target factors at multiple levels. Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact. Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.##### WHERE Violence Prevention Efforts Occur:**Societal Level**
-      The role of the economy, cultural norms, media, policies, and laws (e.g., policies that create or maintain inequities or cultural norms that encourage violence)
-      Prevention efforts aim to address norms/attitudes, offer equitable services and opportunities, or focus on policy proposals/changes**Community Level**
-      The role of places (e.g., school, work, neighborhood) and conditions that contribute to violence (e.g., poverty, residential segregation)
-      Prevention efforts aim to improve physical or social aspects of a setting, strengthen setting characteristics, climates, or connections, or address structural conditions**Relational Level**
-      The role of interactions with peers, partners, family members, etc. (e.g., a family member may encourage or promote violence)
-      Prevention efforts involve strengthening or improving relationships (e.g., a family-based program that focuses on strengthening parent-child communication) and can involve mentoring**Individual Level**
-      The role of personal characteristics, behaviors, and experiences that may protect and/or increase the risk for violence victimization or perpetration (e.g., history of experiencing abuse, age)
-      Prevention efforts teach individual skills, behaviors, and awareness (e.g., social-emotional skills, conflict management, healthy relationship skills, or safe dating)For additional resources regarding the socio-ecological model and coordinated and comprehensive violence prevention efforts, please see:
+      - [CDC: Trauma-Informed Care](https://blogs.cdc.gov/publichealthmatters/2022/05/trauma-informed/)While trauma-informed practices are important, they are incomplete. They focus on the harm and injury resulting from trauma, individual experiences (rather than collective), and they lack a strengths-based perspective. An approach to address these limitations is called healing-centered practice, which involves "culture, spirituality, civic action and collective healing... highlighting the ways in which trauma and healing are experienced collectively." Thus, healing-centered moves away from a risk reduction model, and instead provides an asset driven and restorative approach that focuses on well-being as the goal (rather than focusing on what we want to reduce or suppress; <span data-ref="ginwright-2018">Ginwright, 2018</span>).#### Evidence-based practicesIn social services, evidence-based practices integrate the best research or evaluation evidence, clinical expertise, and participant or community values to meet the needs of a participant or community <span data-ref="bentgoodley-2019">(Bent-Goodley et al., 2019)</span>. For evidence-based resources across types of violence prevention, please see: [Healthy People 2030 Evidence-Based Resources](https://health.gov/healthypeople/objectives-and-data/browse-objectives/violence-prevention/evidence-based-resources)#### Comprehensive practicesComprehensive practices mean addressing risk and protective factors across the social-ecological model <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>. The social-ecological model is a useful framework for understanding where to target violence prevention efforts. As shown in Figure 1, violence prevention efforts may address factors at the individual, relational, community, or society level. These efforts may also target factors at multiple levels. Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact. Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.::text-centered-image{src="/images/PPT_circles.png" alt="Community grant recipients working together on violence prevention initiatives and programs" spacing="medium" caption="Grant Recipients"}
+      ::For additional resources regarding the socio-ecological model and coordinated and comprehensive violence prevention efforts, please see:
       - [CDC Violence Prevention](https://www.cdc.gov/violence-prevention/about/index.html)
-      - [Connecting the Dots](https://vetoviolence.cdc.gov/apps/connecting-the-dots/node/5)##### WHEN Violence Prevention Efforts Occur:"Primary, Secondary, and Tertiary Prevention Efforts" organize violence prevention approaches to specify when programming or services takes place, and who violence prevention efforts occur with. Primary prevention is considered universal, occurring for an entire population; secondary prevention is considered selected or focused on those with one or more risk factors for violence; tertiary prevention is considered indicated, or efforts for those who have already experienced or perpetrated violence.**Primary Prevention (Universal)**
+      - [Connecting the Dots](https://vetoviolence.cdc.gov/apps/connecting-the-dots/node/5)##### WHEN Violence Prevention Efforts Occur:"Primary, Secondary, and Tertiary Prevention Efforts" organize violence prevention approaches to specify when programming or services takes place, and who violence prevention efforts occur with. Primary prevention is considered universal, occurring for an entire population; secondary prevention is considered selected or focused on those with one or more risk factors for violence; tertiary prevention is considered indicated, or efforts for those who have already experienced or perpetrated violence (Figure 2).**Primary Prevention (Universal)**
       Efforts take place before violence occurs
       Focus on reducing risks and enhancing protective factors to reduce the likelihood of violence**Secondary Prevention (Selected)**
       Immediate response after violence occurs or intervene where violence is about to occur
@@ -414,9 +422,9 @@ pages:
       - Identify possible projects, key contacts within agencies, and develop a project timeline. This collaborative project should include at least two state agencies and relevant community partners.
       - Host a statewide violence prevention event to highlight research and program evaluation findings, as well as the work of community-based organizations leading violence prevention work. This event could also encourage governmental partnerships and build community across grantees, evaluators, governmental officials, stakeholders, and researchers.
     stats:
-      contentLength: 14838
+      contentLength: 13654
       metadataFields: 7
-      estimatedReadingTime: 10
+      estimatedReadingTime: 9
   - path: /plan/references
     fullPath: https://vpp-2025.netlify.app/plan/references
     slug: plan/references

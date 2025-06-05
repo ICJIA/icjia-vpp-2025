@@ -90,7 +90,7 @@
 .message-text {
   line-height: 1.7;
   font-size: 1.1rem;
-  text-align: justify;
+  text-align: left;
   overflow: hidden; /* Ensures proper text wrapping around floated image */
 }
 
@@ -116,7 +116,7 @@
 
 .message-paragraph {
   margin-bottom: 1rem;
-  text-align: justify;
+  text-align: left;
 }
 
 /* Dark theme card styling */

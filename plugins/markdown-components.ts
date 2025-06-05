@@ -8,6 +8,7 @@
  */
 import { defineNuxtPlugin } from '#app'
 import TextWrapImage from '~/components/content/TextWrapImage.vue'
+import TextCenteredImage from '~/components/content/TextCenteredImage.vue'
 import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue'
 import CenteredImage from '~/components/content/CenteredImage.vue'
 import HeroSection from '~/components/content/HeroSection.vue'
@@ -37,6 +38,7 @@ import { VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivid
 export default defineNuxtPlugin((nuxtApp) => {
   // Register custom components for use in markdown
   nuxtApp.vueApp.component('TextWrapImage', TextWrapImage)
+  nuxtApp.vueApp.component('TextCenteredImage', TextCenteredImage)
   nuxtApp.vueApp.component('ImageWithSpinner', ImageWithSpinner)
   nuxtApp.vueApp.component('CenteredImage', CenteredImage)
   nuxtApp.vueApp.component('HeroSection', HeroSection)
@@ -72,7 +74,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Log registration in development environment
   if (process.env.NODE_ENV === 'development') {
-    console.log('📝 Registered markdown components: TextWrapImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeLetters, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
+    console.log('📝 Registered markdown components: TextWrapImage, TextCenteredImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeLetters, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach')
     console.log('📝 Registered Vuetify components for markdown: VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider, VTooltip')
   }
 })

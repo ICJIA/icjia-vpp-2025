@@ -13,12 +13,7 @@
           <!-- Icon Section -->
           <div class="icon-section" aria-hidden="true">
             <div class="statistic-icon-wrapper">
-              <v-icon
-                :icon="icon"
-                size="80"
-                color="primary"
-                class="statistic-icon"
-              />
+              <v-icon :icon="icon" size="80" color="primary" class="statistic-icon" />
             </div>
           </div>
 
@@ -62,7 +57,7 @@
  *
  * @component
  */
-import { computed } from 'vue';
+import { computed } from "vue";
 
 /**
  * Component props
@@ -77,24 +72,24 @@ import { computed } from 'vue';
 const props = defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   icon: {
     type: String,
-    required: true
+    required: true,
   },
   color: {
     type: String,
-    default: 'primary'
+    default: "primary",
   },
   delay: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 /**
@@ -105,16 +100,16 @@ const uniqueId = computed(() => {
   // Create a deterministic ID based on the statistic title
   return props.title
     .toLowerCase()
-    .replace(/[^a-z0-9]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
+    .replace(/[^a-z0-9]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
 });
 
 /**
  * Animation style with delay
  */
 const animationStyle = computed(() => ({
-  animationDelay: `${props.delay}ms`
+  animationDelay: `${props.delay}ms`,
 }));
 </script>
 
@@ -137,7 +132,7 @@ const animationStyle = computed(() => ({
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: default;
   /* Enhanced background for better contrast against page backgrounds */
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 /* Dark mode styling with enhanced contrast */
@@ -145,7 +140,7 @@ const animationStyle = computed(() => ({
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
   /* Lighter surface color for better contrast against dark page backgrounds */
-  background: #2A3441;
+  background: #2a3441;
 }
 
 /* Card Content Grid - Compact infographic layout */
@@ -215,8 +210,6 @@ const animationStyle = computed(() => ({
   margin: 0;
   color: rgb(var(--v-theme-on-surface-variant));
 }
-
-
 
 /* Enhanced text contrast for light theme */
 :root[data-theme="light"] .statistic-title,
