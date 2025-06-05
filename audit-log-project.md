@@ -2,6 +2,23 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-05 (TextCenteredImage Centering Fix)
+- Fixed image centering issue in TextCenteredImage component where images were not properly centered within columns, causing unequal padding on left and right sides.
+- Files modified:
+  - `components/content/TextCenteredImage.vue`: Added horizontal padding and responsive image constraints
+    - **Container Padding**: Added 1rem horizontal padding to centered-image-wrapper (0.5rem on mobile) for equal spacing on both sides
+    - **Image Constraints**: Added overflow:hidden and box-sizing:border-box to image-content-wrapper to prevent column overflow
+    - **Deep CSS Selectors**: Added :deep() selectors targeting Vuetify's v-img components (.v-img and .v-img__img) with max-width:100%, width:auto, height:auto, and object-fit:contain
+    - **Responsive Design**: Mobile devices get reduced padding (0.5rem) for better space utilization on smaller screens
+    - **Layout Protection**: Prevents images from bleeding into adjacent columns or causing horizontal scrolling
+- Technical Notes:
+  - **Root Cause**: Images were extending beyond column boundaries due to lack of proper constraints on v-img component sizing
+  - **Solution Strategy**: Combined container padding for equal spacing with deep CSS selectors to constrain Vuetify components
+  - **Vuetify Integration**: Used :deep() pseudo-selector to target internal Vuetify component elements that are normally scoped
+  - **Responsive Approach**: Different padding values for desktop (1rem) and mobile (0.5rem) to optimize space usage
+  - **Container Protection**: Added box-sizing:border-box and overflow:hidden to prevent layout issues
+  - **Image Behavior**: object-fit:contain ensures images scale properly within constraints while maintaining aspect ratio
+
 ### 2025-06-05 (TextCenteredImage Complete Markdown Stripping Enhancement)
 - Implemented comprehensive markdown stripping using remove-markdown package to eliminate ALL markdown formatting and normalize to clean plain text for optimal accessibility.
 - Files modified:
