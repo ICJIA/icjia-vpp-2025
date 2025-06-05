@@ -47,6 +47,7 @@
     "nuxt": "^3.17.4",
     "remark-attr": "^0.11.1",
     "remark-gfm": "^4.0.1",
+    "remove-markdown": "^0.6.2",
     "rimraf": "^6.0.1",
     "serve": "^14.2.4",
     "shiki": "^3.4.2",

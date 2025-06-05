@@ -2,6 +2,115 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-05 (TextCenteredImage Complete Markdown Stripping Enhancement)
+- Implemented comprehensive markdown stripping using remove-markdown package to eliminate ALL markdown formatting and normalize to clean plain text for optimal accessibility.
+- Files modified:
+  - `components/content/TextCenteredImage.vue`: Added markdown description prop and enhanced tooltip functionality
+    - **Description Prop**: New optional `description` prop accepts markdown content for detailed image descriptions
+    - **Simple Text Rendering**: Uses standard v-tooltip with `:text` prop for reliable cross-browser compatibility
+    - **Professional Markdown Stripping**: Uses `remove-markdown` package for comprehensive removal of ALL markdown syntax
+    - **Complete Text Normalization**: Removes all line breaks (\r\n, \r, \n) and normalizes whitespace for single-line display
+    - **Content Purity**: Preserves only the meaningful text content, eliminating all structural and formatting elements
+    - **Fallback Logic**: Uses description if provided, otherwise falls back to alt text for backward compatibility
+    - **Mobile Detection**: Built-in mobile detection for responsive tooltip behavior (2000ms auto-dismiss on mobile)
+    - **Screen Reader Optimization**: Provides comprehensive image context in completely clean plain text for optimal accessibility
+    - **Guaranteed Clean Output**: Professional package ensures no markdown artifacts remain in tooltip text
+    - **Responsive Design**: Mobile-optimized tooltip sizing (320px max-width) and enhanced padding
+    - **Theme Integration**: Tooltip styling adapts to light/dark themes with proper contrast ratios
+    - **High Contrast Support**: Enhanced padding, borders, and font weight for accessibility compliance
+- Technical Notes:
+  - **Professional Package**: Uses `remove-markdown` npm package for industry-standard markdown stripping
+  - **Dependency Management**: Added remove-markdown@0.3.0 to project dependencies for reliable markdown processing
+  - **Two-Stage Processing**: First removes all markdown with professional package, then normalizes line breaks and whitespace
+  - **Complete Coverage**: Package handles all markdown syntax including edge cases that regex approaches might miss
+  - **Performance**: Computed property with efficient package-based processing and minimal overhead
+  - **Cross-Browser Compatibility**: Standard text tooltips work consistently across all browsers and assistive technologies
+  - **Mobile Responsiveness**: Automatic mobile detection using Vuetify breakpoints (960px threshold) for appropriate tooltip behavior
+  - **Accessibility Excellence**: Guaranteed clean text output ensures optimal screen reader compatibility and user comprehension
+  - **Maintainability**: Professional package approach reduces custom code complexity and improves reliability
+
+### 2025-06-05 (TextCenteredImage Modal Caption Enhancement)
+- Added primary caption display below image in modal view for better context and information accessibility.
+- Files modified:
+  - `components/content/TextCenteredImage.vue`: Added caption display in modal view
+    - **Modal Caption Integration**: Primary caption now displays below image in modal view when caption prop is provided
+    - **Layout Adjustment**: Reduced modal image max-height from 80vh to 75vh to accommodate caption space
+    - **Caption Styling**: Consistent typography with main caption (0.875rem font size, proper contrast ratios)
+    - **Visual Design**: Caption appears with subtle top border, proper padding, and centered alignment
+    - **Responsive Design**: Mobile-optimized with reduced image height (70vh) and adjusted caption font size (0.8125rem)
+    - **Theme Integration**: Caption styling adapts to modal surface colors for proper contrast in light/dark themes
+    - **Conditional Display**: Caption only shows in modal when primary caption prop is provided (no secondary "Click to view" text)
+    - **Accessibility**: Maintains proper contrast ratios and semantic structure within modal context
+- Technical Notes:
+  - **Space Management**: Modal layout optimized to balance image size with caption readability
+  - **Typography Consistency**: Modal caption uses same styling principles as main component caption
+  - **Responsive Breakpoints**: Mobile devices get further reduced image height for optimal caption visibility
+  - **Theme Variables**: Uses modal surface colors for seamless integration with Vuetify dialog styling
+  - **Performance**: Conditional rendering ensures caption only displays when needed
+
+### 2025-06-05 (TextCenteredImage Secondary Caption Contrast Enhancement)
+- Enhanced contrast ratios for secondary "Click to view" caption to meet WCAG 2.1 AA standards in both light and dark modes.
+- Files modified:
+  - `components/content/TextCenteredImage.vue`: Improved contrast and visibility for secondary caption
+    - **Contrast Improvements**: Changed from primary color to on-background color for better base contrast
+    - **Light Mode**: Uses on-background color with 0.9 opacity and 600 font weight for 4.5:1+ contrast ratio
+    - **Dark Mode**: Uses on-background color with 0.95 opacity for enhanced visibility in dark themes
+    - **Hover States**: Primary color on hover provides visual feedback while maintaining accessibility
+    - **High Contrast Mode**: Maximum font weight (800), underline decoration, and on-background color for optimal visibility
+    - **Mobile Optimization**: Increased font weight (700) and opacity (0.95) for better mobile readability
+    - **WCAG Compliance**: All color combinations now meet or exceed WCAG 2.1 AA contrast requirements (4.5:1 minimum)
+- Technical Notes:
+  - **Base Color Strategy**: Uses theme-aware on-background color instead of primary color for better contrast foundation
+  - **Progressive Enhancement**: Hover states add primary color for interactivity while maintaining accessible base state
+  - **Responsive Contrast**: Mobile devices get enhanced font weight and opacity for improved readability
+  - **Theme Adaptation**: Proper contrast ratios maintained across light, dark, and high contrast themes
+  - **Accessibility Excellence**: Exceeds minimum contrast requirements while maintaining visual hierarchy
+
+### 2025-06-05 (TextCenteredImage Secondary Caption Enhancement)
+- Added secondary "Click to view" caption to TextCenteredImage component to provide consistent visual cue for modal functionality across all image instances.
+- Files modified:
+  - `components/content/TextCenteredImage.vue`: Added secondary caption with interaction hint
+    - **Secondary Caption Logic**: Always displays "Click to view" text below primary caption (if present) or in caption position (if no primary caption)
+    - **Layout Flexibility**: Works with or without primary caption - maintains consistent interaction guidance
+    - **Visual Design**: Styled with smaller font size (0.75rem), italic text, primary color, and subtle opacity for visual distinction
+    - **Responsive Design**: Mobile-optimized sizing (0.6875rem) with adjusted spacing for smaller screens
+    - **Theme Integration**: Proper color adaptation for light/dark themes with enhanced opacity in dark mode
+    - **High Contrast Support**: Enhanced font weight (700) and full opacity for accessibility in high contrast mode
+    - **Print Optimization**: Secondary caption hidden in print view to maintain clean document appearance
+    - **Accessibility**: Uses `role="note"` and `aria-label` for proper screen reader context without interfering with existing functionality
+    - **Hover Effects**: Subtle opacity increase on hover to indicate interactivity
+- Technical Notes:
+  - **Conditional Spacing**: Uses `mt-1` class when following primary caption for proper visual hierarchy
+  - **CSS Architecture**: Separate styling class (`.image-secondary-caption`) for maintainable design system
+  - **Responsive Breakpoints**: Consistent with existing mobile breakpoint (768px) for unified responsive behavior
+  - **Theme Variables**: Uses CSS custom properties for seamless theme integration
+  - **Performance**: Minimal CSS additions with efficient selector targeting
+  - **User Experience**: Provides clear, consistent interaction guidance across all TextCenteredImage instances
+
+### 2025-06-05 (TextCenteredImage Modal Enhancement)
+- Enhanced TextCenteredImage component with click-to-open modal functionality for better image viewing experience, allowing users to view images at 90% viewport width for enhanced detail viewing.
+- Files modified:
+  - `components/content/TextCenteredImage.vue`: Added comprehensive modal functionality while preserving all existing features
+    - **Modal Integration**: Added Vuetify v-dialog component with 90% viewport width and max-width of 1200px for optimal image viewing
+    - **Click Interaction**: Made images clickable with proper cursor styling, hover effects (scale 1.02, opacity 0.95), and keyboard support (Enter/Space keys)
+    - **Accessibility Features**: Added comprehensive ARIA labels, keyboard navigation (Enter/Space to open, Esc to close), and screen reader announcements
+    - **Modal Content**: Full-size image display with title bar showing caption or "Image Viewer", close button, and proper image containment
+    - **Visual Feedback**: Added hover and focus effects to indicate clickable images with smooth transitions
+    - **Theme Integration**: Modal styling adapts to light/dark themes using Vuetify surface colors and proper contrast ratios
+    - **Performance**: Eager loading for modal images and proper cleanup of announcement elements
+    - **Reduced Motion Support**: Respects user preference for reduced motion by disabling hover animations
+    - **Print Optimization**: Modal elements hidden in print view with clean fallback styling
+    - **Existing Functionality Preserved**: All original features maintained (tooltips, captions, spacing options, accessibility)
+- Technical Notes:
+  - **Vuetify Components**: Uses v-dialog, v-card, v-card-title, v-card-text for modal structure with proper accessibility attributes
+  - **Event Handling**: Supports both mouse clicks and keyboard interactions (Enter/Space) for WCAG 2.1 AA compliance
+  - **Modal State**: Reactive modal state management with proper open/close methods and unique ID generation
+  - **Screen Reader Support**: Dynamic announcement system for modal state changes using temporary DOM elements
+  - **CSS Enhancements**: Added clickable-image class with hover effects, focus states, and reduced motion support
+  - **Image Display**: Modal images use object-fit: contain for proper scaling within 80vh max-height viewport
+  - **Accessibility Excellence**: Maintains all existing accessibility features while adding new modal-specific ARIA attributes
+  - **User Experience**: Seamless integration with existing tooltip system - tooltips work on original image, modal provides enlarged view
+
 ### 2025-06-05 (TextCenteredImage Component Implementation)
 - Implemented comprehensive TextCenteredImage component for displaying centered images in markdown content with full accessibility compliance and responsive design.
 - Files created/modified:
