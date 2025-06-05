@@ -120,10 +120,10 @@
         ]
       },
       {
-        "text": "News",
-        "to": "/news",
-        "ariaLabel": "View news and updates",
-        "tooltip": "Latest News and Updates",
+        "text": "Home",
+        "to": "/",
+        "ariaLabel": "Return to homepage",
+        "tooltip": "Return to homepage",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
@@ -134,7 +134,7 @@
         "order": 20
       },
       {
-        "text": "Download the Plan",
+        "text": "Download",
         "to": "/download",
         "ariaLabel": "Go to download page for the Violence Prevention Plan",
         "tooltip": "Go to download page",
@@ -148,17 +148,16 @@
         "order": 40
       },
       {
-        "text": "",
+        "text": "More",
         "ariaLabel": "More options menu",
         "tooltip": "More options",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
-        "icon": "mdi-dots-horizontal",
         "class": "font-weight-bold mx-2 nav-link",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
-        "iconOnly": true,
+        "iconOnly": false,
         "hasDropdown": true,
         "dropdownIcon": "mdi-chevron-down",
         "mobileDropdownIcon": "mdi-chevron-right",
