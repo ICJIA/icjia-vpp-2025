@@ -38,6 +38,3 @@ For questions, comments, or feedback regarding the Statewide Violence Prevention
 **Monday - Friday:** 8:30 AM - 5:00 PM (Central Time)  
 **Closed:** State holidays
 
----
-
-*The Illinois Criminal Justice Information Authority is committed to improving public safety through research, grants administration, and policy development.*

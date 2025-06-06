@@ -7,8 +7,8 @@
       "textSm": "Statewide Violence Prevention Plan: 2025-2029",
       "textXs": "Statewide Violence Prevention",
       "href": "/",
-      "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
-      "tooltip": "Return to homepage"
+      "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Go to homepage",
+      "tooltip": "Go to homepage"
     },
     "mobile": {
       "menuIcon": "mdi-menu",
@@ -122,8 +122,8 @@
       {
         "text": "Home",
         "to": "/",
-        "ariaLabel": "Return to homepage",
-        "tooltip": "Return to homepage",
+        "ariaLabel": "Go to homepage",
+        "tooltip": "Go to homepage",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
@@ -175,83 +175,11 @@
       "textSm": "Statewide Violence Prevention Plan",
       "textXs": "Statewide Violence Prevention Plan",
       "href": "/",
-      "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Return to homepage",
-      "tooltip": "Return to homepage"
+      "ariaLabel": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Go to homepage",
+      "tooltip": "Go to homepage"
     },
-    "description": "The first Statewide Violence Prevention Plan, for 2020-2024, was released in 2021. Since then, a variety of implementation, research, and activities have taken place. The Ad Hoc Violence Prevention Committee and its workgroups reviewed these activities, reports, and research, discussing ways in which this work could be used to inform the next violence prevention plan, collectively writing the 2025-2029 goals and recommendations.",
-    "sections": [
-      {
-        "title": "Downloads",
-        "items": [
-          {
-            "text": "PDF",
-            "href": "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf",
-            "ariaLabel": "Download the complete PDF report",
-            "tooltip": "Download the complete PDF report",
-            "tooltipLocation": "top",
-            "class": "footer-link mb-2",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-file-pdf-box"
-          },
-          {
-            "text": "LLMs",
-            "href": "/llms.txt",
-            "ariaLabel": "Download LLMs.txt file",
-            "tooltip": "Download LLMs.txt file",
-            "tooltipLocation": "top",
-            "class": "footer-link mb-2",
-            "isExternal": true,
-            "target": "_blank",
-            "rel": "noopener noreferrer",
-            "externalIcon": "mdi-code-json"
-          }
-        ]
-      },
-      {
-        "title": "Legal",
-        "items": [
-          {
-            "text": "Privacy Policy",
-            "to": "/legal/privacy-policy",
-            "ariaLabel": "Privacy Policy",
-            "tooltip": "Read our privacy policy",
-            "tooltipLocation": "right",
-            "class": "footer-link mb-2"
-          },
-          {
-            "text": "Terms of Service",
-            "to": "/legal/terms-of-service",
-            "ariaLabel": "Terms of Service",
-            "tooltip": "View our terms of service",
-            "tooltipLocation": "right",
-            "class": "footer-link mb-2"
-          }
-        ]
-      },
-      {
-        "title": "Accessibility",
-        "items": [
-          {
-            "text": "Audit Log",
-            "to": "/accessibility/audit-log",
-            "ariaLabel": "Accessibility Audit Log",
-            "tooltip": "View our accessibility audit log",
-            "tooltipLocation": "right",
-            "class": "footer-link mb-2"
-          },
-          {
-            "text": "Documentation",
-            "to": "/accessibility/documentation",
-            "ariaLabel": "Accessibility Documentation",
-            "tooltip": "View our accessibility documentation",
-            "tooltipLocation": "right",
-            "class": "footer-link mb-2"
-          }
-        ]
-      }
-    ],
+    "description": "The Illinois Criminal Justice Information Authority (ICJIA) aims to continue funding and supporting violence prevention efforts across Illinois. This report was written to inform ICJIA's violence prevention planning for 2025-2029, but also with the intent to be utilized by any state or community group interested in violence prevention efforts or in developing their own localized plan.",
+    "sections": [],
     "copyright": "© {year} Illinois Criminal Justice Information Authority. All rights reserved."
   }
 }
