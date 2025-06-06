@@ -4,16 +4,16 @@
     "description": "Comprehensive violence prevention plan outlining Illinois's strategic approach to preventing violence through evidence-based practices, equity advancement, and collaborative efforts across state, municipal, and community-based agencies for 2025-2029.",
     "version": "2025-2029",
     "organization": "Illinois Criminal Justice Information Authority (ICJIA)",
-    "generatedAt": "2025-06-06T11:30:40.034Z",
+    "generatedAt": "2025-06-06T13:05:45.651Z",
     "baseUrl": "https://vpp-2025.netlify.app"
   },
   "generationStats": {
     "totalPages": 7,
     "processedPages": 7,
     "skippedPages": 0,
-    "totalContentLength": 40047,
+    "totalContentLength": 40421,
     "totalMetadataFields": 41,
-    "averageContentLength": 5721,
+    "averageContentLength": 5774,
     "averageMetadataFields": 6
   },
   "pages": [
@@ -28,12 +28,16 @@
       "meta": {
         "title": "Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029",
         "description": "The Statewide Violence Prevention Plan for Illinois: 2025-2029.",
-        "keywords": [],
+        "keywords": [
+          "violence prevention plan",
+          "illinois statewide violence prevention plan",
+          "illinois violence prevention plan"
+        ],
         "showBorder": true
       },
-      "body": "<div style=\"text-align: center;\" class=\"mb-12\">![Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](/images/front-cover.png)</div>This report was supported through an interagency agreement between the Illinois Criminal Justice\nInformation Authority and the University of Illinois at Urbana-Champaign School of Social Work\n(Principal Investigator: Rachel Garthe, PhD).Suggested Citation:\nGarthe, R. C. (2025). Statewide Violence Prevention Plan for Illinois: 2025-2029. Illinois Criminal\nJustice Information Authority.A special thank you to the faculty, staff, interns, and research assistants within the Violence\nPrevention Research Lab at the University of Illinois Urbana-Champaign who assisted with this\nproject at various stages.Stock photos are free from Pexels.com",
+      "body": "<style scoped>\n.references-list {\nmargin-top: 2rem;\n}.reference-item {\nmargin-bottom: 1.5rem;\npadding-left: 2rem;\ntext-indent: -2rem;\nline-height: 1.6;\ntext-align: left;\n}/* Ensure proper spacing and alignment */\n.reference-item p {\nmargin: 0;\npadding: 0;\n}\n</style ><div style=\"text-align: center;\" class=\"mb-12\">![Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](/images/front-cover.png)</div>This report was supported through an interagency agreement between the Illinois Criminal Justice\nInformation Authority and the University of Illinois at Urbana-Champaign School of Social Work\n(Principal Investigator: Rachel Garthe, PhD).**Suggested Citation:**<div class=\"reference-item\">Garthe, R. C. (2025). Statewide Violence Prevention Plan for Illinois: 2025-2029. Illinois Criminal\nJustice Information Authority.</div>A special thank you to the faculty, staff, interns, and research assistants within the Violence\nPrevention Research Lab at the University of Illinois Urbana-Champaign who assisted with this\nproject at various stages.Stock photos are free from [Pexels.com](https://www.pexels.com/){target=\"_blank\" rel=\"noopener noreferrer\"}",
       "stats": {
-        "contentLength": 792,
+        "contentLength": 1166,
         "metadataFields": 4,
         "estimatedReadingTime": 1
       }
