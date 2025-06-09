@@ -5,16 +5,19 @@
         <v-col cols="12" md="6" class="pr-md-12">
           <div class="hero-content mb-8">
             <h1 class="hero-title mb-6">
-              Statewide Violence Prevention Plan for Illinois: 2025-2029
+              <span class="hero-title-highlight">Statewide Violence Prevention Plan</span>
+              for Illinois: 2025-2029
             </h1>
             <p class="hero-description mb-8">
-              Violence is a global public health crisis. The prevention of violence is paramount. 
-              Illinois is committed to supporting violence prevention initiatives through 
-              trauma-informed, healing-centered practices across communities most impacted by violence.
+              Violence is a global public health crisis. The prevention of violence is
+              paramount. Illinois is committed to supporting violence prevention
+              initiatives through trauma-informed, healing-centered practices across
+              communities most impacted by violence.
             </p>
-            <div class="hero-buttons d-flex flex-column flex-sm-row" style="gap: 20px;">
+            <div class="hero-buttons d-flex flex-column flex-sm-row" style="gap: 20px">
               <v-btn
-                variant="outlined"
+                variant="flat"
+                color="primary"
                 size="large"
                 class="rounded-pill px-8 py-3 elevation-2 hero-download-btn"
                 @click="handleDownloadPlan"
@@ -22,8 +25,8 @@
                 @keydown.space.prevent="handleDownloadPlan"
                 aria-label="Go to download page for the Violence Prevention Plan"
               >
-                Download the Plan
-                <v-icon end icon="mdi-download" />
+                Download
+                <!-- <v-icon end icon="mdi-download" /> -->
               </v-btn>
               <v-btn
                 variant="outlined"
@@ -81,7 +84,7 @@
  *
  * @component
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 /**
  * Handle Download the Plan button activation
@@ -89,7 +92,7 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
  */
 const handleDownloadPlan = () => {
   // Navigate to the download page
-  navigateTo('/download');
+  navigateTo("/download");
 };
 
 /**
@@ -98,9 +101,9 @@ const handleDownloadPlan = () => {
  */
 const handleLearnMore = () => {
   // Scroll to statistics section
-  const statisticsSection = document.querySelector('.statistics-section');
+  const statisticsSection = document.querySelector(".statistics-section");
   if (statisticsSection) {
-    statisticsSection.scrollIntoView({ behavior: 'smooth' });
+    statisticsSection.scrollIntoView({ behavior: "smooth" });
   }
 };
 </script>
@@ -129,9 +132,16 @@ const handleLearnMore = () => {
   font-size: 60px;
   font-weight: 600;
   line-height: 1.2;
+  /* Reverted to original color inheritance */
   color: inherit;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   letter-spacing: -0.02em;
+}
+
+/* Blue highlight for specific text within hero title */
+.hero-title-highlight {
+  /* Use theme-aware blue color with 8:1 contrast ratio for accessibility */
+  color: rgb(var(--v-theme-primary));
 }
 
 .hero-description {
@@ -142,7 +152,7 @@ const handleLearnMore = () => {
   font-size: 1rem;
   line-height: 1.6;
   color: inherit;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   max-width: 90%;
 }
 
@@ -246,7 +256,8 @@ const handleLearnMore = () => {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
   50% {

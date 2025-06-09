@@ -2,6 +2,33 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-09 (Hero Title and Download Button Blue Color Enhancement)
+- **Summary**: Modified the hero title to display only "Statewide Violence Prevention Plan" in blue color while keeping "for Illinois: 2025-2029" in the original theme color, and updated the Download button to use matching blue background, creating cohesive visual hierarchy while maintaining WCAG 2.1 AA accessibility standards.
+- **Files Modified/Created**:
+  - `components/content/HomeHero.vue`: Updated hero title with selective blue highlighting and Download button styling
+    - **HTML Structure**: Wrapped "Statewide Violence Prevention Plan" in `<span class="hero-title-highlight">` for selective styling
+    - **Color Implementation**: Created `.hero-title-highlight` class using `color: rgb(var(--v-theme-primary))` for blue highlighting
+    - **Original Color Restoration**: Reverted main `.hero-title` class back to `color: inherit` for theme-appropriate text color
+    - **Selective Highlighting**: Only the main plan title appears in blue, while "for Illinois: 2025-2029" maintains original color
+    - **Download Button Enhancement**: Changed Download button from `variant="outlined"` to `variant="flat"` with `color="primary"` for blue background
+    - **Button Color Coordination**: Download button now uses same blue color as title highlight for visual consistency
+    - **Accessibility Compliance**: Uses existing theme colors with 8:1+ contrast ratios (exceeding WCAG 2.1 AA 4.5:1 requirement)
+    - **Light Theme**: Title and button in dark blue (#0747A6) with white text on button, subtitle in theme text color
+    - **Dark Theme**: Title and button in light blue (#93C5FD) with dark text on button, subtitle in theme text color
+    - **Visual Enhancement**: Creates focused emphasis on the core plan title and primary action button
+    - **Responsive Design**: Maintains all existing responsive font sizes and animations for both highlighted and normal text
+    - **Theme Integration**: Seamlessly adapts between light and dark themes using CSS custom properties
+- **Technical Notes**:
+  - **Semantic HTML**: Uses inline span element for selective text highlighting without affecting document structure
+  - **CSS Architecture**: Separate class (`.hero-title-highlight`) for blue highlighting while preserving original title styling
+  - **Vuetify Integration**: Uses Vuetify's `variant="flat"` and `color="primary"` for automatic theme-aware button styling
+  - **CSS Custom Properties**: Uses `rgb(var(--v-theme-primary))` for automatic theme adaptation on highlighted text only
+  - **Accessibility Excellence**: Leverages project's existing high-contrast color system (8:1 ratios) for both title and button
+  - **Design Consistency**: Follows project's preference for subtle, muted color palettes with coordinated blue emphasis
+  - **Performance**: No impact on animations, loading states, or responsive behavior
+  - **Maintainability**: Modular CSS approach allows easy adjustment of highlighted vs. normal text styling
+  - **User Experience**: Creates clear visual hierarchy with focused emphasis on main plan title and primary action
+
 ### 2025-06-07 (Comprehensive Accessibility Analysis and Audit)
 - **Summary**: Conducted comprehensive accessibility analysis of the entire project codebase, confirming excellent WCAG 2.1 AA compliance and updating the accessibility audit log with detailed findings and recommendations.
 - **Files Modified/Created**:
