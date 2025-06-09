@@ -162,3 +162,57 @@ Each entry must include:
 
 Please update the audit log after each change.
 
+# Project Information
+- Project: 'Statewide Violence Prevention Plan for Illinois: 2025-2029' (https://vpp-2025.netlify.app, GitHub: https://github.com/ICJIA/icjia-vpp-2025)
+- Licensed under MIT by Illinois Criminal Justice Information Authority
+- Uses yarn v1.22.22 (must use 'npx' instead of 'yarn dlx')
+- Uses YYYY-MM-DD format for audit logs, Month DD, YYYY for 'Last Updated' sections
+- llms.txt and plan.json generation scripts must run automatically during every build/dev/generate process
+- Requires explicit permission before deleting any existing content or functionality
+
+# Development Standards
+- Prefers yarn over npm for package management
+- Prefers ignoring '.env' files but allowing '.env.sample' files in git repositories
+- Prefers excluding sandbox files from version control using blacklist patterns
+- Prefers environment-specific error handling with detailed errors in development only
+- Prefers explicit manual component imports rather than Nuxt auto-imports
+- Prefers VueUse composables throughout the project
+- Requires comprehensive JSDoc documentation with @param, @returns, @throws, and @example tags
+- Prefers commenting out Vuetify component imports in markdown-components.ts when already registered
+- Prefers to suppress console warnings in production while keeping all warnings visible in development
+- User prefers to defer moving unused components to _archived folder until after project completion rather than doing it during active development.
+
+# Accessibility Requirements
+- Requires WCAG 2.1 AA-level accessibility as critical requirement
+- Aims for 8:1 contrast ratio for all UI elements (exceeding 4.5:1 WCAG minimum)
+- Maintains two audit logs: 'audit-log-accessibility.md' and 'audit-log-project.md'
+- All syntax highlighting colors must meet WCAG 2.1 AA contrast standards in both themes
+- Image components must enforce required alt text, use semantic HTML, implement ARIA attributes, and respect prefers-reduced-motion
+- Tooltips should strip markdown formatting for screen reader compatibility, prioritizing plain text
+
+# UI/UX Design
+- Prefers subtle, muted color palettes with neutral grays and subtle blues
+- Prefers clean light backgrounds in light mode, enhanced card contrast in dark mode
+- Prefers light theme navbar using grey (#F2F2F2) and dark theme using darker blue (#1A2234)
+- Prefers tooltips to auto-dismiss after 2 seconds, disappear on click/mouse movement, and be hidden on mobile
+- Prefers subtle one-time animations on component load with prefers-reduced-motion support
+- Prefers State of Illinois seal as favicon and placeholder image
+- Prefers card-level click navigation with entire cards being clickable
+- Prefers labeled switch components over icon-only toggles for theme switching
+- Strongly prefers simple, direct solutions over complex implementations
+- Prefers no underlined links in buttons or on download pages
+- Prefers v-btn components with 'to' attribute over anchor tags for button styling
+- Prefers images without extra spacing/borders that open in Vuetify modal windows at 95% viewport width
+- Prefers caption text to use font-weight: 700 for better visual prominence
+- User prefers blockquotes to have darker backgrounds in both light and dark modes with content centered vertically and horizontally for better visual distinction. User prefers blockquotes in dark mode to have slightly darker backgrounds than the page background (not pure black) for subtle visual distinction.
+
+# Navigation & Structure
+- Prefers 'The 2024-2029 Plan' as parent menu with structured submenus
+- Requires hash-based routing with 80px offset for fixed navigation and smooth scrolling
+- Prefers consolidated 'More' menu system with three-dot icon on desktop and 'More' text link on mobile
+- Prefers circular navigation for report pages with actual page titles and summaries from YAML frontmatter
+- Prefers menu config as single source of truth for navigation data
+- Prefers all anchor links to use heavier font weight (600-700) with consistent styling
+- Prefers footer Downloads column to include PDF and LLMs with icons placed on the left of labels
+- Prefers TOC left edge to align with content right edge and maintain exact position when transitioning between normal and fixed states
+
