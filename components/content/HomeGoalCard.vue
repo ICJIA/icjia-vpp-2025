@@ -11,44 +11,40 @@
       :aria-labelledby="`goal-title-${uniqueId}`"
       :aria-describedby="`goal-desc-${uniqueId}`"
     >
-      <!-- Card Content Grid -->
-      <div class="card-content-grid">
-        <!-- Badge Section -->
-        <div class="badge-section" aria-hidden="true">
-          <v-chip
-            :color="goal.color"
-            size="large"
-            class="goal-number-badge"
-          >
-            Goal {{ goal.number }}
-          </v-chip>
+      <!-- Flexible Responsive Layout -->
+      <div class="card-content-flex">
+        <!-- Icon and Badge Section -->
+        <div class="icon-badge-section">
+          <div class="badge-container" aria-hidden="true">
+            <v-chip :color="goal.color" size="large" class="goal-number-badge">
+              Goal {{ goal.number }}
+            </v-chip>
+          </div>
+          <div class="icon-container" aria-hidden="true">
+            <v-icon
+              :icon="goal.icon"
+              size="64"
+              :color="goal.color"
+              class="goal-icon"
+            />
+          </div>
         </div>
 
-        <!-- Icon Section -->
-        <div class="icon-section" aria-hidden="true">
-          <v-icon
-            :icon="goal.icon"
-            size="64"
-            :color="goal.color"
-            class="goal-icon"
-          />
+        <!-- Title and Description Section -->
+        <div class="title-description-section">
+          <div :id="`goal-title-${uniqueId}`" class="title-wrapper">
+            <h3 class="goal-title">
+              {{ goal.title }}
+            </h3>
+          </div>
+          <div :id="`goal-desc-${uniqueId}`" class="description-wrapper">
+            <p class="goal-description">
+              {{ goal.description }}
+            </p>
+          </div>
         </div>
 
-        <!-- Title Section -->
-        <div :id="`goal-title-${uniqueId}`" class="title-section">
-          <h3 class="goal-title">
-            {{ goal.title }}
-          </h3>
-        </div>
-
-        <!-- Description Section -->
-        <div :id="`goal-desc-${uniqueId}`" class="description-section">
-          <p class="goal-description">
-            {{ goal.description }}
-          </p>
-        </div>
-
-        <!-- Highlights Section -->
+        <!-- Key Focus Areas Section -->
         <div class="highlights-section">
           <h4 class="highlights-title">Key Focus Areas:</h4>
           <v-list class="highlights-list" role="list">
@@ -73,22 +69,6 @@
             </v-list-item>
           </v-list>
         </div>
-
-        <!-- Button Section -->
-        <div class="button-section">
-          <v-btn
-            color="primary"
-            variant="outlined"
-            size="default"
-            class="rounded-pill px-6"
-            append-icon="mdi-arrow-right"
-            @click.stop="handleLearnMoreClick"
-            :aria-label="`Learn more about ${goal.title}`"
-          >
-            Learn More
-          </v-btn>
-        </div>
-
       </div>
     </v-card>
   </div>
@@ -96,17 +76,16 @@
 
 <script setup>
 /**
- * Home Goal Card Component - Dual Navigation with Learn More Buttons
+ * Home Goal Card Component - Card-Level Navigation
  *
- * Displays individual strategic goals with both card-level click navigation and dedicated
- * "Learn More" buttons for enhanced user experience and clear call-to-action.
+ * Displays individual strategic goals with card-level click navigation for
+ * clean, accessible user experience.
  *
  * Features:
- * - CSS Grid-based layout for optimal content organization with bottom-aligned buttons
+ * - CSS Grid-based layout for optimal content organization
  * - Larger icons (size 64) for better visual impact
  * - Responsive design with consistent minimum heights and equal card heights
- * - Dual navigation: card-level click and dedicated "Learn More" buttons
- * - Bottom-aligned buttons regardless of content length differences
+ * - Card-level click navigation for entire card interaction
  * - Enhanced accessibility with proper ARIA attributes and keyboard navigation
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
@@ -115,21 +94,20 @@
  * - Goal number badges and key focus areas with checkmarks
  *
  * Technical Implementation:
- * - Uses CSS Grid with 6-row template for perfect button alignment
+ * - Uses CSS Grid with 5-row template for optimal content alignment
  * - Highlights section expands with 1fr to fill available space
- * - Button section uses auto height and centers content
  * - Deep selectors override Vuetify card and list defaults
  * - Enhanced text contrast for optimal readability in both themes
- * - Event handling prevents button click from triggering card click
+ * - Consistent vertical alignment of Key Focus Areas across cards
  *
  * @component
  */
-import { computed, inject } from 'vue';
+import { computed, inject } from "vue";
 
 /**
  * Get the announce function from the provider for screen reader announcements
  */
-const announce = inject('announce', null);
+const announce = inject("announce", null);
 
 /**
  * Component props
@@ -142,11 +120,11 @@ const announce = inject('announce', null);
 const props = defineProps({
   goal: {
     type: Object,
-    required: true
+    required: true,
   },
   delay: {
     type: Number,
-    default: 0
+    default: 0,
   },
   /**
    * Optional URL for card navigation
@@ -170,15 +148,17 @@ const props = defineProps({
     default: null,
     validator: (value) => {
       if (value === null) return true;
-      if (typeof value !== 'string') return false;
+      if (typeof value !== "string") return false;
       // Allow local paths and external URLs
-      return value.startsWith('/') ||
-             value.startsWith('http://') ||
-             value.startsWith('https://') ||
-             value.startsWith('./') ||
-             value.startsWith('../');
-    }
-  }
+      return (
+        value.startsWith("/") ||
+        value.startsWith("http://") ||
+        value.startsWith("https://") ||
+        value.startsWith("./") ||
+        value.startsWith("../")
+      );
+    },
+  },
 });
 
 /**
@@ -189,16 +169,16 @@ const uniqueId = computed(() => {
   // Create a deterministic ID based on the goal title
   return props.goal.title
     .toLowerCase()
-    .replace(/[^a-z0-9]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
+    .replace(/[^a-z0-9]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
 });
 
 /**
  * Animation style with delay
  */
 const animationStyle = computed(() => ({
-  animationDelay: `${props.delay}ms`
+  animationDelay: `${props.delay}ms`,
 }));
 
 /**
@@ -220,51 +200,37 @@ const animationStyle = computed(() => ({
  * <HomeGoalCard :goal="goalData" />
  */
 const handleCardClick = async () => {
-  console.log('Goal card clicked:', props.goal.title);
+  console.log("Goal card clicked:", props.goal.title);
 
   // If no URL is provided, only show hover/focus effects (current behavior)
   if (!props.url) {
-    console.log('No URL provided - showing hover effects only');
+    console.log("No URL provided - showing hover effects only");
     return;
   }
 
   // Announce to screen readers for accessibility
   if (announce) {
-    announce(`Navigating to learn more about ${props.goal.title}`);
+    announce(`Navigating to ${props.goal.title}`);
   }
 
   try {
     // Check if it's an external URL
-    if (props.url.startsWith('http://') || props.url.startsWith('https://')) {
+    if (props.url.startsWith("http://") || props.url.startsWith("https://")) {
       // External URL - open in new window with security attributes
-      window.open(props.url, '_blank', 'noopener,noreferrer');
-      console.log('Opened external URL:', props.url);
+      window.open(props.url, "_blank", "noopener,noreferrer");
+      console.log("Opened external URL:", props.url);
     } else {
       // Local URL - use Nuxt navigation
       await navigateTo(props.url);
-      console.log('Navigated to local URL:', props.url);
+      console.log("Navigated to local URL:", props.url);
     }
   } catch (error) {
-    console.error('Navigation failed:', error);
+    console.error("Navigation failed:", error);
     // Announce error to screen readers
     if (announce) {
-      announce('Navigation failed. Please try again.');
+      announce("Navigation failed. Please try again.");
     }
   }
-};
-
-/**
- * Handle Learn More button click
- * Uses the same navigation logic as card click but with button-specific logging
- * The @click.stop prevents event bubbling to avoid triggering card click
- *
- * @returns {Promise<void>} Promise that resolves when navigation is complete
- */
-const handleLearnMoreClick = async () => {
-  console.log('Learn More button clicked:', props.goal.title);
-
-  // Use the same navigation logic as card click
-  await handleCardClick();
 };
 </script>
 
@@ -289,32 +255,34 @@ const handleLearnMoreClick = async () => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
 }
 
-/* Card Content Grid - Perfect alignment system with button */
-.card-content-grid {
-  display: grid;
-  grid-template-rows: auto auto auto auto 1fr auto;
-  grid-template-areas:
-    "badge"
-    "icon"
-    "title"
-    "description"
-    "highlights"
-    "button";
+/* Flexible Responsive Layout */
+.card-content-flex {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   gap: 1.5rem;
-  align-content: start;
+  justify-content: space-between;
 }
 
-/* Badge Section */
-.badge-section {
-  grid-area: badge;
+/* Icon and Badge Section */
+.icon-badge-section {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   align-items: center;
+  flex-shrink: 0;
+  padding-bottom: 0.5rem;
+}
+
+.badge-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .goal-number-badge {
@@ -322,23 +290,28 @@ const handleLearnMoreClick = async () => {
   letter-spacing: 0.025em;
 }
 
-/* Icon Section */
-.icon-section {
-  grid-area: icon;
+.icon-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.5rem;
 }
 
 .goal-icon {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-/* Title Section */
-.title-section {
-  grid-area: title;
+/* Title and Description Section */
+.title-description-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  flex: 1;
+  padding-bottom: 1rem;
+}
+
+.title-wrapper {
+  margin-bottom: 1rem;
 }
 
 .goal-title {
@@ -347,12 +320,12 @@ const handleLearnMoreClick = async () => {
   line-height: 1.3;
   margin: 0;
   color: rgb(var(--v-theme-on-surface));
+  text-align: center;
+  width: 100%;
 }
 
-/* Description Section */
-.description-section {
-  grid-area: description;
-  text-align: center;
+.description-wrapper {
+  margin-bottom: 0.5rem;
 }
 
 .goal-description {
@@ -360,13 +333,15 @@ const handleLearnMoreClick = async () => {
   line-height: 1.6;
   margin: 0;
   color: rgba(var(--v-theme-on-surface), 0.87);
+  text-align: center;
 }
 
-/* Highlights Section - Expands to fill space */
+/* Key Focus Areas Section - Aligned to Bottom */
 .highlights-section {
-  grid-area: highlights;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  margin-top: auto;
 }
 
 .highlights-title {
@@ -398,20 +373,12 @@ const handleLearnMoreClick = async () => {
   color: rgba(var(--v-theme-on-surface), 0.8);
 }
 
-/* Button Section */
-.button-section {
-  grid-area: button;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: auto;
-}
-
 /* Hover and Focus States */
 .goal-card-inner:hover,
 .goal-card-inner:focus-visible {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .goal-card-inner:focus-visible {
@@ -422,12 +389,14 @@ const handleLearnMoreClick = async () => {
 /* Dark Theme Adjustments */
 :root[data-theme="dark"] .goal-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
 :root[data-theme="dark"] .goal-card-inner:hover,
 :root[data-theme="dark"] .goal-card-inner:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7),
+    0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 :root[data-theme="dark"] .goal-icon {
@@ -507,19 +476,27 @@ const handleLearnMoreClick = async () => {
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 767px) {
+/* Responsive adjustments for mobile and narrow screens */
+@media (max-width: 959px) {
   .goal-card-inner {
-    min-height: 450px;
     padding: 1.5rem;
   }
 
-  .card-content-grid {
-    gap: 1.25rem;
+  .card-content-flex {
+    gap: 1rem;
+  }
+
+  .badge-container {
+    margin-bottom: 0.75rem;
+  }
+
+  .title-wrapper {
+    margin-bottom: 0.75rem;
   }
 
   .goal-title {
     font-size: 1.25rem;
+    line-height: 1.4;
   }
 
   .goal-description {
@@ -527,14 +504,32 @@ const handleLearnMoreClick = async () => {
   }
 }
 
-@media (min-width: 1024px) {
+/* Extra responsive adjustments for very narrow screens */
+@media (max-width: 600px) {
   .goal-card-inner {
-    min-height: 550px;
-    padding: 2.5rem;
+    padding: 1rem;
   }
 
-  .card-content-grid {
-    gap: 2rem;
+  .card-content-flex {
+    gap: 0.75rem;
+  }
+
+  .goal-title {
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .goal-description {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .highlights-title {
+    font-size: 0.9375rem;
+  }
+
+  .highlight-text {
+    font-size: 0.8125rem;
   }
 }
 

@@ -7,8 +7,9 @@
           Our Goals: 2025-2029
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto">
-          Three actionable goals with specific strategies and measurable outcomes
-          that translate our values into concrete violence prevention initiatives across Illinois.
+          Three actionable goals with specific strategies and measurable
+          outcomes that translate our values into concrete violence prevention
+          initiatives across Illinois.
         </p>
       </div>
 
@@ -54,62 +55,66 @@
  *
  * @component
  */
-import HomeGoalCard from './HomeGoalCard.vue';
+import HomeGoalCard from "./HomeGoalCard.vue";
 
 /**
- * Strategic goals from the Violence Prevention Plan analysis
- * Enhanced with cross-references and dedicated navigation URLs
+ * Strategic goals from the Violence Prevention Plan - OFFICIAL TEXT
+ * Updated to match exact wording from the official Violence Prevention Plan report
+ * for government transparency and editorial integrity compliance
  * Using consistent primary color scheme to match original home page design
  */
 const goals = [
   {
-    number: '01',
-    title: 'Prevent Violence & Promote Safety',
-    description: 'Implement evidence-based prevention strategies through trauma-informed/healing-centered approaches that address primary, secondary, and tertiary prevention across all community levels.',
-    icon: 'mdi-shield-check',
-    color: 'primary',
-    url: '/plan/executive-summary',
-    relatedPrinciples: ['Promote Safety', 'Support Health'],
+    number: "01",
+    title:
+      "Prevent violence and promote health and safety through trauma-informed/healing-centered, evidence-based and comprehensive primary, secondary, and/or tertiary prevention efforts.",
+    description: "",
+    icon: "mdi-shield-check",
+    color: "primary",
+    url: "/plan/executive-summary",
+    relatedPrinciples: ["Promote Safety", "Support Health"],
     highlights: [
-      'Honor complex histories and provide holistic services',
-      'Engage families, schools, and communities',
-      'Address multiple risk and protective factors',
-      'Focus on groups at higher risk for violence',
-      'Use evidence-based practices'
-    ]
+      "Honor complex histories and provide holistic services",
+      "Engage families, schools, and communities",
+      "Address multiple risk and protective factors",
+      "Focus on groups at higher risk for violence",
+      "Use evidence-based practices",
+    ],
   },
   {
-    number: '02',
-    title: 'Advance Equity',
-    description: 'Increase access to grants and economic opportunities through flexible funding that accommodates local community priorities and addresses historical inequities.',
-    icon: 'mdi-scale-balance',
-    color: 'primary',
-    url: '/plan/executive-summary',
-    relatedPrinciples: ['Advance Equity'],
+    number: "02",
+    title:
+      "Advance equity by increasing access to grants and other economic opportunities.",
+    description: "",
+    icon: "mdi-scale-balance",
+    color: "primary",
+    url: "/plan/executive-summary",
+    relatedPrinciples: ["Advance Equity"],
     highlights: [
-      'Continue improving access to funding',
-      'Support small and medium-sized organizations',
-      'Improve reimbursement and budget processes',
-      'Promote and connect grantee work',
-      'Improve systems and communication'
-    ]
+      "Continue improving access to funding",
+      "Support small and medium-sized organizations",
+      "Improve reimbursement and budget processes",
+      "Promote and connect grantee work",
+      "Improve systems and communication",
+    ],
   },
   {
-    number: '03',
-    title: 'Promote Collaboration',
-    description: 'Foster partnerships across state, municipal, and community-based agencies through research-informed data sharing and best practice exchange.',
-    icon: 'mdi-account-group',
-    color: 'primary',
-    url: '/plan/executive-summary',
-    relatedPrinciples: ['Engage State Agencies in Collaboration'],
+    number: "03",
+    title:
+      "Promote collaboration across state, municipal, and community-based agencies, informed by research and data, sharing of best practices and lessons learned, and ongoing discussions.",
+    description: "",
+    icon: "mdi-account-group",
+    color: "primary",
+    url: "/plan/executive-summary",
+    relatedPrinciples: ["Engage State Agencies in Collaboration"],
     highlights: [
-      'Analyze and disseminate statewide data trends',
-      'Coordinate violence prevention funding',
-      'Continue the Ad Hoc Violence Prevention Committee',
-      'Host statewide violence prevention events',
-      'Build community across stakeholders'
-    ]
-  }
+      "Analyze and disseminate statewide data trends",
+      "Coordinate violence prevention funding",
+      "Continue the Ad Hoc Violence Prevention Committee",
+      "Host statewide violence prevention events",
+      "Build community across stakeholders",
+    ],
+  },
 ];
 </script>
 
@@ -162,7 +167,7 @@ const goals = [
 
 /* Force equal heights using CSS Grid subgrid fallback */
 .goals-grid::after {
-  content: '';
+  content: "";
   grid-column: 1 / -1;
   height: 0;
 }
