@@ -14,6 +14,24 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 export default defineNuxtPlugin((nuxtApp) => {
+  // Determine initial theme for SSR consistency
+  // Always start with 'dark' on server to match our site default
+  // Client-side theme switching will handle user preferences after hydration
+  let initialTheme = 'dark';
+
+  // Only check localStorage on client-side to avoid SSR/hydration mismatches
+  if (typeof window !== 'undefined') {
+    try {
+      const savedTheme = localStorage.getItem('theme-preference');
+      if (savedTheme && ['light', 'dark'].includes(savedTheme)) {
+        initialTheme = savedTheme;
+      }
+    } catch (e) {
+      // Fallback to default if localStorage is unavailable
+      console.warn('Could not access localStorage for theme preference:', e);
+    }
+  }
+
   const vuetify = createVuetify({
     ssr: true,
     components,
@@ -26,7 +44,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       },
     },
     theme: {
-      defaultTheme: 'dark',
+      defaultTheme: initialTheme,
       themes: {
         light: {
           dark: false,

@@ -105,72 +105,64 @@ const isClient = typeof window !== "undefined";
  *
  * This hook runs after the component is mounted to the DOM.
  * It only executes on the client-side to avoid SSR issues with localStorage.
- * The theme initialization is separated from the component setup to ensure
- * it only runs in the browser environment.
+ * Since the Vuetify plugin already handles localStorage and sets the correct
+ * initial theme, we just need to sync our reactive state and apply CSS.
  */
-onMounted(async () => {
+onMounted(() => {
   if (isClient) {
-    await initTheme();
+    initThemeFromStorage();
   }
 });
 
 /**
- * Initialize theme from localStorage or use configured default
+ * Initialize theme from localStorage
  *
  * This function:
- * 1. Attempts to retrieve the user's theme preference from localStorage
- * 2. Sets the theme state based on the saved preference or falls back to site config default
+ * 1. Reads the theme preference from localStorage (same as Vuetify plugin)
+ * 2. Sets our reactive theme state to match the saved preference
  * 3. Applies the theme to the document by setting a data-theme attribute
- * 4. Handles errors if localStorage is unavailable (e.g., in private browsing)
- * 5. Logs theme initialization for debugging purposes
+ * 4. Logs theme initialization for debugging purposes
  *
- * The data-theme attribute is used by CSS variables to apply the appropriate
- * theme colors throughout the application.
+ * Since the Vuetify plugin already handles the initial theme setting,
+ * this ensures our reactive state stays in sync with the user's preference.
  *
  * NOTE: Console logging is intentionally enabled in all environments (including production)
  * during the pre-launch phase for monitoring and debugging purposes.
  *
  * @returns {void}
  */
-async function initTheme() {
-  // Load site configuration to get default theme
-  let defaultTheme = 'dark'; // Fallback default
+function initThemeFromStorage() {
   try {
-    const { getSetting } = useSiteSettings();
-    defaultTheme = await getSetting('features.themes.default', 'dark');
-  } catch (configError) {
-    logError('Could not load site configuration for theme default, using fallback', configError);
-  }
-
-  try {
-    // Check if there's a theme preference in localStorage
+    // Get the same theme preference that Vuetify plugin used
     const savedTheme = localStorage.getItem("theme-preference");
 
-    // Set theme based on localStorage or configured default
-    theme.value = savedTheme || defaultTheme;
+    // Set our reactive state to match saved preference or default to dark
+    theme.value =
+      savedTheme && ["light", "dark"].includes(savedTheme)
+        ? savedTheme
+        : "dark";
 
     // Apply theme class to document for CSS variable access
     document.documentElement.setAttribute("data-theme", theme.value);
 
     // Log theme initialization
-    logTheme("Theme initialized", {
+    logTheme("Theme initialized from localStorage", {
       theme: theme.value,
-      source: savedTheme ? "localStorage" : "site-config-default",
-      defaultTheme: defaultTheme,
+      source: savedTheme ? "localStorage" : "default",
+      savedTheme: savedTheme,
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
       viewportWidth: window.innerWidth,
     });
   } catch (e) {
-    // Fallback if localStorage is not available (e.g., private browsing)
+    // Fallback if localStorage is not available
     logError("Error accessing localStorage during theme initialization", e);
-    theme.value = defaultTheme;
+    theme.value = "dark";
+    document.documentElement.setAttribute("data-theme", theme.value);
 
-    // Log fallback theme
     logTheme("Theme initialized with fallback", {
-      theme: defaultTheme,
+      theme: theme.value,
       reason: "localStorage error",
-      defaultTheme: defaultTheme,
       timestamp: new Date().toISOString(),
     });
   }
@@ -181,10 +173,11 @@ async function initTheme() {
  *
  * This function:
  * 1. Switches the current theme between 'light' and 'dark'
- * 2. Persists the preference to localStorage for future visits
- * 3. Updates the document's data-theme attribute for CSS variables
- * 4. Handles errors if localStorage is unavailable
- * 5. Logs theme changes for debugging purposes
+ * 2. Updates Vuetify's theme to maintain consistency
+ * 3. Persists the preference to localStorage for future visits
+ * 4. Updates the document's data-theme attribute for CSS variables
+ * 5. Handles errors if localStorage is unavailable
+ * 6. Logs theme changes for debugging purposes
  *
  * It's passed to the AppHeader component as a prop and called when
  * the user clicks the theme toggle button.
@@ -203,6 +196,16 @@ const toggleTheme = () => {
 
   // Toggle between light and dark
   theme.value = theme.value === "light" ? "dark" : "light";
+
+  // Update Vuetify's theme to match our state
+  try {
+    const { $vuetify } = useNuxtApp();
+    if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
+      $vuetify.theme.global.name.value = theme.value;
+    }
+  } catch (e) {
+    logError("Error updating Vuetify theme", e);
+  }
 
   // Log theme change with both origin and destination themes
   logTheme("Theme switched", {
@@ -283,7 +286,9 @@ onMounted(() => {
     <AppFooter role="contentinfo" />
 
     <!-- Screen reader announcer elements -->
-    <div aria-live="polite" aria-atomic="true" class="sr-only">{{ announcePolite }}</div>
+    <div aria-live="polite" aria-atomic="true" class="sr-only">
+      {{ announcePolite }}
+    </div>
 
     <div aria-live="assertive" aria-atomic="true" class="sr-only">
       {{ announceAssertive }}

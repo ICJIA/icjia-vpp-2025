@@ -2,6 +2,25 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-10 (Theme Hydration Mismatch Fix and localStorage Persistence Resolution)
+
+- Fixed hydration mismatch error in console related to theme switching between server and client rendering, and resolved localStorage theme persistence issue by consolidating theme handling and fixing initialization timing.
+- Files modified/created:
+  - `plugins/vuetify.ts`: Updated to check localStorage for saved theme preference during plugin initialization to ensure server and client render with same initial theme
+  - `layouts/default.vue`: Replaced complex `syncThemeWithVuetify()` function with simpler `initThemeFromStorage()` to directly read localStorage and sync reactive state without depending on Vuetify instance availability
+  - `layouts/default.vue`: Updated `toggleTheme()` function to also update Vuetify's theme state when toggling to maintain consistency
+  - `plugins/theme-handler.client.js`: **REMOVED** - Eliminated redundant theme plugin that was conflicting with Vuetify plugin and preventing proper localStorage theme persistence
+- Technical Notes:
+  - **Root Cause**: Two plugins (`vuetify.ts` and `theme-handler.client.js`) were both handling theme initialization, causing conflicts and preventing localStorage preferences from being properly applied
+  - **Secondary Issue**: Initial sync function was trying to access Vuetify instance before it was fully initialized, causing "Vuetify theme not available" errors
+  - **Hydration Mismatch**: Occurred because Vuetify defaulted to 'dark' theme on server but client might have different localStorage preference
+  - **Plugin Consolidation**: Removed redundant theme-handler plugin and consolidated all theme logic into the Vuetify plugin for single source of truth
+  - **Timing Fix**: Replaced Vuetify-dependent sync function with direct localStorage access in layout component to avoid initialization timing issues
+  - **localStorage Persistence**: Now properly saves and restores user theme preferences by handling localStorage access directly in both Vuetify plugin and layout component
+  - **Theme Synchronization**: Layout component reads same localStorage key as Vuetify plugin to maintain consistency without complex dependencies
+  - **Functionality Preserved**: All theme switching functionality maintained while eliminating console hydration errors and ensuring localStorage persistence works correctly
+  - **Default Behavior**: Maintains dark mode as default when no saved preference exists, uses saved preference when available
+
 ### 2025-06-10 (Enhanced Navigation Arrows for Plan Section Pages)
 
 - Enhanced navigation arrows on all plan section pages to improve user experience and navigation clarity with more visually prominent arrow indicators.
