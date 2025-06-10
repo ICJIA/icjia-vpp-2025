@@ -1,116 +1,141 @@
 <template>
   <div v-if="navigationData" class="report-navigation">
-      <!-- Progress indicator -->
-      <div class="navigation-progress" role="status" :aria-label="progressAriaLabel">
-        <div class="plan-title">
-          Statewide Violence Prevention Plan for Illinois: 2025-2029
-        </div>
-        <div class="progress-text">
-          Section {{ navigationData.currentIndex + 1 }} of {{ navigationData.totalPages }}
-        </div>
-        <v-progress-linear
-          :model-value="progressPercentage"
-          color="primary"
-          height="4"
-          rounded
-          class="progress-bar"
-          :aria-label="`Reading progress: ${progressPercentage}% complete`"
-        />
+    <!-- Progress indicator -->
+    <div
+      class="navigation-progress"
+      role="status"
+      :aria-label="progressAriaLabel"
+    >
+      <div class="plan-title">
+        Statewide Violence Prevention Plan for Illinois: 2025-2029
       </div>
+      <div class="progress-text">
+        Section {{ navigationData.currentIndex + 1 }} of
+        {{ navigationData.totalPages }}
+      </div>
+      <v-progress-linear
+        :model-value="progressPercentage"
+        color="primary"
+        height="4"
+        rounded
+        class="progress-bar"
+        :aria-label="`Reading progress: ${progressPercentage}% complete`"
+      />
+    </div>
 
-      <v-row class="navigation-row">
-        <!-- Previous Page Column - Always present (left column) -->
-        <v-col cols="12" md="6" class="navigation-col">
-          <v-card
-            v-if="navigationData.previous"
-            :to="navigationData.previous.path"
-            class="navigation-card navigation-card--previous"
-            :class="{ 'navigation-card--mobile': $vuetify.display.smAndDown }"
-            elevation="2"
-            :ripple="true"
-            :aria-label="`Previous section: ${navigationData.previous.title}`"
-            role="button"
-            tabindex="0"
-            @keydown.enter="navigateToPage(navigationData.previous.path)"
-            @keydown.space.prevent="navigateToPage(navigationData.previous.path)"
+    <v-row class="navigation-row">
+      <!-- Previous Page Column - Always present (left column) -->
+      <v-col cols="12" md="6" class="navigation-col">
+        <v-card
+          v-if="navigationData.previous"
+          :to="navigationData.previous.path"
+          class="navigation-card navigation-card--previous"
+          :class="{ 'navigation-card--mobile': $vuetify.display.smAndDown }"
+          elevation="2"
+          :ripple="true"
+          :aria-label="`Previous section: ${navigationData.previous.title}`"
+          role="button"
+          tabindex="0"
+          @keydown.enter="navigateToPage(navigationData.previous.path)"
+          @keydown.space.prevent="navigateToPage(navigationData.previous.path)"
+        >
+          <!-- Enhanced Left Arrow Indicator -->
+          <div
+            class="navigation-arrow navigation-arrow--left"
+            aria-hidden="true"
           >
-            <v-card-text class="navigation-content">
-              <!-- Top section with direction and title -->
-              <div class="navigation-top">
-                <!-- Direction indicator -->
-                <div class="navigation-direction">
-                  <v-icon
-                    icon="mdi-chevron-left"
-                    size="small"
-                    class="direction-icon"
-                    aria-hidden="true"
-                  />
-                  <span class="direction-text">Previous Section</span>
-                </div>
+            <v-icon icon="mdi-chevron-left" size="x-large" class="arrow-icon" />
+          </div>
 
-                <!-- Page title -->
-                <h3 class="navigation-title">
-                  {{ navigationData.previous.title }}
-                </h3>
+          <v-card-text class="navigation-content">
+            <!-- Top section with direction and title -->
+            <div class="navigation-top">
+              <!-- Direction indicator -->
+              <div class="navigation-direction">
+                <v-icon
+                  icon="mdi-chevron-left"
+                  size="small"
+                  class="direction-icon"
+                  aria-hidden="true"
+                />
+                <span class="direction-text">Previous Section</span>
               </div>
 
-              <!-- Bottom section with summary -->
-              <div class="navigation-bottom">
-                <!-- Page summary -->
-                <p class="navigation-summary">
-                  {{ navigationData.previous.summary }}
-                </p>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
+              <!-- Page title -->
+              <h3 class="navigation-title">
+                {{ navigationData.previous.title }}
+              </h3>
+            </div>
 
-        <!-- Next Page Column - Always present (right column) -->
-        <v-col cols="12" md="6" class="navigation-col">
-          <v-card
-            v-if="navigationData.next"
-            :to="navigationData.next.path"
-            class="navigation-card navigation-card--next"
-            :class="{ 'navigation-card--mobile': $vuetify.display.smAndDown }"
-            elevation="2"
-            :ripple="true"
-            :aria-label="`Next section: ${navigationData.next.title}`"
-            role="button"
-            tabindex="0"
-            @keydown.enter="navigateToPage(navigationData.next.path)"
-            @keydown.space.prevent="navigateToPage(navigationData.next.path)"
+            <!-- Bottom section with summary -->
+            <div class="navigation-bottom">
+              <!-- Page summary -->
+              <p class="navigation-summary">
+                {{ navigationData.previous.summary }}
+              </p>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <!-- Next Page Column - Always present (right column) -->
+      <v-col cols="12" md="6" class="navigation-col">
+        <v-card
+          v-if="navigationData.next"
+          :to="navigationData.next.path"
+          class="navigation-card navigation-card--next"
+          :class="{ 'navigation-card--mobile': $vuetify.display.smAndDown }"
+          elevation="2"
+          :ripple="true"
+          :aria-label="`Next section: ${navigationData.next.title}`"
+          role="button"
+          tabindex="0"
+          @keydown.enter="navigateToPage(navigationData.next.path)"
+          @keydown.space.prevent="navigateToPage(navigationData.next.path)"
+        >
+          <!-- Enhanced Right Arrow Indicator -->
+          <div
+            class="navigation-arrow navigation-arrow--right"
+            aria-hidden="true"
           >
-            <v-card-text class="navigation-content">
-              <!-- Top section with direction and title -->
-              <div class="navigation-top">
-                <!-- Direction indicator -->
-                <div class="navigation-direction navigation-direction--next">
-                  <span class="direction-text">Next Section</span>
-                  <v-icon
-                    icon="mdi-chevron-right"
-                    size="small"
-                    class="direction-icon"
-                    aria-hidden="true"
-                  />
-                </div>
+            <v-icon
+              icon="mdi-chevron-right"
+              size="x-large"
+              class="arrow-icon"
+            />
+          </div>
 
-                <!-- Page title -->
-                <h3 class="navigation-title">
-                  {{ navigationData.next.title }}
-                </h3>
+          <v-card-text class="navigation-content">
+            <!-- Top section with direction and title -->
+            <div class="navigation-top">
+              <!-- Direction indicator -->
+              <div class="navigation-direction navigation-direction--next">
+                <span class="direction-text">Next Section</span>
+                <v-icon
+                  icon="mdi-chevron-right"
+                  size="small"
+                  class="direction-icon"
+                  aria-hidden="true"
+                />
               </div>
 
-              <!-- Bottom section with summary -->
-              <div class="navigation-bottom">
-                <!-- Page summary -->
-                <p class="navigation-summary">
-                  {{ navigationData.next.summary }}
-                </p>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+              <!-- Page title -->
+              <h3 class="navigation-title">
+                {{ navigationData.next.title }}
+              </h3>
+            </div>
+
+            <!-- Bottom section with summary -->
+            <div class="navigation-bottom">
+              <!-- Page summary -->
+              <p class="navigation-summary">
+                {{ navigationData.next.summary }}
+              </p>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -131,10 +156,10 @@
  * @component
  * @accessibility WCAG 2.1 AA compliant
  */
-import { computed } from 'vue';
-import { useRoute, navigateTo } from '#imports';
-import useReportNavigation from '~/composables/useReportNavigation';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { computed } from "vue";
+import { useRoute, navigateTo } from "#imports";
+import useReportNavigation from "~/composables/useReportNavigation";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
 
 // Initialize console logger
 const { log } = useConsoleLogger();
@@ -153,8 +178,8 @@ const props = defineProps({
    */
   currentPath: {
     type: String,
-    default: null
-  }
+    default: null,
+  },
 });
 
 // Get navigation data for current page
@@ -169,7 +194,11 @@ const navigationData = computed(() => getNavigationData(currentPath.value));
  */
 const progressPercentage = computed(() => {
   if (!navigationData.value) return 0;
-  return Math.round(((navigationData.value.currentIndex + 1) / navigationData.value.totalPages) * 100);
+  return Math.round(
+    ((navigationData.value.currentIndex + 1) /
+      navigationData.value.totalPages) *
+      100
+  );
 });
 
 /**
@@ -177,8 +206,12 @@ const progressPercentage = computed(() => {
  * @returns {string} Aria label for progress indicator
  */
 const progressAriaLabel = computed(() => {
-  if (!navigationData.value) return '';
-  return `Reading progress: section ${navigationData.value.currentIndex + 1} of ${navigationData.value.totalPages}, ${progressPercentage.value}% complete`;
+  if (!navigationData.value) return "";
+  return `Reading progress: section ${
+    navigationData.value.currentIndex + 1
+  } of ${navigationData.value.totalPages}, ${
+    progressPercentage.value
+  }% complete`;
 });
 
 /**
@@ -186,21 +219,21 @@ const progressAriaLabel = computed(() => {
  * @param {string} path - Target page path
  */
 function navigateToPage(path) {
-  log('navigation', 'Report navigation used', {
+  log("navigation", "Report navigation used", {
     from: currentPath.value,
     to: path,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
-  
+
   navigateTo(path);
 }
 
 // Log component initialization
 if (navigationData.value) {
-  log('navigation', 'Report navigation component initialized', {
+  log("navigation", "Report navigation component initialized", {
     currentPath: currentPath.value,
     hasNavigation: !!navigationData.value,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
 </script>
@@ -223,12 +256,6 @@ if (navigationData.value) {
   margin-bottom: 2rem;
 }
 
-
-
-
-
-
-
 /* Navigation row spacing */
 .navigation-row {
   margin-top: 3rem; /* Add more space between progress indicator and cards */
@@ -244,6 +271,9 @@ if (navigationData.value) {
   /* Ensure columns stretch to full height */
   display: flex;
   flex-direction: column;
+  /* Ensure arrows don't extend beyond column boundaries */
+  overflow: visible; /* Allow arrows to extend outside cards but within reasonable bounds */
+  position: relative;
 }
 
 /* Navigation card base styles */
@@ -252,11 +282,15 @@ if (navigationData.value) {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  background: #FFFFFF; /* Light mode - pure white like home page cards */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background: #ffffff; /* Light mode - pure white like home page cards */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   /* Ensure card takes full height of its container */
   display: flex;
   flex-direction: column;
+  /* Position relative for absolute positioned arrows */
+  position: relative;
+  overflow: visible; /* Allow arrows to extend outside card boundaries */
 }
 
 /* Card hover effects */
@@ -272,6 +306,62 @@ if (navigationData.value) {
   transform: translateY(-2px);
 }
 
+/* Enhanced Navigation Arrows */
+.navigation-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999; /* Very high z-index to ensure visibility above all card elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(var(--v-theme-primary), 0.1);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.8;
+  /* Ensure minimum touch target size for accessibility */
+  min-width: 44px;
+  min-height: 44px;
+  /* Ensure proper stacking context */
+  pointer-events: auto;
+}
+
+.navigation-arrow--left {
+  left: -30px; /* Positioned further outside to avoid text overlap */
+}
+
+.navigation-arrow--right {
+  right: -30px; /* Positioned further outside to avoid text overlap */
+}
+
+.arrow-icon {
+  color: rgb(var(--v-theme-primary));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Arrow hover effects */
+.navigation-card:hover .navigation-arrow {
+  opacity: 1;
+  background: rgba(var(--v-theme-primary), 0.15);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navigation-card:hover .arrow-icon {
+  color: rgb(var(--v-theme-primary));
+  transform: scale(1.1);
+}
+
+/* Arrow focus states for accessibility */
+.navigation-card:focus-visible .navigation-arrow {
+  opacity: 1;
+  background: rgba(var(--v-theme-primary), 0.2);
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}
+
 /* Mobile card adjustments */
 .navigation-card--mobile {
   margin-bottom: 1rem;
@@ -281,9 +371,37 @@ if (navigationData.value) {
   transform: translateY(-2px);
 }
 
+/* Mobile arrow adjustments */
+.navigation-card--mobile .navigation-arrow {
+  width: 50px;
+  height: 50px;
+  opacity: 0.9; /* More visible on mobile */
+}
+
+.navigation-card--mobile .navigation-arrow--left {
+  left: -25px; /* Positioned outside to avoid overlap on mobile */
+}
+
+.navigation-card--mobile .navigation-arrow--right {
+  right: -25px; /* Positioned outside to avoid overlap on mobile */
+}
+
+.navigation-card--mobile:hover .navigation-arrow {
+  transform: translateY(-50%) scale(1.05); /* Less dramatic scaling on mobile */
+}
+
+/* Mobile content padding adjustments */
+.navigation-card--mobile .navigation-content {
+  padding-left: 2.5rem !important; /* Reduced padding for mobile */
+  padding-right: 2.5rem !important; /* Reduced padding for mobile */
+}
+
 /* Navigation content padding */
 .navigation-content {
   padding: 1.5rem !important;
+  /* Add extra horizontal padding to prevent arrow overlap */
+  padding-left: 3rem !important; /* Extra space for left arrow */
+  padding-right: 3rem !important; /* Extra space for right arrow */
   /* Ensure content takes full height and allows proper vertical alignment */
   flex: 1;
   display: flex;
@@ -414,9 +532,10 @@ if (navigationData.value) {
 
 /* Dark theme adjustments */
 :root[data-theme="dark"] .navigation-card {
-  background: #2A3441 !important; /* Dark mode - same color as home page cards */
+  background: #2a3441 !important; /* Dark mode - same color as home page cards */
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
 }
 
 :root[data-theme="dark"] .navigation-card:hover {
@@ -430,19 +549,49 @@ if (navigationData.value) {
   opacity: 0.95;
 }
 
+/* Dark theme arrow adjustments */
+:root[data-theme="dark"] .navigation-arrow {
+  background: rgba(var(--v-theme-primary), 0.15);
+  border: 1px solid rgba(var(--v-theme-primary), 0.2);
+}
 
+:root[data-theme="dark"] .navigation-card:hover .navigation-arrow {
+  background: rgba(var(--v-theme-primary), 0.25);
+  border-color: rgba(var(--v-theme-primary), 0.4);
+}
+
+:root[data-theme="dark"] .navigation-card:focus-visible .navigation-arrow {
+  background: rgba(var(--v-theme-primary), 0.3);
+  border-color: rgba(var(--v-theme-primary), 0.6);
+}
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .navigation-card {
     transition: none !important;
   }
-  
+
   .navigation-card:hover {
     transform: none !important;
   }
-  
+
   .navigation-card:focus-visible {
+    transform: none !important;
+  }
+
+  .navigation-arrow {
+    transition: none !important;
+  }
+
+  .navigation-card:hover .navigation-arrow {
+    transform: translateY(-50%) !important; /* No scaling animation */
+  }
+
+  .arrow-icon {
+    transition: none !important;
+  }
+
+  .navigation-card:hover .arrow-icon {
     transform: none !important;
   }
 }
@@ -467,6 +616,17 @@ if (navigationData.value) {
     opacity: 1;
     color: rgb(var(--v-theme-on-surface)) !important;
   }
+
+  .navigation-arrow {
+    background: rgba(var(--v-theme-primary), 0.3) !important;
+    border: 2px solid rgb(var(--v-theme-primary)) !important;
+    opacity: 1 !important;
+  }
+
+  .arrow-icon {
+    color: rgb(var(--v-theme-primary)) !important;
+    font-weight: bold;
+  }
 }
 
 /* Mobile responsive adjustments */
@@ -475,19 +635,19 @@ if (navigationData.value) {
     margin-top: 3rem;
     padding: 1.5rem 0;
   }
-  
+
   .container {
     padding: 0 1rem;
   }
-  
+
   .navigation-content {
     padding: 1.25rem !important;
   }
-  
+
   .navigation-title {
     font-size: 1.125rem;
   }
-  
+
   .navigation-description,
   .navigation-summary {
     font-size: 0.8125rem;
