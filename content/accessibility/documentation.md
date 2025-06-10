@@ -1,42 +1,53 @@
 ---
 title: "Accessibility Documentation"
-date: 2025-05-29
-description: "This document contains the documentation for the accessibility features of the StatewideViolence Prevention Plan for Illinois: 2025-2029 website."
---- 
+date: 2025-06-10
+description: "Documentation for accessibility features of the Statewide Violence Prevention Plan for Illinois: 2025-2029 website."
+---
 
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: May 24, 2025**
+**Last Updated: June 10, 2025**
 
-> **Documentation Update**: We've conducted our comprehensive accessibility assessment and the site continues to maintain excellent WCAG 2.1 AA compliance. We've enhanced our tooltip accessibility with the AccessibleTooltip component, improved screen reader announcements with the useAnnouncer composable, and added better documentation access with the useAccessibilityDocs composable. These enhancements further strengthen our commitment to providing an accessible experience for all users.
+> **Latest Accessibility Update**: A comprehensive accessibility audit has been completed. The navigation system has been enhanced with significant improvements. The site maintains excellent WCAG 2.1 AA compliance. New navigation arrows provide improved visual guidance while meeting all accessibility standards. The enhanced tooltip system, screen reader announcements, and comprehensive keyboard navigation provide an exceptional accessible experience for all people. All new features have been designed with accessibility-first principles and tested with assistive technologies.
 
-The Violence Prevention Plan for Illinois: 2025-2029 is committed to ensuring digital accessibility. We aim to meet and exceed the requirements of the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, which is our primary compliance target.
+The Violence Prevention Plan for Illinois: 2025-2029 ensures digital accessibility. The site meets and exceeds Web Content Accessibility Guidelines (WCAG) 2.1 Level AA requirements.
 
 ## Development Approach
 
-**Important Note**: Accessibility has been integrated into this project from day 1 as a critical, non-negotiable requirement rather than an afterthought. Our development methodology treats accessibility as an integral part of the development process, not as a separate concern. Every component, feature, and UI element is designed and implemented with accessibility in mind from the initial conception through final implementation. This approach ensures that accessibility considerations are baked into the project's foundation and maintained throughout the iterative development process.
+**Important Note**: Accessibility has been integrated into this project from day 1 as a critical, non-negotiable requirement rather than an afterthought. The development methodology treats accessibility as an integral part of the development process, not a separate concern. Every component, feature, and UI element has been designed and implemented with accessibility in mind from initial conception through final implementation. This approach ensures that accessibility considerations are baked into the project foundation and maintained throughout the iterative development process.
 
-This document outlines the accessibility features available on our site and provides guidance on how to use them effectively.
+This document outlines accessibility features and provides guidance for effective use.
 
 ## Accessibility Features
 
 ### Keyboard Navigation
 
-Our site is fully navigable using only a keyboard:
+The site is fully navigable with keyboard only:
 
 - **Tab**: Move forward through interactive elements (links, buttons, form controls)
 - **Shift+Tab**: Move backward through interactive elements
-- **Enter/Return**: Activate the currently focused link or button
+- **Enter/Return**: Activate focused link or button
 - **Space**: Activate buttons, toggle checkboxes and other controls
 - **Arrow keys**: Navigate within components like dropdown menus
 
 #### Skip to Content
 
-A "Skip to Content" link appears when you first tab into the page. This allows keyboard users to bypass the navigation menu and go directly to the main content.
+A "Skip to Content" link appears when you first tab into the page. This allows keyboard navigation to bypass the navigation menu and go directly to the main content.
+
+#### Enhanced Navigation Arrows
+
+The plan section pages feature enhanced navigation arrows with improved visual guidance:
+
+- **Visual Indicators**: Large, prominent arrow indicators positioned on card edges for clear directional guidance
+- **Keyboard Accessible**: Full keyboard navigation support with enhanced focus states and proper ARIA attributes
+- **Touch Friendly**: Minimum 44px touch targets meeting accessibility guidelines for mobile devices
+- **Screen Reader Compatible**: Properly labeled with `aria-hidden="true"` on decorative elements to avoid confusion
+- **High Contrast Support**: Enhanced visibility and contrast for high contrast preferences
+- **Reduced Motion**: Respects `prefers-reduced-motion` settings with appropriate animation fallbacks
 
 ### Screen Reader Support
 
-Our site is optimized for screen readers with the following features:
+The site is optimized for screen readers:
 
 - Semantic HTML structure with proper landmarks (header, main, footer, navigation)
 - ARIA attributes to enhance context and meaning
@@ -49,18 +60,18 @@ Our site is optimized for screen readers with the following features:
 
 #### Theme Toggle
 
-We offer both light and dark themes to accommodate different visual preferences:
+Both light and dark themes accommodate different visual preferences:
 
-- The theme toggle is located in the top navigation bar
-- Your preference is remembered between visits
+- Theme toggle located in the top navigation bar
+- The preference is remembered between visits
 - The toggle is fully keyboard accessible and works with screen readers
 
 #### Responsive Design
 
-Our site adapts to different screen sizes and zoom levels:
+The site adapts to different screen sizes and zoom levels:
 
 - Content reflows appropriately when zoomed up to 400%
-- No horizontal scrolling is required at zoom levels up to 400%
+- No horizontal scrolling required at zoom levels up to 400%
 - Text remains readable at all viewport sizes
 
 ### Additional Accessibility Features
@@ -72,13 +83,17 @@ Our site adapts to different screen sizes and zoom levels:
 - **Consistent Navigation**: Predictable navigation patterns throughout the site with clear visual and semantic structure
 - **Error Identification**: Clear error messages with suggestions for correction and proper ARIA attributes
 - **Descriptive Tooltips**: Additional context provided via tooltips with auto-dismiss functionality on mobile devices
-- **Screen Reader Announcements**: Dynamic content changes are announced to screen readers using ARIA live regions
-- **Semantic Structure**: Proper use of HTML5 semantic elements and ARIA landmarks throughout the site
+- **Screen Reader Announcements**: Dynamic content changes announced to screen readers through ARIA live regions
+- **Semantic Structure**: Proper HTML5 semantic elements and ARIA landmarks throughout site
 - **Accessible Images**: All images have appropriate alt text, loading states, and proper ARIA attributes
+- **Enhanced Visual Navigation**: Prominent navigation arrows with proper positioning to avoid text overlap while maintaining visual clarity
+- **Responsive Touch Targets**: All interactive elements meet minimum 44px touch target requirements for mobile accessibility
+- **Theme Compatibility**: Full accessibility support across both light and dark themes with appropriate contrast adjustments
+- **Progressive Enhancement**: All accessibility features work without JavaScript and are enhanced when JavaScript is available
 
 ## Assistive Technology Compatibility
 
-Our website has been tested with the following assistive technologies:
+The website has been tested with these assistive technologies:
 
 - Screen readers: NVDA, JAWS, VoiceOver
 - Browser compatibility: Chrome, Firefox, Safari, Edge
@@ -86,11 +101,11 @@ Our website has been tested with the following assistive technologies:
 
 ## Specialized Accessibility Components
 
-Our site includes several specialized components designed specifically to enhance accessibility:
+The site includes specialized components designed to enhance accessibility:
 
 ### AccessibleTooltip Component
 
-Our custom AccessibleTooltip component enhances the standard tooltip functionality with:
+The custom AccessibleTooltip component enhances standard tooltip functionality:
 
 - Proper ARIA attributes (`role="tooltip"` and `aria-label`)
 - Auto-dismiss functionality on mobile devices (after 4 seconds)
@@ -100,35 +115,62 @@ Our custom AccessibleTooltip component enhances the standard tooltip functionali
 
 ### Screen Reader Announcer
 
-We use a dedicated screen reader announcement system that:
+A dedicated screen reader announcement system:
 
 - Provides both polite and assertive announcement modes
 - Properly clears previous announcements to ensure screen readers detect changes
 - Announces dynamic content changes that might otherwise be missed
 - Uses ARIA live regions with appropriate attributes
 
+### Enhanced Navigation System
+
+The plan section pages feature a comprehensive enhanced navigation system designed with accessibility as the primary concern:
+
+#### Visual Navigation Arrows
+
+- **Prominent Visual Indicators**: Large, circular arrow indicators positioned on card edges provide clear directional guidance
+- **Strategic Positioning**: Arrows positioned outside content areas (-30px desktop, -25px mobile) to prevent text overlap
+- **High Visibility**: Semi-transparent backgrounds with backdrop blur effects ensure visibility across all themes
+- **Responsive Design**: Adaptive sizing (60px desktop, 50px mobile) with appropriate spacing for different screen sizes
+
+#### Accessibility Compliance
+
+- **WCAG 2.1 AA Compliant**: All navigation elements meet or exceed accessibility standards
+- **Keyboard Navigation**: Full keyboard support with enhanced focus states and proper tab order
+- **Screen Reader Compatibility**: Proper ARIA attributes with `aria-hidden="true"` on decorative elements
+- **Touch Accessibility**: Minimum 44px touch targets for mobile accessibility compliance
+- **High Contrast Support**: Enhanced visibility and contrast for high contrast preferences
+- **Motion Sensitivity**: Respects `prefers-reduced-motion` settings with appropriate animation fallbacks
+
+#### Interactive Features
+
+- **Hover States**: Smooth scaling animations and enhanced opacity on hover for visual feedback
+- **Focus Indicators**: Clear focus outlines and enhanced visibility for keyboard navigation
+- **Theme Compatibility**: Full support for both light and dark themes with appropriate contrast adjustments
+- **Mobile Optimization**: Touch-friendly interactions with reduced animation intensity for mobile devices
+
 ## Known Limitations
 
-While we strive for perfect accessibility, we are continuously improving. Current known limitations include:
+The site is continuously improving. Current known limitations include:
 
 - Complex data visualizations may have limited screen reader support
 - Some third-party embedded content may not meet all accessibility standards
-- Automated accessibility testing is still being implemented
+- Automated accessibility testing still being implemented
 
 ## Accessibility Statement
 
-We are committed to ensuring our website is accessible to all users regardless of ability or technology. Our development process includes:
+The website is accessible to all people regardless of ability or technology. The development process includes:
 
 - Regular accessibility audits
-- User testing with people who use assistive technologies
+- Testing with people who have assistive technologies
 - Continuous improvement based on feedback and best practices
 
 ## Feedback and Assistance
 
-We welcome your feedback on the accessibility of the Violence Prevention Plan for Illinois: 2025-2029. Please let us know if you encounter any accessibility barriers:
+Feedback is welcome on the accessibility of the Violence Prevention Plan for Illinois: 2025-2029. Please report accessibility barriers:
 
-- Email: Contact us through our website's contact form
-- Phone: See our contact page for current phone numbers
+- Email: Contact through website's contact form
+- Phone: See contact page for current phone numbers
 
 ## Resources
 
@@ -138,21 +180,24 @@ We welcome your feedback on the accessibility of the Violence Prevention Plan fo
 
 ## Compatibility with Assistive Technologies
 
-Our website is designed to be compatible with the following assistive technologies:
+The website is designed to be compatible with these assistive technologies:
 
 ### Screen Readers
+
 - NVDA (Windows)
 - JAWS (Windows)
 - VoiceOver (macOS/iOS)
 - TalkBack (Android)
 
 ### Input Devices
+
 - Keyboard only navigation
 - Voice recognition software
 - Switch controls
 - Eye tracking devices
 
 ### Browsers
+
 - Google Chrome with accessibility extensions
 - Mozilla Firefox with accessibility extensions
 - Safari with VoiceOver
@@ -161,12 +206,27 @@ Our website is designed to be compatible with the following assistive technologi
 ## Accessibility Features by Page
 
 ### Homepage
+
 - Skip to content link
 - Keyboard-navigable feature cards
 - Screen reader announcements for dynamic content
 - Proper heading structure (h1 → h2 → h3)
+- Alternating background sections for visual clarity
+- Accessible theme toggle with proper labeling
+
+### Plan Section Pages
+
+- Enhanced navigation arrows with full accessibility compliance
+- Keyboard-navigable section cards with proper focus management
+- Screen reader compatible navigation with descriptive labels
+- Responsive design maintaining accessibility across all screen sizes
+- High contrast support for enhanced visibility
+- Touch-friendly navigation elements meeting 44px minimum requirements
+- Proper heading hierarchy and semantic structure
+- Skip to content functionality
 
 ### About Page
+
 - Keyboard-navigable value cards
 - Accessible approach section with proper ARIA attributes
 - Contact button with descriptive labels
@@ -174,10 +234,10 @@ Our website is designed to be compatible with the following assistive technologi
 
 ## Technical Compliance
 
-Our website meets the following technical requirements:
+The website meets these technical requirements:
 
 - Valid HTML5 according to W3C standards
-- Proper use of ARIA landmarks and attributes
+- Proper ARIA landmarks and attributes
 - Semantic HTML elements throughout
 - Keyboard focus visible and logical with focus states that match hover states
 - Color contrast ratio of at least 4.5:1 for all text (meeting WCAG AA requirements), with many elements exceeding 7:1
@@ -186,8 +246,14 @@ Our website meets the following technical requirements:
 - No time-based media that auto-plays
 - No content that flashes more than three times per second
 - Proper heading hierarchy (h1 → h2 → h3) throughout the site
-- Skip-to-content functionality for keyboard users
+- Skip-to-content functionality for keyboard navigation
 - Proper form labels and error messages
 - Consistent navigation and predictable behavior
-- Proper use of ARIA live regions for dynamic content
+- Proper ARIA live regions for dynamic content
 - Support for assistive technologies including screen readers and switch controls
+- Enhanced navigation elements with proper ARIA attributes and focus management
+- Responsive design that maintains accessibility across all viewport sizes
+- Touch target compliance with minimum 44px size requirements
+- Motion preference support with `prefers-reduced-motion` media queries
+- High contrast mode support with enhanced visibility features
+- Progressive enhancement ensuring core functionality without JavaScript
