@@ -21,13 +21,16 @@
               Public Health Approach to Violence Prevention
             </h2>
             <p class="text-h6 text-medium-emphasis mb-6">
-              Illinois is committed to violence prevention efforts from a public health perspective, 
-              utilizing evidence-based practices and addressing violence as a preventable public health crisis.
+              Evidence-informed violence prevention efforts utilize a public
+              health framework to prevent violence. This approach is grounded in
+              the scientific method and includes four steps.
             </p>
 
             <!-- Four steps of public health approach -->
             <div class="approach-steps mb-6">
-              <h3 class="text-h5 font-weight-medium mb-4">Four-Step Framework</h3>
+              <h3 class="text-h5 font-weight-medium mb-4">
+                Four-Step Framework
+              </h3>
               <v-list class="bg-transparent pa-0" role="list">
                 <v-list-item
                   v-for="(step, index) in approachSteps"
@@ -45,7 +48,9 @@
                     </v-chip>
                   </template>
                   <div>
-                    <v-list-item-title class="text-body-1 font-weight-medium mb-1">
+                    <v-list-item-title
+                      class="text-body-1 font-weight-medium mb-1"
+                    >
                       {{ step.title }}
                     </v-list-item-title>
                     <v-list-item-subtitle class="text-body-2">
@@ -73,23 +78,16 @@
                       size="large"
                       class="mb-2"
                     />
-                    <div class="text-subtitle-1 font-weight-medium">{{ level.name }}</div>
-                    <div class="text-body-2 text-medium-emphasis">{{ level.description }}</div>
+                    <div class="text-subtitle-1 font-weight-medium">
+                      {{ level.name }}
+                    </div>
+                    <div class="text-body-2 text-medium-emphasis">
+                      {{ level.description }}
+                    </div>
                   </div>
                 </v-col>
               </v-row>
             </div>
-
-            <!-- Learn more button -->
-            <v-btn
-              color="primary"
-              size="large"
-              class="rounded-pill px-6"
-              @click="handleLearnMore"
-            >
-              Learn About Our Approach
-              <v-icon end icon="mdi-arrow-right" />
-            </v-btn>
           </div>
         </v-col>
       </v-row>
@@ -115,7 +113,7 @@
  *
  * @component
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 /**
  * Four steps of the public health approach from VPP analysis
@@ -123,25 +121,29 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
  */
 const approachSteps = [
   {
-    title: 'Define and Monitor the Problem',
-    description: 'Understanding who experiences violence, when and where it occurs, using data to understand prevalence, trends, and impacts.',
-    color: 'primary'
+    title: "Define and Monitor the Problem",
+    description:
+      "Understanding who experiences violence, as well as when and where it occurs, is the first step in preventing violence. Data can help us understand the prevalence of violence, where it occurs, trends in violence rates over time, and who it impacts. In defining violence, it is also critical to find appropriate, validated measurements.",
+    color: "primary",
   },
   {
-    title: 'Identify Risk and Protective Factors',
-    description: 'Understanding what factors protect individuals from violence and what factors place them at greater risk.',
-    color: 'primary'
+    title: "Identify Risk and Protective Factors",
+    description:
+      "We need to understand what factors protect individuals from experiencing or perpetrating violence, and what factors place individuals at greater risk for victimization or perpetration. These factors can help providers know where to focus violence prevention efforts.",
+    color: "primary",
   },
   {
-    title: 'Develop and Test Prevention Strategies',
-    description: 'Prevention efforts developed based on community needs, expertise, and feedback, then evaluated for effectiveness.',
-    color: 'primary'
+    title: "Develop and Test Prevention Strategies",
+    description:
+      "Prevention efforts are developed and modified based on community needs, practitioner and organizational expertise and experience, and participant, stakeholder, and collaborator feedback. Once prevention strategies are developed or identified for implementation, strategies should be evaluated to ensure they are effective. Evidence-based practices are vital to ensure programs are doing what they set out to do.",
+    color: "primary",
   },
   {
-    title: 'Assure Widespread Adoption',
-    description: 'Communities implement evidence-based programs while continually assessing fit and making adaptations.',
-    color: 'primary'
-  }
+    title: "Assure Widespread Adoption",
+    description:
+      "Communities are encouraged to implement evidence-based programs. Additionally, they should continually assess if the strategy is a good match for their participants or community area, evaluating any adaptations or changes. The growing evidence-base for violence prevention practices will fuel widespread adoption of evidence-based strategies.",
+    color: "primary",
+  },
 ];
 
 /**
@@ -150,32 +152,27 @@ const approachSteps = [
  */
 const preventionLevels = [
   {
-    name: 'Primary',
-    description: 'Universal efforts before violence occurs',
-    icon: 'mdi-shield-check',
-    color: 'primary'
+    name: "Primary",
+    description:
+      "Primary prevention is considered universal, occurring for an entire population.",
+    icon: "mdi-shield-check",
+    color: "primary",
   },
   {
-    name: 'Secondary',
-    description: 'Selected interventions for at-risk populations',
-    icon: 'mdi-shield-alert',
-    color: 'primary'
+    name: "Secondary",
+    description:
+      "Secondary prevention is considered selected, or focused on those with one or more risk factors for violence.",
+    icon: "mdi-shield-alert",
+    color: "primary",
   },
   {
-    name: 'Tertiary',
-    description: 'Indicated services after violence has occurred',
-    icon: 'mdi-shield-account',
-    color: 'primary'
-  }
+    name: "Tertiary",
+    description:
+      "Tertiary prevention is considered indicated, or efforts for those who have already experienced or perpetrated violence.",
+    icon: "mdi-shield-account",
+    color: "primary",
+  },
 ];
-
-/**
- * Handle learn more button click
- */
-const handleLearnMore = () => {
-  // This would navigate to detailed approach information
-  console.log('Learn more about approach clicked');
-};
 </script>
 
 <style scoped>
@@ -257,7 +254,7 @@ const handleLearnMore = () => {
     animation: none;
     opacity: 1;
   }
-  
+
   .shadow-img:hover {
     transform: none;
   }

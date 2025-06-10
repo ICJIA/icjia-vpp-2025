@@ -7,8 +7,9 @@
           Violence in Illinois: The Data
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto">
-          Understanding the scope and impact of violence is the first step in prevention. 
-          These statistics highlight the urgent need for comprehensive violence prevention efforts across Illinois.
+          Understanding the scope and impact of violence is the first step in
+          prevention. These statistics highlight the urgent need for
+          comprehensive violence prevention efforts across Illinois.
         </p>
       </div>
 
@@ -31,9 +32,6 @@
           />
         </v-col>
       </v-row>
-
-      <!-- Download CTA -->
-      <DownloadPlanButton container-class="mt-12 download-cta-section" />
     </v-container>
   </section>
 </template>
@@ -50,58 +48,62 @@
  * - Key statistics from the VPP analysis
  * - Visual card-based presentation
  * - Animated entrance effects
- * - Download CTA button for plan access
  * - WCAG 2.1 AA accessibility compliance
  * - Full theme compatibility
  *
  * @component
  */
-import HomeStatisticCard from './HomeStatisticCard.vue';
-import DownloadPlanButton from './DownloadPlanButton.vue';
+import HomeStatisticCard from "./HomeStatisticCard.vue";
 
 /**
  * Statistics data from the Violence Prevention Plan analysis
- * Refactored for visual consistency with catchy titles and coherent descriptions
+ * Updated to use verbatim text from the source document (vpp_plan.md)
  * All statistics use primary color for consistency and subtle visual appeal
  * Optimized for 3-column layout display with equal card heights
  */
 const statistics = [
   {
-    title: 'Bullying Affects One in Three',
-    description: 'One in three youth in grades 6-12 report experiencing bullying. This widespread issue creates lasting trauma and requires immediate intervention strategies.',
-    icon: 'mdi-school',
-    color: 'primary'
+    title: "Youth Bullying Prevalence",
+    description:
+      "1 in 3 youth in 6th to 12th grades report experiencing a form of bullying (2018-2022). Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.",
+    icon: "mdi-school",
+    color: "primary",
   },
   {
-    title: 'Physical Violence Among Youth',
-    description: 'One in five Illinois youth report being in physical fights within the past 12 months. These incidents often escalate and require early intervention approaches.',
-    icon: 'mdi-account-alert',
-    color: 'primary'
+    title: "Youth Physical Fights",
+    description:
+      "1 in 5 report having been in a physical fight in the past 12 months (2018-2022). Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.",
+    icon: "mdi-account-alert",
+    color: "primary",
   },
   {
-    title: 'Youth Sexual Violence Crisis',
-    description: '12% of Illinois high school students experienced sexual violence between 2019-2021. This alarming statistic highlights the urgent need for comprehensive prevention programs in our schools.',
-    icon: 'mdi-account-group',
-    color: 'primary'
+    title: "Youth Sexual Violence",
+    description:
+      "About 12% of high school youth have experienced sexual violence (2019-2021). Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.",
+    icon: "mdi-account-group",
+    color: "primary",
   },
   {
-    title: 'Child Maltreatment Rates',
-    description: 'Illinois shows higher child maltreatment rates than national averages from 2018-2021. Strengthening family support systems is critical for prevention.',
-    icon: 'mdi-shield-alert',
-    color: 'primary'
+    title: "Child Maltreatment Rates",
+    description:
+      "Rates of child maltreatment are higher in Illinois than national rates (2018-2021). Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.",
+    icon: "mdi-shield-alert",
+    color: "primary",
   },
   {
-    title: 'Rising Firearm Mortality',
-    description: 'Firearm mortality rates increased significantly in 2020 and 2021. Community-based violence intervention programs are essential to reverse this trend.',
-    icon: 'mdi-alert-octagon',
-    color: 'primary'
+    title: "Firearm Mortality Increase",
+    description:
+      "In 2020 and 2021, Illinois saw an increase in the firearm mortality rate. Due to the high prevalence of violence, and the persistent disparities, violence is seen as an epidemic impacting our state and our society.",
+    icon: "mdi-alert-octagon",
+    color: "primary",
   },
   {
-    title: 'Racial Disparities in Violence',
-    description: 'Black men aged 15-34 face significant disparities in gun violence exposure. Addressing systemic inequities is fundamental to effective prevention.',
-    icon: 'mdi-scale-unbalanced',
-    color: 'primary'
-  }
+    title: "Gun Violence Disparities",
+    description:
+      "Black or African American men who are between the ages of 15-34 faced significant disparities in rates of experiencing gun violence and violent offenses. Across these rates of violence in Illinois, disparities exist for minoritized groups.",
+    icon: "mdi-scale-unbalanced",
+    color: "primary",
+  },
 ];
 </script>
 
@@ -129,12 +131,6 @@ const statistics = [
   animation-delay: 0.4s;
 }
 
-.statistics-section .download-cta-section {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-  animation-delay: 1.0s;
-}
-
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
@@ -154,8 +150,7 @@ const statistics = [
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .statistics-section h2,
-  .statistics-section p,
-  .statistics-section .download-cta-section {
+  .statistics-section p {
     animation: none;
     opacity: 1;
   }
