@@ -4,7 +4,7 @@
     "description": "Comprehensive violence prevention plan outlining Illinois's strategic approach to preventing violence through evidence-based practices, equity advancement, and collaborative efforts across state, municipal, and community-based agencies for 2025-2029.",
     "version": "2025-2029",
     "organization": "Illinois Criminal Justice Information Authority (ICJIA)",
-    "generatedAt": "2025-06-10T12:59:58.170Z",
+    "generatedAt": "2025-06-10T13:45:10.994Z",
     "baseUrl": "https://vpp-2025.netlify.app"
   },
   "generationStats": {
@@ -21,7 +21,7 @@
       "path": "/plan/front-cover",
       "fullPath": "https://vpp-2025.netlify.app/plan/front-cover",
       "slug": "plan/front-cover",
-      "menuTitle": "Front Cover: Statewide Violence Plan for Illinois: 2025-2029",
+      "menuTitle": "Cover: Statewide Violence Plan for Illinois: 2025-2029",
       "menuSummary": "The cover page of the Statewide Violence Prevention Plan for Illinois: 2025-2029.",
       "menuAriaLabel": "View the cover page of the violence prevention plan",
       "sourceFile": "/content/plan/front-cover.md",

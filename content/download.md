@@ -14,7 +14,7 @@ showTOC: false
 
 <div class="download-sections">
 
-### Primary Download
+### Download the Plan as PDF
 
 <div class="primary-download-card">
   <div class="download-icon-container">
@@ -90,14 +90,14 @@ showTOC: false
   </div>
 </div>
 
-### Developer & Technical Downloads
+### Downloads for Developers and AI
 
 <div class="primary-download-card">
   <div class="download-icon-container">
     <v-icon size="80" color="info" class="download-main-icon">mdi-code-braces</v-icon>
   </div>
   <div class="download-content">
-    <h3 class="download-title">Developer & Technical Downloads</h3>
+    <h3 class="download-title">Downloads for Developers and AI</h3>
     <p class="download-description">
       Access the plan data in machine-readable formats for development, analysis, and integration with other systems. The llms.txt format follows the guidelines from <a href="https://llmstxt.org/" target="_blank" rel="noopener noreferrer" class="external-link">llms.org</a> and is especially created for Large Language Models (LLMs) to easily process and understand the content.
     </p>
