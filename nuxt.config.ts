@@ -175,6 +175,7 @@ export default defineNuxtConfig({
   plausible: {
     // Prevent tracking on localhost
     ignoredHostnames: ['localhost'],
+    apiHost: 'https://plausible.icjia.cloud'
   },
 
   /**
