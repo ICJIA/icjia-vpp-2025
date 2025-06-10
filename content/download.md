@@ -53,6 +53,43 @@ showTOC: false
   </div>
 </div>
 
+### Read the Plan Online
+
+<div class="primary-download-card">
+  <div class="download-icon-container">
+    <v-icon size="80" color="success" class="download-main-icon">mdi-book-open-page-variant</v-icon>
+  </div>
+  <div class="download-content">
+    <h3 class="download-title">Browse the Plan Online</h3>
+    <p class="download-description">
+      Read the complete Violence Prevention Plan directly in your browser with interactive navigation, searchable content, and responsive design optimized for all devices.
+    </p>
+    <div class="download-details">
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-web</v-icon>
+        <span>Interactive</span>
+      </div>
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-magnify</v-icon>
+        <span>Searchable</span>
+      </div>
+      <div class="detail-item">
+        <v-icon size="16" class="detail-icon">mdi-devices</v-icon>
+        <span>Responsive</span>
+      </div>
+    </div>
+    <v-btn
+      to="/plan"
+      color="success"
+      size="large"
+      class="download-btn primary-download-btn"
+      prepend-icon="mdi-book-open-page-variant"
+    >
+      Read Online
+    </v-btn>
+  </div>
+</div>
+
 ### Developer & Technical Downloads
 
 <div class="primary-download-card">

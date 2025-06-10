@@ -1,13 +1,14 @@
 <template>
-  <section class="action-section section section-primary py-16">
+  <section class="action-section section section-secondary py-16">
     <v-container>
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">
           For More Information
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto mb-8">
-          Explore the full plan, find local resources, or learn how
-          your organization can contribute to violence prevention efforts across Illinois.
+          Explore the full plan, find local resources, or learn how your
+          organization can contribute to violence prevention efforts across
+          Illinois.
         </p>
       </div>
 
@@ -18,7 +19,10 @@
           :key="index"
           class="action-grid-item"
         >
-          <div class="action-card-container" :style="{ animationDelay: `${index * 200}ms` }">
+          <div
+            class="action-card-container"
+            :style="{ animationDelay: `${index * 200}ms` }"
+          >
             <v-card
               variant="elevated"
               class="h-100 rounded-xl action-card-inner"
@@ -74,34 +78,34 @@
           </div>
         </div>
       </div>
-
-      <!-- Primary CTA -->
-      <DownloadPlanButton container-class="cta-button-section" />
     </v-container>
   </section>
 </template>
 
 <script setup>
 /**
- * Sandbox Home Action Section Component
+ * Home Action Section Component
  *
- * Final informational section providing resources and access to the Violence Prevention Plan.
- * Features multiple information options and primary CTA to view the complete plan.
+ * Final informational section providing multiple access methods to the Violence Prevention Plan and contact information.
+ * Features infographic-style cards with large titles and compact design.
  *
  * Features:
- * - Multiple informational resource options
- * - Primary CTA to download/view the plan
- * - Interactive resource cards
+ * - Download access to the complete plan
+ * - Online reading with interactive navigation
+ * - Contact information and support
+ * - Infographic-style cards with large titles (3-card layout)
+ * - Compact design with reduced spacing
+ * - Responsive grid layout (1 column mobile, 2 columns tablet, 3 columns desktop)
  * - Animated entrance effects
  * - WCAG 2.1 AA accessibility compliance
  * - Full theme compatibility
  *
  * @component
  */
-import DownloadPlanButton from './DownloadPlanButton.vue';
 
 /**
  * Call-to-action options for user engagement
+ * Provides download access, online reading, and contact information
  * Using muted, subtle colors for consistent design system
  *
  * @typedef {Object} CallToAction
@@ -115,32 +119,35 @@ import DownloadPlanButton from './DownloadPlanButton.vue';
  */
 const callToActions = [
   {
-    title: 'Read the Full Plan',
-    description: 'Explore the complete Violence Prevention Plan with detailed goals, recommendations, and implementation strategies.',
-    icon: 'mdi-book-open-page-variant',
-    color: 'primary',
-    buttonText: 'View Plan',
-    action: 'view-plan',
-    url: '/plan/executive-summary'
+    title: "Download the Plan",
+    description:
+      "Access the complete Violence Prevention Plan with detailed goals, recommendations, and implementation strategies in multiple formats.",
+    icon: "mdi-download",
+    color: "primary",
+    buttonText: "Download",
+    action: "download-plan",
+    url: "/download",
   },
   {
-    title: 'Find Local Resources',
-    description: 'Connect with violence prevention organizations and resources in your community across Illinois.',
-    icon: 'mdi-map-marker-multiple',
-    color: 'primary',
-    buttonText: 'Find Resources',
-    action: 'find-resources',
-    url: '/plan/executive-summary'
+    title: "Read the Plan Online",
+    description:
+      "Browse the complete Violence Prevention Plan directly in your browser with interactive navigation and searchable content.",
+    icon: "mdi-book-open-page-variant",
+    color: "primary",
+    buttonText: "Read Online",
+    action: "read-online",
+    url: "/plan/front-cover",
   },
   {
-    title: 'Get Involved',
-    description: 'Learn about funding opportunities, partnerships, and ways your organization can contribute to violence prevention.',
-    icon: 'mdi-hand-heart',
-    color: 'primary',
-    buttonText: 'Learn More',
-    action: 'get-involved',
-    url: '/executive-summary'
-  }
+    title: "Contact Us",
+    description:
+      "Have questions about the Violence Prevention Plan? Need assistance with implementation? Get in touch with our team for support and guidance.",
+    icon: "mdi-email",
+    color: "primary",
+    buttonText: "Contact",
+    action: "contact-us",
+    url: "/contact",
+  },
 ];
 
 /**
@@ -166,23 +173,26 @@ const callToActions = [
  * handleActionClick({ action: 'view-plan' })
  */
 const handleActionClick = async (action) => {
-  console.log('Action clicked:', action.action);
+  console.log("Action clicked:", action.action);
 
   // Handle URL-based navigation if URL is provided
   if (action.url) {
     try {
       // Check if it's an external URL
-      if (action.url.startsWith('http://') || action.url.startsWith('https://')) {
+      if (
+        action.url.startsWith("http://") ||
+        action.url.startsWith("https://")
+      ) {
         // External URL - open in new window with security attributes
-        window.open(action.url, '_blank', 'noopener,noreferrer');
-        console.log('Opened external URL:', action.url);
+        window.open(action.url, "_blank", "noopener,noreferrer");
+        console.log("Opened external URL:", action.url);
       } else {
         // Local URL - use Nuxt navigation
         await navigateTo(action.url);
-        console.log('Navigated to local URL:', action.url);
+        console.log("Navigated to local URL:", action.url);
       }
     } catch (error) {
-      console.error('Navigation failed:', error);
+      console.error("Navigation failed:", error);
       // Fallback to legacy action handling if navigation fails
       handleLegacyAction(action);
     }
@@ -200,24 +210,22 @@ const handleActionClick = async (action) => {
  */
 const handleLegacyAction = (action) => {
   switch (action.action) {
-    case 'view-plan':
-      // Open the complete Violence Prevention Plan PDF
-      window.open('/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf', '_blank');
+    case "download-plan":
+      // Navigate to download page
+      console.log("Navigate to download page");
       break;
-    case 'find-resources':
-      // Navigate to resources page
-      console.log('Navigate to resources');
+    case "read-online":
+      // Navigate to online plan reading
+      console.log("Navigate to online plan");
       break;
-    case 'get-involved':
-      // Navigate to involvement/partnership page
-      console.log('Navigate to get involved');
+    case "contact-us":
+      // Navigate to contact page
+      console.log("Navigate to contact page");
       break;
     default:
-      console.warn('Unknown action:', action.action);
+      console.warn("Unknown action:", action.action);
   }
 };
-
-
 </script>
 
 <style scoped>
@@ -228,7 +236,7 @@ const handleLegacyAction = (action) => {
 }
 
 .action-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -267,17 +275,11 @@ const handleLegacyAction = (action) => {
   animation-delay: 0.4s;
 }
 
-.action-section .cta-button-section {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-  animation-delay: 1.2s;
-}
-
 /* CSS Grid for perfect card alignment */
 .actions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
   align-items: stretch;
 }
 
@@ -285,13 +287,14 @@ const handleLegacyAction = (action) => {
 @media (min-width: 600px) {
   .actions-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   .actions-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 2rem;
   }
 }
 
@@ -316,13 +319,14 @@ const handleLegacyAction = (action) => {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 400px;
-  padding: 2rem;
+  min-height: 320px;
+  padding: 1.5rem;
   border-radius: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
 }
 
@@ -336,7 +340,7 @@ const handleLegacyAction = (action) => {
     "description"
     "button";
   height: 100%;
-  gap: 1.5rem;
+  gap: 1rem;
   align-content: start;
 }
 
@@ -346,7 +350,6 @@ const handleLegacyAction = (action) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.5rem;
 }
 
 .action-icon {
@@ -360,11 +363,12 @@ const handleLegacyAction = (action) => {
 }
 
 .action-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.3;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
   margin: 0;
   color: rgb(var(--v-theme-on-surface));
+  letter-spacing: -0.025em;
 }
 
 /* Description Section - Expands to fill space */
@@ -405,7 +409,8 @@ const handleLegacyAction = (action) => {
 .action-card-inner:hover,
 .action-card-inner:focus-visible {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .action-card-inner:focus-visible {
@@ -416,12 +421,14 @@ const handleLegacyAction = (action) => {
 /* Dark Theme Adjustments */
 :root[data-theme="dark"] .action-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
 :root[data-theme="dark"] .action-card-inner:hover,
 :root[data-theme="dark"] .action-card-inner:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7),
+    0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 :root[data-theme="dark"] .action-icon {
@@ -463,16 +470,16 @@ const handleLegacyAction = (action) => {
 /* Responsive adjustments */
 @media (max-width: 599px) {
   .action-card-inner {
-    min-height: 350px;
-    padding: 1.5rem;
+    min-height: 280px;
+    padding: 1.25rem;
   }
 
   .card-content-grid {
-    gap: 1.25rem;
+    gap: 0.875rem;
   }
 
   .action-title {
-    font-size: 1.125rem;
+    font-size: 1.5rem;
   }
 
   .action-description {
@@ -482,12 +489,16 @@ const handleLegacyAction = (action) => {
 
 @media (min-width: 1024px) {
   .action-card-inner {
-    min-height: 450px;
-    padding: 2.5rem;
+    min-height: 350px;
+    padding: 2rem;
   }
 
   .card-content-grid {
-    gap: 2rem;
+    gap: 1.25rem;
+  }
+
+  .action-title {
+    font-size: 2.25rem;
   }
 }
 
@@ -507,7 +518,6 @@ const handleLegacyAction = (action) => {
 @media (prefers-reduced-motion: reduce) {
   .action-section h2,
   .action-section > .v-container > div:first-child p,
-  .action-section .cta-button-section,
   .action-card-container {
     animation: none;
     opacity: 1;

@@ -1,20 +1,26 @@
 <template>
-  <section class="hero-section section-primary">
+  <section class="hero-section section-secondary">
     <v-container class="py-12 py-md-16">
       <v-row align="center" justify="space-between">
         <v-col cols="12" md="6" class="pr-md-12">
           <div class="hero-content mb-8">
             <h1 class="hero-title mb-6">
-              <span class="hero-title-highlight">Statewide Violence Prevention Plan</span>
+              <span class="hero-title-highlight"
+                >Statewide Violence Prevention Plan</span
+              >
               for Illinois: 2025-2029
             </h1>
             <p class="hero-description mb-8">
-              Violence is a global public health crisis. The prevention of violence is
-              paramount. Illinois is committed to supporting violence prevention
-              initiatives through trauma-informed, healing-centered practices across
-              communities most impacted by violence.
+              Violence is a global public health crisis. The prevention of
+              violence is paramount. Illinois is committed to supporting
+              violence prevention initiatives through trauma-informed,
+              healing-centered practices across communities most impacted by
+              violence.
             </p>
-            <div class="hero-buttons d-flex flex-column flex-sm-row" style="gap: 20px">
+            <div
+              class="hero-buttons d-flex flex-column flex-sm-row"
+              style="gap: 20px"
+            >
               <v-btn
                 variant="flat"
                 color="primary"
@@ -208,7 +214,11 @@ const handleLearnMore = () => {
 .hero-image-decoration-1 {
   width: 200px;
   height: 200px;
-  background: linear-gradient(135deg, var(--v-primary-base), var(--v-accent-base));
+  background: linear-gradient(
+    135deg,
+    var(--v-primary-base),
+    var(--v-accent-base)
+  );
   top: -50px;
   right: -50px;
   animation: float 6s ease-in-out infinite;
@@ -217,7 +227,11 @@ const handleLearnMore = () => {
 .hero-image-decoration-2 {
   width: 150px;
   height: 150px;
-  background: linear-gradient(135deg, var(--v-secondary-base), var(--v-primary-base));
+  background: linear-gradient(
+    135deg,
+    var(--v-secondary-base),
+    var(--v-primary-base)
+  );
   bottom: -30px;
   left: -30px;
   animation: float 8s ease-in-out infinite reverse;

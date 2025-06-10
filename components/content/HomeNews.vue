@@ -1,5 +1,5 @@
 <template>
-  <section class="news-section section section-secondary py-16">
+  <section class="news-section section section-primary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">
@@ -7,8 +7,8 @@
           Latest News & Updates
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto mb-8">
-          Stay informed about violence prevention initiatives, research findings, and community 
-          programs making a difference across Illinois.
+          Stay informed about violence prevention initiatives, research
+          findings, and community programs making a difference across Illinois.
         </p>
       </div>
 
@@ -20,7 +20,9 @@
           indeterminate
           aria-label="Loading news articles"
         />
-        <p class="text-body-1 mt-4 text-medium-emphasis">Loading latest news...</p>
+        <p class="text-body-1 mt-4 text-medium-emphasis">
+          Loading latest news...
+        </p>
       </div>
 
       <!-- Error state -->
@@ -53,7 +55,12 @@
 
       <!-- No news state -->
       <div v-else class="text-center py-8">
-        <v-icon icon="mdi-newspaper-variant-outline" size="48" color="primary" class="mb-4" />
+        <v-icon
+          icon="mdi-newspaper-variant-outline"
+          size="48"
+          color="primary"
+          class="mb-4"
+        />
         <h3 class="text-h6 mb-2">No News Available</h3>
         <p class="text-body-2 text-medium-emphasis">
           Check back soon for the latest violence prevention news and updates.
@@ -99,9 +106,9 @@
  *
  * @component
  */
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
-import NewsCard from '~/components/content/NewsCard.vue';
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import NewsCard from "~/components/content/NewsCard.vue";
 
 /**
  * Component props
@@ -115,8 +122,8 @@ const props = defineProps({
     default: 3,
     validator: (value) => {
       return value >= 1 && value <= 10; // Reasonable limits
-    }
-  }
+    },
+  },
 });
 
 const router = useRouter();
@@ -126,19 +133,24 @@ const router = useRouter();
  * Uses queryCollection() with .limit() method as documented
  * Sorts by date descending at database level for better performance
  */
-const { data: allNews, pending, error, refresh } = await useAsyncData('home-news', async () => {
+const {
+  data: allNews,
+  pending,
+  error,
+  refresh,
+} = await useAsyncData("home-news", async () => {
   try {
     // Use Nuxt Content v3 queryCollection with .limit() method
     // Sort by date descending and limit results at query level
-    const news = await queryCollection('content')
-      .where('path', 'LIKE', '/news%')
-      .order('date', 'DESC')
+    const news = await queryCollection("content")
+      .where("path", "LIKE", "/news%")
+      .order("date", "DESC")
       .limit(props.itemCount)
       .all();
 
     return news || [];
   } catch (err) {
-    console.error('Error fetching news:', err);
+    console.error("Error fetching news:", err);
     throw err;
   }
 });
@@ -149,14 +161,14 @@ const { data: allNews, pending, error, refresh } = await useAsyncData('home-news
 const newsItems = computed(() => {
   if (!allNews.value) return [];
 
-  return allNews.value.map(item => ({
+  return allNews.value.map((item) => ({
     ...item,
     // Ensure we have all required fields
-    title: item.title || 'Untitled',
-    summary: item.summary || item.description || '',
-    date: item.date || new Date().toISOString().split('T')[0],
+    title: item.title || "Untitled",
+    summary: item.summary || item.description || "",
+    date: item.date || new Date().toISOString().split("T")[0],
     image: item.image || null,
-    _path: item.path
+    _path: item.path,
   }));
 });
 
@@ -165,7 +177,7 @@ const newsItems = computed(() => {
  * Navigates to the full news listing page
  */
 const handleViewAllNews = () => {
-  router.push('/news');
+  router.push("/news");
 };
 </script>
 

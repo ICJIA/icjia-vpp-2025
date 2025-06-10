@@ -2,7 +2,120 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-10 (Homepage Hero Background Fix for Proper Alternation)
+
+- Fixed homepage background alternation by updating the hero section to ensure all sections alternate properly between primary and secondary backgrounds.
+- Files modified:
+  - `components/content/HomeHero.vue`: Changed hero section background class
+    - **Background Update**: Changed from `section-primary` to `section-secondary` to create proper alternating pattern
+    - **Alternating Pattern**: Now follows correct sequence: Hero (secondary) → Statistics (primary) → Letters (secondary) → Approach (primary) → Goals (secondary) → Principles (primary) → Stakeholders (secondary) → News (primary) → Action (secondary)
+    - **Visual Improvement**: Eliminates background duplication between hero and statistics sections
+    - **Theme Consistency**: Maintains proper alternating backgrounds in both light and dark modes
+- Technical Notes:
+  - Fixed issue where hero and statistics sections had identical backgrounds (both section-primary)
+  - Ensures visual separation between all adjacent sections on the homepage
+  - Maintains existing CSS styling and responsive design while improving visual hierarchy
+  - Preserves all accessibility features and theme compatibility
+  - Creates consistent alternating rhythm throughout the entire homepage
+
+### 2025-06-10 (Download Page Read Online Section Addition)
+
+- Added 'Read the Plan Online' section to the downloads page, positioned directly beneath the Primary Download card.
+- Files modified:
+  - `content/download.md`: Added new section with consistent styling and functionality
+    - **Section Title**: "Read the Plan Online" positioned between Primary Download and Developer & Technical Downloads
+    - **Card Styling**: Uses same `primary-download-card` class for consistent appearance with existing cards
+    - **Icon Design**: Large 80px `mdi-book-open-page-variant` icon with success color for visual distinction
+    - **Content Structure**: Title "Browse the Plan Online", descriptive text emphasizing interactive navigation and searchable content
+    - **Feature Highlights**: Three detail items showcasing Interactive (web icon), Searchable (magnify icon), and Responsive (devices icon) features
+    - **Call-to-Action**: "Read Online" button with success color, large size, and book icon, linking to `/plan` route
+    - **Navigation**: Button redirects to `/plan` which automatically redirects to `/plan/front-cover` via Nuxt route rules
+- Technical Notes:
+  - Maintained consistent styling with existing download cards using same CSS classes and structure
+  - Used success color theme for visual differentiation from primary (blue) and info (teal) colored sections
+  - Preserved responsive design and accessibility features of existing card components
+  - Integrated seamlessly with existing page layout and spacing
+  - Button navigation leverages existing redirect rule from `/plan` to `/plan/front-cover`
+
+### 2025-06-10 (For More Information Section Third Card Addition)
+
+- Added "Read the Plan Online" card to the 'For More Information' section, expanding from 2-card to 3-card layout with comprehensive responsive design.
+- Files modified/created:
+  - `components/content/HomeAction.vue`: Added third card and updated layout system
+    - **New Card Addition**: Added "Read the Plan Online" card with title, description "Browse the complete Violence Prevention Plan directly in your browser with interactive navigation and searchable content", icon `mdi-book-open-page-variant`, button text "Read Online", URL `/plan/front-cover`
+    - **Card Positioning**: Positioned as middle card between "Download the Plan" and "Contact Us" for logical flow
+    - **CSS Grid Enhancement**: Updated from 2-column to 3-column responsive grid layout (mobile: 1 column, tablet: 2 columns, desktop: 3 columns at 900px+)
+    - **Grid Optimization**: Reduced minimum card width from 300px to 280px for better 3-card fit, adjusted gaps (1.5rem base, 2rem tablet/desktop)
+    - **Legacy Action Handler**: Added "read-online" case to handleLegacyAction function for proper navigation fallback
+    - **Documentation Updates**: Updated component documentation to reflect 3-card layout and new functionality
+  - `nuxt.config.ts`: Added route rule for /plan/ redirect
+    - **Route Redirect**: Implements automatic redirect from `/plan/` to `/plan/front-cover` using Nuxt's routeRules configuration
+    - **Server-Side Redirect**: Proper HTTP redirect handled at the server level for better performance and SEO
+    - **User Experience**: Ensures users accessing `/plan/` directly are seamlessly redirected to the front cover
+- Technical Notes:
+  - Maintained infographic-style design with large titles (2rem base, 2.25rem desktop, 1.5rem mobile) across all three cards
+  - Preserved existing compact spacing, card styling, hover effects, and theme compatibility
+  - Ensured equal card heights and proper alignment using CSS Grid with stretch alignment
+  - Maintained WCAG 2.1 AA accessibility compliance with proper ARIA attributes and keyboard navigation
+  - Responsive breakpoints: mobile (≤599px): 1 column, tablet (600px-899px): 2 columns, desktop (≥900px): 3 columns
+  - All three cards maintain consistent styling, animations, and interactive behaviors
+
+### 2025-06-10 (For More Information Section Infographic-Style Enhancement)
+
+- Enhanced the 'For More Information' section with infographic-style design featuring larger titles, reduced spacing, and streamlined layout.
+- Files modified:
+  - `components/content/HomeAction.vue`: Comprehensive design enhancement for infographic-style presentation
+    - **Title Enhancement**: Increased title font size from 1.25rem to 2rem (desktop: 2.25rem, mobile: 1.5rem), increased font weight from 700 to 800, added negative letter spacing (-0.025em) for modern typography
+    - **Spacing Reduction**: Reduced card content grid gap from 1.5rem to 1rem, removed icon section margin-bottom, reduced card padding from 2rem to 1.5rem
+    - **Card Compactness**: Reduced minimum card height from 400px to 320px (desktop: 350px, mobile: 280px) for more compact presentation
+    - **Download Button Removal**: Completely removed final 'Download the Plan' button and accompanying text, removed DownloadPlanButton import and component usage
+    - **Responsive Optimization**: Updated responsive breakpoints to maintain infographic style across all devices with appropriate title scaling
+    - **Animation Cleanup**: Removed animation references for deleted download button section
+    - **Documentation Updates**: Updated component documentation to reflect infographic-style design and removed download button functionality
+- Technical Notes:
+  - Created more visually impactful presentation with larger, bolder titles for better information hierarchy
+  - Maintained all existing functionality, accessibility features, and responsive design while improving visual appeal
+  - Preserved card styling, hover effects, and theme compatibility with enhanced typography
+  - Streamlined section focus by removing redundant download button (download access still available through card)
+  - Maintained WCAG 2.1 AA accessibility compliance with improved readability through larger titles
+
+### 2025-06-10 (For More Information Section Content Update)
+
+- Updated the 'For More Information' section to focus on download access and contact information with improved user experience.
+- Files modified:
+  - `components/content/HomeAction.vue`: Comprehensive content and layout updates
+    - **Card 1 Update**: Changed "Read the Full Plan" to "Download the Plan" with updated description emphasizing multiple format access, changed icon from `mdi-book-open-page-variant` to `mdi-download`, updated URL from `/plan/executive-summary` to `/download`, changed button text from "View Plan" to "Download"
+    - **Card 2 Removal**: Completely removed "Find Local Resources" card to streamline section focus
+    - **Card 3 Update**: Changed "Get Involved" to "Contact Us" with updated description focusing on questions, assistance, and support, changed icon from `mdi-hand-heart` to `mdi-email`, updated URL from `/executive-summary` to `/contact`, changed button text from "Learn More" to "Contact"
+    - **Layout Optimization**: Updated CSS Grid from 3-column to 2-column layout for better visual balance, removed desktop 3-column breakpoint, maintained responsive design for mobile and tablet
+    - **Legacy Action Updates**: Updated `handleLegacyAction` function to handle new action types (`download-plan`, `contact-us`)
+    - **Documentation Updates**: Updated component documentation to reflect new 2-card layout and updated functionality
+- Technical Notes:
+  - Maintained all existing functionality, animations, accessibility features, and responsive design
+  - Preserved card styling, hover effects, and theme compatibility
+  - Updated grid system to optimize for 2-card layout with improved spacing
+  - Ensured proper URL navigation to download and contact pages
+  - Maintained WCAG 2.1 AA accessibility compliance throughout changes
+
+### 2025-06-10 (Homepage Section Reordering and Alternating Background Implementation)
+
+- Reordered homepage sections to follow the exact specified sequence and implemented alternating background colors for improved visual separation.
+- Files modified:
+  - `content/index.md`: Reordered sections to follow exact sequence: Hero → Violence in Illinois: The Data → A message from the executive director → Public Health Approach to Violence Prevention → Our Goals → Guiding Principles → The Planning Process → News & Updates → For More Information
+  - `components/content/HomeApproach.vue`: Changed from `section-secondary` to `section-primary` (position 4)
+  - `components/content/HomeStakeholders.vue`: Changed from `section-primary` to `section-secondary` (position 7)
+  - `components/content/HomeNews.vue`: Changed from `section-secondary` to `section-primary` (position 8)
+  - `components/content/HomeAction.vue`: Changed from `section-primary` to `section-secondary` (position 9)
+- Technical Notes:
+  - Implemented alternating primary/secondary background pattern starting after Hero section
+  - Background pattern: Hero (no change) → Primary → Secondary → Primary → Secondary → Primary → Secondary → Primary → Secondary
+  - Updated section titles to match user requirements: "Strategic Priorities: 2025-2029" → "Our Goals", "Collaborative Partnership Approach" → "The Planning Process", "Latest News & Updates" → "News & Updates", "Join the Movement for Violence Prevention" → "For More Information"
+  - Maintained all existing functionality, component behavior, responsive design, and accessibility features
+  - Preserved all content, styling, animations, and interactive elements
+  - Ensured visual consistency with project's alternating background system using existing CSS classes
+
 ### 2025-06-10 (Guiding Principles Grid Layout Enhancement)
+
 - Enhanced Guiding Principles section layout to center bottom two cards for improved visual balance on desktop screens.
 - Files modified:
   - `components/content/HomePrinciples.vue`: Updated CSS Grid layout with nth-child selectors to center cards 4 and 5 in bottom row on desktop (1024px+)
@@ -13,6 +126,7 @@ This document serves as a chronological record of all significant changes made t
   - Creates more symmetrical appearance with 3-2 card distribution on desktop
 
 ### 2025-06-10 (Guiding Principles Content Update with Official Plan Text)
+
 - Updated Guiding Principles section to use exact verbatim text from the official Violence Prevention Plan document.
 - Files modified/created:
   - `components/content/HomePrinciples.vue`: Updated principles array with exact text from official plan document
@@ -34,6 +148,7 @@ This document serves as a chronological record of all significant changes made t
   - **Accessibility Maintained**: All WCAG 2.1 AA compliance features preserved during content updates
 
 ### 2025-06-10 (Planning Process Section Content Update)
+
 - Updated HomeStakeholders component to reflect official plan document content for "The Planning Process" section.
 - Files modified/created:
   - `components/content/HomeStakeholders.vue`: Changed section title from "Collaborative Partnership Approach" to "The Planning Process", updated content to match official plan document exactly, replaced key partners list with three planning workgroups (Data, Grant Implementation, Recommendations), removed "View All Partners" button entirely, updated component documentation and variable names

@@ -1,5 +1,5 @@
 <template>
-  <section class="stakeholders-section section section-primary py-16">
+  <section class="stakeholders-section section section-secondary py-16">
     <v-container>
       <v-row align="center">
         <!-- Image column - moved to left for alternating layout -->

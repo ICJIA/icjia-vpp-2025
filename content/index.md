@@ -8,6 +8,7 @@ twitterCard: "summary_large_image"
 ---
 
 ::home-hero
+
 # Violence Prevention Plan for Illinois: 2025-2029
 
 Violence is a global public health crisis. The prevention of violence is paramount. Illinois is committed to supporting violence prevention initiatives through trauma-informed, healing-centered practices across communities most impacted by violence.
@@ -19,47 +20,57 @@ View the Plan
 Learn More
 ::
 
-::home-letters
-::
-
 ::home-statistics
+
 # Violence in Illinois: The Data
 
 Understanding the scope and impact of violence is the first step in prevention. These statistics highlight the urgent need for comprehensive violence prevention efforts across Illinois.
 ::
 
-::home-goals
-# Strategic Priorities: 2025-2029
+::home-letters
 
-Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
-::
+# A message from the executive director
 
-::home-stakeholders
-# Collaborative Partnership Approach
-
-This plan was developed through an extensive collaborative process involving diverse stakeholders from across Illinois, ensuring community voices are centered in our violence prevention efforts.
-::
-
-::home-news{:item-count=3}
-# Latest News & Updates
-
-Stay informed about violence prevention initiatives, research findings, and community programs making a difference across Illinois.
-::
-
-::home-principles
-# Guiding Principles
-
-Five core principles guide our violence prevention efforts, ensuring that our work is grounded in equity, safety, health, belonging, and collaboration across all levels of government.
 ::
 
 ::home-approach
+
 # Public Health Approach to Violence Prevention
 
 Illinois is committed to violence prevention efforts from a public health perspective, utilizing evidence-based practices and addressing violence as a preventable public health crisis.
 ::
 
+::home-goals
+
+# Our Goals
+
+Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
+::
+
+::home-principles
+
+# Guiding Principles
+
+Five core principles guide our violence prevention efforts, ensuring that our work is grounded in equity, safety, health, belonging, and collaboration across all levels of government.
+::
+
+::home-stakeholders
+
+# The Planning Process
+
+This plan was developed through an extensive collaborative process involving diverse stakeholders from across Illinois, ensuring community voices are centered in our violence prevention efforts.
+::
+
+::home-news{:item-count=3}
+
+# News & Updates
+
+Stay informed about violence prevention initiatives, research findings, and community programs making a difference across Illinois.
+::
+
 ::home-action
-# Join the Movement for Violence Prevention
+
+# For More Information
 
 Together, we can create safer, healthier communities across Illinois. Explore the full plan, get involved with local initiatives, or learn how your organization can contribute to violence prevention efforts.
 

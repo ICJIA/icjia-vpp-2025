@@ -1,6 +1,6 @@
 ---
-title: 'Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029'
-description: 'The Statewide Violence Prevention Plan for Illinois: 2025-2029.'
+title: "Statewide Violence Prevention Plan for Illinois: 2025-2029"
+description: "The Statewide Violence Prevention Plan for Illinois: 2025-2029."
 keywords: []
 showBorder: true
 ---
@@ -17,10 +17,10 @@ Information Authority and the University of Illinois at Urbana-Champaign School 
 
 **Suggested Citation:**
 
->Garthe, R. C. (2025). Statewide Violence Prevention Plan for Illinois: 2025-2029. Illinois Criminal Justice Information Authority.
+> Garthe, R. C. (2025). Statewide Violence Prevention Plan for Illinois: 2025-2029. Illinois Criminal Justice Information Authority.
 
 A special thank you to the faculty, staff, interns, and research assistants within the Violence
 Prevention Research Lab at the University of Illinois Urbana-Champaign who assisted with this
 project at various stages.
 
-Stock photos are free from [Pexels.com](https://www.pexels.com/){target="_blank" rel="noopener noreferrer"}
+Stock photos are free from [Pexels.com](https://www.pexels.com/){target="\_blank" rel="noopener noreferrer"}

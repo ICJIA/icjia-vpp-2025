@@ -153,6 +153,18 @@ export default defineNuxtConfig({
   },
 
   /**
+   * Route rules configuration
+   *
+   * Configures route-specific behavior including redirects.
+   *
+   * @see https://nuxt.com/docs/guide/concepts/rendering#route-rules
+   */
+  routeRules: {
+    // Redirect /plan/ to /plan/front-cover for better user experience
+    '/plan': { redirect: '/plan/front-cover' },
+  },
+
+  /**
    * Nitro server configuration
    *
    * Configures the Nitro server engine that powers Nuxt.
