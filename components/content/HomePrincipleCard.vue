@@ -36,22 +36,6 @@
             {{ principle.description }}
           </p>
         </div>
-
-        <!-- Button Section -->
-        <div class="button-section">
-          <v-btn
-            color="primary"
-            variant="outlined"
-            size="default"
-            class="rounded-pill px-6"
-            append-icon="mdi-arrow-right"
-            @click.stop="handleLearnMoreClick"
-            :aria-label="`Learn more about ${principle.title}`"
-          >
-            Learn More
-          </v-btn>
-        </div>
-
       </div>
     </v-card>
   </div>
@@ -59,17 +43,16 @@
 
 <script setup>
 /**
- * Principle Card Component - Dual Navigation with Learn More Buttons
+ * Principle Card Component - Card-Level Navigation
  *
- * Displays individual guiding principles with both card-level click navigation and dedicated
- * "Learn More" buttons for enhanced user experience and clear call-to-action.
+ * Displays individual guiding principles with card-level click navigation for
+ * clean, streamlined user experience.
  *
  * Features:
- * - CSS Grid-based layout for optimal content organization with bottom-aligned buttons
+ * - CSS Grid-based layout for optimal content organization
  * - Larger icons (size 64) for better visual impact
  * - Responsive design with consistent minimum heights and equal card heights
- * - Dual navigation: card-level click and dedicated "Learn More" buttons
- * - Bottom-aligned buttons regardless of content length differences
+ * - Card-level click navigation for clean user experience
  * - Enhanced accessibility with proper ARIA attributes and keyboard navigation
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
@@ -77,20 +60,19 @@
  * - WCAG 2.1 AA compliance maintained
  *
  * Technical Implementation:
- * - Uses CSS Grid with fixed template areas including button section
+ * - Uses CSS Grid with fixed template areas for content organization
  * - Description section expands with 1fr to fill available space
- * - Button section uses auto height with bottom alignment
  * - Deep selectors override Vuetify card defaults for perfect control
- * - Dual navigation with @click.stop to prevent event bubbling
+ * - Card-level navigation with proper accessibility support
  *
  * @component
  */
-import { computed, inject } from 'vue';
+import { computed, inject } from "vue";
 
 /**
  * Get the announce function from the provider for screen reader announcements
  */
-const announce = inject('announce', null);
+const announce = inject("announce", null);
 
 /**
  * Component props
@@ -103,11 +85,11 @@ const announce = inject('announce', null);
 const props = defineProps({
   principle: {
     type: Object,
-    required: true
+    required: true,
   },
   delay: {
     type: Number,
-    default: 0
+    default: 0,
   },
   /**
    * Optional URL for card navigation
@@ -131,15 +113,17 @@ const props = defineProps({
     default: null,
     validator: (value) => {
       if (value === null) return true;
-      if (typeof value !== 'string') return false;
+      if (typeof value !== "string") return false;
       // Allow local paths and external URLs
-      return value.startsWith('/') ||
-             value.startsWith('http://') ||
-             value.startsWith('https://') ||
-             value.startsWith('./') ||
-             value.startsWith('../');
-    }
-  }
+      return (
+        value.startsWith("/") ||
+        value.startsWith("http://") ||
+        value.startsWith("https://") ||
+        value.startsWith("./") ||
+        value.startsWith("../")
+      );
+    },
+  },
 });
 
 /**
@@ -150,16 +134,16 @@ const uniqueId = computed(() => {
   // Create a deterministic ID based on the principle title
   return props.principle.title
     .toLowerCase()
-    .replace(/[^a-z0-9]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
+    .replace(/[^a-z0-9]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
 });
 
 /**
  * Animation style with delay
  */
 const animationStyle = computed(() => ({
-  animationDelay: `${props.delay}ms`
+  animationDelay: `${props.delay}ms`,
 }));
 
 /**
@@ -181,11 +165,11 @@ const animationStyle = computed(() => ({
  * <SandboxPrincipleCard :principle="principleData" />
  */
 const handleCardClick = async () => {
-  console.log('Principle card clicked:', props.principle.title);
+  console.log("Principle card clicked:", props.principle.title);
 
   // If no URL is provided, only show hover/focus effects (current behavior)
   if (!props.url) {
-    console.log('No URL provided - showing hover effects only');
+    console.log("No URL provided - showing hover effects only");
     return;
   }
 
@@ -196,20 +180,20 @@ const handleCardClick = async () => {
 
   try {
     // Check if it's an external URL
-    if (props.url.startsWith('http://') || props.url.startsWith('https://')) {
+    if (props.url.startsWith("http://") || props.url.startsWith("https://")) {
       // External URL - open in new window with security attributes
-      window.open(props.url, '_blank', 'noopener,noreferrer');
-      console.log('Opened external URL:', props.url);
+      window.open(props.url, "_blank", "noopener,noreferrer");
+      console.log("Opened external URL:", props.url);
     } else {
       // Local URL - use Nuxt navigation
       await navigateTo(props.url);
-      console.log('Navigated to local URL:', props.url);
+      console.log("Navigated to local URL:", props.url);
     }
   } catch (error) {
-    console.error('Navigation failed:', error);
+    console.error("Navigation failed:", error);
     // Announce error to screen readers
     if (announce) {
-      announce('Navigation failed. Please try again.');
+      announce("Navigation failed. Please try again.");
     }
   }
 };
@@ -222,7 +206,7 @@ const handleCardClick = async () => {
  * @returns {Promise<void>} Promise that resolves when navigation is complete
  */
 const handleLearnMoreClick = async () => {
-  console.log('Learn More button clicked:', props.principle.title);
+  console.log("Learn More button clicked:", props.principle.title);
 
   // Use the same navigation logic as card click
   await handleCardClick();
@@ -250,7 +234,8 @@ const handleLearnMoreClick = async () => {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
 }
 
@@ -324,7 +309,8 @@ const handleLearnMoreClick = async () => {
 .principle-card-inner:hover,
 .principle-card-inner:focus-visible {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .principle-card-inner:focus-visible {
@@ -335,14 +321,16 @@ const handleLearnMoreClick = async () => {
 /* Dark Theme Adjustments */
 :root[data-theme="dark"] .principle-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
   /* Enhanced background for better contrast against dark page backgrounds */
-  background: #2A3441 !important;
+  background: #2a3441 !important;
 }
 
 :root[data-theme="dark"] .principle-card-inner:hover,
 :root[data-theme="dark"] .principle-card-inner:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7),
+    0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 :root[data-theme="dark"] .principle-icon {

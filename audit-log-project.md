@@ -2,6 +2,47 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-10 (Guiding Principles Grid Layout Enhancement)
+- Enhanced Guiding Principles section layout to center bottom two cards for improved visual balance on desktop screens.
+- Files modified:
+  - `components/content/HomePrinciples.vue`: Updated CSS Grid layout with nth-child selectors to center cards 4 and 5 in bottom row on desktop (1024px+)
+- Technical Notes:
+  - Uses `grid-column` positioning and calculated margins to center bottom row cards
+  - Maintains all existing responsive behavior for tablet (2-column) and mobile (1-column) layouts
+  - Preserves card styling, hover effects, animations, and accessibility features
+  - Creates more symmetrical appearance with 3-2 card distribution on desktop
+
+### 2025-06-10 (Guiding Principles Content Update with Official Plan Text)
+- Updated Guiding Principles section to use exact verbatim text from the official Violence Prevention Plan document.
+- Files modified/created:
+  - `components/content/HomePrinciples.vue`: Updated principles array with exact text from official plan document
+    - **Title Capitalization**: Updated titles to match exact capitalization from source document (e.g., "Foster belonging and social connectedness", "Advance equity", "Support health", "Engage state agencies in collaboration")
+    - **Description Text**: Replaced all descriptions with verbatim text from `/public/files/vpp_plan.md` lines 296-308
+    - **Content Accuracy**: Ensured 100% textual fidelity with no paraphrasing, summarization, or editorial modifications
+    - **Punctuation Consistency**: Used exact punctuation and formatting from the official document
+    - **Component Documentation**: Updated comments to reflect use of official plan document text
+  - `content/plan/guiding-principles.md`: Updated markdown content with exact text from official plan document
+    - **Section Headers**: Maintained existing markdown structure while updating content to match official text
+    - **Body Text**: Replaced all principle descriptions with verbatim text from source document
+    - **Formatting Preservation**: Maintained existing markdown formatting while ensuring content accuracy
+- Technical Notes:
+  - **Source Verification**: All content verified against `/public/files/vpp_plan.md` lines 292-308 for exact text matching
+  - **Government Compliance**: Ensures editorial integrity and transparency standards for official government documents
+  - **Visual Preservation**: Maintained all existing component structure, CSS Grid layout, animations, accessibility features, and responsive design
+  - **Functionality Maintained**: Preserved all component behavior, icons, colors, interactive elements, and theme compatibility
+  - **Content Integrity**: Eliminated any unauthorized paraphrasing or editorial modifications not present in source material
+  - **Accessibility Maintained**: All WCAG 2.1 AA compliance features preserved during content updates
+
+### 2025-06-10 (Planning Process Section Content Update)
+- Updated HomeStakeholders component to reflect official plan document content for "The Planning Process" section.
+- Files modified/created:
+  - `components/content/HomeStakeholders.vue`: Changed section title from "Collaborative Partnership Approach" to "The Planning Process", updated content to match official plan document exactly, replaced key partners list with three planning workgroups (Data, Grant Implementation, Recommendations), removed "View All Partners" button entirely, updated component documentation and variable names
+- Technical Notes:
+  - Content now matches word-for-word with the official VPP plan document section on planning process
+  - Maintained existing visual layout and styling while updating only content text
+  - Workgroups data includes proper descriptions from the official document
+  - Removed unused handleViewPartners function and related button functionality
+
 ### 2025-06-10 (Public Health Approach Content Accuracy Verification and Correction)
 
 - **Summary**: Corrected critical discrepancies between homepage "Public Health Approach to Violence Prevention" section and official Violence Prevention Plan report to ensure 100% textual fidelity and government transparency compliance.

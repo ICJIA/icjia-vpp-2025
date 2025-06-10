@@ -18,42 +18,43 @@
         <v-col cols="12" md="6" class="pl-md-12">
           <div class="stakeholders-content">
             <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">
-              Collaborative Partnership Approach
+              The Planning Process
             </h2>
             <p class="text-h6 text-medium-emphasis mb-6">
-              This plan was developed through an extensive collaborative process involving
-              diverse stakeholders from across Illinois, ensuring community voices are
-              centered in our violence prevention efforts.
+              In preparation for the 2025-2029 Violence Prevention Plan, several
+              groups were convened to review data and research, hear updates on
+              violence prevention efforts across the state, review previous
+              recommendations, and contribute feedback. The goals and
+              recommendations in this plan are a result of this collaborative
+              effort.
             </p>
 
-            <!-- Key partners -->
+            <!-- Planning workgroups -->
             <div class="mb-6">
-              <h3 class="text-h5 font-weight-medium mb-4">Key Partners</h3>
-              <v-list class="bg-transparent pa-0" role="list">
-                <v-list-item
-                  v-for="(partner, index) in keyPartners"
+              <h3 class="text-h5 font-weight-medium mb-4">Three Workgroups</h3>
+              <ul class="workgroups-list" role="list">
+                <li
+                  v-for="(workgroup, index) in planningWorkgroups"
                   :key="index"
-                  class="pa-0 mb-3"
+                  class="workgroup-item"
                   role="listitem"
                 >
-                  <template v-slot:prepend>
-                    <v-icon
-                      color="primary"
-                      :icon="partner.icon"
-                      class="mr-3"
-                      aria-hidden="true"
-                    />
-                  </template>
-                  <div>
-                    <v-list-item-title class="text-body-1 font-weight-medium">
-                      {{ partner.name }}
-                    </v-list-item-title>
-                    <v-list-item-subtitle class="text-body-2">
-                      {{ partner.role }}
-                    </v-list-item-subtitle>
+                  <v-icon
+                    color="primary"
+                    :icon="workgroup.icon"
+                    class="workgroup-icon"
+                    aria-hidden="true"
+                  />
+                  <div class="workgroup-content">
+                    <div class="workgroup-title">
+                      {{ workgroup.name }}
+                    </div>
+                    <div class="workgroup-description">
+                      {{ workgroup.description }}
+                    </div>
                   </div>
-                </v-list-item>
-              </v-list>
+                </li>
+              </ul>
             </div>
 
             <!-- Stakeholder stats -->
@@ -62,7 +63,9 @@
                 <v-col cols="6" sm="3">
                   <div class="text-center">
                     <div class="text-h4 font-weight-bold text-primary">40+</div>
-                    <div class="text-body-2 text-medium-emphasis">Stakeholders</div>
+                    <div class="text-body-2 text-medium-emphasis">
+                      Stakeholders
+                    </div>
                   </div>
                 </v-col>
                 <v-col cols="6" sm="3">
@@ -74,7 +77,9 @@
                 <v-col cols="6" sm="3">
                   <div class="text-center">
                     <div class="text-h4 font-weight-bold text-primary">3</div>
-                    <div class="text-body-2 text-medium-emphasis">Workgroups</div>
+                    <div class="text-body-2 text-medium-emphasis">
+                      Workgroups
+                    </div>
                   </div>
                 </v-col>
                 <v-col cols="6" sm="3">
@@ -85,17 +90,6 @@
                 </v-col>
               </v-row>
             </div>
-
-            <!-- CTA button -->
-            <v-btn
-              color="primary"
-              size="large"
-              class="rounded-pill px-6"
-              @click="handleViewPartners"
-            >
-              View All Partners
-              <v-icon end icon="mdi-arrow-right" />
-            </v-btn>
           </div>
         </v-col>
       </v-row>
@@ -105,18 +99,17 @@
 
 <script setup>
 /**
- * Home Stakeholders Section Component - Alternating Layout
+ * Home Planning Process Section Component - Alternating Layout
  *
- * Displays information about the collaborative partnership approach
- * and key stakeholders involved in developing the Violence Prevention Plan.
+ * Displays information about the planning process for developing the
+ * 2025-2029 Violence Prevention Plan, including workgroups and collaborative efforts.
  * Implements alternating layout pattern with image on left, content on right.
  *
  * Features:
  * - Alternating layout pattern (image left, content right)
- * - Key partner organizations with consistent primary color theming
- * - Stakeholder statistics from the planning process
+ * - Planning workgroups with consistent primary color theming
+ * - Statistics from the planning process
  * - Subtle, muted color scheme following project design system
- * - Call-to-action to view all partners
  * - WCAG 2.1 AA accessibility compliance
  * - Full theme compatibility (light/dark)
  * - Responsive design across all breakpoints
@@ -128,48 +121,32 @@
  *
  * @component
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 /**
- * Key partner organizations from the VPP analysis
+ * Planning workgroups from the 2025-2029 VPP planning process
  * Updated to use consistent primary color theming for subtle, muted design
  */
-const keyPartners = [
+const planningWorkgroups = [
   {
-    name: 'Illinois Criminal Justice Information Authority (ICJIA)',
-    role: 'Lead agency coordinating statewide violence prevention efforts',
-    icon: 'mdi-shield-account'
+    name: "Data Workgroup",
+    description:
+      "A data workgroup was formed to review the updated violence rates and trends report that was released, ensuring the new plan was reflective of these data",
+    icon: "mdi-chart-line",
   },
   {
-    name: 'University of Illinois Urbana-Champaign',
-    role: 'Violence Prevention Research Lab - research and analysis',
-    icon: 'mdi-school'
+    name: "Grant Implementation Workgroup",
+    description:
+      "A grant implementation workgroup was formed to review the focus group and interview results from ICJIA violence prevention grantees and grant monitors. This workgroup focused on the goal related to equity in grant implementation",
+    icon: "mdi-account-cash",
   },
   {
-    name: 'Violence Prevention Ad Hoc Committee',
-    role: 'Quarterly coordination of violence prevention funding',
-    icon: 'mdi-account-group'
+    name: "Recommendations Workgroup",
+    description:
+      "A recommendations workgroup was formed to review the 2020-2024 goals and recommendations, while considering new recommendations from the data and grant implementation workgroups",
+    icon: "mdi-lightbulb-on",
   },
-  {
-    name: 'Community-Based Organizations',
-    role: 'Frontline violence prevention and community services',
-    icon: 'mdi-heart-multiple'
-  },
-  {
-    name: 'State & Municipal Agencies',
-    role: 'Policy implementation and resource coordination',
-    icon: 'mdi-office-building'
-  }
 ];
-
-/**
- * Handle view all partners button click
- */
-const handleViewPartners = () => {
-  // This would navigate to a detailed partners/stakeholders page
-  console.log('View all partners clicked');
-  // Could scroll to a detailed section or navigate to another page
-};
 </script>
 
 <style scoped>
@@ -224,9 +201,47 @@ const handleViewPartners = () => {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* List item styling */
-.v-list-item {
+/* Custom workgroups list styling to match Vuetify list appearance */
+.workgroups-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.workgroup-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+  margin-bottom: 1rem;
   min-height: auto;
+}
+
+.workgroup-icon {
+  margin-right: 0.75rem;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.workgroup-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.workgroup-title {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 0.25rem;
+  color: rgba(var(--v-theme-on-surface), 0.87);
+}
+
+.workgroup-description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgba(var(--v-theme-on-surface), 0.6);
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Stats styling */
@@ -256,7 +271,7 @@ const handleViewPartners = () => {
     animation: none;
     opacity: 1;
   }
-  
+
   .shadow-img:hover {
     transform: none;
   }
