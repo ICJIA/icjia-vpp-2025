@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.5.1",
+    "@nuxtjs/plausible": "1.2.0",
     "@vueuse/core": "^13.2.0",
     "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^3.0.3",

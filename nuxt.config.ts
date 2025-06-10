@@ -28,10 +28,9 @@ export default defineNuxtConfig({
   ],
 
   // Nuxt modules
-  modules: [
-    '@nuxtjs/google-fonts',  // Google Fonts integration
-    '@nuxt/content'          // Content management system
-  ],
+  modules: [// Google Fonts integration
+  '@nuxtjs/google-fonts', // Content management system
+  '@nuxt/content', '@nuxtjs/plausible'],
 
   // Components configuration
   components: [
@@ -126,6 +125,7 @@ export default defineNuxtConfig({
    * Configures global app settings including:
    * - Default head metadata (title, description, favicon)
    * - Page transitions
+   * - Enhanced SEO and social media optimization
    */
   app: {
     // Global head configuration for SEO and metadata
@@ -133,15 +133,36 @@ export default defineNuxtConfig({
       // Default page title
       title: 'Violence Prevention Plan for Illinois: 2025-2029',
 
-      // Meta tags for SEO
+      // Meta tags for SEO and social media
       meta: [
-        { name: 'description', content: 'Violence Prevention Plan for Illinois: 2025-2029' }
+        { name: 'description', content: 'The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.' },
+        { name: 'keywords', content: 'violence prevention, Illinois, public health, community safety, trauma-informed care, evidence-based practices' },
+        { name: 'author', content: 'Illinois Criminal Justice Information Authority' },
+        { name: 'robots', content: 'index, follow' },
+
+        // Open Graph meta tags for social media sharing
+        { property: 'og:site_name', content: 'Statewide Violence Prevention Plan for Illinois: 2025-2029' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:locale', content: 'en_US' },
+
+        // Twitter Card meta tags
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:site', content: '@ICJIA_Illinois' },
+        { name: 'twitter:creator', content: '@ICJIA_Illinois' },
+
+        // Additional meta tags for better SEO
+        { name: 'theme-color', content: '#1976d2' },
+        { name: 'msapplication-TileColor', content: '#1976d2' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
       ],
 
-      // Favicon configuration
+      // Favicon and icon configuration
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/images/illinois-seal.png' },
+        { rel: 'canonical', href: 'https://vpp-2025.netlify.app' }
       ]
     },
 
@@ -150,6 +171,10 @@ export default defineNuxtConfig({
       name: 'page',  // CSS class name for the transition
       mode: 'out-in' // First hide old page, then show new page
     }
+  },
+  plausible: {
+    // Prevent tracking on localhost
+    ignoredHostnames: ['localhost'],
   },
 
   /**

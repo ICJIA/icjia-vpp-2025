@@ -1,5 +1,8 @@
 <template>
   <div class="home-page">
+    <!-- SEO Structured Data -->
+    <StructuredData :content="content" page-type="homepage" path="/" />
+
     <!-- Loading state -->
     <div v-if="pending" class="text-center py-16">
       <v-progress-circular
@@ -130,45 +133,46 @@
  *
  * @page
  */
-import { computed } from 'vue';
-import { useHead, useSeoMeta } from '#imports';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
-import useContentFetcher from '~/composables/useContentFetcher';
+import { computed } from "vue";
+import { useHead, useSeoMeta } from "#imports";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
+import useContentFetcher from "~/composables/useContentFetcher";
 
 // Import home components
-import HomeHero from '~/components/content/HomeHero.vue';
-import HomeStatistics from '~/components/content/HomeStatistics.vue';
-import HomeGoals from '~/components/content/HomeGoals.vue';
-import HomeStakeholders from '~/components/content/HomeStakeholders.vue';
-import HomeNews from '~/components/content/HomeNews.vue';
-import HomePrinciples from '~/components/content/HomePrinciples.vue';
-import HomeApproach from '~/components/content/HomeApproach.vue';
-import HomeAction from '~/components/content/HomeAction.vue';
+import HomeHero from "~/components/content/HomeHero.vue";
+import HomeStatistics from "~/components/content/HomeStatistics.vue";
+import HomeGoals from "~/components/content/HomeGoals.vue";
+import HomeStakeholders from "~/components/content/HomeStakeholders.vue";
+import HomeNews from "~/components/content/HomeNews.vue";
+import HomePrinciples from "~/components/content/HomePrinciples.vue";
+import HomeApproach from "~/components/content/HomeApproach.vue";
+import HomeAction from "~/components/content/HomeAction.vue";
+import StructuredData from "~/components/seo/StructuredData.vue";
 
 // Initialize console logger
 const { log } = useConsoleLogger();
 
 // Content path for the home page
-const contentPath = '/';
+const contentPath = "/";
 
 // Log the content path
-log('content', 'Home page - loading MDC content', {
+log("content", "Home page - loading MDC content", {
   path: contentPath,
-  timestamp: new Date().toISOString()
+  timestamp: new Date().toISOString(),
 });
 
-console.log('DEBUG: contentPath is:', contentPath);
+console.log("DEBUG: contentPath is:", contentPath);
 
 // Use the project's content fetcher composable for homepage content
 const { content, pending, error, refresh } = useContentFetcher({
-  path: contentPath
+  path: contentPath,
 });
 
 // Watch for successful content loading
 if (content.value) {
-  log('content', 'Home page content loaded', {
+  log("content", "Home page content loaded", {
     title: content.value.title,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
 
@@ -177,22 +181,88 @@ if (content.value) {
  * Uses content frontmatter when available, falls back to defaults
  */
 useHead({
-  title: computed(() => content.value?.title || 'Violence Prevention Plan for Illinois: 2025-2029 - Home'),
+  title: computed(
+    () =>
+      content.value?.title ||
+      "Violence Prevention Plan for Illinois: 2025-2029 - Home"
+  ),
   htmlAttrs: {
-    lang: 'en'
-  }
+    lang: "en",
+  },
 });
 
 /**
- * Set SEO meta tags
- * Uses content frontmatter when available, falls back to defaults
+ * Enhanced SEO meta tags for homepage
+ * Comprehensive social media optimization with proper fallbacks
  */
+
+// Computed properties for homepage SEO
+const homeTitle = computed(
+  () =>
+    content.value?.title ||
+    "Violence Prevention Plan for Illinois: 2025-2029 - Home"
+);
+const homeDescription = computed(
+  () =>
+    content.value?.description ||
+    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities."
+);
+const homeCanonicalUrl = "https://vpp-2025.netlify.app/";
+
+// Social media image handling for homepage
+const homeSocialImage = computed(() => {
+  if (content.value?.ogImage) {
+    if (content.value.ogImage.startsWith("/")) {
+      return `https://vpp-2025.netlify.app${content.value.ogImage}`;
+    }
+    return content.value.ogImage;
+  }
+  return "https://vpp-2025.netlify.app/images/og-image-default.jpg";
+});
+
+const homeTwitterImage = computed(() => {
+  if (content.value?.twitterImage) {
+    if (content.value.twitterImage.startsWith("/")) {
+      return `https://vpp-2025.netlify.app${content.value.twitterImage}`;
+    }
+    return content.value.twitterImage;
+  }
+  return "https://vpp-2025.netlify.app/images/twitter-card-default.jpg";
+});
+
 useSeoMeta({
-  title: computed(() => content.value?.title || 'Violence Prevention Plan for Illinois: 2025-2029 - Home'),
-  description: computed(() => content.value?.description || 'The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.'),
-  ogTitle: computed(() => content.value?.ogTitle || 'Violence Prevention Plan for Illinois: 2025-2029 - Home'),
-  ogDescription: computed(() => content.value?.ogDescription || 'Comprehensive resources and tools for violence prevention initiatives across Illinois communities.'),
-  twitterCard: computed(() => content.value?.twitterCard || 'summary_large_image'),
+  title: homeTitle,
+  description: homeDescription,
+
+  // Open Graph meta tags for social sharing
+  ogTitle: computed(() => content.value?.ogTitle || homeTitle.value),
+  ogDescription: computed(
+    () => content.value?.ogDescription || homeDescription.value
+  ),
+  ogImage: homeSocialImage,
+  ogUrl: homeCanonicalUrl,
+  ogType: "website",
+  ogSiteName: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+  ogLocale: "en_US",
+
+  // Twitter Card meta tags
+  twitterCard: computed(
+    () => content.value?.twitterCard || "summary_large_image"
+  ),
+  twitterTitle: computed(() => content.value?.twitterTitle || homeTitle.value),
+  twitterDescription: computed(
+    () => content.value?.twitterDescription || homeDescription.value
+  ),
+  twitterImage: homeTwitterImage,
+  twitterSite: "@ICJIA_Illinois",
+  twitterCreator: "@ICJIA_Illinois",
+
+  // Additional SEO meta tags
+  canonical: homeCanonicalUrl,
+  robots: "index, follow",
+  author: "Illinois Criminal Justice Information Authority",
+  keywords:
+    "violence prevention, Illinois, public health, community safety, trauma-informed care, evidence-based practices, ICJIA",
 });
 </script>
 

@@ -1,8 +1,15 @@
 <template>
   <div class="dynamic-content-page">
+    <!-- SEO Structured Data -->
+    <StructuredData :content="content" page-type="article" :path="route.path" />
+
     <!-- Loading state -->
     <div v-if="pending" class="text-center py-16">
-      <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        size="64"
+      ></v-progress-circular>
       <p class="text-body-1 mt-4">Loading content...</p>
     </div>
 
@@ -22,13 +29,15 @@
 
         <h1 class="text-h2 font-weight-bold mb-4">Page Not Found</h1>
 
-        <p class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text">
+        <p
+          class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text"
+        >
           Statewide Violence Prevention Plan for Illinois: 2025-2029
         </p>
 
         <p class="text-body-1 mb-8 max-width-text">
-          Oops! It seems like the page you're looking for doesn't exist or has been moved.
-          Let's get you back on track.
+          Oops! It seems like the page you're looking for doesn't exist or has
+          been moved. Let's get you back on track.
         </p>
 
         <div class="text-center">
@@ -139,7 +148,11 @@
                         <!-- Left border indicator line -->
                         <div class="toc-indicator-line"></div>
 
-                        <v-list density="compact" class="toc-list" bg-color="transparent">
+                        <v-list
+                          density="compact"
+                          class="toc-list"
+                          bg-color="transparent"
+                        >
                           <v-list-item
                             v-for="(item, index) in tocH2Items"
                             :key="`toc-${index}`"
@@ -153,21 +166,28 @@
                             @keydown.enter="scrollToHeading(item.id)"
                             @keydown.space.prevent="scrollToHeading(item.id)"
                             :aria-label="`Navigate to section: ${item.text}`"
-                            :aria-current="activeItemId === item.id ? 'true' : 'false'"
+                            :aria-current="
+                              activeItemId === item.id ? 'true' : 'false'
+                            "
                             role="button"
                           >
                             <!-- Visual indicator dot positioned absolutely relative to container -->
                             <div
                               :class="[
                                 'toc-indicator-dot',
-                                { 'toc-indicator-dot--active': activeItemId === item.id },
+                                {
+                                  'toc-indicator-dot--active':
+                                    activeItemId === item.id,
+                                },
                               ]"
                             ></div>
 
                             <v-list-item-title
                               :class="[
                                 'text-body-2 toc-link',
-                                { 'toc-link--active': activeItemId === item.id },
+                                {
+                                  'toc-link--active': activeItemId === item.id,
+                                },
                               ]"
                             >
                               {{ item.text }}
@@ -194,7 +214,9 @@
 
     <!-- Fallback content if no content is found -->
     <div v-else class="text-center py-16">
-      <v-icon color="warning" size="64" class="mb-4">mdi-file-document-outline</v-icon>
+      <v-icon color="warning" size="64" class="mb-4"
+        >mdi-file-document-outline</v-icon
+      >
       <h2 class="text-h4 mb-4">No Content Found</h2>
       <p class="text-body-1">The requested page content could not be found.</p>
       <v-btn color="primary" @click="navigateToHome" class="mt-4">
@@ -242,6 +264,7 @@ import useContentFetcher from "~/composables/useContentFetcher";
 import useReportNavigation from "~/composables/useReportNavigation";
 import PageTitleSection from "~/components/content/PageTitleSection.vue";
 import ReportNavigation from "~/components/content/ReportNavigation.vue";
+import StructuredData from "~/components/seo/StructuredData.vue";
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
@@ -255,7 +278,9 @@ const { isReportPage } = useReportNavigation();
 // Build content path from route params
 const contentPath = computed(() => {
   const slugArray = route.params.slug || [];
-  const path = Array.isArray(slugArray) ? `/${slugArray.join("/")}` : `/${slugArray}`;
+  const path = Array.isArray(slugArray)
+    ? `/${slugArray.join("/")}`
+    : `/${slugArray}`;
 
   log("content", "Dynamic route - resolving content path", {
     routePath: route.path,
@@ -485,7 +510,8 @@ const fixedStyles = computed(() => {
  */
 const tocH2Items = computed(() => {
   // Try different possible TOC data paths
-  const tocData = content.value?.body?.toc || content.value?.toc || content.value?._toc;
+  const tocData =
+    content.value?.body?.toc || content.value?.toc || content.value?._toc;
 
   if (!tocData) {
     return [];
@@ -592,7 +618,9 @@ const pageTitle = computed(() => {
 
   // Generate title from slug
   const slugArray = route.params.slug || [];
-  const lastSlug = Array.isArray(slugArray) ? slugArray[slugArray.length - 1] : slugArray;
+  const lastSlug = Array.isArray(slugArray)
+    ? slugArray[slugArray.length - 1]
+    : slugArray;
 
   if (lastSlug) {
     // Convert kebab-case to Title Case
@@ -730,7 +758,10 @@ const updateTitleVisibility = () => {
   // Handle Vue component instance (PageTitleSection) - get the root element
   const titleElement = titleRow.value?.$el || titleRow.value;
 
-  if (titleElement && typeof titleElement.getBoundingClientRect === "function") {
+  if (
+    titleElement &&
+    typeof titleElement.getBoundingClientRect === "function"
+  ) {
     const rect = titleElement.getBoundingClientRect();
 
     // Store title bottom position for debugging and display purposes
@@ -769,7 +800,10 @@ const updateFixedPosition = () => {
   // Get reference to the TOC content element
   const contentElement = stickyElement.value?.$el || stickyElement.value;
 
-  if (contentElement && typeof contentElement.getBoundingClientRect === "function") {
+  if (
+    contentElement &&
+    typeof contentElement.getBoundingClientRect === "function"
+  ) {
     // CRITICAL: Only measure position when element is in natural (not fixed) state
     // This prevents measurement of already-fixed positioning which would be incorrect
     if (!isFixed.value) {
@@ -1079,17 +1113,72 @@ useHead({
  * - Dynamic robots meta based on content type
  * - 404 pages marked as noindex, nofollow
  * - Regular content marked as index, follow
+ * - Canonical URLs for duplicate content prevention
+ * - Structured data for enhanced search results
  *
  * @seo Complete metadata configuration
  * @social Open Graph and Twitter Card support
  */
+
+// Computed properties for enhanced SEO
+const canonicalUrl = computed(() => {
+  const baseUrl = "https://vpp-2025.netlify.app";
+  return content.value?.canonical || `${baseUrl}${route.path}`;
+});
+
+const socialImage = computed(() => {
+  // Priority: content frontmatter image > default OG image
+  if (content.value?.image) {
+    // If it's a relative path, make it absolute
+    if (content.value.image.startsWith("/")) {
+      return `https://vpp-2025.netlify.app${content.value.image}`;
+    }
+    // If it's already absolute (external URL), use as-is
+    return content.value.image;
+  }
+  // Fallback to default OG image
+  return "https://vpp-2025.netlify.app/images/og-image-default.jpg";
+});
+
+const twitterImage = computed(() => {
+  // Use content image if available, otherwise Twitter-specific default
+  if (content.value?.image) {
+    if (content.value.image.startsWith("/")) {
+      return `https://vpp-2025.netlify.app${content.value.image}`;
+    }
+    return content.value.image;
+  }
+  return "https://vpp-2025.netlify.app/images/twitter-card-default.jpg";
+});
+
 useSeoMeta({
   title: pageTitle,
   description: pageDescription,
+
+  // Open Graph meta tags for Facebook, LinkedIn, etc.
   ogTitle: computed(() => content.value?.ogTitle || pageTitle.value),
-  ogDescription: computed(() => content.value?.ogDescription || pageDescription.value),
-  ogImage: computed(() => content.value?.ogImage || "/images/og-image-default.jpg"),
-  twitterCard: computed(() => content.value?.twitterCard || "summary_large_image"),
+  ogDescription: computed(
+    () => content.value?.ogDescription || pageDescription.value
+  ),
+  ogImage: socialImage,
+  ogUrl: canonicalUrl,
+  ogType: computed(() => content.value?.ogType || "article"),
+  ogSiteName: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+  ogLocale: "en_US",
+
+  // Twitter Card meta tags
+  twitterCard: computed(
+    () => content.value?.twitterCard || "summary_large_image"
+  ),
+  twitterTitle: computed(() => content.value?.twitterTitle || pageTitle.value),
+  twitterDescription: computed(
+    () => content.value?.twitterDescription || pageDescription.value
+  ),
+  twitterImage: twitterImage,
+  twitterSite: "@ICJIA_Illinois",
+  twitterCreator: "@ICJIA_Illinois",
+
+  // Additional SEO meta tags
   robots: computed(() => {
     // Don't index 404 pages to avoid SEO penalties
     if (isNotFoundError.value) {
@@ -1098,6 +1187,21 @@ useSeoMeta({
     // Allow indexing of regular content
     return content.value?.robots || "index, follow";
   }),
+
+  // Canonical URL for duplicate content prevention
+  canonical: canonicalUrl,
+
+  // Additional meta tags for better SEO
+  author: computed(
+    () =>
+      content.value?.author || "Illinois Criminal Justice Information Authority"
+  ),
+  publishedTime: computed(
+    () => content.value?.date || content.value?.publishedTime
+  ),
+  modifiedTime: computed(
+    () => content.value?.lastModified || content.value?.modifiedTime
+  ),
 });
 </script>
 
@@ -1599,7 +1703,9 @@ useSeoMeta({
 .toc-indicator-dot--active {
   background-color: #4caf50 !important; /* High contrast green for selected items */
   border-color: rgba(76, 175, 80, 0.3) !important;
-  transform: scale(1.2); /* Remove translateY since we're using fixed top positioning */
+  transform: scale(
+    1.2
+  ); /* Remove translateY since we're using fixed top positioning */
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
 }
 
