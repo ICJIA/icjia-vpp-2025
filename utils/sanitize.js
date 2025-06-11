@@ -10,16 +10,16 @@
  * @returns {string} - The sanitized string with HTML special characters escaped
  */
 export function sanitizeString(str) {
-  if (!str || typeof str !== 'string') {
-    return '';
+  if (!str || typeof str !== "string") {
+    return "";
   }
 
   return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 /**
@@ -31,8 +31,8 @@ export function sanitizeString(str) {
  * @returns {string} - The sanitized search query
  */
 export function sanitizeSearchQuery(query, maxLength = 50) {
-  if (!query || typeof query !== 'string') {
-    return '';
+  if (!query || typeof query !== "string") {
+    return "";
   }
 
   // Trim and limit length more strictly
@@ -40,13 +40,13 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
 
   // Remove potentially dangerous characters more strictly
   // Only allow alphanumeric, spaces, and very basic punctuation
-  sanitized = sanitized.replace(/[^\w\s.,?!\-']/g, '');
+  sanitized = sanitized.replace(/[^\w\s.,?!\-']/g, "");
 
   // Remove multiple consecutive spaces
-  sanitized = sanitized.replace(/\s+/g, ' ');
+  sanitized = sanitized.replace(/\s+/g, " ");
 
   // Remove leading/trailing punctuation
-  sanitized = sanitized.replace(/^[.,?!\-']+|[.,?!\-']+$/g, '');
+  sanitized = sanitized.replace(/^[.,?!\-']+|[.,?!\-']+$/g, "");
 
   // Prevent common injection patterns
   const dangerousPatterns = [
@@ -59,11 +59,11 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
     /eval/gi,
     /expression/gi,
     /import/gi,
-    /require/gi
+    /require/gi,
   ];
 
-  dangerousPatterns.forEach(pattern => {
-    sanitized = sanitized.replace(pattern, '');
+  dangerousPatterns.forEach((pattern) => {
+    sanitized = sanitized.replace(pattern, "");
   });
 
   return sanitized.trim();
@@ -78,18 +78,24 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
  * @returns {string} - HTML string with highlighted terms (safe from XSS)
  */
 export function safeHighlightMatches(text, query, minTermLength = 3) {
-  if (!text || !query || typeof text !== 'string' || typeof query !== 'string') {
-    return sanitizeString(text || '');
+  if (
+    !text ||
+    !query ||
+    typeof text !== "string" ||
+    typeof query !== "string"
+  ) {
+    return sanitizeString(text || "");
   }
 
   // First sanitize the input text
   const sanitizedText = sanitizeString(text);
 
   // Split query into terms and filter out short terms
-  const terms = query.trim()
+  const terms = query
+    .trim()
     .split(/\s+/)
-    .filter(term => term.length >= minTermLength)
-    .map(term => sanitizeString(term));
+    .filter((term) => term.length >= minTermLength)
+    .map((term) => sanitizeString(term));
 
   if (terms.length === 0) {
     return sanitizedText;
@@ -99,16 +105,16 @@ export function safeHighlightMatches(text, query, minTermLength = 3) {
   let highlightedText = sanitizedText;
 
   // Process each term
-  terms.forEach(term => {
+  terms.forEach((term) => {
     // Create a safe regex pattern (escape special regex characters)
-    const safeTermPattern = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const safeTermPattern = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     try {
       // Case-insensitive global replace
-      const regex = new RegExp(`(${safeTermPattern})`, 'gi');
-      highlightedText = highlightedText.replace(regex, '<mark>$1</mark>');
+      const regex = new RegExp(`(${safeTermPattern})`, "gi");
+      highlightedText = highlightedText.replace(regex, "<mark>$1</mark>");
     } catch (error) {
-      console.error('Error in regex highlighting:', error);
+      console.error("Error in regex highlighting:", error);
       // If regex fails, return the sanitized text without highlighting
       return sanitizedText;
     }
@@ -124,20 +130,20 @@ export function safeHighlightMatches(text, query, minTermLength = 3) {
  * @returns {string} - The sanitized content safe for indexing
  */
 export function sanitizeContentForIndexing(content) {
-  if (!content || typeof content !== 'string') {
-    return '';
+  if (!content || typeof content !== "string") {
+    return "";
   }
 
   let sanitized = content;
 
   // Remove script tags and their content
-  sanitized = sanitized.replace(/<script[\s\S]*?<\/script>/gi, '');
+  sanitized = sanitized.replace(/<script[\s\S]*?<\/script>/gi, "");
 
   // Remove style tags and their content
-  sanitized = sanitized.replace(/<style[\s\S]*?<\/style>/gi, '');
+  sanitized = sanitized.replace(/<style[\s\S]*?<\/style>/gi, "");
 
   // Remove HTML comments
-  sanitized = sanitized.replace(/<!--[\s\S]*?-->/g, '');
+  sanitized = sanitized.replace(/<!--[\s\S]*?-->/g, "");
 
   // Remove JavaScript code patterns
   const jsPatterns = [
@@ -150,37 +156,40 @@ export function sanitizeContentForIndexing(content) {
     /var\s+\w+\s*=\s*.*?;/gi,
     /console\.\w+\([^)]*\)/gi,
     /\$\{[^}]*\}/gi, // Template literals
-    /{{[^}]*}}/gi,   // Vue template syntax
+    /{{[^}]*}}/gi, // Vue template syntax
   ];
 
-  jsPatterns.forEach(pattern => {
-    sanitized = sanitized.replace(pattern, ' ');
+  jsPatterns.forEach((pattern) => {
+    sanitized = sanitized.replace(pattern, " ");
   });
 
   // Remove Vue directives and attributes
-  sanitized = sanitized.replace(/\s(v-|:|@)[a-zA-Z0-9\-_]+="[^"]*"/gi, '');
+  sanitized = sanitized.replace(/\s(v-|:|@)[a-zA-Z0-9\-_]+="[^"]*"/gi, "");
 
   // Remove class and style attributes that might contain code
-  sanitized = sanitized.replace(/\s(class|style)="[^"]*"/gi, '');
+  sanitized = sanitized.replace(/\s(class|style)="[^"]*"/gi, "");
 
   // Remove data attributes
-  sanitized = sanitized.replace(/\sdata-[a-zA-Z0-9\-_]+="[^"]*"/gi, '');
+  sanitized = sanitized.replace(/\sdata-[a-zA-Z0-9\-_]+="[^"]*"/gi, "");
 
   // Remove HTML tags but preserve content
-  sanitized = sanitized.replace(/<[^>]*>/g, ' ');
+  sanitized = sanitized.replace(/<[^>]*>/g, " ");
 
   // Remove URLs to prevent potential security issues
-  sanitized = sanitized.replace(/https?:\/\/[^\s]+/gi, '');
+  sanitized = sanitized.replace(/https?:\/\/[^\s]+/gi, "");
 
   // Remove email addresses to prevent information disclosure
-  sanitized = sanitized.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi, '');
+  sanitized = sanitized.replace(
+    /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi,
+    ""
+  );
 
   // Normalize whitespace
-  sanitized = sanitized.replace(/\s+/g, ' ').trim();
+  sanitized = sanitized.replace(/\s+/g, " ").trim();
 
   // Limit length to prevent DoS
   if (sanitized.length > 5000) {
-    sanitized = sanitized.substring(0, 5000) + '...';
+    sanitized = sanitized.substring(0, 5000) + "...";
   }
 
   return sanitized;
@@ -197,51 +206,73 @@ export function validateSearchResults(results) {
     return [];
   }
 
-  return results.map(result => {
-    if (!result || typeof result !== 'object') {
-      return null;
-    }
+  return results
+    .map((result) => {
+      if (!result || typeof result !== "object") {
+        return null;
+      }
 
-    return {
-      title: sanitizeString(result.title || ''),
-      content: sanitizeString(result.content || ''),
-      path: sanitizeString(result.path || ''),
-      excerpt: sanitizeString(result.excerpt || ''),
-      score: typeof result.score === 'number' ? result.score : 0,
-      type: sanitizeString(result.type || ''),
-      description: sanitizeString(result.description || ''),
-      fullPath: sanitizeString(result.fullPath || ''),
-      frontmatter: result.frontmatter || {},
-      sourceFile: sanitizeString(result.sourceFile || ''),
-      wordCount: typeof result.wordCount === 'number' ? result.wordCount : 0
-    };
-  }).filter(result => result !== null);
+      return {
+        title: sanitizeString(result.title || ""),
+        content: sanitizeString(result.content || ""),
+        path: sanitizeString(result.path || ""),
+        excerpt: sanitizeString(result.excerpt || ""),
+        score: typeof result.score === "number" ? result.score : 0,
+        type: sanitizeString(result.type || ""),
+        description: sanitizeString(result.description || ""),
+        fullPath: sanitizeString(result.fullPath || ""),
+        frontmatter: result.frontmatter || {},
+        sourceFile: sanitizeString(result.sourceFile || ""),
+        wordCount: typeof result.wordCount === "number" ? result.wordCount : 0,
+      };
+    })
+    .filter((result) => result !== null);
 }
 
 /**
  * Checks if a string contains potentially dangerous content
+ * Excludes common Vue.js patterns that are safe in search index context
  *
  * @param {string} str - String to check
  * @returns {boolean} - True if string contains dangerous content
  */
 export function containsDangerousContent(str) {
-  if (!str || typeof str !== 'string') {
+  if (!str || typeof str !== "string") {
     return false;
   }
 
+  // Patterns that are actually dangerous in search index context
   const dangerousPatterns = [
-    /<script/gi,
+    /<script[^>]*>/gi, // Script tags (more specific)
     /javascript:/gi,
     /vbscript:/gi,
     /data:text\/html/gi,
     /on\w+\s*=/gi, // Event handlers like onclick=
     /eval\s*\(/gi,
     /expression\s*\(/gi,
-    /import\s+/gi,
-    /require\s*\(/gi,
-    /\$\{/gi, // Template literals
-    /{{/gi,   // Template syntax
   ];
 
-  return dangerousPatterns.some(pattern => pattern.test(str));
+  // Check for dangerous patterns first
+  const hasDangerousPattern = dangerousPatterns.some((pattern) =>
+    pattern.test(str)
+  );
+
+  if (!hasDangerousPattern) {
+    return false;
+  }
+
+  // If dangerous patterns found, check if they're in safe Vue.js context
+  // These are common Vue.js patterns that are safe in search index
+  const vuePatterns = [
+    /import\s+\w+/gi, // ES6 imports (safe in component context)
+    /\{\{\s*\w+/gi, // Vue template syntax like {{ title }}
+    /\$\{\s*\w+/gi, // Template literals in safe context
+    /require\s*\(\s*['"][^'"]+['"]\s*\)/gi, // Safe require statements
+  ];
+
+  // If content contains Vue patterns, it's likely safe component code
+  const hasVuePatterns = vuePatterns.some((pattern) => pattern.test(str));
+
+  // Only flag as dangerous if it has dangerous patterns but no Vue context
+  return hasDangerousPattern && !hasVuePatterns;
 }

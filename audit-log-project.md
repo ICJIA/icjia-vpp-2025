@@ -2,6 +2,24 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (Search Index Security Warning Fix - Vue.js Pattern Recognition)
+
+- Resolved security warning in search functionality by improving Vue.js pattern recognition in security validation system.
+- Files modified:
+  - `utils/sanitize.js`: Enhanced containsDangerousContent() function with Vue.js context awareness
+    - **Root Cause**: Vue component content extraction was flagging legitimate Vue.js patterns as dangerous
+    - **Patterns Flagged**: Template syntax ({{ }}), ES6 imports, template literals (${}), require statements
+    - **Solution**: Added intelligent Vue.js pattern detection to exclude false positives
+    - **Security Enhancement**: Maintains security while allowing safe Vue.js component code
+    - **Context Awareness**: Only flags content as dangerous if it has dangerous patterns without Vue.js context
+- Technical Notes:
+  - Search index generation previously showed warnings for all Vue pages (homepage, search, news, [...slug])
+  - Vue component content extraction includes template syntax and JavaScript code that triggered security patterns
+  - Enhanced function now distinguishes between actual security threats and legitimate Vue.js patterns
+  - Maintains full security protection while eliminating false positive warnings
+  - Search functionality now operates cleanly without security warnings during index generation
+  - Lorem ipsum test content preserved for testing purposes as originally intended
+
 ### 2025-06-11 (Search Page Schema Isolation - Single WebPage Schema Only)
 
 - Completely isolated search page schema by removing competing schemas and embedding breadcrumb within WebPage schema to ensure Google Rich Results displays WebPage type.
