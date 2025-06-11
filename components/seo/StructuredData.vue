@@ -267,15 +267,43 @@ const searchPageSchema = computed(() => {
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
+      "@id": `${baseUrl}${props.path}`,
       name: props.content.title || "Search",
       description: props.content.description || "Search through all content",
       url: `${baseUrl}${props.path}`,
+      inLanguage: "en-US",
+      isPartOf: {
+        "@type": "WebSite",
+        "@id": `${baseUrl}/#website`,
+        name: "Violence Prevention Plan for Illinois: 2025-2029",
+        url: baseUrl,
+      },
+      about: {
+        "@type": "Thing",
+        name: "Violence Prevention Plan Search",
+        description:
+          "Search functionality for the Illinois Violence Prevention Plan",
+      },
       publisher: {
         "@type": "GovernmentOrganization",
         name: "Illinois Criminal Justice Information Authority",
         url: "https://icjia.illinois.gov",
+        logo: {
+          "@type": "ImageObject",
+          url: `${baseUrl}/images/illinois-seal.png`,
+          width: 1200,
+          height: 1198,
+        },
       },
       potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+      mainEntity: {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
@@ -324,10 +352,17 @@ const breadcrumbSchema = computed(() => {
 
 /**
  * Combine all applicable schemas
+ * Order matters: more specific schemas should come last for Google Rich Results priority
  */
 const structuredData = computed(() => {
   const schemas = [];
 
+  // Add breadcrumb schema first (supporting schema)
+  if (breadcrumbSchema.value) {
+    schemas.push(breadcrumbSchema.value);
+  }
+
+  // Add page-type specific schemas (primary schemas)
   if (props.pageType === "homepage") {
     schemas.push(organizationSchema.value);
     schemas.push(websiteSchema.value);
@@ -337,16 +372,13 @@ const structuredData = computed(() => {
     schemas.push(...collectionSchema.value);
   }
 
-  if (props.pageType === "search" && searchPageSchema.value) {
-    schemas.push(...searchPageSchema.value);
-  }
-
   if (articleSchema.value) {
     schemas.push(articleSchema.value);
   }
 
-  if (breadcrumbSchema.value) {
-    schemas.push(breadcrumbSchema.value);
+  // Add search schema last for highest priority in Google Rich Results
+  if (props.pageType === "search" && searchPageSchema.value) {
+    schemas.push(...searchPageSchema.value);
   }
 
   return schemas;

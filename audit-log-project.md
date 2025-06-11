@@ -2,6 +2,24 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (Search Page Schema Priority Fix - Enhanced WebPage Recognition)
+
+- Enhanced search page structured data with improved schema ordering and richer WebPage markup to ensure Google Rich Results properly displays WebPage instead of BreadcrumbList.
+- Files modified:
+  - `components/seo/StructuredData.vue`: Reordered schema priority and enhanced WebPage schema
+    - **Schema Ordering**: Moved search page schema to last position for highest Google Rich Results priority
+    - **Enhanced WebPage Schema**: Added @id, isPartOf, about, inLanguage, logo, and mainEntity properties
+    - **SearchAction Emphasis**: Duplicated SearchAction in both potentialAction and mainEntity for stronger signal
+    - **Website Relationship**: Added isPartOf relationship to connect search page to main website
+    - **Breadcrumb Positioning**: Moved breadcrumb schema to first position as supporting (not primary) schema
+    - **Rich Context**: Added "about" property to clearly identify page purpose for search engines
+- Technical Notes:
+  - Resolves Google Rich Results showing BreadcrumbList instead of WebPage for search functionality
+  - Schema order now prioritizes page-specific schemas over navigation/structural schemas
+  - Enhanced WebPage markup provides stronger signals to Google about search functionality
+  - Maintains all existing functionality while improving search engine recognition
+  - Search page should now display as "WebPage" with SearchAction detection in Google Rich Results
+
 ### 2025-06-11 (Search Page Schema Type Fix - Proper WebPage Classification)
 
 - Fixed search page structured data to properly classify as WebPage with SearchAction instead of Article, resolving Google Rich Results detection issue.
