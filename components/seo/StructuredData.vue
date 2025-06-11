@@ -142,7 +142,13 @@ const websiteSchema = computed(() => ({
  * Used for content pages like news, plan sections, etc.
  */
 const articleSchema = computed(() => {
-  if (!props.content || props.pageType === "homepage") return null;
+  if (
+    !props.content ||
+    props.pageType === "homepage" ||
+    props.pageType === "search" ||
+    props.pageType === "collection"
+  )
+    return null;
 
   return {
     "@context": "https://schema.org",

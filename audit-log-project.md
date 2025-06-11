@@ -2,6 +2,23 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (Search Page Schema Type Fix - Proper WebPage Classification)
+
+- Fixed search page structured data to properly classify as WebPage with SearchAction instead of Article, resolving Google Rich Results detection issue.
+- Files modified:
+  - `components/seo/StructuredData.vue`: Updated articleSchema condition to exclude search and collection pages
+    - **Article Schema Exclusion**: Added "search" and "collection" page types to articleSchema exclusion condition
+    - **Proper Classification**: Search pages now only generate WebPage + SearchAction schemas (not Article)
+    - **Collection Pages**: News listing pages now only generate CollectionPage + ItemList schemas (not Article)
+    - **Schema Clarity**: Eliminates schema type conflicts where multiple schemas competed for the same page
+    - **Google Rich Results**: Ensures Google displays the intended schema type (WebPage for search, CollectionPage for news)
+- Technical Notes:
+  - Resolves issue where Google Rich Results showed search page as "Article" instead of search functionality
+  - Prevents schema overlap where both Article and WebPage schemas were generated for search pages
+  - Maintains Article schema only for actual content pages (plan sections, individual news articles, etc.)
+  - Improves schema specificity and reduces confusion for search engine crawlers
+  - Search page will now properly display as WebPage with SearchAction in Google Rich Results testing tool
+
 ### 2025-06-11 (Search Page SEO Enhancement - Complete Site Structured Data Coverage)
 
 - Added comprehensive structured data support to the search page (/search) to complete SEO coverage across all Vue pages in the application.
