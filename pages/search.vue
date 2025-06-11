@@ -1,5 +1,16 @@
 <template>
   <div class="search-page">
+    <!-- SEO Structured Data for Search Page -->
+    <StructuredData
+      :content="{
+        title: 'Search - Violence Prevention Plan for Illinois: 2025-2029',
+        description:
+          'Search through all content in the Violence Prevention Plan for Illinois: 2025-2029 to find specific information, resources, and guidance.',
+      }"
+      page-type="search"
+      :path="'/search'"
+    />
+
     <!-- Use PageTitleSection for consistent styling -->
     <PageTitleSection
       title="Search"
@@ -51,7 +62,9 @@
 
             <!-- No results state -->
             <div
-              v-else-if="searchQuery && !isSearching && searchResults.length === 0"
+              v-else-if="
+                searchQuery && !isSearching && searchResults.length === 0
+              "
               class="text-center py-8"
               role="status"
               aria-live="polite"
@@ -65,8 +78,9 @@
               ></v-icon>
               <h2 class="text-h5 mb-2">No results found</h2>
               <p class="text-body-1 text-medium-emphasis">
-                No content matches your search for "{{ sanitizedSearchDisplay }}". Try
-                different keywords or check your spelling.
+                No content matches your search for "{{
+                  sanitizedSearchDisplay
+                }}". Try different keywords or check your spelling.
               </p>
             </div>
 
@@ -82,7 +96,10 @@
               </div>
 
               <!-- Results list -->
-              <ul class="search-results-list pa-0" aria-label="Search results list">
+              <ul
+                class="search-results-list pa-0"
+                aria-label="Search results list"
+              >
                 <li
                   v-for="(result, index) in searchResults"
                   :key="index"
@@ -138,7 +155,11 @@
             </div>
 
             <!-- Empty search state -->
-            <div v-else-if="!searchQuery" class="text-center py-8" role="status">
+            <div
+              v-else-if="!searchQuery"
+              class="text-center py-8"
+              role="status"
+            >
               <v-icon
                 icon="mdi-text-search"
                 size="64"
@@ -171,6 +192,7 @@ import {
   containsDangerousContent,
 } from "~/utils/sanitize";
 import PageTitleSection from "~/components/content/PageTitleSection.vue";
+import StructuredData from "~/components/seo/StructuredData.vue";
 
 // Initialize logger
 const { log } = useConsoleLogger();
@@ -275,7 +297,10 @@ async function loadFuseConfig() {
       fuseConfig.value.search.fuseOptions
     ) {
       fuseOptions.value = fuseConfig.value.search.fuseOptions;
-      console.log("✅ Using Fuse.js options from config file:", fuseOptions.value);
+      console.log(
+        "✅ Using Fuse.js options from config file:",
+        fuseOptions.value
+      );
       log("search", "Using Fuse.js options from config file");
     }
   } catch (error) {
@@ -295,7 +320,8 @@ async function loadSearchIndex() {
     await loadFuseConfig();
 
     // Determine the index path from config or use default
-    const indexPath = fuseConfig.value?.search?.indexPath || "/data/search-index.json";
+    const indexPath =
+      fuseConfig.value?.search?.indexPath || "/data/search-index.json";
     console.log(`📊 Using search index path: ${indexPath}`);
     log("search", `Using search index path: ${indexPath}`);
 
@@ -366,7 +392,10 @@ async function loadSearchIndex() {
 
       if (homepage.content) {
         console.log(
-          `🏠 Homepage content preview: "${homepage.content.substring(0, 100)}..."`
+          `🏠 Homepage content preview: "${homepage.content.substring(
+            0,
+            100
+          )}..."`
         );
       } else {
         console.log(`🏠 Homepage content is undefined or null`);
@@ -375,7 +404,10 @@ async function loadSearchIndex() {
       console.log(`🏠 No homepage found in search index`);
     }
 
-    log("search", `Search index loaded with ${searchIndex.value.length} validated items`);
+    log(
+      "search",
+      `Search index loaded with ${searchIndex.value.length} validated items`
+    );
 
     // Initialize Fuse.js with the validated index and options
     if (searchIndex.value && searchIndex.value.length > 0) {
@@ -383,7 +415,9 @@ async function loadSearchIndex() {
       console.log(`🔍 Fuse.js initialized with options:`, fuseOptions.value);
       console.log("✅ Search index loading completed successfully!");
     } else {
-      console.error("❌ Cannot initialize Fuse.js - search index is empty or invalid");
+      console.error(
+        "❌ Cannot initialize Fuse.js - search index is empty or invalid"
+      );
     }
 
     isInitializing.value = false;
@@ -408,7 +442,8 @@ function performSearch() {
   const minTermLength = fuseConfig.value?.search?.minTermLength || 3;
 
   // Get excerpt context size from config or use default
-  const excerptContextChars = fuseConfig.value?.search?.excerptContextChars || 50;
+  const excerptContextChars =
+    fuseConfig.value?.search?.excerptContextChars || 50;
 
   // Set a new timeout
   debounceTimeout = setTimeout(() => {
@@ -417,7 +452,10 @@ function performSearch() {
 
     // Additional security checks
     if (containsDangerousContent(searchQuery.value)) {
-      console.warn("⚠️ Potentially dangerous search query blocked:", searchQuery.value);
+      console.warn(
+        "⚠️ Potentially dangerous search query blocked:",
+        searchQuery.value
+      );
       log("search", "Blocked dangerous search query");
       searchResults.value = [];
       return;
@@ -461,7 +499,9 @@ function performSearch() {
         let excerpt = item.description || "";
         if (result.matches && result.matches.length > 0) {
           // Find matches in content
-          const contentMatches = result.matches.find((match) => match.key === "content");
+          const contentMatches = result.matches.find(
+            (match) => match.key === "content"
+          );
           if (contentMatches && contentMatches.indices.length > 0) {
             // Get the first match position
             const firstMatch = contentMatches.indices[0];
@@ -619,7 +659,8 @@ onMounted(() => {
 .search-result-card {
   /* Enhanced background for better contrast against page backgrounds */
   background: #ffffff !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
 
   &:focus {
     outline: 2px solid rgba(var(--v-theme-primary), 0.7);

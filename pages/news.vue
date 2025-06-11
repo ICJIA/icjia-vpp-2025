@@ -22,12 +22,18 @@
 import { computed } from "vue";
 import NewsCard from "~/components/content/NewsCard.vue";
 import PageTitleSection from "~/components/content/PageTitleSection.vue";
+import StructuredData from "~/components/seo/StructuredData.vue";
 
 /**
  * Fetch all news items using the existing working implementation
  * Keep the current queryCollection logic unchanged as requested
  */
-const { data: allNews, pending, error, refresh } = await useAsyncData("news", () => {
+const {
+  data: allNews,
+  pending,
+  error,
+  refresh,
+} = await useAsyncData("news", () => {
   return queryCollection("content")
     .where("path", "LIKE", "/news%")
     .order("date", "DESC")
@@ -64,6 +70,19 @@ useSeoMeta({
 
 <template>
   <div class="news-page">
+    <!-- SEO Structured Data for News Collection -->
+    <StructuredData
+      :content="{
+        title:
+          'News & Updates - Violence Prevention Plan for Illinois: 2025-2029',
+        description:
+          'Stay updated with the latest news, announcements, and developments in Illinois violence prevention initiatives, community programs, and policy updates.',
+      }"
+      page-type="collection"
+      :path="'/news'"
+      :collection-items="newsItems"
+    />
+
     <!-- Reusable Page Title Section Component -->
     <PageTitleSection
       title="News & Updates"
@@ -85,17 +104,25 @@ useSeoMeta({
               class="mb-4"
             />
             <h3 class="text-h6 mb-2">Loading News</h3>
-            <p class="text-body-2 text-medium-emphasis">Fetching the latest updates...</p>
+            <p class="text-body-2 text-medium-emphasis">
+              Fetching the latest updates...
+            </p>
           </div>
         </div>
 
         <!-- Error state -->
         <div v-else-if="error" class="error-state">
           <div class="text-center py-12">
-            <v-icon icon="mdi-alert-circle" size="64" color="error" class="mb-4" />
+            <v-icon
+              icon="mdi-alert-circle"
+              size="64"
+              color="error"
+              class="mb-4"
+            />
             <h3 class="text-h6 mb-2">Unable to Load News</h3>
             <p class="text-body-2 text-medium-emphasis mb-6">
-              We're having trouble loading the latest news. Please try again later.
+              We're having trouble loading the latest news. Please try again
+              later.
             </p>
             <v-btn
               color="primary"

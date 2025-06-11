@@ -37,7 +37,14 @@ const props = defineProps({
     type: String,
     default: "article",
     validator: (value) =>
-      ["homepage", "article", "organization", "government"].includes(value),
+      [
+        "homepage",
+        "article",
+        "organization",
+        "government",
+        "collection",
+        "search",
+      ].includes(value),
   },
 
   /**
@@ -47,6 +54,15 @@ const props = defineProps({
   path: {
     type: String,
     default: "/",
+  },
+
+  /**
+   * Collection items for listing pages
+   * @type {Array}
+   */
+  collectionItems: {
+    type: Array,
+    default: () => [],
   },
 });
 
@@ -178,6 +194,94 @@ const articleSchema = computed(() => {
 });
 
 /**
+ * Generate collection page schema markup
+ * Used for listing pages like news, blog, etc.
+ */
+const collectionSchema = computed(() => {
+  if (props.pageType !== "collection" || !props.collectionItems.length)
+    return null;
+
+  const itemListElements = props.collectionItems.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Article",
+      headline: item.title || "Untitled",
+      description: item.summary || item.description || "",
+      url: `${baseUrl}${item._path || item.path}`,
+      datePublished: item.date || new Date().toISOString(),
+      image: item.image
+        ? item.image.startsWith("/")
+          ? `${baseUrl}${item.image}`
+          : item.image
+        : `${baseUrl}/images/og-image-default.jpg`,
+      author: {
+        "@type": "Organization",
+        name: "Illinois Criminal Justice Information Authority",
+        url: "https://icjia.illinois.gov",
+      },
+    },
+  }));
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: props.content.title || "News & Updates",
+      description: props.content.description || "Latest news and updates",
+      url: `${baseUrl}${props.path}`,
+      publisher: {
+        "@type": "GovernmentOrganization",
+        name: "Illinois Criminal Justice Information Authority",
+        url: "https://icjia.illinois.gov",
+      },
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: props.collectionItems.length,
+        itemListElement: itemListElements,
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      numberOfItems: props.collectionItems.length,
+      itemListElement: itemListElements,
+    },
+  ];
+});
+
+/**
+ * Generate search page schema markup
+ * Used for search functionality pages
+ */
+const searchPageSchema = computed(() => {
+  if (props.pageType !== "search") return null;
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: props.content.title || "Search",
+      description: props.content.description || "Search through all content",
+      url: `${baseUrl}${props.path}`,
+      publisher: {
+        "@type": "GovernmentOrganization",
+        name: "Illinois Criminal Justice Information Authority",
+        url: "https://icjia.illinois.gov",
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ];
+});
+
+/**
  * Generate breadcrumb schema markup
  * Helps search engines understand page hierarchy
  */
@@ -221,6 +325,14 @@ const structuredData = computed(() => {
   if (props.pageType === "homepage") {
     schemas.push(organizationSchema.value);
     schemas.push(websiteSchema.value);
+  }
+
+  if (props.pageType === "collection" && collectionSchema.value) {
+    schemas.push(...collectionSchema.value);
+  }
+
+  if (props.pageType === "search" && searchPageSchema.value) {
+    schemas.push(...searchPageSchema.value);
   }
 
   if (articleSchema.value) {

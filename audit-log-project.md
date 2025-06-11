@@ -2,6 +2,58 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (Search Page SEO Enhancement - Complete Site Structured Data Coverage)
+
+- Added comprehensive structured data support to the search page (/search) to complete SEO coverage across all Vue pages in the application.
+- Files modified/created:
+  - `components/seo/StructuredData.vue`: Enhanced structured data component with search page support
+    - **New Page Type**: Added "search" to supported page types for search functionality pages
+    - **Search Page Schema**: Implemented schema.org WebPage markup specifically for search interfaces
+    - **SearchAction Schema**: Added SearchAction with proper target URL template and query input specification
+    - **Publisher Information**: Maintains consistent ICJIA organization data across all schemas
+    - **Schema Integration**: Updated structuredData computed property to include search page schemas
+  - `pages/search.vue`: Added StructuredData component integration
+    - **Component Import**: Added StructuredData component import
+    - **Template Integration**: Added StructuredData component with search page configuration
+    - **Content Metadata**: Configured page title, description, and path for structured data
+    - **Search Functionality**: Includes SearchAction schema to help search engines understand search capability
+    - **SEO Enhancement**: Maintains existing useSeoMeta while adding rich structured data
+- Technical Notes:
+  - Completes structured data coverage for all Vue pages in the application
+  - Enables search engines to understand the search functionality and interface
+  - SearchAction schema includes proper URL template for search queries
+  - Maintains consistency with existing structured data patterns used throughout site
+  - All four Vue pages now have comprehensive structured data: homepage (organization), news (collection), search (search), and dynamic content (article)
+  - Provides complete site structure understanding for search engine crawlers
+
+### 2025-06-11 (News Listing Page Rich Results Enhancement)
+
+- Added comprehensive structured data support to the news listing page (/news) to enable Google Rich Results and improve SEO performance.
+- Files modified/created:
+  - `components/seo/StructuredData.vue`: Enhanced structured data component with collection page support
+    - **New Page Type**: Added "collection" to supported page types for listing pages
+    - **Collection Items Prop**: Added new `collectionItems` prop to pass news articles data
+    - **CollectionPage Schema**: Implemented schema.org CollectionPage markup for news listing
+    - **ItemList Schema**: Added ItemList schema to enumerate news articles with proper metadata
+    - **Article Metadata**: Each news item includes headline, description, URL, date, image, and author information
+    - **Publisher Information**: Maintains consistent ICJIA organization data across all schemas
+    - **Schema Integration**: Updated structuredData computed property to include collection schemas
+  - `pages/news.vue`: Added StructuredData component integration
+    - **Component Import**: Added StructuredData component import
+    - **Template Integration**: Added StructuredData component with collection page configuration
+    - **Content Metadata**: Configured page title, description, and path for structured data
+    - **Dynamic Data**: Passes newsItems array to populate ItemList schema with current articles
+    - **SEO Enhancement**: Maintains existing useSeoMeta while adding rich structured data
+- Technical Notes:
+  - Resolves Google Rich Results detection issue for news listing page
+  - Enables potential inclusion in Google News and enhanced search snippets
+  - Provides search engines with clear understanding of page structure and content
+  - Maintains consistency with existing structured data patterns used throughout site
+  - Collection schema includes numberOfItems count and proper itemListElement structure
+  - Each news article in ItemList includes full Article schema with required properties
+  - Supports both CollectionPage and ItemList schemas for maximum compatibility
+  - Preserves all existing functionality while adding comprehensive SEO enhancement
+
 ### 2025-06-11 (ICJIA Address Update - Agency Relocation)
 
 - Updated all instances of ICJIA address throughout the project to reflect the agency's new location at 60 E Van Buren St, Chicago, IL 60605.
