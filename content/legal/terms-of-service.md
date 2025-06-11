@@ -2,7 +2,7 @@
 title: "Terms of Service"
 date: 2025-05-28
 description: "These Terms of Service govern your access to and use of the StatewideViolence Prevention Plan for Illinois: 2025-2029 website."
---- 
+---
 
 **Last Updated: May 21, 2025**
 
@@ -139,7 +139,7 @@ Illinois Criminal Justice Information Authority
 Violence Prevention Plan for Illinois: 2025-2029
 Email: info@icjia.illinois.gov
 Phone: (312) 793-8550
-Address: 300 W. Adams St., Suite 200, Chicago, IL 60606
+Address: 60 E Van Buren St, Chicago, IL 60605
 
 This Terms of Service document is available in alternative formats upon request. To request an alternative format, please contact us using the information above.
 

@@ -2,6 +2,59 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (ICJIA Address Update - Agency Relocation)
+
+- Updated all instances of ICJIA address throughout the project to reflect the agency's new location at 60 E Van Buren St, Chicago, IL 60605.
+- Files modified:
+  - `components/seo/StructuredData.vue`: Updated structured data address object
+    - **Street Address**: Changed from "300 W. Adams Street, Suite 700" to "60 E Van Buren St"
+    - **Postal Code**: Updated from "60606" to "60605"
+    - **Schema.org Compliance**: Maintained proper PostalAddress schema structure
+  - `config/site.config.json`: Updated main site configuration address
+    - **Street Address**: Changed from "300 W. Adams Street, Suite 700" to "60 E Van Buren St"
+    - **Zip Code**: Updated from "60606" to "60605"
+    - **Configuration Consistency**: Ensures all auto-generated files use correct address
+  - `config/site.config.md`: Updated documentation configuration address
+    - **Street Address**: Changed from "300 W. Adams Street, Suite 700" to "60 E Van Buren St"
+    - **Zip Code**: Updated from "60606" to "60605"
+    - **Documentation Accuracy**: Maintains consistency between config files and documentation
+  - `content/contact.md`: Updated contact page address information
+    - **Street Address**: Changed from "300 W. Adams Street, Suite 200" to "60 E Van Buren St"
+    - **Zip Code**: Updated from "60606" to "60605"
+    - **Public Information**: Ensures visitors have correct contact information
+  - `content/legal/privacy-policy.md`: Updated privacy policy contact address
+    - **Street Address**: Changed from "300 W. Adams St., Suite 200" to "60 E Van Buren St"
+    - **Zip Code**: Updated from "60606" to "60605"
+    - **Legal Compliance**: Maintains accurate contact information for legal documents
+  - `content/legal/terms-of-service.md`: Updated terms of service contact address
+    - **Street Address**: Changed from "300 W. Adams St., Suite 200" to "60 E Van Buren St"
+    - **Zip Code**: Updated from "60606" to "60605"
+    - **Legal Compliance**: Ensures consistent contact information across all legal documents
+- Technical Notes:
+  - Comprehensive address update across all project files ensures consistency
+  - Auto-generated files in `/public/config/` and `/public/data/` will be updated automatically during next build
+  - SEO structured data now reflects current agency location for better local search results
+  - Contact information accuracy maintained for public accessibility and legal compliance
+  - All address formats standardized to "60 E Van Buren St, Chicago, IL 60605"
+
+### 2025-06-11 (SEO Structured Data Enhancement - Address Fields Addition)
+
+- Enhanced structured data markup to resolve Google Rich Results warnings by adding missing postal code and street address fields to the GovernmentOrganization schema.
+- Files modified:
+  - `components/seo/StructuredData.vue`: Updated organizationSchema address object
+    - **Missing Fields Added**: Added `streetAddress: "300 W. Adams Street, Suite 700"` and `postalCode: "60606"` to address object
+    - **Address Schema Enhancement**: Updated `addressCountry` from simple string "US" to proper Country object with `@type: "Country"` and `name: "US"`
+    - **Google Rich Results Compliance**: Resolved 2 non-critical issues identified in Google's Rich Result test for missing optional address fields
+    - **Schema.org Standards**: Enhanced PostalAddress schema to include complete address information following schema.org best practices
+    - **Data Source**: Used existing address information from site configuration files (`config/site.config.json`) for consistency
+- Technical Notes:
+  - Maintains existing structured data functionality while adding missing optional fields for better SEO
+  - Uses complete ICJIA address: "300 W. Adams Street, Suite 700, Chicago, IL 60606"
+  - Enhanced Country object follows schema.org PostalAddress specification for better semantic markup
+  - Preserves all existing schema properties and functionality
+  - Improves search engine understanding of organization location and contact information
+  - No impact on existing SEO performance while enhancing Rich Results eligibility
+
 ### 2025-01-10 (Comprehensive SEO Enhancement and Social Media Optimization)
 
 Implemented comprehensive SEO improvements with focus on social media optimization for Facebook, Twitter/X, and LinkedIn sharing. Enhanced meta tag implementation, created structured data markup, and optimized social media images.

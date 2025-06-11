@@ -7,6 +7,7 @@ The site configuration system provides comprehensive management of site-wide set
 ## Purpose
 
 This configuration system serves multiple critical functions:
+
 - **Metadata Management**: Centralizes project information, branding, and descriptions
 - **URL Management**: Manages base URLs for different environments
 - **Contact Information**: Stores organization and contact details
@@ -49,10 +50,10 @@ This file contains all general site configuration settings:
     "website": "https://icjia.illinois.gov",
     "email": "info@icjia.illinois.gov",
     "address": {
-      "street": "300 W. Adams Street, Suite 700",
+      "street": "60 E Van Buren St",
       "city": "Chicago",
       "state": "Illinois",
-      "zipCode": "60606",
+      "zipCode": "60605",
       "country": "United States"
     }
   }
@@ -62,95 +63,105 @@ This file contains all general site configuration settings:
 ## Configuration Sections
 
 ### Metadata Section
+
 Contains core project information and versioning:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `projectName` | String | Full project name |
-| `description` | String | Project description for SEO and documentation |
-| `version` | String | Configuration version for tracking changes |
+| Property      | Type   | Description                                    |
+| ------------- | ------ | ---------------------------------------------- |
+| `projectName` | String | Full project name                              |
+| `description` | String | Project description for SEO and documentation  |
+| `version`     | String | Configuration version for tracking changes     |
 | `lastUpdated` | String | Date of last configuration update (YYYY-MM-DD) |
 
 ### Branding Section
+
 Manages site branding and visual identity:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `siteName` | String | Full site name for display |
-| `shortName` | String | Abbreviated name for mobile/compact displays |
-| `tagline` | String | Site tagline or mission statement |
-| `logo.icon` | String | Material Design Icon identifier |
-| `logo.favicon` | String | Path to favicon file |
-| `logo.ogImage` | String | Default Open Graph image path |
+| Property       | Type   | Description                                  |
+| -------------- | ------ | -------------------------------------------- |
+| `siteName`     | String | Full site name for display                   |
+| `shortName`    | String | Abbreviated name for mobile/compact displays |
+| `tagline`      | String | Site tagline or mission statement            |
+| `logo.icon`    | String | Material Design Icon identifier              |
+| `logo.favicon` | String | Path to favicon file                         |
+| `logo.ogImage` | String | Default Open Graph image path                |
 
 ### URLs Section
+
 Manages environment-specific URLs:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `baseUrl` | String | Production base URL |
-| `devUrl` | String | Development server URL |
-| `repository` | String | GitHub repository URL |
+| Property       | Type   | Description                 |
+| -------------- | ------ | --------------------------- |
+| `baseUrl`      | String | Production base URL         |
+| `devUrl`       | String | Development server URL      |
+| `repository`   | String | GitHub repository URL       |
 | `organization` | String | Parent organization website |
 
 ### Contact Section
+
 Stores organization and contact information:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `organization` | String | Organization name |
-| `website` | String | Organization website |
-| `email` | String | Contact email address |
-| `address` | Object | Physical address details |
+| Property       | Type   | Description              |
+| -------------- | ------ | ------------------------ |
+| `organization` | String | Organization name        |
+| `website`      | String | Organization website     |
+| `email`        | String | Contact email address    |
+| `address`      | Object | Physical address details |
 
 ### Social Section
+
 Social media and external platform links:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `github` | String | GitHub profile/organization URL |
-| `twitter` | String\|null | Twitter profile URL |
-| `facebook` | String\|null | Facebook page URL |
-| `linkedin` | String\|null | LinkedIn profile URL |
+| Property   | Type         | Description                     |
+| ---------- | ------------ | ------------------------------- |
+| `github`   | String       | GitHub profile/organization URL |
+| `twitter`  | String\|null | Twitter profile URL             |
+| `facebook` | String\|null | Facebook page URL               |
+| `linkedin` | String\|null | LinkedIn profile URL            |
 
 ### Legal Section
+
 Legal and compliance information:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `license` | String | Software license type |
-| `copyright` | String | Copyright notice template |
-| `privacyPolicy` | String | Privacy policy page path |
+| Property         | Type   | Description                |
+| ---------------- | ------ | -------------------------- |
+| `license`        | String | Software license type      |
+| `copyright`      | String | Copyright notice template  |
+| `privacyPolicy`  | String | Privacy policy page path   |
 | `termsOfService` | String | Terms of service page path |
 
 ### Features Section
+
 Controls site functionality and features:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `search.enabled` | Boolean | Enable/disable search functionality |
-| `search.provider` | String | Search provider (e.g., "fuse.js") |
-| `search.minCharacters` | Number | Minimum characters for search |
-| `themes.enabled` | Boolean | Enable/disable theme switching |
-| `themes.default` | String | Default theme ("light" or "dark") |
-| `themes.options` | Array | Available theme options |
-| `accessibility.wcagLevel` | String | Target WCAG compliance level |
-| `accessibility.auditLog` | String | Accessibility audit log path |
-| `accessibility.documentation` | String | Accessibility documentation path |
+| Property                      | Type    | Description                         |
+| ----------------------------- | ------- | ----------------------------------- |
+| `search.enabled`              | Boolean | Enable/disable search functionality |
+| `search.provider`             | String  | Search provider (e.g., "fuse.js")   |
+| `search.minCharacters`        | Number  | Minimum characters for search       |
+| `themes.enabled`              | Boolean | Enable/disable theme switching      |
+| `themes.default`              | String  | Default theme ("light" or "dark")   |
+| `themes.options`              | Array   | Available theme options             |
+| `accessibility.wcagLevel`     | String  | Target WCAG compliance level        |
+| `accessibility.auditLog`      | String  | Accessibility audit log path        |
+| `accessibility.documentation` | String  | Accessibility documentation path    |
 
 ### UI Section
+
 Controls user interface defaults and component behavior:
 
-| Property | Type | Description |
-|----------|------|-------------|
+| Property                       | Type   | Description                                                                                                |
+| ------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------- |
 | `tableOfContents.defaultLabel` | String | Default label for Table of Contents components when no page-specific `tocLabel` is provided in frontmatter |
 
 **Table of Contents Label Priority:**
+
 1. Page-specific `tocLabel` in frontmatter (highest priority)
 2. Site-wide `ui.tableOfContents.defaultLabel` from configuration
 3. Component fallback (lowest priority)
 
 **Example Configuration:**
+
 ```json
 {
   "ui": {
@@ -162,49 +173,53 @@ Controls user interface defaults and component behavior:
 ```
 
 **Usage in Frontmatter:**
+
 ```yaml
 ---
 title: "Page Title"
 showTOC: true
-tocLabel: "Custom Label"  # Overrides site default
+tocLabel: "Custom Label" # Overrides site default
 ---
 ```
 
 ### Routing Section
+
 Configuration for routing and page discovery:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `blacklist.vue` | Array | Vue file patterns to exclude |
-| `blacklist.markdown` | Array | Markdown file patterns to exclude |
-| `titleExtraction.fallbackPattern` | String | Default title pattern |
-| `titleExtraction.maxLength` | Number | Maximum title length |
+| Property                          | Type   | Description                       |
+| --------------------------------- | ------ | --------------------------------- |
+| `blacklist.vue`                   | Array  | Vue file patterns to exclude      |
+| `blacklist.markdown`              | Array  | Markdown file patterns to exclude |
+| `titleExtraction.fallbackPattern` | String | Default title pattern             |
+| `titleExtraction.maxLength`       | Number | Maximum title length              |
 
 ### Logging Section
+
 Unified logging system configuration:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `level` | String | Verbosity level (DETAILED, NORMAL, CONCISE) |
-| `showTimestamp` | Boolean | Whether to show timestamps in logs |
-| `showPrefix` | Boolean | Whether to show log type prefixes |
-| `groupMessages` | Boolean | Whether to group related messages |
-| `buildSummary` | Boolean | Whether to show build summaries |
-| `colors.success` | String | Color code for success messages |
-| `colors.error` | String | Color code for error messages |
-| `colors.warning` | String | Color code for warning messages |
-| `colors.info` | String | Color code for info messages |
-| `colors.debug` | String | Color code for debug messages |
+| Property         | Type    | Description                                 |
+| ---------------- | ------- | ------------------------------------------- |
+| `level`          | String  | Verbosity level (DETAILED, NORMAL, CONCISE) |
+| `showTimestamp`  | Boolean | Whether to show timestamps in logs          |
+| `showPrefix`     | Boolean | Whether to show log type prefixes           |
+| `groupMessages`  | Boolean | Whether to group related messages           |
+| `buildSummary`   | Boolean | Whether to show build summaries             |
+| `colors.success` | String  | Color code for success messages             |
+| `colors.error`   | String  | Color code for error messages               |
+| `colors.warning` | String  | Color code for warning messages             |
+| `colors.info`    | String  | Color code for info messages                |
+| `colors.debug`   | String  | Color code for debug messages               |
 
 ### Build Section
+
 Build-time configuration and metadata:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `environment` | String | Target environment |
-| `generatedAt` | String | ISO timestamp of last generation |
-| `nodeVersion` | String\|null | Node.js version used for build |
-| `nuxtVersion` | String\|null | Nuxt version used for build |
+| Property      | Type         | Description                      |
+| ------------- | ------------ | -------------------------------- |
+| `environment` | String       | Target environment               |
+| `generatedAt` | String       | ISO timestamp of last generation |
+| `nodeVersion` | String\|null | Node.js version used for build   |
+| `nuxtVersion` | String\|null | Nuxt version used for build      |
 
 ## Usage Examples
 
@@ -213,7 +228,7 @@ Build-time configuration and metadata:
 ```vue
 <script setup>
 // Access site configuration in components
-const siteConfig = await $fetch('/config/site.config.json');
+const siteConfig = await $fetch("/config/site.config.json");
 
 // Use metadata
 const siteName = siteConfig.branding.siteName;
@@ -233,7 +248,7 @@ const contactEmail = siteConfig.contact.email;
 </template>
 
 <script setup>
-const siteConfig = await $fetch('/config/site.config.json');
+const siteConfig = await $fetch("/config/site.config.json");
 const siteName = siteConfig.branding.siteName;
 const tagline = siteConfig.branding.tagline;
 </script>
@@ -243,11 +258,12 @@ const tagline = siteConfig.branding.tagline;
 
 ```javascript
 // Build script example
-import siteConfig from '../config/site.config.json';
+import siteConfig from "../config/site.config.json";
 
-const baseUrl = process.env.NODE_ENV === 'development'
-  ? siteConfig.urls.devUrl
-  : siteConfig.urls.baseUrl;
+const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? siteConfig.urls.devUrl
+    : siteConfig.urls.baseUrl;
 
 console.log(`Building for: ${baseUrl}`);
 ```
@@ -256,22 +272,23 @@ console.log(`Building for: ${baseUrl}`);
 
 ```javascript
 // Script with unified logging
-import { createLogger } from '../utils/logger.js';
-import { createScriptLoggerConfig } from '../utils/config-loader.js';
+import { createLogger } from "../utils/logger.js";
+import { createScriptLoggerConfig } from "../utils/config-loader.js";
 
-const loggerConfig = await createScriptLoggerConfig('MyScript', {
-  level: 'DETAILED', // Override config file setting
-  groupMessages: true
+const loggerConfig = await createScriptLoggerConfig("MyScript", {
+  level: "DETAILED", // Override config file setting
+  groupMessages: true,
 });
-const logger = createLogger(loggerConfig).createScope('MyScript');
+const logger = createLogger(loggerConfig).createScope("MyScript");
 
-logger.info('Script started');
-logger.success('Operation completed');
+logger.info("Script started");
+logger.success("Operation completed");
 ```
 
 ## Integration Points
 
 ### Menu Configuration
+
 The site configuration provides data that can be used in menu.config.json:
 
 ```json
@@ -286,11 +303,12 @@ The site configuration provides data that can be used in menu.config.json:
 ```
 
 ### SEO and Metadata
+
 Components can use site configuration for consistent SEO:
 
 ```vue
 <script setup>
-const siteConfig = await $fetch('/config/site.config.json');
+const siteConfig = await $fetch("/config/site.config.json");
 
 useHead({
   title: computed(() => `${pageTitle.value} - ${siteConfig.branding.siteName}`),
@@ -304,6 +322,7 @@ useSeoMeta({
 ```
 
 ### Footer Information
+
 Automatically populate footer with contact and legal information:
 
 ```vue
@@ -323,12 +342,13 @@ Automatically populate footer with contact and legal information:
 </template>
 
 <script setup>
-const siteConfig = await $fetch('/config/site.config.json');
+const siteConfig = await $fetch("/config/site.config.json");
 const { organization, email, address } = siteConfig.contact;
 const { copyright, privacyPolicy, termsOfService } = siteConfig.legal;
 
-const fullAddress = computed(() =>
-  `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`
+const fullAddress = computed(
+  () =>
+    `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`
 );
 </script>
 ```
@@ -336,18 +356,21 @@ const fullAddress = computed(() =>
 ## Best Practices
 
 ### Configuration Management
+
 1. **Version Control**: Keep site.config.json in version control
 2. **Environment Variables**: Use environment-specific values where appropriate
 3. **Validation**: Validate configuration structure during builds
 4. **Documentation**: Keep this documentation updated when adding new fields
 
 ### Data Consistency
+
 1. **Single Source of Truth**: Use site.config.json as the authoritative source for site metadata
 2. **Avoid Duplication**: Reference configuration values rather than hardcoding
 3. **Centralized Updates**: Update branding and contact information in one place
 4. **Type Safety**: Consider adding TypeScript definitions for better development experience
 
 ### Performance Considerations
+
 1. **Caching**: Configuration is static and can be cached aggressively
 2. **Bundle Size**: Large configurations may impact client-side bundle size
 3. **Build Time**: Complex configurations may slow down build processes
@@ -365,7 +388,7 @@ The site configuration provides base URL and routing settings used by the sitema
 
 ```javascript
 // Sitemap generator uses site configuration
-import siteConfig from '../config/site.config.json';
+import siteConfig from "../config/site.config.json";
 
 const baseUrl = siteConfig.urls.baseUrl;
 const blacklistPatterns = siteConfig.routing.blacklist;
@@ -380,6 +403,4 @@ const blacklistPatterns = siteConfig.routing.blacklist;
 - **[Search Configuration](./fuse.config.md)**: Search functionality and indexing
 - **[Sitemap Configuration](../docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
 
-*Last Updated: May 25, 2025*
-
-
+_Last Updated: May 25, 2025_

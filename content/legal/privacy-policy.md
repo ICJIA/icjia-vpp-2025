@@ -2,7 +2,7 @@
 title: "Privacy Policy"
 date: 2025-05-28
 description: "This Privacy Policy describes how the Statewide Violence Prevention Plan for Illinois: 2025-2029 website collects, uses, and shares information about you when you visit our website."
---- 
+---
 
 **Last Updated: May 21, 2025**
 
@@ -86,8 +86,6 @@ We implement reasonable security measures to protect your personal information f
 
 We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
 
-
-
 ## Children's Privacy
 
 Our website is not directed to children under the age of 13, and we do not knowingly collect personal information from children under 13. If we learn that we have collected personal information from a child under 13, we will promptly delete that information.
@@ -104,7 +102,7 @@ Illinois Criminal Justice Information Authority
 Violence Prevention Plan for Illinois: 2025-2029
 Email: info@icjia.illinois.gov
 Phone: (312) 793-8550
-Address: 300 W. Adams St., Suite 200, Chicago, IL 60606
+Address: 60 E Van Buren St, Chicago, IL 60605
 
 This Privacy Policy is available in alternative formats upon request. To request an alternative format, please contact us using the information above.
 

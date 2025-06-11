@@ -1,7 +1,14 @@
 ---
-title: 'Contact Us'
-description: 'Get in touch with the Illinois Criminal Justice Information Authority regarding the Statewide Violence Prevention Plan for Illinois: 2025-2029.'
-keywords: ['contact', 'Illinois Criminal Justice Information Authority', 'ICJIA', 'violence prevention', 'contact information']
+title: "Contact Us"
+description: "Get in touch with the Illinois Criminal Justice Information Authority regarding the Statewide Violence Prevention Plan for Illinois: 2025-2029."
+keywords:
+  [
+    "contact",
+    "Illinois Criminal Justice Information Authority",
+    "ICJIA",
+    "violence prevention",
+    "contact information",
+  ]
 showBorder: true
 ---
 
@@ -13,9 +20,9 @@ The **Illinois Criminal Justice Information Authority (ICJIA)** is the lead agen
 
 ### General Information
 
-**Illinois Criminal Justice Information Authority**  
-300 W. Adams Street, Suite 200  
-Chicago, IL 60606
+**Illinois Criminal Justice Information Authority**
+60 E Van Buren St
+Chicago, IL 60605
 
 **Phone:** (312) 793-8550  
 **Website:** [icjia.illinois.gov](https://icjia.illinois.gov)
@@ -37,4 +44,3 @@ For questions, comments, or feedback regarding the Statewide Violence Prevention
 
 **Monday - Friday:** 8:30 AM - 5:00 PM (Central Time)  
 **Closed:** State holidays
-
