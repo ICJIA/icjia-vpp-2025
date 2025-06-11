@@ -476,7 +476,10 @@ if (navigationData.value) {
 .navigation-summary {
   font-size: 0.875rem;
   line-height: 1.5;
-  color: rgba(var(--v-theme-on-surface), 0.7);
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ); /* Enhanced from 0.7 to 0.95 for AAA contrast compliance (7:1) */
   margin-bottom: 0;
   margin-top: 0;
   /* Allow summary to wrap naturally */
@@ -491,7 +494,10 @@ if (navigationData.value) {
 .navigation-description {
   font-size: 0.875rem;
   line-height: 1.5;
-  color: rgba(var(--v-theme-on-surface), 0.7);
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ); /* Enhanced from 0.7 to 0.95 for AAA contrast compliance (7:1) */
   margin-bottom: 0;
   /* Allow description to wrap naturally */
   word-wrap: break-word;
@@ -520,7 +526,10 @@ if (navigationData.value) {
 
 .progress-text {
   font-size: 0.875rem;
-  color: rgba(var(--v-theme-on-surface), 0.7);
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ); /* Enhanced from 0.7 to 0.95 for AAA contrast compliance (7:1) */
   margin-bottom: 0.75rem;
   font-weight: 500;
 }

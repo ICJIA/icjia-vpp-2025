@@ -239,7 +239,7 @@ const planningWorkgroups = [
 .workgroup-description {
   font-size: 0.875rem;
   line-height: 1.5;
-  color: rgba(var(--v-theme-on-surface), 0.6);
+  color: rgba(var(--v-theme-on-surface), 0.9);
   word-wrap: break-word;
   hyphens: auto;
 }

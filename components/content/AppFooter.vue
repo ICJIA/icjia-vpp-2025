@@ -1,5 +1,10 @@
 <template>
-  <v-footer color="background" border class="py-8 app-footer" role="contentinfo">
+  <v-footer
+    color="background"
+    border
+    class="py-8 app-footer"
+    role="contentinfo"
+  >
     <div class="footer-container">
       <!-- Centered footer content -->
       <div class="text-center mb-6">
@@ -47,7 +52,9 @@
               </a>
             </template>
           </AccessibleTooltip>
-          <p class="text-body-2 footer-description footer-description-centered mx-auto">
+          <p
+            class="text-body-2 footer-description footer-description-centered mx-auto"
+          >
             The
             <a
               href="https://icjia.illinois.gov"
@@ -58,7 +65,12 @@
             >
               Illinois Criminal Justice Information Authority
             </a>
-            (ICJIA) aims to continue funding and supporting violence prevention efforts across Illinois. This report was written to inform ICJIA's violence prevention planning for 2025-2029, but also with the intent to be utilized by any state or community group interested in violence prevention efforts or in developing their own localized plan.
+            (ICJIA) aims to continue funding and supporting violence prevention
+            efforts across Illinois. This report was written to inform ICJIA's
+            violence prevention planning for 2025-2029, but also with the intent
+            to be utilized by any state or community group interested in
+            violence prevention efforts or in developing their own localized
+            plan.
           </p>
         </div>
       </div>
@@ -79,8 +91,8 @@
               class="footer-organization-link"
               aria-label="Visit Illinois Criminal Justice Information Authority website"
             >
-              Illinois Criminal Justice Information Authority
-            </a>. All rights reserved.
+              Illinois Criminal Justice Information Authority </a
+            >. All rights reserved.
           </span>
           <span class="mx-2 footer-divider" aria-hidden="true">|</span>
           <nuxt-link
@@ -109,7 +121,9 @@
         </small>
 
         <!-- Mobile layout: stacked with proper spacing -->
-        <div class="d-flex d-sm-none flex-column align-center footer-copyright-mobile">
+        <div
+          class="d-flex d-sm-none flex-column align-center footer-copyright-mobile"
+        >
           <small class="mb-2">
             © {{ new Date().getFullYear() }}
             <a
@@ -119,8 +133,8 @@
               class="footer-organization-link"
               aria-label="Visit Illinois Criminal Justice Information Authority website"
             >
-              Illinois Criminal Justice Information Authority
-            </a>. All rights reserved.
+              Illinois Criminal Justice Information Authority </a
+            >. All rights reserved.
           </small>
           <small class="d-flex flex-column align-center">
             <nuxt-link
@@ -222,7 +236,10 @@ const handleHomeClick = () => {
 .accessibility-link {
   font-size: inherit;
   font-weight: inherit;
-  color: rgba(var(--v-theme-on-background), 0.87); /* Match copyright text color */
+  color: rgba(
+    var(--v-theme-on-background),
+    0.87
+  ); /* Match copyright text color */
 }
 
 .accessibility-link:hover {
@@ -230,7 +247,10 @@ const handleHomeClick = () => {
 }
 
 .footer-divider {
-  color: rgba(var(--v-theme-on-background), 0.6); /* Subtle divider color */
+  color: rgba(
+    var(--v-theme-on-background),
+    0.87
+  ); /* Enhanced contrast for accessibility */
   line-height: 1; /* Ensure proper vertical alignment */
 }
 
@@ -240,13 +260,18 @@ const handleHomeClick = () => {
   font-size: inherit; /* Match surrounding text size */
   font-weight: inherit; /* Match surrounding text weight */
   text-decoration: underline; /* Clear link indicator */
-  text-decoration-color: rgba(var(--v-theme-primary), 0.6); /* Subtle underline */
+  text-decoration-color: rgba(
+    var(--v-theme-primary),
+    0.6
+  ); /* Subtle underline */
   transition: all 0.2s ease;
 }
 
 .footer-organization-link:hover {
   color: var(--v-primary-base); /* Change to primary color on hover */
-  text-decoration-color: var(--v-primary-base); /* Stronger underline on hover */
+  text-decoration-color: var(
+    --v-primary-base
+  ); /* Stronger underline on hover */
 }
 
 /* Desktop copyright layout */
@@ -369,5 +394,25 @@ const handleHomeClick = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Enhanced target size for footer navigation elements - WCAG 2.5.5 */
+.app-footer a,
+.footer-link,
+.footer-organization-link {
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+  margin: 4px 2px !important;
+}
+
+/* Footer branding link specific enhancement */
+.footer-branding-centered a {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 16px !important;
 }
 </style>

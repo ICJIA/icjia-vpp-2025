@@ -19,8 +19,8 @@
     "items": [
       {
         "text": "Read the Plan",
-        "ariaLabel": "Read the Violence Prevention Plan",
-        "tooltip": "Read the Violence Prevention Plan",
+        "ariaLabel": "Read the Plan - Violence Prevention Plan for Illinois",
+        "tooltip": "Read the Plan - Violence Prevention Plan for Illinois",
         "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",

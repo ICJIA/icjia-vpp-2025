@@ -1634,9 +1634,9 @@ useSeoMeta({
 /* TOC Item Styling */
 .toc-item {
   border-radius: 6px !important;
-  margin: 2px 8px 2px 0 !important;
-  padding-left: 40px !important; /* Add padding to make room for dots */
-  min-height: 40px !important;
+  margin: 4px 8px 4px 0 !important; /* Increased margin for better spacing between interactive elements */
+  padding: 12px 16px 12px 40px !important; /* Unified padding for single interactive area */
+  min-height: 44px !important; /* Enhanced from 40px to meet WCAG 2.5.5 requirements */
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: relative;
@@ -1644,6 +1644,13 @@ useSeoMeta({
   /* Ensure TOC items can expand to accommodate wrapped text */
   height: auto !important; /* Allow dynamic height for wrapped text */
   align-items: flex-start !important; /* Align content to top when text wraps */
+
+  /* Enhanced target size for accessibility - WCAG 2.5.5 */
+  min-width: 44px !important; /* Ensure minimum width for touch targets */
+  display: flex !important; /* Ensure proper layout for target size */
+
+  /* Ensure proper spacing to prevent overlapping interactive areas */
+  margin-bottom: 8px !important; /* Additional bottom margin for 24px spacing requirement */
 }
 
 /* Override Vuetify v-list-item-title default truncation styles */
@@ -1689,9 +1696,10 @@ useSeoMeta({
   flex-shrink: 0;
   position: absolute;
   left: 15px; /* Position relative to the toc-item */
-  top: 0.75rem; /* Fixed position relative to top instead of center for wrapped text */
+  top: 18px; /* Fixed position from top for consistent alignment */
   transform: translateY(0); /* Remove vertical centering transform */
   z-index: 3;
+  pointer-events: none; /* Prevent dot from interfering with click events */
 }
 
 /* Dark mode - unselected items stay blue */
@@ -1731,6 +1739,13 @@ useSeoMeta({
   overflow: visible !important; /* Show all text content */
   word-wrap: break-word !important; /* Break long words if necessary */
   hyphens: auto !important; /* Add hyphens for better word breaking */
+
+  /* Remove conflicting sizing - parent .toc-item handles interactive area */
+  display: block !important; /* Simple block display for text content */
+  align-items: flex-start !important; /* Align to top for wrapped text */
+  padding: 0 !important; /* Remove padding to prevent overlapping interactive areas */
+  margin: 0 !important; /* Remove margin to prevent spacing conflicts */
+  width: 100% !important; /* Fill parent container */
 }
 
 .toc-link--active {

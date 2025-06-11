@@ -6,7 +6,9 @@
     class="app-header"
     role="banner"
   >
-    <div class="header-container d-flex align-center justify-space-between py-0">
+    <div
+      class="header-container d-flex align-center justify-space-between py-0"
+    >
       <!-- Site logo/branding -->
       <a
         :href="menuConfig.header.branding.href"
@@ -25,16 +27,24 @@
                 aria-hidden="true"
               />
               <!-- Responsive title display based on screen size -->
-              <span class="d-none d-xl-block text-h6 font-weight-bold text-primary">
+              <span
+                class="d-none d-xl-block text-h6 font-weight-bold text-primary"
+              >
                 {{ menuConfig.header.branding.text }}
               </span>
-              <span class="d-none d-lg-block d-xl-none text-h6 font-weight-bold text-primary">
+              <span
+                class="d-none d-lg-block d-xl-none text-h6 font-weight-bold text-primary"
+              >
                 {{ menuConfig.header.branding.textMd }}
               </span>
-              <span class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary">
+              <span
+                class="d-none d-sm-block d-lg-none text-subtitle-1 font-weight-bold text-primary"
+              >
                 {{ menuConfig.header.branding.textSm }}
               </span>
-              <span class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary">
+              <span
+                class="d-block d-sm-none text-subtitle-1 font-weight-bold text-primary"
+              >
                 {{ menuConfig.header.branding.textXs }}
               </span>
             </div>
@@ -52,14 +62,21 @@
           @click="mobileDrawerOpen = !mobileDrawerOpen"
         >
           <v-icon
-            :icon="mobileDrawerOpen ? menuConfig.header.mobile.closeIcon : menuConfig.header.mobile.menuIcon"
+            :icon="
+              mobileDrawerOpen
+                ? menuConfig.header.mobile.closeIcon
+                : menuConfig.header.mobile.menuIcon
+            "
             size="large"
           ></v-icon>
         </v-btn>
       </div>
 
       <!-- Desktop navigation (visible on md and up) -->
-      <nav class="d-none d-md-flex align-center justify-end" aria-label="Main Navigation">
+      <nav
+        class="d-none d-md-flex align-center justify-end"
+        aria-label="Main Navigation"
+      >
         <!-- Dynamically generate navigation items from config, sorted by order property -->
         <template v-for="(item, index) in sortedHeaderItems" :key="index">
           <template v-if="shouldDisplayInDesktop(item)">
@@ -91,7 +108,10 @@
                     <v-btn
                       v-bind="{ ...menuProps, ...tooltipProps }"
                       :variant="item.variant"
-                      :class="[item.class, { 'more-menu-btn': item.isMoreMenu }]"
+                      :class="[
+                        item.class,
+                        { 'more-menu-btn': item.isMoreMenu },
+                      ]"
                       :color="item.color"
                       :aria-label="item.ariaLabel"
                       :aria-haspopup="true"
@@ -129,7 +149,10 @@
                 </v-btn>
 
                 <!-- Regular dropdown button with text and optional tooltip -->
-                <div v-else-if="item.enableTooltip && tooltipsEnabled" class="position-relative">
+                <div
+                  v-else-if="item.enableTooltip && tooltipsEnabled"
+                  class="position-relative"
+                >
                   <v-btn
                     v-bind="menuProps"
                     :variant="item.variant"
@@ -197,7 +220,10 @@
 
               <v-card class="dropdown-menu" elevation="4">
                 <v-list density="compact" nav>
-                  <template v-for="(child, childIndex) in item.children" :key="childIndex">
+                  <template
+                    v-for="(child, childIndex) in item.children"
+                    :key="childIndex"
+                  >
                     <!-- Divider item -->
                     <v-divider
                       v-if="child.isDivider"
@@ -219,9 +245,20 @@
                       @focus="openDropdowns[index] = true"
                       @click="handleDropdownItemClick(index)"
                       @keydown.esc="openDropdowns[index] = false"
-                      @keydown.up.prevent="focusPrevDropdownItem(index, childIndex)"
-                      @keydown.down.prevent="focusNextDropdownItem(index, childIndex)"
-                      @keydown.tab="handleDropdownTabKey(index, childIndex, item.children.length, $event)"
+                      @keydown.up.prevent="
+                        focusPrevDropdownItem(index, childIndex)
+                      "
+                      @keydown.down.prevent="
+                        focusNextDropdownItem(index, childIndex)
+                      "
+                      @keydown.tab="
+                        handleDropdownTabKey(
+                          index,
+                          childIndex,
+                          item.children.length,
+                          $event
+                        )
+                      "
                     >
                       <v-list-item-title class="d-flex align-center">
                         <v-icon
@@ -261,7 +298,15 @@
             </v-btn>
 
             <!-- Regular internal link with Vue Router and optional tooltip -->
-            <div v-else-if="item.to && !item.isExternal && item.enableTooltip && tooltipsEnabled" class="position-relative">
+            <div
+              v-else-if="
+                item.to &&
+                !item.isExternal &&
+                item.enableTooltip &&
+                tooltipsEnabled
+              "
+              class="position-relative"
+            >
               <v-btn
                 :variant="item.variant"
                 :class="item.class"
@@ -316,7 +361,12 @@
             </v-btn>
 
             <!-- External link with optional tooltip -->
-            <div v-else-if="item.isExternal && item.enableTooltip && tooltipsEnabled" class="position-relative">
+            <div
+              v-else-if="
+                item.isExternal && item.enableTooltip && tooltipsEnabled
+              "
+              class="position-relative"
+            >
               <v-btn
                 :variant="item.variant"
                 :class="item.class"
@@ -407,7 +457,7 @@
     aria-modal="true"
     aria-label="Mobile Navigation Menu"
   >
-    <v-list>
+    <v-list aria-label="Mobile Navigation Menu" role="navigation">
       <!-- Mobile navigation items, sorted by order property -->
       <template v-for="(item, index) in sortedHeaderItems" :key="index">
         <template v-if="shouldDisplayInMobile(item)">
@@ -422,15 +472,16 @@
                   v-bind="props"
                   :class="item.mobileClass"
                   :aria-label="item.ariaLabel"
-                  :aria-expanded="mobileExpandedDropdowns[index] ? 'true' : 'false'"
-                  :aria-haspopup="true"
                 >
                   <v-list-item-title>{{ item.text }}</v-list-item-title>
                   <template v-slot:append>
                     <v-icon
                       :icon="item.mobileDropdownIcon || 'mdi-chevron-right'"
                       size="large"
-                      :class="{ 'rotate-90': mobileExpandedDropdowns[index], 'mobile-dropdown-chevron': true }"
+                      :class="{
+                        'rotate-90': mobileExpandedDropdowns[index],
+                        'mobile-dropdown-chevron': true,
+                      }"
                       aria-hidden="true"
                     ></v-icon>
                   </template>
@@ -438,7 +489,10 @@
               </template>
 
               <!-- Dropdown children -->
-              <template v-for="(child, childIndex) in item.children" :key="`dropdown-${index}-child-${childIndex}`">
+              <template
+                v-for="(child, childIndex) in item.children"
+                :key="`dropdown-${index}-child-${childIndex}`"
+              >
                 <!-- Divider item -->
                 <v-divider
                   v-if="child.isDivider"
@@ -454,8 +508,11 @@
                   :href="child.href"
                   :target="child.isExternal ? child.target : undefined"
                   :rel="child.isExternal ? child.rel : undefined"
-                  :class="[child.mobileClass, { 'more-menu-item': item.isMoreMenu }]"
-                  :aria-label="child.ariaLabel"
+                  :class="[
+                    child.mobileClass,
+                    { 'more-menu-item': item.isMoreMenu },
+                  ]"
+                  :title="child.ariaLabel"
                   @click="handleMobileDropdownItemClick(index, child.href)"
                 >
                   <v-list-item-title class="d-flex align-center">
@@ -489,7 +546,7 @@
             :target="item.isExternal ? item.target : undefined"
             :rel="item.isExternal ? item.rel : undefined"
             :class="item.mobileClass"
-            :aria-label="item.ariaLabel"
+            :title="item.ariaLabel"
             @click="item.href === '/' ? handleHomeClick() : undefined"
           >
             <v-list-item-title class="d-flex align-center">
@@ -500,7 +557,13 @@
                 class="mr-2"
                 aria-hidden="true"
               ></v-icon>
-              {{ item.iconOnly ? (item.isMoreMenu ? item.text : 'Search') : item.text }}
+              {{
+                item.iconOnly
+                  ? item.isMoreMenu
+                    ? item.text
+                    : "Search"
+                  : item.text
+              }}
               <v-icon
                 v-if="item.isExternal && item.externalIcon"
                 :icon="item.externalIcon"
@@ -541,10 +604,17 @@
  *
  * @component
  */
-import ThemeSwitch from './ThemeSwitch.vue';
-import { useRouter, useRoute, ref, onMounted, onBeforeUnmount, computed } from '#imports';
-import menuConfig from '~/config/menu.config.json';
-import siteConfig from '~/config/site.config.json';
+import ThemeSwitch from "./ThemeSwitch.vue";
+import {
+  useRouter,
+  useRoute,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  computed,
+} from "#imports";
+import menuConfig from "~/config/menu.config.json";
+import siteConfig from "~/config/site.config.json";
 
 /**
  * Component props
@@ -555,7 +625,7 @@ defineProps({
    */
   theme: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -564,18 +634,18 @@ defineProps({
    */
   role: {
     type: String,
-    default: 'banner'
-  }
+    default: "banner",
+  },
 });
 
 // Import Vuetify's useDisplay composable for responsive detection
-import { useDisplay } from 'vuetify';
+import { useDisplay } from "vuetify";
 
 /**
  * Define emits for the component
  * toggle-theme: Emitted when theme switch is toggled
  */
-defineEmits(['toggle-theme']);
+defineEmits(["toggle-theme"]);
 
 // Get Nuxt app instance to access plugins
 const nuxtApp = useNuxtApp();
@@ -637,15 +707,15 @@ const moreMenuChildren = computed(() => {
         href: item.href,
         ariaLabel: item.ariaLabel,
         tooltip: item.tooltip,
-        tooltipLocation: 'right',
-        class: 'dropdown-item',
-        mobileClass: 'dropdown-item-mobile ml-4',
-        color: 'on-app-bar',
-        displayMode: 'both',
+        tooltipLocation: "right",
+        class: "dropdown-item",
+        mobileClass: "dropdown-item-mobile ml-4",
+        color: "on-app-bar",
+        displayMode: "both",
         icon: item.icon,
         isExternal: item.isExternal || false,
-        target: item.isExternal ? '_blank' : undefined,
-        rel: item.isExternal ? 'noopener noreferrer' : undefined
+        target: item.isExternal ? "_blank" : undefined,
+        rel: item.isExternal ? "noopener noreferrer" : undefined,
       });
     }
   });
@@ -658,13 +728,13 @@ const moreMenuChildren = computed(() => {
  * Items without an order property will be placed at the end
  */
 const sortedHeaderItems = computed(() => {
-  const items = [...menuConfig.header.items].map(item => {
+  const items = [...menuConfig.header.items].map((item) => {
     // If this is the "More" menu, inject dynamic children
     if (item.isMoreMenu && siteConfig.ui?.navigation?.moreMenu?.enabled) {
       return {
         ...item,
         children: moreMenuChildren.value,
-        text: siteConfig.ui.navigation.moreMenu.mobileText || 'More'
+        text: siteConfig.ui.navigation.moreMenu.mobileText || "More",
       };
     }
     return item;
@@ -684,7 +754,7 @@ const sortedHeaderItems = computed(() => {
  * @returns {boolean} - Whether the item should be displayed in desktop view
  */
 const shouldDisplayInDesktop = (item) => {
-  return item.displayMode === 'desktop' || item.displayMode === 'both';
+  return item.displayMode === "desktop" || item.displayMode === "both";
 };
 
 /**
@@ -693,7 +763,7 @@ const shouldDisplayInDesktop = (item) => {
  * @returns {boolean} - Whether the item should be displayed in mobile view
  */
 const shouldDisplayInMobile = (item) => {
-  return item.displayMode === 'mobile' || item.displayMode === 'both';
+  return item.displayMode === "mobile" || item.displayMode === "both";
 };
 
 /**
@@ -721,24 +791,24 @@ onMounted(() => {
   });
 
   // Add global click handler to close dropdowns and tooltips when clicking outside
-  if (typeof window !== 'undefined') {
-    window.addEventListener('click', handleOutsideClick);
+  if (typeof window !== "undefined") {
+    window.addEventListener("click", handleOutsideClick);
   }
 
   // Add router navigation hook to close all dropdowns and tooltips when navigation occurs
   router.afterEach(() => {
     // Close all desktop dropdowns
-    Object.keys(openDropdowns.value).forEach(key => {
+    Object.keys(openDropdowns.value).forEach((key) => {
       openDropdowns.value[key] = false;
     });
 
     // Close all mobile dropdowns
-    Object.keys(mobileExpandedDropdowns.value).forEach(key => {
+    Object.keys(mobileExpandedDropdowns.value).forEach((key) => {
       mobileExpandedDropdowns.value[key] = false;
     });
 
     // Close all tooltips and clear timers
-    Object.keys(tooltipStates.value).forEach(key => {
+    Object.keys(tooltipStates.value).forEach((key) => {
       tooltipStates.value[key] = false;
       if (tooltipTimers.value[key]) {
         clearTimeout(tooltipTimers.value[key]);
@@ -755,12 +825,12 @@ onMounted(() => {
  * Clean up event listeners and timers on component unmount
  */
 onBeforeUnmount(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('click', handleOutsideClick);
+  if (typeof window !== "undefined") {
+    window.removeEventListener("click", handleOutsideClick);
   }
 
   // Clear all tooltip timers
-  Object.keys(tooltipTimers.value).forEach(key => {
+  Object.keys(tooltipTimers.value).forEach((key) => {
     if (tooltipTimers.value[key]) {
       clearTimeout(tooltipTimers.value[key]);
       delete tooltipTimers.value[key];
@@ -773,23 +843,24 @@ onBeforeUnmount(() => {
  */
 const handleOutsideClick = (event) => {
   // Check if click is outside dropdown menus and their activators
-  const isOutsideDropdown = !event.target.closest('.v-menu') &&
-                           !event.target.closest('.v-btn[aria-haspopup="true"]');
+  const isOutsideDropdown =
+    !event.target.closest(".v-menu") &&
+    !event.target.closest('.v-btn[aria-haspopup="true"]');
 
   // Check if click is outside tooltips and their activators
-  const isOutsideTooltip = !event.target.closest('.v-tooltip') &&
-                          !event.target.closest('.v-btn');
+  const isOutsideTooltip =
+    !event.target.closest(".v-tooltip") && !event.target.closest(".v-btn");
 
   if (isOutsideDropdown) {
     // Close all dropdowns
-    Object.keys(openDropdowns.value).forEach(key => {
+    Object.keys(openDropdowns.value).forEach((key) => {
       openDropdowns.value[key] = false;
     });
   }
 
   if (isOutsideTooltip) {
     // Close all tooltips and clear timers
-    Object.keys(tooltipStates.value).forEach(key => {
+    Object.keys(tooltipStates.value).forEach((key) => {
       tooltipStates.value[key] = false;
       if (tooltipTimers.value[key]) {
         clearTimeout(tooltipTimers.value[key]);
@@ -807,9 +878,10 @@ const handleDropdownBlur = (index) => {
   setTimeout(() => {
     // Check if focus is still within the dropdown
     const activeElement = document.activeElement;
-    const isInDropdown = activeElement &&
-                        (activeElement.closest('.v-menu') ||
-                         activeElement.getAttribute('aria-haspopup') === 'true');
+    const isInDropdown =
+      activeElement &&
+      (activeElement.closest(".v-menu") ||
+        activeElement.getAttribute("aria-haspopup") === "true");
 
     if (!isInDropdown) {
       openDropdowns.value[index] = false;
@@ -821,11 +893,12 @@ const handleDropdownBlur = (index) => {
  * Focus the next item in a dropdown menu
  */
 const focusNextDropdownItem = (dropdownIndex, currentItemIndex) => {
-  const dropdown = document.querySelectorAll('.v-menu')[dropdownIndex];
+  const dropdown = document.querySelectorAll(".v-menu")[dropdownIndex];
   if (!dropdown) return;
 
-  const items = dropdown.querySelectorAll('.v-list-item');
-  const nextIndex = currentItemIndex + 1 < items.length ? currentItemIndex + 1 : 0;
+  const items = dropdown.querySelectorAll(".v-list-item");
+  const nextIndex =
+    currentItemIndex + 1 < items.length ? currentItemIndex + 1 : 0;
 
   if (items[nextIndex]) {
     items[nextIndex].focus();
@@ -836,11 +909,12 @@ const focusNextDropdownItem = (dropdownIndex, currentItemIndex) => {
  * Focus the previous item in a dropdown menu
  */
 const focusPrevDropdownItem = (dropdownIndex, currentItemIndex) => {
-  const dropdown = document.querySelectorAll('.v-menu')[dropdownIndex];
+  const dropdown = document.querySelectorAll(".v-menu")[dropdownIndex];
   if (!dropdown) return;
 
-  const items = dropdown.querySelectorAll('.v-list-item');
-  const prevIndex = currentItemIndex - 1 >= 0 ? currentItemIndex - 1 : items.length - 1;
+  const items = dropdown.querySelectorAll(".v-list-item");
+  const prevIndex =
+    currentItemIndex - 1 >= 0 ? currentItemIndex - 1 : items.length - 1;
 
   if (items[prevIndex]) {
     items[prevIndex].focus();
@@ -850,7 +924,12 @@ const focusPrevDropdownItem = (dropdownIndex, currentItemIndex) => {
 /**
  * Handle tab key in dropdown menu to ensure proper focus management
  */
-const handleDropdownTabKey = (dropdownIndex, currentItemIndex, totalItems, event) => {
+const handleDropdownTabKey = (
+  dropdownIndex,
+  currentItemIndex,
+  totalItems,
+  event
+) => {
   // If tabbing from the last item, close the dropdown
   if (currentItemIndex === totalItems - 1 && !event.shiftKey) {
     openDropdowns.value[dropdownIndex] = false;
@@ -893,7 +972,7 @@ const handleMobileDropdownItemClick = (index, href) => {
   mobileDrawerOpen.value = false;
 
   // Handle home link special case
-  if (href === '/') {
+  if (href === "/") {
     handleHomeClick();
   }
 };
@@ -904,12 +983,12 @@ const handleMobileDropdownItemClick = (index, href) => {
  * Otherwise navigate to homepage
  */
 const handleHomeClick = () => {
-  if (route.path === '/') {
+  if (route.path === "/") {
     // Already on homepage, just scroll to top
     nuxtApp.$scrollToTop();
   } else {
     // Navigate to homepage
-    router.push('/');
+    router.push("/");
   }
 };
 
@@ -1065,7 +1144,7 @@ const handleRegularDropdownFocus = (index) => {
 }
 
 .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -1128,30 +1207,32 @@ const handleRegularDropdownFocus = (index) => {
 /* Navigation download button custom styling - subtle card-like approach */
 .nav-download-btn {
   /* Light theme: pure white background like cards for subtle contrast against light grey nav bar */
-  background-color: #FFFFFF !important; /* Same as NewsCard and search cards */
-  color: #0747A6 !important; /* Primary color text */
+  background-color: #ffffff !important; /* Same as NewsCard and search cards */
+  color: #0747a6 !important; /* Primary color text */
   border: 1px solid rgba(0, 0, 0, 0.05) !important; /* Subtle border like cards */
   transition: all 0.3s ease;
 }
 
 .nav-download-btn:hover {
-  background-color: #F8F8F8 !important; /* Slightly darker on hover */
+  background-color: #f8f8f8 !important; /* Slightly darker on hover */
   color: #053285 !important; /* Darker primary on hover */
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 }
 
 /* Dark theme: lighter surface background like cards for contrast against dark nav bar */
 :root[data-theme="dark"] .nav-download-btn {
-  background-color: #2A3441 !important; /* Same as NewsCard and search cards */
-  color: #93C5FD !important; /* Theme primary color text */
+  background-color: #2a3441 !important; /* Same as NewsCard and search cards */
+  color: #93c5fd !important; /* Theme primary color text */
   border: 1px solid rgba(255, 255, 255, 0.05) !important; /* Subtle border like cards */
 }
 
 :root[data-theme="dark"] .nav-download-btn:hover {
   background-color: #334155 !important; /* Slightly lighter on hover */
-  color: #BFDBFE !important; /* Lighter blue on hover */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
+  color: #bfdbfe !important; /* Lighter blue on hover */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Simple theme toggle spacing */
@@ -1241,5 +1322,46 @@ const handleRegularDropdownFocus = (index) => {
   .header-container {
     padding: 0 32px;
   }
+}
+
+/* Enhanced target size for accessibility - WCAG 2.5.5 Target Size (Enhanced) */
+/* Ensure all interactive elements meet 44x44 pixel minimum target size */
+.app-header .v-btn {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* Specific styling for icon-only buttons to ensure proper target size */
+.app-header .v-btn[icon] {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+/* Mobile navigation list items target size enhancement */
+.mobile-nav-drawer .v-list-item {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+}
+
+/* Mobile navigation dropdown items target size enhancement */
+.mobile-nav-drawer .v-list-group .v-list-item {
+  min-height: 44px !important;
+}
+
+/* Dropdown menu items target size enhancement */
+.dropdown-menu .v-list-item {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+}
+
+/* Logo/branding link target size enhancement */
+.app-header a[aria-label*="homepage"],
+.app-header a[aria-label*="home"] {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 4px 8px !important;
 }
 </style>

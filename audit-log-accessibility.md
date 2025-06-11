@@ -2,6 +2,156 @@
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+### 2025-06-11 (ARIA Attribute Compliance Fix - WCAG 4.1.2)
+
+- Fixed inappropriate ARIA attributes on mobile navigation elements to comply with WCAG 4.1.2 Name, Role, Value requirement.
+- Files modified:
+  - `components/content/AppHeader.vue`: Corrected ARIA attributes on mobile navigation components
+- Technical Notes:
+  - **Issues Resolved**:
+    - Removed inappropriate `aria-expanded` and `aria-haspopup` from `v-list-item` wrapper elements
+    - Replaced `aria-label` with `title` attributes on navigation links to avoid conflicts with visible text
+    - Changed mobile navigation list role from `listbox` to `navigation` to prevent inappropriate `aria-selected` attributes
+  - **ARIA Compliance**: Ensures ARIA attributes are only used on appropriate elements and roles
+  - **Screen Reader Compatibility**: Navigation links now use proper semantic structure without conflicting ARIA attributes
+  - **Accessibility Standards**: Meets WCAG 4.1.2 requirements for proper programmatic determination of names, roles, and values
+  - **Siteimprove Resolution**: Addresses all 9 flagged "ARIA attribute unsupported or prohibited" violations
+  - Maintains full navigation functionality while ensuring proper accessibility semantics
+
+### 2025-06-11 (WCAG 2.5.3 Label in Name Compliance Fix)
+
+- Fixed accessible name mismatch for "Read the Plan" navigation element to comply with WCAG 2.5.3 Label in Name requirement.
+- Files modified:
+  - `config/menu.config.json`: Updated ariaLabel and tooltip for main navigation "Read the Plan" item
+- Technical Notes:
+  - **Issue**: Visible text "Read the Plan" did not match accessible name "Read the Violence Prevention Plan"
+  - **Solution**: Updated ariaLabel from "Read the Violence Prevention Plan" to "Read the Plan - Violence Prevention Plan for Illinois"
+  - **WCAG 2.5.3 Compliance**: Accessible name now starts with the visible text label as required
+  - **Tooltip Consistency**: Updated tooltip text to match the new accessible name for consistency
+  - **User Experience**: Maintains descriptive context while ensuring screen reader users hear the visible label first
+  - Resolves Siteimprove flagged "Visible label and accessible name do not match" violation
+
+### 2025-06-11 (Comprehensive Download Page Contrast Enhancement - WCAG AAA Compliance)
+
+- Enhanced contrast ratios across download page components to meet WCAG AAA enhanced requirement (7:1) and resolve Siteimprove contrast flagging.
+- Files modified:
+  - `components/content/ReportNavigation.vue`: Enhanced text contrast for section progress and navigation elements
+  - `assets/css/main.scss`: Enhanced download page detail items and Vuetify text utility classes
+- Technical Notes:
+  - **ReportNavigation Component**: Enhanced `.progress-text`, `.navigation-summary`, and `.navigation-description` from `rgba(var(--v-theme-on-surface), 0.7)` to `0.95`
+  - **Download Page Detail Items**: Enhanced `.detail-item` color from `rgba(var(--v-theme-on-surface), 0.9)` to `0.95` for "Read Online" button details
+  - **Vuetify Text Utilities**: Enhanced multiple text classes (`.text-disabled`, `.text-caption`, `.text-overline`, `.text-subtitle-1`, `.text-subtitle-2`, `.text-body-1`, `.text-body-2`) to use `0.95` opacity
+  - Improved contrast ratios from 5.48:1 and 4.98:1 to approximately 8.1:1, exceeding AAA requirement of 7:1
+  - Maintains visual hierarchy while ensuring maximum accessibility compliance across all text elements
+  - Resolves Siteimprove flagged contrast issues for text color #606874 on background #fafafa
+  - Provides comprehensive coverage for potential "ms" timing text and other UI elements
+
+### 2025-06-11 (WCAG 2.5.8 Target Size Compliance)
+
+- Fixed overlapping interactive elements in Table of Contents (TOC) component that were causing Siteimprove target size violations.
+- Files modified:
+  - `pages/[...slug].vue`: Enhanced TOC interactive element spacing and structure
+- Technical Notes:
+  - Increased margin between TOC items from 2px to 4px with additional 8px bottom margin for proper 24px spacing
+  - Unified padding structure to create single interactive area per TOC item (12px 16px 12px 40px)
+  - Removed conflicting padding from `.toc-link` elements to prevent overlapping interactive zones
+  - Added `pointer-events: none` to `.toc-indicator-dot` to prevent interference with click events
+  - Maintained 44px minimum touch target size while ensuring proper spacing between elements
+  - Ensures compliance with WCAG 2.5.8 Target Size (Minimum) requirements
+
+### 2025-01-11 (Table of Contents Target Size Enhancement - WCAG 2.5.5)
+
+- Enhanced Table of Contents (TOC) interactive elements to meet WCAG 2.5.5 minimum target size requirements (24x24 pixels minimum).
+- **TOC Target Size Enhancement**:
+  - **Problem Identified**: TOC interactive element in executive summary page below 24x24 pixel minimum requirement
+  - **TOC Items Enhanced**: Increased minimum height from 40px to 44px and added minimum width requirement
+  - **TOC Links Enhanced**: Added comprehensive target size rules for all TOC links and interactive elements
+  - **Global TOC Rules**: Added global CSS rules to ensure all TOC elements meet accessibility requirements
+- **Elements Enhanced**:
+  - `.toc-item` elements with enhanced padding and minimum dimensions
+  - `.toc-link` elements with proper target size and alignment
+  - All TOC interactive elements in content areas
+  - TOC sheet and content container elements
+- **Technical Implementation**:
+  - Enhanced TOC styling in `pages/[...slug].vue` with improved target sizes
+  - Added global TOC target size rules in `assets/css/main.scss`
+  - Maintained visual design while ensuring accessibility compliance
+  - Enhanced padding and minimum dimensions for all TOC interactive elements
+- **WCAG Compliance**: Resolves Siteimprove flagged TOC target size violation in executive summary page
+
+### 2025-01-11 (Comprehensive Global Target Size Enhancement - WCAG 2.5.5)
+
+- Implemented comprehensive global target size enhancements to resolve all remaining WCAG 2.5.5 Target Size (Enhanced) violations across the entire application.
+- **Global Target Size Implementation**:
+  - **Global CSS Rules**: Added comprehensive target size rules in `assets/css/main.scss` to ensure universal coverage
+  - **Component-Specific Enhancements**: Enhanced both AppHeader and AppFooter components with specific target size rules
+  - **Universal Button Coverage**: All v-btn elements and button elements now meet 44x44 pixel minimum requirement
+  - **Navigation Link Enhancement**: All navigation links (header, footer, dropdown) enhanced with proper target sizes
+  - **Mobile Navigation**: Complete mobile navigation drawer target size compliance
+- **Elements Enhanced**:
+  - All Vuetify buttons (.v-btn, button elements)
+  - Icon-only buttons (.v-btn[icon], .v-btn--icon)
+  - Navigation links (header, footer, dropdown menus)
+  - Mobile navigation drawer items
+  - Footer navigation links and branding elements
+  - Report navigation cards and interactive elements
+- **Technical Implementation**:
+  - Global CSS rules in `assets/css/main.scss` with !important declarations for universal application
+  - Component-specific enhancements in `AppHeader.vue` and `AppFooter.vue`
+  - Comprehensive coverage of all interactive element types
+  - Maintained visual design while ensuring accessibility compliance
+- **Siteimprove Resolution**: Addresses all 9 flagged target size violations including duplicate elements and edge cases
+
+### 2025-01-11 (Enhanced Target Size for Navigation Elements - WCAG 2.5.5)
+
+- Enhanced all navigation interactive elements to meet WCAG 2.5.5 Target Size (Enhanced) requirement of 44x44 pixels minimum.
+- **Target Size Accessibility Enhancement**:
+  - **Navigation Buttons**: All v-btn elements in AppHeader now have minimum 44x44 pixel target size
+  - **Icon-Only Buttons**: Specific styling for icon buttons (hamburger menu, more menu) to ensure proper dimensions
+  - **Mobile Navigation**: All mobile drawer list items enhanced with 44px minimum height and proper padding
+  - **Dropdown Items**: Both desktop and mobile dropdown menu items meet enhanced target size requirements
+  - **Logo/Branding Link**: Home page link enhanced with proper target size and padding
+- **Elements Enhanced**:
+  - Mobile hamburger menu button (lines 57-73 in AppHeader.vue)
+  - Desktop navigation buttons (Home, Read the Plan, Download, More menu)
+  - Mobile navigation drawer list items
+  - Desktop dropdown menu items
+  - Icon-only navigation buttons
+- **Technical Implementation**:
+  - Added comprehensive CSS rules in `components/content/AppHeader.vue` style section
+  - Used `!important` declarations to override Vuetify defaults where necessary
+  - Maintained visual design while ensuring accessibility compliance
+  - Enhanced padding and minimum dimensions for all interactive elements
+- **WCAG Compliance**: Now meets WCAG 2.5.5 Target Size (Enhanced) requirements for improved usability on touch devices
+
+### 2025-01-11 (Footer Divider Contrast Enhancement)
+
+- Enhanced footer divider contrast in AppFooter component to meet WCAG 2.1 AA accessibility standards.
+- **Footer Accessibility Fix**:
+  - **Element**: Footer pipe dividers ("|") in desktop copyright layout
+  - **Problem**: `.footer-divider` class using 0.6 opacity resulted in insufficient contrast
+  - **Solution**: Increased opacity from 0.6 to 0.87 to match other footer text elements
+  - **WCAG Compliance**: Now meets WCAG 2.1 AA minimum contrast requirements
+- **Technical Implementation**:
+  - Modified `.footer-divider` color property in `components/content/AppFooter.vue`
+  - Changed from `rgba(var(--v-theme-on-background), 0.6)` to `rgba(var(--v-theme-on-background), 0.87)`
+  - Maintains visual hierarchy while ensuring accessibility compliance
+  - Consistent with other footer text elements for unified appearance
+
+### 2025-01-11 (Critical Contrast Fix for HomeStakeholders Workgroup Descriptions)
+
+- Fixed critical contrast ratio issue in HomeStakeholders component where workgroup descriptions had insufficient contrast (3.9:1) below WCAG AA minimum requirement.
+- **Critical Accessibility Fix**:
+  - **Problem Identified**: `.workgroup-description` class using 0.6 opacity resulted in 3.9:1 contrast ratio, failing WCAG AA 4.5:1 minimum
+  - **Affected Content**: Three workgroup descriptions ("A data workgroup was formed...", "A grant implementation workgroup...", "A recommendations workgroup...")
+  - **Solution Applied**: Increased opacity from 0.6 to 0.9 to achieve compliant contrast ratios
+  - **WCAG Compliance Restored**: Now meets WCAG 2.1 AA minimum contrast requirements (4.5:1+)
+- **Technical Implementation**:
+  - Modified `.workgroup-description` color property in `components/content/HomeStakeholders.vue`
+  - Changed from `rgba(var(--v-theme-on-surface), 0.6)` to `rgba(var(--v-theme-on-surface), 0.9)`
+  - Maintains visual hierarchy while ensuring accessibility compliance
+  - Preserves component functionality and responsive design
+
 ### 2025-01-11 (Meta Tag Modernization for Mobile Web App Support)
 
 - Updated deprecated `apple-mobile-web-app-capable` meta tag to modern `mobile-web-app-capable` standard in nuxt.config.ts.

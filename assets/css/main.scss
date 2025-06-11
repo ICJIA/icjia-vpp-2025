@@ -2151,7 +2151,7 @@ section.section-secondary,
   gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(var(--v-theme-on-surface), 0.9);
+  color: rgba(var(--v-theme-on-surface), 0.95); /* Enhanced from 0.9 to 0.95 for AAA contrast compliance (7:1) */
 }
 
 .detail-icon {
@@ -2574,6 +2574,118 @@ a.v-btn:visited *,
 
 .text-high-emphasis {
   color: rgba(var(--v-theme-on-surface), 1) !important;
+}
+
+// Additional Vuetify text utility classes for enhanced contrast
+.text-disabled {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced from default for better visibility */
+}
+
+.text-caption {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+}
+
+.text-overline {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+}
+
+.text-subtitle-1,
+.text-subtitle-2 {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+}
+
+.text-body-1,
+.text-body-2 {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+}
+
+// Global Target Size Enhancement for WCAG 2.5.5 Target Size (Enhanced)
+// Ensures all interactive navigation elements meet 44x44 pixel minimum requirement
+// Applied globally to override any component-specific styling
+
+// All navigation buttons and interactive elements
+.v-btn,
+button {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+// Specific targeting for icon-only buttons
+.v-btn[icon],
+.v-btn--icon {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+// Navigation links and anchors
+a[role="button"],
+.v-list-item,
+.nav-link,
+.footer-link {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// Header and footer navigation specific enhancements
+.app-header a,
+.app-footer a,
+.v-app-bar a {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// Mobile navigation drawer enhancements
+.v-navigation-drawer .v-list-item {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+}
+
+// Dropdown menu items
+.v-menu .v-list-item,
+.dropdown-menu .v-list-item {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+}
+
+// Report navigation cards (if they exist)
+.navigation-card {
+  min-height: 44px !important;
+}
+
+// Table of Contents (TOC) target size enhancement - WCAG 2.5.5
+// Ensures all TOC interactive elements meet minimum 24x24 pixel requirement
+.toc-item,
+.toc-link,
+.v-list-item.toc-item {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// TOC specific interactive elements
+.toc-content .v-list-item,
+.toc-sheet .v-list-item {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  padding: 8px 16px !important;
+}
+
+// TOC links and anchors within content
+.toc-content a,
+.toc-sheet a {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
 }
 
 // Page description text enhancement for better contrast
