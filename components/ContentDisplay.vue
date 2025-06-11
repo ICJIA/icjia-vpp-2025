@@ -2,10 +2,7 @@
   <div class="content-display">
     <!-- Loading State -->
     <slot name="loading" v-if="pending">
-      <v-skeleton-loader
-        type="article"
-        class="mb-6"
-      />
+      <v-skeleton-loader type="article" class="mb-6" />
     </slot>
 
     <!-- Error State -->
@@ -47,7 +44,10 @@
         </div>
 
         <!-- Technical details (development only) -->
-        <div v-if="isDevelopment && technicalErrorDetails" class="mt-4 text-caption">
+        <div
+          v-if="isDevelopment && technicalErrorDetails"
+          class="mt-4 text-caption"
+        >
           <v-expansion-panels variant="accordion">
             <v-expansion-panel>
               <v-expansion-panel-title>
@@ -63,11 +63,15 @@
                   </div>
                   <div v-if="technicalErrorDetails.stack" class="mb-2">
                     <strong>Stack Trace:</strong>
-                    <pre class="stack-trace mt-1">{{ technicalErrorDetails.stack }}</pre>
+                    <pre class="stack-trace mt-1">{{
+                      technicalErrorDetails.stack
+                    }}</pre>
                   </div>
                   <div v-if="technicalErrorDetails.context" class="mb-2">
                     <strong>Context:</strong>
-                    <pre class="context-data mt-1">{{ JSON.stringify(technicalErrorDetails.context, null, 2) }}</pre>
+                    <pre class="context-data mt-1">{{
+                      JSON.stringify(technicalErrorDetails.context, null, 2)
+                    }}</pre>
                   </div>
                 </div>
               </v-expansion-panel-text>
@@ -91,7 +95,10 @@
               :theme="isDark ? 'dark' : 'light'"
             >
               <!-- Frontmatter Display -->
-              <v-card-item v-if="showFrontmatter && (content.title || content.description)" class="pb-0">
+              <v-card-item
+                v-if="showFrontmatter && (content.title || content.description)"
+                class="pb-0"
+              >
                 <v-chip
                   v-if="content.title"
                   color="primary"
@@ -108,20 +115,32 @@
 
               <!-- Content Renderer -->
               <v-card-text>
-                <v-divider v-if="showFrontmatter && (content.title || content.description)" class="my-4"></v-divider>
+                <v-divider
+                  v-if="
+                    showFrontmatter && (content.title || content.description)
+                  "
+                  class="my-4"
+                ></v-divider>
 
                 <!-- Always attempt to render content with ContentRenderer -->
                 <div>
                   <ContentRenderer
                     :value="content"
-                    :class="['content-renderer', { 'hide-matching-heading': props.hideMatchingHeading }]"
+                    :class="[
+                      'content-renderer',
+                      { 'hide-matching-heading': props.hideMatchingHeading },
+                    ]"
                     @render-complete="onContentRendered"
                   />
                 </div>
 
                 <!-- Fallback for non-standard content structures -->
                 <div
-                  v-if="(!isContentRenderable && !contentSuccessfullyRendered.value) || showDebug"
+                  v-if="
+                    (!isContentRenderable &&
+                      !contentSuccessfullyRendered.value) ||
+                    showDebug
+                  "
                   class="content-fallback mt-8"
                 >
                   <slot
@@ -132,7 +151,11 @@
                   >
                     <v-alert
                       type="info"
-                      :title="showDebug ? 'Content Structure Debug' : 'Content Preview'"
+                      :title="
+                        showDebug
+                          ? 'Content Structure Debug'
+                          : 'Content Preview'
+                      "
                       variant="tonal"
                       border="start"
                       class="mb-4"
@@ -141,13 +164,20 @@
                         This is a debug view of the content structure.
                       </template>
                       <template v-else>
-                        This content is available but uses a non-standard format.
+                        This content is available but uses a non-standard
+                        format.
                       </template>
                     </v-alert>
 
                     <div v-if="content && typeof content === 'object'">
-                      <div v-for="(value, key) in contentPreview" :key="key" class="mb-4">
-                        <div class="text-subtitle-1 font-weight-bold">{{ key }}</div>
+                      <div
+                        v-for="(value, key) in contentPreview"
+                        :key="key"
+                        class="mb-4"
+                      >
+                        <div class="text-subtitle-1 font-weight-bold">
+                          {{ key }}
+                        </div>
                         <pre class="content-preview pa-3">{{ value }}</pre>
                       </div>
                     </div>
@@ -160,9 +190,16 @@
 
         <!-- Non-card version -->
         <template v-else>
-          <div v-if="showFrontmatter && (content.title || content.description)" class="mb-4">
-            <h1 v-if="content.title" class="text-h4 mb-2">{{ content.title }}</h1>
-            <p v-if="content.description" class="text-body-1">{{ content.description }}</p>
+          <div
+            v-if="showFrontmatter && (content.title || content.description)"
+            class="mb-4"
+          >
+            <h1 v-if="content.title" class="text-h4 mb-2">
+              {{ content.title }}
+            </h1>
+            <p v-if="content.description" class="text-body-1">
+              {{ content.description }}
+            </p>
             <v-divider class="my-4"></v-divider>
           </div>
 
@@ -170,14 +207,20 @@
           <div>
             <ContentRenderer
               :value="content"
-              :class="['content-renderer', { 'hide-matching-heading': props.hideMatchingHeading }]"
+              :class="[
+                'content-renderer',
+                { 'hide-matching-heading': props.hideMatchingHeading },
+              ]"
               @render-complete="onContentRendered"
             />
           </div>
 
           <!-- Fallback for non-standard content structures -->
           <div
-            v-if="(!isContentRenderable && !contentSuccessfullyRendered.value) || showDebug"
+            v-if="
+              (!isContentRenderable && !contentSuccessfullyRendered.value) ||
+              showDebug
+            "
             class="content-fallback mt-8"
           >
             <slot
@@ -188,7 +231,9 @@
             >
               <v-alert
                 type="info"
-                :title="showDebug ? 'Content Structure Debug' : 'Content Preview'"
+                :title="
+                  showDebug ? 'Content Structure Debug' : 'Content Preview'
+                "
                 variant="tonal"
                 border="start"
                 class="mb-4"
@@ -202,7 +247,11 @@
               </v-alert>
 
               <div v-if="content && typeof content === 'object'">
-                <div v-for="(value, key) in contentPreview" :key="key" class="mb-4">
+                <div
+                  v-for="(value, key) in contentPreview"
+                  :key="key"
+                  class="mb-4"
+                >
                   <div class="text-subtitle-1 font-weight-bold">{{ key }}</div>
                   <pre class="content-preview pa-3">{{ value }}</pre>
                 </div>
@@ -236,10 +285,10 @@
  * A reusable component for displaying content with consistent loading, error, and empty states.
  * Uses the useContentFetcher composable for data fetching and error handling.
  */
-import { ref, computed, onMounted, watch } from 'vue';
-import { useNuxtApp } from '#imports';
-import { ContentRenderer } from '#components';
-import useContentFetcher from '~/composables/useContentFetcher';
+import { ref, computed, onMounted, watch } from "vue";
+import { useNuxtApp } from "#imports";
+import { ContentRenderer } from "#components";
+import useContentFetcher from "~/composables/useContentFetcher";
 
 const props = defineProps({
   /**
@@ -247,7 +296,7 @@ const props = defineProps({
    */
   path: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -255,7 +304,7 @@ const props = defineProps({
    */
   lazy: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   /**
@@ -263,7 +312,7 @@ const props = defineProps({
    */
   queryOptions: {
     type: Object,
-    default: () => ({})
+    default: () => ({}),
   },
 
   /**
@@ -271,7 +320,7 @@ const props = defineProps({
    */
   transform: {
     type: Function,
-    default: null
+    default: null,
   },
 
   /**
@@ -279,7 +328,7 @@ const props = defineProps({
    */
   showDebug: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   /**
@@ -287,7 +336,7 @@ const props = defineProps({
    */
   useCard: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
   /**
@@ -295,7 +344,7 @@ const props = defineProps({
    */
   cardElevation: {
     type: [String, Number],
-    default: '2'
+    default: "2",
   },
 
   /**
@@ -303,7 +352,7 @@ const props = defineProps({
    */
   showFrontmatter: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
   /**
@@ -312,15 +361,15 @@ const props = defineProps({
    */
   hideMatchingHeading: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 });
 
 const emit = defineEmits([
-  'render-start',
-  'render-complete',
-  'error',
-  'content-loaded'
+  "render-start",
+  "render-complete",
+  "error",
+  "content-loaded",
 ]);
 
 // Use the simplified content fetcher composable
@@ -338,46 +387,59 @@ const {
   markAsRendered,
   errorAction,
   technicalErrorDetails,
-  isDevelopment
+  isDevelopment,
 } = useContentFetcher({
-  path: props.path
+  path: props.path,
 });
 
-// Theme detection
+// Theme detection - SSR-safe
 const isDark = ref(false);
-onMounted(() => {
-  // Check for dark theme preference on client-side only
-  try {
-    const { $vuetify } = useNuxtApp();
-    if ($vuetify && $vuetify.theme) {
-      isDark.value = $vuetify.theme.global.current.value.dark;
 
-      // Watch for theme changes
-      watch(() => $vuetify.theme.global.current.value.dark, (newVal) => {
-        isDark.value = newVal;
-      });
+// Only run theme detection on client-side to prevent hydration mismatches
+if (process.client) {
+  onMounted(() => {
+    // Check for dark theme preference on client-side only
+    try {
+      const { $vuetify } = useNuxtApp();
+      if ($vuetify && $vuetify.theme) {
+        isDark.value = $vuetify.theme.global.current.value.dark;
+
+        // Watch for theme changes
+        watch(
+          () => $vuetify.theme.global.current.value.dark,
+          (newVal) => {
+            isDark.value = newVal;
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Theme detection error:", error);
     }
-  } catch (error) {
-    console.error('Theme detection error:', error);
-  }
-});
+  });
+}
 
 // Watch for content loading
-watch(() => content.value, (newContent) => {
-  if (newContent) {
-    emit('content-loaded', newContent);
+watch(
+  () => content.value,
+  (newContent) => {
+    if (newContent) {
+      emit("content-loaded", newContent);
+    }
   }
-});
+);
 
 // Watch for errors
-watch(() => error.value, (newError) => {
-  if (newError) {
-    emit('error', {
-      error: newError,
-      details: technicalErrorDetails.value
-    });
+watch(
+  () => error.value,
+  (newError) => {
+    if (newError) {
+      emit("error", {
+        error: newError,
+        details: technicalErrorDetails.value,
+      });
+    }
   }
-});
+);
 
 /**
  * Called when content rendering is complete
@@ -387,9 +449,9 @@ const onContentRendered = () => {
   markAsRendered();
 
   // Emit event
-  emit('render-complete', {
+  emit("render-complete", {
     path: props.path,
-    content: content.value
+    content: content.value,
   });
 };
 </script>
@@ -407,7 +469,8 @@ const onContentRendered = () => {
   max-height: 300px;
   overflow-y: auto;
 
-  .stack-trace, .context-data {
+  .stack-trace,
+  .context-data {
     background-color: rgba(0, 0, 0, 0.03);
     padding: 0.5rem;
     border-radius: 4px;
@@ -472,7 +535,8 @@ const onContentRendered = () => {
     line-height: 1.6;
   }
 
-  :deep(ul), :deep(ol) {
+  :deep(ul),
+  :deep(ol) {
     margin-bottom: 1rem;
     padding-left: 1.5rem;
   }
@@ -542,7 +606,8 @@ const onContentRendered = () => {
   .error-details {
     background-color: rgba(255, 255, 255, 0.05);
 
-    .stack-trace, .context-data {
+    .stack-trace,
+    .context-data {
       background-color: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }

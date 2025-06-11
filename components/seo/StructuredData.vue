@@ -157,9 +157,7 @@ const articleSchema = computed(() => {
     description: props.content.description || props.content.summary || "",
     author: {
       "@type": "Organization",
-      name:
-        props.content.author ||
-        "Illinois Criminal Justice Information Authority",
+      name: props.content.author || "Illinois Criminal Justice Information Authority",
       url: "https://icjia.illinois.gov",
     },
     publisher: {
@@ -173,9 +171,7 @@ const articleSchema = computed(() => {
       },
     },
     datePublished:
-      props.content.date ||
-      props.content.publishedTime ||
-      new Date().toISOString(),
+      props.content.date || props.content.publishedTime || new Date().toISOString(),
     dateModified:
       props.content.lastModified ||
       props.content.modifiedTime ||
@@ -204,8 +200,7 @@ const articleSchema = computed(() => {
  * Used for listing pages like news, blog, etc.
  */
 const collectionSchema = computed(() => {
-  if (props.pageType !== "collection" || !props.collectionItems.length)
-    return null;
+  if (props.pageType !== "collection" || !props.collectionItems.length) return null;
 
   const itemListElements = props.collectionItems.map((item, index) => ({
     "@type": "ListItem",
@@ -261,7 +256,9 @@ const collectionSchema = computed(() => {
  * Used for search functionality pages
  */
 const searchPageSchema = computed(() => {
-  if (props.pageType !== "search") return null;
+  // Check both pageType prop and hardcoded path detection for search page
+  const isSearchPage = props.pageType === "search" || props.path === "/search";
+  if (!isSearchPage) return null;
 
   // Return single WebPage schema (not array) for maximum prominence
   return {
@@ -282,8 +279,7 @@ const searchPageSchema = computed(() => {
     about: {
       "@type": "Thing",
       name: "Violence Prevention Plan Search",
-      description:
-        "Search functionality for the Illinois Violence Prevention Plan",
+      description: "Search functionality for the Illinois Violence Prevention Plan",
     },
     publisher: {
       "@type": "GovernmentOrganization",
@@ -344,7 +340,9 @@ const searchPageSchema = computed(() => {
  * Note: Excluded from search pages to prevent schema competition
  */
 const breadcrumbSchema = computed(() => {
-  if (props.path === "/" || props.pageType === "search") return null;
+  // Exclude breadcrumb for homepage and search page (using both prop and path detection)
+  const isSearchPage = props.pageType === "search" || props.path === "/search";
+  if (props.path === "/" || isSearchPage) return null;
 
   const pathSegments = props.path.split("/").filter(Boolean);
   const breadcrumbItems = [
@@ -381,7 +379,15 @@ const breadcrumbSchema = computed(() => {
 const structuredData = computed(() => {
   const schemas = [];
 
-  // Add breadcrumb schema first (supporting schema)
+  // HIGHEST PRIORITY: Search schema first (using both prop and path detection)
+  const isSearchPage = props.pageType === "search" || props.path === "/search";
+  if (isSearchPage && searchPageSchema.value) {
+    schemas.push(searchPageSchema.value);
+    // For search pages, return ONLY the search schema to eliminate any competition
+    return schemas;
+  }
+
+  // Add breadcrumb schema first (supporting schema for non-search pages)
   if (breadcrumbSchema.value) {
     schemas.push(breadcrumbSchema.value);
   }
@@ -398,11 +404,6 @@ const structuredData = computed(() => {
 
   if (articleSchema.value) {
     schemas.push(articleSchema.value);
-  }
-
-  // Add search schema last for highest priority in Google Rich Results
-  if (props.pageType === "search" && searchPageSchema.value) {
-    schemas.push(searchPageSchema.value);
   }
 
   return schemas;

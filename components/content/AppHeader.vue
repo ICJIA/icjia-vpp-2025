@@ -775,68 +775,73 @@ const toggleMobileDropdown = (index) => {
 };
 
 /**
- * Initialize dropdown state for each navigation item
+ * Initialize dropdown state for each navigation item - client-side only
+ * Wrapped in process.client to prevent hydration mismatches
  */
-onMounted(() => {
-  // Initialize all dropdowns and tooltips as closed
-  menuConfig.header.items.forEach((item, index) => {
-    if (item.hasDropdown) {
-      openDropdowns.value[index] = false;
-      mobileExpandedDropdowns.value[index] = false;
+if (process.client) {
+  onMounted(() => {
+    // Initialize all dropdowns and tooltips as closed
+    menuConfig.header.items.forEach((item, index) => {
+      if (item.hasDropdown) {
+        openDropdowns.value[index] = false;
+        mobileExpandedDropdowns.value[index] = false;
+      }
+      // Initialize tooltip state for icon-only items and items with enableTooltip
+      if (item.iconOnly || item.enableTooltip) {
+        tooltipStates.value[index] = false;
+      }
+    });
+
+    // Add global click handler to close dropdowns and tooltips when clicking outside
+    if (typeof window !== "undefined") {
+      window.addEventListener("click", handleOutsideClick);
     }
-    // Initialize tooltip state for icon-only items and items with enableTooltip
-    if (item.iconOnly || item.enableTooltip) {
-      tooltipStates.value[index] = false;
-    }
+
+    // Add router navigation hook to close all dropdowns and tooltips when navigation occurs
+    router.afterEach(() => {
+      // Close all desktop dropdowns
+      Object.keys(openDropdowns.value).forEach((key) => {
+        openDropdowns.value[key] = false;
+      });
+
+      // Close all mobile dropdowns
+      Object.keys(mobileExpandedDropdowns.value).forEach((key) => {
+        mobileExpandedDropdowns.value[key] = false;
+      });
+
+      // Close all tooltips and clear timers
+      Object.keys(tooltipStates.value).forEach((key) => {
+        tooltipStates.value[key] = false;
+        if (tooltipTimers.value[key]) {
+          clearTimeout(tooltipTimers.value[key]);
+          delete tooltipTimers.value[key];
+        }
+      });
+
+      // Close mobile drawer
+      mobileDrawerOpen.value = false;
+    });
   });
+}
 
-  // Add global click handler to close dropdowns and tooltips when clicking outside
-  if (typeof window !== "undefined") {
-    window.addEventListener("click", handleOutsideClick);
-  }
+/**
+ * Clean up event listeners and timers on component unmount - client-side only
+ */
+if (process.client) {
+  onBeforeUnmount(() => {
+    if (typeof window !== "undefined") {
+      window.removeEventListener("click", handleOutsideClick);
+    }
 
-  // Add router navigation hook to close all dropdowns and tooltips when navigation occurs
-  router.afterEach(() => {
-    // Close all desktop dropdowns
-    Object.keys(openDropdowns.value).forEach((key) => {
-      openDropdowns.value[key] = false;
-    });
-
-    // Close all mobile dropdowns
-    Object.keys(mobileExpandedDropdowns.value).forEach((key) => {
-      mobileExpandedDropdowns.value[key] = false;
-    });
-
-    // Close all tooltips and clear timers
-    Object.keys(tooltipStates.value).forEach((key) => {
-      tooltipStates.value[key] = false;
+    // Clear all tooltip timers
+    Object.keys(tooltipTimers.value).forEach((key) => {
       if (tooltipTimers.value[key]) {
         clearTimeout(tooltipTimers.value[key]);
         delete tooltipTimers.value[key];
       }
     });
-
-    // Close mobile drawer
-    mobileDrawerOpen.value = false;
   });
-});
-
-/**
- * Clean up event listeners and timers on component unmount
- */
-onBeforeUnmount(() => {
-  if (typeof window !== "undefined") {
-    window.removeEventListener("click", handleOutsideClick);
-  }
-
-  // Clear all tooltip timers
-  Object.keys(tooltipTimers.value).forEach((key) => {
-    if (tooltipTimers.value[key]) {
-      clearTimeout(tooltipTimers.value[key]);
-      delete tooltipTimers.value[key];
-    }
-  });
-});
+}
 
 /**
  * Close dropdowns and tooltips when clicking outside

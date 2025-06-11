@@ -33,12 +33,12 @@
 
 export default defineNuxtPlugin(() => {
   // Only run on client side
-  if (import.meta.server) return
+  if (import.meta.server) return;
 
-  console.log('FOOTNOTE PLUGIN: Starting up')
+  console.log("FOOTNOTE PLUGIN: Starting up");
 
   // Track the last clicked footnote reference for return navigation
-  let lastClickedFootnoteRef = null
+  let lastClickedFootnoteRef = null;
 
   /**
    * Sets up footnote scrolling functionality with bidirectional navigation.
@@ -56,170 +56,242 @@ export default defineNuxtPlugin(() => {
    * // <a href="#user-content-fnref-1" class="footnote-backref">↩</a>
    */
   function setupFootnoteScrolling() {
-    console.log('FOOTNOTE PLUGIN: Setting up scrolling')
+    console.log("FOOTNOTE PLUGIN: Setting up scrolling");
 
     // Find ALL links on the page and intercept footnote ones
-    document.addEventListener('click', (e) => {
-      console.log('FOOTNOTE PLUGIN: Click detected on:', e.target.tagName, e.target.className)
+    document.addEventListener(
+      "click",
+      (e) => {
+        console.log(
+          "FOOTNOTE PLUGIN: Click detected on:",
+          e.target.tagName,
+          e.target.className
+        );
 
-      // Check if it's a footnote link
-      if (e.target.tagName === 'A' && e.target.getAttribute('href')) {
-        const href = e.target.getAttribute('href')
-        console.log('FOOTNOTE PLUGIN: Link clicked with href:', href)
+        // Check if it's a footnote link
+        if (e.target.tagName === "A" && e.target.getAttribute("href")) {
+          const href = e.target.getAttribute("href");
+          console.log("FOOTNOTE PLUGIN: Link clicked with href:", href);
 
-        // Check if it's a footnote reference (going to footnote definition)
-        const isFootnoteRef = (href.startsWith('#footnote-') ||
-                              href.startsWith('#user-content-fn-') ||
-                              href.includes('fn-')) &&
-                              (e.target.classList.contains('footnote-ref') ||
-                               !e.target.classList.contains('footnote-backref'))
+          // Check if it's a footnote reference (going to footnote definition)
+          const isFootnoteRef =
+            (href.startsWith("#footnote-") ||
+              href.startsWith("#user-content-fn-") ||
+              href.includes("fn-")) &&
+            (e.target.classList.contains("footnote-ref") ||
+              !e.target.classList.contains("footnote-backref"));
 
-        // Check if it's a footnote back-reference (return arrow)
-        const isFootnoteBackref = (href.startsWith('#footnote-ref-') ||
-                                  href.startsWith('#user-content-fnref-') ||
-                                  href.startsWith('#fnref-') ||
-                                  href.startsWith('#fn-') ||
-                                  href.includes('footnote-ref') ||
-                                  href.includes('fnref')) ||
-                                  e.target.classList.contains('footnote-backref') ||
-                                  e.target.textContent.includes('↩') ||
-                                  e.target.textContent.includes('⤴') ||
-                                  e.target.getAttribute('aria-label')?.includes('Back to')
+          // Check if it's a footnote back-reference (return arrow)
+          const isFootnoteBackref =
+            href.startsWith("#footnote-ref-") ||
+            href.startsWith("#user-content-fnref-") ||
+            href.startsWith("#fnref-") ||
+            href.startsWith("#fn-") ||
+            href.includes("footnote-ref") ||
+            href.includes("fnref") ||
+            e.target.classList.contains("footnote-backref") ||
+            e.target.textContent.includes("↩") ||
+            e.target.textContent.includes("⤴") ||
+            e.target.getAttribute("aria-label")?.includes("Back to");
 
-        if (isFootnoteRef) {
-          console.log('FOOTNOTE PLUGIN: FOOTNOTE REFERENCE CLICKED - PREVENTING DEFAULT!')
-          e.preventDefault()
-          e.stopPropagation()
-          console.log('FOOTNOTE PLUGIN: preventDefault() called')
+          if (isFootnoteRef) {
+            console.log(
+              "FOOTNOTE PLUGIN: FOOTNOTE REFERENCE CLICKED - PREVENTING DEFAULT!"
+            );
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("FOOTNOTE PLUGIN: preventDefault() called");
 
-          // Store the clicked footnote reference for return navigation
-          // Find the parent <sup> element if we clicked on the <a> inside it
-          let referenceElement = e.target
-          if (e.target.tagName === 'A' && e.target.closest('sup')) {
-            referenceElement = e.target.closest('sup')
+            // Store the clicked footnote reference for return navigation
+            // Find the parent <sup> element if we clicked on the <a> inside it
+            let referenceElement = e.target;
+            if (e.target.tagName === "A" && e.target.closest("sup")) {
+              referenceElement = e.target.closest("sup");
+            }
+            lastClickedFootnoteRef = referenceElement;
+            console.log(
+              "FOOTNOTE PLUGIN: Stored reference for return:",
+              referenceElement.id || referenceElement.textContent
+            );
+
+            // Find the footnotes section and scroll to it with offset for sticky header
+            const footnotesSection = document.querySelector(
+              '.footnotes, section[role="doc-endnotes"], #footnotes'
+            );
+            if (footnotesSection) {
+              console.log(
+                "FOOTNOTE PLUGIN: Found footnotes section, scrolling with offset..."
+              );
+
+              // Calculate offset for sticky header (estimate 80px for navigation)
+              const headerOffset = 80;
+              const elementPosition =
+                footnotesSection.getBoundingClientRect().top + window.scrollY;
+              const offsetPosition = elementPosition - headerOffset;
+
+              console.log(
+                "FOOTNOTE PLUGIN: Element position:",
+                elementPosition,
+                "Offset position:",
+                offsetPosition
+              );
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
+
+              console.log("FOOTNOTE PLUGIN: Scrolling executed with offset");
+            } else {
+              console.log(
+                "FOOTNOTE PLUGIN: No footnotes section found, trying to scroll to bottom"
+              );
+              window.scrollTo({
+                top: document.body.scrollHeight - 80,
+                behavior: "smooth",
+              });
+              console.log("FOOTNOTE PLUGIN: Scrolled to bottom with offset");
+            }
+
+            return false;
           }
-          lastClickedFootnoteRef = referenceElement
-          console.log('FOOTNOTE PLUGIN: Stored reference for return:', referenceElement.id || referenceElement.textContent)
 
-          // Find the footnotes section and scroll to it with offset for sticky header
-          const footnotesSection = document.querySelector('.footnotes, section[role="doc-endnotes"], #footnotes')
-          if (footnotesSection) {
-            console.log('FOOTNOTE PLUGIN: Found footnotes section, scrolling with offset...')
+          if (isFootnoteBackref) {
+            console.log(
+              "FOOTNOTE PLUGIN: FOOTNOTE BACK-REFERENCE CLICKED - PREVENTING DEFAULT!"
+            );
+            e.preventDefault();
+            e.stopPropagation();
+            console.log(
+              "FOOTNOTE PLUGIN: preventDefault() called for back-reference"
+            );
 
-            // Calculate offset for sticky header (estimate 80px for navigation)
-            const headerOffset = 80
-            const elementPosition = footnotesSection.getBoundingClientRect().top + window.scrollY
-            const offsetPosition = elementPosition - headerOffset
+            // Try to scroll back to the stored reference first
+            if (lastClickedFootnoteRef) {
+              console.log(
+                "FOOTNOTE PLUGIN: Scrolling back to stored reference:",
+                lastClickedFootnoteRef.id || lastClickedFootnoteRef.textContent
+              );
 
-            console.log('FOOTNOTE PLUGIN: Element position:', elementPosition, 'Offset position:', offsetPosition)
+              const headerOffset = 80;
+              const elementPosition =
+                lastClickedFootnoteRef.getBoundingClientRect().top +
+                window.scrollY;
+              const offsetPosition = elementPosition - headerOffset;
 
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            })
+              console.log(
+                "FOOTNOTE PLUGIN: Reference position:",
+                elementPosition,
+                "Offset position:",
+                offsetPosition
+              );
 
-            console.log('FOOTNOTE PLUGIN: Scrolling executed with offset')
-          } else {
-            console.log('FOOTNOTE PLUGIN: No footnotes section found, trying to scroll to bottom')
-            window.scrollTo({ top: document.body.scrollHeight - 80, behavior: 'smooth' })
-            console.log('FOOTNOTE PLUGIN: Scrolled to bottom with offset')
-          }
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth",
+              });
 
-          return false
-        }
+              console.log(
+                "FOOTNOTE PLUGIN: Return scroll executed with offset"
+              );
+            } else {
+              // Fallback: try to find the target element from href
+              const targetId = href.substring(1); // Remove #
+              let targetElement = document.getElementById(targetId);
 
-        if (isFootnoteBackref) {
-          console.log('FOOTNOTE PLUGIN: FOOTNOTE BACK-REFERENCE CLICKED - PREVENTING DEFAULT!')
-          e.preventDefault()
-          e.stopPropagation()
-          console.log('FOOTNOTE PLUGIN: preventDefault() called for back-reference')
+              // If not found, try alternative ID patterns
+              if (!targetElement) {
+                // Try different ID patterns that might be generated
+                const alternativeIds = [
+                  targetId.replace("footnote-ref-", "user-content-fnref-"),
+                  targetId.replace("footnote-ref-", "fnref-"),
+                  targetId.replace("footnote-ref-", "fn-"),
+                  targetId.replace("footnote-ref-", ""),
+                  "user-content-fnref-" +
+                    targetId.replace(/^.*?(\d+).*$/, "$1"),
+                  "fnref-" + targetId.replace(/^.*?(\d+).*$/, "$1"),
+                  "fn-" + targetId.replace(/^.*?(\d+).*$/, "$1"),
+                ];
 
-          // Try to scroll back to the stored reference first
-          if (lastClickedFootnoteRef) {
-            console.log('FOOTNOTE PLUGIN: Scrolling back to stored reference:', lastClickedFootnoteRef.id || lastClickedFootnoteRef.textContent)
+                for (const altId of alternativeIds) {
+                  targetElement = document.getElementById(altId);
+                  if (targetElement) {
+                    console.log(
+                      "FOOTNOTE PLUGIN: Found target with alternative ID:",
+                      altId
+                    );
+                    break;
+                  }
+                }
+              }
 
-            const headerOffset = 80
-            const elementPosition = lastClickedFootnoteRef.getBoundingClientRect().top + window.scrollY
-            const offsetPosition = elementPosition - headerOffset
+              console.log(
+                "FOOTNOTE PLUGIN: No stored reference, looking for target:",
+                targetId,
+                "Found:",
+                targetElement
+              );
 
-            console.log('FOOTNOTE PLUGIN: Reference position:', elementPosition, 'Offset position:', offsetPosition)
+              if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition =
+                  targetElement.getBoundingClientRect().top + window.scrollY;
+                const offsetPosition = elementPosition - headerOffset;
 
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            })
+                console.log(
+                  "FOOTNOTE PLUGIN: Target position:",
+                  elementPosition,
+                  "Offset position:",
+                  offsetPosition
+                );
 
-            console.log('FOOTNOTE PLUGIN: Return scroll executed with offset')
-          } else {
-            // Fallback: try to find the target element from href
-            const targetId = href.substring(1) // Remove #
-            let targetElement = document.getElementById(targetId)
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth",
+                });
 
-            // If not found, try alternative ID patterns
-            if (!targetElement) {
-              // Try different ID patterns that might be generated
-              const alternativeIds = [
-                targetId.replace('footnote-ref-', 'user-content-fnref-'),
-                targetId.replace('footnote-ref-', 'fnref-'),
-                targetId.replace('footnote-ref-', 'fn-'),
-                targetId.replace('footnote-ref-', ''),
-                'user-content-fnref-' + targetId.replace(/^.*?(\d+).*$/, '$1'),
-                'fnref-' + targetId.replace(/^.*?(\d+).*$/, '$1'),
-                'fn-' + targetId.replace(/^.*?(\d+).*$/, '$1')
-              ]
+                console.log(
+                  "FOOTNOTE PLUGIN: Fallback return scroll executed with offset"
+                );
+              } else {
+                console.log(
+                  "FOOTNOTE PLUGIN: No target found for return scroll, trying to find any footnote reference"
+                );
 
-              for (const altId of alternativeIds) {
-                targetElement = document.getElementById(altId)
-                if (targetElement) {
-                  console.log('FOOTNOTE PLUGIN: Found target with alternative ID:', altId)
-                  break
+                // Last resort: find any footnote reference and scroll to the first one
+                const anyFootnoteRef = document.querySelector(
+                  'sup a[href*="fn"], sup a[data-footnote-ref], .footnote-ref'
+                );
+                if (anyFootnoteRef) {
+                  const headerOffset = 80;
+                  const elementPosition =
+                    anyFootnoteRef.getBoundingClientRect().top + window.scrollY;
+                  const offsetPosition = elementPosition - headerOffset;
+
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                  });
+
+                  console.log(
+                    "FOOTNOTE PLUGIN: Last resort scroll to first footnote reference"
+                  );
+                } else {
+                  console.log(
+                    "FOOTNOTE PLUGIN: No footnote references found at all"
+                  );
                 }
               }
             }
 
-            console.log('FOOTNOTE PLUGIN: No stored reference, looking for target:', targetId, 'Found:', targetElement)
-
-            if (targetElement) {
-              const headerOffset = 80
-              const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY
-              const offsetPosition = elementPosition - headerOffset
-
-              console.log('FOOTNOTE PLUGIN: Target position:', elementPosition, 'Offset position:', offsetPosition)
-
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              })
-
-              console.log('FOOTNOTE PLUGIN: Fallback return scroll executed with offset')
-            } else {
-              console.log('FOOTNOTE PLUGIN: No target found for return scroll, trying to find any footnote reference')
-
-              // Last resort: find any footnote reference and scroll to the first one
-              const anyFootnoteRef = document.querySelector('sup a[href*="fn"], sup a[data-footnote-ref], .footnote-ref')
-              if (anyFootnoteRef) {
-                const headerOffset = 80
-                const elementPosition = anyFootnoteRef.getBoundingClientRect().top + window.scrollY
-                const offsetPosition = elementPosition - headerOffset
-
-                window.scrollTo({
-                  top: offsetPosition,
-                  behavior: 'smooth'
-                })
-
-                console.log('FOOTNOTE PLUGIN: Last resort scroll to first footnote reference')
-              } else {
-                console.log('FOOTNOTE PLUGIN: No footnote references found at all')
-              }
-            }
+            return false;
           }
-
-          return false
         }
-      }
-    }, true) // Use capture phase to intercept before other handlers
+      },
+      true
+    ); // Use capture phase to intercept before other handlers
 
-    console.log('FOOTNOTE PLUGIN: Click handler installed')
+    console.log("FOOTNOTE PLUGIN: Click handler installed");
   }
 
   /**
@@ -238,30 +310,45 @@ export default defineNuxtPlugin(() => {
    * // <sup><a href="#fn-1">1</a></sup>
    */
   function styleExistingFootnotes() {
-    console.log('FOOTNOTE PLUGIN: Styling existing footnote <sup> elements')
+    console.log("FOOTNOTE PLUGIN: Styling existing footnote <sup> elements");
 
     // Find all existing <sup> elements that contain footnote references
-    const footnoteSupElements = document.querySelectorAll('sup:has(a[data-footnote-ref]), sup[data-footnote-ref], sup:has(a[href*="fn-"]), sup:has(a[href*="footnote"])')
+    const footnoteSupElements = document.querySelectorAll(
+      'sup:has(a[data-footnote-ref]), sup[data-footnote-ref], sup:has(a[href*="fn-"]), sup:has(a[href*="footnote"])'
+    );
 
-    console.log('FOOTNOTE PLUGIN: Found', footnoteSupElements.length, 'footnote <sup> elements')
+    console.log(
+      "FOOTNOTE PLUGIN: Found",
+      footnoteSupElements.length,
+      "footnote <sup> elements"
+    );
 
     if (footnoteSupElements.length === 0) {
       // Fallback: look for any <sup> elements containing links
-      const allSupElements = document.querySelectorAll('sup')
-      console.log('FOOTNOTE PLUGIN: Fallback - found', allSupElements.length, 'total <sup> elements')
+      const allSupElements = document.querySelectorAll("sup");
+      console.log(
+        "FOOTNOTE PLUGIN: Fallback - found",
+        allSupElements.length,
+        "total <sup> elements"
+      );
 
-      allSupElements.forEach(sup => {
-        const link = sup.querySelector('a')
-        if (link && (link.href.includes('fn-') || link.href.includes('footnote') || link.getAttribute('data-footnote-ref') !== null)) {
-          console.log('FOOTNOTE PLUGIN: Styling fallback <sup> element:', sup)
-          applyFootnoteStyles(sup)
+      allSupElements.forEach((sup) => {
+        const link = sup.querySelector("a");
+        if (
+          link &&
+          (link.href.includes("fn-") ||
+            link.href.includes("footnote") ||
+            link.getAttribute("data-footnote-ref") !== null)
+        ) {
+          console.log("FOOTNOTE PLUGIN: Styling fallback <sup> element:", sup);
+          applyFootnoteStyles(sup);
         }
-      })
+      });
     } else {
-      footnoteSupElements.forEach(sup => {
-        console.log('FOOTNOTE PLUGIN: Styling <sup> element:', sup)
-        applyFootnoteStyles(sup)
-      })
+      footnoteSupElements.forEach((sup) => {
+        console.log("FOOTNOTE PLUGIN: Styling <sup> element:", sup);
+        applyFootnoteStyles(sup);
+      });
     }
   }
 
@@ -283,79 +370,80 @@ export default defineNuxtPlugin(() => {
    * // padding: 0.1rem 0.2rem
    */
   function applyFootnoteStyles(supElement) {
-    if (!supElement) return
+    if (!supElement) return;
 
     // Detect current theme for appropriate colors
-    const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark'
+    const isDarkTheme =
+      document.documentElement.getAttribute("data-theme") === "dark";
 
     // Theme-specific colors - very subtle transparent
     const lightThemeColors = {
-      background: 'rgba(107, 114, 128, 0.3)',
-      border: 'rgba(107, 114, 128, 0.2)',
-      hoverBackground: 'rgba(107, 114, 128, 0.4)',
-      hoverBorder: 'rgba(107, 114, 128, 0.3)'
-    }
+      background: "rgba(107, 114, 128, 0.3)",
+      border: "rgba(107, 114, 128, 0.2)",
+      hoverBackground: "rgba(107, 114, 128, 0.4)",
+      hoverBorder: "rgba(107, 114, 128, 0.3)",
+    };
 
     const darkThemeColors = {
-      background: 'rgba(156, 163, 175, 0.3)',
-      border: 'rgba(156, 163, 175, 0.2)',
-      hoverBackground: 'rgba(156, 163, 175, 0.4)',
-      hoverBorder: 'rgba(156, 163, 175, 0.3)'
-    }
+      background: "rgba(156, 163, 175, 0.3)",
+      border: "rgba(156, 163, 175, 0.2)",
+      hoverBackground: "rgba(156, 163, 175, 0.4)",
+      hoverBorder: "rgba(156, 163, 175, 0.3)",
+    };
 
-    const colors = isDarkTheme ? darkThemeColors : lightThemeColors
+    const colors = isDarkTheme ? darkThemeColors : lightThemeColors;
 
     // Apply very subtle inline styles to the <sup> element - matches CSS styling
-    supElement.style.fontSize = '0.75em'            // Smaller, closer to browser default
-    supElement.style.fontWeight = '500'             // Medium weight for subtle visibility
-    supElement.style.backgroundColor = colors.background
-    supElement.style.color = isDarkTheme ? '#e5e7eb' : '#374151' // Light text for dark theme, dark for light
-    supElement.style.padding = '0.1rem 0.2rem'      // Much smaller padding
-    supElement.style.marginLeft = '0.1rem'          // Smaller left margin
-    supElement.style.borderRadius = '0.15rem'       // Smaller border radius
-    supElement.style.textDecoration = 'none'
-    supElement.style.display = 'inline-block'
-    supElement.style.verticalAlign = 'super'
-    supElement.style.border = `1px solid ${colors.border}` // Thin border
-    supElement.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.1)' // Very gentle shadow
-    supElement.style.transform = 'translateY(-0.05em)' // Minimal superscript positioning
-    supElement.style.transition = 'all 0.2s ease'
-    supElement.style.lineHeight = '1'               // Consistent line height
-    supElement.style.textAlign = 'center'
-    supElement.style.cursor = 'pointer'
-    supElement.style.position = 'relative'
+    supElement.style.fontSize = "0.75em"; // Smaller, closer to browser default
+    supElement.style.fontWeight = "500"; // Medium weight for subtle visibility
+    supElement.style.backgroundColor = colors.background;
+    supElement.style.color = isDarkTheme ? "#e5e7eb" : "#374151"; // Light text for dark theme, dark for light
+    supElement.style.padding = "0.1rem 0.2rem"; // Much smaller padding
+    supElement.style.marginLeft = "0.1rem"; // Smaller left margin
+    supElement.style.borderRadius = "0.15rem"; // Smaller border radius
+    supElement.style.textDecoration = "none";
+    supElement.style.display = "inline-block";
+    supElement.style.verticalAlign = "super";
+    supElement.style.border = `1px solid ${colors.border}`; // Thin border
+    supElement.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.1)"; // Very gentle shadow
+    supElement.style.transform = "translateY(-0.05em)"; // Minimal superscript positioning
+    supElement.style.transition = "all 0.2s ease";
+    supElement.style.lineHeight = "1"; // Consistent line height
+    supElement.style.textAlign = "center";
+    supElement.style.cursor = "pointer";
+    supElement.style.position = "relative";
 
     // Add enhanced class for theme updates
-    supElement.classList.add('footnote-ref-enhanced')
+    supElement.classList.add("footnote-ref-enhanced");
 
     // Style the inner anchor to be clean
-    const anchor = supElement.querySelector('a')
+    const anchor = supElement.querySelector("a");
     if (anchor) {
-      anchor.style.color = 'inherit'
-      anchor.style.textDecoration = 'none'
-      anchor.style.display = 'block'
-      anchor.style.width = '100%'
-      anchor.style.height = '100%'
+      anchor.style.color = "inherit";
+      anchor.style.textDecoration = "none";
+      anchor.style.display = "block";
+      anchor.style.width = "100%";
+      anchor.style.height = "100%";
     }
 
     // Add very subtle hover event handlers
-    supElement.onmouseover = function() {
-      this.style.backgroundColor = colors.hoverBackground
-      this.style.borderColor = colors.hoverBorder
-      this.style.color = isDarkTheme ? '#f9fafb' : '#1f2937' // Hover text colors
-      this.style.transform = 'translateY(-0.08em) scale(1.03)' // Very subtle scaling
-      this.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)' // Gentle enhanced shadow
-    }
+    supElement.onmouseover = function () {
+      this.style.backgroundColor = colors.hoverBackground;
+      this.style.borderColor = colors.hoverBorder;
+      this.style.color = isDarkTheme ? "#f9fafb" : "#1f2937"; // Hover text colors
+      this.style.transform = "translateY(-0.08em) scale(1.03)"; // Very subtle scaling
+      this.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)"; // Gentle enhanced shadow
+    };
 
-    supElement.onmouseout = function() {
-      this.style.backgroundColor = colors.background
-      this.style.borderColor = colors.border
-      this.style.color = isDarkTheme ? '#e5e7eb' : '#374151' // Return to normal text colors
-      this.style.transform = 'translateY(-0.05em) scale(1)'
-      this.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.1)' // Return to original shadow
-    }
+    supElement.onmouseout = function () {
+      this.style.backgroundColor = colors.background;
+      this.style.borderColor = colors.border;
+      this.style.color = isDarkTheme ? "#e5e7eb" : "#374151"; // Return to normal text colors
+      this.style.transform = "translateY(-0.05em) scale(1)";
+      this.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.1)"; // Return to original shadow
+    };
 
-    console.log('FOOTNOTE PLUGIN: Applied styles to <sup> element')
+    console.log("FOOTNOTE PLUGIN: Applied styles to <sup> element");
   }
 
   /**
@@ -373,50 +461,51 @@ export default defineNuxtPlugin(() => {
    * // Updates from light theme colors to dark theme colors or vice versa
    */
   function updateFootnoteThemeColors() {
-    console.log('FOOTNOTE PLUGIN: Updating theme colors')
+    console.log("FOOTNOTE PLUGIN: Updating theme colors");
 
-    const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark'
+    const isDarkTheme =
+      document.documentElement.getAttribute("data-theme") === "dark";
 
     // Theme-specific colors - very subtle transparent
     const lightThemeColors = {
-      background: 'rgba(107, 114, 128, 0.3)',
-      border: 'rgba(107, 114, 128, 0.2)',
-      hoverBackground: 'rgba(107, 114, 128, 0.4)',
-      hoverBorder: 'rgba(107, 114, 128, 0.3)'
-    }
+      background: "rgba(107, 114, 128, 0.3)",
+      border: "rgba(107, 114, 128, 0.2)",
+      hoverBackground: "rgba(107, 114, 128, 0.4)",
+      hoverBorder: "rgba(107, 114, 128, 0.3)",
+    };
 
     const darkThemeColors = {
-      background: 'rgba(156, 163, 175, 0.3)',
-      border: 'rgba(156, 163, 175, 0.2)',
-      hoverBackground: 'rgba(156, 163, 175, 0.4)',
-      hoverBorder: 'rgba(156, 163, 175, 0.3)'
-    }
+      background: "rgba(156, 163, 175, 0.3)",
+      border: "rgba(156, 163, 175, 0.2)",
+      hoverBackground: "rgba(156, 163, 175, 0.4)",
+      hoverBorder: "rgba(156, 163, 175, 0.3)",
+    };
 
-    const colors = isDarkTheme ? darkThemeColors : lightThemeColors
+    const colors = isDarkTheme ? darkThemeColors : lightThemeColors;
 
     // Update all existing footnote references (targeting enhanced <sup> elements)
-    const footnoteRefs = document.querySelectorAll('.footnote-ref-enhanced')
-    footnoteRefs.forEach(ref => {
-      ref.style.backgroundColor = colors.background
-      ref.style.borderColor = colors.border
+    const footnoteRefs = document.querySelectorAll(".footnote-ref-enhanced");
+    footnoteRefs.forEach((ref) => {
+      ref.style.backgroundColor = colors.background;
+      ref.style.borderColor = colors.border;
 
       // Update hover event handlers for <sup> elements
-      ref.onmouseover = function() {
-        this.style.backgroundColor = colors.hoverBackground
-        this.style.borderColor = colors.hoverBorder
-        this.style.color = isDarkTheme ? '#f9fafb' : '#1f2937'
-        this.style.transform = 'translateY(-0.08em) scale(1.03)'
-        this.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)'
-      }
+      ref.onmouseover = function () {
+        this.style.backgroundColor = colors.hoverBackground;
+        this.style.borderColor = colors.hoverBorder;
+        this.style.color = isDarkTheme ? "#f9fafb" : "#1f2937";
+        this.style.transform = "translateY(-0.08em) scale(1.03)";
+        this.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.2)";
+      };
 
-      ref.onmouseout = function() {
-        this.style.backgroundColor = colors.background
-        this.style.borderColor = colors.border
-        this.style.color = isDarkTheme ? '#e5e7eb' : '#374151'
-        this.style.transform = 'translateY(-0.05em)'
-        this.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.1)'
-      }
-    })
+      ref.onmouseout = function () {
+        this.style.backgroundColor = colors.background;
+        this.style.borderColor = colors.border;
+        this.style.color = isDarkTheme ? "#e5e7eb" : "#374151";
+        this.style.transform = "translateY(-0.05em)";
+        this.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.1)";
+      };
+    });
   }
 
   /**
@@ -430,11 +519,11 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function handleContentChange() {
-    console.log('FOOTNOTE PLUGIN: Content changed, re-styling footnotes')
+    console.log("FOOTNOTE PLUGIN: Content changed, re-styling footnotes");
     // Small delay to ensure new content is fully rendered
     setTimeout(() => {
-      styleExistingFootnotes()
-    }, 100)
+      styleExistingFootnotes();
+    }, 100);
   }
 
   /**
@@ -447,23 +536,26 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function setupThemeWatcher() {
-    console.log('FOOTNOTE PLUGIN: Setting up theme watcher')
+    console.log("FOOTNOTE PLUGIN: Setting up theme watcher");
 
     // Create a MutationObserver to watch for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-          console.log('FOOTNOTE PLUGIN: Theme change detected')
-          updateFootnoteThemeColors()
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "data-theme"
+        ) {
+          console.log("FOOTNOTE PLUGIN: Theme change detected");
+          updateFootnoteThemeColors();
         }
-      })
-    })
+      });
+    });
 
     // Start observing the document element for attribute changes
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['data-theme']
-    })
+      attributeFilter: ["data-theme"],
+    });
   }
 
   /**
@@ -476,38 +568,38 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function setupContentWatcher() {
-    console.log('FOOTNOTE PLUGIN: Setting up content watcher')
+    console.log("FOOTNOTE PLUGIN: Setting up content watcher");
 
     // Create a MutationObserver to watch for new footnotes
     const contentObserver = new MutationObserver((mutations) => {
-      let shouldRestyle = false
+      let shouldRestyle = false;
 
       mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
+        if (mutation.type === "childList") {
           // Check if any new nodes contain footnotes
           mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
-              const element = node
+              const element = node;
               // Check if the added element is a footnote or contains footnotes
-              if (element.tagName === 'SUP' || element.querySelector('sup')) {
-                shouldRestyle = true
+              if (element.tagName === "SUP" || element.querySelector("sup")) {
+                shouldRestyle = true;
               }
             }
-          })
+          });
         }
-      })
+      });
 
       if (shouldRestyle) {
-        console.log('FOOTNOTE PLUGIN: New footnotes detected, re-styling')
-        handleContentChange()
+        console.log("FOOTNOTE PLUGIN: New footnotes detected, re-styling");
+        handleContentChange();
       }
-    })
+    });
 
     // Start observing the document body for changes
     contentObserver.observe(document.body, {
       childList: true,
-      subtree: true
-    })
+      subtree: true,
+    });
   }
 
   /**
@@ -520,27 +612,31 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function init() {
-    console.log('FOOTNOTE PLUGIN: Initializing')
+    console.log("FOOTNOTE PLUGIN: Initializing");
 
     // Style existing footnote <sup> elements
-    styleExistingFootnotes()
+    styleExistingFootnotes();
 
     // Setup scrolling
-    setupFootnoteScrolling()
+    setupFootnoteScrolling();
 
     // Setup theme watching
-    setupThemeWatcher()
+    setupThemeWatcher();
 
     // Setup content watching for SPA navigation
-    setupContentWatcher()
+    setupContentWatcher();
 
-    console.log('FOOTNOTE PLUGIN: Ready')
+    console.log("FOOTNOTE PLUGIN: Ready");
   }
 
-  // Start when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init)
+  // Start when DOM is ready - delay to prevent hydration mismatches
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      // Delay initialization to ensure hydration is complete
+      setTimeout(init, 500);
+    });
   } else {
-    setTimeout(init, 100)
+    // Delay initialization to ensure hydration is complete
+    setTimeout(init, 500);
   }
-})
+});

@@ -2,6 +2,70 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (Hydration Mismatch Fix - Plugin Initialization Delay)
+
+- Fixed hydration mismatches by delaying client-side plugin initialization to prevent DOM manipulation during hydration.
+- Files modified:
+  - `plugins/footnotes.client.js`: Delayed initialization to prevent hydration conflicts
+    - **Initialization Delay**: Increased setTimeout from 100ms to 500ms
+    - **Hydration Safety**: Ensures footnote styling doesn't apply during hydration process
+    - **DOM Manipulation**: Plugin waits for hydration to complete before enhancing footnotes
+    - **Timing Fix**: Both DOMContentLoaded and immediate execution paths now use 500ms delay
+  - `plugins/references.client.js`: Delayed initialization to prevent hydration conflicts
+    - **Initialization Delay**: Added 500ms setTimeout for both DOMContentLoaded and immediate execution
+    - **Reference Enhancement**: Plugin waits for hydration before enhancing reference elements
+    - **SSR Safety**: Prevents DOM manipulation during critical hydration phase
+- Technical Notes:
+  - Hydration mismatches were occurring on homepage when plugins initialized too early
+  - Plugins were applying DOM styling/enhancements during hydration process
+  - Server-rendered HTML had no plugin enhancements, client-side had immediate enhancements
+  - 500ms delay ensures hydration completes before plugins modify DOM structure
+  - Plugin functionality remains intact, just delayed until after hydration
+  - Should eliminate "Hydration completed but contains mismatches" on homepage
+
+### 2025-06-11 (Hydration Mismatch Fix - Table of Contents SSR Safety)
+
+- Fixed hydration mismatches in Table of Contents functionality by making all browser API usage SSR-safe.
+- Files modified:
+  - `pages/[...slug].vue`: Made all TOC-related functions SSR-safe
+    - **Event Listeners**: Wrapped onMounted scroll/resize listeners in process.client check
+    - **Browser API Functions**: Made all DOM manipulation functions client-side only
+    - **Function Definitions**: updateScroll, updateTitleVisibility, updateFixedPosition, updateActiveSection, scrollToHeading, scrollToTop
+    - **SSR Safety**: All functions initialize as no-ops on server, get real implementations on client
+    - **DOM Dependencies**: window.scrollY, requestAnimationFrame, getBoundingClientRect, document.getElementById all client-side only
+    - **Lifecycle Management**: onMounted and onUnmounted wrapped in process.client checks
+- Technical Notes:
+  - Hydration mismatch was occurring specifically on content pages with TOC functionality
+  - Server-rendered HTML had no event listeners, client-side had scroll/resize listeners
+  - Browser APIs like window, document, requestAnimationFrame not available during SSR
+  - Functions now initialize as no-ops for SSR, get real implementations on client mount
+  - Prevents "Hydration completed but contains mismatches" errors on content pages
+  - TOC functionality remains fully functional on client-side while being SSR-safe
+
+### 2025-06-11 (Hydration Mismatch Fix - SSR-Safe Client-Side Logic)
+
+- Fixed hydration mismatches by wrapping all client-side only logic in process.client checks to ensure SSR/client consistency.
+- Files modified:
+  - `components/ContentDisplay.vue`: Made theme detection SSR-safe
+    - **Theme Detection**: Wrapped Vuetify theme access in process.client check
+    - **SSR Safety**: Prevents theme detection from running on server-side
+    - **Default State**: isDark defaults to false on server, updates on client mount
+  - `components/content/AccessibleTooltip.vue`: Made mobile detection SSR-safe
+    - **Mobile Detection**: Wrapped window.innerWidth access in process.client check
+    - **Event Listeners**: Moved resize listener setup to client-side only
+    - **Cleanup**: Added proper onUnmounted cleanup for event listeners
+  - `components/content/AppHeader.vue`: Made dropdown initialization SSR-safe
+    - **Initialization**: Wrapped onMounted dropdown setup in process.client check
+    - **Event Listeners**: Made global click handler client-side only
+    - **Router Hooks**: Moved router.afterEach to client-side only
+    - **Cleanup**: Made onBeforeUnmount cleanup client-side only
+- Technical Notes:
+  - Hydration mismatches occurred when server-rendered HTML differed from client-rendered DOM
+  - Client-side APIs (window, document, Vuetify theme) were causing SSR/client differences
+  - process.client checks ensure code only runs on client-side, preventing mismatches
+  - Default states on server-side prevent undefined values during SSR
+  - Should eliminate "Hydration completed but contains mismatches" console warnings
+
 ### 2025-06-11 (Search Index Security Warning Fix - Vue.js Pattern Recognition)
 
 - Resolved security warning in search functionality by improving Vue.js pattern recognition in security validation system.
@@ -19,6 +83,24 @@ This document serves as a chronological record of all significant changes made t
   - Maintains full security protection while eliminating false positive warnings
   - Search functionality now operates cleanly without security warnings during index generation
   - Lorem ipsum test content preserved for testing purposes as originally intended
+
+### 2025-06-11 (Search Page Schema Detection - Hardcoded Path Recognition)
+
+- Implemented hardcoded path detection and absolute priority for search page schema to ensure Google Rich Results recognition.
+- Files modified:
+  - `components/seo/StructuredData.vue`: Enhanced search page detection and schema priority
+    - **Hardcoded Path Detection**: Added `props.path === "/search"` check alongside pageType prop
+    - **Absolute Priority**: Search schema now returns immediately, preventing any competing schemas
+    - **Dual Detection**: Uses both `props.pageType === "search"` and hardcoded path `/search` for reliability
+    - **Schema Isolation**: Search pages return ONLY the WebPage schema with SearchAction functionality
+    - **Breadcrumb Exclusion**: Updated breadcrumb logic to use same dual detection method
+    - **Early Return**: Search schema processing bypasses all other schema logic for maximum prominence
+- Technical Notes:
+  - Addresses issue where pageType prop might not be passed correctly to StructuredData component
+  - Hardcoded path detection ensures search page is always recognized regardless of prop passing
+  - Search pages now generate exactly one schema: WebPage with embedded SearchAction
+  - Eliminates any possibility of schema competition for search pages
+  - Should definitively resolve Google Rich Results showing BreadcrumbList instead of WebPage
 
 ### 2025-06-11 (Search Page Schema Isolation - Single WebPage Schema Only)
 
