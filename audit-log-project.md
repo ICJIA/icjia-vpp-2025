@@ -2,6 +2,24 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-06-11 (Search Page Schema Isolation - Single WebPage Schema Only)
+
+- Completely isolated search page schema by removing competing schemas and embedding breadcrumb within WebPage schema to ensure Google Rich Results displays WebPage type.
+- Files modified:
+  - `components/seo/StructuredData.vue`: Eliminated schema competition for search pages
+    - **Breadcrumb Exclusion**: Removed standalone BreadcrumbList schema from search pages entirely
+    - **Embedded Breadcrumb**: Included breadcrumb as property within WebPage schema instead of separate schema
+    - **Single Schema Approach**: Search pages now generate only one WebPage schema (not array of schemas)
+    - **Enhanced Properties**: Added headline, primaryImageOfPage for richer WebPage markup
+    - **Schema Isolation**: Prevents any competing schemas that could confuse Google Rich Results
+    - **Breadcrumb Integration**: Maintains navigation context within WebPage structure
+- Technical Notes:
+  - Eliminates all schema competition by making WebPage the only top-level schema for search pages
+  - Breadcrumb information preserved as embedded property rather than competing schema
+  - Single schema approach ensures Google has no choice but to display WebPage type
+  - Enhanced WebPage properties provide comprehensive page information
+  - Should definitively resolve Google Rich Results showing BreadcrumbList instead of WebPage
+
 ### 2025-06-11 (Search Page Schema Priority Fix - Enhanced WebPage Recognition)
 
 - Enhanced search page structured data with improved schema ordering and richer WebPage markup to ensure Google Rich Results properly displays WebPage instead of BreadcrumbList.

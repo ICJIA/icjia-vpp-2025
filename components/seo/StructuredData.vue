@@ -263,64 +263,88 @@ const collectionSchema = computed(() => {
 const searchPageSchema = computed(() => {
   if (props.pageType !== "search") return null;
 
-  return [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "@id": `${baseUrl}${props.path}`,
-      name: props.content.title || "Search",
-      description: props.content.description || "Search through all content",
-      url: `${baseUrl}${props.path}`,
-      inLanguage: "en-US",
-      isPartOf: {
-        "@type": "WebSite",
-        "@id": `${baseUrl}/#website`,
-        name: "Violence Prevention Plan for Illinois: 2025-2029",
-        url: baseUrl,
-      },
-      about: {
-        "@type": "Thing",
-        name: "Violence Prevention Plan Search",
-        description:
-          "Search functionality for the Illinois Violence Prevention Plan",
-      },
-      publisher: {
-        "@type": "GovernmentOrganization",
-        name: "Illinois Criminal Justice Information Authority",
-        url: "https://icjia.illinois.gov",
-        logo: {
-          "@type": "ImageObject",
-          url: `${baseUrl}/images/illinois-seal.png`,
-          width: 1200,
-          height: 1198,
-        },
-      },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${baseUrl}/search?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
-      },
-      mainEntity: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${baseUrl}/search?q={search_term_string}`,
-        },
-        "query-input": "required name=search_term_string",
+  // Return single WebPage schema (not array) for maximum prominence
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${baseUrl}${props.path}`,
+    name: props.content.title || "Search",
+    headline: props.content.title || "Search",
+    description: props.content.description || "Search through all content",
+    url: `${baseUrl}${props.path}`,
+    inLanguage: "en-US",
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${baseUrl}/#website`,
+      name: "Violence Prevention Plan for Illinois: 2025-2029",
+      url: baseUrl,
+    },
+    about: {
+      "@type": "Thing",
+      name: "Violence Prevention Plan Search",
+      description:
+        "Search functionality for the Illinois Violence Prevention Plan",
+    },
+    publisher: {
+      "@type": "GovernmentOrganization",
+      name: "Illinois Criminal Justice Information Authority",
+      url: "https://icjia.illinois.gov",
+      logo: {
+        "@type": "ImageObject",
+        url: `${baseUrl}/images/illinois-seal.png`,
+        width: 1200,
+        height: 1198,
       },
     },
-  ];
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+    mainEntity: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/images/og-image-default.jpg`,
+      width: 1200,
+      height: 630,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Search",
+          item: `${baseUrl}${props.path}`,
+        },
+      ],
+    },
+  };
 });
 
 /**
  * Generate breadcrumb schema markup
  * Helps search engines understand page hierarchy
+ * Note: Excluded from search pages to prevent schema competition
  */
 const breadcrumbSchema = computed(() => {
-  if (props.path === "/") return null;
+  if (props.path === "/" || props.pageType === "search") return null;
 
   const pathSegments = props.path.split("/").filter(Boolean);
   const breadcrumbItems = [
@@ -378,7 +402,7 @@ const structuredData = computed(() => {
 
   // Add search schema last for highest priority in Google Rich Results
   if (props.pageType === "search" && searchPageSchema.value) {
-    schemas.push(...searchPageSchema.value);
+    schemas.push(searchPageSchema.value);
   }
 
   return schemas;
