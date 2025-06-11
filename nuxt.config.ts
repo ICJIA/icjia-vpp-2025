@@ -153,7 +153,7 @@ export default defineNuxtConfig({
         // Additional meta tags for better SEO
         { name: 'theme-color', content: '#1976d2' },
         { name: 'msapplication-TileColor', content: '#1976d2' },
-        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
       ],
 

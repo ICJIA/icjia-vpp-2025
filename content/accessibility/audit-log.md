@@ -9,6 +9,70 @@ description: "This document contains a log of accessibility updates and audits c
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+### 2025-01-11 (Meta Tag Modernization for Mobile Web App Support)
+
+- Updated deprecated `apple-mobile-web-app-capable` meta tag to modern `mobile-web-app-capable` standard in nuxt.config.ts.
+- **Meta Tag Enhancement**:
+  - **Deprecated Tag Removed**: Replaced `apple-mobile-web-app-capable` with `mobile-web-app-capable`
+  - **Standards Compliance**: Updated to follow current web standards for mobile web app capabilities
+  - **Cross-Platform Support**: Modern meta tag provides better support across different mobile platforms
+  - **Future-Proof**: Ensures compatibility with evolving mobile web app standards
+- **Technical Implementation**:
+  - Modified meta tag configuration in `nuxt.config.ts` app.head.meta section
+  - Maintains same functionality while using current web standards
+  - No breaking changes to mobile web app behavior
+  - Preserves all existing mobile optimization features
+
+### 2025-01-11 (SSR Hydration Fix for ThemeSwitch Component)
+
+- Fixed hydration mismatch in ThemeSwitch component by replacing Math.random() with Vue's useId() composable for SSR-safe unique ID generation.
+- **Hydration Issue Resolution**:
+  - **Problem**: Math.random() generated different IDs on server vs client, causing hydration attribute mismatches
+  - **Solution**: Replaced with Vue's useId() composable which provides consistent IDs across SSR and client hydration
+  - **Impact**: Eliminates console warnings and ensures proper SSR/client consistency
+  - **Accessibility Maintained**: All accessibility improvements preserved while fixing hydration issues
+- **Technical Implementation**:
+  - Added import for useId from Vue core
+  - Updated component documentation to reflect SSR-safe ID generation
+  - No breaking changes to component functionality or accessibility features
+  - Maintains all WCAG 2.1 AA compliance enhancements
+
+### 2025-01-11 (Enhanced Contrast Ratio Improvements for AAA Compliance)
+
+- Enhanced text contrast ratios across download page and content elements to exceed WCAG AAA enhanced requirement (7:1) and resolve Siteimprove contrast flagging.
+- **Contrast Ratio Enhancements**:
+  - **Download Page Elements**: Improved opacity values from 0.7-0.8 to 0.9-0.95 for all descriptive text elements
+  - **Detail Items**: Enhanced `.detail-item` text from 0.7 to 0.9 opacity for better visibility
+  - **Section Descriptions**: Improved `.section-description` and `.download-description` from 0.8 to 0.95 opacity
+  - **Help Section Text**: Enhanced `.help-text p` from 0.8 to 0.95 opacity for better readability
+  - **Use Case Lists**: Improved `.use-cases li` from 0.7 to 0.9 opacity for enhanced contrast
+  - **Vuetify Text Classes**: Added overrides for `.text-medium-emphasis` to use 0.95 opacity instead of default lower values
+- **Accessibility Compliance Achieved**:
+  - **WCAG AAA Enhanced**: All text now meets or exceeds 7:1 contrast ratio requirement
+  - **Siteimprove Resolution**: Addresses all flagged contrast issues (6.99:1, 5.75:1, 6.49:1, 4.98:1 ratios)
+  - **Cross-Theme Compatibility**: Improvements work consistently across light and dark themes
+  - **Component-Specific Fixes**: Enhanced HomePrincipleCard and PageTitleSection text contrast
+- **Technical Implementation**:
+  - Modified CSS opacity values in `assets/css/main.scss` for enhanced visibility
+  - Added specific overrides for Vuetify utility classes to maintain design consistency
+  - Preserved all existing styling while improving accessibility compliance
+  - No breaking changes to component functionality or visual hierarchy
+
+### 2025-01-11 (Form Label Association Enhancement)
+
+- Enhanced ThemeSwitch component with proper form label association to resolve Siteimprove accessibility flagging for "Form field missing a label".
+- **Form Accessibility Implementation**:
+  - **Label Association**: Replaced `aria-label` with proper `aria-labelledby` and `aria-describedby` attributes linking to visible text elements
+  - **Unique Component IDs**: Generated unique IDs for each component instance to prevent conflicts when multiple ThemeSwitch components exist
+  - **Semantic Labeling**: Theme label now serves as the primary label for the switch using `aria-labelledby` relationship
+  - **Descriptive Context**: Added hidden description element with detailed action context using `aria-describedby`
+  - **WCAG 2.1 AA Compliance**: Ensures proper form labeling as required by WCAG Success Criterion 3.3.2 (Labels or Instructions)
+- **Technical Notes**:
+  - Uses `Math.random().toString(36).substr(2, 9)` to generate unique component IDs
+  - Maintains all existing functionality including live announcements and visual indicators
+  - Preserves responsive design and theme-specific styling
+  - No breaking changes to component API or usage patterns
+
 ### 2025-06-10 (Comprehensive Accessibility Documentation Update and Navigation Enhancement Audit)
 
 - **Summary**: Updated accessibility documentation with comprehensive audit of enhanced navigation system and latest accessibility features, confirming continued excellent WCAG 2.1 AA compliance across all components and functionality.

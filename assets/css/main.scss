@@ -2129,7 +2129,7 @@ section.section-secondary,
 .download-description {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: rgba(var(--v-theme-on-surface), 0.8);
+  color: rgba(var(--v-theme-on-surface), 0.95);
   margin: 0;
 }
 
@@ -2151,7 +2151,7 @@ section.section-secondary,
   gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(var(--v-theme-on-surface), 0.7);
+  color: rgba(var(--v-theme-on-surface), 0.9);
 }
 
 .detail-icon {
@@ -2185,7 +2185,7 @@ section.section-secondary,
 .section-description {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: rgba(var(--v-theme-on-surface), 0.8);
+  color: rgba(var(--v-theme-on-surface), 0.95);
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -2275,7 +2275,7 @@ section.section-secondary,
 .secondary-description {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(var(--v-theme-on-surface), 0.8);
+  color: rgba(var(--v-theme-on-surface), 0.95);
   margin: 0;
 }
 
@@ -2293,7 +2293,7 @@ section.section-secondary,
 
     li {
       margin-bottom: 0.25rem;
-      color: rgba(var(--v-theme-on-surface), 0.7);
+      color: rgba(var(--v-theme-on-surface), 0.9);
       font-size: 0.875rem;
       line-height: 1.5;
     }
@@ -2478,7 +2478,7 @@ a.v-btn:visited *,
   p {
     font-size: 1rem;
     line-height: 1.6;
-    color: rgba(var(--v-theme-on-surface), 0.8);
+    color: rgba(var(--v-theme-on-surface), 0.95);
     margin: 0;
   }
 }
@@ -2565,5 +2565,29 @@ a.v-btn:visited *,
       transform: none !important;
     }
   }
+}
+
+// Enhanced contrast for Vuetify text emphasis classes to meet 7:1+ requirement
+.text-medium-emphasis {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important;
+}
+
+.text-high-emphasis {
+  color: rgba(var(--v-theme-on-surface), 1) !important;
+}
+
+// Page description text enhancement for better contrast
+.page-description p {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important;
+}
+
+// HomePrincipleCard text contrast enhancement
+:root[data-theme="light"] .principle-description,
+:root:not([data-theme]) .principle-description {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+:root[data-theme="dark"] .principle-description {
+  color: rgba(255, 255, 255, 0.95) !important;
 }
 

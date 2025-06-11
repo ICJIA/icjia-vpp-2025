@@ -10,11 +10,12 @@
         aria-hidden="true"
       />
 
-      <!-- Switch component -->
+      <!-- Switch component with proper label association -->
       <v-switch
         :model-value="isDarkTheme"
         @update:model-value="handleSwitchChange"
-        :aria-label="ariaLabel"
+        :aria-labelledby="labelId"
+        :aria-describedby="descriptionId"
         color="primary"
         class="theme-switch"
         hide-details
@@ -22,14 +23,19 @@
         :ripple="false"
       />
 
-      <!-- Theme label -->
-      <span class="theme-label" :aria-live="'polite'">
-        {{ isDarkTheme ? 'Dark' : 'Light' }}
+      <!-- Theme label with proper ID for label association -->
+      <span :id="labelId" class="theme-label" :aria-live="'polite'">
+        {{ isDarkTheme ? "Dark" : "Light" }}
+      </span>
+
+      <!-- Hidden description for additional context -->
+      <span :id="descriptionId" class="sr-only">
+        {{ ariaLabel }}
       </span>
 
       <!-- Screen reader announcement -->
       <span class="sr-only" aria-live="assertive" :key="isDarkTheme">
-        {{ isDarkTheme ? 'Switched to dark mode' : 'Switched to light mode' }}
+        {{ isDarkTheme ? "Switched to dark mode" : "Switched to light mode" }}
       </span>
     </div>
   </div>
@@ -45,12 +51,17 @@
  * - Visual theme icons (sun/moon) for enhanced clarity
  * - Keyboard accessibility with proper focus management
  * - Screen reader support with ARIA attributes and live announcements
+ * - Proper label association using aria-labelledby and aria-describedby
+ * - SSR-safe unique component IDs to prevent conflicts in multiple instances
  * - Responsive design that works on mobile and desktop
- * - WCAG 2.1 AA compliance
+ * - WCAG 2.1 AA compliance with proper form labeling
  *
  * @component
  */
-import { computed } from 'vue';
+
+// Import Vue composables
+import { useId } from "vue";
+import { computed } from "vue";
 
 /**
  * Component props
@@ -59,14 +70,23 @@ const props = defineProps({
   theme: {
     type: String,
     required: true,
-    validator: (value) => ['light', 'dark'].includes(value)
-  }
+    validator: (value) => ["light", "dark"].includes(value),
+  },
 });
 
 /**
  * Define emits for the component
  */
-const emit = defineEmits(['toggle-theme']);
+const emit = defineEmits(["toggle-theme"]);
+
+/**
+ * Generate unique IDs for proper label association
+ * This ensures accessibility compliance by providing proper label relationships
+ * Uses useId() for SSR-safe unique ID generation
+ */
+const componentId = useId();
+const labelId = `theme-label-${componentId}`;
+const descriptionId = `theme-description-${componentId}`;
 
 /**
  * Computed property to convert theme string to boolean
@@ -75,10 +95,10 @@ const emit = defineEmits(['toggle-theme']);
  * @returns {boolean} True if theme is dark, false if light
  */
 const isDarkTheme = computed({
-  get: () => props.theme === 'dark',
+  get: () => props.theme === "dark",
   set: (value) => {
     // This is handled by the toggleTheme method
-  }
+  },
 });
 
 /**
@@ -88,7 +108,7 @@ const isDarkTheme = computed({
  * @returns {string} Descriptive label for the current action
  */
 const ariaLabel = computed(() =>
-  isDarkTheme.value ? 'Switch to light theme' : 'Switch to dark theme'
+  isDarkTheme.value ? "Switch to light theme" : "Switch to dark theme"
 );
 
 /**
@@ -99,7 +119,7 @@ const ariaLabel = computed(() =>
  */
 const handleSwitchChange = (value) => {
   // Emit toggle event to parent component
-  emit('toggle-theme');
+  emit("toggle-theme");
 };
 </script>
 
