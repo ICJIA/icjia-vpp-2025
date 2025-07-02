@@ -3,6 +3,7 @@ Allow: /
 
 Disallow: /sandbox
 Disallow: /sandbox-refactored
+Disallow: /documentation
 
 Sitemap: https://vpp-2025.netlify.app/sitemap.xml
 
