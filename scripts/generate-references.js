@@ -15,11 +15,14 @@
  * @since 2025-06-04
  */
 
-import { promises as fs } from 'fs';
-import path from 'path';
+import { promises as fs } from "fs";
+import path from "path";
 
-import { createLogger } from '../utils/logger.js';
-import { createScriptLoggerConfig, getVerbosityFromArgs } from '../utils/config-loader.js';
+import { createLogger } from "../utils/logger.js";
+import {
+  createScriptLoggerConfig,
+  getVerbosityFromArgs,
+} from "../utils/config-loader.js";
 
 /**
  * Reference Data Generator Class
@@ -35,7 +38,7 @@ class ReferenceDataGenerator {
       journalReferences: 0,
       bookReferences: 0,
       reportReferences: 0,
-      parseErrors: 0
+      parseErrors: 0,
     };
     this.logger = null; // Will be initialized in generate()
     this.options = options;
@@ -51,33 +54,33 @@ class ReferenceDataGenerator {
     // Extract first author's last name and year
     const authorMatch = referenceText.match(/^([^,.(]+)/);
     const yearMatch = referenceText.match(/\((\d{4})\)/);
-    
-    let id = '';
-    
+
+    let id = "";
+
     if (authorMatch) {
       // Clean up author name - take first word, remove special chars
       const author = authorMatch[1]
         .trim()
         .split(/\s+/)[0] // Take first word
-        .replace(/[^a-zA-Z]/g, '') // Remove non-letters
+        .replace(/[^a-zA-Z]/g, "") // Remove non-letters
         .toLowerCase();
       id += author;
     }
-    
+
     if (yearMatch) {
-      id += '-' + yearMatch[1];
+      id += "-" + yearMatch[1];
     }
-    
+
     // If we couldn't extract author/year, create ID from first few words
     if (!id) {
       id = referenceText
         .split(/\s+/)
         .slice(0, 3)
-        .join('-')
-        .replace(/[^a-zA-Z0-9-]/g, '')
+        .join("-")
+        .replace(/[^a-zA-Z0-9-]/g, "")
         .toLowerCase();
     }
-    
+
     // Ensure uniqueness by adding suffix if needed
     let finalId = id;
     let counter = 1;
@@ -85,7 +88,7 @@ class ReferenceDataGenerator {
       finalId = `${id}-${counter}`;
       counter++;
     }
-    
+
     return finalId;
   }
 
@@ -98,16 +101,18 @@ class ReferenceDataGenerator {
   parseAuthors(referenceText) {
     // Extract text before the year
     const beforeYear = referenceText.split(/\(\d{4}\)/)[0];
-    
+
     // Handle different author formats
-    if (beforeYear.includes(' & ')) {
+    if (beforeYear.includes(" & ")) {
       // Format: "Author1, A. & Author2, B."
-      return beforeYear.split(' & ').map(author => author.trim().replace(/\.$/, ''));
-    } else if (beforeYear.includes(', ')) {
+      return beforeYear
+        .split(" & ")
+        .map((author) => author.trim().replace(/\.$/, ""));
+    } else if (beforeYear.includes(", ")) {
       // Format: "Author1, A., Author2, B., Author3, C."
-      const parts = beforeYear.split(', ');
+      const parts = beforeYear.split(", ");
       const authors = [];
-      
+
       // Group parts into author names (assuming "LastName, FirstInitial" format)
       for (let i = 0; i < parts.length; i += 2) {
         if (i + 1 < parts.length) {
@@ -116,11 +121,11 @@ class ReferenceDataGenerator {
           authors.push(parts[i]);
         }
       }
-      
-      return authors.map(author => author.trim().replace(/\.$/, ''));
+
+      return authors.map((author) => author.trim().replace(/\.$/, ""));
     } else {
       // Single author or organization
-      return [beforeYear.trim().replace(/\.$/, '')];
+      return [beforeYear.trim().replace(/\.$/, "")];
     }
   }
 
@@ -145,17 +150,25 @@ class ReferenceDataGenerator {
     // Look for text after year and before journal/publisher info
     const afterYear = referenceText.split(/\(\d{4}\)\.?\s*/)[1];
     if (!afterYear) return null;
-    
+
     // Title is typically the first sentence or until we hit journal/publisher indicators
     const titleMatch = afterYear.match(/^([^.]+\.)/);
     if (titleMatch) {
-      return titleMatch[1].replace(/\.$/, '').trim();
+      return titleMatch[1].replace(/\.$/, "").trim();
     }
-    
+
     // Fallback: take everything until common journal/publisher indicators
-    const stopWords = ['Journal of', 'American Journal', 'CDC', 'Atlanta', 'Press', 'https://', '[https://'];
+    const stopWords = [
+      "Journal of",
+      "American Journal",
+      "CDC",
+      "Atlanta",
+      "Press",
+      "https://",
+      "[https://",
+    ];
     let title = afterYear;
-    
+
     for (const stopWord of stopWords) {
       const index = title.indexOf(stopWord);
       if (index !== -1) {
@@ -163,8 +176,8 @@ class ReferenceDataGenerator {
         break;
       }
     }
-    
-    return title.replace(/\.$/, '').trim() || null;
+
+    return title.replace(/\.$/, "").trim() || null;
   }
 
   /**
@@ -179,7 +192,7 @@ class ReferenceDataGenerator {
     if (markdownLinkMatch) {
       return markdownLinkMatch[2];
     }
-    
+
     // Look for plain URLs
     const urlMatch = referenceText.match(/(https?:\/\/[^\s\]]+)/);
     return urlMatch ? urlMatch[1] : null;
@@ -192,14 +205,24 @@ class ReferenceDataGenerator {
    * @returns {string} Reference type
    */
   determineReferenceType(referenceText) {
-    if (referenceText.includes('https://') || referenceText.includes('http://')) {
-      return 'web';
-    } else if (referenceText.includes('Journal of') || referenceText.includes('American Journal')) {
-      return 'journal';
-    } else if (referenceText.includes('Press') || referenceText.includes('(Eds.)') || referenceText.includes('(Ed.)')) {
-      return 'book';
+    if (
+      referenceText.includes("https://") ||
+      referenceText.includes("http://")
+    ) {
+      return "web";
+    } else if (
+      referenceText.includes("Journal of") ||
+      referenceText.includes("American Journal")
+    ) {
+      return "journal";
+    } else if (
+      referenceText.includes("Press") ||
+      referenceText.includes("(Eds.)") ||
+      referenceText.includes("(Ed.)")
+    ) {
+      return "book";
     } else {
-      return 'report';
+      return "report";
     }
   }
 
@@ -212,19 +235,19 @@ class ReferenceDataGenerator {
    */
   generateShortCitation(authors, year) {
     if (!authors || authors.length === 0) {
-      return year ? `(${year})` : '(n.d.)';
+      return year ? `(${year})` : "(n.d.)";
     }
-    
+
     const firstAuthor = authors[0];
-    const lastName = firstAuthor.split(',')[0]; // Get last name before comma
-    
+    const lastName = firstAuthor.split(",")[0]; // Get last name before comma
+
     if (authors.length === 1) {
-      return `${lastName}, ${year || 'n.d.'}`;
+      return `${lastName}, ${year || "n.d."}`;
     } else if (authors.length === 2) {
-      const secondLastName = authors[1].split(',')[0];
-      return `${lastName} & ${secondLastName}, ${year || 'n.d.'}`;
+      const secondLastName = authors[1].split(",")[0];
+      return `${lastName} & ${secondLastName}, ${year || "n.d."}`;
     } else {
-      return `${lastName} et al., ${year || 'n.d.'}`;
+      return `${lastName} et al., ${year || "n.d."}`;
     }
   }
 
@@ -238,18 +261,18 @@ class ReferenceDataGenerator {
     if (!text) return text;
 
     // Remove markdown links [text](url) and keep just the text
-    text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+    text = text.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
 
     // Remove standalone URLs in brackets
-    text = text.replace(/\[([^[\]]*https?:\/\/[^[\]]*)\]/g, '');
+    text = text.replace(/\[([^[\]]*https?:\/\/[^[\]]*)\]/g, "");
 
     // Remove any remaining markdown formatting
-    text = text.replace(/\*\*(.*?)\*\*/g, '$1'); // Bold
-    text = text.replace(/\*(.*?)\*/g, '$1'); // Italic
-    text = text.replace(/`(.*?)`/g, '$1'); // Code
+    text = text.replace(/\*\*(.*?)\*\*/g, "$1"); // Bold
+    text = text.replace(/\*(.*?)\*/g, "$1"); // Italic
+    text = text.replace(/`(.*?)`/g, "$1"); // Code
 
     // Clean up extra whitespace
-    text = text.replace(/\s+/g, ' ').trim();
+    text = text.replace(/\s+/g, " ").trim();
 
     return text;
   }
@@ -284,7 +307,7 @@ class ReferenceDataGenerator {
         url,
         type,
         shortCitation,
-        fullCitation: cleanedFullCitation
+        fullCitation: cleanedFullCitation,
       };
 
       // Update stats
@@ -292,7 +315,9 @@ class ReferenceDataGenerator {
 
       return reference;
     } catch (error) {
-      this.logger?.warning(`Failed to parse reference: ${referenceText.substring(0, 50)}...`);
+      this.logger?.warning(
+        `Failed to parse reference: ${referenceText.substring(0, 50)}...`,
+      );
       this.stats.parseErrors++;
       return null;
     }
@@ -304,26 +329,29 @@ class ReferenceDataGenerator {
    * @returns {Promise<void>}
    */
   async parseReferencesFile() {
-    this.logger?.info('📄 Reading references.md file...');
+    this.logger?.info("📄 Reading references.md file...");
 
     try {
-      const referencesPath = path.join(process.cwd(), 'content/references.md');
-      const content = await fs.readFile(referencesPath, 'utf-8');
+      const referencesPath = path.join(process.cwd(), "content/references.md");
+      const content = await fs.readFile(referencesPath, "utf-8");
 
       // Extract reference items from the HTML structure
-      const referenceItemRegex = /<div class="reference-item">\s*(.*?)\s*<\/div>/gs;
+      const referenceItemRegex =
+        /<div class="reference-item">\s*(.*?)\s*<\/div>/gs;
       const matches = [...content.matchAll(referenceItemRegex)];
 
-      this.logger?.info(`📊 Found ${matches.length} reference items to process`);
+      this.logger?.info(
+        `📊 Found ${matches.length} reference items to process`,
+      );
 
       for (const match of matches) {
         const referenceHtml = match[1];
 
         // Clean up HTML and extract text
         const referenceText = referenceHtml
-          .replace(/<[^>]*>/g, '') // Remove HTML tags
-          .replace(/\{[^}]*\}/g, '') // Remove markdown attributes like {target="_blank"}
-          .replace(/\s+/g, ' ') // Normalize whitespace
+          .replace(/<[^>]*>/g, "") // Remove HTML tags
+          .replace(/\{[^}]*\}/g, "") // Remove markdown attributes like {target="_blank"}
+          .replace(/\s+/g, " ") // Normalize whitespace
           .trim();
 
         if (referenceText) {
@@ -336,7 +364,9 @@ class ReferenceDataGenerator {
         }
       }
 
-      this.logger?.info(`✅ Successfully parsed ${this.stats.totalReferences} references`);
+      this.logger?.info(
+        `✅ Successfully parsed ${this.stats.totalReferences} references`,
+      );
     } catch (error) {
       this.logger?.error(`Failed to read references.md: ${error.message}`);
       throw error;
@@ -349,11 +379,11 @@ class ReferenceDataGenerator {
    * @returns {Promise<void>}
    */
   async generateJsonFile() {
-    this.logger?.info('📝 Generating references.json file...');
+    this.logger?.info("📝 Generating references.json file...");
 
     try {
       // Ensure public/data directory exists
-      const dataDir = path.join(process.cwd(), 'public/data');
+      const dataDir = path.join(process.cwd(), "public/data");
       await fs.mkdir(dataDir, { recursive: true });
 
       // Convert Map to Object for JSON serialization
@@ -366,19 +396,25 @@ class ReferenceDataGenerator {
       const jsonData = {
         metadata: {
           generatedAt: new Date().toISOString(),
-          generatedBy: 'generate-references.js',
-          version: '1.0.0',
+          generatedBy: "generate-references.js",
+          version: "1.0.0",
           totalReferences: this.stats.totalReferences,
-          stats: this.stats
+          stats: this.stats,
         },
-        references: referencesObject
+        references: referencesObject,
       };
 
       // Write the JSON file
-      const outputPath = path.join(dataDir, 'references.json');
-      await fs.writeFile(outputPath, JSON.stringify(jsonData, null, 2), 'utf-8');
+      const outputPath = path.join(dataDir, "references.json");
+      await fs.writeFile(
+        outputPath,
+        JSON.stringify(jsonData, null, 2),
+        "utf-8",
+      );
 
-      this.logger?.success(`✅ Generated references.json with ${this.stats.totalReferences} references`);
+      this.logger?.success(
+        `✅ Generated references.json with ${this.stats.totalReferences} references`,
+      );
       this.logger?.info(`📁 Output file: ${outputPath}`);
     } catch (error) {
       this.logger?.error(`Failed to generate JSON file: ${error.message}`);
@@ -390,7 +426,7 @@ class ReferenceDataGenerator {
    * Print generation statistics
    */
   printStats() {
-    this.logger?.info('📊 Reference Generation Statistics:');
+    this.logger?.info("📊 Reference Generation Statistics:");
     this.logger?.info(`   Total References: ${this.stats.totalReferences}`);
     this.logger?.info(`   Web References: ${this.stats.webReferences}`);
     this.logger?.info(`   Journal References: ${this.stats.journalReferences}`);
@@ -410,33 +446,41 @@ class ReferenceDataGenerator {
     // Initialize logger with fallback configuration
     try {
       const verbosity = getVerbosityFromArgs() || this.options.logLevel;
-      const loggerConfig = await createScriptLoggerConfig('generate-references', {
-        level: verbosity,
-        groupMessages: true
-      });
-      this.logger = createLogger(loggerConfig).createScope('ReferenceGenerator');
+      const loggerConfig = await createScriptLoggerConfig(
+        "generate-references",
+        {
+          level: verbosity,
+          groupMessages: true,
+        },
+      );
+      this.logger =
+        createLogger(loggerConfig).createScope("ReferenceGenerator");
     } catch (error) {
       // Fallback to simple console logging if config fails
-      console.log('Warning: Could not load logger config, using fallback');
+      console.log("Warning: Could not load logger config, using fallback");
       this.logger = {
         info: (msg) => console.log(`[INFO] ${msg}`),
         success: (msg) => console.log(`[SUCCESS] ${msg}`),
         warning: (msg) => console.warn(`[WARNING] ${msg}`),
         error: (msg) => console.error(`[ERROR] ${msg}`),
-        debug: (msg) => console.log(`[DEBUG] ${msg}`)
+        debug: (msg) => console.log(`[DEBUG] ${msg}`),
       };
     }
 
-    this.logger?.info('🚀 Starting reference data generation...');
+    this.logger?.info("🚀 Starting reference data generation...");
 
     try {
       await this.parseReferencesFile();
       await this.generateJsonFile();
       this.printStats();
 
-      this.logger?.success('✅ Reference data generation completed successfully!');
+      this.logger?.success(
+        "✅ Reference data generation completed successfully!",
+      );
     } catch (error) {
-      this.logger?.error(`❌ Reference data generation failed: ${error.message}`);
+      this.logger?.error(
+        `❌ Reference data generation failed: ${error.message}`,
+      );
       process.exit(1);
     }
   }
@@ -452,8 +496,8 @@ async function main() {
 
 // Run the script if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(error => {
-    console.error('Fatal error:', error);
+  main().catch((error) => {
+    console.error("Fatal error:", error);
     process.exit(1);
   });
 }

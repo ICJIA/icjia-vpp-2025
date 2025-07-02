@@ -30,13 +30,13 @@
  * @module useConsoleLogger
  */
 
-import { ref } from 'vue';
+import { ref } from "vue";
 
 /**
  * Singleton state for the logger
  * Using ref to make it reactive and shared across all imports
  *
- * @type {import('vue').Ref<boolean>}
+ * @type {Object}
  */
 const isEnabled = ref(true);
 
@@ -55,34 +55,34 @@ const isEnabled = ref(true);
  */
 const COLORS = {
   /** Blue - UI component events and interactions */
-  ui: '#3498db',
+  ui: "#3498db",
 
   /** Purple - Navigation and route changes */
-  route: '#9b59b6',
+  route: "#9b59b6",
 
   /** Dark Purple - Theme and appearance changes */
-  theme: '#8e44ad',
+  theme: "#8e44ad",
 
   /** Green - Component lifecycle events (mount, unmount, etc.) */
-  lifecycle: '#2ecc71',
+  lifecycle: "#2ecc71",
 
   /** Dark Green - Successful operations */
-  success: '#27ae60',
+  success: "#27ae60",
 
   /** Orange - Warning conditions that don't prevent operation */
-  warning: '#f39c12',
+  warning: "#f39c12",
 
   /** Red - Errors and failures */
-  error: '#e74c3c',
+  error: "#e74c3c",
 
   /** Teal - API calls and data operations */
-  api: '#1abc9c',
+  api: "#1abc9c",
 
   /** Yellow - Performance metrics and timing */
-  perf: '#f1c40f',
+  perf: "#f1c40f",
 
   /** Gray - Default for uncategorized logs */
-  default: '#7f8c8d'
+  default: "#7f8c8d",
 };
 
 /**
@@ -97,7 +97,7 @@ const COLORS = {
  * easy visual identification in the console.
  *
  * @returns {Object} Logger methods and state
- * @returns {import('vue').Ref<boolean>} isEnabled - Reactive ref to control logging state
+ * @returns {Object} isEnabled - Reactive ref to control logging state
  * @returns {Function} log - Base logging function with category support
  * @returns {Function} logUI - Log UI component events
  * @returns {Function} logRoute - Log route navigation events
@@ -141,12 +141,12 @@ export function useConsoleLogger() {
       console.log(
         `${prefix} ${message}`,
         `color: ${color}; font-weight: bold;`,
-        data
+        data,
       );
     } else {
       console.log(
         `${prefix} ${message}`,
-        `color: ${color}; font-weight: bold;`
+        `color: ${color}; font-weight: bold;`,
       );
     }
   };
@@ -157,7 +157,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logUI = (message, data) => log('ui', message, data);
+  const logUI = (message, data) => log("ui", message, data);
 
   /**
    * Log route changes
@@ -165,7 +165,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logRoute = (message, data) => log('route', message, data);
+  const logRoute = (message, data) => log("route", message, data);
 
   /**
    * Log theme changes
@@ -173,7 +173,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logTheme = (message, data) => log('theme', message, data);
+  const logTheme = (message, data) => log("theme", message, data);
 
   /**
    * Log lifecycle events
@@ -181,7 +181,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logLifecycle = (message, data) => log('lifecycle', message, data);
+  const logLifecycle = (message, data) => log("lifecycle", message, data);
 
   /**
    * Log success messages
@@ -189,7 +189,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logSuccess = (message, data) => log('success', message, data);
+  const logSuccess = (message, data) => log("success", message, data);
 
   /**
    * Log warnings
@@ -197,7 +197,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logWarning = (message, data) => log('warning', message, data);
+  const logWarning = (message, data) => log("warning", message, data);
 
   /**
    * Log errors
@@ -205,7 +205,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logError = (message, data) => log('error', message, data);
+  const logError = (message, data) => log("error", message, data);
 
   /**
    * Log API/data operations
@@ -213,7 +213,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logAPI = (message, data) => log('api', message, data);
+  const logAPI = (message, data) => log("api", message, data);
 
   /**
    * Log performance metrics
@@ -221,7 +221,7 @@ export function useConsoleLogger() {
    * @param {string} message - The message to log
    * @param {any} [data] - Optional data to log
    */
-  const logPerf = (message, data) => log('perf', message, data);
+  const logPerf = (message, data) => log("perf", message, data);
 
   /**
    * Enable console logging
@@ -233,7 +233,7 @@ export function useConsoleLogger() {
    */
   const enable = () => {
     isEnabled.value = true;
-    log('default', 'Console logging enabled');
+    log("default", "Console logging enabled");
   };
 
   /**
@@ -245,7 +245,7 @@ export function useConsoleLogger() {
    * @returns {void}
    */
   const disable = () => {
-    log('default', 'Console logging disabled');
+    log("default", "Console logging disabled");
     isEnabled.value = false;
   };
 
@@ -261,7 +261,7 @@ export function useConsoleLogger() {
   const toggle = () => {
     isEnabled.value = !isEnabled.value;
     if (isEnabled.value) {
-      log('default', 'Console logging enabled');
+      log("default", "Console logging enabled");
     }
     // No message when disabling to avoid the paradox of logging that logging is disabled
   };
@@ -281,6 +281,6 @@ export function useConsoleLogger() {
     enable,
     disable,
     toggle,
-    COLORS
+    COLORS,
   };
 }

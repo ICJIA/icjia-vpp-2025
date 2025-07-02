@@ -188,7 +188,9 @@ const planningWorkgroups = [
   opacity: 0;
   animation: fadeSlideUp 0.8s forwards;
   animation-delay: 0.6s;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .shadow-img:hover {

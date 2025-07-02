@@ -348,7 +348,7 @@ const { copyright, privacyPolicy, termsOfService } = siteConfig.legal;
 
 const fullAddress = computed(
   () =>
-    `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`
+    `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`,
 );
 </script>
 ```

@@ -108,7 +108,7 @@ const isDarkTheme = computed({
  * @returns {string} Descriptive label for the current action
  */
 const ariaLabel = computed(() =>
-  isDarkTheme.value ? "Switch to light theme" : "Switch to dark theme"
+  isDarkTheme.value ? "Switch to light theme" : "Switch to dark theme",
 );
 
 /**

@@ -18,7 +18,12 @@
         >
           <span class="d-flex align-center justify-center">
             Contact Us
-            <v-icon end icon="mdi-email-outline" aria-hidden="true" class="ml-2" />
+            <v-icon
+              end
+              icon="mdi-email-outline"
+              aria-hidden="true"
+              class="ml-2"
+            />
           </span>
         </v-btn>
       </div>
@@ -38,23 +43,23 @@
  *
  * @component
  */
-import { inject } from 'vue';
+import { inject } from "vue";
 
 /**
  * Get the announce function from the provider for screen reader announcements
  */
-const announce = inject('announce', null);
+const announce = inject("announce", null);
 
 /**
  * Handle contact button click or keyboard activation
  * Announces action to screen readers and would typically open a contact form
  */
 const handleContactClick = () => {
-  console.log('Contact button clicked');
+  console.log("Contact button clicked");
 
   // Announce to screen readers with assertive priority for immediate feedback
   if (announce) {
-    announce('Contact form will open shortly', 'assertive');
+    announce("Contact form will open shortly", "assertive");
   }
 
   // This would typically open a contact form or navigate to a contact page

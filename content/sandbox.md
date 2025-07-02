@@ -103,6 +103,7 @@ Test each of these individual reference IDs to verify they work:
 ## Technical Details
 
 This test page uses:
+
 - **Data Attributes**: `data-ref="reference-id"` for single references
 - **Multiple References**: `data-ref="ref1,ref2,ref3"` for multiple citations
 - **Automatic Enhancement**: Client-side plugin automatically finds and enhances elements

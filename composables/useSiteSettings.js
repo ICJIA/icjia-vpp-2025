@@ -1,3 +1,5 @@
+import { ref, readonly, computed } from "vue";
+
 /**
  * Site Settings Composable
  *
@@ -18,12 +20,20 @@
  *
  * @author Violence Prevention Plan for Illinois: 2025-2029
  * @version 1.0.0
+ * @module useSiteSettings
  */
 
 /**
  * Composable for accessing site configuration settings
  *
  * @returns {Object} Site settings composable object
+ * @returns {Function} loadConfig - Function to load site configuration
+ * @returns {Function} getSetting - Function to get a specific setting value
+ * @returns {Function} getSettings - Function to get multiple settings at once
+ * @returns {Object} config - Reactive reference to loaded configuration
+ * @returns {Object} loading - Reactive reference to loading state
+ * @returns {Object} error - Reactive reference to any loading errors
+ * @returns {Object} isLoaded - Computed property indicating if config is loaded
  */
 export const useSiteSettings = () => {
   const config = ref(null);
@@ -44,22 +54,22 @@ export const useSiteSettings = () => {
 
     try {
       // Load site configuration
-      const response = await $fetch('/config/site.config.json');
+      const response = await $fetch("/config/site.config.json");
       config.value = response;
 
       // Log successful load in development
-      if (process.env.NODE_ENV === 'development') {
-        console.log('✅ Site configuration loaded:', {
-          projectName: response.metadata?.projectName || 'Unknown',
-          version: response.metadata?.version || 'Unknown',
-          lastUpdated: response.metadata?.lastUpdated || 'Unknown'
+      if (process.env.NODE_ENV === "development") {
+        console.log("✅ Site configuration loaded:", {
+          projectName: response.metadata?.projectName || "Unknown",
+          version: response.metadata?.version || "Unknown",
+          lastUpdated: response.metadata?.lastUpdated || "Unknown",
         });
       }
 
       return response;
     } catch (e) {
       error.value = e;
-      console.error('Failed to load site configuration:', e);
+      console.error("Failed to load site configuration:", e);
       return null;
     } finally {
       loading.value = false;
@@ -84,11 +94,11 @@ export const useSiteSettings = () => {
     }
 
     // Navigate the object using dot notation
-    const keys = path.split('.');
+    const keys = path.split(".");
     let current = config.value;
 
     for (const key of keys) {
-      if (current && typeof current === 'object' && key in current) {
+      if (current && typeof current === "object" && key in current) {
         current = current[key];
       } else {
         return defaultValue;
@@ -101,14 +111,30 @@ export const useSiteSettings = () => {
   /**
    * Get multiple settings at once
    *
-   * @param {Object} settings - Object with keys as result names and values as setting paths
+   * @param {Object} settings - Object with keys as result names and values as setting paths or objects with path and default
+   * @param {string|Object} settings.key - Either a string path or an object with {path: string, default: any}
    * @returns {Promise<Object>} Object with resolved setting values
+   * @throws {Error} If there's an error loading the configuration
+   *
+   * @example
+   * // Simple paths
+   * const settings = await getSettings({
+   *   siteName: 'branding.siteName',
+   *   tocLabel: 'ui.tableOfContents.defaultLabel'
+   * });
+   *
+   * @example
+   * // With defaults
+   * const settings = await getSettings({
+   *   siteName: { path: 'branding.siteName', default: 'Default Site' },
+   *   tocLabel: { path: 'ui.tableOfContents.defaultLabel', default: 'TOC' }
+   * });
    */
   const getSettings = async (settings) => {
     const result = {};
-    
+
     for (const [key, path] of Object.entries(settings)) {
-      if (typeof path === 'object' && path.path && path.default !== undefined) {
+      if (typeof path === "object" && path.path && path.default !== undefined) {
         result[key] = await getSetting(path.path, path.default);
       } else {
         result[key] = await getSetting(path);
@@ -137,6 +163,6 @@ export const useSiteSettings = () => {
     // Computed helpers
     isLoaded: computed(() => !!config.value),
     hasError: computed(() => !!error.value),
-    isLoading: computed(() => loading.value)
+    isLoading: computed(() => loading.value),
   };
 };

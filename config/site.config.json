@@ -54,10 +54,7 @@
     "themes": {
       "enabled": true,
       "default": "dark",
-      "options": [
-        "light",
-        "dark"
-      ]
+      "options": ["light", "dark"]
     },
     "accessibility": {
       "wcagLevel": "AA",
@@ -132,15 +129,8 @@
   },
   "routing": {
     "blacklist": {
-      "vue": [
-        "sandbox.vue",
-        "sandbox-*.vue",
-        "[...slug].vue"
-      ],
-      "markdown": [
-        "sandbox.md",
-        "sandbox-*.md"
-      ]
+      "vue": ["sandbox.vue", "sandbox-*.vue", "[...slug].vue"],
+      "markdown": ["sandbox.md", "sandbox-*.md"]
     },
     "titleExtraction": {
       "fallbackPattern": "Statewide Violence Prevention Plan for Illinois: 2025-2029",

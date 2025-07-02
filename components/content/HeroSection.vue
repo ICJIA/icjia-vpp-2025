@@ -24,7 +24,7 @@
  * @component
  * @requires ~/components/content/ImageWithSpinner
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 /**
  * Import the console logger
@@ -32,7 +32,7 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
  * NOTE: Console logging is intentionally enabled in all environments (including production)
  * during the pre-launch phase for monitoring and debugging purposes.
  */
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
 const { logUI } = useConsoleLogger();
 
 /**
@@ -46,7 +46,10 @@ const { logUI } = useConsoleLogger();
  */
 const handleGetStarted = () => {
   // This would typically navigate to a sign-up or onboarding page
-  logUI('Get Started button activated', { component: 'HeroSection', action: 'primary-cta' });
+  logUI("Get Started button activated", {
+    component: "HeroSection",
+    action: "primary-cta",
+  });
 };
 
 /**
@@ -60,7 +63,7 @@ const handleGetStarted = () => {
  */
 const handleLearnMore = () => {
   // This would typically navigate to an about or features page
-  console.log('Learn More button activated');
+  console.log("Learn More button activated");
 };
 </script>
 
@@ -73,7 +76,11 @@ const handleLearnMore = () => {
             <slot mdc-unwrap="p" />
           </div>
 
-          <div class="d-flex flex-wrap hero-buttons-container" role="group" aria-label="Main actions">
+          <div
+            class="d-flex flex-wrap hero-buttons-container"
+            role="group"
+            aria-label="Main actions"
+          >
             <v-btn
               color="primary"
               size="large"
@@ -85,7 +92,12 @@ const handleLearnMore = () => {
             >
               <span class="d-flex align-center justify-center">
                 Get Started
-                <v-icon end icon="mdi-arrow-right" class="ml-2" aria-hidden="true" />
+                <v-icon
+                  end
+                  icon="mdi-arrow-right"
+                  class="ml-2"
+                  aria-hidden="true"
+                />
               </span>
             </v-btn>
 
@@ -174,7 +186,7 @@ const handleLearnMore = () => {
   line-height: 1.2; /* Line height to match screenshot spacing */
   margin-bottom: 2rem; /* Space below heading to match screenshot */
   color: inherit; /* Inherit from parent theme color */
-  font-family: 'Roboto', sans-serif; /* Ensure consistent font family */
+  font-family: "Roboto", sans-serif; /* Ensure consistent font family */
   letter-spacing: -0.02em; /* Slight negative letter spacing for modern look */
 }
 
@@ -200,7 +212,7 @@ const handleLearnMore = () => {
   line-height: 1.6; /* Good readability */
   margin-bottom: 2rem; /* More space below paragraph to match screenshot */
   color: inherit; /* Inherit from parent theme color */
-  font-family: 'Roboto', sans-serif; /* Consistent font family */
+  font-family: "Roboto", sans-serif; /* Consistent font family */
   max-width: 90%; /* Limit width for better readability */
   opacity: 0.9; /* Slightly muted for both themes */
 }
@@ -344,7 +356,9 @@ const handleLearnMore = () => {
   position: relative;
   opacity: 0; /* Start invisible */
   /* Combined animations: fade in, then start floating */
-  animation: fadeIn 1s forwards, subtleFloat 6s cubic-bezier(0.37, 0, 0.63, 1) infinite alternate;
+  animation:
+    fadeIn 1s forwards,
+    subtleFloat 6s cubic-bezier(0.37, 0, 0.63, 1) infinite alternate;
   animation-delay: 0.8s, 1.2s; /* Fade in first, then start floating */
   will-change: opacity, transform; /* Optimize for animation performance */
   transform-style: preserve-3d; /* Enable 3D transformations */
@@ -385,8 +399,9 @@ const handleLearnMore = () => {
   top: -40px;
   right: -20px;
   /* Combined animations: pulsing size/opacity and subtle position movement */
-  animation: subtlePulse 8s ease-in-out infinite alternate,
-             subtleMove 15s ease-in-out infinite alternate;
+  animation:
+    subtlePulse 8s ease-in-out infinite alternate,
+    subtleMove 15s ease-in-out infinite alternate;
   transform-origin: center center; /* Animation pivot point */
 }
 
@@ -398,8 +413,9 @@ const handleLearnMore = () => {
   bottom: -60px;
   left: -40px;
   /* Combined animations with reverse direction from the first element */
-  animation: subtlePulse 8s ease-in-out infinite alternate-reverse,
-             subtleMove 12s ease-in-out infinite alternate-reverse;
+  animation:
+    subtlePulse 8s ease-in-out infinite alternate-reverse,
+    subtleMove 12s ease-in-out infinite alternate-reverse;
   transform-origin: center center; /* Animation pivot point */
 }
 
@@ -426,8 +442,12 @@ const handleLearnMore = () => {
  * Used as a fallback for reduced motion preference
  */
 @keyframes fadeIn {
-  from { opacity: 0; } /* Start invisible */
-  to { opacity: 1; } /* End fully visible */
+  from {
+    opacity: 0;
+  } /* Start invisible */
+  to {
+    opacity: 1;
+  } /* End fully visible */
 }
 
 /**
@@ -435,9 +455,15 @@ const handleLearnMore = () => {
  * Creates an organic, floating movement for the hero image container
  */
 @keyframes subtleFloat {
-  0% { transform: translateY(0) rotate3d(1, 1, 0, 0deg); } /* Start position */
-  50% { transform: translateY(-18px) rotate3d(1, 1, 0, 1deg); } /* Peak of float with slight rotation */
-  100% { transform: translateY(-15px) rotate3d(1, 1, 0, -1deg); } /* End with different rotation */
+  0% {
+    transform: translateY(0) rotate3d(1, 1, 0, 0deg);
+  } /* Start position */
+  50% {
+    transform: translateY(-18px) rotate3d(1, 1, 0, 1deg);
+  } /* Peak of float with slight rotation */
+  100% {
+    transform: translateY(-15px) rotate3d(1, 1, 0, -1deg);
+  } /* End with different rotation */
 }
 
 /**
@@ -484,11 +510,21 @@ const handleLearnMore = () => {
  * Creates an organic, floating path through 2D space
  */
 @keyframes subtleMove {
-  0% { transform: translate(0, 0); } /* Start at origin */
-  25% { transform: translate(10px, 10px); } /* Move down-right */
-  50% { transform: translate(-5px, 15px); } /* Move left and further down */
-  75% { transform: translate(-10px, 5px); } /* Move further left and up */
-  100% { transform: translate(5px, -10px); } /* End right and above start */
+  0% {
+    transform: translate(0, 0);
+  } /* Start at origin */
+  25% {
+    transform: translate(10px, 10px);
+  } /* Move down-right */
+  50% {
+    transform: translate(-5px, 15px);
+  } /* Move left and further down */
+  75% {
+    transform: translate(-10px, 5px);
+  } /* Move further left and up */
+  100% {
+    transform: translate(5px, -10px);
+  } /* End right and above start */
 }
 
 /**

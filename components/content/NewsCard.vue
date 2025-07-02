@@ -17,7 +17,11 @@
         <div class="news-image-section">
           <ImageWithSpinner
             :src="newsItem.image || '/images/illinois-seal.png'"
-            :alt="newsItem.image ? `Image for ${newsItem.title}` : 'Illinois State Seal'"
+            :alt="
+              newsItem.image
+                ? `Image for ${newsItem.title}`
+                : 'Illinois State Seal'
+            "
             image-class="news-image"
             aspect-ratio="4/3"
             cover
@@ -94,9 +98,9 @@
  *
  * @component
  */
-import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 /**
  * Component props
@@ -111,12 +115,12 @@ const props = defineProps({
     required: true,
     validator: (value) => {
       return value && value.title && value.summary && value.date;
-    }
+    },
   },
   delay: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 const router = useRouter();
@@ -124,7 +128,7 @@ const router = useRouter();
 /**
  * Unique ID for ARIA attributes
  */
-const uniqueId = ref('');
+const uniqueId = ref("");
 
 /**
  * Generate unique ID on mount
@@ -137,7 +141,7 @@ onMounted(() => {
  * Computed style for animation delay
  */
 const animationStyle = computed(() => ({
-  animationDelay: `${props.delay}ms`
+  animationDelay: `${props.delay}ms`,
 }));
 
 /**
@@ -145,17 +149,17 @@ const animationStyle = computed(() => ({
  * Converts YYYY-MM-DD to Month DD, YYYY format
  */
 const formattedDate = computed(() => {
-  if (!props.newsItem.date) return '';
-  
+  if (!props.newsItem.date) return "";
+
   try {
     const date = new Date(props.newsItem.date);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   } catch (error) {
-    console.warn('Invalid date format:', props.newsItem.date);
+    console.warn("Invalid date format:", props.newsItem.date);
     return props.newsItem.date;
   }
 });
@@ -169,8 +173,9 @@ const handleCardClick = () => {
     router.push(props.newsItem._path);
   } else {
     // Fallback: construct path from filename or slug
-    const slug = props.newsItem._file?.replace('.md', '') || 
-                 props.newsItem.title?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const slug =
+      props.newsItem._file?.replace(".md", "") ||
+      props.newsItem.title?.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     if (slug) {
       router.push(`/news/${slug}`);
     }
@@ -191,21 +196,27 @@ const handleCardClick = () => {
   height: 100%;
   min-height: 200px;
   border-radius: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   /* Enhanced background for better contrast against page backgrounds */
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 /* Dark mode styling with enhanced contrast */
 :root[data-theme="dark"] .news-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
   /* Lighter surface color for better contrast against dark page backgrounds */
-  background: #2A3441;
+  background: #2a3441;
 }
 
 /* Hover and focus effects */
@@ -345,11 +356,11 @@ const handleCardClick = () => {
     grid-template-columns: 1fr;
     grid-template-rows: 150px 1fr;
   }
-  
+
   .news-image-section {
     grid-row: 1;
   }
-  
+
   .news-content-section {
     grid-row: 2;
     padding: 1rem;
@@ -374,7 +385,7 @@ const handleCardClick = () => {
     animation: none;
     opacity: 1;
   }
-  
+
   .news-card-inner:hover {
     transform: none;
   }

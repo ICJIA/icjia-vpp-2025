@@ -32,6 +32,7 @@ Define footnotes at the end of your document using the syntax `[^identifier]: co
 The Violence Prevention Plan[^plan] aims to reduce violence across Illinois[^state].
 
 [^plan]: The comprehensive plan covers 2025-2029 and includes community-based interventions.
+
 [^state]: Illinois has implemented various violence prevention strategies over the past decade.
 ```
 
@@ -40,7 +41,7 @@ The Violence Prevention Plan[^plan] aims to reduce violence across Illinois[^sta
 ```markdown
 Research shows significant impact[^research].
 
-[^research]: According to the **Illinois Criminal Justice Information Authority** study, community interventions reduced violence by *25%* in participating areas.
+[^research]: According to the **Illinois Criminal Justice Information Authority** study, community interventions reduced violence by _25%_ in participating areas.
 ```
 
 ### Footnotes with Links
@@ -56,7 +57,8 @@ For more information, see the official guidelines[^guidelines].
 ```markdown
 Complex topics require detailed explanations[^complex].
 
-[^complex]: This footnote contains multiple paragraphs to provide comprehensive information.
+[^complex]:
+    This footnote contains multiple paragraphs to provide comprehensive information.
 
     The second paragraph continues the explanation with additional details that support the main content.
 

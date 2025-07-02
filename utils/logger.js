@@ -24,11 +24,11 @@
  */
 export const LogLevel = {
   /** Show all logs including debug information */
-  DETAILED: 'DETAILED',
+  DETAILED: "DETAILED",
   /** Show standard logs (info, warning, error, success) */
-  NORMAL: 'NORMAL',
+  NORMAL: "NORMAL",
   /** Show only essential logs (error, success, summary) */
-  CONCISE: 'CONCISE'
+  CONCISE: "CONCISE",
 };
 
 /**
@@ -36,11 +36,11 @@ export const LogLevel = {
  * @enum {string}
  */
 export const LogType = {
-  SUCCESS: 'success',
-  ERROR: 'error',
-  WARNING: 'warning',
-  INFO: 'info',
-  DEBUG: 'debug'
+  SUCCESS: "success",
+  ERROR: "error",
+  WARNING: "warning",
+  INFO: "info",
+  DEBUG: "debug",
 };
 
 /**
@@ -48,9 +48,9 @@ export const LogType = {
  * @returns {boolean} True if running in Node.js environment
  */
 const isNodeEnvironment = () => {
-  return typeof process !== 'undefined' &&
-         process.versions &&
-         process.versions.node;
+  return (
+    typeof process !== "undefined" && process.versions && process.versions.node
+  );
 };
 
 /**
@@ -59,22 +59,22 @@ const isNodeEnvironment = () => {
 const Colors = {
   // ANSI color codes for Node.js terminal output
   node: {
-    reset: '\x1b[0m',
-    success: '\x1b[32m',  // Green
-    error: '\x1b[31m',    // Red
-    warning: '\x1b[33m',  // Yellow
-    info: '\x1b[36m',     // Cyan
-    debug: '\x1b[90m'     // Gray
+    reset: "\x1b[0m",
+    success: "\x1b[32m", // Green
+    error: "\x1b[31m", // Red
+    warning: "\x1b[33m", // Yellow
+    info: "\x1b[36m", // Cyan
+    debug: "\x1b[90m", // Gray
   },
 
   // CSS color codes for browser console output
   browser: {
-    success: '#27ae60',   // Green
-    error: '#e74c3c',     // Red
-    warning: '#f39c12',   // Orange/Yellow
-    info: '#3498db',      // Blue/Cyan
-    debug: '#7f8c8d'      // Gray
-  }
+    success: "#27ae60", // Green
+    error: "#e74c3c", // Red
+    warning: "#f39c12", // Orange/Yellow
+    info: "#3498db", // Blue/Cyan
+    debug: "#7f8c8d", // Gray
+  },
 };
 
 /**
@@ -85,7 +85,7 @@ const defaultConfig = {
   showTimestamp: true,
   showPrefix: true,
   groupMessages: false,
-  environment: isNodeEnvironment() ? 'node' : 'browser'
+  environment: isNodeEnvironment() ? "node" : "browser",
 };
 
 /**
@@ -106,7 +106,7 @@ export class UnifiedLogger {
    */
   constructor(config = {}) {
     this.config = { ...defaultConfig, ...config };
-    this.isNode = this.config.environment === 'node';
+    this.isNode = this.config.environment === "node";
     this.colors = this.isNode ? Colors.node : Colors.browser;
     this.messageGroups = new Map();
     this.timers = new Map();
@@ -145,11 +145,11 @@ export class UnifiedLogger {
    * @returns {Object} Formatted message components
    */
   formatMessage(type, message) {
-    const timestamp = this.config.showTimestamp ?
-      `[${new Date().toLocaleTimeString()}]` : '';
+    const timestamp = this.config.showTimestamp
+      ? `[${new Date().toLocaleTimeString()}]`
+      : "";
 
-    const prefix = this.config.showPrefix ?
-      `[${type.toUpperCase()}]` : '';
+    const prefix = this.config.showPrefix ? `[${type.toUpperCase()}]` : "";
 
     return { timestamp, prefix, message };
   }
@@ -180,12 +180,12 @@ export class UnifiedLogger {
         console.log(
           `%c${formattedMessage}`,
           `color: ${color}; font-weight: bold;`,
-          data
+          data,
         );
       } else {
         console.log(
           `%c${formattedMessage}`,
-          `color: ${color}; font-weight: bold;`
+          `color: ${color}; font-weight: bold;`,
         );
       }
     }
@@ -250,13 +250,13 @@ export class UnifiedLogger {
    * @param {string} name - Timer name
    * @param {string} message - Optional message to include
    */
-  timeEnd(name, message = '') {
+  timeEnd(name, message = "") {
     const startTime = this.timers.get(name);
     if (startTime) {
       const duration = Date.now() - startTime;
-      const logMessage = message ?
-        `${message} (${duration}ms)` :
-        `Timer ${name}: ${duration}ms`;
+      const logMessage = message
+        ? `${message} (${duration}ms)`
+        : `Timer ${name}: ${duration}ms`;
       this.info(logMessage);
       this.timers.delete(name);
     } else {
@@ -274,7 +274,9 @@ export class UnifiedLogger {
     if (!this.messageGroups.has(groupName)) {
       this.messageGroups.set(groupName, []);
     }
-    this.messageGroups.get(groupName).push({ type, message, timestamp: Date.now() });
+    this.messageGroups
+      .get(groupName)
+      .push({ type, message, timestamp: Date.now() });
   }
 
   /**
@@ -282,7 +284,7 @@ export class UnifiedLogger {
    * @param {string} groupName - Group name
    * @param {string} summaryMessage - Summary message template
    */
-  summarizeGroup(groupName, summaryMessage = '') {
+  summarizeGroup(groupName, summaryMessage = "") {
     const messages = this.messageGroups.get(groupName);
     if (!messages || messages.length === 0) return;
 
@@ -291,14 +293,18 @@ export class UnifiedLogger {
       return acc;
     }, {});
 
-    const summary = summaryMessage ||
+    const summary =
+      summaryMessage ||
       `${groupName}: ${messages.length} operations (${counts.success || 0} success, ${counts.error || 0} errors, ${counts.warning || 0} warnings)`;
 
     // Determine overall status based on message types
     const hasErrors = counts.error > 0;
     const hasWarnings = counts.warning > 0;
-    const overallType = hasErrors ? LogType.ERROR :
-                       hasWarnings ? LogType.WARNING : LogType.SUCCESS;
+    const overallType = hasErrors
+      ? LogType.ERROR
+      : hasWarnings
+        ? LogType.WARNING
+        : LogType.SUCCESS;
 
     this.output(overallType, summary);
 
@@ -339,12 +345,12 @@ export class UnifiedLogger {
    * @param {string} name - Timer name
    * @param {string} category - Timer category for grouping
    */
-  timeWithCategory(name, category = 'general') {
+  timeWithCategory(name, category = "general") {
     const fullName = `${category}:${name}`;
     this.timers.set(fullName, {
       startTime: Date.now(),
       category,
-      name
+      name,
     });
     this.debug(`⏱️  Timer started: ${name} (${category})`);
   }
@@ -355,15 +361,15 @@ export class UnifiedLogger {
    * @param {string} category - Timer category
    * @param {string} message - Optional message
    */
-  timeEndWithCategory(name, category = 'general', message = '') {
+  timeEndWithCategory(name, category = "general", message = "") {
     const fullName = `${category}:${name}`;
     const timerData = this.timers.get(fullName);
 
     if (timerData) {
       const duration = Date.now() - timerData.startTime;
-      const logMessage = message ?
-        `⏱️  ${message} - ${name}: ${duration}ms (${category})` :
-        `⏱️  ${name}: ${duration}ms (${category})`;
+      const logMessage = message
+        ? `⏱️  ${message} - ${name}: ${duration}ms (${category})`
+        : `⏱️  ${name}: ${duration}ms (${category})`;
 
       // Use different log levels based on duration
       if (duration > 5000) {
@@ -401,11 +407,11 @@ export class UnifiedLogger {
 
     if (error) {
       if (error.stack && this.config.level === LogLevel.DETAILED) {
-        this.debug('Stack trace:', error.stack);
+        this.debug("Stack trace:", error.stack);
       } else if (error.message) {
-        this.debug('Error details:', error.message);
+        this.debug("Error details:", error.message);
       } else {
-        this.debug('Error data:', error);
+        this.debug("Error data:", error);
       }
     }
   }
@@ -423,14 +429,19 @@ export class UnifiedLogger {
       info: (message, data) => this.info(`[${context}] ${message}`, data),
       debug: (message, data) => this.debug(`[${context}] ${message}`, data),
       time: (name) => this.timeWithCategory(name, context),
-      timeEnd: (name, message) => this.timeEndWithCategory(name, context, message),
+      timeEnd: (name, message) =>
+        this.timeEndWithCategory(name, context, message),
       addToGroup: (type, message) => this.addToGroup(context, type, message),
-      summarize: (summaryMessage) => this.summarizeGroup(context, summaryMessage),
+      summarize: (summaryMessage) =>
+        this.summarizeGroup(context, summaryMessage),
       // Enhanced methods
       errorWithContext: (message, error, contextData) =>
         this.errorWithContext(`[${context}] ${message}`, error, contextData),
       logWithContext: (type, message, data, options) =>
-        this.logWithContext(type, message, data, { ...options, source: context })
+        this.logWithContext(type, message, data, {
+          ...options,
+          source: context,
+        }),
     };
   }
 }
@@ -457,5 +468,5 @@ export const log = {
   error: (message, data) => logger.error(message, data),
   warning: (message, data) => logger.warning(message, data),
   info: (message, data) => logger.info(message, data),
-  debug: (message, data) => logger.debug(message, data)
+  debug: (message, data) => logger.debug(message, data),
 };

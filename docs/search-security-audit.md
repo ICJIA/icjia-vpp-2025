@@ -26,6 +26,7 @@ The search functionality has been thoroughly audited and enhanced with comprehen
 **Current State**: Comprehensive multi-layered sanitization
 
 **Improvements Made**:
+
 - Reduced maximum query length from 100 to 50 characters
 - Enhanced character filtering to remove dangerous patterns
 - Added detection for common injection patterns (script, javascript, eval, etc.)
@@ -33,6 +34,7 @@ The search functionality has been thoroughly audited and enhanced with comprehen
 - Added multiple consecutive space normalization
 
 **Security Functions Enhanced**:
+
 ```javascript
 // Enhanced sanitizeSearchQuery function
 export function sanitizeSearchQuery(query, maxLength = 50) {
@@ -48,12 +50,14 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
 **Current State**: Comprehensive XSS prevention framework
 
 **Improvements Made**:
+
 - Enhanced `sanitizeString()` function with comprehensive HTML entity encoding
 - New `sanitizeContentForIndexing()` function for search index content
 - Improved `safeHighlightMatches()` with secure highlighting
 - Added `containsDangerousContent()` for proactive threat detection
 
 **Protection Layers**:
+
 1. **Input Layer**: Query sanitization before processing
 2. **Processing Layer**: Content sanitization during indexing
 3. **Output Layer**: Result validation before display
@@ -67,6 +71,7 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
 **Security Measures Implemented**:
 
 **Content Sanitization**:
+
 - Removal of script and style tags
 - JavaScript code pattern detection and removal
 - Vue directive and template syntax cleaning
@@ -74,15 +79,24 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
 - HTML comment and attribute removal
 
 **Dangerous Pattern Detection**:
+
 ```javascript
 const dangerousPatterns = [
-  /script/gi, /javascript/gi, /vbscript/gi,
-  /onload/gi, /onerror/gi, /onclick/gi,
-  /eval/gi, /expression/gi, /import/gi, /require/gi
+  /script/gi,
+  /javascript/gi,
+  /vbscript/gi,
+  /onload/gi,
+  /onerror/gi,
+  /onclick/gi,
+  /eval/gi,
+  /expression/gi,
+  /import/gi,
+  /require/gi,
 ];
 ```
 
 **Index Generation Security**:
+
 - All content processed through `sanitizeContentForIndexing()`
 - Dangerous content detection with logging
 - Length limits to prevent DoS attacks
@@ -91,18 +105,21 @@ const dangerousPatterns = [
 ### 4. Client-Side Security ✅ **SECURE**
 
 **Search Query Processing**:
+
 - Maximum query length enforcement (50 characters)
 - Dangerous content detection before processing
 - Debounced search to prevent rapid-fire requests
 - Minimum term length validation (2 characters)
 
 **Result Display Security**:
+
 - All results validated through `validateSearchResults()`
 - Safe HTML rendering with proper escaping
 - Sanitized excerpts and highlighting
 - Protected against malicious result injection
 
 **Error Handling**:
+
 - No sensitive information exposure in error messages
 - Graceful degradation for security failures
 - Comprehensive logging for security events
@@ -110,6 +127,7 @@ const dangerousPatterns = [
 ### 5. Configuration Security ✅ **SECURE**
 
 **Enhanced Fuse.js Configuration**:
+
 ```json
 {
   "security": {
@@ -127,6 +145,7 @@ const dangerousPatterns = [
 ```
 
 **Blacklist Security**:
+
 - Comprehensive file pattern exclusions
 - Sandbox file protection
 - Sensitive file exclusion
@@ -137,21 +156,25 @@ const dangerousPatterns = [
 ### Core Security Functions
 
 1. **`sanitizeSearchQuery(query, maxLength = 50)`**
+
    - Sanitizes user search input
    - Removes dangerous characters and patterns
    - Enforces length limits
 
 2. **`sanitizeContentForIndexing(content)`**
+
    - Sanitizes content during index generation
    - Removes code, scripts, and dangerous patterns
    - Prevents malicious content injection
 
 3. **`validateSearchResults(results)`**
+
    - Validates search results before display
    - Ensures all fields are properly sanitized
    - Filters out invalid or dangerous results
 
 4. **`containsDangerousContent(str)`**
+
    - Detects potentially dangerous content patterns
    - Used for proactive threat detection
    - Returns boolean for security decisions
@@ -184,21 +207,25 @@ const dangerousPatterns = [
 ## Ongoing Security Recommendations
 
 ### 1. Regular Security Reviews
+
 - Conduct quarterly security audits of search functionality
 - Review and update dangerous pattern detection rules
 - Monitor for new attack vectors and update defenses accordingly
 
 ### 2. Content Monitoring
+
 - Implement automated scanning for dangerous content in search index
 - Set up alerts for security pattern detection
 - Regular review of blacklist effectiveness
 
 ### 3. Performance Security
+
 - Monitor search query patterns for abuse
 - Implement rate limiting if needed
 - Track and analyze security event logs
 
 ### 4. Security Updates
+
 - Keep Fuse.js library updated to latest secure version
 - Review and update sanitization patterns regularly
 - Test security measures with each major update
@@ -206,12 +233,14 @@ const dangerousPatterns = [
 ## Compliance and Standards
 
 ### Security Standards Met
+
 - **OWASP Top 10**: Protection against injection and XSS attacks
 - **Content Security Policy**: Safe content handling practices
 - **Input Validation**: Comprehensive validation framework
 - **Output Encoding**: Proper escaping and sanitization
 
 ### Accessibility Security
+
 - Screen reader safe content sanitization
 - Accessible error messaging for security events
 - Proper ARIA attributes maintained during sanitization
@@ -225,5 +254,5 @@ The search functionality for the Statewide Violence Prevention Plan for Illinois
 **Risk Level**: 🟢 **LOW**
 **Compliance**: ✅ **MEETS ALL STANDARDS**
 
-*Last Updated: May 25, 2025*
-*Next Review: August 25, 2025*
+_Last Updated: May 25, 2025_
+_Next Review: August 25, 2025_

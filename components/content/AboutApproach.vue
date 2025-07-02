@@ -71,20 +71,22 @@
  *
  * @component
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
-
-
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 </script>
 
 <style scoped>
 .about-image {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
   transition: transform 0.5s ease;
 }
 
 /* Dark mode about image shadow */
 :root[data-theme="dark"] .about-image {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.5),
+    0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
 .about-image:hover {
@@ -110,10 +112,18 @@ import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
   animation: fadeSlideUp 0.6s forwards;
 }
 
-.approach-item:nth-child(1) { animation-delay: 0.1s; }
-.approach-item:nth-child(2) { animation-delay: 0.3s; }
-.approach-item:nth-child(3) { animation-delay: 0.5s; }
-.approach-item:nth-child(4) { animation-delay: 0.7s; }
+.approach-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.approach-item:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.approach-item:nth-child(3) {
+  animation-delay: 0.5s;
+}
+.approach-item:nth-child(4) {
+  animation-delay: 0.7s;
+}
 
 @keyframes fadeSlideUp {
   from {

@@ -62,7 +62,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       console.log(
         "REFERENCE PLUGIN: Creating enhanced tooltip for element with ref:",
-        referenceId
+        referenceId,
       );
 
       // Import and use the references composable
@@ -70,7 +70,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         .then(({ useReferences }) => {
           console.log(
             "REFERENCE PLUGIN: Successfully imported useReferences for:",
-            referenceId
+            referenceId,
           );
           const {
             getReference,
@@ -83,7 +83,7 @@ export default defineNuxtPlugin((nuxtApp) => {
             try {
               console.log(
                 "REFERENCE PLUGIN: Loading reference data for:",
-                referenceId
+                referenceId,
               );
               let references = [];
               let tooltipText = "";
@@ -92,13 +92,13 @@ export default defineNuxtPlugin((nuxtApp) => {
               if (referenceId.includes(",")) {
                 console.log(
                   "REFERENCE PLUGIN: Loading multiple references:",
-                  referenceId
+                  referenceId,
                 );
                 references = await getMultipleReferences(referenceId);
               } else {
                 console.log(
                   "REFERENCE PLUGIN: Loading single reference:",
-                  referenceId
+                  referenceId,
                 );
                 const ref = await getReference(referenceId);
                 references = ref ? [ref] : [];
@@ -109,7 +109,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               if (references.length === 0) {
                 console.warn(
                   "REFERENCE PLUGIN: No references found for:",
-                  referenceId
+                  referenceId,
                 );
                 tooltipText = `Reference not found: ${referenceId}`;
                 hasError = true;
@@ -126,7 +126,7 @@ export default defineNuxtPlugin((nuxtApp) => {
                 }
                 console.log(
                   "REFERENCE PLUGIN: Reference loaded for:",
-                  referenceId
+                  referenceId,
                 );
               }
 
@@ -137,7 +137,7 @@ export default defineNuxtPlugin((nuxtApp) => {
               console.warn(
                 "REFERENCE PLUGIN: Failed to load reference:",
                 referenceId,
-                error
+                error,
               );
               // Fallback to native title attribute
               element.title = `Reference error: ${error.message}`;
@@ -151,7 +151,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         .catch((error) => {
           console.error(
             "REFERENCE PLUGIN: Failed to import useReferences:",
-            error
+            error,
           );
           // Fallback to native title attribute
           element.title = `Reference: ${referenceId}`;
@@ -163,13 +163,13 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       console.log(
         "REFERENCE PLUGIN: Successfully initiated enhancement for ref:",
-        referenceId
+        referenceId,
       );
     } catch (error) {
       console.error(
         "REFERENCE PLUGIN: Failed to create tooltip for ref:",
         referenceId,
-        error
+        error,
       );
 
       // Fallback: add basic tooltip and error class
@@ -191,12 +191,12 @@ export default defineNuxtPlugin((nuxtApp) => {
     element,
     tooltipText,
     hasError,
-    referenceId
+    referenceId,
   ) => {
     try {
       console.log(
         "REFERENCE PLUGIN: Creating Vuetify-styled tooltip for:",
-        referenceId
+        referenceId,
       );
 
       // Remove any existing title attribute to prevent browser default tooltip
@@ -325,7 +325,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           showTooltip(event);
           setTimeout(hideTooltip, 4000); // Auto-hide on mobile
         },
-        { passive: true }
+        { passive: true },
       );
 
       // Keyboard support
@@ -340,13 +340,13 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       console.log(
         "REFERENCE PLUGIN: Successfully created Vuetify-styled tooltip for:",
-        referenceId
+        referenceId,
       );
     } catch (error) {
       console.error(
         "REFERENCE PLUGIN: Failed to create Vuetify tooltip for:",
         referenceId,
-        error
+        error,
       );
       // Fallback to native title
       element.title = tooltipText;
@@ -364,7 +364,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     console.log(
       "REFERENCE PLUGIN: Found",
       referenceElements.length,
-      "reference elements"
+      "reference elements",
     );
 
     referenceElements.forEach((element) => {
@@ -373,7 +373,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (!referenceId) {
         console.warn(
           "REFERENCE PLUGIN: Element has data-ref attribute but no value:",
-          element
+          element,
         );
         return;
       }
@@ -382,14 +382,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (enhancedElements.has(element)) {
         console.log(
           "REFERENCE PLUGIN: Element already enhanced, skipping:",
-          referenceId
+          referenceId,
         );
         return;
       }
 
       console.log(
         "REFERENCE PLUGIN: Processing reference element:",
-        referenceId
+        referenceId,
       );
       createReferenceTooltip(element, referenceId);
     });
@@ -440,7 +440,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       if (shouldEnhance) {
         console.log(
-          "REFERENCE PLUGIN: Content change detected, re-enhancing..."
+          "REFERENCE PLUGIN: Content change detected, re-enhancing...",
         );
         debouncedEnhance();
       }
@@ -485,7 +485,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   if (window.nuxtApp) {
     window.nuxtApp.hook("page:finish", () => {
       console.log(
-        "REFERENCE PLUGIN: Page navigation detected, re-enhancing..."
+        "REFERENCE PLUGIN: Page navigation detected, re-enhancing...",
       );
       setTimeout(debouncedEnhance, 100); // Small delay to ensure content is rendered
     });

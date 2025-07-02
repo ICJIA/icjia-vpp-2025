@@ -11,11 +11,7 @@
       :aria-describedby="`feature-desc-${uniqueId}`"
     >
       <div class="feature-icon-wrapper mb-4" aria-hidden="true">
-        <v-icon
-          :icon="icon"
-          size="x-large"
-          color="primary"
-        />
+        <v-icon :icon="icon" size="x-large" color="primary" />
       </div>
 
       <div :id="`feature-title-${uniqueId}`">
@@ -39,12 +35,12 @@
  *
  * @component
  */
-import { computed, onMounted, ref, inject } from 'vue';
+import { computed, onMounted, ref, inject } from "vue";
 
 /**
  * Get the announce function from the provider for screen reader announcements
  */
-const announce = inject('announce', null);
+const announce = inject("announce", null);
 
 /**
  * Component props
@@ -52,19 +48,19 @@ const announce = inject('announce', null);
 const props = defineProps({
   icon: {
     type: String,
-    required: true
+    required: true,
   },
   delay: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 /**
  * Unique ID for ARIA attributes to create proper relationships
  * between elements for screen readers
  */
-const uniqueId = ref('');
+const uniqueId = ref("");
 
 /**
  * Generate a unique ID for this component instance on mount
@@ -80,7 +76,7 @@ onMounted(() => {
  * @returns {Object} CSS style object with animation delay
  */
 const animationStyle = computed(() => ({
-  animationDelay: `${props.delay}s`
+  animationDelay: `${props.delay}s`,
 }));
 
 /**
@@ -90,11 +86,11 @@ const animationStyle = computed(() => ({
  */
 const handleCardActivation = () => {
   // This would typically navigate to a feature detail page or show more information
-  console.log('Feature card activated');
+  console.log("Feature card activated");
 
   // Announce to screen readers for accessibility
   if (announce) {
-    announce('Feature card selected');
+    announce("Feature card selected");
   }
 };
 </script>
@@ -107,28 +103,38 @@ const handleCardActivation = () => {
 }
 
 .feature-card-inner {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Dark mode box shadow */
 :root[data-theme="dark"] .feature-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
 .feature-card-inner:hover,
 .feature-card-inner:focus-visible {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Dark mode hover box shadow */
 :root[data-theme="dark"] .feature-card-inner:hover,
 :root[data-theme="dark"] .feature-card-inner:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.7),
+    0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 .feature-card-inner:focus-visible {

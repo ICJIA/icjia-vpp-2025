@@ -31,51 +31,52 @@ The configuration file is structured as follows:
 
 The `header.branding` object defines the site logo and title in the header:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `icon` | String | Material Design icon name (e.g., "mdi-cube-outline") |
-| `text` | String | Full title text for extra-large screens |
-| `textMd` | String | Title text for large screens |
-| `textSm` | String | Title text for medium screens |
-| `textXs` | String | Title text for small screens |
-| `href` | String | URL for the logo/title link |
-| `ariaLabel` | String | Accessible label for screen readers |
-| `tooltip` | String | Text displayed in the tooltip |
+| Property    | Type   | Description                                          |
+| ----------- | ------ | ---------------------------------------------------- |
+| `icon`      | String | Material Design icon name (e.g., "mdi-cube-outline") |
+| `text`      | String | Full title text for extra-large screens              |
+| `textMd`    | String | Title text for large screens                         |
+| `textSm`    | String | Title text for medium screens                        |
+| `textXs`    | String | Title text for small screens                         |
+| `href`      | String | URL for the logo/title link                          |
+| `ariaLabel` | String | Accessible label for screen readers                  |
+| `tooltip`   | String | Text displayed in the tooltip                        |
 
 ### Navigation Items Properties
 
 Each item in the `header.items` array can have the following properties:
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `text` | String | Display text for the navigation item |
-| `to` | String | Vue Router path for internal links (use for routes within the application) |
-| `href` | String | URL for links (use for both internal non-router links and external links) |
-| `ariaLabel` | String | Accessible label for screen readers |
-| `tooltip` | String | Text displayed in the tooltip |
-| `tooltipLocation` | String | Position of the tooltip (top, bottom, left, right) |
-| `variant` | String | Button variant (text, outlined, etc.) |
-| `color` | String | Button color (primary, etc.) |
-| `class` | String | Additional CSS classes for desktop view |
-| `mobileClass` | String | Additional CSS classes for mobile view |
-| `displayMode` | String | Where to display the item: 'desktop', 'mobile', or 'both' |
-| `hasDropdown` | Boolean | Set to `true` for items that have dropdown menus |
-| `dropdownIcon` | String | Material Design icon to display next to dropdown menu items in desktop view (e.g., "mdi-chevron-down") |
-| `mobileDropdownIcon` | String | Material Design icon to display next to dropdown menu items in mobile view (e.g., "mdi-chevron-right") |
-| `children` | Array | Array of child items for dropdowns (same properties as parent) |
-| `isExternal` | Boolean | Set to `true` for external links (links to other websites) |
-| `target` | String | Target attribute for links (e.g., "_blank" to open in new tab) |
-| `rel` | String | Rel attribute for links (e.g., "noopener noreferrer" for security) |
-| `externalIcon` | String | Material Design icon to display next to external links (e.g., "mdi-open-in-new") |
-| `order` | Number | Position in the navigation menu (lower numbers appear first) |
-| `iconOnly` | Boolean | Whether to display only the icon without text |
-| `icon` | String | Material Design icon name for icon-only items |
+| Property             | Type    | Description                                                                                            |
+| -------------------- | ------- | ------------------------------------------------------------------------------------------------------ |
+| `text`               | String  | Display text for the navigation item                                                                   |
+| `to`                 | String  | Vue Router path for internal links (use for routes within the application)                             |
+| `href`               | String  | URL for links (use for both internal non-router links and external links)                              |
+| `ariaLabel`          | String  | Accessible label for screen readers                                                                    |
+| `tooltip`            | String  | Text displayed in the tooltip                                                                          |
+| `tooltipLocation`    | String  | Position of the tooltip (top, bottom, left, right)                                                     |
+| `variant`            | String  | Button variant (text, outlined, etc.)                                                                  |
+| `color`              | String  | Button color (primary, etc.)                                                                           |
+| `class`              | String  | Additional CSS classes for desktop view                                                                |
+| `mobileClass`        | String  | Additional CSS classes for mobile view                                                                 |
+| `displayMode`        | String  | Where to display the item: 'desktop', 'mobile', or 'both'                                              |
+| `hasDropdown`        | Boolean | Set to `true` for items that have dropdown menus                                                       |
+| `dropdownIcon`       | String  | Material Design icon to display next to dropdown menu items in desktop view (e.g., "mdi-chevron-down") |
+| `mobileDropdownIcon` | String  | Material Design icon to display next to dropdown menu items in mobile view (e.g., "mdi-chevron-right") |
+| `children`           | Array   | Array of child items for dropdowns (same properties as parent)                                         |
+| `isExternal`         | Boolean | Set to `true` for external links (links to other websites)                                             |
+| `target`             | String  | Target attribute for links (e.g., "\_blank" to open in new tab)                                        |
+| `rel`                | String  | Rel attribute for links (e.g., "noopener noreferrer" for security)                                     |
+| `externalIcon`       | String  | Material Design icon to display next to external links (e.g., "mdi-open-in-new")                       |
+| `order`              | Number  | Position in the navigation menu (lower numbers appear first)                                           |
+| `iconOnly`           | Boolean | Whether to display only the icon without text                                                          |
+| `icon`               | String  | Material Design icon name for icon-only items                                                          |
 
 ### Internal vs External Links
 
 The navigation system distinguishes between internal and external links:
 
 1. **Internal Router Links**: Use the `to` property for links to routes within the Vue application.
+
    ```json
    {
      "text": "About",
@@ -85,6 +86,7 @@ The navigation system distinguishes between internal and external links:
    ```
 
 2. **Internal Non-Router Links**: Use the `href` property for links to static files or pages within the same domain.
+
    ```json
    {
      "text": "External PDF",
@@ -110,7 +112,7 @@ The navigation system distinguishes between internal and external links:
 
 When adding external links, always include these security attributes:
 
-1. **target="_blank"**: Opens the link in a new tab, preserving the user's session in your application.
+1. **target="\_blank"**: Opens the link in a new tab, preserving the user's session in your application.
 
 2. **rel="noopener noreferrer"**: Prevents the new page from accessing the `window.opener` property and redirecting your page to a malicious URL (noopener), and prevents passing the referrer information to the new page (noreferrer).
 
@@ -126,11 +128,13 @@ The navigation system supports responsive behavior with different layouts for de
 To configure responsive behavior:
 
 1. Use the `displayMode` property to control where items appear:
+
    - `"desktop"`: Item only appears in desktop navigation
    - `"mobile"`: Item only appears in mobile navigation
    - `"both"`: Item appears in both desktop and mobile navigation (default)
 
 2. Use different styling for desktop and mobile:
+
    - `class`: CSS classes for desktop view
    - `mobileClass`: CSS classes for mobile view
 
@@ -164,7 +168,7 @@ The dropdown implementation includes:
 
 Example dropdown configuration:
 
-```json
+````json
 {
   "text": "Projects",
   "ariaLabel": "Browse our projects",
@@ -264,7 +268,7 @@ To add a new internal navigation item to the header:
   "color": "on-app-bar",
   "class": "font-weight-medium mx-2 nav-link"
 }
-```
+````
 
 ### Adding an External Header Item
 
@@ -392,20 +396,20 @@ To add a new section to the footer:
    - Items without an order property will appear at the end
    - Ensure dropdown items have consistent styling using the `dropdown-item` class
    - Include a mix of internal and external links as needed, following the same guidelines
-5. For responsive navigation:
+6. For responsive navigation:
    - Always set `displayMode` for all navigation items (default is "both")
    - Always provide both `class` and `mobileClass` for consistent styling
    - Use `mobileDropdownIcon` for dropdown menus in mobile view
    - Test navigation on both desktop and mobile screen sizes
    - Ensure mobile drawer opens and closes properly
    - Verify that dropdown menus expand/collapse correctly in mobile view
-6. Maintain consistent styling by using the same classes for similar items
-7. Keep the navigation structure simple and intuitive
-8. Test navigation changes on different screen sizes to ensure responsive behavior
-9. Verify that all external links work correctly and open in new tabs
-10. Test keyboard navigation for dropdown menus to ensure accessibility
-11. Ensure that all links have appropriate ARIA labels for screen readers
-12. Verify that the theme toggle works correctly in both desktop and mobile views
+7. Maintain consistent styling by using the same classes for similar items
+8. Keep the navigation structure simple and intuitive
+9. Test navigation changes on different screen sizes to ensure responsive behavior
+10. Verify that all external links work correctly and open in new tabs
+11. Test keyboard navigation for dropdown menus to ensure accessibility
+12. Ensure that all links have appropriate ARIA labels for screen readers
+13. Verify that the theme toggle works correctly in both desktop and mobile views
 
 ## Related Documentation
 
@@ -414,4 +418,4 @@ To add a new section to the footer:
 - **[Search Configuration](./fuse.config.md)**: Search functionality and content indexing
 - **[Sitemap Configuration](../docs/sitemap.config.md)**: XML sitemap generation and SEO optimization
 
-*Last Updated: May 25, 2025*
+_Last Updated: May 25, 2025_

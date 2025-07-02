@@ -231,10 +231,13 @@ const handleLearnMoreClick = async () => {
   min-height: 400px;
   padding: 2rem;
   border-radius: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
 }
@@ -309,7 +312,8 @@ const handleLearnMoreClick = async () => {
 .principle-card-inner:hover,
 .principle-card-inner:focus-visible {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
@@ -321,7 +325,8 @@ const handleLearnMoreClick = async () => {
 /* Dark Theme Adjustments */
 :root[data-theme="dark"] .principle-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
     0 2px 4px -1px rgba(0, 0, 0, 0.4);
   /* Enhanced background for better contrast against dark page backgrounds */
   background: #2a3441 !important;
@@ -329,7 +334,8 @@ const handleLearnMoreClick = async () => {
 
 :root[data-theme="dark"] .principle-card-inner:hover,
 :root[data-theme="dark"] .principle-card-inner:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7),
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.7),
     0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 

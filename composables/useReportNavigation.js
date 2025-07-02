@@ -29,30 +29,38 @@
  * @composable
  * @accessibility WCAG 2.1 AA compliant
  */
-import { ref, computed } from 'vue';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
-import menuConfig from '~/config/menu.config.json';
+import { ref, computed } from "vue";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
+import menuConfig from "~/config/menu.config.json";
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
 
 /**
  * Cached report pages data to avoid repeated processing
- * @type {import('vue').Ref<Array<Object>|null>}
+ * @type {Object}
  */
 const cachedReportPages = ref(null);
 
 /**
  * Extract report pages from menu configuration
  *
- * Finds the "The 2025-2029 Plan" dropdown menu section and extracts
+ * Finds the "Read the Plan" dropdown menu section and extracts
  * all child pages in their defined order. This provides the canonical
- * page order for navigation purposes.
+ * page order for navigation purposes. Results are cached for performance.
  *
  * @returns {Array<Object>} Array of report page objects
- * @property {string} path - Page path (e.g., '/executive-summary')
- * @property {string} title - Page title from menu config
- * @property {string} ariaLabel - Accessibility label from menu config
+ * @returns {Array<Object>} returns[].path - Page path (e.g., '/plan/executive-summary')
+ * @returns {Array<Object>} returns[].title - Page title from menu config
+ * @returns {Array<Object>} returns[].summary - Page summary for navigation context
+ * @returns {Array<Object>} returns[].ariaLabel - Accessibility label from menu config
+ * @returns {Array<Object>} returns[].tooltip - Tooltip text for navigation elements
+ *
+ * @throws {Error} Logs error if menu configuration is invalid or missing
+ *
+ * @example
+ * const pages = extractReportPages();
+ * console.log(pages[0]); // { path: '/plan/executive-summary', title: 'Executive Summary', ... }
  */
 function extractReportPages() {
   if (cachedReportPages.value) {
@@ -62,8 +70,9 @@ function extractReportPages() {
   try {
     // Find "Read the Plan" menu item
     const headerItems = menuConfig.header?.items || [];
-    const planMenuItem = headerItems.find(item =>
-      item.text === "Read the Plan" && item.hasDropdown && item.children
+    const planMenuItem = headerItems.find(
+      (item) =>
+        item.text === "Read the Plan" && item.hasDropdown && item.children,
     );
 
     if (!planMenuItem) {
@@ -73,28 +82,28 @@ function extractReportPages() {
 
     // Extract child pages in order
     const reportPages = planMenuItem.children
-      .filter(child => child.to) // Only include items with routes
-      .map(child => ({
+      .filter((child) => child.to) // Only include items with routes
+      .map((child) => ({
         path: child.to,
         title: child.text,
-        summary: child.summary || 'Navigate to this section of the report',
+        summary: child.summary || "Navigate to this section of the report",
         ariaLabel: child.ariaLabel || child.text,
-        tooltip: child.tooltip || child.text
+        tooltip: child.tooltip || child.text,
       }));
 
     cachedReportPages.value = reportPages;
 
-    log('navigation', 'Report pages extracted from menu config', {
+    log("navigation", "Report pages extracted from menu config", {
       totalPages: reportPages.length,
-      pages: reportPages.map(p => ({ path: p.path, title: p.title })),
-      timestamp: new Date().toISOString()
+      pages: reportPages.map((p) => ({ path: p.path, title: p.title })),
+      timestamp: new Date().toISOString(),
     });
 
     return reportPages;
   } catch (error) {
-    logError('Error extracting report pages from menu config', {
+    logError("Error extracting report pages from menu config", {
       error: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
     return [];
   }
@@ -108,7 +117,7 @@ function extractReportPages() {
  */
 function isReportPage(path) {
   const reportPages = extractReportPages();
-  return reportPages.some(page => page.path === path);
+  return reportPages.some((page) => page.path === path);
 }
 
 /**
@@ -119,7 +128,7 @@ function isReportPage(path) {
  * @returns {number} Index of current page, or -1 if not found
  */
 function findCurrentPageIndex(currentPath, reportPages) {
-  return reportPages.findIndex(page => page.path === currentPath);
+  return reportPages.findIndex((page) => page.path === currentPath);
 }
 
 /**
@@ -139,14 +148,14 @@ function getNavigationData(currentPath) {
   const reportPages = extractReportPages();
 
   if (reportPages.length === 0) {
-    log('navigation', 'No report pages found in menu config');
+    log("navigation", "No report pages found in menu config");
     return null;
   }
 
   const currentIndex = findCurrentPageIndex(currentPath, reportPages);
 
   if (currentIndex === -1) {
-    log('navigation', 'Current page is not a report page', { currentPath });
+    log("navigation", "Current page is not a report page", { currentPath });
     return null;
   }
 
@@ -155,34 +164,39 @@ function getNavigationData(currentPath) {
 
   // Linear navigation: no previous on first page, no next on last page
   const previousPage = currentIndex > 0 ? reportPages[currentIndex - 1] : null;
-  const nextPage = currentIndex < totalPages - 1 ? reportPages[currentIndex + 1] : null;
+  const nextPage =
+    currentIndex < totalPages - 1 ? reportPages[currentIndex + 1] : null;
 
   const navigationData = {
-    previous: previousPage ? {
-      ...previousPage,
-      description: previousPage.summary // Keep for backward compatibility
-    } : null,
-    next: nextPage ? {
-      ...nextPage,
-      description: nextPage.summary // Keep for backward compatibility
-    } : null,
+    previous: previousPage
+      ? {
+          ...previousPage,
+          description: previousPage.summary, // Keep for backward compatibility
+        }
+      : null,
+    next: nextPage
+      ? {
+          ...nextPage,
+          description: nextPage.summary, // Keep for backward compatibility
+        }
+      : null,
     currentIndex,
     totalPages,
     isFirstPage: currentIndex === 0,
-    isLastPage: currentIndex === totalPages - 1
+    isLastPage: currentIndex === totalPages - 1,
   };
 
-  log('navigation', 'Navigation data generated with summaries', {
+  log("navigation", "Navigation data generated with summaries", {
     currentPath,
     currentIndex,
     totalPages,
-    previousPage: previousPage?.title || 'none (first page)',
-    nextPage: nextPage?.title || 'none (last page)',
-    previousSummary: previousPage?.summary?.substring(0, 50) + '...' || 'none',
-    nextSummary: nextPage?.summary?.substring(0, 50) + '...' || 'none',
+    previousPage: previousPage?.title || "none (first page)",
+    nextPage: nextPage?.title || "none (last page)",
+    previousSummary: previousPage?.summary?.substring(0, 50) + "..." || "none",
+    nextSummary: nextPage?.summary?.substring(0, 50) + "..." || "none",
     isFirstPage: navigationData.isFirstPage,
     isLastPage: navigationData.isLastPage,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 
   return navigationData;
@@ -198,9 +212,9 @@ export default function useReportNavigation() {
     getNavigationData,
     isReportPage,
     extractReportPages,
-    
+
     // Computed properties for reactive access
     reportPages: computed(() => extractReportPages()),
-    totalReportPages: computed(() => extractReportPages().length)
+    totalReportPages: computed(() => extractReportPages().length),
   };
 }

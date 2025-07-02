@@ -29,7 +29,7 @@ description: Complete bibliography and references for the Illinois Statewide Vio
 
 <div class="reference-item">
 
-American Public Health Association. (2009). Building public health infrastructure for youth violence prevention. [https://www.apha.org/policies-and-advocacy/public-health-policy-statements/policy-database/2014/07/22/14/51/building-public-health-infrastructure-for-youth-violence-prevention](https://www.apha.org/policies-and-advocacy/public-health-policy-statements/policy-database/2014/07/22/14/51/building-public-health-infrastructure-for-youth-violence-prevention){target="_blank" rel="noopener noreferrer"}
+American Public Health Association. (2009). Building public health infrastructure for youth violence prevention. [https://www.apha.org/policies-and-advocacy/public-health-policy-statements/policy-database/2014/07/22/14/51/building-public-health-infrastructure-for-youth-violence-prevention](https://www.apha.org/policies-and-advocacy/public-health-policy-statements/policy-database/2014/07/22/14/51/building-public-health-infrastructure-for-youth-violence-prevention){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
@@ -47,13 +47,13 @@ Bent-Goodley, T. B., Williams, J. H., Teasley, M. L., & Gorin, S. H. (Eds.). (20
 
 <div class="reference-item">
 
-Centers for Disease Control and Prevention [CDC]. (2019). Violence prevention fundamentals. [https://vetoviolence.cdc.gov/apps/main/prevention-information/violence-prevention-fundamentals/](https://vetoviolence.cdc.gov/apps/main/prevention-information/violence-prevention-fundamentals/){target="_blank" rel="noopener noreferrer"}
+Centers for Disease Control and Prevention [CDC]. (2019). Violence prevention fundamentals. [https://vetoviolence.cdc.gov/apps/main/prevention-information/violence-prevention-fundamentals/](https://vetoviolence.cdc.gov/apps/main/prevention-information/violence-prevention-fundamentals/){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
 <div class="reference-item">
 
-CDC (2024). About the public health approach to violence prevention. [https://www.cdc.gov/violence-prevention/about/about-the-public-health-approach-to-violence-prevention.html](https://www.cdc.gov/violence-prevention/about/about-the-public-health-approach-to-violence-prevention.html){target="_blank" rel="noopener noreferrer"}
+CDC (2024). About the public health approach to violence prevention. [https://www.cdc.gov/violence-prevention/about/about-the-public-health-approach-to-violence-prevention.html](https://www.cdc.gov/violence-prevention/about/about-the-public-health-approach-to-violence-prevention.html){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
@@ -83,31 +83,31 @@ Garthe, R. C., Smith, D. C., & Freeman, S. (2021). Illinois Criminal Justice Inf
 
 <div class="reference-item">
 
-Ginwright, S. (2018). The future of healing: Shifting from trauma informed care to healing centered engagement. [https://ginwright.medium.com/the-future-of-healing-shifting-from-trauma-informed-care-to-healing-centered-engagement-634f557ce69c](https://ginwright.medium.com/the-future-of-healing-shifting-from-trauma-informed-care-to-healing-centered-engagement-634f557ce69c){target="_blank" rel="noopener noreferrer"}
+Ginwright, S. (2018). The future of healing: Shifting from trauma informed care to healing centered engagement. [https://ginwright.medium.com/the-future-of-healing-shifting-from-trauma-informed-care-to-healing-centered-engagement-634f557ce69c](https://ginwright.medium.com/the-future-of-healing-shifting-from-trauma-informed-care-to-healing-centered-engagement-634f557ce69c){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
 <div class="reference-item">
 
-Illinois Department of Public Health. (2022). Leading causes of death by age group, Illinois residents, 2022. [https://dph.illinois.gov/data-statistics/vital-statistics/death-statistics.html](https://dph.illinois.gov/data-statistics/vital-statistics/death-statistics.html){target="_blank" rel="noopener noreferrer"}
+Illinois Department of Public Health. (2022). Leading causes of death by age group, Illinois residents, 2022. [https://dph.illinois.gov/data-statistics/vital-statistics/death-statistics.html](https://dph.illinois.gov/data-statistics/vital-statistics/death-statistics.html){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
 <div class="reference-item">
 
-Illinois State Police. (2024). Human trafficking. [https://isp.illinois.gov/Home/Human Trafficking](https://isp.illinois.gov/Home/Human%20Trafficking){target="_blank" rel="noopener noreferrer"}
+Illinois State Police. (2024). Human trafficking. [https://isp.illinois.gov/Home/Human Trafficking](https://isp.illinois.gov/Home/Human%20Trafficking){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
 <div class="reference-item">
 
-National Center for Injury Prevention and Control (2017). Connecting the Dots. [https://vetoviolence.cdc.gov/apps/connecting-the-dots/content/discover-connections](https://vetoviolence.cdc.gov/apps/connecting-the-dots/content/discover-connections){target="_blank" rel="noopener noreferrer"}
+National Center for Injury Prevention and Control (2017). Connecting the Dots. [https://vetoviolence.cdc.gov/apps/connecting-the-dots/content/discover-connections](https://vetoviolence.cdc.gov/apps/connecting-the-dots/content/discover-connections){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
 <div class="reference-item">
 
-Office of Juvenile Justice and Delinquency Prevention. Gun violence and youth/young adults. [https://ojjdp.ojp.gov/model-programs-guide/literature-reviews/gun-violence-and-youth-young-adults](https://ojjdp.ojp.gov/model-programs-guide/literature-reviews/gun-violence-and-youth-young-adults){target="_blank" rel="noopener noreferrer"}
+Office of Juvenile Justice and Delinquency Prevention. Gun violence and youth/young adults. [https://ojjdp.ojp.gov/model-programs-guide/literature-reviews/gun-violence-and-youth-young-adults](https://ojjdp.ojp.gov/model-programs-guide/literature-reviews/gun-violence-and-youth-young-adults){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
@@ -119,7 +119,7 @@ Substance Abuse and Mental Health Services Administration [SAMHSA]. (2014). SAMH
 
 <div class="reference-item">
 
-SAMHSA (2017). Tips for survivors of a disaster or other traumatic event: Coping with retraumatization. [https://store.samhsa.gov/sites/default/files/sma17-5047.pdf](https://store.samhsa.gov/sites/default/files/sma17-5047.pdf){target="_blank" rel="noopener noreferrer"}
+SAMHSA (2017). Tips for survivors of a disaster or other traumatic event: Coping with retraumatization. [https://store.samhsa.gov/sites/default/files/sma17-5047.pdf](https://store.samhsa.gov/sites/default/files/sma17-5047.pdf){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 
@@ -137,7 +137,7 @@ World Health Organization (2002). World report on violence and health. Geneva, W
 
 <div class="reference-item">
 
-World Health Organization (2023). Youth Violence Key Facts. [https://www.who.int/news-room/fact-sheets/detail/youth-violence#:~:text=Youth%20homicide%20and%20non%2Dfatal,'%20families%2C%20friends%20and%20communities.](https://www.who.int/news-room/fact-sheets/detail/youth-violence#:~:text=Youth%20homicide%20and%20non%2Dfatal,'%20families%2C%20friends%20and%20communities.){target="_blank" rel="noopener noreferrer"}
+World Health Organization (2023). Youth Violence Key Facts. [https://www.who.int/news-room/fact-sheets/detail/youth-violence#:~:text=Youth%20homicide%20and%20non%2Dfatal,'%20families%2C%20friends%20and%20communities.](https://www.who.int/news-room/fact-sheets/detail/youth-violence#:~:text=Youth%20homicide%20and%20non%2Dfatal,'%20families%2C%20friends%20and%20communities.){target="\_blank" rel="noopener noreferrer"}
 
 </div>
 

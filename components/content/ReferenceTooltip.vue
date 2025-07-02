@@ -56,7 +56,7 @@
  *
  * @example Custom styling
  * ```vue
- * <ReferenceTooltip 
+ * <ReferenceTooltip
  *   reference-id="ginwright-2018"
  *   location="top"
  *   :open-delay="100"
@@ -66,9 +66,9 @@
  * ```
  */
 
-import { ref, computed, onMounted, watch } from 'vue';
-import AccessibleTooltip from './AccessibleTooltip.vue';
-import { useReferences } from '~/composables/useReferences';
+import { ref, computed, onMounted, watch } from "vue";
+import AccessibleTooltip from "./AccessibleTooltip.vue";
+import { useReferences } from "~/composables/useReferences";
 
 /**
  * Component props
@@ -79,7 +79,7 @@ const props = defineProps({
    */
   referenceId: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -87,7 +87,7 @@ const props = defineProps({
    */
   location: {
     type: String,
-    default: 'top'
+    default: "top",
   },
 
   /**
@@ -95,7 +95,7 @@ const props = defineProps({
    */
   openDelay: {
     type: Number,
-    default: 50
+    default: 50,
   },
 
   /**
@@ -103,7 +103,7 @@ const props = defineProps({
    */
   closeDelay: {
     type: Number,
-    default: 0
+    default: 0,
   },
 
   /**
@@ -111,21 +111,26 @@ const props = defineProps({
    */
   mobileCloseDelay: {
     type: Number,
-    default: 4000
-  }
+    default: 4000,
+  },
 });
 
 /**
  * Component emits
  */
 const emit = defineEmits([
-  'reference-loaded',
-  'reference-error',
-  'tooltip-activated'
+  "reference-loaded",
+  "reference-error",
+  "tooltip-activated",
 ]);
 
 // References composable
-const { getReference, getMultipleReferences, formatMultipleReferences, isLoading } = useReferences();
+const {
+  getReference,
+  getMultipleReferences,
+  formatMultipleReferences,
+  isLoading,
+} = useReferences();
 
 // Component state
 const references = ref([]);
@@ -147,7 +152,7 @@ const loadReferenceData = async () => {
     loadError.value = null;
 
     // Check if we have multiple references (comma-separated)
-    if (props.referenceId.includes(',')) {
+    if (props.referenceId.includes(",")) {
       const refs = await getMultipleReferences(props.referenceId);
       references.value = refs;
     } else {
@@ -159,11 +164,11 @@ const loadReferenceData = async () => {
       throw new Error(`No references found for: ${props.referenceId}`);
     }
 
-    emit('reference-loaded', references.value);
+    emit("reference-loaded", references.value);
   } catch (error) {
     loadError.value = error;
-    console.error('Failed to load reference:', error);
-    emit('reference-error', error);
+    console.error("Failed to load reference:", error);
+    emit("reference-error", error);
   } finally {
     isLoadingRef.value = false;
   }
@@ -176,10 +181,10 @@ const loadReferenceData = async () => {
  */
 const handleKeyboardActivation = (event) => {
   event.preventDefault();
-  emit('tooltip-activated', {
+  emit("tooltip-activated", {
     referenceId: props.referenceId,
     references: references.value,
-    trigger: 'keyboard'
+    trigger: "keyboard",
   });
 };
 
@@ -188,20 +193,20 @@ const hasError = computed(() => loadError.value !== null);
 
 const tooltipText = computed(() => {
   if (isLoadingRef.value) {
-    return 'Loading reference...';
+    return "Loading reference...";
   }
 
   if (hasError.value) {
-    return `Reference error: ${loadError.value?.message || 'Unknown error'}`;
+    return `Reference error: ${loadError.value?.message || "Unknown error"}`;
   }
 
   if (references.value.length === 0) {
-    return 'Reference not found';
+    return "Reference not found";
   }
 
   if (references.value.length === 1) {
     const ref = references.value[0];
-    return ref.fullCitation || ref.shortCitation || 'Citation unavailable';
+    return ref.fullCitation || ref.shortCitation || "Citation unavailable";
   }
 
   // Multiple references - show formatted list
@@ -210,19 +215,19 @@ const tooltipText = computed(() => {
 
 const ariaLabel = computed(() => {
   if (isLoadingRef.value) {
-    return 'Loading reference information';
+    return "Loading reference information";
   }
 
   if (hasError.value) {
-    return 'Reference information unavailable';
+    return "Reference information unavailable";
   }
 
   if (references.value.length === 0) {
-    return 'Reference not found';
+    return "Reference not found";
   }
 
   const refCount = references.value.length;
-  const refText = refCount === 1 ? 'reference' : 'references';
+  const refText = refCount === 1 ? "reference" : "references";
   return `Citation with ${refCount} ${refText}. Press Enter or Space for details.`;
 });
 
@@ -231,9 +236,12 @@ onMounted(() => {
   loadReferenceData();
 });
 
-watch(() => props.referenceId, () => {
-  loadReferenceData();
-});
+watch(
+  () => props.referenceId,
+  () => {
+    loadReferenceData();
+  },
+);
 </script>
 
 <style scoped>
@@ -250,7 +258,7 @@ watch(() => props.referenceId, () => {
   border-bottom: 1px dotted currentColor;
   text-decoration: none;
   transition: all 0.2s ease;
-  
+
   /* Ensure proper focus visibility */
   outline-offset: 2px;
 }
@@ -288,7 +296,7 @@ watch(() => props.referenceId, () => {
     border-bottom-width: 2px;
     border-bottom-style: solid;
   }
-  
+
   .reference-citation:hover,
   .reference-citation:focus {
     border-bottom-width: 3px;

@@ -1182,7 +1182,7 @@ useSeoMeta({
   // Open Graph meta tags for Facebook, LinkedIn, etc.
   ogTitle: computed(() => content.value?.ogTitle || pageTitle.value),
   ogDescription: computed(
-    () => content.value?.ogDescription || pageDescription.value
+    () => content.value?.ogDescription || pageDescription.value,
   ),
   ogImage: socialImage,
   ogUrl: canonicalUrl,
@@ -1192,11 +1192,11 @@ useSeoMeta({
 
   // Twitter Card meta tags
   twitterCard: computed(
-    () => content.value?.twitterCard || "summary_large_image"
+    () => content.value?.twitterCard || "summary_large_image",
   ),
   twitterTitle: computed(() => content.value?.twitterTitle || pageTitle.value),
   twitterDescription: computed(
-    () => content.value?.twitterDescription || pageDescription.value
+    () => content.value?.twitterDescription || pageDescription.value,
   ),
   twitterImage: twitterImage,
   twitterSite: "@ICJIA_Illinois",
@@ -1218,13 +1218,14 @@ useSeoMeta({
   // Additional meta tags for better SEO
   author: computed(
     () =>
-      content.value?.author || "Illinois Criminal Justice Information Authority"
+      content.value?.author ||
+      "Illinois Criminal Justice Information Authority",
   ),
   publishedTime: computed(
-    () => content.value?.date || content.value?.publishedTime
+    () => content.value?.date || content.value?.publishedTime,
   ),
   modifiedTime: computed(
-    () => content.value?.lastModified || content.value?.modifiedTime
+    () => content.value?.lastModified || content.value?.modifiedTime,
   ),
 });
 </script>

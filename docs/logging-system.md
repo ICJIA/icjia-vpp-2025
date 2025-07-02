@@ -16,6 +16,7 @@ The Violence Prevention Plan for Illinois: 2025-2029 project implements a compre
 ### Environment Detection
 
 The system automatically detects the runtime environment:
+
 - **Node.js**: Uses ANSI color codes for terminal output
 - **Browser**: Uses CSS color codes for console styling
 
@@ -23,11 +24,11 @@ The system automatically detects the runtime environment:
 
 ### Verbosity Levels
 
-| Level | Description | Shows |
-|-------|-------------|-------|
+| Level      | Description                          | Shows                                |
+| ---------- | ------------------------------------ | ------------------------------------ |
 | `DETAILED` | All logs including debug information | success, error, warning, info, debug |
-| `NORMAL` | Standard logs (default) | success, error, warning, info |
-| `CONCISE` | Essential logs only | success, error |
+| `NORMAL`   | Standard logs (default)              | success, error, warning, info        |
+| `CONCISE`  | Essential logs only                  | success, error                       |
 
 ### Configuration Options
 
@@ -55,51 +56,54 @@ The system automatically detects the runtime environment:
 ### Server-Side Scripts
 
 ```javascript
-import { createLogger } from '../utils/logger.js';
-import { createScriptLoggerConfig, getVerbosityFromArgs } from '../utils/config-loader.js';
+import { createLogger } from "../utils/logger.js";
+import {
+  createScriptLoggerConfig,
+  getVerbosityFromArgs,
+} from "../utils/config-loader.js";
 
 // Initialize logger with configuration
-const verbosity = getVerbosityFromArgs() || 'NORMAL';
-const loggerConfig = await createScriptLoggerConfig('ScriptName', {
+const verbosity = getVerbosityFromArgs() || "NORMAL";
+const loggerConfig = await createScriptLoggerConfig("ScriptName", {
   level: verbosity,
-  groupMessages: true
+  groupMessages: true,
 });
-const logger = createLogger(loggerConfig).createScope('ScriptName');
+const logger = createLogger(loggerConfig).createScope("ScriptName");
 
 // Basic logging
-logger.success('Operation completed successfully');
-logger.error('Something went wrong', errorObject);
-logger.warning('This is a warning');
-logger.info('Informational message');
-logger.debug('Debug information');
+logger.success("Operation completed successfully");
+logger.error("Something went wrong", errorObject);
+logger.warning("This is a warning");
+logger.info("Informational message");
+logger.debug("Debug information");
 
 // Performance timing
-logger.time('operation');
+logger.time("operation");
 // ... do work ...
-logger.timeEnd('operation', 'Operation completed');
+logger.timeEnd("operation", "Operation completed");
 
 // Message grouping
-logger.addToGroup('success', 'File processed: file1.txt');
-logger.addToGroup('success', 'File processed: file2.txt');
-logger.addToGroup('warning', 'File skipped: file3.txt');
-logger.summarize('File processing summary');
+logger.addToGroup("success", "File processed: file1.txt");
+logger.addToGroup("success", "File processed: file2.txt");
+logger.addToGroup("warning", "File skipped: file3.txt");
+logger.summarize("File processing summary");
 ```
 
 ### Browser/Vue Components
 
 ```javascript
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
 
 const { logUI, logError, logSuccess, isEnabled, toggle } = useConsoleLogger();
 
 // Log UI events
-logUI('Button clicked', { id: 'submit-btn' });
+logUI("Button clicked", { id: "submit-btn" });
 
 // Log errors
-logError('Failed to fetch data', errorObject);
+logError("Failed to fetch data", errorObject);
 
 // Log success
-logSuccess('Data saved successfully');
+logSuccess("Data saved successfully");
 
 // Toggle logging
 toggle();
@@ -151,6 +155,7 @@ export LOG_GROUP=true
 ## Color Scheme
 
 ### Node.js Terminal Colors (ANSI)
+
 - **Success**: Green (`\x1b[32m`)
 - **Error**: Red (`\x1b[31m`)
 - **Warning**: Yellow (`\x1b[33m`)
@@ -158,6 +163,7 @@ export LOG_GROUP=true
 - **Debug**: Gray (`\x1b[90m`)
 
 ### Browser Console Colors (CSS)
+
 - **Success**: `#27ae60` (Green)
 - **Error**: `#e74c3c` (Red)
 - **Warning**: `#f39c12` (Orange)
@@ -211,10 +217,10 @@ Replace old logger instances:
 
 ```javascript
 // Old
-this.logger.log('success', 'Message');
+this.logger.log("success", "Message");
 
 // New
-this.logger.success('Message');
+this.logger.success("Message");
 ```
 
 ### From Direct Console Calls
@@ -223,10 +229,10 @@ Replace direct console usage:
 
 ```javascript
 // Old
-console.log('Message');
+console.log("Message");
 
 // New
-logger.info('Message');
+logger.info("Message");
 ```
 
 ## Troubleshooting
@@ -254,4 +260,4 @@ LOG_LEVEL=DETAILED yarn dev
 - **Log filtering** by component/category
 - **Structured logging** with JSON output
 
-*Last Updated: May 25, 2025*
+_Last Updated: May 25, 2025_

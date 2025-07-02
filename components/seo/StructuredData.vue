@@ -157,7 +157,9 @@ const articleSchema = computed(() => {
     description: props.content.description || props.content.summary || "",
     author: {
       "@type": "Organization",
-      name: props.content.author || "Illinois Criminal Justice Information Authority",
+      name:
+        props.content.author ||
+        "Illinois Criminal Justice Information Authority",
       url: "https://icjia.illinois.gov",
     },
     publisher: {
@@ -171,7 +173,9 @@ const articleSchema = computed(() => {
       },
     },
     datePublished:
-      props.content.date || props.content.publishedTime || new Date().toISOString(),
+      props.content.date ||
+      props.content.publishedTime ||
+      new Date().toISOString(),
     dateModified:
       props.content.lastModified ||
       props.content.modifiedTime ||
@@ -200,7 +204,8 @@ const articleSchema = computed(() => {
  * Used for listing pages like news, blog, etc.
  */
 const collectionSchema = computed(() => {
-  if (props.pageType !== "collection" || !props.collectionItems.length) return null;
+  if (props.pageType !== "collection" || !props.collectionItems.length)
+    return null;
 
   const itemListElements = props.collectionItems.map((item, index) => ({
     "@type": "ListItem",
@@ -279,7 +284,8 @@ const searchPageSchema = computed(() => {
     about: {
       "@type": "Thing",
       name: "Violence Prevention Plan Search",
-      description: "Search functionality for the Illinois Violence Prevention Plan",
+      description:
+        "Search functionality for the Illinois Violence Prevention Plan",
     },
     publisher: {
       "@type": "GovernmentOrganization",

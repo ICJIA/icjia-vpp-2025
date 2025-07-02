@@ -20,6 +20,7 @@ The Defuddle-enhanced search indexing system was implemented to address critical
 The system uses [Defuddle](https://github.com/kepano/defuddle) by [Stephan Ango (kepano)](https://github.com/kepano), a library designed to extract clean, main content from web pages by removing clutter and non-essential elements.
 
 **Key Benefits:**
+
 - Extracts only the main content, ignoring navigation, sidebars, and other UI elements
 - Provides consistent HTML output suitable for search indexing
 - Handles complex page structures and component hierarchies
@@ -39,11 +40,13 @@ The enhanced search index generation follows this pipeline:
 ### 3. Content Capture Improvements
 
 **Before (Previous System):**
+
 - Homepage: Minimal content, missing main headings
 - About Page: Garbled content mixing Vue code with text
 - Total Word Count: ~500 words across all content
 
 **After (Defuddle System):**
+
 - Homepage: 197 words, all headings and content captured
 - About Page: 322 words, all sections and headings captured
 - Total Word Count: 3,267 words across all content
@@ -103,19 +106,25 @@ The generated search index follows this enhanced structure with both `path` and 
 ### Path and fullPath Implementation
 
 #### Homepage Path Normalization
+
 The system automatically normalizes homepage paths for consistency with web standards:
+
 - **Input**: `/index` (from `index.md`)
 - **Output**: `/` (standard homepage path)
 - **fullPath**: Exactly the baseURL without trailing path (`https://vpp-2025.netlify.app`)
 
 #### Other Pages
+
 All other pages maintain their natural paths:
+
 - **Input**: `/about` (from `about.md`)
 - **Output**: `/about` (unchanged)
 - **fullPath**: baseURL + path (`https://vpp-2025.netlify.app/about`)
 
 #### BaseURL Integration
+
 The system reads the baseURL from `config/site.config.json`:
+
 ```json
 {
   "urls": {
@@ -129,10 +138,12 @@ If the site configuration is unavailable, it falls back to the default: `https:/
 ## Configuration
 
 ### Script Location
+
 - **Main Script**: `scripts/generate-search-index-defuddle.js`
 - **Package Script**: `yarn create:search-index-defuddle`
 
 ### Command Line Options
+
 ```bash
 # Basic usage
 yarn create:search-index-defuddle
@@ -161,11 +172,13 @@ The Defuddle-enhanced indexing is now the default for all build processes:
 ## Dependencies
 
 ### Required Packages
+
 - `defuddle@^0.6.4` - Main content extraction library
 - `jsdom@^26.1.0` - DOM implementation for Node.js (already in devDependencies)
 - `glob@^11.0.2` - File pattern matching (already installed)
 
 ### Compatibility
+
 - **Node.js**: Requires Node.js 18+ with ES modules support
 - **Nuxt**: Compatible with Nuxt 3.x
 - **Browser**: Generated index works with existing Fuse.js search implementation
@@ -182,11 +195,13 @@ The Defuddle-enhanced system maintains all existing security features:
 ## Performance
 
 ### Processing Speed
+
 - **Markdown Files**: ~20-50ms per file
 - **Total Processing**: ~2-3 seconds for entire site
 - **Index Size**: Optimized JSON output (~100KB for current content)
 
 ### Search Performance
+
 - **Index Loading**: <100ms
 - **Search Queries**: <10ms per query
 - **Memory Usage**: Minimal impact on browser performance
@@ -196,25 +211,30 @@ The Defuddle-enhanced system maintains all existing security features:
 ### Common Issues
 
 1. **URL Errors in Defuddle**:
+
    - These are internal Defuddle warnings and don't affect functionality
    - Content is still extracted successfully despite the error messages
 
 2. **Missing Content**:
+
    - Check if files are blacklisted in `config/fuse.config.json`
    - Verify markdown frontmatter is properly formatted
    - Ensure content has sufficient text (minimum 10 words)
 
 3. **Build Integration**:
+
    - The script runs automatically during build processes
    - Manual execution: `yarn create:search-index-defuddle`
    - Check output in `public/data/search-index.json`
 
 4. **Missing baseURL Configuration**:
+
    - If `config/site.config.json` is missing or malformed, the system uses fallback defaults
    - Verify the site configuration file exists and has proper structure
    - Check that `urls.baseUrl` is correctly set in the site configuration
 
 5. **Incorrect fullPath Values**:
+
    - Ensure the baseURL in site configuration doesn't have trailing slashes
    - Homepage should have fullPath equal to baseURL exactly
    - Other pages should have fullPath as baseURL + path
@@ -228,12 +248,14 @@ The Defuddle-enhanced system maintains all existing security features:
 ## Future Enhancements
 
 ### Planned Improvements
+
 1. **Static HTML Processing**: Enhanced support for processing generated HTML files
 2. **Vue Page Integration**: Better extraction from Vue pages using static generation
 3. **Content Optimization**: Further improvements to content extraction accuracy
 4. **Performance Optimization**: Caching and incremental updates
 
 ### Monitoring
+
 - Monitor search index size and generation time
 - Track search result quality and user feedback
 - Regular audits of content capture completeness
@@ -247,6 +269,7 @@ This implementation is made possible by the excellent work of:
 - **[Fuse.js](https://fusejs.io/)** - The lightweight fuzzy-search library that provides our search functionality
 
 ## Related Documentation
+
 - [Fuse.js Configuration](./fuse.config.md)
 - [Site Configuration](./site.config.md)
 - [Search Implementation](../pages/search.vue)
@@ -254,6 +277,6 @@ This implementation is made possible by the excellent work of:
 
 ---
 
-*Last Updated: May 25, 2025*
-*Implementation Date: May 25, 2025*
-*Version: 1.1.0 - Enhanced with fullPath Implementation*
+_Last Updated: May 25, 2025_
+_Implementation Date: May 25, 2025_
+_Version: 1.1.0 - Enhanced with fullPath Implementation_

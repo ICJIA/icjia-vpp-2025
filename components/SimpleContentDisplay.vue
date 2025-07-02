@@ -10,7 +10,9 @@
       <v-alert
         type="error"
         title="Error Loading Content"
-        :text="error && error.message ? error.message : 'Failed to load content'"
+        :text="
+          error && error.message ? error.message : 'Failed to load content'
+        "
       />
     </div>
 
@@ -28,7 +30,9 @@
         </h3>
         <v-card class="debug-card" variant="outlined">
           <v-card-text class="pa-0">
-            <pre class="debug-content">{{ JSON.stringify(content, null, 2) }}</pre>
+            <pre class="debug-content">{{
+              JSON.stringify(content, null, 2)
+            }}</pre>
           </v-card-text>
         </v-card>
       </div>

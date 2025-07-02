@@ -7,12 +7,14 @@ The Defuddle-Enhanced Search System is a comprehensive search indexing solution 
 ## Key Achievements
 
 ### Performance Improvements
+
 - **6x Content Capture Improvement**: Increased total indexed content from ~500 words to 3,267 words
 - **Complete Content Coverage**: Successfully indexes all 7 content files with 100% accuracy
 - **Clean Search Results**: Removes HTML tags and markdown formatting for professional, readable results
 - **Enhanced User Experience**: Previously missing content like "Rex adipiscing bis umbra", "Anima Lumen Manus", and "Our Values" now fully searchable
 
 ### Technical Enhancements
+
 - **fullPath Implementation**: Each search index entry includes complete URL information for external integrations
 - **Homepage Path Normalization**: Standardized homepage path from `/index` to `/` following web conventions
 - **Site Configuration Integration**: Enhanced baseURL integration with robust fallback defaults
@@ -46,7 +48,9 @@ Each entry in the search index contains the following fields:
   "path": "/normalized-path",
   "fullPath": "https://vpp-2025.netlify.app/normalized-path",
   "description": "Page description or excerpt",
-  "frontmatter": { /* Original frontmatter data */ },
+  "frontmatter": {
+    /* Original frontmatter data */
+  },
   "type": "markdown",
   "sourceFile": "source.md",
   "wordCount": 197
@@ -68,19 +72,25 @@ Each entry in the search index contains the following fields:
 ## Path and fullPath Implementation
 
 ### Homepage Path Normalization
+
 The system automatically normalizes homepage paths for consistency:
+
 - **Input**: `/index` (from `index.md`)
 - **Output**: `/` (standard homepage path)
 - **fullPath**: Exactly the baseURL without trailing path (`https://vpp-2025.netlify.app`)
 
 ### Other Pages
+
 All other pages maintain their natural paths:
+
 - **Input**: `/about` (from `about.md`)
 - **Output**: `/about` (unchanged)
 - **fullPath**: baseURL + path (`https://vpp-2025.netlify.app/about`)
 
 ### BaseURL Integration
+
 The system reads the baseURL from `config/site.config.json`:
+
 ```json
 {
   "urls": {
@@ -94,6 +104,7 @@ If the site configuration is unavailable, it falls back to: `https://vpp-2025.ne
 ## Usage
 
 ### Command Line Interface
+
 ```bash
 # Basic usage
 yarn create:search-index-defuddle
@@ -106,7 +117,9 @@ yarn create:search-index-defuddle --log-level Concise
 ```
 
 ### Build Integration
+
 The Defuddle-enhanced indexing is automatically integrated into all build processes:
+
 - `yarn dev` - Development server with fresh index generation
 - `yarn build` - Production build with optimized index
 - `yarn generate` - Static site generation with complete indexing
@@ -124,11 +137,13 @@ The system maintains comprehensive security measures:
 ## Performance Metrics
 
 ### Processing Speed
+
 - **Markdown Files**: ~20-50ms per file
 - **Total Processing**: ~2-3 seconds for entire site
 - **Index Size**: Optimized JSON output (~100KB for current content)
 
 ### Search Performance
+
 - **Index Loading**: <100ms
 - **Search Queries**: <10ms per query
 - **Memory Usage**: Minimal impact on browser performance
@@ -144,6 +159,7 @@ The system maintains comprehensive security measures:
 5. **Path Normalization Issues**: Homepage should always use `/` not `/index`
 
 ### Verification Commands
+
 ```bash
 # Check search index output
 cat public/data/search-index.json | jq '.[0]'
@@ -158,12 +174,14 @@ cat public/data/search-index.json | jq '.[] | {path, fullPath}'
 ## Future Enhancements
 
 ### Planned Improvements
+
 1. **Static HTML Processing**: Enhanced support for processing generated HTML files
 2. **Vue Page Integration**: Better extraction from Vue pages using static generation
 3. **Content Optimization**: Further improvements to content extraction accuracy
 4. **Performance Optimization**: Caching and incremental updates
 
 ### Monitoring
+
 - Monitor search index size and generation time
 - Track search result quality and user feedback
 - Regular audits of content capture completeness
@@ -177,6 +195,6 @@ cat public/data/search-index.json | jq '.[] | {path, fullPath}'
 
 ---
 
-*Last Updated: May 25, 2025*  
-*Implementation Date: May 25, 2025*  
-*Version: 1.0.0*
+_Last Updated: May 25, 2025_  
+_Implementation Date: May 25, 2025_  
+_Version: 1.0.0_

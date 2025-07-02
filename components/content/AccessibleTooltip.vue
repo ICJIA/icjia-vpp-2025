@@ -24,6 +24,14 @@
  * - Consistent behavior across the application
  * - Customizable delays for different device types
  *
+ * @vue-prop {String} text - Text content of the tooltip
+ * @vue-prop {String} [location=bottom] - Position of the tooltip relative to the activator
+ * @vue-prop {Number} [openDelay=0] - Delay before showing the tooltip (in ms)
+ * @vue-prop {Number} [closeDelay=0] - Delay before hiding the tooltip (in ms)
+ * @vue-prop {Number} [mobileCloseDelay=2000] - Delay before auto-hiding on mobile (in ms)
+ * @vue-data {Boolean} isMobile - Whether the current device is mobile
+ * @vue-computed {Boolean} isMobile - Computed property for mobile detection
+ *
  * @component
  */
 import { ref, onMounted, onUnmounted } from "vue";

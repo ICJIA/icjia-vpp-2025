@@ -8,27 +8,27 @@
  * to ensure WCAG AA and AAA compliance for text accessibility.
  */
 
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 export default defineNuxtPlugin((nuxtApp) => {
   // Determine initial theme for SSR consistency
   // Always start with 'dark' on server to match our site default
   // Client-side theme switching will handle user preferences after hydration
-  let initialTheme = 'dark';
+  let initialTheme = "dark";
 
   // Only check localStorage on client-side to avoid SSR/hydration mismatches
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     try {
-      const savedTheme = localStorage.getItem('theme-preference');
-      if (savedTheme && ['light', 'dark'].includes(savedTheme)) {
+      const savedTheme = localStorage.getItem("theme-preference");
+      if (savedTheme && ["light", "dark"].includes(savedTheme)) {
         initialTheme = savedTheme;
       }
     } catch (e) {
       // Fallback to default if localStorage is unavailable
-      console.warn('Could not access localStorage for theme preference:', e);
+      console.warn("Could not access localStorage for theme preference:", e);
     }
   }
 
@@ -37,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     components,
     directives,
     icons: {
-      defaultSet: 'mdi',
+      defaultSet: "mdi",
       aliases,
       sets: {
         mdi,
@@ -49,42 +49,42 @@ export default defineNuxtPlugin((nuxtApp) => {
         light: {
           dark: false,
           colors: {
-            primary: '#0747A6', // Darker blue for better contrast (>8:1)
-            secondary: '#057A8C', // Darker teal for better contrast
-            accent: '#5B21B6', // Darker purple for better contrast
-            success: '#047857', // Darker green for better contrast
-            warning: '#B45309', // Darker amber for better contrast
-            error: '#B91C1C', // Darker red for better contrast
-            info: '#1E40AF', // Darker blue for better contrast
-            background: '#FAFAFA', // Softer off-white background (was #F8FAFC)
-            'app-bar': '#F2F2F2', // Light grey for app-bar (distinguishable from white body)
-            surface: '#F8F8F8', // Very subtle off-white surface (was #FFFFFF)
-            'on-surface': '#1E293B',
-            'on-background': '#1E293B',
-            'on-app-bar': '#1E293B', // Same as on-background for consistent text color
-          }
+            primary: "#0747A6", // Darker blue for better contrast (>8:1)
+            secondary: "#057A8C", // Darker teal for better contrast
+            accent: "#5B21B6", // Darker purple for better contrast
+            success: "#047857", // Darker green for better contrast
+            warning: "#B45309", // Darker amber for better contrast
+            error: "#B91C1C", // Darker red for better contrast
+            info: "#1E40AF", // Darker blue for better contrast
+            background: "#FAFAFA", // Softer off-white background (was #F8FAFC)
+            "app-bar": "#F2F2F2", // Light grey for app-bar (distinguishable from white body)
+            surface: "#F8F8F8", // Very subtle off-white surface (was #FFFFFF)
+            "on-surface": "#1E293B",
+            "on-background": "#1E293B",
+            "on-app-bar": "#1E293B", // Same as on-background for consistent text color
+          },
         },
         dark: {
           dark: true,
           colors: {
-            primary: '#93C5FD', // Lighter blue for better contrast (>8:1)
-            secondary: '#67E8F9', // Lighter teal for better contrast
-            accent: '#C4B5FD', // Lighter purple for better contrast
-            success: '#6EE7B7', // Lighter green for better contrast
-            warning: '#FCD34D', // Lighter amber for better contrast
-            error: '#FCA5A5', // Lighter red for better contrast
-            info: '#BFDBFE', // Lighter blue for better contrast
-            background: '#0F172A',
-            'app-bar': '#1A2234', // Slightly different hue from background for distinction
-            surface: '#1E293B',
-            'on-surface': '#F1F5F9',
-            'on-background': '#F1F5F9',
-            'on-app-bar': '#F1F5F9', // Same as on-background for consistent text color
-          }
-        }
-      }
-    }
-  })
+            primary: "#93C5FD", // Lighter blue for better contrast (>8:1)
+            secondary: "#67E8F9", // Lighter teal for better contrast
+            accent: "#C4B5FD", // Lighter purple for better contrast
+            success: "#6EE7B7", // Lighter green for better contrast
+            warning: "#FCD34D", // Lighter amber for better contrast
+            error: "#FCA5A5", // Lighter red for better contrast
+            info: "#BFDBFE", // Lighter blue for better contrast
+            background: "#0F172A",
+            "app-bar": "#1A2234", // Slightly different hue from background for distinction
+            surface: "#1E293B",
+            "on-surface": "#F1F5F9",
+            "on-background": "#F1F5F9",
+            "on-app-bar": "#F1F5F9", // Same as on-background for consistent text color
+          },
+        },
+      },
+    },
+  });
 
-  nuxtApp.vueApp.use(vuetify)
-})
+  nuxtApp.vueApp.use(vuetify);
+});

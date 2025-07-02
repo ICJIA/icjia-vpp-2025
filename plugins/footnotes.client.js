@@ -65,7 +65,7 @@ export default defineNuxtPlugin(() => {
         console.log(
           "FOOTNOTE PLUGIN: Click detected on:",
           e.target.tagName,
-          e.target.className
+          e.target.className,
         );
 
         // Check if it's a footnote link
@@ -96,7 +96,7 @@ export default defineNuxtPlugin(() => {
 
           if (isFootnoteRef) {
             console.log(
-              "FOOTNOTE PLUGIN: FOOTNOTE REFERENCE CLICKED - PREVENTING DEFAULT!"
+              "FOOTNOTE PLUGIN: FOOTNOTE REFERENCE CLICKED - PREVENTING DEFAULT!",
             );
             e.preventDefault();
             e.stopPropagation();
@@ -111,16 +111,16 @@ export default defineNuxtPlugin(() => {
             lastClickedFootnoteRef = referenceElement;
             console.log(
               "FOOTNOTE PLUGIN: Stored reference for return:",
-              referenceElement.id || referenceElement.textContent
+              referenceElement.id || referenceElement.textContent,
             );
 
             // Find the footnotes section and scroll to it with offset for sticky header
             const footnotesSection = document.querySelector(
-              '.footnotes, section[role="doc-endnotes"], #footnotes'
+              '.footnotes, section[role="doc-endnotes"], #footnotes',
             );
             if (footnotesSection) {
               console.log(
-                "FOOTNOTE PLUGIN: Found footnotes section, scrolling with offset..."
+                "FOOTNOTE PLUGIN: Found footnotes section, scrolling with offset...",
               );
 
               // Calculate offset for sticky header (estimate 80px for navigation)
@@ -133,7 +133,7 @@ export default defineNuxtPlugin(() => {
                 "FOOTNOTE PLUGIN: Element position:",
                 elementPosition,
                 "Offset position:",
-                offsetPosition
+                offsetPosition,
               );
 
               window.scrollTo({
@@ -144,7 +144,7 @@ export default defineNuxtPlugin(() => {
               console.log("FOOTNOTE PLUGIN: Scrolling executed with offset");
             } else {
               console.log(
-                "FOOTNOTE PLUGIN: No footnotes section found, trying to scroll to bottom"
+                "FOOTNOTE PLUGIN: No footnotes section found, trying to scroll to bottom",
               );
               window.scrollTo({
                 top: document.body.scrollHeight - 80,
@@ -158,19 +158,19 @@ export default defineNuxtPlugin(() => {
 
           if (isFootnoteBackref) {
             console.log(
-              "FOOTNOTE PLUGIN: FOOTNOTE BACK-REFERENCE CLICKED - PREVENTING DEFAULT!"
+              "FOOTNOTE PLUGIN: FOOTNOTE BACK-REFERENCE CLICKED - PREVENTING DEFAULT!",
             );
             e.preventDefault();
             e.stopPropagation();
             console.log(
-              "FOOTNOTE PLUGIN: preventDefault() called for back-reference"
+              "FOOTNOTE PLUGIN: preventDefault() called for back-reference",
             );
 
             // Try to scroll back to the stored reference first
             if (lastClickedFootnoteRef) {
               console.log(
                 "FOOTNOTE PLUGIN: Scrolling back to stored reference:",
-                lastClickedFootnoteRef.id || lastClickedFootnoteRef.textContent
+                lastClickedFootnoteRef.id || lastClickedFootnoteRef.textContent,
               );
 
               const headerOffset = 80;
@@ -183,7 +183,7 @@ export default defineNuxtPlugin(() => {
                 "FOOTNOTE PLUGIN: Reference position:",
                 elementPosition,
                 "Offset position:",
-                offsetPosition
+                offsetPosition,
               );
 
               window.scrollTo({
@@ -192,7 +192,7 @@ export default defineNuxtPlugin(() => {
               });
 
               console.log(
-                "FOOTNOTE PLUGIN: Return scroll executed with offset"
+                "FOOTNOTE PLUGIN: Return scroll executed with offset",
               );
             } else {
               // Fallback: try to find the target element from href
@@ -218,7 +218,7 @@ export default defineNuxtPlugin(() => {
                   if (targetElement) {
                     console.log(
                       "FOOTNOTE PLUGIN: Found target with alternative ID:",
-                      altId
+                      altId,
                     );
                     break;
                   }
@@ -229,7 +229,7 @@ export default defineNuxtPlugin(() => {
                 "FOOTNOTE PLUGIN: No stored reference, looking for target:",
                 targetId,
                 "Found:",
-                targetElement
+                targetElement,
               );
 
               if (targetElement) {
@@ -242,7 +242,7 @@ export default defineNuxtPlugin(() => {
                   "FOOTNOTE PLUGIN: Target position:",
                   elementPosition,
                   "Offset position:",
-                  offsetPosition
+                  offsetPosition,
                 );
 
                 window.scrollTo({
@@ -251,16 +251,16 @@ export default defineNuxtPlugin(() => {
                 });
 
                 console.log(
-                  "FOOTNOTE PLUGIN: Fallback return scroll executed with offset"
+                  "FOOTNOTE PLUGIN: Fallback return scroll executed with offset",
                 );
               } else {
                 console.log(
-                  "FOOTNOTE PLUGIN: No target found for return scroll, trying to find any footnote reference"
+                  "FOOTNOTE PLUGIN: No target found for return scroll, trying to find any footnote reference",
                 );
 
                 // Last resort: find any footnote reference and scroll to the first one
                 const anyFootnoteRef = document.querySelector(
-                  'sup a[href*="fn"], sup a[data-footnote-ref], .footnote-ref'
+                  'sup a[href*="fn"], sup a[data-footnote-ref], .footnote-ref',
                 );
                 if (anyFootnoteRef) {
                   const headerOffset = 80;
@@ -274,11 +274,11 @@ export default defineNuxtPlugin(() => {
                   });
 
                   console.log(
-                    "FOOTNOTE PLUGIN: Last resort scroll to first footnote reference"
+                    "FOOTNOTE PLUGIN: Last resort scroll to first footnote reference",
                   );
                 } else {
                   console.log(
-                    "FOOTNOTE PLUGIN: No footnote references found at all"
+                    "FOOTNOTE PLUGIN: No footnote references found at all",
                   );
                 }
               }
@@ -288,7 +288,7 @@ export default defineNuxtPlugin(() => {
           }
         }
       },
-      true
+      true,
     ); // Use capture phase to intercept before other handlers
 
     console.log("FOOTNOTE PLUGIN: Click handler installed");
@@ -314,13 +314,13 @@ export default defineNuxtPlugin(() => {
 
     // Find all existing <sup> elements that contain footnote references
     const footnoteSupElements = document.querySelectorAll(
-      'sup:has(a[data-footnote-ref]), sup[data-footnote-ref], sup:has(a[href*="fn-"]), sup:has(a[href*="footnote"])'
+      'sup:has(a[data-footnote-ref]), sup[data-footnote-ref], sup:has(a[href*="fn-"]), sup:has(a[href*="footnote"])',
     );
 
     console.log(
       "FOOTNOTE PLUGIN: Found",
       footnoteSupElements.length,
-      "footnote <sup> elements"
+      "footnote <sup> elements",
     );
 
     if (footnoteSupElements.length === 0) {
@@ -329,7 +329,7 @@ export default defineNuxtPlugin(() => {
       console.log(
         "FOOTNOTE PLUGIN: Fallback - found",
         allSupElements.length,
-        "total <sup> elements"
+        "total <sup> elements",
       );
 
       allSupElements.forEach((sup) => {

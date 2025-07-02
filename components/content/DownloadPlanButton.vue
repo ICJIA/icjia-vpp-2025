@@ -50,20 +50,21 @@
 const props = defineProps({
   buttonText: {
     type: String,
-    default: 'Download the Plan'
+    default: "Download the Plan",
   },
   descriptiveText: {
     type: String,
-    default: 'Download the complete Statewide Violence Prevention Plan for Illinois: 2025-2029'
+    default:
+      "Download the complete Statewide Violence Prevention Plan for Illinois: 2025-2029",
   },
   ariaLabel: {
     type: String,
-    default: 'Go to download page for the Violence Prevention Plan'
+    default: "Go to download page for the Violence Prevention Plan",
   },
   containerClass: {
     type: String,
-    default: ''
-  }
+    default: "",
+  },
 });
 
 /**
@@ -72,14 +73,16 @@ const props = defineProps({
  */
 const handleDownloadPlan = () => {
   // Navigate to the download page
-  navigateTo('/download');
+  navigateTo("/download");
 };
 </script>
 
 <style scoped>
 /* Download CTA button styling - matches HomeAction component */
 .download-cta-button {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .download-cta-button:hover {

@@ -7,50 +7,32 @@
 
       <v-row>
         <v-col cols="12" md="4" class="mb-8">
-          <FeatureCard
-            icon="mdi-palette-outline"
-            :delay="0"
-          >
+          <FeatureCard icon="mdi-palette-outline" :delay="0">
             <slot name="ipsum-caelum-bellum" mdc-unwrap="p" />
           </FeatureCard>
         </v-col>
         <v-col cols="12" md="4" class="mb-8">
-          <FeatureCard
-            icon="mdi-responsive"
-            :delay="0.2"
-          >
+          <FeatureCard icon="mdi-responsive" :delay="0.2">
             <slot name="carmen-umbra-stella-vox" mdc-unwrap="p" />
           </FeatureCard>
         </v-col>
         <v-col cols="12" md="4" class="mb-8">
-          <FeatureCard
-            icon="mdi-lightning-bolt-outline"
-            :delay="0.4"
-          >
+          <FeatureCard icon="mdi-lightning-bolt-outline" :delay="0.4">
             <slot name="vox-tempus-elit-sol-vox" mdc-unwrap="p" />
           </FeatureCard>
         </v-col>
         <v-col cols="12" md="4" class="mb-8">
-          <FeatureCard
-            icon="mdi-theme-light-dark"
-            :delay="0.6"
-          >
+          <FeatureCard icon="mdi-theme-light-dark" :delay="0.6">
             <slot name="vita-idem-bis-aether-lumen" mdc-unwrap="p" />
           </FeatureCard>
         </v-col>
         <v-col cols="12" md="4" class="mb-8">
-          <FeatureCard
-            icon="mdi-cube-scan"
-            :delay="0.8"
-          >
+          <FeatureCard icon="mdi-cube-scan" :delay="0.8">
             <slot name="rex-adipiscing-bis-umbra" mdc-unwrap="p" />
           </FeatureCard>
         </v-col>
         <v-col cols="12" md="4" class="mb-8">
-          <FeatureCard
-            icon="mdi-animation-outline"
-            :delay="1.0"
-          >
+          <FeatureCard icon="mdi-animation-outline" :delay="1.0">
             <slot name="stella-vox-terra-carmen-anima-rex" mdc-unwrap="p" />
           </FeatureCard>
         </v-col>
@@ -75,5 +57,5 @@
  *
  * @component
  */
-import FeatureCard from '~/components/content/FeatureCard.vue';
+import FeatureCard from "~/components/content/FeatureCard.vue";
 </script>

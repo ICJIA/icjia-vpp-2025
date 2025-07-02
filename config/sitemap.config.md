@@ -44,14 +44,17 @@ The sitemap configuration is stored in `/config/sitemap.config.json` and follows
 #### Basic Settings
 
 - **`outputPath`** (string): Where to write the generated sitemap.xml file
+
   - Default: `"public/sitemap.xml"`
   - Example: `"public/sitemap.xml"`
 
 - **`baseUrl`** (string): Base URL for all sitemap entries
+
   - Default: `"https://vpp-2025.netlify.app/"`
   - Note: Should match your production domain
 
 - **`defaultChangeFreq`** (string): Default change frequency for pages not specifically configured
+
   - Default: `"monthly"`
   - Options: `"always"`, `"hourly"`, `"daily"`, `"weekly"`, `"monthly"`, `"yearly"`, `"never"`
 
@@ -76,6 +79,7 @@ Page-specific priority values help search engines understand relative importance
 ```
 
 **Priority Guidelines**:
+
 - **1.0**: Homepage and most critical pages
 - **0.8**: Main section pages (About, Plan, Resources, Contact)
 - **0.6**: Content pages and secondary sections (default)
@@ -99,6 +103,7 @@ Page-specific change frequencies help search engines optimize crawling:
 ```
 
 **Change Frequency Guidelines**:
+
 - **`always`**: Pages that change every time they're accessed
 - **`hourly`**: Pages updated multiple times per day
 - **`daily`**: Pages updated daily
@@ -116,12 +121,7 @@ Controls which pages are excluded from the sitemap:
   "exclusions": {
     "frontmatterKey": "includeInSiteMap",
     "frontmatterValue": false,
-    "patterns": [
-      "/sandbox",
-      "/sandbox-*",
-      "/404",
-      "/error"
-    ]
+    "patterns": ["/sandbox", "/sandbox-*", "/404", "/error"]
   }
 }
 ```
@@ -129,6 +129,7 @@ Controls which pages are excluded from the sitemap:
 **Exclusion Types**:
 
 1. **Frontmatter Exclusions**: Pages can be excluded by adding frontmatter to markdown files:
+
    ```yaml
    ---
    title: "Page Title"
@@ -137,6 +138,7 @@ Controls which pages are excluded from the sitemap:
    ```
 
 2. **Pattern Exclusions**: Pages matching specific patterns are automatically excluded:
+
    - `/sandbox` - Development sandbox pages
    - `/sandbox-*` - All sandbox variants (glob pattern)
    - `/404` - Error pages
@@ -310,6 +312,7 @@ yarn create:sitemap --verbose
 ```
 
 This will show:
+
 - Route discovery process and source files
 - Exclusion decisions and reasoning
 - URL sanitization steps
@@ -323,4 +326,4 @@ This will show:
 - **[Search Configuration](./fuse.config.md)**: Search functionality and content indexing
 - **[Menu Configuration](./menu.config.md)**: Navigation structure and menus
 
-*Last Updated: May 25, 2025*
+_Last Updated: May 25, 2025_

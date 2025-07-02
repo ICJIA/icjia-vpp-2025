@@ -14,7 +14,7 @@
             :cover="props.cover"
             :aspect-ratio="props.aspectRatio"
             @click="openModal"
-            style="cursor: pointer;"
+            style="cursor: pointer"
           />
         </div>
       </template>
@@ -23,7 +23,14 @@
       {{ props.caption }}
     </div>
     <div class="simple-secondary-caption">
-      <span @click="openModal" @keydown.enter="openModal" @keydown.space.prevent="openModal" role="button" tabindex="0" style="cursor: pointer;">
+      <span
+        @click="openModal"
+        @keydown.enter="openModal"
+        @keydown.space.prevent="openModal"
+        role="button"
+        tabindex="0"
+        style="cursor: pointer"
+      >
         Click Image to View
       </span>
     </div>
@@ -35,8 +42,24 @@
           <v-btn icon="mdi-close" variant="text" @click="closeModal" />
         </v-card-title>
         <v-card-text class="pa-4">
-          <img :src="props.src" :alt="props.alt" style="width: 100%; max-height: 75vh; object-fit: contain; display: block;" />
-          <div class="text-center mt-4" style="font-size: 16px; color: rgb(var(--v-theme-on-surface)); font-weight: 900;">
+          <img
+            :src="props.src"
+            :alt="props.alt"
+            style="
+              width: 100%;
+              max-height: 75vh;
+              object-fit: contain;
+              display: block;
+            "
+          />
+          <div
+            class="text-center mt-4"
+            style="
+              font-size: 16px;
+              color: rgb(var(--v-theme-on-surface));
+              font-weight: 900;
+            "
+          >
             {{ props.caption || props.alt }}
           </div>
         </v-card-text>
@@ -52,8 +75,8 @@
  * Displays an image centered in the column with click-to-open modal functionality.
  * Includes tooltip showing alt text on hover.
  */
-import { ref } from 'vue';
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import { ref } from "vue";
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 const isModalOpen = ref(false);
 
@@ -68,44 +91,44 @@ const closeModal = () => {
 const props = defineProps({
   src: {
     type: String,
-    required: true
+    required: true,
   },
   alt: {
     type: String,
-    required: true
+    required: true,
   },
   width: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
   height: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
   caption: {
     type: String,
-    default: ''
+    default: "",
   },
   spinnerColor: {
     type: String,
-    default: 'primary'
+    default: "primary",
   },
   spinnerSize: {
     type: [String, Number],
-    default: 40
+    default: 40,
   },
   eager: {
     type: Boolean,
-    default: true
+    default: true,
   },
   cover: {
     type: Boolean,
-    default: false
+    default: false,
   },
   aspectRatio: {
     type: [String, Number],
-    default: undefined
-  }
+    default: undefined,
+  },
 });
 </script>
 

@@ -159,18 +159,18 @@ function checkImageDimensions() {
       if (width === image.expectedWidth && height === image.expectedHeight) {
         log(
           "success",
-          `${image.type} image dimensions correct: ${width}x${height}`
+          `${image.type} image dimensions correct: ${width}x${height}`,
         );
       } else {
         log(
           "warning",
-          `${image.type} image dimensions: ${width}x${height} (expected: ${image.expectedWidth}x${image.expectedHeight})`
+          `${image.type} image dimensions: ${width}x${height} (expected: ${image.expectedWidth}x${image.expectedHeight})`,
         );
       }
     } catch (error) {
       log(
         "error",
-        `Could not check dimensions for ${image.file}: ${error.message}`
+        `Could not check dimensions for ${image.file}: ${error.message}`,
       );
       allImagesValid = false;
     }
@@ -203,7 +203,7 @@ function validateSitemap() {
 
     if (
       !sitemapContent.includes(
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
       )
     ) {
       log("error", "Sitemap missing proper urlset declaration");
@@ -355,12 +355,12 @@ function runSEOTests() {
     if (passed) {
       log(
         "success",
-        `${test.charAt(0).toUpperCase() + test.slice(1)} tests: PASSED`
+        `${test.charAt(0).toUpperCase() + test.slice(1)} tests: PASSED`,
       );
     } else {
       log(
         "error",
-        `${test.charAt(0).toUpperCase() + test.slice(1)} tests: FAILED`
+        `${test.charAt(0).toUpperCase() + test.slice(1)} tests: FAILED`,
       );
       allTestsPassed = false;
     }
@@ -370,12 +370,12 @@ function runSEOTests() {
   if (allTestsPassed) {
     log(
       "success",
-      "🎉 All SEO tests passed! Your site is optimized for search engines and social media."
+      "🎉 All SEO tests passed! Your site is optimized for search engines and social media.",
     );
   } else {
     log(
       "error",
-      "❌ Some SEO tests failed. Please review the issues above and fix them."
+      "❌ Some SEO tests failed. Please review the issues above and fix them.",
     );
     process.exit(1);
   }
@@ -384,7 +384,7 @@ function runSEOTests() {
   console.log("");
   log("info", "💡 Additional SEO Recommendations:");
   console.log(
-    "   • Test social media sharing on Facebook, Twitter, and LinkedIn"
+    "   • Test social media sharing on Facebook, Twitter, and LinkedIn",
   );
   console.log("   • Use Google Search Console to monitor indexing status");
   console.log("   • Validate structured data with Google's Rich Results Test");

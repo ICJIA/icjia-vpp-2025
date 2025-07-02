@@ -13,7 +13,12 @@
           <!-- Icon Section -->
           <div class="icon-section" aria-hidden="true">
             <div class="statistic-icon-wrapper">
-              <v-icon :icon="icon" size="80" color="primary" class="statistic-icon" />
+              <v-icon
+                :icon="icon"
+                size="80"
+                color="primary"
+                class="statistic-icon"
+              />
             </div>
           </div>
 
@@ -129,7 +134,9 @@ const animationStyle = computed(() => ({
   border-radius: 1rem;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: default;
   /* Enhanced background for better contrast against page backgrounds */
   background: #ffffff;
@@ -138,7 +145,9 @@ const animationStyle = computed(() => ({
 /* Dark mode styling with enhanced contrast */
 :root[data-theme="dark"] .statistic-card-inner {
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
   /* Lighter surface color for better contrast against dark page backgrounds */
   background: #2a3441;
 }

@@ -409,7 +409,7 @@ if (process.client) {
           () => $vuetify.theme.global.current.value.dark,
           (newVal) => {
             isDark.value = newVal;
-          }
+          },
         );
       }
     } catch (error) {
@@ -425,7 +425,7 @@ watch(
     if (newContent) {
       emit("content-loaded", newContent);
     }
-  }
+  },
 );
 
 // Watch for errors
@@ -438,7 +438,7 @@ watch(
         details: technicalErrorDetails.value,
       });
     }
-  }
+  },
 );
 
 /**

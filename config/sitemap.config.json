@@ -21,13 +21,7 @@
     "exclusions": {
       "frontmatterKey": "includeInSiteMap",
       "frontmatterValue": false,
-      "patterns": [
-        "/sandbox",
-        "/sandbox-*",
-        "/404",
-        "/error",
-        "/[...slug]"
-      ]
+      "patterns": ["/sandbox", "/sandbox-*", "/404", "/error", "/[...slug]"]
     }
   },
   "validation": {

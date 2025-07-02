@@ -8,7 +8,12 @@
       <!-- Date display section - positioned between title and description -->
       <div v-if="showDate && date" class="page-date-section">
         <div class="page-date-chip">
-          <v-icon icon="mdi-calendar" size="small" class="date-icon" aria-hidden="true" />
+          <v-icon
+            icon="mdi-calendar"
+            size="small"
+            class="date-icon"
+            aria-hidden="true"
+          />
           <time :datetime="date" class="date-text">{{ formattedDate }}</time>
         </div>
       </div>
@@ -82,7 +87,7 @@
  * @property {string} [date] - The publication date in YYYY-MM-DD format
  */
 
-import { computed } from 'vue';
+import { computed } from "vue";
 
 const props = defineProps({
   /**
@@ -91,7 +96,7 @@ const props = defineProps({
    */
   title: {
     type: String,
-    default: ''
+    default: "",
   },
 
   /**
@@ -100,7 +105,7 @@ const props = defineProps({
    */
   description: {
     type: String,
-    default: ''
+    default: "",
   },
 
   /**
@@ -109,7 +114,7 @@ const props = defineProps({
    */
   showBorder: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   /**
@@ -118,7 +123,7 @@ const props = defineProps({
    */
   showDate: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   /**
@@ -127,7 +132,7 @@ const props = defineProps({
    */
   date: {
     type: String,
-    default: '',
+    default: "",
     validator: (value) => {
       // Allow empty string or valid date format
       if (!value) return true;
@@ -137,8 +142,8 @@ const props = defineProps({
       // Check if it's a valid date
       const date = new Date(value);
       return !isNaN(date.getTime());
-    }
-  }
+    },
+  },
 });
 
 /**
@@ -146,17 +151,17 @@ const props = defineProps({
  * Converts YYYY-MM-DD to Month DD, YYYY format (consistent with NewsCard)
  */
 const formattedDate = computed(() => {
-  if (!props.date) return '';
+  if (!props.date) return "";
 
   try {
     const date = new Date(props.date);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   } catch (error) {
-    console.warn('Invalid date format:', props.date);
+    console.warn("Invalid date format:", props.date);
     return props.date;
   }
 });
@@ -182,7 +187,7 @@ const formattedDate = computed(() => {
 .page-title-section {
   padding: 0; /* Remove default padding, will be handled by flexbox centering */
   /* Darker background for better distinction from content */
-  background: #EEEEEE; /* Darker than previous #F5F5F5 for better contrast */
+  background: #eeeeee; /* Darker than previous #F5F5F5 for better contrast */
   /* Extend background to reach navigation */
   margin-top: -60px; /* Account for header height */
   /* Center content vertically and horizontally */
@@ -195,7 +200,7 @@ const formattedDate = computed(() => {
 /* Dark theme background override */
 :root[data-theme="dark"] .page-title-section {
   /* Darker background for better distinction from content */
-  background: #1B2530; /* Darker than previous #1E2A3A for better contrast */
+  background: #1b2530; /* Darker than previous #1E2A3A for better contrast */
 }
 
 /* Optional border separator for visual hierarchy */
@@ -220,7 +225,7 @@ const formattedDate = computed(() => {
   line-height: 1.1;
   margin-bottom: 1.5rem;
   color: rgba(var(--v-theme-on-surface), 0.95);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   letter-spacing: -0.03em;
   /* Professional entrance animation */
   opacity: 0;

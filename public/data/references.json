@@ -16,9 +16,7 @@
   "references": {
     "american-2009": {
       "id": "american-2009",
-      "authors": [
-        "American Public Health Association"
-      ],
+      "authors": ["American Public Health Association"],
       "year": 2009,
       "title": "Building public health infrastructure for youth violence prevention",
       "url": "https://www.apha.org/policies-and-advocacy/public-health-policy-statements/policy-database/2014/07/22/14/51/building-public-health-infrastructure-for-youth-violence-prevention",
@@ -28,11 +26,7 @@
     },
     "armstead-2021": {
       "id": "armstead-2021",
-      "authors": [
-        "Armstead, T. L",
-        "Wilkins, N",
-        "Nation, M"
-      ],
+      "authors": ["Armstead, T. L", "Wilkins, N", "Nation, M"],
       "year": 2021,
       "title": "Structural and social determinants of inequities in violence risk: A review of indicators",
       "url": null,
@@ -55,9 +49,7 @@
     },
     "centers-2019": {
       "id": "centers-2019",
-      "authors": [
-        "Centers for Disease Control and Prevention [CDC]"
-      ],
+      "authors": ["Centers for Disease Control and Prevention [CDC]"],
       "year": 2019,
       "title": "Violence prevention fundamentals",
       "url": "https://vetoviolence.cdc.gov/apps/main/prevention-information/violence-prevention-fundamentals/",
@@ -67,9 +59,7 @@
     },
     "cdc-2024": {
       "id": "cdc-2024",
-      "authors": [
-        "CDC"
-      ],
+      "authors": ["CDC"],
       "year": 2024,
       "title": "About the public health approach to violence prevention",
       "url": "https://www.cdc.gov/violence-prevention/about/about-the-public-health-approach-to-violence-prevention.html",
@@ -118,10 +108,7 @@
     },
     "garthe-2021-1": {
       "id": "garthe-2021-1",
-      "authors": [
-        "Garthe, R. C., Smith, D. C.,",
-        "Freeman, S"
-      ],
+      "authors": ["Garthe, R. C., Smith, D. C.,", "Freeman, S"],
       "year": 2021,
       "title": "Illinois Criminal Justice Information Authority Statewide Violence Prevention Plan 2020-2024: Review of Programs and Strategies, Needs Assessment of Violence in Illinois & Recommendations for Funding",
       "url": null,
@@ -131,9 +118,7 @@
     },
     "ginwright-2018": {
       "id": "ginwright-2018",
-      "authors": [
-        "Ginwright, S"
-      ],
+      "authors": ["Ginwright, S"],
       "year": 2018,
       "title": "The future of healing: Shifting from trauma informed care to healing centered engagement",
       "url": "https://ginwright.medium.com/the-future-of-healing-shifting-from-trauma-informed-care-to-healing-centered-engagement-634f557ce69c",
@@ -143,9 +128,7 @@
     },
     "illinois-2022": {
       "id": "illinois-2022",
-      "authors": [
-        "Illinois Department of Public Health"
-      ],
+      "authors": ["Illinois Department of Public Health"],
       "year": 2022,
       "title": "Leading causes of death by age group, Illinois residents, 2022",
       "url": "https://dph.illinois.gov/data-statistics/vital-statistics/death-statistics.html",
@@ -155,9 +138,7 @@
     },
     "illinois-2024": {
       "id": "illinois-2024",
-      "authors": [
-        "Illinois State Police"
-      ],
+      "authors": ["Illinois State Police"],
       "year": 2024,
       "title": "Human trafficking",
       "url": "https://isp.illinois.gov/Home/Human%20Trafficking",
@@ -167,9 +148,7 @@
     },
     "national-2017": {
       "id": "national-2017",
-      "authors": [
-        "National Center for Injury Prevention and Control"
-      ],
+      "authors": ["National Center for Injury Prevention and Control"],
       "year": 2017,
       "title": "Connecting the Dots",
       "url": "https://vetoviolence.cdc.gov/apps/connecting-the-dots/content/discover-connections",
@@ -203,9 +182,7 @@
     },
     "samhsa-2017": {
       "id": "samhsa-2017",
-      "authors": [
-        "SAMHSA"
-      ],
+      "authors": ["SAMHSA"],
       "year": 2017,
       "title": "Tips for survivors of a disaster or other traumatic event: Coping with retraumatization",
       "url": "https://store.samhsa.gov/sites/default/files/sma17-5047.pdf",
@@ -231,9 +208,7 @@
     },
     "world-2002": {
       "id": "world-2002",
-      "authors": [
-        "World Health Organization"
-      ],
+      "authors": ["World Health Organization"],
       "year": 2002,
       "title": "World report on violence and health",
       "url": null,
@@ -243,9 +218,7 @@
     },
     "world-2023": {
       "id": "world-2023",
-      "authors": [
-        "World Health Organization"
-      ],
+      "authors": ["World Health Organization"],
       "year": 2023,
       "title": "Youth Violence Key Facts",
       "url": "https://www.who.int/news-room/fact-sheets/detail/youth-violence#:~:text=Youth%20homicide%20and%20non%2Dfatal,'%20families%2C%20friends%20and%20communities.",

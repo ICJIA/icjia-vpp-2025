@@ -26,13 +26,13 @@ The `PageTitleSection` component provides a standardized, reusable page title sy
       description="Page description text that provides context and information about the content."
       :show-border="true"
     />
-    
+
     <!-- Your page content here -->
   </div>
 </template>
 
 <script setup>
-import PageTitleSection from '~/components/content/PageTitleSection.vue';
+import PageTitleSection from "~/components/content/PageTitleSection.vue";
 </script>
 ```
 
@@ -46,31 +46,35 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
         Custom <strong>Title</strong> with <em>Formatting</em>
       </template>
       <template #description>
-        <p>Custom description with <strong>bold text</strong> and <em>emphasis</em>.</p>
+        <p>
+          Custom description with <strong>bold text</strong> and
+          <em>emphasis</em>.
+        </p>
         <p>Multiple paragraphs are supported for complex descriptions.</p>
       </template>
     </PageTitleSection>
-    
+
     <!-- Your page content here -->
   </div>
 </template>
 
 <script setup>
-import PageTitleSection from '~/components/content/PageTitleSection.vue';
+import PageTitleSection from "~/components/content/PageTitleSection.vue";
 </script>
 ```
 
 ## Component Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `title` | String | `''` | Main page title text (can be overridden by title slot) |
-| `description` | String | `''` | Page description text (can be overridden by description slot) |
-| `showBorder` | Boolean | `false` | Whether to show the bottom border separator |
+| Prop          | Type    | Default | Description                                                   |
+| ------------- | ------- | ------- | ------------------------------------------------------------- |
+| `title`       | String  | `''`    | Main page title text (can be overridden by title slot)        |
+| `description` | String  | `''`    | Page description text (can be overridden by description slot) |
+| `showBorder`  | Boolean | `false` | Whether to show the bottom border separator                   |
 
 ## Styling Specifications
 
 ### Typography
+
 - **Base font size**: 5rem (infographic-style)
 - **Font weight**: 700 (bold)
 - **Font family**: 'Roboto', sans-serif
@@ -78,12 +82,14 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
 - **Line height**: 1.1 (compact for impact)
 
 ### Responsive Scaling
+
 - **Desktop (>960px)**: 5rem
 - **Tablet (≤960px)**: 4rem (80% scaling)
 - **Mobile (≤768px)**: 3rem (60% scaling)
 - **Small mobile (≤600px)**: 2.25rem (45% scaling)
 
 ### Animations
+
 - **Title animation**: Fade-in with slide-up, 0.2s delay
 - **Description animation**: Fade-in with slide-up, 0.4s delay
 - **Duration**: 0.8s with ease timing
@@ -101,7 +107,7 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
       description="Stay informed about the latest developments in Illinois violence prevention initiatives, community programs, funding announcements, and policy updates."
       :show-border="true"
     />
-    
+
     <div class="page-content">
       <!-- News content here -->
     </div>
@@ -119,7 +125,7 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
       description="Learn about our mission, values, and approach to violence prevention across Illinois."
       :show-border="false"
     />
-    
+
     <div class="page-content">
       <!-- About content here -->
     </div>
@@ -137,10 +143,13 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
         Strategic <strong>Priorities</strong> 2025-2029
       </template>
       <template #description>
-        <p>Comprehensive framework for <em>violence prevention</em> across Illinois.</p>
+        <p>
+          Comprehensive framework for <em>violence prevention</em> across
+          Illinois.
+        </p>
       </template>
     </PageTitleSection>
-    
+
     <div class="page-content">
       <!-- Strategic priorities content here -->
     </div>
@@ -161,7 +170,7 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
       description="Your page description"
       :show-border="true"
     />
-    
+
     <!-- 2. Main Content Area -->
     <div class="page-content">
       <div class="container">
@@ -174,7 +183,7 @@ import PageTitleSection from '~/components/content/PageTitleSection.vue';
 <style scoped>
 /* Page background (if needed) */
 .page-container {
-  background: #FAFAFA; /* Soft light theme background */
+  background: #fafafa; /* Soft light theme background */
 }
 
 /* Dark theme background override */

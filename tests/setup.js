@@ -1,92 +1,92 @@
-import { vi } from 'vitest';
-import { config } from '@vue/test-utils';
+import { vi } from "vitest";
+import { config } from "@vue/test-utils";
 
 // Simple theme mock
 const themeMock = {
-  current: { 
-    colors: { primary: '#1867C0' },
-    dark: false
+  current: {
+    colors: { primary: "#1867C0" },
+    dark: false,
   },
   global: {
-    name: 'light'
-  }
+    name: "light",
+  },
 };
 
 // Simple mock for Vuetify
 const vuetifyMock = {
-  theme: themeMock
+  theme: themeMock,
 };
 
 // Mock Nuxt's composables and app context
-vi.mock('#app', () => ({
+vi.mock("#app", () => ({
   useNuxtApp: () => ({
     $router: {
       push: vi.fn(),
       replace: vi.fn(),
-      currentRoute: { value: { path: '/', query: {}, params: {} } },
+      currentRoute: { value: { path: "/", query: {}, params: {} } },
     },
     $vuetify: vuetifyMock,
   }),
-  defineNuxtPlugin: vi.fn(fn => fn),
+  defineNuxtPlugin: vi.fn((fn) => fn),
   useRuntimeConfig: () => ({
     public: {
       // Add public config variables here
-    }
+    },
   }),
   useState: vi.fn((key, init) => ({ value: init ? init() : undefined })),
-  useRoute: vi.fn(() => ({ path: '/', query: {}, params: {} })),
+  useRoute: vi.fn(() => ({ path: "/", query: {}, params: {} })),
   navigateTo: vi.fn(),
   definePageMeta: vi.fn(),
 }));
 
 // Basic stubs for all Vue test utils configurations
 config.global.stubs = {
-  'NuxtLink': {
-    template: '<a><slot /></a>',
-    props: ['to']
+  NuxtLink: {
+    template: "<a><slot /></a>",
+    props: ["to"],
   },
-  'VApp': {
-    template: '<div><slot /></div>'
+  VApp: {
+    template: "<div><slot /></div>",
   },
-  'VMain': {
-    template: '<main><slot /></main>'
+  VMain: {
+    template: "<main><slot /></main>",
   },
-  'VContainer': {
-    template: '<div><slot /></div>'
+  VContainer: {
+    template: "<div><slot /></div>",
   },
-  'VRow': {
-    template: '<div><slot /></div>'
+  VRow: {
+    template: "<div><slot /></div>",
   },
-  'VCol': {
-    template: '<div><slot /></div>'
+  VCol: {
+    template: "<div><slot /></div>",
   },
-  'VFooter': {
-    template: '<footer><slot /></footer>'
+  VFooter: {
+    template: "<footer><slot /></footer>",
   },
-  'VIcon': {
-    template: '<i><slot /></i>',
-    props: ['icon']
+  VIcon: {
+    template: "<i><slot /></i>",
+    props: ["icon"],
   },
-  'VImg': {
+  VImg: {
     template: '<div><slot name="placeholder" /></div>',
-    props: ['src', 'alt']
+    props: ["src", "alt"],
   },
-  'VDivider': {
-    template: '<hr />'
+  VDivider: {
+    template: "<hr />",
   },
-  'VTooltip': {
-    template: '<div><slot /></div>',
-    props: ['text']
+  VTooltip: {
+    template: "<div><slot /></div>",
+    props: ["text"],
   },
-  'VBtn': {
-    template: '<button><slot /></button>'
+  VBtn: {
+    template: "<button><slot /></button>",
   },
-  'VProgressCircular': {
-    template: '<div></div>',
-    props: ['color', 'size', 'width', 'indeterminate']
+  VProgressCircular: {
+    template: "<div></div>",
+    props: ["color", "size", "width", "indeterminate"],
   },
-  'transition': false,
-  'transition-group': false,
+  transition: false,
+  "transition-group": false,
 };
 
 // Mock localStorage
@@ -97,9 +97,9 @@ const localStorageMock = {
   removeItem: vi.fn(),
 };
 
-Object.defineProperty(window, 'localStorage', {
+Object.defineProperty(window, "localStorage", {
   value: localStorageMock,
-  writable: true
+  writable: true,
 });
 
 // Mock document methods
@@ -107,6 +107,6 @@ document.getElementById = vi.fn();
 document.createElement = vi.fn();
 
 // Mock CSS imports
-vi.mock('vuetify/styles', () => ({}));
-vi.mock('vuetify/lib/styles/main.css', () => ({}));
-vi.mock('vuetify/components/styles', () => ({})); 
+vi.mock("vuetify/styles", () => ({}));
+vi.mock("vuetify/lib/styles/main.css", () => ({}));
+vi.mock("vuetify/components/styles", () => ({}));

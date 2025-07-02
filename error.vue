@@ -1,6 +1,8 @@
 <template>
   <div class="error-page">
-    <v-container class="d-flex flex-column align-center justify-center text-center">
+    <v-container
+      class="d-flex flex-column align-center justify-center text-center"
+    >
       <div class="error-content">
         <div class="error-animation mb-8">
           <v-icon
@@ -14,13 +16,15 @@
 
         <h1 class="text-h2 font-weight-bold mb-4">Page Not Found</h1>
 
-        <p class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text">
+        <p
+          class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text"
+        >
           Violence Prevention Plan for Illinois: 2025-2029
         </p>
 
         <p class="text-body-1 mb-8 max-width-text">
-          Oops! It seems like the page you're looking for doesn't exist or has been moved.
-          Let's get you back on track.
+          Oops! It seems like the page you're looking for doesn't exist or has
+          been moved. Let's get you back on track.
         </p>
 
         <div class="text-center">
@@ -141,7 +145,11 @@ const handleReturn = () => {
   font-size: 8rem;
   font-weight: 900;
   line-height: 1;
-  background: linear-gradient(135deg, var(--v-primary-base), var(--v-secondary-base));
+  background: linear-gradient(
+    135deg,
+    var(--v-primary-base),
+    var(--v-secondary-base)
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -154,7 +162,9 @@ const handleReturn = () => {
 }
 
 .home-button {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .home-button:hover,

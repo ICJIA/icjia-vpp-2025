@@ -33,7 +33,12 @@
         </div>
       </template>
     </v-img>
-    <div v-if="hasError" :id="`error-${uniqueId}`" class="error-message" role="alert">
+    <div
+      v-if="hasError"
+      :id="`error-${uniqueId}`"
+      class="error-message"
+      role="alert"
+    >
       Image failed to load
     </div>
   </div>
@@ -75,7 +80,7 @@
  * @component
  * @requires vue
  */
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 /**
  * Component props
@@ -101,7 +106,7 @@ const props = defineProps({
    */
   src: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -112,8 +117,8 @@ const props = defineProps({
    */
   alt: {
     type: String,
-    default: 'Image',
-    validator: (value) => value.trim() !== '' // Ensure alt text is not empty
+    default: "Image",
+    validator: (value) => value.trim() !== "", // Ensure alt text is not empty
   },
 
   /**
@@ -122,7 +127,7 @@ const props = defineProps({
    */
   imageClass: {
     type: String,
-    default: ''
+    default: "",
   },
 
   /**
@@ -131,7 +136,7 @@ const props = defineProps({
    */
   cover: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
   /**
@@ -140,7 +145,7 @@ const props = defineProps({
    */
   aspectRatio: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -149,7 +154,7 @@ const props = defineProps({
    */
   height: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -158,7 +163,7 @@ const props = defineProps({
    */
   width: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -167,7 +172,7 @@ const props = defineProps({
    */
   eager: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   /**
@@ -176,7 +181,7 @@ const props = defineProps({
    */
   lazySrc: {
     type: String,
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -185,7 +190,7 @@ const props = defineProps({
    */
   spinnerColor: {
     type: String,
-    default: 'primary'
+    default: "primary",
   },
 
   /**
@@ -194,7 +199,7 @@ const props = defineProps({
    */
   spinnerSize: {
     type: [String, Number],
-    default: 40
+    default: 40,
   },
 
   /**
@@ -203,8 +208,8 @@ const props = defineProps({
    */
   spinnerWidth: {
     type: [String, Number],
-    default: 4
-  }
+    default: 4,
+  },
 });
 
 /**
@@ -223,7 +228,7 @@ const props = defineProps({
  *
  * @type {import('vue').Ref<string>}
  */
-const uniqueId = ref('');
+const uniqueId = ref("");
 
 /**
  * Error state flag

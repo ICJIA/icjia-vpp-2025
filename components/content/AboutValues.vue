@@ -61,7 +61,9 @@
             role="article"
             tabindex="0"
             @keydown.enter="handleValueCardActivation('Incididunt Opus')"
-            @keydown.space.prevent="handleValueCardActivation('Incididunt Opus')"
+            @keydown.space.prevent="
+              handleValueCardActivation('Incididunt Opus')
+            "
             aria-labelledby="value-title-2"
             aria-describedby="value-desc-2"
           >
@@ -94,12 +96,12 @@
  *
  * @component
  */
-import { inject } from 'vue';
+import { inject } from "vue";
 
 /**
  * Get the announce function from the provider for screen reader announcements
  */
-const announce = inject('announce', null);
+const announce = inject("announce", null);
 
 /**
  * Handle value card activation via keyboard or click
@@ -119,28 +121,38 @@ const handleValueCardActivation = (title) => {
 
 <style scoped>
 .value-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   height: 100%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* Dark mode value card shadow */
 :root[data-theme="dark"] .value-card {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 2px 4px -1px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .value-card:hover,
 .value-card:focus-visible {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Dark mode value card hover shadow */
 :root[data-theme="dark"] .value-card:hover,
 :root[data-theme="dark"] .value-card:focus-visible {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.7),
+    0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 .value-card:focus-visible {

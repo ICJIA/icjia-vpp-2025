@@ -93,8 +93,8 @@
  * @component
  * @requires ~/composables/useConsoleLogger
  */
-import { ref, onMounted, onUnmounted } from 'vue';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { ref, onMounted, onUnmounted } from "vue";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
 
 /**
  * Get logger instance from the useConsoleLogger composable
@@ -111,7 +111,7 @@ const {
   logError,
   logAPI,
   logPerf,
-  COLORS
+  COLORS,
 } = useConsoleLogger();
 
 /**
@@ -128,11 +128,11 @@ const showControls = ref(false);
  * This demonstrates the logger's ability to track component lifecycle
  */
 onMounted(() => {
-  logUI('ConsoleLogger component mounted');
+  logUI("ConsoleLogger component mounted");
 });
 
 onUnmounted(() => {
-  logUI('ConsoleLogger component unmounted');
+  logUI("ConsoleLogger component unmounted");
 });
 
 /**
@@ -147,15 +147,15 @@ onUnmounted(() => {
  * @returns {void}
  */
 const testLog = () => {
-  logUI('UI component event');
-  logRoute('Route change event');
-  logTheme('Theme change event');
-  logLifecycle('Lifecycle event');
-  logSuccess('Success event');
-  logWarning('Warning event');
-  logError('Error event');
-  logAPI('API event');
-  logPerf('Performance event');
+  logUI("UI component event");
+  logRoute("Route change event");
+  logTheme("Theme change event");
+  logLifecycle("Lifecycle event");
+  logSuccess("Success event");
+  logWarning("Warning event");
+  logError("Error event");
+  logAPI("API event");
+  logPerf("Performance event");
 };
 
 /**
@@ -168,7 +168,7 @@ const testLog = () => {
  */
 const clearConsole = () => {
   console.clear();
-  logUI('Console cleared');
+  logUI("Console cleared");
 };
 </script>
 

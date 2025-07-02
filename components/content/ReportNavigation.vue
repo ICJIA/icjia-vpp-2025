@@ -197,7 +197,7 @@ const progressPercentage = computed(() => {
   return Math.round(
     ((navigationData.value.currentIndex + 1) /
       navigationData.value.totalPages) *
-      100
+      100,
   );
 });
 
@@ -283,7 +283,8 @@ if (navigationData.value) {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(0, 0, 0, 0.05);
   background: #ffffff; /* Light mode - pure white like home page cards */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   /* Ensure card takes full height of its container */
   display: flex;
@@ -543,7 +544,8 @@ if (navigationData.value) {
 :root[data-theme="dark"] .navigation-card {
   background: #2a3441 !important; /* Dark mode - same color as home page cards */
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
     0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
 }
 

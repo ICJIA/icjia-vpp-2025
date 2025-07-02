@@ -13,6 +13,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
 #### Implementation Requirements
 
 1. **Documentation Examples**: All command examples in documentation must use `yarn` syntax
+
    ```bash
    # Correct
    yarn dev
@@ -26,6 +27,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
    ```
 
 2. **Package.json Scripts**: Internal script calls must use `yarn` instead of `npm run`
+
    ```json
    {
      "scripts": {
@@ -35,6 +37,7 @@ This document defines the mandatory rules and standards for the Violence Prevent
    ```
 
 3. **Package Execution**: Use `npx` for package execution (Yarn 1.22.22 does not support dlx)
+
    ```bash
    # Correct
    npx serve .output/public
@@ -225,4 +228,4 @@ This document defines the mandatory rules and standards for the Violence Prevent
 - **Project Milestones**: Assess rules during major project phases
 - **Post-Implementation**: Evaluate rule impact after significant changes
 
-*Last Updated: May 25, 2025*
+_Last Updated: May 25, 2025_

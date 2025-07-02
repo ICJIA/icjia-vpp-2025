@@ -7,16 +7,18 @@
         'float-right': align === 'right',
         'mb-4': spacing === 'medium' || spacing === 'large',
         'mb-6': spacing === 'xlarge',
-        'mr-4': (align === 'left' && (spacing === 'medium' || spacing === 'large')),
-        'mr-6': (align === 'left' && spacing === 'xlarge'),
-        'ml-4': (align === 'right' && (spacing === 'medium' || spacing === 'large')),
-        'ml-6': (align === 'right' && spacing === 'xlarge'),
-        'mr-2': (align === 'left' && spacing === 'small'),
-        'ml-2': (align === 'right' && spacing === 'small')
+        'mr-4':
+          align === 'left' && (spacing === 'medium' || spacing === 'large'),
+        'mr-6': align === 'left' && spacing === 'xlarge',
+        'ml-4':
+          align === 'right' && (spacing === 'medium' || spacing === 'large'),
+        'ml-6': align === 'right' && spacing === 'xlarge',
+        'mr-2': align === 'left' && spacing === 'small',
+        'ml-2': align === 'right' && spacing === 'small',
       }"
       :style="{
         width: `${width}px`,
-        height: `${height}px`
+        height: `${height}px`,
       }"
       role="group"
       :aria-labelledby="caption ? captionId : undefined"
@@ -99,15 +101,15 @@
  * @requires ImageWithSpinner
  * @requires AccessibleTooltip
  */
-import { ref, onMounted } from 'vue';
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
-import AccessibleTooltip from '~/components/content/AccessibleTooltip.vue';
+import { ref, onMounted } from "vue";
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
+import AccessibleTooltip from "~/components/content/AccessibleTooltip.vue";
 
 /**
  * Unique ID for the caption to associate it with the image
  * Generated on component mount for proper ARIA relationships
  */
-const captionId = ref('');
+const captionId = ref("");
 
 /**
  * Generate a unique ID for the caption on mount
@@ -122,7 +124,7 @@ const props = defineProps({
    */
   src: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -132,12 +134,16 @@ const props = defineProps({
   alt: {
     type: String,
     required: true,
-    default: 'Descriptive image with text wrapping around it',
+    default: "Descriptive image with text wrapping around it",
     validator: (value) => {
       // Ensure alt text is not empty and not just a generic word like "Image"
       const trimmed = value.trim();
-      return trimmed !== '' && trimmed.length > 5 && !['image', 'picture', 'photo'].includes(trimmed.toLowerCase());
-    }
+      return (
+        trimmed !== "" &&
+        trimmed.length > 5 &&
+        !["image", "picture", "photo"].includes(trimmed.toLowerCase())
+      );
+    },
   },
 
   /**
@@ -145,7 +151,7 @@ const props = defineProps({
    */
   width: {
     type: [Number, String],
-    default: 150
+    default: 150,
   },
 
   /**
@@ -153,7 +159,7 @@ const props = defineProps({
    */
   height: {
     type: [Number, String],
-    default: 150
+    default: 150,
   },
 
   /**
@@ -161,8 +167,8 @@ const props = defineProps({
    */
   align: {
     type: String,
-    default: 'left',
-    validator: (value) => ['left', 'right'].includes(value)
+    default: "left",
+    validator: (value) => ["left", "right"].includes(value),
   },
 
   /**
@@ -170,8 +176,9 @@ const props = defineProps({
    */
   spacing: {
     type: String,
-    default: 'medium',
-    validator: (value) => ['small', 'medium', 'large', 'xlarge'].includes(value)
+    default: "medium",
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge"].includes(value),
   },
 
   /**
@@ -179,7 +186,7 @@ const props = defineProps({
    */
   caption: {
     type: String,
-    default: ''
+    default: "",
   },
 
   /**
@@ -187,7 +194,7 @@ const props = defineProps({
    */
   captionClass: {
     type: String,
-    default: 'text-caption'
+    default: "text-caption",
   },
 
   /**
@@ -195,7 +202,7 @@ const props = defineProps({
    */
   spinnerColor: {
     type: String,
-    default: 'primary'
+    default: "primary",
   },
 
   /**
@@ -203,7 +210,7 @@ const props = defineProps({
    */
   eager: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
   /**
@@ -211,8 +218,8 @@ const props = defineProps({
    */
   cover: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 </script>
 

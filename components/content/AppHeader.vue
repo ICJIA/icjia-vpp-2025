@@ -256,7 +256,7 @@
                           index,
                           childIndex,
                           item.children.length,
-                          $event
+                          $event,
                         )
                       "
                     >
@@ -933,7 +933,7 @@ const handleDropdownTabKey = (
   dropdownIndex,
   currentItemIndex,
   totalItems,
-  event
+  event,
 ) => {
   // If tabbing from the last item, close the dropdown
   if (currentItemIndex === totalItems - 1 && !event.shiftKey) {
@@ -1182,7 +1182,9 @@ const handleRegularDropdownFocus = (index) => {
 }
 
 .dropdown-item {
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
   border-left: 3px solid transparent;
   padding-left: 16px !important;
 }
@@ -1222,7 +1224,8 @@ const handleRegularDropdownFocus = (index) => {
   background-color: #f8f8f8 !important; /* Slightly darker on hover */
   color: #053285 !important; /* Darker primary on hover */
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 }
 
@@ -1236,7 +1239,8 @@ const handleRegularDropdownFocus = (index) => {
 :root[data-theme="dark"] .nav-download-btn:hover {
   background-color: #334155 !important; /* Slightly lighter on hover */
   color: #bfdbfe !important; /* Lighter blue on hover */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
     0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -1277,7 +1281,9 @@ const handleRegularDropdownFocus = (index) => {
   opacity: 1 !important;
   font-size: 1.25rem !important;
   transform: scale(1.2);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .dropdown-chevron:hover {
@@ -1290,7 +1296,9 @@ const handleRegularDropdownFocus = (index) => {
   opacity: 1 !important;
   font-size: 1.25rem !important;
   transform: scale(1.2);
-  transition: transform 0.3s ease, opacity 0.2s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.2s ease;
 }
 
 .mobile-dropdown-chevron:hover {

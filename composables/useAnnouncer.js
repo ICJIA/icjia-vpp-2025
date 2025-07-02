@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 
 /**
  * Enhanced Accessibility Announcer Composable
@@ -40,13 +40,13 @@ import { ref } from 'vue';
  *
  * @module useAnnouncer
  * @returns {Object} Announcer methods and state
- * @returns {import('vue').Ref<string>} announcePolite - Reactive ref for polite announcements
- * @returns {import('vue').Ref<string>} announceAssertive - Reactive ref for assertive announcements
+ * @returns {Object} announcePolite - Reactive ref for polite announcements
+ * @returns {Object} announceAssertive - Reactive ref for assertive announcements
  * @returns {Function} announce - Function to make an announcement with specified priority
  */
 export function useAnnouncer() {
-  const announcePolite = ref('');
-  const announceAssertive = ref('');
+  const announcePolite = ref("");
+  const announceAssertive = ref("");
 
   /**
    * Announce a message to screen readers
@@ -76,18 +76,18 @@ export function useAnnouncer() {
    * // Assertive (interrupting) announcement
    * announce('Form submission failed', 'assertive');
    */
-  const announce = (message, priority = 'polite') => {
-    if (priority === 'assertive') {
+  const announce = (message, priority = "polite") => {
+    if (priority === "assertive") {
       // Clear first, then set to ensure screen readers announce the change
       // even if the same message is announced twice
-      announceAssertive.value = '';
+      announceAssertive.value = "";
       setTimeout(() => {
         announceAssertive.value = message;
       }, 50);
     } else {
       // Clear first, then set to ensure screen readers announce the change
       // even if the same message is announced twice
-      announcePolite.value = '';
+      announcePolite.value = "";
       setTimeout(() => {
         announcePolite.value = message;
       }, 50);
@@ -103,9 +103,9 @@ export function useAnnouncer() {
    * @param {string} message - Loading message
    * @param {string} [context] - Additional context (e.g., 'search', 'form')
    */
-  const announceLoading = (message, context = '') => {
+  const announceLoading = (message, context = "") => {
     const fullMessage = context ? `${context}: ${message}` : message;
-    announce(fullMessage, 'polite');
+    announce(fullMessage, "polite");
   };
 
   /**
@@ -113,9 +113,9 @@ export function useAnnouncer() {
    * @param {string} message - Success message
    * @param {string} [context] - Additional context
    */
-  const announceSuccess = (message, context = '') => {
+  const announceSuccess = (message, context = "") => {
     const fullMessage = context ? `${context}: ${message}` : message;
-    announce(fullMessage, 'polite');
+    announce(fullMessage, "polite");
   };
 
   /**
@@ -123,9 +123,9 @@ export function useAnnouncer() {
    * @param {string} message - Error message
    * @param {string} [context] - Additional context
    */
-  const announceError = (message, context = '') => {
+  const announceError = (message, context = "") => {
     const fullMessage = context ? `${context}: ${message}` : message;
-    announce(fullMessage, 'assertive');
+    announce(fullMessage, "assertive");
   };
 
   /**
@@ -133,11 +133,11 @@ export function useAnnouncer() {
    * @param {string} pageName - Name of the new page
    * @param {string} [additionalInfo] - Additional navigation context
    */
-  const announceNavigation = (pageName, additionalInfo = '') => {
+  const announceNavigation = (pageName, additionalInfo = "") => {
     const message = additionalInfo
       ? `Navigated to ${pageName}. ${additionalInfo}`
       : `Navigated to ${pageName}`;
-    announce(message, 'polite');
+    announce(message, "polite");
   };
 
   return {
@@ -148,6 +148,6 @@ export function useAnnouncer() {
     announceLoading,
     announceSuccess,
     announceError,
-    announceNavigation
+    announceNavigation,
   };
 }

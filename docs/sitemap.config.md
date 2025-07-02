@@ -44,12 +44,7 @@ The sitemap configuration is stored in `/config/sitemap.config.json` and follows
     "exclusions": {
       "frontmatterKey": "includeInSiteMap",
       "frontmatterValue": false,
-      "patterns": [
-        "/sandbox",
-        "/sandbox-*",
-        "/404",
-        "/error"
-      ]
+      "patterns": ["/sandbox", "/sandbox-*", "/404", "/error"]
     }
   }
 }
@@ -251,6 +246,7 @@ yarn create:sitemap --verbose
 ```
 
 This will show:
+
 - Route discovery process
 - Exclusion decisions
 - URL sanitization

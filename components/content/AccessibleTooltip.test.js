@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mount } from '@vue/test-utils';
-import { nextTick } from 'vue';
-import AccessibleTooltip from './AccessibleTooltip.vue';
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { mount } from "@vue/test-utils";
+import { nextTick } from "vue";
+import AccessibleTooltip from "./AccessibleTooltip.vue";
 
 /**
  * Mock VueUse functions
@@ -11,17 +11,17 @@ import AccessibleTooltip from './AccessibleTooltip.vue';
  * - useMediaQuery: Returns a fixed value to simulate mobile device
  * - useEventListener: Simple mock function
  */
-vi.mock('@vueuse/core', () => ({
+vi.mock("@vueuse/core", () => ({
   useTimeoutFn: (fn, ms) => ({
     start: () => {
       fn();
     },
-    stop: vi.fn()
+    stop: vi.fn(),
   }),
   useMediaQuery: (query) => ({
-    value: query === '(max-width: 959px)' // Mock as mobile for testing
+    value: query === "(max-width: 959px)", // Mock as mobile for testing
   }),
-  useEventListener: vi.fn()
+  useEventListener: vi.fn(),
 }));
 
 /**
@@ -40,10 +40,10 @@ const TestComponent = {
         </template>
       </AccessibleTooltip>
     </div>
-  `
+  `,
 };
 
-describe('AccessibleTooltip', () => {
+describe("AccessibleTooltip", () => {
   let wrapper;
 
   /**
@@ -55,25 +55,33 @@ describe('AccessibleTooltip', () => {
   beforeEach(() => {
     // Mock window and document
     global.window = {
-      __TOOLTIP_INSTANCES__: new Map()
+      __TOOLTIP_INSTANCES__: new Map(),
     };
 
     global.document = {
       addEventListener: vi.fn(),
-      removeEventListener: vi.fn()
+      removeEventListener: vi.fn(),
     };
 
     // Mount the test component
     wrapper = mount(TestComponent, {
       global: {
         stubs: {
-          'v-tooltip': {
-            template: '<div><slot name="activator" :props="{}"></slot><div v-if="modelValue">{{ text }}</div></div>',
-            props: ['text', 'modelValue', 'location', 'openDelay', 'closeDelay', 'aria-label'],
-            emits: ['update:model-value']
-          }
-        }
-      }
+          "v-tooltip": {
+            template:
+              '<div><slot name="activator" :props="{}"></slot><div v-if="modelValue">{{ text }}</div></div>',
+            props: [
+              "text",
+              "modelValue",
+              "location",
+              "openDelay",
+              "closeDelay",
+              "aria-label",
+            ],
+            emits: ["update:model-value"],
+          },
+        },
+      },
     });
   });
 
@@ -82,22 +90,22 @@ describe('AccessibleTooltip', () => {
     vi.clearAllMocks();
   });
 
-  it('renders the tooltip component', () => {
+  it("renders the tooltip component", () => {
     expect(wrapper.findComponent(AccessibleTooltip).exists()).toBe(true);
   });
 
-  it('shows tooltip when activator is focused', async () => {
+  it("shows tooltip when activator is focused", async () => {
     const tooltipComponent = wrapper.findComponent(AccessibleTooltip);
-    const button = wrapper.find('button');
+    const button = wrapper.find("button");
 
     // Simulate focus event
-    await button.trigger('focus');
+    await button.trigger("focus");
 
     // Check if tooltip visibility is updated
     expect(tooltipComponent.vm.isTooltipVisible).toBe(true);
   });
 
-  it('closes tooltip when clicking outside', async () => {
+  it("closes tooltip when clicking outside", async () => {
     const tooltipComponent = wrapper.findComponent(AccessibleTooltip);
 
     // First make tooltip visible
@@ -112,10 +120,10 @@ describe('AccessibleTooltip', () => {
     expect(tooltipComponent.vm.isTooltipVisible).toBe(false);
   });
 
-  it('closes other tooltips when a new one becomes visible', async () => {
+  it("closes other tooltips when a new one becomes visible", async () => {
     // Create a mock tooltip instance
     const mockClose = vi.fn();
-    const mockTooltipId = Symbol('mock-tooltip');
+    const mockTooltipId = Symbol("mock-tooltip");
 
     // Add mock tooltip to registry
     window.__TOOLTIP_INSTANCES__.set(mockTooltipId, { close: mockClose });
@@ -134,7 +142,7 @@ describe('AccessibleTooltip', () => {
     expect(mockClose).toHaveBeenCalled();
   });
 
-  it('cleans up on unmount', async () => {
+  it("cleans up on unmount", async () => {
     const tooltipComponent = wrapper.findComponent(AccessibleTooltip);
     const tooltipId = tooltipComponent.vm.tooltipId;
 

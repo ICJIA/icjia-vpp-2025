@@ -18,9 +18,6 @@ This project serves as the official web presence for the Statewide Violence Prev
 - Dark/light theme with persistent user preferences
 - Full-text search functionality across all content with Defuddle-enhanced content extraction
 
-
-
-
 ## Dev Site
 
 The development version of this site is available at:
@@ -81,8 +78,6 @@ yarn build:quiet
 yarn generate:quiet
 ```
 
-
-
 Build the application for server-side rendering:
 
 ```bash
@@ -103,13 +98,12 @@ yarn preview
 npm run preview
 ```
 
-
-
 ### Accessibility Resources
 
 - [Accessibility Documentation](/accessibility/documentation): User guide to accessibility features
 - [Accessibility Audit Log](/accessibility/audit-log): Technical assessment of compliance status
 
 These resources are available through the Nuxt Content v3 system:
+
 - `/accessibility/documentation`: User-facing documentation
 - `/accessibility/audit-log`: Technical audit log

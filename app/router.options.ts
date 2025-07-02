@@ -6,12 +6,12 @@
  * on route changes and page refresh.
  */
 
-import type { RouterConfig } from '@nuxt/schema'
+import type { RouterConfig } from "@nuxt/schema";
 
 // https://router.vuejs.org/api/#routeroptions
 export default <RouterConfig>{
   scrollBehavior(to, from, savedPosition) {
     // Always scroll to top (0, 0) on route changes and page refresh
-    return { top: 0, left: 0, behavior: 'auto' }
-  }
-}
+    return { top: 0, left: 0, behavior: "auto" };
+  },
+};

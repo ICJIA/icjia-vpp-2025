@@ -1,6 +1,6 @@
-import { ref, computed } from 'vue';
-import { useAsyncData, useRuntimeConfig, queryCollection } from '#imports';
-import { useConsoleLogger } from '~/composables/useConsoleLogger';
+import { ref, computed } from "vue";
+import { useAsyncData, useRuntimeConfig, queryCollection } from "#imports";
+import { useConsoleLogger } from "~/composables/useConsoleLogger";
 
 /**
  * Composable for fetching and managing content from Nuxt Content
@@ -148,61 +148,63 @@ export default function useContentFetcher(options) {
   const errorAction = ref(null);
 
   // Get environment information
-  const isDevelopment = useRuntimeConfig().public.NODE_ENV === 'development';
+  const isDevelopment = useRuntimeConfig().public.NODE_ENV === "development";
 
   // Initialize logger
   const { log, logError } = useConsoleLogger();
 
   // Log fetch start
-  log('content', 'Content fetching started', {
+  log("content", "Content fetching started", {
     path,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 
   // Fetch content using Nuxt's useAsyncData and queryCollection
-  const { data: content, pending, error, refresh } = useAsyncData(
-    `content-${path}`,
-    async () => {
-      try {
-        // Fetch the content using queryCollection
-        const result = await queryCollection('content').path(path).first();
+  const {
+    data: content,
+    pending,
+    error,
+    refresh,
+  } = useAsyncData(`content-${path}`, async () => {
+    try {
+      // Fetch the content using queryCollection
+      const result = await queryCollection("content").path(path).first();
 
-        // Handle null/undefined result
-        if (result === null || result === undefined) {
-          const notFoundError = new Error(`Content not found at path: ${path}`);
-          notFoundError.code = 'NOT_FOUND';
-          throw notFoundError;
-        }
-
-        // Log success
-        log('content', 'Content successfully retrieved', {
-          path,
-          contentType: typeof result
-        });
-
-        return result;
-      } catch (err) {
-        // Log error
-        logError('Content error', {
-          path,
-          error: err.message
-        });
-
-        // Store technical details for development mode
-        technicalErrorDetails.value = {
-          message: err.message,
-          stack: err.stack,
-          code: err.code,
-          context: {
-            path,
-            timestamp: new Date().toISOString()
-          }
-        };
-
-        throw err;
+      // Handle null/undefined result
+      if (result === null || result === undefined) {
+        const notFoundError = new Error(`Content not found at path: ${path}`);
+        notFoundError.code = "NOT_FOUND";
+        throw notFoundError;
       }
+
+      // Log success
+      log("content", "Content successfully retrieved", {
+        path,
+        contentType: typeof result,
+      });
+
+      return result;
+    } catch (err) {
+      // Log error
+      logError("Content error", {
+        path,
+        error: err.message,
+      });
+
+      // Store technical details for development mode
+      technicalErrorDetails.value = {
+        message: err.message,
+        stack: err.stack,
+        code: err.code,
+        context: {
+          path,
+          timestamp: new Date().toISOString(),
+        },
+      };
+
+      throw err;
     }
-  );
+  });
 
   /**
    * Determine if content is renderable
@@ -210,7 +212,7 @@ export default function useContentFetcher(options) {
    */
   const isContentRenderable = computed(() => {
     if (!content.value) return false;
-    if (typeof content.value !== 'object') return false;
+    if (typeof content.value !== "object") return false;
     if (contentSuccessfullyRendered.value) return true;
 
     // Check for standard Nuxt Content structure
@@ -229,14 +231,24 @@ export default function useContentFetcher(options) {
     }
 
     // Check for children (for directory listings)
-    if (Array.isArray(content.value.children) && content.value.children.length > 0) {
+    if (
+      Array.isArray(content.value.children) &&
+      content.value.children.length > 0
+    ) {
       return true;
     }
 
     // Check for any content properties that indicate renderable content
-    const renderableProperties = ['title', 'description', 'body', '_path', 'path', 'children'];
-    const hasRenderableContent = renderableProperties.some(prop =>
-      content.value.hasOwnProperty(prop) && content.value[prop]
+    const renderableProperties = [
+      "title",
+      "description",
+      "body",
+      "_path",
+      "path",
+      "children",
+    ];
+    const hasRenderableContent = renderableProperties.some(
+      (prop) => content.value.hasOwnProperty(prop) && content.value[prop],
     );
 
     return hasRenderableContent;
@@ -247,7 +259,7 @@ export default function useContentFetcher(options) {
    * Enhanced with better content extraction and metadata handling
    */
   const contentPreview = computed(() => {
-    if (!content.value || typeof content.value !== 'object') {
+    if (!content.value || typeof content.value !== "object") {
       return { content: String(content.value) };
     }
 
@@ -258,10 +270,13 @@ export default function useContentFetcher(options) {
       preview.title = content.value.title;
     } else if (content.value._path) {
       // Generate title from path if none exists
-      const pathSegments = content.value._path.split('/').filter(Boolean);
-      preview.title = pathSegments.length > 0
-        ? pathSegments[pathSegments.length - 1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-        : 'Untitled';
+      const pathSegments = content.value._path.split("/").filter(Boolean);
+      preview.title =
+        pathSegments.length > 0
+          ? pathSegments[pathSegments.length - 1]
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase())
+          : "Untitled";
     }
 
     if (content.value.description) {
@@ -269,26 +284,29 @@ export default function useContentFetcher(options) {
     }
 
     // Add path information
-    if (Object.prototype.hasOwnProperty.call(content.value, '_path')) {
-      preview.path = content.value['_path'];
-    } else if (Object.prototype.hasOwnProperty.call(content.value, 'path')) {
+    if (Object.prototype.hasOwnProperty.call(content.value, "_path")) {
+      preview.path = content.value["_path"];
+    } else if (Object.prototype.hasOwnProperty.call(content.value, "path")) {
       preview.path = content.value.path;
     }
 
     // Handle body content with better processing
     if (content.value.body) {
-      if (typeof content.value.body === 'string') {
+      if (typeof content.value.body === "string") {
         preview.body = content.value.body;
-      } else if (typeof content.value.body === 'object') {
+      } else if (typeof content.value.body === "object") {
         try {
           // Try to extract text content from structured body
-          if (content.value.body.children && Array.isArray(content.value.body.children)) {
+          if (
+            content.value.body.children &&
+            Array.isArray(content.value.body.children)
+          ) {
             preview.body = extractTextFromChildren(content.value.body.children);
           } else {
             preview.body = JSON.stringify(content.value.body, null, 2);
           }
         } catch (err) {
-          preview.body = '[Complex body structure]';
+          preview.body = "[Complex body structure]";
         }
       }
     }
@@ -307,37 +325,43 @@ export default function useContentFetcher(options) {
    * @returns {string} Extracted text content
    */
   function extractTextFromChildren(children) {
-    if (!Array.isArray(children)) return '';
+    if (!Array.isArray(children)) return "";
 
-    return children.map(child => {
-      if (typeof child === 'string') return child;
-      if (child.value) return child.value;
-      if (child.children) return extractTextFromChildren(child.children);
-      return '';
-    }).join(' ').trim();
+    return children
+      .map((child) => {
+        if (typeof child === "string") return child;
+        if (child.value) return child.value;
+        if (child.children) return extractTextFromChildren(child.children);
+        return "";
+      })
+      .join(" ")
+      .trim();
   }
 
   /**
    * User-friendly error message
    */
   const userFriendlyErrorMessage = computed(() => {
-    if (!error.value) return '';
-    return error.value.message || 'There was a problem loading the content. Please try again later.';
+    if (!error.value) return "";
+    return (
+      error.value.message ||
+      "There was a problem loading the content. Please try again later."
+    );
   });
 
   /**
    * Error severity
    */
   const errorSeverity = computed(() => {
-    return 'error';
+    return "error";
   });
 
   /**
    * Error title
    */
   const errorTitle = computed(() => {
-    if (!error.value) return 'Error';
-    return 'Error Loading Content';
+    if (!error.value) return "Error";
+    return "Error Loading Content";
   });
 
   /**
@@ -345,9 +369,9 @@ export default function useContentFetcher(options) {
    */
   const markAsRendered = () => {
     contentSuccessfullyRendered.value = true;
-    log('content', 'Content rendering completed', {
+    log("content", "Content rendering completed", {
       path,
-      renderSuccess: true
+      renderSuccess: true,
     });
   };
 
@@ -366,6 +390,6 @@ export default function useContentFetcher(options) {
     markAsRendered,
     errorAction,
     technicalErrorDetails,
-    isDevelopment
+    isDevelopment,
   };
 }

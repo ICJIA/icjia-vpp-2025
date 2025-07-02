@@ -27,7 +27,7 @@
  * @component
  * @requires ImageWithSpinner
  */
-import ImageWithSpinner from '~/components/content/ImageWithSpinner.vue';
+import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
 /**
  * Component props
@@ -38,7 +38,7 @@ const props = defineProps({
    */
   src: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -46,7 +46,7 @@ const props = defineProps({
    */
   alt: {
     type: String,
-    required: true
+    required: true,
   },
 
   /**
@@ -54,7 +54,7 @@ const props = defineProps({
    */
   width: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -62,7 +62,7 @@ const props = defineProps({
    */
   height: {
     type: [String, Number],
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -70,7 +70,7 @@ const props = defineProps({
    */
   caption: {
     type: String,
-    default: undefined
+    default: undefined,
   },
 
   /**
@@ -78,7 +78,7 @@ const props = defineProps({
    */
   spinnerColor: {
     type: String,
-    default: 'primary'
+    default: "primary",
   },
 
   /**
@@ -86,7 +86,7 @@ const props = defineProps({
    */
   spinnerSize: {
     type: [String, Number],
-    default: 40
+    default: 40,
   },
 
   /**
@@ -94,7 +94,7 @@ const props = defineProps({
    */
   eager: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   /**
@@ -102,7 +102,7 @@ const props = defineProps({
    */
   cover: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
   /**
@@ -110,8 +110,8 @@ const props = defineProps({
    */
   aspectRatio: {
     type: [String, Number],
-    default: undefined
-  }
+    default: undefined,
+  },
 });
 </script>
 

@@ -1,5 +1,20 @@
 /**
  * Utility functions for sanitizing user input to prevent XSS attacks
+ *
+ * This module provides comprehensive sanitization functions for different contexts:
+ * - String sanitization for general HTML escaping
+ * - Search query sanitization with length limits and pattern filtering
+ * - Safe text highlighting without XSS vulnerabilities
+ * - Content sanitization for search indexing
+ * - Search result validation and sanitization
+ * - Dangerous content detection with Vue.js context awareness
+ *
+ * All functions are designed to handle edge cases gracefully and provide
+ * secure defaults when input validation fails.
+ *
+ * @module sanitize
+ * @author Violence Prevention Plan for Illinois: 2025-2029
+ * @version 1.0.0
  */
 
 /**
@@ -126,8 +141,25 @@ export function safeHighlightMatches(text, query, minTermLength = 3) {
 /**
  * Sanitizes content for search indexing to prevent malicious code injection
  *
+ * Removes potentially dangerous content including scripts, styles, HTML comments,
+ * JavaScript patterns, Vue directives, and other code that could be executed.
+ * Designed specifically for preparing content for search indexing where security
+ * is paramount. Limits content length to prevent DoS attacks.
+ *
  * @param {string} content - The content to sanitize for indexing
- * @returns {string} - The sanitized content safe for indexing
+ * @returns {string} The sanitized content safe for indexing (max 5000 chars)
+ *
+ * @throws {Error} Does not throw, handles all input gracefully
+ *
+ * @example
+ * const unsafe = '<script>alert("xss")</script><p>Safe content</p>';
+ * const safe = sanitizeContentForIndexing(unsafe);
+ * console.log(safe); // "Safe content"
+ *
+ * @example
+ * const vueContent = '<div v-if="show">{{ title }}</div>';
+ * const indexed = sanitizeContentForIndexing(vueContent);
+ * // Removes Vue directives but preserves text content
  */
 export function sanitizeContentForIndexing(content) {
   if (!content || typeof content !== "string") {
@@ -181,7 +213,7 @@ export function sanitizeContentForIndexing(content) {
   // Remove email addresses to prevent information disclosure
   sanitized = sanitized.replace(
     /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi,
-    ""
+    "",
   );
 
   // Normalize whitespace
@@ -254,7 +286,7 @@ export function containsDangerousContent(str) {
 
   // Check for dangerous patterns first
   const hasDangerousPattern = dangerousPatterns.some((pattern) =>
-    pattern.test(str)
+    pattern.test(str),
   );
 
   if (!hasDangerousPattern) {
