@@ -63,22 +63,6 @@
 
       <!-- Footer bottom section -->
       <div class="footer-bottom">
-        <div class="copyright">
-          <span>
-            © {{ new Date().getFullYear() }}
-            <a
-              href="https://icjia.illinois.gov"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="org-link"
-              aria-label="Visit Illinois Criminal Justice Information Authority website"
-            >
-              Illinois Criminal Justice Information Authority
-            </a>
-            . All rights reserved.
-          </span>
-        </div>
-
         <nav class="footer-nav" aria-label="Footer navigation">
           <nuxt-link
             to="/accessibility/documentation"
@@ -102,6 +86,21 @@
             Terms of Service
           </nuxt-link>
         </nav>
+
+        <div class="copyright">
+          <span>
+            © {{ new Date().getFullYear() }}
+            <a
+              href="https://icjia.illinois.gov"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="org-link"
+              aria-label="Visit Illinois Criminal Justice Information Authority website"
+            >
+              Illinois Criminal Justice Information Authority
+            </a>
+          </span>
+        </div>
       </div>
     </div>
   </v-footer>
@@ -234,9 +233,10 @@ const handleHomeClick = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding-top: 32px;
+  gap: 12px;
+  padding-top: 24px;
   border-top: 1px solid rgba(var(--v-theme-on-background), 0.06);
+  text-align: center;
 }
 
 .copyright {
@@ -293,8 +293,8 @@ const handleHomeClick = () => {
   }
 
   .footer-bottom {
-    gap: 12px;
-    padding-top: 24px;
+    gap: 16px;
+    padding-top: 28px;
   }
 
   .footer-nav {
@@ -326,12 +326,6 @@ const handleHomeClick = () => {
 
 /* Desktop layout improvements */
 @media (min-width: 769px) {
-  .footer-bottom {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .footer-nav {
     gap: 32px;
   }
