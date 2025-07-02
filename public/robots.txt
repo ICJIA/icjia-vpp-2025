@@ -1,8 +1,7 @@
 User-agent: *
 Allow: /
 
-Disallow: /sandbox
-Disallow: /sandbox-refactored
+Disallow: /*sandbox*
 Disallow: /documentation
 
 Sitemap: https://vpp-2025.netlify.app/sitemap.xml
