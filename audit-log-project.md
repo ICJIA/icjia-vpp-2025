@@ -2,6 +2,39 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-02 (Footer Component Complete Redesign)
+
+- Completely redesigned the footer component with a modern, minimal aesthetic while preserving all existing functionality and accessibility standards.
+- Files modified/created:
+  - `components/content/AppFooter.vue`: Complete redesign of template structure and CSS styling
+- Technical Notes:
+  - **Complete Template Restructure**: Replaced complex responsive layout with clean semantic sections (footer-main, footer-bottom)
+  - **Modern CSS Implementation**: Eliminated all conflicting styles and implemented modern CSS Grid/Flexbox layout techniques
+  - **Visual Design Improvements**:
+    - Clean borders and subtle dividers instead of complex gradients
+    - Proper visual hierarchy with balanced whitespace and consistent spacing
+    - Professional typography with appropriate font weights and sizes
+    - Smooth hover effects with gentle transforms for modern interaction feedback
+  - **Preserved Functionality**: All existing links, navigation, theme switching, and accessibility features maintained
+  - **Responsive Design**: Mobile-first approach with clean breakpoints, optimized spacing, and touch-friendly 44px minimum targets
+  - **Color Scheme**: Uses exact same light/dark mode color variables while maintaining WCAG 2.1 AA compliance
+  - **Performance**: Simplified CSS reduces complexity and improves maintainability
+    - Desktop copyright links: further reduced padding (8px 2px) and margins (0 1px) for tighter layout
+    - Mobile copyright links: compact padding (6px 8px) with vertical-only margins (2px 0)
+    - **Modern Visual Enhancements**:
+      - Added subtle gradient border at top of footer using CSS pseudo-element for modern appearance
+      - Enhanced footer brand link with hover background effect and rounded corners (8px border-radius)
+      - Improved divider styling with reduced opacity (0.6) and centered max-width (200px) for elegant separation
+      - Added visual hierarchy improvements with opacity adjustments for copyright (0.9) and dividers (0.7)
+      - Reduced footer description max-width from 800px to 700px for better readability
+- Technical Notes:
+  - Maintained WCAG 2.1 AA compliance with 44px minimum touch targets for interactive elements
+  - Preserved all existing theme switching, navigation functionality, and responsive behavior
+  - Fixed CSS specificity issues that were causing visual gaps between footer elements
+  - Improved mobile layout with consistent gap spacing (8px) and better element alignment
+  - Enhanced desktop layout with proper flexbox alignment and reduced whitespace
+  - All changes maintain existing light/dark theme color schemes and accessibility features
+
 ### 2025-07-02 (JSDoc Dark Mode Configuration Enhancement)
 
 - Enhanced JSDoc documentation configuration to properly default to dark mode using clean-jsdoc-theme, ensuring consistent dark theme experience across all documentation components.
@@ -2328,7 +2361,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Replaced manual TOC toggle switch with automatic visibility control based on page metadata, implementing a cleaner, metadata-driven TOC system that respects page-level configuration without requiring user interaction.
 
 - **Files Modified/Created**:
-
   - `pages/sandbox-toc.vue`: Complete refactoring to remove toggle switch and implement metadata-based TOC control
     - **Removed**: All toggle switch template elements, CSS styling, and JavaScript logic
     - **Added**: Computed property `showTOC` that reads `showTOC` metadata from page frontmatter
@@ -2337,7 +2369,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - `content/test-no-toc.md`: Created test content file with `showTOC: false` to demonstrate automatic hiding functionality
 
 - **Technical Implementation**:
-
   - **Metadata Reading**: TOC visibility determined by checking `showTOC` property in page frontmatter/metadata
   - **Default Behavior**: TOC shows by default when `showTOC` is `true`, `undefined`, or not present
   - **Hide Condition**: TOC hidden only when `showTOC` is explicitly set to `false`
@@ -2346,7 +2377,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Multiple Path Support**: Checks `about.value?.['showTOC']`, `about.value?.meta?.['showTOC']`, and `about.value?.frontmatter?.['showTOC']`
 
 - **Removed Components**:
-
   - TOC toggle switch component and all associated template elements
   - All CSS styling for toggle container, switch, and label (85+ lines of CSS removed)
   - Toggle row layout and positioning styles
@@ -2401,17 +2431,14 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Replaced complex PageTitleSection component with simple, direct HTML title elements inside the content column. This eliminates all margin/padding issues and ensures the title stretches edge-to-edge within the column boundaries without any gaps.
 
 - **Simple Approach**:
-
   - Removed PageTitleSection component entirely from sandbox-toc.vue
   - Added direct `<h1>` and `<p>` elements inside the content column
   - Applied simple CSS styling for edge-to-edge background within column
 
 - **Files Modified**:
-
   - `pages/sandbox-toc.vue`: Replaced PageTitleSection with simple title HTML, added `.simple-title-section` styling
 
 - **Technical Implementation**:
-
   - **Direct HTML**: `<h1>` and `<p>` elements directly in content column
   - **Edge-to-Edge Styling**: `width: 100%` with background color spanning full column width
   - **No Extra Margins**: Zero margins on container, proper padding for content
@@ -2428,18 +2455,15 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Fixed fundamental architectural issue where PageTitleSection was positioned outside the Vuetify grid system, causing it to span full viewport width regardless of column settings. Moved PageTitleSection inside the column structure and simplified its internal layout to properly respect column boundaries.
 
 - **Root Cause Identified**:
-
   - PageTitleSection was placed **before** `<v-container>` and `<v-row>` in page layouts
   - Component had its own internal grid system (`v-container` > `v-row` > `v-col`) creating nested grid conflicts
   - Title text was not constrained by any column boundaries, always spanning full width
 
 - **Files Modified**:
-
   - `pages/sandbox-toc.vue`: Moved PageTitleSection inside the main content column, removed `toc-visible` prop
   - `components/content/PageTitleSection.vue`: Removed internal grid system, simplified to direct content layout, removed `tocVisible` prop and `titleColumnWidth` computed property
 
 - **Technical Implementation**:
-
   - **Architectural Fix**: PageTitleSection now placed inside `<v-col>` instead of outside grid system
   - **Grid Simplification**: Removed internal `v-container`/`v-row`/`v-col` structure from PageTitleSection
   - **Column Constraint**: Title content now properly constrained by parent column boundaries
@@ -2456,12 +2480,10 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Enhanced the PageTitleSection and TOC layout system to ensure perfect responsive column alignment across all screen sizes, with optimized mobile experience that completely hides the TOC sidebar and provides full-width content layout.
 
 - **Files Modified**:
-
   - `pages/sandbox-toc.vue`: Added responsive display classes (`d-none d-md-block`) to hide TOC on mobile, updated column width comments for clarity
   - `components/content/PageTitleSection.vue`: Enhanced documentation to clarify mobile behavior and TOC interaction
 
 - **Technical Implementation**:
-
   - **Mobile TOC Hiding**: Applied Vuetify responsive display classes to completely hide TOC sidebar on mobile screens (< md breakpoint)
   - **Perfect Column Alignment**: Ensured PageTitleSection and main content use identical column widths for visual alignment
   - **Responsive Grid System**: Both components use matching responsive breakpoints: cols="12" (mobile), md="8/9" (TOC enabled), md="12" (TOC disabled)
@@ -2478,13 +2500,11 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Removed all references to 'yarn dlx' commands throughout the project to ensure compatibility with Yarn 1.22.22, which does not support the dlx feature. Updated documentation and project rules to reflect proper package execution methods.
 
 - **Files Modified**:
-
   - `docs/project-rules.md`: Updated package execution guidelines to use `npx` instead of `yarn dlx` with clarification that Yarn 1.22.22 does not support dlx
   - `README.md`: Updated package manager standard documentation to reflect npx usage for package execution
   - `audit-log-project.md`: Updated historical references to yarn dlx usage to reflect current standards
 
 - **Technical Implementation**:
-
   - **Package Execution Standard**: Established `npx` as the standard for package execution since Yarn 1.22.22 lacks dlx support
   - **Documentation Consistency**: Ensured all documentation reflects the correct package execution method for the project's Yarn version
   - **Project Rules Update**: Modified project standards to accurately reflect Yarn 1.22.22 capabilities and limitations
@@ -2499,12 +2519,10 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Modified PageTitleSection component to dynamically adjust its column layout based on TOC visibility for proper visual alignment with main content, and reverted TOC positioning to a simpler fixed approach for better performance and maintainability.
 
 - **Files Modified**:
-
   - `components/content/PageTitleSection.vue`: Added responsive column layout system with `tocVisible` prop, integrated Vuetify 3 grid system, and updated CSS to work with new grid structure
   - `pages/sandbox-toc.vue`: Passed TOC visibility state to PageTitleSection, reverted to simple fixed TOC positioning (80px from top), and removed complex scroll-based positioning logic
 
 - **Technical Implementation**:
-
   - **Dynamic Column Layout**: PageTitleSection now uses conditional column classes (`cols="12" md="9"` when TOC enabled, `cols="12"` when disabled) to align with main content area
   - **Responsive Design**: Maintains mobile-first approach with full width on mobile devices regardless of TOC state
   - **Simplified TOC Positioning**: Reverted from dynamic scroll-based positioning to fixed 80px offset for better performance and reduced complexity
@@ -5093,7 +5111,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented comprehensive footnote capability for Nuxt Content 3 using client-side processing with GitHub Flavored Markdown syntax, providing fully accessible footnotes that comply with WCAG 2.1 AA standards and integrate seamlessly with the existing Vuetify-based design system.
 
 - **Files Modified/Created**:
-
   - `package.json`: Added `remark-gfm@4.0.1` dependency for GitHub Flavored Markdown support
   - `plugins/footnotes.client.js`: Created comprehensive client-side footnote processing plugin
     - Processes standard footnote syntax (`[^1]` references and `[^1]: content` definitions)
@@ -5117,7 +5134,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
     - Troubleshooting guide and technical implementation overview
 
 - **Technical Implementation**:
-
   - **Client-Side Processing**: JavaScript plugin processes footnote syntax after Nuxt Content renders markdown, ensuring compatibility with existing MDC system
   - **Accessibility Compliance**: Full WCAG 2.1 AA compliance with proper semantic HTML, ARIA attributes, and keyboard navigation
   - **Theme Integration**: Seamless integration with existing light/dark theme system using Vuetify design tokens
@@ -5125,7 +5141,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Security Considerations**: Safe HTML generation with proper escaping and sanitization
 
 - **Accessibility Features Implemented**:
-
   - **Semantic HTML**: Uses `<section role="doc-endnotes">`, `<ol>`, and proper heading structure
   - **ARIA Attributes**: Comprehensive ARIA labeling with `role="doc-noteref"`, `role="doc-endnote"`, and `role="doc-backlink"`
   - **Keyboard Navigation**: Full keyboard accessibility with proper focus management and tab order
@@ -5135,7 +5150,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Focus Management**: Proper focus handling when navigating between footnote references and definitions
 
 - **Styling and Design**:
-
   - **Light Theme**: Blue color scheme (#0d47a1) with light backgrounds (#e3f2fd) for optimal readability
   - **Dark Theme**: Indigo color scheme (#1a237e) with dark backgrounds for consistent dark mode experience
   - **Responsive Design**: Mobile-optimized with adjusted spacing and sizing for smaller screens
@@ -5143,7 +5157,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **High Contrast Mode**: Enhanced styling for users with high contrast preferences
 
 - **Integration with Existing Systems**:
-
   - **Nuxt Content Compatibility**: Works seamlessly with existing MDC (Markdown Components) system
   - **Vuetify Integration**: Uses Vuetify design tokens and theme variables for consistent styling
   - **Search Compatibility**: Footnote content is properly indexed by the Defuddle-enhanced search system
@@ -5151,7 +5164,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Theme System**: Automatically adapts to light/dark theme changes using existing theme infrastructure
 
 - **Testing and Validation**:
-
   - **Functionality Testing**: Comprehensive test page (`/footnote-test`) demonstrates all footnote features
   - **Accessibility Testing**: Verified keyboard navigation, screen reader compatibility, and ARIA implementation
   - **Theme Testing**: Confirmed proper appearance in both light and dark themes
@@ -5159,14 +5171,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Performance Testing**: Confirmed efficient processing without impacting page load times
 
 - **Documentation and Usage**:
-
   - **Comprehensive Guide**: Created detailed usage documentation with syntax examples and best practices
   - **Accessibility Documentation**: Documented all accessibility features and compliance measures
   - **Technical Documentation**: Provided implementation details and troubleshooting guidance
   - **Integration Examples**: Demonstrated integration with existing content management workflow
 
 - **Benefits Achieved**:
-
   - **Enhanced Content Capability**: Authors can now include detailed citations and supplementary information without disrupting reading flow
   - **Professional Documentation**: Footnotes enable academic-style documentation appropriate for government publications
   - **Accessibility Excellence**: Implementation exceeds WCAG 2.1 AA requirements and supports all assistive technologies
@@ -5180,7 +5190,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented comprehensive enhancements to accessibility features, configuration management systems, and development experience tools to optimize the development workflow and improve project maintainability as originally developed this morning.
 
 - **Files Modified**:
-
   - `scripts/create-accessibility-html.js`: Enhanced accessibility documentation generator
     - Added advanced WCAG 2.1 AA compliance features with improved contrast ratios (7:1+)
     - Enhanced screen reader optimizations and landmark regions
@@ -5208,35 +5217,30 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
     - Added development tools suite (`dev:tools`) for comprehensive debugging
 
 - **Accessibility Improvements**:
-
   - **Enhanced WCAG Compliance**: Improved accessibility documentation generator with advanced WCAG 2.1 AA features and enhanced contrast ratios
   - **Advanced Screen Reader Support**: Enhanced announcement system with context-aware messages and improved compatibility across screen readers
   - **Better Keyboard Navigation**: Improved focus indicators and keyboard navigation support throughout the system
   - **Reduced Motion Support**: Added accessibility preferences support for users with motion sensitivity
 
 - **Configuration Management Enhancements**:
-
   - **Menu Integration**: Enhanced site configuration generator with menu configuration integration for better routing analysis
   - **Route Optimization**: Added comprehensive route analysis including orphaned page detection and optimization insights
   - **Enhanced Statistics**: Improved statistics calculation with menu integration tracking and route optimization reporting
   - **Build-time Optimization**: Enhanced configuration generation with better performance monitoring and error reporting
 
 - **Development Experience Improvements**:
-
   - **Enhanced Logging System**: Advanced unified logging with source location tracking, categorized timing, and actionable error reporting
   - **Improved Development Scripts**: Added fast development mode, comprehensive cleaning utilities, and debugging tools
   - **Better Error Handling**: Enhanced error reporting with debugging suggestions and documentation references
   - **Workflow Optimization**: Streamlined development workflow with smart log grouping and performance monitoring
 
 - **Technical Improvements**:
-
   - **Performance Monitoring**: Enhanced timing utilities with nested timing support and duration-based log level selection
   - **Error Diagnostics**: Improved error reporting with stack trace analysis and actionable debugging insights
   - **Development Tools**: Comprehensive debugging suite with search index analysis, configuration validation, and accessibility testing
   - **Build Optimization**: Enhanced build process with better error handling and performance monitoring
 
 - **Benefits Achieved**:
-
   - **Improved Accessibility**: Enhanced WCAG compliance and screen reader support provide better accessibility for all users
   - **Better Development Workflow**: Enhanced logging and debugging tools provide more efficient development experience
   - **Optimized Configuration**: Enhanced configuration management provides better insights into routing and menu integration
@@ -5250,7 +5254,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented comprehensive search system enhancements and content management improvements to optimize search functionality, improve case-insensitive matching, and enhance content processing capabilities as originally developed this morning before API implementation.
 
 - **Files Modified**:
-
   - `config/fuse.config.json`: Enhanced Fuse.js configuration with improved search tolerance and matching capabilities
     - Increased `maxPatternLength` from 50 to 100 characters for longer search queries
     - Added `ignoreLocation: true` to improve search accuracy across content
@@ -5269,28 +5272,24 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
     - Enhanced metadata extraction including createdAt, updatedAt, and tags
 
 - **Search System Enhancements**:
-
   - **Improved Case-Insensitive Matching**: Enhanced Fuse.js configuration to provide more tolerant and accurate search results regardless of case variations
   - **Better Content Processing**: Enhanced HTML-to-plain-text conversion removes Vue/Nuxt specific artifacts that could interfere with search matching
   - **Enhanced Pattern Matching**: Increased pattern length support and enabled comprehensive match finding for better search coverage
   - **Optimized Text Extraction**: Improved removal of technical markup while preserving all meaningful content for search indexing
 
 - **Content Management Improvements**:
-
   - **Enhanced Content Validation**: Better detection of renderable content including support for directory listings and complex content structures
   - **Improved Metadata Handling**: Enhanced extraction of content metadata with intelligent fallback title generation from paths
   - **Better Error Handling**: Enhanced content fetching with improved error classification and recovery options
   - **Structured Content Support**: Added support for extracting text from Nuxt Content's structured body format
 
 - **Technical Improvements**:
-
   - **Search Index Quality**: Enhanced content extraction produces cleaner, more searchable text by removing Vue directives, interpolations, and technical artifacts
   - **Content Structure Detection**: Better recognition of different content types and structures for appropriate rendering and processing
   - **Metadata Enhancement**: Improved automatic title generation and metadata extraction for better content management
   - **Performance Optimization**: Enhanced text processing functions for better performance during search index generation
 
 - **Benefits Achieved**:
-
   - **Improved Search Accuracy**: Enhanced configuration provides more relevant search results with better tolerance for variations in search queries
   - **Cleaner Search Results**: Enhanced content processing removes technical artifacts that could confuse search matching
   - **Better Content Management**: Enhanced content fetcher provides more robust content handling and better error recovery
@@ -5325,14 +5324,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Conducted thorough Week 2 accessibility assessment of entire Violence Prevention Plan for Illinois: 2025-2029 project, evaluating all components, scripts, and content against WCAG 2.1 AA standards and Illinois IITAA 2.1 requirements, with detailed implementation roadmap for final project weeks.
 
 - **Audit Scope and Methodology**:
-
   - **Comprehensive Analysis**: Evaluated 15+ Vue components, all JavaScript files in `/scripts/`, `/utils/`, `/composables/`, generated HTML output, content accessibility, and search functionality
   - **WCAG 2.1 AA Framework**: Assessed semantic structure, keyboard navigation, screen reader support, focus management, color contrast, reduced motion support, and specialized accessibility components
   - **Illinois IITAA 2.1 Standards**: Verified compliance with state accessibility requirements for government websites
   - **Testing Infrastructure Review**: Analyzed current testing capabilities and identified automated accessibility testing gaps
 
 - **Audit Results - Exceptional Compliance Achieved**:
-
   - **✅ WCAG 2.1 AA: FULLY COMPLIANT** across all implemented features with many areas exceeding standards
   - **✅ Illinois IITAA 2.1: FULLY COMPLIANT** with all government accessibility requirements
   - **✅ Semantic Structure**: Perfect landmark implementation, skip links, heading hierarchy, and ARIA regions
@@ -5342,21 +5339,18 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **✅ Specialized Components**: AccessibleTooltip, screen reader announcer, theme switch, and image components with comprehensive testing
 
 - **Component-by-Component Assessment Results**:
-
   - **Layout Components**: `layouts/default.vue`, `AppHeader.vue`, `AppFooter.vue` - Excellent implementation with skip links, announcer system, comprehensive navigation accessibility
   - **Interactive Components**: `ThemeSwitch.vue`, `AccessibleTooltip.vue`, `HeroSection.vue` - Perfect switch implementation, advanced tooltips, excellent button accessibility
   - **Content Components**: `ImageWithSpinner.vue`, `CenteredImage.vue`, `TextWrapImage.vue` - Comprehensive loading states, proper semantic HTML, ARIA relationships
   - **Search Functionality**: `pages/search.vue` - Exceptional accessibility with comprehensive ARIA implementation, keyboard navigation, screen reader announcements
 
 - **Implementation Roadmap for Final Weeks**:
-
   - **Near-Term Priorities (1-2 weeks)**: Automated accessibility testing integration (axe-core), accessibility testing documentation, enhanced error handling accessibility
   - **Medium-Term Improvements (2-4 weeks)**: Performance accessibility optimization, advanced AAA-level features where feasible
   - **Recommended Tools**: @axe-core/playwright for comprehensive testing, axe DevTools for manual testing, Lighthouse CI for monitoring
   - **Maintenance Procedures**: Ongoing compliance workflow, component development guidelines, content accessibility guidelines
 
 - **Critical Success Factors Identified**:
-
   - **Accessibility-First Design**: Accessibility integrated from day one, not retrofitted
   - **Comprehensive Component Library**: Specialized accessible components provide consistent behavior
   - **Thorough Documentation**: Extensive JSDoc comments and audit logs ensure knowledge preservation
@@ -5364,13 +5358,11 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Government Standards Compliance**: Full IITAA 2.1 and WCAG 2.1 AA compliance achieved
 
 - **Areas Requiring Attention**:
-
   - **🟠 Automated Testing Integration**: Only area needing improvement - no automated accessibility testing currently implemented
   - **🟡 Future Features**: Guidelines in place for forms, modals, and complex widgets when implemented
   - **Recommendation**: Integrate axe-core for CI/CD pipeline to prevent accessibility regressions
 
 - **Project Status Assessment**:
-
   - **Current State**: Exceptional accessibility compliance exceeding most government websites
   - **Completion Targets**: Week 3 - automated testing integration, Week 4 - enhanced documentation finalized
   - **Long-term Sustainability**: Strong foundation for ongoing accessibility maintenance established
@@ -5382,12 +5374,10 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Formally deprecated the original `generate-search-index.js` script in favor of the Defuddle-enhanced version, ensuring consistent use of the improved search indexing system throughout the project and preventing confusion about which script to use.
 
 - **Files Modified**:
-
   - `scripts/generate-search-index.js`: Added comprehensive deprecation notice with clear warnings, replacement instructions, and detailed explanation of improvements in the Defuddle version
   - `docs/project-rules.md`: Updated package.json script example to use `create:search-index-defuddle` instead of the deprecated `create:search-index`
 
 - **Deprecation Implementation**:
-
   - **Clear Visual Warnings**: Added prominent ⚠️ and 🚨 symbols to immediately catch developer attention
   - **Explicit Instructions**: Clear "DO NOT USE" and "USE INSTEAD" directives with specific script names
   - **Detailed Rationale**: Explained the 6x improvement in content capture and other benefits of the Defuddle version
@@ -5395,7 +5385,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Status Documentation**: Clearly marked as "not used in build processes" to prevent accidental usage
 
 - **Project Consistency Verification**:
-
   - **✅ Package.json Scripts**: All build processes (`dev`, `build`, `generate`) correctly use `create:search-index-defuddle`
   - **✅ Documentation**: All documentation files reference the correct Defuddle-enhanced script
   - **✅ Warning Files**: Public directory warning files correctly reference the Defuddle script
@@ -5403,7 +5392,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **✅ Project Rules**: Updated example to show correct script usage
 
 - **Deprecation Details**:
-
   - **Deprecated Date**: 2025-05-25 (when Defuddle version was implemented)
   - **Replacement Script**: `scripts/generate-search-index-defuddle.js`
   - **Package Command**: `yarn create:search-index-defuddle` (replaces `yarn create:search-index`)
@@ -5411,7 +5399,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Status**: Original script kept for emergency fallback only, not used in any build processes
 
 - **Benefits of Standardization**:
-
   - **Developer Clarity**: No confusion about which search indexing script to use
   - **Consistent Performance**: All environments use the superior Defuddle-enhanced indexing
   - **Maintenance Simplification**: Single search indexing system to maintain and improve
@@ -5419,7 +5406,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Emergency Preparedness**: Deprecated script remains available as fallback if needed
 
 - **Technical Improvements Highlighted**:
-
   - **6x Content Capture**: From ~500 words to 3,267 words in search index
   - **Clean Plain Text**: No HTML tags or markdown formatting in search results
   - **MDC Component Support**: Proper extraction of ::hero-section, ::feature-section content
@@ -5433,19 +5419,16 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Conducted a comprehensive JSDoc documentation audit across all JavaScript files in `/scripts/`, `/components/`, `/utils/`, and `/composables/` directories, with targeted enhancements to ensure professional-grade documentation standards throughout the codebase.
 
 - **Audit Scope and Methodology**:
-
   - **Files Audited**: 15+ JavaScript files across 4 critical directories
   - **Standards Applied**: JSDoc 3.6+ standards with `@param`, `@returns`, `@throws`, `@example`, and `@module` tags
   - **Focus Areas**: Complex functions, security-related utilities, build scripts, and Vue composables
   - **Quality Criteria**: Clear descriptions, practical examples, accessibility considerations, and integration documentation
 
 - **Files Enhanced**:
-
   - `scripts/create-accessibility-html.js`: Added comprehensive JSDoc header with features list, usage examples, and detailed function documentation for `htmlTemplate()`, file configuration arrays, and main processing logic
   - Enhanced documentation includes accessibility features, WCAG 2.1 AA compliance details, and integration with static site generation
 
 - **Audit Results - Excellent Documentation Found**:
-
   - **✅ `utils/sanitize.js`**: Exceptional security-focused documentation with detailed explanations of XSS prevention, input validation, and content sanitization methods
   - **✅ `utils/logger.js`**: Comprehensive unified logging system documentation with environment detection, verbosity levels, and color coding explanations
   - **✅ `utils/config-loader.js`**: Well-documented configuration management with fallback defaults and environment-specific loading
@@ -5456,20 +5439,17 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **✅ `composables/useConsoleLogger.js`**: Comprehensive development logging documentation with color coding and singleton pattern explanations
 
 - **Vue Component Documentation Quality**:
-
   - **✅ `components/content/AccessibleTooltip.vue`**: Excellent component documentation with prop descriptions, accessibility features, and mobile behavior
   - **✅ `components/content/HeroSection.vue`**: Outstanding documentation including accessibility features, animation details, and reduced motion support
   - **✅ Most Vue Components**: Consistently high documentation standards with component purposes, accessibility considerations, and usage examples
 
 - **Build Scripts Documentation**:
-
   - **✅ `scripts/generate-search-index-defuddle.js`**: Comprehensive header documentation explaining Defuddle integration and search enhancement
   - **✅ `scripts/generate-site-config.js`**: Good documentation with clear purpose and functionality explanations
   - **✅ `scripts/generate-sitemap.js`**: Well-documented sitemap generation with standards compliance details
   - **✅ `scripts/generate-search-index.js`**: Detailed function-level documentation for complex search indexing logic
 
 - **Documentation Standards Achieved**:
-
   - **JSDoc Compliance**: All functions include proper `@param` and `@returns` tags with type information
   - **Practical Examples**: Complex functions include `@example` tags with real-world usage scenarios
   - **Security Documentation**: Security-related functions thoroughly document threat mitigation and safety measures
@@ -5479,14 +5459,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Performance Considerations**: Documentation includes performance implications and optimization notes
 
 - **Key Documentation Enhancements Made**:
-
   - **Enhanced Script Headers**: Added comprehensive module-level documentation with features, examples, and version information
   - **Function Documentation**: Improved function-level JSDoc with detailed parameter descriptions and return value explanations
   - **Usage Examples**: Added practical examples showing real-world implementation patterns
   - **Integration Notes**: Enhanced documentation explaining relationships between components and external systems
 
 - **Benefits Achieved**:
-
   - **Professional Code Quality**: Codebase now meets enterprise-level documentation standards
   - **Developer Onboarding**: New developers can understand complex systems through comprehensive documentation
   - **Maintainability**: Well-documented code reduces maintenance burden and prevents knowledge loss
@@ -5501,26 +5479,22 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Created comprehensive warning files in `/public/config/` and `/public/data/` directories to prevent developers from accidentally editing auto-generated files instead of source configurations, addressing a common source of confusion in projects with duplicated configuration files.
 
 - **Files Created**:
-
   - `public/config/README-DO-NOT-EDIT-CONFIGS-HERE.txt`: Comprehensive warning file explaining that configuration files in this directory are auto-generated copies and directing developers to edit source files in `/config/` instead
   - `public/data/README-DO-NOT-EDIT-DATA-HERE.txt`: Detailed warning file explaining that data files (search index, copied configs) are auto-generated and providing guidance on how to properly modify search functionality
 
 - **Problem Addressed**:
-
   - **Developer Confusion**: Multiple locations for similar configuration files (source in `/config/` vs auto-generated in `/public/`) can lead to developers editing the wrong files
   - **Lost Changes**: Manual edits to auto-generated files get overwritten during builds, causing frustration and lost work
   - **Unclear File Structure**: Without clear documentation, it's not obvious which files are editable sources vs generated copies
   - **Build Process Understanding**: Developers need to understand which scripts regenerate which files to avoid conflicts
 
 - **Technical Implementation**:
-
   - **Clear Visual Warnings**: Both files use prominent warning symbols (⚠️) and formatting to immediately catch developer attention
   - **Comprehensive Documentation**: Each file explains the purpose of auto-generated files, where to find source files, and which build scripts are responsible
   - **Workflow Guidance**: Step-by-step instructions for proper development workflow (edit sources → run builds → never edit generated files)
   - **Related Documentation Links**: References to relevant configuration documentation and build process information
 
 - **Benefits Achieved**:
-
   - **Prevented Developer Errors**: Clear warnings prevent accidental editing of auto-generated files
   - **Improved Developer Experience**: New team members can quickly understand the file structure and proper workflow
   - **Reduced Support Burden**: Self-documenting warnings reduce questions about why changes are being lost
@@ -5560,21 +5534,18 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented a comprehensive Defuddle-enhanced search index generation system that significantly improves search functionality by capturing all visible content from rendered pages, including content that was previously missing from the search index. This implementation addresses critical gaps in content discovery and provides clean, plain-text search results.
 
 - **Files Modified/Created**:
-
   - `scripts/generate-search-index-defuddle.js`: Created comprehensive Defuddle-based search index generator with HTML-to-plain-text conversion, content sanitization, security validation, and integration with existing Fuse.js search system
   - `package.json`: Added Defuddle dependency (`defuddle@^0.6.4`) and created new script `create:search-index-defuddle` with integration into all build processes
   - `config/defuddle-search.config.md`: Created comprehensive documentation explaining the Defuddle-enhanced system, performance improvements, and integration details
   - Updated all build scripts (`dev`, `build`, `generate`) to use Defuddle-enhanced indexing by default with configurable logging levels
 
 - **Core Problem Addressed**:
-
   - **Missing Homepage Content**: Main headings like "Rex adipiscing bis umbra sol gloria bis amet" were not being indexed
   - **Missing About Page Content**: Section headings like "About Us", "Anima Lumen Manus", "Our Values" were not searchable
   - **MDC Component Content**: Content within Nuxt Content MDC components (`::hero-section`, `::feature-section`, etc.) was not being extracted
   - **Incomplete Text Extraction**: Previous Vue component parsing approach was missing significant amounts of visible content
 
 - **Technical Implementation**:
-
   - **Defuddle Integration**: Uses Defuddle library to extract clean, main content from web pages by removing clutter and non-essential elements
   - **HTML-to-Plain-Text Conversion**: Comprehensive `htmlToPlainText()` function that removes HTML tags, MDC component markers, markdown formatting, and HTML attributes while preserving readable content
   - **Content Processing Pipeline**: Markdown → HTML → Defuddle extraction → Plain text conversion → Security sanitization → Index generation
@@ -5583,14 +5554,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Build Integration**: Seamlessly replaces previous search indexing with enhanced version in all build processes
 
 - **Performance Improvements Achieved**:
-
   - **6x Content Capture Improvement**: Total word count increased from ~500 words to 3,267 words across all content
   - **Homepage Content**: Now captures 197 words vs minimal content before, including all headings and MDC component content
   - **About Page Content**: Now captures 322 words vs garbled content before, including all sections and headings
   - **Search Result Quality**: Previously missing content like "Anima Lumen Manus" and "Our Values" now found with high accuracy scores
 
 - **Search Functionality Verification**:
-
   - ✅ "Rex adipiscing bis umbra" - Found (score: 0.751) - was completely missing before
   - ✅ "About Us" - Found (score: 0.351) - improved accuracy
   - ✅ "Anima Lumen Manus" - Found (score: 0.971) - was completely missing before
@@ -5599,14 +5568,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - ✅ "Community Outreach" - Perfect match (score: 0.000)
 
 - **Content Quality Improvements**:
-
   - **Clean Text Output**: Search index now contains clean, readable plain text without HTML tags, markdown formatting, or component syntax
   - **Preserved Content Structure**: All meaningful content preserved while removing technical markup
   - **Enhanced Readability**: Search results display clean, user-friendly text that accurately represents page content
   - **Comprehensive Coverage**: All visible content from MDC components, headings, paragraphs, and structured content now searchable
 
 - **Integration and Compatibility**:
-
   - **Fuse.js Compatibility**: Maintains full compatibility with existing Fuse.js search implementation and configuration
   - **Security Preservation**: All existing security features including sanitization, XSS prevention, and content validation maintained
   - **Build Process Integration**: Seamlessly integrated into existing build pipeline with configurable verbosity levels
@@ -5614,7 +5581,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Performance Optimization**: Efficient processing with ~2-3 seconds total generation time for entire site
 
 - **Benefits Achieved**:
-
   - **Comprehensive Content Discovery**: Users can now find all visible content through search, dramatically improving site usability
   - **Professional Search Experience**: Clean, readable search results that accurately represent page content
   - **Future-Proof Architecture**: Foundation for potential enhancements like static HTML processing and Vue page integration
@@ -5623,14 +5589,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Accessibility Enhancement**: All visible content now discoverable through search, improving accessibility for users who rely on search functionality
 
 - **Documentation and Maintenance**:
-
   - **Comprehensive Documentation**: Created detailed documentation explaining the system, performance improvements, and integration points
   - **Configuration Management**: Maintains existing configuration patterns while adding new capabilities
   - **Error Handling**: Robust error handling with graceful fallbacks and detailed logging for troubleshooting
   - **Future Enhancements**: Documented planned improvements including static HTML processing and Vue page integration
 
 - **Finalization and Validation**:
-
   - **Proper Attribution**: Updated all documentation with proper Defuddle attribution including GitHub URL (https://github.com/kepano/defuddle) and author credit to Stephan Ango (kepano)
   - **README Enhancement**: Added comprehensive "Key Dependencies" section highlighting Nuxt Content, Defuddle, Fuse.js, and other critical libraries with descriptions and links
   - **Comprehensive Testing**: Validated 100% success rate across all 12 test scenarios covering homepage, about page, project pages, and test content
@@ -5650,12 +5614,10 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Fixed Shiki syntax highlighting configuration to work with Nuxt Content 3.5+ and Shiki 3.4+, resolving the issue where code blocks were displaying as plain white text without proper syntax highlighting.
 
 - **Files Modified**:
-
   - `nuxt.config.ts`: Updated content configuration to use correct `content.build.markdown.highlight` structure instead of deprecated `content.highlight`
   - `assets/css/main.scss`: Enhanced Shiki CSS integration to let Shiki handle theme colors automatically while maintaining proper font rendering and responsive design
 
 - **Technical Notes**:
-
   - **Configuration Structure Fix**: Moved highlight configuration from `content.highlight` to `content.build.markdown.highlight` per Nuxt Content 3.5+ API requirements
   - **Language Support**: Added support for additional programming languages (python, java, php, ruby, go, rust, sql) beyond the original JavaScript/TypeScript/HTML/CSS set
   - **Theme Integration**: Properly configured dual theme support with `github-light` for light mode and `github-dark` for dark mode with automatic switching
@@ -5676,13 +5638,11 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented a comprehensive dynamic catch-all route system that automatically renders markdown content from the `/content/` directory when no corresponding Vue page exists, providing seamless content management and proper 404 handling while maintaining full accessibility and SEO compliance.
 
 - **Files Modified/Created**:
-
   - `pages/[...slug].vue`: Created dynamic catch-all route component with automatic content resolution, proper 404 handling, loading states, error handling, and full accessibility compliance
   - `content/test-dynamic-route.md`: Created test markdown file to verify dynamic route functionality with comprehensive content examples and integration testing
   - `audit-log-project.md`: Updated to document the dynamic catch-all route implementation
 
 - **Core Functionality Implemented**:
-
   - **Route Handling**: Uses Nuxt's `[...slug].vue` pattern to catch all unmatched routes that don't have corresponding Vue pages
   - **Content Resolution**: Automatically checks for corresponding markdown files in `/content/` directory based on route path (e.g., `/about/team` → `/content/about/team.md`)
   - **Markdown Rendering**: Full MDC (Markdown Components) support using `<ContentRenderer>` component with Vue component integration
@@ -5691,7 +5651,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Error Handling**: Comprehensive error states with user-friendly messages and recovery options
 
 - **Accessibility Compliance (WCAG 2.1 AA)**:
-
   - **Semantic HTML**: Proper main content areas, headings hierarchy, and landmark roles
   - **ARIA Labels**: Comprehensive ARIA attributes for loading states, error messages, and interactive elements
   - **Keyboard Navigation**: Full keyboard accessibility with visible focus states and proper tab order
@@ -5700,7 +5659,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Error Recovery**: Clear error messages with actionable recovery options
 
 - **Theme and Styling Features**:
-
   - **Theme Support**: Full compatibility with existing light/dark theme system using Vuetify theming
   - **Responsive Design**: Mobile-first responsive layout with proper breakpoints
   - **Consistent Styling**: Matches existing page layouts and typography patterns
@@ -5709,7 +5667,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Focus Management**: Visible focus indicators that match project standards
 
 - **Integration with Existing Systems**:
-
   - **Search Integration**: Content automatically discoverable by existing Fuse.js search system through established indexing patterns
   - **Site Configuration**: Pages properly included in `config/site.config.json` auto-discovery system
   - **Sitemap Integration**: Dynamic pages automatically included in sitemap generation
@@ -5718,7 +5675,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Console Logging**: Integrates with project's unified logging system for debugging and monitoring
 
 - **Technical Implementation Details**:
-
   - **Dynamic Path Resolution**: Converts route parameters to content paths with proper slug handling
   - **Title Generation**: Intelligent title generation from slugs (kebab-case to Title Case) with project branding
   - **Error Classification**: Distinguishes between "not found" errors and other content loading errors
@@ -5727,7 +5683,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Code Organization**: Clean, well-documented code following project conventions
 
 - **Benefits Achieved**:
-
   - **Simplified Content Management**: Content creators can add new pages by simply creating markdown files without requiring Vue components
   - **Automatic Route Discovery**: New content is automatically accessible without manual route configuration
   - **Consistent User Experience**: Maintains same layout, styling, and functionality as existing pages
@@ -5738,7 +5693,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Performance Optimized**: Efficient loading and caching strategies maintain fast page load times
 
 - **Layout Consistency Fix (May 25, 2025)**:
-
   - **Issue Identified**: Initial implementation was missing consistent layout structure and styling compared to existing static pages
   - **Root Cause**: The catch-all route was using a different template structure and missing the exact same CSS classes and styling patterns used by `pages/index.vue` and `pages/about.vue`
   - **Solution Implemented**: Updated the catch-all route template and styling to exactly match existing pages, ensuring identical visual presentation
@@ -5749,7 +5703,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Integration Confirmed**: All existing systems (search indexing, site configuration, sitemap generation) automatically include the new dynamic content without additional configuration
 
 - **Markdown Styling Fix (May 25, 2025)**:
-
   - **Issue Identified**: Plain markdown content in the catch-all route was rendering without proper typography, spacing, or styling - appearing as unstyled text
   - **Root Cause**: The `ContentRenderer` component was not wrapped with the `.content-renderer` CSS class that provides all the necessary markdown styling (headings, paragraphs, lists, links, code blocks, etc.)
   - **Solution Implemented**:
@@ -5765,7 +5718,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
     - Dark theme support works correctly for all content elements
 
 - **Container Structure Fix (May 25, 2025)**:
-
   - **Issue Identified**: Plain markdown content was still rendering without proper layout containers, margins, and spacing despite having CSS styling
   - **Root Cause**: The ContentRenderer was missing the Vuetify container structure (`v-container`, `v-row`, `v-col`) that provides proper page layout and responsive margins
   - **Solution Implemented**:
@@ -5779,7 +5731,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
     - Content is properly centered and constrained on larger screens while remaining full-width on mobile devices
 
 - **Universal Layout Standardization (May 25, 2025)**:
-
   - **Objective**: Create a unified design system where users cannot distinguish between Vue-based pages and markdown-based pages in terms of layout and presentation
   - **Problem Identified**: Plain markdown content rendered through the catch-all route lacked the professional header sections that existing pages with layout components had
   - **Solution Implemented**:
@@ -5847,7 +5798,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Conducted a comprehensive security audit of the search functionality and implemented robust multi-layered security measures to protect against XSS attacks, code injection, DoS attacks, and other security vulnerabilities, achieving full security compliance while maintaining accessibility and functionality.
 
 - **Files Modified/Created**:
-
   - `utils/sanitize.js`: Enhanced with comprehensive security functions including `sanitizeContentForIndexing()`, `validateSearchResults()`, `containsDangerousContent()`, and strengthened `sanitizeSearchQuery()` with stricter validation and dangerous pattern detection
   - `scripts/generate-search-index.js`: Integrated security sanitization throughout the index generation process, added dangerous content detection, and implemented comprehensive content cleaning for all extracted text
   - `pages/search.vue`: Enhanced with multi-layered security validation including input sanitization, result validation, dangerous content detection, and secure result processing with comprehensive error handling
@@ -5855,7 +5805,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - `docs/search-security-audit.md`: Created comprehensive security audit report documenting all findings, implementations, testing results, and ongoing security recommendations
 
 - **Security Vulnerabilities Addressed**:
-
   - **XSS Protection**: Implemented comprehensive cross-site scripting protection with multi-layer sanitization, safe HTML rendering, and dangerous pattern detection
   - **Code Injection Prevention**: Added robust filtering of JavaScript code, Vue directives, template syntax, and executable content from search index
   - **Input Validation**: Enhanced search query sanitization with strict character filtering, length limits (reduced to 50 chars), and injection pattern detection
@@ -5864,7 +5813,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Information Disclosure**: Removed sensitive information from search index including internal code structure, debug information, and system details
 
 - **Technical Security Implementations**:
-
   - **Enhanced Sanitization Functions**: Created `sanitizeContentForIndexing()` with comprehensive pattern removal for scripts, styles, JavaScript code, Vue directives, HTML attributes, and dangerous content
   - **Dangerous Content Detection**: Implemented `containsDangerousContent()` with pattern matching for script tags, event handlers, JavaScript protocols, and template syntax
   - **Result Validation Framework**: Added `validateSearchResults()` to ensure all search results are properly sanitized and validated before display
@@ -5873,7 +5821,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Proactive Monitoring**: Implemented security event logging and dangerous content detection with console warnings for security review
 
 - **Security Testing and Validation**:
-
   - **Penetration Testing**: Successfully blocked XSS injection, script tag injection, event handler injection, template syntax injection, and malicious result injection attempts
   - **DoS Testing**: Verified protection against long query attacks and rapid request patterns through length limits and debouncing
   - **Content Validation**: Confirmed removal of all potentially dangerous content from search index while preserving legitimate content
@@ -5893,7 +5840,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented a comprehensive XML sitemap generation system that integrates with the existing site configuration infrastructure to automatically generate valid sitemaps following the sitemaps.org protocol, with configurable priorities, change frequencies, and intelligent exclusion rules.
 
 - **Files Modified/Created**:
-
   - `scripts/generate-sitemap.js`: Created comprehensive sitemap generator with route discovery, URL sanitization, XML generation, validation, and integration with existing logging system
   - `config/sitemap.config.json`: Created configuration file with sitemap settings, priorities, change frequencies, exclusion rules, and validation options
   - `docs/sitemap.config.md`: Created comprehensive documentation following established format with detailed explanations of configuration options, best practices, and integration points
@@ -5902,7 +5848,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - `public/sitemap.xml`: Auto-generated XML sitemap file (created during build process)
 
 - **Technical Notes**:
-
   - **Standards Compliance**: Generates valid XML sitemaps following official sitemaps.org protocol with proper XML declaration, namespace, and required elements
   - **Route Integration**: Leverages existing site configuration system (`config/routes.config.json`) for route discovery and respects established blacklist patterns
   - **Intelligent Exclusions**: Supports frontmatter-based exclusions (`includeInSiteMap: false`), pattern matching for sandbox files, and automatic duplicate detection
@@ -5913,7 +5858,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Error Handling**: Comprehensive error handling with graceful fallbacks and detailed logging for troubleshooting
 
 - **Benefits Achieved**:
-
   - **SEO Optimization**: Provides search engines with comprehensive site map for improved content discovery and indexing
   - **Automated Maintenance**: Automatically updates during builds without manual intervention
   - **Standards Compliance**: Follows official sitemap protocol specifications for maximum compatibility
@@ -5936,14 +5880,12 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Standardized all script run examples and package.json scripts to use Yarn instead of npm, establishing Yarn as the official package manager for the project and ensuring consistency across all documentation and build processes.
 
 - **Files Modified**:
-
   - `package.json`: Updated all internal script references from `npm run` to `yarn` and maintained `npx serve` for package execution
   - `docs/logging-system.md`: Updated all command examples to use `yarn` instead of `npm run`
   - `README.md`: Updated auto-generated configuration documentation to reference `yarn` commands
   - `config/routes.config.md`: Updated build process documentation to use `yarn` commands
 
 - **Technical Notes**:
-
   - **Script Consistency**: All package.json scripts now use `yarn` for internal script calls instead of `npm run`
   - **Documentation Alignment**: All documentation examples now consistently show `yarn` commands
   - **Package Execution**: Maintained `npx serve` for package execution (Yarn 1.22.22 does not support dlx)
@@ -5962,7 +5904,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Implemented a comprehensive unified logging system that works consistently across both Node.js (server-side) and browser environments with configurable verbosity levels, maintaining existing color coding while providing cleaner build output and enhanced debugging capabilities.
 
 - **Files Modified/Created**:
-
   - `utils/logger.js`: Created unified logger class with environment detection, verbosity levels, color coding, performance timing, and message grouping
   - `utils/config-loader.js`: Created configuration loader utility for logging settings with environment variable support
   - `config/site.config.json`: Added logging configuration section with verbosity levels, colors, and feature flags
@@ -5971,7 +5912,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - `docs/logging-system.md`: Created comprehensive documentation for the unified logging system
 
 - **Technical Notes**:
-
   - **Environment Detection**: Automatically detects Node.js vs browser and applies appropriate color formatting (ANSI vs CSS)
   - **Verbosity Levels**: Implements DETAILED, NORMAL, and CONCISE levels with configurable output filtering
   - **Message Grouping**: Provides grouped output for build processes to reduce console noise while maintaining detailed logs when needed
@@ -5995,7 +5935,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Reorganized the site configuration system to improve clarity and separation of concerns by consolidating general site configuration in `site.config.json` and routing data in `routes.config.json`, eliminating the unnecessary `site.config.base.json` file.
 
 - **Files Modified/Created**:
-
   - `config/site.config.json`: Created comprehensive site configuration file containing metadata, branding, URLs, contact information, features, and routing settings
   - `config/routes.config.md`: Created new documentation specifically for routes configuration system
   - `config/site.config.md`: Updated to focus on general site configuration rather than routing
@@ -6004,7 +5943,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - Removed: `config/site.config.base.json` (consolidated into `site.config.json`)
 
 - **Technical Notes**:
-
   - New `site.config.json` includes sections for metadata, branding, URLs, contact, social, legal, features, routing, and build configuration
   - Routes configuration system now reads blacklist patterns and other routing settings from the routing section of `site.config.json`
   - Maintained backward compatibility by providing fallback defaults in the generation script
@@ -6025,7 +5963,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Renamed auto-generated routing configuration file from `config/site.config.json` to `config/routes.config.json` to better reflect its purpose and prepare for implementing a centralized site configuration system.
 
 - **Files Modified/Created**:
-
   - `config/routes.config.json`: Renamed from `config/site.config.json` - contains auto-generated page discovery and routing metadata
   - `public/config/routes.config.json`: Renamed from `public/config/site.config.json` - public copy for runtime access
   - `scripts/generate-site-config.js`: Updated to write output to `config/routes.config.json` and `public/config/routes.config.json` instead of site.config.json paths
@@ -6033,7 +5970,6 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - Removed: `config/site.config.json` and `public/config/site.config.json` (old files)
 
 - **Technical Notes**:
-
   - **Descriptive Naming**: File name now clearly indicates it contains routing and page discovery data rather than general site configuration
   - **Preparation for Centralization**: Clears the way for a future centralized site configuration file that will contain actual site-wide settings (metadata, contact info, URLs, etc.)
   - **No Breaking Changes**: All existing functionality preserved through updated file paths in generation script and composable
@@ -6054,11 +5990,9 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **Summary**: Fixed linting error in nuxt.config.ts by removing experimental.componentIslands setting and ensured anchor links are properly disabled for headings to prevent automatic anchor link generation.
 
 - **Files Modified**:
-
   - `nuxt.config.ts`: Removed experimental.componentIslands setting that was causing linting errors, added proper content renderer configuration with anchorLinks: false, cleaned up markdown configuration that was causing TypeScript errors
 
 - **Technical Notes**:
-
   - **Linting Error Resolution**: Removed `experimental.componentIslands` setting from content configuration that was causing TypeScript/linting errors
   - **Anchor Links Disabled**: Added `renderer: { anchorLinks: false }` to content configuration to prevent automatic anchor link generation for headings
   - **Configuration Cleanup**: Removed invalid markdown configuration that was causing TypeScript errors about unknown properties

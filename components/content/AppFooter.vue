@@ -1,66 +1,52 @@
 <template>
-  <v-footer
-    color="background"
-    border
-    class="py-8 app-footer"
-    role="contentinfo"
-  >
-    <div class="footer-container">
-      <!-- Centered footer content -->
-      <div class="text-center mb-6">
-        <div class="footer-branding-centered">
+  <v-footer color="background" class="modern-footer" role="contentinfo">
+    <div class="footer-content">
+      <!-- Main footer section -->
+      <div class="footer-main">
+        <!-- Branding section -->
+        <div class="footer-branding">
           <AccessibleTooltip
             :text="menuConfig.footer.branding.tooltip"
-            :location="$vuetify.display.smAndDown ? 'top' : 'top'"
+            location="top"
           >
             <template v-slot="{ props }">
               <a
                 :href="menuConfig.footer.branding.href"
-                class="d-flex align-center justify-center text-decoration-none mb-4"
+                class="brand-link"
                 v-bind="props"
                 :aria-label="menuConfig.footer.branding.ariaLabel"
                 @click.prevent="handleHomeClick"
               >
                 <v-icon
                   :icon="menuConfig.footer.branding.icon"
-                  :size="$vuetify.display.smAndDown ? 'medium' : 'large'"
+                  size="large"
                   color="primary"
-                  :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
+                  class="brand-icon"
                   aria-hidden="true"
                 />
-                <!-- Responsive title display based on screen size -->
-                <span
-                  class="d-none d-xl-block text-body-1 font-weight-bold text-primary footer-title-xl"
-                >
-                  {{ menuConfig.footer.branding.text }}
-                </span>
-                <span
-                  class="d-none d-lg-block d-xl-none text-body-1 font-weight-bold text-primary footer-title-lg"
-                >
-                  {{ menuConfig.footer.branding.textMd }}
-                </span>
-                <span
-                  class="d-none d-sm-block d-lg-none text-subtitle-2 font-weight-bold text-primary"
-                >
-                  {{ menuConfig.footer.branding.textSm }}
-                </span>
-                <span
-                  class="d-block d-sm-none text-subtitle-2 font-weight-bold text-primary"
-                >
-                  {{ menuConfig.footer.branding.textXs }}
+                <span class="brand-text">
+                  {{
+                    $vuetify.display.smAndDown
+                      ? menuConfig.footer.branding.textSm
+                      : $vuetify.display.mdAndDown
+                        ? menuConfig.footer.branding.textMd
+                        : menuConfig.footer.branding.text
+                  }}
                 </span>
               </a>
             </template>
           </AccessibleTooltip>
-          <p
-            class="text-body-2 footer-description footer-description-centered mx-auto"
-          >
+        </div>
+
+        <!-- Description section -->
+        <div class="footer-description">
+          <p>
             The
             <a
               href="https://icjia.illinois.gov"
               target="_blank"
               rel="noopener noreferrer"
-              class="footer-organization-link"
+              class="org-link"
               aria-label="Visit Illinois Criminal Justice Information Authority website"
             >
               Illinois Criminal Justice Information Authority
@@ -75,91 +61,47 @@
         </div>
       </div>
 
-      <v-divider class="mb-6" aria-hidden="true"></v-divider>
-
-      <div class="text-center text-body-2 footer-copyright" role="contentinfo">
-        <!-- Desktop layout: single line with dividers -->
-        <small
-          class="d-none d-sm-flex align-center justify-center footer-copyright-desktop"
-        >
+      <!-- Footer bottom section -->
+      <div class="footer-bottom">
+        <div class="copyright">
           <span>
             © {{ new Date().getFullYear() }}
             <a
               href="https://icjia.illinois.gov"
               target="_blank"
               rel="noopener noreferrer"
-              class="footer-organization-link"
+              class="org-link"
               aria-label="Visit Illinois Criminal Justice Information Authority website"
             >
-              Illinois Criminal Justice Information Authority </a
-            >. All rights reserved.
+              Illinois Criminal Justice Information Authority
+            </a>
+            . All rights reserved.
           </span>
-          <span class="mx-2 footer-divider" aria-hidden="true">|</span>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer navigation">
           <nuxt-link
             to="/accessibility/documentation"
-            class="footer-link accessibility-link"
+            class="nav-link"
             aria-label="View accessibility documentation"
           >
             Accessibility
           </nuxt-link>
-          <span class="mx-2 footer-divider" aria-hidden="true">|</span>
           <nuxt-link
             to="/legal/privacy-policy"
-            class="footer-link accessibility-link"
+            class="nav-link"
             aria-label="View Privacy Policy"
           >
             Privacy
           </nuxt-link>
-          <span class="mx-2 footer-divider" aria-hidden="true">|</span>
           <nuxt-link
             to="/legal/terms-of-service"
-            class="footer-link accessibility-link"
+            class="nav-link"
             aria-label="View Terms of Service"
           >
             Terms of Service
           </nuxt-link>
-        </small>
-
-        <!-- Mobile layout: stacked with proper spacing -->
-        <div
-          class="d-flex d-sm-none flex-column align-center footer-copyright-mobile"
-        >
-          <small class="mb-2">
-            © {{ new Date().getFullYear() }}
-            <a
-              href="https://icjia.illinois.gov"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-organization-link"
-              aria-label="Visit Illinois Criminal Justice Information Authority website"
-            >
-              Illinois Criminal Justice Information Authority </a
-            >. All rights reserved.
-          </small>
-          <small class="d-flex flex-column align-center">
-            <nuxt-link
-              to="/accessibility/documentation"
-              class="footer-link accessibility-link mb-1"
-              aria-label="View accessibility documentation"
-            >
-              Accessibility
-            </nuxt-link>
-            <nuxt-link
-              to="/legal/privacy-policy"
-              class="footer-link accessibility-link mb-1"
-              aria-label="View Privacy Policy"
-            >
-              Privacy
-            </nuxt-link>
-            <nuxt-link
-              to="/legal/terms-of-service"
-              class="footer-link accessibility-link"
-              aria-label="View Terms of Service"
-            >
-              Terms of Service
-            </nuxt-link>
-          </small>
-        </div>
+        </nav>
       </div>
     </div>
   </v-footer>
@@ -208,211 +150,201 @@ const handleHomeClick = () => {
 </script>
 
 <style scoped>
-.max-width-300 {
-  max-width: 300px;
+/* Modern Footer Design */
+.modern-footer {
+  border-top: 1px solid rgba(var(--v-theme-on-background), 0.08);
+  padding: 48px 0 32px;
 }
 
-.footer-description,
-.footer-copyright {
-  color: rgba(
-    var(--v-theme-on-background),
-    0.87
-  ); /* Higher contrast than default medium-emphasis */
-}
-
-.footer-link {
-  color: rgba(
-    var(--v-theme-on-background),
-    0.87
-  ); /* Increased from 0.7 opacity for better contrast */
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-link:hover {
-  color: var(--v-primary-base);
-}
-
-.accessibility-link {
-  font-size: inherit;
-  font-weight: inherit;
-  color: rgba(
-    var(--v-theme-on-background),
-    0.87
-  ); /* Match copyright text color */
-}
-
-.accessibility-link:hover {
-  color: var(--v-primary-base);
-}
-
-.footer-divider {
-  color: rgba(
-    var(--v-theme-on-background),
-    0.87
-  ); /* Enhanced contrast for accessibility */
-  line-height: 1; /* Ensure proper vertical alignment */
-}
-
-/* Organization link styling - matches surrounding text but clearly a link */
-.footer-organization-link {
-  color: inherit; /* Match surrounding text color */
-  font-size: inherit; /* Match surrounding text size */
-  font-weight: inherit; /* Match surrounding text weight */
-  text-decoration: underline; /* Clear link indicator */
-  text-decoration-color: rgba(
-    var(--v-theme-primary),
-    0.6
-  ); /* Subtle underline */
-  transition: all 0.2s ease;
-}
-
-.footer-organization-link:hover {
-  color: var(--v-primary-base); /* Change to primary color on hover */
-  text-decoration-color: var(
-    --v-primary-base
-  ); /* Stronger underline on hover */
-}
-
-/* Desktop copyright layout */
-.footer-copyright-desktop {
-  white-space: nowrap; /* Prevent wrapping on desktop */
-  gap: 0; /* Remove any default gap */
-}
-
-/* Mobile copyright layout */
-.footer-copyright-mobile {
-  line-height: 1.4; /* Better line spacing for mobile */
-}
-
-.footer-copyright-mobile small {
-  text-align: center;
-}
-
-/* Responsive breakpoint adjustments */
-@media (max-width: 599px) {
-  .footer-copyright-mobile small {
-    font-size: 0.75rem; /* Slightly smaller text on very small screens */
-  }
-}
-
-/* Ensure consistent spacing across breakpoints */
-@media (min-width: 600px) {
-  .footer-copyright-desktop {
-    font-size: 0.875rem; /* Standard small text size */
-  }
-}
-
-@media (max-width: 960px) {
-  .d-flex.justify-end {
-    justify-content: flex-start !important;
-    margin-top: 32px;
-  }
-}
-
-.footer-container {
-  width: 100%;
-  max-width: 1600px; /* Wider than default container */
+.footer-content {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px; /* Minimum padding on small screens */
+  padding: 0 24px;
 }
 
-/* Responsive padding adjustments */
-@media (min-width: 600px) {
-  .footer-container {
-    padding: 0 24px;
-  }
-}
-
-@media (min-width: 960px) {
-  .footer-container {
-    padding: 0 32px;
-  }
-}
-
-/* Custom footer title sizing to ensure full title fits on one line */
-.footer-title-xl {
-  font-size: 0.95rem !important; /* Slightly smaller than text-body-1 default */
-  line-height: 1.3 !important;
-  white-space: nowrap; /* Prevent wrapping */
-}
-
-.footer-title-lg {
-  font-size: 0.9rem !important; /* Even smaller for lg screens */
-  line-height: 1.3 !important;
-  white-space: nowrap; /* Prevent wrapping */
-}
-
-/* Responsive adjustments for very large screens */
-@media (min-width: 1400px) {
-  .footer-title-xl {
-    font-size: 1rem !important; /* Can be slightly larger on very wide screens */
-  }
-
-  .footer-title-lg {
-    font-size: 0.95rem !important;
-  }
-}
-
-/* Centered footer description styling */
-.footer-description-centered {
-  max-width: 800px; /* Optimal reading width */
+/* Main footer section */
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  line-height: 1.6; /* Better readability */
+  margin-bottom: 40px;
 }
 
-/* Responsive description width adjustments for centered layout */
-@media (max-width: 599px) {
-  .footer-description-centered {
-    max-width: 100%;
-    font-size: 0.875rem; /* Slightly smaller on mobile */
+/* Branding section */
+.footer-branding {
+  margin-bottom: 24px;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.brand-link:hover {
+  background-color: rgba(var(--v-theme-primary), 0.04);
+  transform: translateY(-1px);
+}
+
+.brand-icon {
+  flex-shrink: 0;
+}
+
+.brand-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(var(--v-theme-primary));
+  line-height: 1.3;
+}
+
+/* Description section */
+.footer-description {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.footer-description p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(var(--v-theme-on-background), 0.8);
+  margin: 0;
+}
+
+.org-link {
+  color: rgb(var(--v-theme-primary));
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(var(--v-theme-primary), 0.3);
+}
+
+.org-link:hover {
+  color: rgb(var(--v-theme-primary));
+  border-bottom-color: rgb(var(--v-theme-primary));
+}
+
+/* Footer bottom section */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(var(--v-theme-on-background), 0.06);
+}
+
+.copyright {
+  font-size: 0.875rem;
+  color: rgba(var(--v-theme-on-background), 0.7);
+  text-align: center;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  color: rgba(var(--v-theme-on-background), 0.8);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: rgb(var(--v-theme-primary));
+  background-color: rgba(var(--v-theme-primary), 0.04);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .modern-footer {
+    padding: 32px 0 24px;
+  }
+
+  .footer-content {
+    padding: 0 16px;
+  }
+
+  .footer-main {
+    margin-bottom: 32px;
+  }
+
+  .brand-text {
+    font-size: 0.9rem;
+  }
+
+  .footer-description p {
+    font-size: 0.875rem;
+  }
+
+  .footer-bottom {
+    gap: 12px;
+    padding-top: 24px;
+  }
+
+  .footer-nav {
+    gap: 16px;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .brand-link {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .footer-description p {
+    font-size: 0.8rem;
     line-height: 1.5;
   }
 }
 
-@media (min-width: 600px) and (max-width: 959px) {
-  .footer-description-centered {
-    max-width: 600px;
+/* Desktop layout improvements */
+@media (min-width: 769px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-nav {
+    gap: 32px;
   }
 }
 
-@media (min-width: 960px) {
-  .footer-description-centered {
-    max-width: 700px;
+/* Large screen optimizations */
+@media (min-width: 1200px) {
+  .footer-content {
+    padding: 0 32px;
   }
-}
 
-@media (min-width: 1400px) {
-  .footer-description-centered {
+  .footer-description {
     max-width: 800px;
   }
-}
-
-/* Centered footer branding */
-.footer-branding-centered {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Enhanced target size for footer navigation elements - WCAG 2.5.5 */
-.app-footer a,
-.footer-link,
-.footer-organization-link {
-  min-height: 44px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  padding: 8px 12px !important;
-  margin: 4px 2px !important;
-}
-
-/* Footer branding link specific enhancement */
-.footer-branding-centered a {
-  min-height: 44px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 8px 16px !important;
 }
 </style>
