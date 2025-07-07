@@ -6,7 +6,8 @@
  * This script generates comprehensive documentation for the Illinois Violent Prevention Project:
  * 1. Converts project-documentation.md to HTML with light/dark theme support
  * 2. Generates JSDoc API documentation using clean-jsdoc-theme
- * 3. Creates a modern documentation portal with navigation
+ * 3. Generates Vue component documentation using vue-component-meta
+ * 4. Creates a modern documentation portal with navigation
  *
  * Features:
  * - Automatic integration with build pipeline
@@ -21,8 +22,10 @@
  * ├── index.html (portal page)
  * ├── dev/
  * │   └── index.html (project documentation)
- * └── jsdoc/
- *     └── [JSDoc generated files]
+ * ├── jsdoc/
+ * │   └── [JSDoc generated files]
+ * └── components/
+ *     └── [Vue component documentation]
  *
  * @module GenerateDocumentation
  * @version 1.0.0
@@ -46,6 +49,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { marked } from "marked";
+import { createChecker } from "vue-component-meta";
 import { loadSiteConfigSync } from "../utils/config-loader.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -500,10 +504,22 @@ const generatePortalHTML = (config) => {
                     <i class="mdi mdi-code-braces" aria-hidden="true"></i>
                 </div>
                 <h2>API Documentation</h2>
-                <p id="api-docs-desc">Comprehensive JSDoc API reference for all functions, composables, utilities, and components in the codebase with detailed examples and usage information.</p>
+                <p id="api-docs-desc">Comprehensive JSDoc API reference for all functions, composables, utilities, and scripts in the codebase with detailed examples and usage information.</p>
                 <span class="btn">
                     <i class="mdi mdi-arrow-right" aria-hidden="true"></i>
                     View API Reference
+                </span>
+            </a>
+
+            <a href="/documentation/components/" class="doc-card" aria-describedby="components-docs-desc">
+                <div class="doc-icon">
+                    <i class="mdi mdi-view-dashboard" aria-hidden="true"></i>
+                </div>
+                <h2>Vue Components</h2>
+                <p id="components-docs-desc">Complete documentation for all Vue 3 components including props, events, slots, and usage examples extracted from component source code.</p>
+                <span class="btn">
+                    <i class="mdi mdi-arrow-right" aria-hidden="true"></i>
+                    View Components
                 </span>
             </a>
         </main>
@@ -999,11 +1015,10 @@ const generateJSDocConfig = (config) => {
         "./utils/",
         "./plugins/",
         "./scripts/",
-        "./components/",
-        "./pages/",
+
         "./README.md",
       ],
-      includePattern: "\\.(js|vue)$",
+      includePattern: "\\.js$",
       exclude: [
         "./node_modules/",
         "./.nuxt/",
@@ -1012,7 +1027,7 @@ const generateJSDocConfig = (config) => {
         "./coverage/",
       ],
     },
-    plugins: ["plugins/markdown", "node_modules/jsdoc-vuejs"],
+    plugins: ["plugins/markdown"],
     opts: {
       destination: "./public/documentation/jsdoc/",
       recurse: true,
@@ -1165,6 +1180,548 @@ const generateJSDocDocumentation = async (config) => {
 };
 
 /**
+ * Generate Vue component documentation using vue-component-meta
+ *
+ * @param {Object} config - Logging configuration
+ * @returns {Promise<void>}
+ * @throws {Error} If Vue component documentation generation fails
+ */
+const generateVueComponentDocumentation = async (config) => {
+  log("INFO", "Generating Vue component documentation...", config);
+
+  try {
+    // Create TypeScript checker for Vue components
+    const checker = createChecker(
+      // Use the project's tsconfig.json or create a minimal one for Vue components
+      path.join(projectRoot, "tsconfig.json"),
+      {
+        forceUseTs: true,
+        schema: { ignore: [] },
+        printer: { newLine: 1 },
+      }
+    );
+
+    // Find all Vue components
+    const componentsDir = path.join(projectRoot, "components");
+    const pagesDir = path.join(projectRoot, "pages");
+
+    const vueFiles = [];
+
+    // Recursively find Vue files in components directory
+    if (fs.existsSync(componentsDir)) {
+      const findVueFiles = (dir) => {
+        const files = fs.readdirSync(dir);
+        for (const file of files) {
+          const filePath = path.join(dir, file);
+          const stat = fs.statSync(filePath);
+          if (stat.isDirectory()) {
+            findVueFiles(filePath);
+          } else if (file.endsWith(".vue")) {
+            vueFiles.push(filePath);
+          }
+        }
+      };
+      findVueFiles(componentsDir);
+    }
+
+    // Find Vue files in pages directory
+    if (fs.existsSync(pagesDir)) {
+      const findVueFiles = (dir) => {
+        const files = fs.readdirSync(dir);
+        for (const file of files) {
+          const filePath = path.join(dir, file);
+          const stat = fs.statSync(filePath);
+          if (stat.isDirectory()) {
+            findVueFiles(filePath);
+          } else if (file.endsWith(".vue")) {
+            vueFiles.push(filePath);
+          }
+        }
+      };
+      findVueFiles(pagesDir);
+    }
+
+    log("INFO", `Found ${vueFiles.length} Vue components to document`, config);
+
+    // Generate documentation for each component
+    const componentDocs = [];
+    for (const filePath of vueFiles) {
+      try {
+        const meta = checker.getComponentMeta(filePath);
+        const relativePath = path.relative(projectRoot, filePath);
+
+        componentDocs.push({
+          filePath: relativePath,
+          name: path.basename(filePath, ".vue"),
+          meta: meta,
+        });
+
+        if (config.verbose) {
+          log("INFO", `Processed component: ${relativePath}`, config);
+        }
+      } catch (error) {
+        log(
+          "WARNING",
+          `Failed to process component ${filePath}: ${error.message}`,
+          config
+        );
+      }
+    }
+
+    // Generate HTML documentation
+    const componentDocsDir = path.join(
+      projectRoot,
+      "public",
+      "documentation",
+      "components"
+    );
+    ensureDirectory(componentDocsDir, config);
+
+    // Generate individual component pages
+    for (const doc of componentDocs) {
+      const componentHTML = generateComponentHTML(doc, config);
+      // Avoid overwriting index.html by using a different name for index page component
+      const fileName =
+        doc.name === "index" ? "page-index.html" : `${doc.name}.html`;
+      fs.writeFileSync(path.join(componentDocsDir, fileName), componentHTML);
+    }
+
+    // Generate index page for components (after individual pages to avoid overwriting)
+    const indexHTML = generateComponentIndexHTML(componentDocs, config);
+    fs.writeFileSync(path.join(componentDocsDir, "index.html"), indexHTML);
+
+    log(
+      "SUCCESS",
+      `Vue component documentation generated for ${componentDocs.length} components`,
+      config
+    );
+  } catch (error) {
+    log(
+      "ERROR",
+      `Vue component documentation generation failed: ${error.message}`,
+      config,
+      error
+    );
+    throw error;
+  }
+};
+
+/**
+ * Generate HTML for component index page
+ *
+ * @param {Array} componentDocs - Array of component documentation objects
+ * @param {Object} config - Logging configuration
+ * @returns {string} HTML content for the component index page
+ */
+const generateComponentIndexHTML = (componentDocs, config) => {
+  const componentsList = componentDocs
+    .map((doc) => {
+      const propsCount = doc.meta.props?.length || 0;
+      const eventsCount = doc.meta.events?.length || 0;
+      const slotsCount = doc.meta.slots?.length || 0;
+
+      // Use correct filename for index page component
+      const fileName =
+        doc.name === "index" ? "page-index.html" : `${doc.name}.html`;
+
+      return `
+        <div class="component-card">
+          <h3><a href="${fileName}">${doc.name}</a></h3>
+          <p class="component-path">${doc.filePath}</p>
+          <div class="component-stats">
+            <span class="stat">Props: ${propsCount}</span>
+            <span class="stat">Events: ${eventsCount}</span>
+            <span class="stat">Slots: ${slotsCount}</span>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  return `
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vue Components - Violence Prevention Plan API Documentation</title>
+  <meta name="description" content="Vue component documentation for the Illinois Violence Prevention Plan: 2025-2029 project">
+  <meta name="author" content="Illinois Criminal Justice Information Authority">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --primary-color: #1976d2;
+      --background-color: #121212;
+      --surface-color: #1e1e1e;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0b0;
+      --border-color: #333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+
+    .nav-links {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--surface-color);
+      border-radius: 8px;
+    }
+
+    .nav-links a {
+      color: var(--primary-color);
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .component-card {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .component-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-color);
+    }
+
+    .component-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .component-card h3 a {
+      color: var(--text-color);
+      text-decoration: none;
+    }
+
+    .component-card h3 a:hover {
+      color: var(--primary-color);
+    }
+
+    .component-path {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      font-family: monospace;
+    }
+
+    .component-stats {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .stat {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Vue Components</h1>
+
+    <div class="nav-links">
+      <a href="../">← Documentation Portal</a>
+      <a href="../jsdoc/">JSDoc API</a>
+      <a href="../dev/">Project Documentation</a>
+    </div>
+
+    <p>This page contains documentation for all Vue components in the Violence Prevention Plan project. Components are documented using vue-component-meta to extract props, events, and slots information.</p>
+
+    <div class="components-grid">
+      ${componentsList}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+};
+
+/**
+ * Generate HTML for individual component page
+ *
+ * @param {Object} doc - Component documentation object
+ * @param {Object} config - Logging configuration
+ * @returns {string} HTML content for the component page
+ */
+const generateComponentHTML = (doc, config) => {
+  const { name, filePath, meta } = doc;
+
+  // Generate props documentation
+  const propsHTML =
+    meta.props && meta.props.length > 0
+      ? `
+      <section class="section">
+        <h2>Props</h2>
+        <div class="props-table">
+          ${meta.props
+            .map(
+              (prop) => `
+            <div class="prop-item">
+              <div class="prop-header">
+                <h3 class="prop-name">${prop.name}</h3>
+                <span class="prop-type">${prop.type || "any"}</span>
+                ${prop.required ? '<span class="prop-required">required</span>' : ""}
+              </div>
+              ${prop.description ? `<p class="prop-description">${prop.description}</p>` : ""}
+              ${prop.default !== undefined ? `<p class="prop-default"><strong>Default:</strong> <code>${JSON.stringify(prop.default)}</code></p>` : ""}
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      </section>
+    `
+      : "";
+
+  // Generate events documentation
+  const eventsHTML =
+    meta.events && meta.events.length > 0
+      ? `
+      <section class="section">
+        <h2>Events</h2>
+        <div class="events-table">
+          ${meta.events
+            .map(
+              (event) => `
+            <div class="event-item">
+              <div class="event-header">
+                <h3 class="event-name">${event.name}</h3>
+                <span class="event-type">${event.type || "any"}</span>
+              </div>
+              ${event.description ? `<p class="event-description">${event.description}</p>` : ""}
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      </section>
+    `
+      : "";
+
+  // Generate slots documentation
+  const slotsHTML =
+    meta.slots && meta.slots.length > 0
+      ? `
+      <section class="section">
+        <h2>Slots</h2>
+        <div class="slots-table">
+          ${meta.slots
+            .map(
+              (slot) => `
+            <div class="slot-item">
+              <div class="slot-header">
+                <h3 class="slot-name">${slot.name}</h3>
+              </div>
+              ${slot.description ? `<p class="slot-description">${slot.description}</p>` : ""}
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      </section>
+    `
+      : "";
+
+  return `
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${name} - Vue Components Documentation</title>
+  <meta name="description" content="Documentation for ${name} Vue component">
+  <meta name="author" content="Illinois Criminal Justice Information Authority">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --primary-color: #1976d2;
+      --background-color: #121212;
+      --surface-color: #1e1e1e;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0b0;
+      --border-color: #333;
+      --success-color: #4caf50;
+      --warning-color: #ff9800;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+    }
+
+    .component-path {
+      color: var(--text-secondary);
+      font-family: monospace;
+      margin-bottom: 2rem;
+    }
+
+    .nav-links {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--surface-color);
+      border-radius: 8px;
+    }
+
+    .nav-links a {
+      color: var(--primary-color);
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    .prop-item, .event-item, .slot-item {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .prop-header, .event-header, .slot-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .prop-name, .event-name, .slot-name {
+      color: var(--text-color);
+      font-size: 1.2rem;
+      font-family: monospace;
+    }
+
+    .prop-type, .event-type {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: monospace;
+    }
+
+    .prop-required {
+      background: var(--warning-color);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .prop-description, .event-description, .slot-description {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .prop-default {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .prop-default code {
+      background: var(--background-color);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>${name}</h1>
+    <p class="component-path">${filePath}</p>
+
+    <div class="nav-links">
+      <a href="index.html">← All Components</a>
+      <a href="../">Documentation Portal</a>
+      <a href="../jsdoc/">JSDoc API</a>
+    </div>
+
+    ${propsHTML}
+    ${eventsHTML}
+    ${slotsHTML}
+
+    ${!propsHTML && !eventsHTML && !slotsHTML ? "<p>No props, events, or slots documented for this component.</p>" : ""}
+  </div>
+</body>
+</html>
+  `;
+};
+
+/**
  * Main function to generate all documentation
  *
  * @async
@@ -1186,10 +1743,12 @@ async function generateDocumentation() {
     const docsDir = path.join(projectRoot, "public", "documentation");
     const devDocsDir = path.join(docsDir, "dev");
     const jsdocDir = path.join(docsDir, "jsdoc");
+    const componentsDir = path.join(docsDir, "components");
 
     ensureDirectory(docsDir, config);
     ensureDirectory(devDocsDir, config);
     ensureDirectory(jsdocDir, config);
+    ensureDirectory(componentsDir, config);
 
     // Generate documentation portal
     log("INFO", "Generating documentation portal...", config);
@@ -1203,10 +1762,14 @@ async function generateDocumentation() {
     // Generate JSDoc API documentation
     await generateJSDocDocumentation(config);
 
+    // Generate Vue component documentation
+    await generateVueComponentDocumentation(config);
+
     log("SUCCESS", "Documentation generation completed successfully!", config, {
       portalPath: "/documentation/",
       projectDocsPath: "/documentation/dev/",
       apiDocsPath: "/documentation/jsdoc/",
+      componentsPath: "/documentation/components/",
     });
   } catch (error) {
     log(

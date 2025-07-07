@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { promises as fs } from "fs";
+import { promises as fs, readFileSync } from "fs";
 import path from "path";
 
 /**
@@ -80,7 +80,7 @@ export async function loadSiteConfig(configPath = null) {
     return mergeWithDefaults(config);
   } catch (error) {
     console.warn(
-      `Warning: Could not load site configuration from ${configPath || "config/site.config.json"}: ${error.message}`,
+      `Warning: Could not load site configuration from ${configPath || "config/site.config.json"}: ${error.message}`
     );
     console.warn("Using default configuration values");
     return defaultConfig;
@@ -118,14 +118,14 @@ export function loadSiteConfigSync(configPath = null) {
       configPath || path.join(process.cwd(), "config/site.config.json");
 
     // Read and parse configuration file synchronously
-    const configContent = require("fs").readFileSync(configFile, "utf-8");
+    const configContent = readFileSync(configFile, "utf-8");
     const config = JSON.parse(configContent);
 
     // Merge with defaults to ensure all required properties exist
     return mergeWithDefaults(config);
   } catch (error) {
     console.warn(
-      `Warning: Could not load site configuration from ${configPath || "config/site.config.json"}: ${error.message}`,
+      `Warning: Could not load site configuration from ${configPath || "config/site.config.json"}: ${error.message}`
     );
     console.warn("Using default configuration values");
     return defaultConfig;
@@ -157,7 +157,7 @@ export function loadSiteConfigSync(configPath = null) {
  * const config = await loadSiteConfigBrowser('/api/config');
  */
 export async function loadSiteConfigBrowser(
-  configUrl = "/config/site.config.json",
+  configUrl = "/config/site.config.json"
 ) {
   try {
     const response = await fetch(configUrl);
@@ -169,7 +169,7 @@ export async function loadSiteConfigBrowser(
     return mergeWithDefaults(config);
   } catch (error) {
     console.warn(
-      `Warning: Could not load site configuration from ${configUrl}: ${error.message}`,
+      `Warning: Could not load site configuration from ${configUrl}: ${error.message}`
     );
     console.warn("Using default configuration values");
     return defaultConfig;
