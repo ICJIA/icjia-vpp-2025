@@ -112,7 +112,7 @@ if (logLevelIndex !== -1 && args[logLevelIndex + 1]) {
 }
 
 Logger.info(
-  `🚀 Starting Defuddle-enhanced search index generation (Log Level: ${logLevel})`,
+  `🚀 Starting Defuddle-enhanced search index generation (Log Level: ${logLevel})`
 );
 
 /**
@@ -137,7 +137,7 @@ async function loadConfig() {
         "https://vpp-2025.netlify.app";
     } catch (siteError) {
       Logger.warning(
-        "⚠️ Could not load site.config.json, using default baseURL",
+        "⚠️ Could not load site.config.json, using default baseURL"
       );
       config.baseURL = "https://vpp-2025.netlify.app";
     }
@@ -245,6 +245,26 @@ function isBlacklisted(filePath, blacklistPatterns) {
     const regexPattern = pattern.replace(/\*/g, ".*").replace(/\?/g, ".");
     const regex = new RegExp(`^${regexPattern}$`, "i");
     return regex.test(fileName);
+  });
+}
+
+/**
+ * Check if a path should be blacklisted based on path patterns
+ * @param {string} filePath - Full path to check
+ * @param {Array} pathPatterns - Array of path glob patterns
+ * @returns {boolean} True if path should be blacklisted
+ */
+function isPathBlacklisted(filePath, pathPatterns) {
+  if (!pathPatterns || pathPatterns.length === 0) return false;
+
+  // Normalize path for consistent checking
+  const normalizedPath = filePath.replace(/\\/g, "/");
+
+  return pathPatterns.some((pattern) => {
+    // Convert glob pattern to regex for matching
+    const regexPattern = pattern.replace(/\*/g, ".*").replace(/\?/g, ".");
+    const regex = new RegExp(regexPattern, "i");
+    return regex.test(normalizedPath) || regex.test(`/${normalizedPath}`);
   });
 }
 
@@ -393,7 +413,7 @@ async function extractContentWithDefuddle(htmlContent, url) {
               wordCount: result.wordCount,
               parseTime: result.parseTime,
               plainTextLength: plainTextContent.length,
-            },
+            }
           );
         }
 
@@ -406,7 +426,7 @@ async function extractContentWithDefuddle(htmlContent, url) {
       } catch (fallbackError) {
         Logger.error(
           `❌ Defuddle extraction failed for ${url}`,
-          fallbackError.message,
+          fallbackError.message
         );
         return {
           title: "",
@@ -438,7 +458,7 @@ async function processMarkdownContent(config) {
 
   if (!fs.existsSync(contentDir)) {
     Logger.warning(
-      "📁 Content directory not found, skipping markdown processing",
+      "📁 Content directory not found, skipping markdown processing"
     );
     return searchItems;
   }
@@ -452,9 +472,16 @@ async function processMarkdownContent(config) {
   let skippedCount = 0;
 
   for (const file of markdownFiles) {
-    // Check if file is blacklisted
+    // Check if file is blacklisted by filename
     if (isBlacklisted(file, config.indexing.blacklist.markdown)) {
       Logger.warning(`⏭️ Skipping blacklisted markdown file: ${file}`);
+      skippedCount++;
+      continue;
+    }
+
+    // Check if file is blacklisted by path
+    if (isPathBlacklisted(file, config.indexing.blacklist.paths)) {
+      Logger.warning(`⏭️ Skipping path-blacklisted markdown file: ${file}`);
       skippedCount++;
       continue;
     }
@@ -465,7 +492,7 @@ async function processMarkdownContent(config) {
 
       // Parse frontmatter and content
       const frontmatterMatch = content.match(
-        /^---\n([\s\S]*?)\n---\n([\s\S]*)$/,
+        /^---\n([\s\S]*?)\n---\n([\s\S]*)$/
       );
       let frontmatter = {};
       let bodyContent = content;
@@ -514,7 +541,7 @@ async function processMarkdownContent(config) {
       const rawPath = "/" + file.replace(/\.md$/, "").replace(/\/index$/, "");
       const extracted = await extractContentWithDefuddle(
         htmlContent,
-        `http://localhost${rawPath}`,
+        `http://localhost${rawPath}`
       );
 
       // Skip if no meaningful content was extracted
@@ -527,7 +554,7 @@ async function processMarkdownContent(config) {
       // Security check for dangerous content
       if (containsDangerousContent(extracted.content)) {
         Logger.warning(
-          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`,
+          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`
         );
       }
 
@@ -538,7 +565,7 @@ async function processMarkdownContent(config) {
       // Create search item with sanitized content
       const searchItem = {
         title: sanitizeContentForIndexing(
-          extracted.title || frontmatter.title || path.basename(file, ".md"),
+          extracted.title || frontmatter.title || path.basename(file, ".md")
         ),
         content: sanitizeContentForIndexing(extracted.content),
         path: normalizedPath,
@@ -546,7 +573,7 @@ async function processMarkdownContent(config) {
         description: sanitizeContentForIndexing(
           extracted.description ||
             frontmatter.description ||
-            extracted.content.substring(0, 160) + "...",
+            extracted.content.substring(0, 160) + "..."
         ),
         frontmatter: frontmatter,
         type: "markdown",
@@ -571,7 +598,7 @@ async function processMarkdownContent(config) {
   }
 
   Logger.info(
-    `📚 Markdown processing complete: ${processedCount} processed, ${skippedCount} skipped`,
+    `📚 Markdown processing complete: ${processedCount} processed, ${skippedCount} skipped`
   );
   return searchItems;
 }
@@ -587,7 +614,7 @@ async function processVuePages(config) {
 
   if (!fs.existsSync(pagesDir)) {
     Logger.warning(
-      "📁 Pages directory not found, skipping Vue page processing",
+      "📁 Pages directory not found, skipping Vue page processing"
     );
     return searchItems;
   }
@@ -597,7 +624,7 @@ async function processVuePages(config) {
   // For now, we'll focus on the static output approach
   // This function will be enhanced to work with Nuxt's static generation
   Logger.warning(
-    "🚧 Vue page processing via Defuddle requires static HTML generation - implementing fallback approach",
+    "🚧 Vue page processing via Defuddle requires static HTML generation - implementing fallback approach"
   );
 
   return searchItems;
@@ -614,7 +641,7 @@ async function processStaticHTML(config) {
 
   if (!fs.existsSync(outputDir)) {
     Logger.warning(
-      "📁 Static output directory not found, skipping HTML processing",
+      "📁 Static output directory not found, skipping HTML processing"
     );
     return searchItems;
   }
@@ -637,6 +664,13 @@ async function processStaticHTML(config) {
       continue;
     }
 
+    // Check if file is blacklisted by path
+    if (isPathBlacklisted(file, config.indexing.blacklist.paths)) {
+      Logger.warning(`⏭️ Skipping path-blacklisted HTML file: ${file}`);
+      skippedCount++;
+      continue;
+    }
+
     try {
       const filePath = path.join(outputDir, file);
       const htmlContent = fs.readFileSync(filePath, "utf8");
@@ -648,7 +682,7 @@ async function processStaticHTML(config) {
       // Extract content using Defuddle
       const extracted = await extractContentWithDefuddle(
         htmlContent,
-        `http://localhost${rawPath}`,
+        `http://localhost${rawPath}`
       );
 
       // Skip if no meaningful content was extracted
@@ -661,7 +695,7 @@ async function processStaticHTML(config) {
       // Security check for dangerous content
       if (containsDangerousContent(extracted.content)) {
         Logger.warning(
-          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`,
+          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`
         );
       }
 
@@ -676,7 +710,7 @@ async function processStaticHTML(config) {
         path: normalizedPath,
         fullPath: fullPath,
         description: sanitizeContentForIndexing(
-          extracted.description || extracted.content.substring(0, 160) + "...",
+          extracted.description || extracted.content.substring(0, 160) + "..."
         ),
         type: "static-html",
         sourceFile: file,
@@ -700,7 +734,7 @@ async function processStaticHTML(config) {
   }
 
   Logger.info(
-    `🌐 HTML processing complete: ${processedCount} processed, ${skippedCount} skipped`,
+    `🌐 HTML processing complete: ${processedCount} processed, ${skippedCount} skipped`
   );
   return searchItems;
 }
@@ -736,7 +770,7 @@ async function generateSearchIndex() {
     }
 
     Logger.info(
-      `📊 Search index generation complete: ${uniqueItems.length} unique items`,
+      `📊 Search index generation complete: ${uniqueItems.length} unique items`
     );
 
     // Ensure output directory exists
@@ -766,7 +800,7 @@ async function generateSearchIndex() {
     }
 
     Logger.info(
-      "✅ Defuddle-enhanced search index generation completed successfully!",
+      "✅ Defuddle-enhanced search index generation completed successfully!"
     );
   } catch (error) {
     Logger.error("❌ Search index generation failed", error.message);
@@ -786,6 +820,7 @@ export {
   sanitizeContentForIndexing,
   containsDangerousContent,
   isBlacklisted,
+  isPathBlacklisted,
   htmlToPlainText,
   extractContentWithDefuddle,
   processMarkdownContent,

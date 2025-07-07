@@ -44,8 +44,20 @@
   },
   "indexing": {
     "blacklist": {
-      "vue": ["sandbox.vue", "sandbox-*.vue"],
-      "markdown": ["sandbox.md", "sandbox-*.md"]
+      "vue": [
+        "sandbox.vue",
+        "sandbox-*.vue"
+      ],
+      "markdown": [
+        "sandbox.md",
+        "sandbox-*.md"
+      ],
+      "paths": [
+        "/documentation/*",
+        "/public/documentation/*",
+        "documentation/*",
+        "public/documentation/*"
+      ]
     },
     "paths": {
       "content": "content",
@@ -81,13 +93,21 @@
           "v-chip",
           "v-tooltip"
         ],
-        "attributes": ["text", "label", "placeholder", "title", "alt"],
+        "attributes": [
+          "text",
+          "label",
+          "placeholder",
+          "title",
+          "alt"
+        ],
         "metadata": {
           "titlePatterns": [
             "title:\\s*['\"]([^'\"]+)['\"]",
             "@page\\s*\\n\\s*\\*/\\s*[\\s\\S]*?['\"]([^'\"]+)['\"]"
           ],
-          "descriptionPatterns": ["description:\\s*['\"]([^'\"]+)['\"]"]
+          "descriptionPatterns": [
+            "description:\\s*['\"]([^'\"]+)['\"]"
+          ]
         }
       },
       "markdown": {
@@ -102,7 +122,10 @@
       }
     },
     "normalization": {
-      "removeExtensions": [".vue", ".md"],
+      "removeExtensions": [
+        ".vue",
+        ".md"
+      ],
       "ensureLeadingSlash": true,
       "indexToRoot": true
     }
