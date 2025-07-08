@@ -20,17 +20,17 @@ View the Plan
 Learn More
 ::
 
+::home-letters
+
+# A message from the executive director
+
+::
+
 ::home-statistics
 
 # Violence in Illinois: The Data
 
 Understanding the scope and impact of violence is the first step in prevention. These statistics highlight the urgent need for comprehensive violence prevention efforts across Illinois.
-::
-
-::home-letters
-
-# A message from the executive director
-
 ::
 
 ::home-approach
