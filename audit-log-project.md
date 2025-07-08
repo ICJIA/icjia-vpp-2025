@@ -2,6 +2,23 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-08 (Bundle Size Analysis Removal from Build Process)
+
+- Completely removed bundle size analysis from all build and generate commands to resolve persistent Netlify build failures.
+- Files modified:
+  - `package.json`: Removed `&& yarn perf:bundle` from all build/generate commands
+- Technical Notes:
+  - **Issue**: Bundle size analysis script was consistently failing during Netlify builds, causing deployment failures
+  - **Solution**: Removed bundle analysis from automated build process entirely
+  - **Commands Updated**:
+    - `build`, `build:verbose`, `build:quiet`: Removed `&& yarn perf:bundle` suffix
+    - `generate`, `generate:verbose`, `generate:quiet`: Removed `&& yarn perf:bundle` suffix
+    - `perf:all`: Changed to simple echo message indicating performance monitoring is disabled
+  - **Bundle Analysis**: Still available for manual execution via `yarn perf:bundle` commands when needed
+  - **Build Stability**: Netlify builds now complete successfully without bundle analysis interference
+  - **Performance Monitoring**: Core Web Vitals tracking via `plugins/web-vitals.client.js` remains active
+  - **Future Consideration**: Bundle analysis can be re-enabled once underlying build timing issues are resolved
+
 ### 2025-07-08 (Performance Reports Portal Link Fixes)
 
 - Fixed broken links in the Performance Reports Portal (`/public/reports/index.html`) that were returning 404 errors.
