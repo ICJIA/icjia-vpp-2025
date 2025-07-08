@@ -2,25 +2,18 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
-### 2025-07-08 (Bundle Size Analysis Script CI/CD Fix - Enhanced)
+### 2025-07-08 (Bundle Size Analysis Script Reversion)
 
-- Fixed bundle size analysis script failing during Netlify build process due to timing issues with build directory availability and incomplete build file generation.
+- Reverted bundle size analysis script back to original simple form after complex retry mechanism failed to resolve Netlify build issues.
 - Files modified:
-  - `scripts/bundle-size-report.js`: Added comprehensive retry mechanism with build completion validation for CI/CD environments
+  - `scripts/bundle-size-report.js`: Removed all retry logic and CI environment detection, restored original simple directory check
 - Technical Notes:
-  - **Issue**: Script was failing with "Build directory not found" error during Netlify builds using `yarn generate`, even though `nuxt generate` had completed
-  - **Root Cause**: Race condition where bundle analysis script ran before build files were fully written to disk in CI/CD environment
-  - **Enhanced Solution**:
-    - Added `waitForBuildDirectory()` function with intelligent retry logic
-    - CI environment detection (Netlify, GitHub Actions, Vercel, etc.)
-    - Extended retry settings for CI: 30 attempts with 2-second intervals (60-second total timeout)
-    - Initial 3-second delay for CI builds to let build process settle
-    - Build completion validation: checks for actual JS/CSS files in `_nuxt` directory, not just directory existence
-  - **Error Handling**: Comprehensive error messages with troubleshooting guidance for developers
-  - **CI/CD Compatibility**: Script now waits for complete build file generation rather than failing immediately
-  - **Local Development**: Minimal impact - uses shorter timeouts (10 attempts, 1-second intervals) for faster feedback
-  - **Build Validation**: Verifies presence of actual build artifacts (JS/CSS files) before proceeding with analysis
-  - **Reliability**: Significantly improved build success rate in automated deployment environments
+  - **Issue**: Complex retry mechanism with CI detection and build validation was still failing on Netlify builds
+  - **Decision**: Reverted to original simple approach that was working previously
+  - **Current Behavior**: Simple check for build directory existence, immediate failure if not found
+  - **Rationale**: The original approach was working fine, and the complex retry logic introduced more problems than it solved
+  - **Next Steps**: If build issues persist, the problem likely lies elsewhere in the build pipeline, not in the bundle analysis script
+  - **Lesson Learned**: Sometimes the simplest solution is the best solution - avoid over-engineering fixes for problems that may not exist
 
 ### 2025-07-08 (Homepage Section Reordering)
 

@@ -538,96 +538,6 @@ function generateHTMLReport(report) {
 }
 
 /**
- * Wait for build directory to exist with retry mechanism for CI/CD environments
- * @param {string} buildDir - Path to build directory
- * @param {Logger} logger - Logger instance
- * @param {Object} options - Command line options
- */
-async function waitForBuildDirectory(buildDir, logger, options) {
-  // Detect CI environment
-  const isCI =
-    process.env.CI ||
-    process.env.NETLIFY ||
-    process.env.GITHUB_ACTIONS ||
-    process.env.VERCEL;
-
-  // Adjust retry settings based on environment
-  const maxRetries = isCI ? 30 : 10; // More retries in CI
-  const retryDelay = isCI ? 2000 : 1000; // Longer delay in CI
-  const initialDelay = isCI ? 3000 : 0; // Initial delay for CI builds
-
-  // Initial delay for CI environments to let build settle
-  if (initialDelay > 0) {
-    logger.log(
-      `🏗️ CI environment detected, waiting ${initialDelay}ms for build to settle...`
-    );
-    await new Promise((resolve) => setTimeout(resolve, initialDelay));
-  }
-
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    if (fs.existsSync(buildDir)) {
-      // Check if build is actually complete by looking for key files
-      const publicDir = path.join(buildDir, "public");
-      const nuxtDir = path.join(publicDir, "_nuxt");
-
-      if (fs.existsSync(publicDir) && fs.existsSync(nuxtDir)) {
-        // Check if there are actual build files (not just empty directories)
-        const nuxtFiles = fs
-          .readdirSync(nuxtDir)
-          .filter((file) => file.endsWith(".js") || file.endsWith(".css"));
-
-        if (nuxtFiles.length > 0) {
-          logger.log(
-            `✅ Build directory found with ${nuxtFiles.length} build files: ${buildDir}`
-          );
-          return;
-        } else {
-          logger.log(
-            `⏳ Build directory exists but no build files found yet...`
-          );
-        }
-      } else {
-        logger.log(`⏳ Build directory exists but structure incomplete...`);
-      }
-    }
-
-    if (attempt === 1) {
-      logger.log(
-        `⏳ Build directory not found, waiting for build to complete...`
-      );
-      if (isCI) {
-        logger.log(
-          `🔧 CI environment detected - using extended retry settings`
-        );
-      }
-    }
-
-    if (attempt < maxRetries) {
-      logger.log(
-        `🔄 Attempt ${attempt}/${maxRetries}: Waiting ${retryDelay}ms for build directory...`
-      );
-      await new Promise((resolve) => setTimeout(resolve, retryDelay));
-    }
-  }
-
-  // Final check - if still not found, provide helpful error message
-  logger.error(
-    `❌ Build directory not found after ${maxRetries} attempts: ${buildDir}`
-  );
-  logger.error("💡 This usually means:");
-  logger.error("   1. The build process has not completed yet");
-  logger.error("   2. The build failed before creating the output directory");
-  logger.error("   3. The build command was not run before this script");
-  logger.error("");
-  logger.error("🔧 To fix this issue:");
-  logger.error('   • Run "yarn build" manually first');
-  logger.error("   • Check that the build process completes successfully");
-  logger.error("   • Verify the build output directory exists");
-
-  process.exit(1);
-}
-
-/**
  * Main execution function
  */
 async function main() {
@@ -637,8 +547,11 @@ async function main() {
   try {
     logger.log("🔍 Starting bundle size analysis for ICJIA VPP 2025...");
 
-    // Check if build directory exists with retry mechanism for CI/CD environments
-    await waitForBuildDirectory(config.buildDir, logger, options);
+    // Check if build directory exists
+    if (!fs.existsSync(config.buildDir)) {
+      logger.error('Build directory not found. Please run "yarn build" first.');
+      process.exit(1);
+    }
 
     // Generate bundle report
     const report = generateBundleReport(options);
