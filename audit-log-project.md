@@ -2,6 +2,22 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-08 (JSDoc Invalid Filename Cleanup for Netlify Deployment)
+
+- Fixed Netlify deployment failure caused by JSDoc generating files with invalid characters (`#` and `?`) in filenames.
+- Files modified:
+  - `scripts/generate-documentation.js`: Added `cleanupInvalidFilenames()` function to remove files with invalid characters after JSDoc generation
+- Technical Notes:
+  - **Issue**: Netlify deployment failing with error "Invalid filename 'documentation/jsdoc/global.html#Logger'. Deployed filenames cannot contain # or ? characters"
+  - **Root Cause**: JSDoc was generating files with `#` characters in filenames, which Netlify doesn't allow
+  - **Solution**: Added post-processing step to automatically remove files with invalid characters after JSDoc generation
+  - **Cleanup Function**: `cleanupInvalidFilenames()` scans JSDoc output directory and removes any files containing `#` or `?` characters
+  - **Build Integration**: Cleanup runs automatically after JSDoc generation as part of documentation build process
+  - **Logging**: Provides detailed feedback about which files are removed during cleanup
+  - **Error Handling**: Gracefully handles cleanup failures without breaking the build process
+  - **Verification**: Build output confirmed to contain no files with invalid characters
+  - **Deployment**: Netlify builds should now complete successfully without filename validation errors
+
 ### 2025-07-08 (Bundle Size Analysis Removal from Build Process)
 
 - Completely removed bundle size analysis from all build and generate commands to resolve persistent Netlify build failures.

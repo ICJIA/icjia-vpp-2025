@@ -1174,10 +1174,68 @@ const generateJSDocDocumentation = async (config) => {
     // Clean up config file
     fs.unlinkSync(configPath);
 
+    // Clean up files with invalid characters for Netlify deployment
+    cleanupInvalidFilenames(config);
+
     log("SUCCESS", "JSDoc API documentation generated successfully", config);
   } catch (error) {
     log("ERROR", `JSDoc generation failed: ${error.message}`, config, error);
     throw error;
+  }
+};
+
+/**
+ * Clean up files with invalid characters for Netlify deployment
+ * Removes files with # or ? characters in filenames
+ *
+ * @param {Object} config - Logging configuration
+ */
+const cleanupInvalidFilenames = (config) => {
+  log(
+    "INFO",
+    "Cleaning up files with invalid characters for Netlify...",
+    config
+  );
+
+  const jsdocDir = path.join(projectRoot, "public", "documentation", "jsdoc");
+
+  try {
+    const files = fs.readdirSync(jsdocDir, { recursive: true });
+    let removedCount = 0;
+
+    for (const file of files) {
+      if (
+        typeof file === "string" &amp;&amp;
+        (file.includes("#") || file.includes("?"))
+      ) {
+        const fullPath = path.join(jsdocDir, file);
+        try {
+          if (fs.existsSync(fullPath)) {
+            fs.unlinkSync(fullPath);
+            removedCount++;
+            log("INFO", `Removed invalid filename: ${file}`, config);
+          }
+        } catch (error) {
+          log(
+            "WARN",
+            `Failed to remove file ${file}: ${error.message}`,
+            config
+          );
+        }
+      }
+    }
+
+    log(
+      "SUCCESS",
+      `Cleaned up ${removedCount} files with invalid characters`,
+      config
+    );
+  } catch (error) {
+    log(
+      "WARN",
+      `Failed to clean up invalid filenames: ${error.message}`,
+      config
+    );
   }
 };
 
