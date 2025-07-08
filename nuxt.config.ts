@@ -231,4 +231,91 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  /**
+   * Performance monitoring configuration
+   *
+   * Configures performance monitoring and optimization features for the
+   * Illinois Violence Prevention Project (ICJIA VPP 2025).
+   */
+  experimental: {
+    // Enable payload extraction for better performance
+    payloadExtraction: false,
+
+    // Enable inline route rules for better performance
+    inlineRouteRules: true,
+  },
+
+  /**
+   * Vite configuration for performance optimization
+   *
+   * Configures Vite build settings to optimize bundle size and performance.
+   */
+  vite: {
+    build: {
+      // Enable source maps in development only
+      sourcemap: process.env.NODE_ENV === 'development',
+
+      // Optimize chunk splitting for better caching
+      rollupOptions: {
+        output: {
+          // Manual chunk splitting for better caching
+          manualChunks: {
+            // Vendor chunks (safe ones only)
+            'vendor-vuetify': ['vuetify'],
+            'vendor-vueuse': ['@vueuse/core', '@vueuse/head', '@vueuse/motion'],
+
+            // Content and search chunks
+            'search': ['fuse.js'],
+
+            // Utilities
+            'utils': ['gray-matter', 'yaml', 'remove-markdown']
+          }
+        }
+      }
+    },
+
+    // Optimize dependencies
+    optimizeDeps: {
+      include: [
+        'vue',
+        'vuetify',
+        '@vueuse/core',
+        'fuse.js',
+        'web-vitals'
+      ]
+    }
+  },
+
+  /**
+   * Runtime configuration for performance monitoring
+   */
+  runtimeConfig: {
+    // Private keys (only available on server-side)
+
+    // Public keys (exposed to client-side)
+    public: {
+      // Performance monitoring settings
+      performance: {
+        // Enable Core Web Vitals tracking
+        webVitalsEnabled: true,
+
+        // Performance budgets (in bytes)
+        budgets: {
+          totalSize: 250 * 1024,    // 250KB
+          jsSize: 200 * 1024,       // 200KB
+          cssSize: 50 * 1024,       // 50KB
+        },
+
+        // Core Web Vitals thresholds
+        thresholds: {
+          LCP: { good: 2500, poor: 4000 },
+          INP: { good: 200, poor: 500 },
+          CLS: { good: 0.1, poor: 0.25 },
+          FCP: { good: 1800, poor: 3000 },
+          TTFB: { good: 800, poor: 1800 }
+        }
+      }
+    }
+  }
 });

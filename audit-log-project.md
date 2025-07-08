@@ -2,6 +2,41 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-08 (Performance Monitoring Infrastructure Implementation)
+
+- Implemented comprehensive performance monitoring infrastructure to address Critical Issue #2: Performance Monitoring, including Core Web Vitals tracking, bundle size analysis, and Lighthouse CI integration.
+- Files modified/created:
+  - `package.json`: Added performance monitoring dependencies (@lhci/cli@0.15.1, web-vitals@5.0.3, webpack-bundle-analyzer@4.10.2) and new performance scripts
+  - `lighthouserc.cjs`: Created Lighthouse CI configuration with WCAG 2.1 AA accessibility checks and performance budgets per project guidelines
+  - `plugins/web-vitals.client.js`: Implemented client-side Core Web Vitals tracking plugin with Plausible Analytics integration
+  - `scripts/bundle-size-report.js`: Created automated bundle analysis script with HTML/JSON reporting and optimization recommendations
+  - `nuxt.config.ts`: Enhanced with performance optimization settings, manual chunk splitting, and runtime configuration for performance monitoring
+  - Build scripts updated: Added `yarn perf:bundle` to all build/generate processes for automated performance monitoring
+- Technical Notes:
+  - **Core Web Vitals Tracking**:
+    - Updated to web-vitals v5.0.3 with new API (onCLS, onINP, onFCP, onLCP, onTTFB replacing getCLS, getFID, etc.)
+    - INP (Interaction to Next Paint) replaces FID (First Input Delay) as primary interactivity metric
+    - Automatic batch reporting every 5 minutes with Plausible Analytics integration
+    - Performance thresholds: LCP <2.5s, INP <200ms, CLS <0.1, FCP <1.8s, TTFB <800ms
+  - **Bundle Size Analysis**:
+    - Automated analysis of JavaScript (1.21 MB, 619.8% over budget), CSS (283.5 KB, 567.0% over budget), and total bundle size (1.49 MB, 609.3% over budget)
+    - Performance budget enforcement: 250KB total, 200KB JS, 50KB CSS per project guidelines
+    - HTML and JSON report generation with optimization recommendations
+    - CI mode support for build failure on budget violations
+  - **Lighthouse CI Configuration**:
+    - Performance targets: 90+ performance score, 100% accessibility score, <2.5s LCP, <1.8s FCP, <3.5s TTI
+    - WCAG 2.1 AA compliance enforcement with comprehensive accessibility audits
+    - Resource budgets: 50KB HTML, 100KB CSS, 250KB JS, 500KB images, 200KB fonts
+    - Static site analysis from .output/public directory
+  - **Build Pipeline Integration**:
+    - Performance monitoring automatically runs after every build/generate process
+    - New yarn scripts: perf:bundle, perf:lighthouse, perf:all, perf:report for manual performance analysis
+    - Verbose and quiet modes for different logging levels
+  - **Current Performance Status**:
+    - Bundle size significantly exceeds targets (609.3% of 250KB budget), indicating need for optimization
+    - Identified optimization opportunities: code splitting, unused code removal, dependency optimization
+    - Performance monitoring infrastructure ready for continuous monitoring and regression detection
+
 ### 2025-07-07 (Documentation Search Exclusion Implementation)
 
 - Implemented comprehensive documentation search exclusion system to keep technical documentation publicly accessible while preventing it from appearing in site search results or search engine indexes.
