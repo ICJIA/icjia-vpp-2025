@@ -40,12 +40,8 @@
     "perf:bundle:verbose": "node scripts/bundle-size-report.js --verbose",
     "perf:bundle:open": "node scripts/bundle-size-report.js --open",
     "perf:bundle:ci": "node scripts/bundle-size-report.js --ci",
-    "perf:lighthouse": "lhci autorun",
-    "perf:lighthouse:collect": "lhci collect",
-    "perf:lighthouse:assert": "lhci assert",
-    "perf:lighthouse:upload": "lhci upload",
-    "perf:all": "yarn perf:bundle && yarn perf:lighthouse",
-    "perf:report": "yarn perf:bundle:open && yarn perf:lighthouse"
+    "perf:all": "yarn perf:bundle",
+    "perf:report": "yarn perf:bundle:open"
   },
   "dependencies": {
     "@nuxt/content": "^3.5.1",
@@ -71,7 +67,6 @@
     "yaml": "^2.8.0"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.15.1",
     "@mdi/font": "^7.4.47",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@testing-library/vue": "^8.1.0",

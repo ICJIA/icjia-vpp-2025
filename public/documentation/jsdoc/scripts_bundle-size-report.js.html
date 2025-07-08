@@ -58,6 +58,7 @@ const config = {
   buildDir: path.resolve(__dirname, "../.output"),
   publicDir: path.resolve(__dirname, "../.output/public"),
   reportsDir: path.resolve(__dirname, "../reports"),
+  publicReportsDir: path.resolve(__dirname, "../public/reports"),
 
   // Analysis options
   analyzer: {
@@ -373,17 +374,37 @@ function saveReport(report, options) {
     fs.mkdirSync(config.reportsDir, { recursive: true });
   }
 
+  // Ensure public reports directory exists
+  if (!fs.existsSync(config.publicReportsDir)) {
+    fs.mkdirSync(config.publicReportsDir, { recursive: true });
+  }
+
   // Save JSON report
   const jsonPath = path.join(config.reportsDir, "bundle-size-report.json");
-  fs.writeFileSync(jsonPath, JSON.stringify(report, null, 2));
+  const publicJsonPath = path.join(
+    config.publicReportsDir,
+    "bundle-size-report.json"
+  );
+  const jsonContent = JSON.stringify(report, null, 2);
+
+  fs.writeFileSync(jsonPath, jsonContent);
+  fs.writeFileSync(publicJsonPath, jsonContent);
   logger.verbose(`JSON report saved to: ${jsonPath}`);
+  logger.verbose(`JSON report copied to: ${publicJsonPath}`);
 
   // Generate and save HTML report if not in JSON-only mode
   if (!options.json) {
     const htmlReport = generateHTMLReport(report);
     const htmlPath = path.join(config.reportsDir, "bundle-size-report.html");
+    const publicHtmlPath = path.join(
+      config.publicReportsDir,
+      "bundle-size-report.html"
+    );
+
     fs.writeFileSync(htmlPath, htmlReport);
+    fs.writeFileSync(publicHtmlPath, htmlReport);
     logger.verbose(`HTML report saved to: ${htmlPath}`);
+    logger.verbose(`HTML report copied to: ${publicHtmlPath}`);
 
     if (options.open) {
       try {

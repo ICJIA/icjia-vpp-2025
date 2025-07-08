@@ -2,6 +2,69 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-08 (Performance Reports Portal Link Fixes)
+
+- Fixed broken links in the Performance Reports Portal (`/public/reports/index.html`) that were returning 404 errors.
+- Files modified:
+  - `public/reports/index.html`: Updated Plausible Analytics dashboard link and Core Web Vitals documentation link
+- Link corrections made:
+  - **Plausible Analytics Dashboard**: Changed from `https://plausible.io/vpp-2025.netlify.app` to `https://plausible.icjia.cloud/vpp-2025.netlify.app` (correct external Plausible URL)
+  - **Core Web Vitals Documentation**: Changed from `/documentation/performance-monitoring/` (broken after Lighthouse removal) to `/documentation/jsdoc/plugins_web-vitals.client.js.html` (actual JSDoc documentation)
+  - **Bundle Size Reports**: Verified existing links to `bundle-size-report.html` and `bundle-size-report.json` are correct and functional
+- Technical Notes:
+  - **Bundle Size Analysis**: Links correctly point to actual generated HTML and JSON report files in `/reports/` directory
+  - **Core Web Vitals**: Now links to comprehensive JSDoc documentation for the web vitals tracking plugin
+  - **External Analytics**: Plausible Analytics dashboard link now points to correct ICJIA cloud instance
+  - **Verification**: All links tested and confirmed functional both locally and for deployment
+  - **User Experience**: Performance Reports Portal now provides working navigation to all intended destinations
+
+### 2025-07-08 (Lighthouse CI Integration Removal)
+
+- Completely removed all Lighthouse CI integration from the Illinois Violence Prevention Project (ICJIA VPP 2025) codebase due to persistent Chrome compatibility issues in WSL environments that prevented reliable report generation.
+- Files deleted entirely:
+  - `lighthouserc.cjs`: Main Lighthouse CI configuration file
+  - `scripts/lighthouse-html-reports.js`: Custom HTML report generation script
+  - `docs/lighthouse-html-setup.md`: Lighthouse setup documentation
+  - `public/reports/.lighthouseci/` directory and all contents
+- Package.json modifications:
+  - Removed `@lhci/cli` dependency from devDependencies
+  - Removed ALL Lighthouse-related scripts: `perf:lighthouse`, `perf:lighthouse:html`, `perf:lighthouse:html:verbose`, `perf:lighthouse:collect`, `perf:lighthouse:assert`, `perf:lighthouse:upload`
+  - Updated composite scripts (`perf:all`, `perf:report`) to remove Lighthouse references
+- Performance Reports Portal updates (`public/reports/index.html`):
+  - Removed entire "Lighthouse CI Reports" card/section from main grid
+  - Deleted ALL JavaScript functions related to Lighthouse functionality: `checkLighthouseReports()`, `showLighthouseMessage()`, `showLighthouseModal()`, `closeLighthouseModal()`
+  - Updated grid layout to accommodate only 2 cards (Bundle Size Analysis and Core Web Vitals)
+- Documentation updates:
+  - Updated `docs/performance-monitoring.md`: Removed entire "Lighthouse CI Integration" section, removed Lighthouse commands from usage instructions, updated "Report Locations" section to remove Lighthouse references
+- Technical Notes:
+  - **Reasoning**: WSL Chrome compatibility issues prevented reliable Lighthouse CI report generation despite multiple configuration attempts
+  - **Preserved Functionality**: Bundle size analysis (`scripts/bundle-size-report.js`) and Core Web Vitals tracking (`plugins/web-vitals.client.js`) remain fully functional
+  - **Clean Removal**: No orphaned references, broken links, or import statements remain in codebase
+  - **Performance Monitoring**: System now consists of exactly two components: automated bundle size analysis with HTML/JSON reports, and real-time Core Web Vitals tracking with Plausible Analytics integration
+  - **Quality Assurance**: All yarn scripts execute without errors, performance reports portal loads correctly with 2-card layout, responsive design maintained
+
+### 2025-07-08 (Performance Reports Portal Implementation)
+
+- Created comprehensive performance reports portal at `/public/reports/index.html` as a centralized dashboard for viewing all performance monitoring reports and metrics.
+- Files modified/created:
+  - `public/reports/index.html`: Created performance reports portal with dark mode default, WCAG 2.1 AA compliance, and consistent styling with documentation portal
+  - `public/documentation/index.html`: Added Performance Reports card to main documentation portal for discoverability
+  - `scripts/bundle-size-report.js`: Enhanced to automatically copy reports to `/public/reports/` directory for web accessibility
+  - Bundle reports automatically copied: `bundle-size-report.html` and `bundle-size-report.json` now accessible via web interface
+- Technical Notes:
+  - **Portal Design**: Matches visual style and layout of `/public/documentation/index.html` for consistency with project design standards
+  - **Theme System**: Implements same dark/light mode toggle with localStorage persistence, defaulting to dark mode per project preferences
+  - **Accessibility Compliance**: Full WCAG 2.1 AA compliance with 8:1 contrast ratios, semantic HTML, ARIA labels, and keyboard navigation support
+  - **Dynamic Status Updates**: JavaScript automatically fetches and displays current bundle size status from JSON reports with 5-minute auto-refresh
+  - **Navigation Integration**: Breadcrumb navigation and cross-linking with main documentation portal for seamless user experience
+  - **Report Sections**:
+    - Bundle Size Analysis: Links to HTML and JSON reports with current status indicators (609.3% over budget warning)
+    - Core Web Vitals: Real-time tracking information with Plausible Analytics integration
+    - Lighthouse CI: Configuration guide and report access (with graceful handling for WSL environment limitations)
+  - **Responsive Design**: Mobile-first design with optimized layouts for all screen sizes and reduced motion support
+  - **Auto-Copy Functionality**: Bundle analysis script now automatically copies reports to public directory during every build process
+  - **Status Indicators**: Visual status badges (warning/success/info) with appropriate colors and icons for quick performance assessment
+
 ### 2025-07-08 (Performance Monitoring Infrastructure Implementation)
 
 - Implemented comprehensive performance monitoring infrastructure to address Critical Issue #2: Performance Monitoring, including Core Web Vitals tracking, bundle size analysis, and Lighthouse CI integration.
