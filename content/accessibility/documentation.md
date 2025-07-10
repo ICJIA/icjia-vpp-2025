@@ -8,7 +8,7 @@ description: "Documentation for accessibility features of the Statewide Violence
 
 **Last Updated: July 10, 2025**
 
-> **Latest Accessibility Update**: A comprehensive accessibility audit has been completed on July 10, 2025. The project demonstrates **EXEMPLARY** accessibility implementation, exceeding WCAG 2.1 AA requirements in multiple areas. All components, navigation systems, and content maintain excellent accessibility compliance with contrast ratios exceeding 8:1, comprehensive keyboard navigation, robust screen reader support, and mobile-optimized touch accessibility. The site serves as a model for accessible government website development.
+> **Latest Accessibility Update**: A comprehensive accessibility audit has been completed on July 10, 2025. The project demonstrates **EXEMPLARY** accessibility implementation, exceeding WCAG 2.1 AA requirements in multiple areas. All components, navigation systems, and content maintain excellent accessibility compliance with contrast ratios exceeding 8:1, comprehensive keyboard navigation, robust screen reader support, and mobile-optimized touch accessibility.
 
 The Violence Prevention Plan for Illinois: 2025-2029 ensures digital accessibility. The site meets and exceeds Web Content Accessibility Guidelines (WCAG) 2.1 Level AA requirements.
 
