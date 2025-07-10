@@ -9418,10 +9418,10 @@ vue-component-meta@^3.0.0, vue-component-meta@^3.0.1:
     "@vue/language-core" "3.0.1"
     path-browserify "^1.0.1"
 
-vue-component-type-helpers@3.0.0-alpha.10:
-  version "3.0.0-alpha.10"
-  resolved "https://registry.yarnpkg.com/vue-component-type-helpers/-/vue-component-type-helpers-3.0.0-alpha.10.tgz#fe2e6f1844c02b94c7dbe15a0c4284820f9ac110"
-  integrity sha512-Vrmp0i2uDXvUKy0XPhKvb0oNkSUDv8HH1MFzyvSHwHzzmgLKaDQcBij+XLINCwm3Ee91y13I9CfGMexDpezWuw==
+vue-component-type-helpers@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vue-component-type-helpers/-/vue-component-type-helpers-3.0.1.tgz#2ef37a7b11bb2dc0104d8839c2ce602064c33ea9"
+  integrity sha512-j23mCB5iEbGsyIhnVdXdWUOg+UdwmVxpKnYYf2j+4ppCt5VSFXKjwu9YFt0QYxUaf5G99PuHsVfRScjHCRSsGQ==
 
 vue-component-type-helpers@^2.0.0:
   version "2.2.12"

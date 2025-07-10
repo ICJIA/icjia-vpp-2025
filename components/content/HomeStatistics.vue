@@ -1,5 +1,5 @@
 <template>
-  <section class="statistics-section section section-primary py-16">
+  <section class="statistics-section section section-secondary py-16">
     <v-container>
       <!-- Section header -->
       <div class="text-center mb-12">

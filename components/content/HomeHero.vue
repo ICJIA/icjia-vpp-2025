@@ -103,13 +103,13 @@ const handleDownloadPlan = () => {
 
 /**
  * Handle Learn More button activation
- * Scrolls to the statistics section for more information
+ * Scrolls to the letters section for more information
  */
 const handleLearnMore = () => {
-  // Scroll to statistics section
-  const statisticsSection = document.querySelector(".statistics-section");
-  if (statisticsSection) {
-    statisticsSection.scrollIntoView({ behavior: "smooth" });
+  // Scroll to letters section
+  const lettersSection = document.querySelector(".letters-section");
+  if (lettersSection) {
+    lettersSection.scrollIntoView({ behavior: "smooth" });
   }
 };
 </script>
