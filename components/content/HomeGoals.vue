@@ -19,7 +19,6 @@
           v-for="(goal, index) in goals"
           :key="index"
           :goal="goal"
-          :url="goal.url"
           :delay="index * 200"
           class="goal-grid-item"
         />

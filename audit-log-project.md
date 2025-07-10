@@ -2,20 +2,47 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
-### 2025-07-10 (Enhanced Goal Card Visual Contrast and Styling)
+### 2025-07-10 (Goal Cards Made Static - No Hover or Click Interaction)
 
-- Improved visual contrast and styling of goal cards to match application-wide card design patterns and ensure better visual separation from section backgrounds.
+- Converted goal cards from interactive navigation cards to static display cards.
 - Files modified:
-  - `components/content/HomeGoalCard.vue`: Enhanced card background styling for better contrast in both light and dark themes
+  - `components/content/HomeGoalCard.vue`: Removed all click handlers, hover effects, focus states, and navigation functionality
+  - `components/content/HomeGoals.vue`: Removed url prop from HomeGoalCard usage
 - Technical Notes:
-  - **Issue**: Goal cards lacked sufficient visual contrast from their section background (#F2F2F2 light, #1E2A3A dark)
-  - **Solution**: Applied consistent card styling patterns used throughout the application
-  - **Light Mode**: Added `background: #ffffff` for enhanced contrast against #F2F2F2 section background
-  - **Dark Mode**: Added `background: #2a3441 !important` for enhanced contrast against #1E2A3A section background
-  - **Consistency**: Now matches styling patterns from HomePrincipleCard, HomeStatisticCard, and HomeAction components
-  - **Accessibility**: Maintains WCAG 2.1 AA compliance with improved visual hierarchy and contrast ratios
-  - **Design System**: Preserves existing elevation, shadows, border radius (1rem), and transition effects
-  - **Documentation**: Updated JSDoc comments to reflect enhanced background contrast features
+  - Removed `handleCardClick` function and all navigation logic
+  - Removed `url` prop definition and validation
+  - Removed all CSS hover and focus effects (`:hover`, `:focus-visible`)
+  - Removed `cursor: pointer` styling
+  - Removed `tabindex`, click handlers, and keyboard navigation
+  - Updated JSDoc comments to reflect static display purpose
+  - Cards now serve as pure informational displays without any interactive behavior
+
+### 2025-07-10 (Goal Cards Dark Mode Background Color Match)
+
+- Fixed goal cards in dark mode to match the background color of "For More Information" cards.
+- Files modified:
+  - `components/content/HomeGoalCard.vue`: Added `background: #2a3441 !important` to dark theme styling to match HomeAction cards
+- Technical Notes:
+  - Goal cards now use the same enhanced contrast background color (#2a3441) as other cards on the homepage
+  - Maintains consistent visual appearance across all card components in dark mode
+  - Background color provides better contrast against the dark page background
+
+### 2025-07-10 (Balanced Goal Card Styling to Match Design System)
+
+- Adjusted goal card styling to match the balanced, professional appearance of the "For More Information" section cards, ensuring consistent visual hierarchy throughout the application.
+- Files modified:
+  - `components/content/HomeGoalCard.vue`: Applied balanced styling matching HomeAction card approach for design consistency
+- Technical Notes:
+  - **Issue**: Goal cards had excessive contrast that was too prominent compared to other card components in the design system
+  - **Solution**: Applied the same subtle styling approach used by HomeAction cards for consistent visual balance
+  - **Light Mode**: Restored subtle borders (rgba(0,0,0,0.05)) and balanced shadows (0 4px 6px -1px rgba(0,0,0,0.1)) for professional appearance
+  - **Dark Mode**: Applied consistent dark theme styling (rgba(255,255,255,0.05) border, balanced shadows) matching other card components
+  - **Hover Effects**: Implemented consistent hover elevation (translateY(-8px)) and shadow depth matching design system standards
+  - **Design Consistency**: Now matches the visual approach of HomePrincipleCard, HomeStatisticCard, and HomeAction components
+  - **Visual Hierarchy**: Maintains clear distinction from backgrounds while avoiding excessive prominence
+  - **Accessibility**: Preserves WCAG 2.1 AA compliance with balanced contrast ratios appropriate for the design system
+  - **User Experience**: Provides professional, cohesive appearance that doesn't overwhelm other content elements
+  - **Documentation**: Updated JSDoc comments to reflect balanced styling approach
 
 ### 2025-07-08 (Automated Audit Log Documentation System)
 

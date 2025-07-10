@@ -4,10 +4,6 @@
       variant="elevated"
       class="goal-card-inner"
       role="article"
-      tabindex="0"
-      @click="handleCardClick"
-      @keydown.enter="handleCardClick"
-      @keydown.space.prevent="handleCardClick"
       :aria-labelledby="`goal-title-${uniqueId}`"
       :aria-describedby="`goal-desc-${uniqueId}`"
     >
@@ -76,19 +72,18 @@
 
 <script setup>
 /**
- * Home Goal Card Component - Card-Level Navigation
+ * Home Goal Card Component - Static Display
  *
- * Displays individual strategic goals with card-level click navigation for
- * clean, accessible user experience.
+ * Displays individual strategic goals as static information cards without
+ * interactive navigation.
  *
  * Features:
  * - CSS Grid-based layout for optimal content organization
  * - Larger icons (size 64) for better visual impact
  * - Responsive design with consistent minimum heights and equal card heights
- * - Card-level click navigation for entire card interaction
- * - Enhanced accessibility with proper ARIA attributes and keyboard navigation
+ * - Static display without hover effects or click navigation
+ * - Enhanced accessibility with proper ARIA attributes
  * - Smooth animations with reduced motion support
- * - Professional hover and focus effects
  * - Full theme compatibility (light/dark)
  * - Enhanced background contrast for better visual separation from section backgrounds
  * - WCAG 2.1 AA compliance with enhanced text contrast
@@ -99,7 +94,7 @@
  * - Highlights section expands with 1fr to fill available space
  * - Deep selectors override Vuetify card and list defaults
  * - Enhanced text contrast for optimal readability in both themes
- * - Enhanced background colors (#ffffff light, #2a3441 dark) for better contrast
+ * - Balanced styling matching HomeAction cards for consistent visual hierarchy
  * - Consistent vertical alignment of Key Focus Areas across cards
  *
  * @component
@@ -117,7 +112,6 @@ const announce = inject("announce", null);
  * @typedef {Object} Props
  * @property {Object} goal - The goal object containing title, description, etc.
  * @property {number} [delay=0] - Animation delay in milliseconds
- * @property {string|null} [url=null] - Optional URL for navigation (local or external)
  */
 const props = defineProps({
   goal: {
@@ -127,39 +121,6 @@ const props = defineProps({
   delay: {
     type: Number,
     default: 0,
-  },
-  /**
-   * Optional URL for card navigation
-   *
-   * @param {string|null} url - URL for navigation
-   * @returns {boolean} True if URL is valid or null
-   * @throws {Error} When URL format is invalid
-   *
-   * @example
-   * // Local navigation
-   * <HomeGoalCard :goal="goalData" url="/about" />
-   *
-   * // External navigation
-   * <HomeGoalCard :goal="goalData" url="https://example.com" />
-   *
-   * // No navigation (hover effects only)
-   * <HomeGoalCard :goal="goalData" />
-   */
-  url: {
-    type: String,
-    default: null,
-    validator: (value) => {
-      if (value === null) return true;
-      if (typeof value !== "string") return false;
-      // Allow local paths and external URLs
-      return (
-        value.startsWith("/") ||
-        value.startsWith("http://") ||
-        value.startsWith("https://") ||
-        value.startsWith("./") ||
-        value.startsWith("../")
-      );
-    },
   },
 });
 
@@ -182,58 +143,6 @@ const uniqueId = computed(() => {
 const animationStyle = computed(() => ({
   animationDelay: `${props.delay}ms`,
 }));
-
-/**
- * Handle card click navigation with URL support
- *
- * Supports both local and external URL navigation:
- * - Local URLs (starting with '/' or relative paths): Use Nuxt's navigateTo()
- * - External URLs (starting with 'http://' or 'https://'): Open in new window
- * - No URL provided: Show hover/focus effects only (no navigation)
- *
- * @returns {Promise<void>} Promise that resolves when navigation is complete
- * @throws {Error} When navigation fails
- *
- * @example
- * // With URL prop
- * <HomeGoalCard :goal="goalData" url="/about" />
- *
- * // Without URL prop (hover effects only)
- * <HomeGoalCard :goal="goalData" />
- */
-const handleCardClick = async () => {
-  console.log("Goal card clicked:", props.goal.title);
-
-  // If no URL is provided, only show hover/focus effects (current behavior)
-  if (!props.url) {
-    console.log("No URL provided - showing hover effects only");
-    return;
-  }
-
-  // Announce to screen readers for accessibility
-  if (announce) {
-    announce(`Navigating to ${props.goal.title}`);
-  }
-
-  try {
-    // Check if it's an external URL
-    if (props.url.startsWith("http://") || props.url.startsWith("https://")) {
-      // External URL - open in new window with security attributes
-      window.open(props.url, "_blank", "noopener,noreferrer");
-      console.log("Opened external URL:", props.url);
-    } else {
-      // Local URL - use Nuxt navigation
-      await navigateTo(props.url);
-      console.log("Navigated to local URL:", props.url);
-    }
-  } catch (error) {
-    console.error("Navigation failed:", error);
-    // Announce error to screen readers
-    if (announce) {
-      announce("Navigation failed. Please try again.");
-    }
-  }
-};
 </script>
 
 <style scoped>
@@ -246,7 +155,7 @@ const handleCardClick = async () => {
   flex-direction: column;
 }
 
-/* Card styling with perfect height control and enhanced background contrast */
+/* Card styling with perfect height control - matching HomeAction card styling */
 .goal-card-inner {
   display: flex;
   flex-direction: column;
@@ -262,9 +171,6 @@ const handleCardClick = async () => {
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  /* Enhanced background for better contrast against section backgrounds */
-  background: #ffffff;
 }
 
 /* Flexible Responsive Layout */
@@ -380,35 +286,13 @@ const handleCardClick = async () => {
   color: rgba(var(--v-theme-on-surface), 0.8);
 }
 
-/* Hover and Focus States */
-.goal-card-inner:hover,
-.goal-card-inner:focus-visible {
-  transform: translateY(-8px);
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-.goal-card-inner:focus-visible {
-  outline: 3px solid rgb(var(--v-theme-primary));
-  outline-offset: 2px;
-}
-
-/* Dark Theme Adjustments */
+/* Dark Theme Adjustments - matching HomeAction card styling */
 :root[data-theme="dark"] .goal-card-inner {
+  background: #2a3441 !important; /* Same color as HomeAction cards */
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.5),
     0 2px 4px -1px rgba(0, 0, 0, 0.4);
-  /* Enhanced background for better contrast against dark section backgrounds */
-  background: #2a3441 !important;
-}
-
-:root[data-theme="dark"] .goal-card-inner:hover,
-:root[data-theme="dark"] .goal-card-inner:focus-visible {
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.7),
-    0 10px 10px -5px rgba(0, 0, 0, 0.6);
 }
 
 :root[data-theme="dark"] .goal-icon {
@@ -554,10 +438,6 @@ const handleCardClick = async () => {
 
   .goal-card-inner {
     transition: none;
-  }
-
-  .goal-card-inner:hover {
-    transform: none;
   }
 }
 </style>
