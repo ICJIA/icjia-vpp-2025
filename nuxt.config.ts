@@ -295,6 +295,9 @@ export default defineNuxtConfig({
 
     // Public keys (exposed to client-side)
     public: {
+      // Environment configuration for SSR consistency
+      NODE_ENV: process.env.NODE_ENV || 'production',
+
       // Performance monitoring settings
       performance: {
         // Enable Core Web Vitals tracking

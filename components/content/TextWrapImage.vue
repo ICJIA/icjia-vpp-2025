@@ -101,22 +101,15 @@
  * @requires ImageWithSpinner
  * @requires AccessibleTooltip
  */
-import { ref, onMounted } from "vue";
+import { useId } from "vue";
 import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 import AccessibleTooltip from "~/components/content/AccessibleTooltip.vue";
 
 /**
- * Unique ID for the caption to associate it with the image
- * Generated on component mount for proper ARIA relationships
+ * Generate SSR-safe unique ID for the caption to associate it with the image
+ * Uses Vue's useId() composable for consistent server/client IDs
  */
-const captionId = ref("");
-
-/**
- * Generate a unique ID for the caption on mount
- */
-onMounted(() => {
-  captionId.value = `caption-${Math.random().toString(36).substring(2, 9)}`;
-});
+const captionId = useId();
 
 const props = defineProps({
   /**

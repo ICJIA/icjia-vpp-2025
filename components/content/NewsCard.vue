@@ -98,7 +98,7 @@
  *
  * @component
  */
-import { computed, onMounted, ref } from "vue";
+import { computed, ref, useId } from "vue";
 import { useRouter } from "vue-router";
 import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
 
@@ -126,16 +126,10 @@ const props = defineProps({
 const router = useRouter();
 
 /**
- * Unique ID for ARIA attributes
+ * Generate SSR-safe unique ID for ARIA attributes
+ * Uses Vue's useId() composable to ensure consistent IDs across server and client
  */
-const uniqueId = ref("");
-
-/**
- * Generate unique ID on mount
- */
-onMounted(() => {
-  uniqueId.value = `news-${Math.random().toString(36).substring(2, 9)}`;
-});
+const uniqueId = useId();
 
 /**
  * Computed style for animation delay

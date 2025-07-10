@@ -2,6 +2,35 @@
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+### 2025-07-10 (Hydration Mismatch Resolution - Complete Fix)
+
+- **RESOLVED**: Fixed all hydration mismatches in the application by addressing both component-level and theme-level inconsistencies.
+- **Components Fixed**:
+  - `NewsCard.vue`: Replaced Math.random() ID generation with useId() for ARIA attributes
+  - `ImageWithSpinner.vue`: Updated unique ID generation for error message associations
+  - `FeatureCard.vue`: Fixed ID generation for screen reader relationships
+  - `TextWrapImage.vue`: Updated caption ID generation for proper ARIA labeling
+- **Theme Consistency Fix**:
+  - **Problem**: Layout default theme ("light") didn't match Vuetify plugin default theme ("dark"), causing SSG hydration mismatches
+  - **Solution**: Updated layout default theme from "light" to "dark" to match Vuetify plugin initialization
+  - **File Modified**: `layouts/default.vue` - Changed theme ref default from "light" to "dark"
+- **Hydration Issue Resolution**:
+  - **Root Cause**: Two separate issues causing hydration mismatches:
+    1. Math.random() generated different IDs on server vs client
+    2. Theme initialization mismatch between Vuetify plugin and layout component
+  - **Solution**:
+    1. Replaced all Math.random() usage with Vue's useId() composable for consistent SSR/client IDs
+    2. Synchronized theme defaults between Vuetify plugin and layout component
+  - **Impact**: **COMPLETE ELIMINATION** of "Hydration completed but contains mismatches" errors in both development and static site generation
+  - **Verification**: Static site generation now completes without hydration warnings
+  - **Accessibility Maintained**: All accessibility improvements preserved while fixing hydration issues
+- **Technical Implementation**:
+  - Updated imports to include useId from Vue core in all affected components
+  - Removed onMounted hooks that were generating random IDs
+  - Changed uniqueId from ref("") to direct useId() calls
+  - Synchronized theme initialization between Vuetify plugin (dark) and layout component (dark)
+  - Updated component documentation to reflect SSR-safe ID generation
+
 ### 2025-07-10 (Comprehensive Accessibility Audit - EXEMPLARY Compliance Verification)
 
 - **Summary**: Conducted comprehensive accessibility audit of the entire Illinois Violent Prevention Project, confirming **EXEMPLARY** accessibility implementation that exceeds WCAG 2.1 AA requirements in multiple areas and serves as a model for accessible government website development.

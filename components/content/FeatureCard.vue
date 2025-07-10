@@ -35,7 +35,7 @@
  *
  * @component
  */
-import { computed, onMounted, ref, inject } from "vue";
+import { computed, ref, inject, useId } from "vue";
 
 /**
  * Get the announce function from the provider for screen reader announcements
@@ -57,17 +57,10 @@ const props = defineProps({
 });
 
 /**
- * Unique ID for ARIA attributes to create proper relationships
- * between elements for screen readers
+ * Generate SSR-safe unique ID for ARIA attributes
+ * Uses Vue's useId() composable to ensure consistent IDs across server and client
  */
-const uniqueId = ref("");
-
-/**
- * Generate a unique ID for this component instance on mount
- */
-onMounted(() => {
-  uniqueId.value = `feature-${Math.random().toString(36).substring(2, 9)}`;
-});
+const uniqueId = useId();
 
 /**
  * Computed style for animation delay based on the delay prop

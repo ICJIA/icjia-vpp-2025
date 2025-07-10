@@ -80,7 +80,7 @@
  * @component
  * @requires vue
  */
-import { ref, onMounted } from "vue";
+import { ref, useId } from "vue";
 
 /**
  * Component props
@@ -220,15 +220,15 @@ const props = defineProps({
  */
 
 /**
- * Unique identifier for this component instance
+ * Generate SSR-safe unique identifier for this component instance
  *
  * Used to create unique IDs for ARIA attribute relationships,
  * ensuring proper connections between elements for screen readers.
- * Generated on component mount.
+ * Uses Vue's useId() composable for consistent server/client IDs.
  *
- * @type {import('vue').Ref<string>}
+ * @type {string}
  */
-const uniqueId = ref("");
+const uniqueId = useId();
 
 /**
  * Error state flag
@@ -250,20 +250,6 @@ const hasError = ref(false);
  * @type {import('vue').Ref<boolean>}
  */
 const isLoading = ref(true);
-
-/**
- * Generate a unique ID for this component instance on mount
- *
- * This hook runs after the component is mounted to the DOM.
- * It generates a random string to use as a unique identifier for this instance,
- * which is used to create proper ARIA relationships between elements.
- *
- * The format is 'img-' followed by a random alphanumeric string.
- */
-onMounted(() => {
-  // Generate a random string for uniqueness
-  uniqueId.value = `img-${Math.random().toString(36).substring(2, 9)}`;
-});
 
 /**
  * Handle successful image load

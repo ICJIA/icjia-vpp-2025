@@ -58,11 +58,11 @@ const showConsoleLogger = true; // Intentionally enabled in all environments for
  * Theme state management
  *
  * Reactive reference to the current theme ('light' or 'dark').
- * Default is 'light' for server-side rendering, then updated from localStorage on client.
+ * Default is 'dark' for server-side rendering to match Vuetify plugin, then updated from localStorage on client.
  *
  * @type {import('vue').Ref<'light'|'dark'>}
  */
-const theme = ref("light");
+const theme = ref("dark");
 
 /**
  * Skip link visibility state

@@ -147,8 +147,9 @@ export default function useContentFetcher(options) {
   const technicalErrorDetails = ref(null);
   const errorAction = ref(null);
 
-  // Get environment information
-  const isDevelopment = useRuntimeConfig().public.NODE_ENV === "development";
+  // Get environment information - SSR-safe
+  const runtimeConfig = useRuntimeConfig();
+  const isDevelopment = runtimeConfig.public.NODE_ENV === "development";
 
   // Initialize logger
   const { log, logError } = useConsoleLogger();
@@ -248,7 +249,7 @@ export default function useContentFetcher(options) {
       "children",
     ];
     const hasRenderableContent = renderableProperties.some(
-      (prop) => content.value.hasOwnProperty(prop) && content.value[prop],
+      (prop) => content.value.hasOwnProperty(prop) && content.value[prop]
     );
 
     return hasRenderableContent;
