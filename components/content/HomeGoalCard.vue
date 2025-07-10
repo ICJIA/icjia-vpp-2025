@@ -90,6 +90,7 @@
  * - Smooth animations with reduced motion support
  * - Professional hover and focus effects
  * - Full theme compatibility (light/dark)
+ * - Enhanced background contrast for better visual separation from section backgrounds
  * - WCAG 2.1 AA compliance with enhanced text contrast
  * - Goal number badges and key focus areas with checkmarks
  *
@@ -98,6 +99,7 @@
  * - Highlights section expands with 1fr to fill available space
  * - Deep selectors override Vuetify card and list defaults
  * - Enhanced text contrast for optimal readability in both themes
+ * - Enhanced background colors (#ffffff light, #2a3441 dark) for better contrast
  * - Consistent vertical alignment of Key Focus Areas across cards
  *
  * @component
@@ -244,7 +246,7 @@ const handleCardClick = async () => {
   flex-direction: column;
 }
 
-/* Card styling with perfect height control */
+/* Card styling with perfect height control and enhanced background contrast */
 .goal-card-inner {
   display: flex;
   flex-direction: column;
@@ -261,6 +263,8 @@ const handleCardClick = async () => {
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
+  /* Enhanced background for better contrast against section backgrounds */
+  background: #ffffff;
 }
 
 /* Flexible Responsive Layout */
@@ -396,6 +400,8 @@ const handleCardClick = async () => {
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.5),
     0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  /* Enhanced background for better contrast against dark section backgrounds */
+  background: #2a3441 !important;
 }
 
 :root[data-theme="dark"] .goal-card-inner:hover,
