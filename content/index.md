@@ -61,12 +61,14 @@ Five core principles guide our violence prevention efforts, ensuring that our wo
 This plan was developed through an extensive collaborative process involving diverse stakeholders from across Illinois, ensuring community voices are centered in our violence prevention efforts.
 ::
 
+<!-- News & Updates section temporarily disabled
 ::home-news{:item-count=3}
 
 # News & Updates
 
 Stay informed about violence prevention initiatives, research findings, and community programs making a difference across Illinois.
 ::
+-->
 
 ::home-action
 

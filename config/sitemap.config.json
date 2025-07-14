@@ -28,7 +28,9 @@
         "/error",
         "/[...slug]",
         "/documentation",
-        "/documentation/*"
+        "/documentation/*",
+        "/news",
+        "/news/*"
       ]
     }
   },

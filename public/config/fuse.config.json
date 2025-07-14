@@ -46,17 +46,23 @@
     "blacklist": {
       "vue": [
         "sandbox.vue",
-        "sandbox-*.vue"
+        "sandbox-*.vue",
+        "news.vue"
       ],
       "markdown": [
         "sandbox.md",
-        "sandbox-*.md"
+        "sandbox-*.md",
+        "news.md",
+        "news/*.md"
       ],
       "paths": [
         "/documentation/*",
         "/public/documentation/*",
         "documentation/*",
-        "public/documentation/*"
+        "public/documentation/*",
+        "/news",
+        "/news/*",
+        "news/*"
       ]
     },
     "paths": {

@@ -82,7 +82,7 @@
         "tooltip": "More options",
         "items": {
           "news": {
-            "enabled": true,
+            "enabled": false,
             "text": "News & Updates",
             "to": "/news",
             "icon": "mdi-newspaper",

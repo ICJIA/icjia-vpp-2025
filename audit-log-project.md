@@ -2,6 +2,25 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-14 (News and Updates Section Temporarily Disabled)
+
+- Temporarily disabled the "News & Updates" section from the front page and navigation while preserving all code for future re-enablement.
+- Files modified:
+  - `content/index.md`: Commented out the home-news component section using HTML comments
+  - `pages/index.vue`: Commented out the HomeNews component in the fallback content section
+  - `config/site.config.json`: Set news menu item enabled flag to false in the moreMenu configuration
+  - `config/sitemap.config.json`: Added `/news` and `/news/*` patterns to sitemap exclusions
+- Technical Notes:
+  - All news-related components and pages remain intact and functional
+  - News content is excluded from sitemap generation to prevent search engine indexing
+  - News content is excluded from search index generation to prevent internal search results
+  - Navigation menu no longer displays "News & Updates" option in the "More" dropdown
+  - Front page no longer displays recent news items section
+  - Search index blacklist patterns added: `news.md`, `news/*.md`, `news.vue`, `/news`, `/news/*`, `news/*`
+  - Changes are easily reversible by uncommenting sections and changing enabled flag back to true
+  - No code was deleted - only commented out or disabled through configuration flags
+  - Maintains clean layout on homepage without news section
+
 ### 2025-07-10 (Goal Cards Made Static - No Hover or Click Interaction)
 
 - Converted goal cards from interactive navigation cards to static display cards.

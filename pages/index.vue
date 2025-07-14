@@ -32,8 +32,8 @@
       <HomeStatistics />
       <HomeGoals />
       <HomeStakeholders />
-      <!-- Recent News Section with configurable item count -->
-      <HomeNews :item-count="3" />
+      <!-- Recent News Section with configurable item count - temporarily disabled -->
+      <!-- <HomeNews :item-count="3" /> -->
       <HomePrinciples />
       <HomeApproach />
       <HomeAction />
@@ -184,7 +184,7 @@ useHead({
   title: computed(
     () =>
       content.value?.title ||
-      "Violence Prevention Plan for Illinois: 2025-2029 - Home",
+      "Violence Prevention Plan for Illinois: 2025-2029 - Home"
   ),
   htmlAttrs: {
     lang: "en",
@@ -200,12 +200,12 @@ useHead({
 const homeTitle = computed(
   () =>
     content.value?.title ||
-    "Violence Prevention Plan for Illinois: 2025-2029 - Home",
+    "Violence Prevention Plan for Illinois: 2025-2029 - Home"
 );
 const homeDescription = computed(
   () =>
     content.value?.description ||
-    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
+    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities."
 );
 const homeCanonicalUrl = "https://vpp-2025.netlify.app/";
 
@@ -237,7 +237,7 @@ useSeoMeta({
   // Open Graph meta tags for social sharing
   ogTitle: computed(() => content.value?.ogTitle || homeTitle.value),
   ogDescription: computed(
-    () => content.value?.ogDescription || homeDescription.value,
+    () => content.value?.ogDescription || homeDescription.value
   ),
   ogImage: homeSocialImage,
   ogUrl: homeCanonicalUrl,
@@ -247,11 +247,11 @@ useSeoMeta({
 
   // Twitter Card meta tags
   twitterCard: computed(
-    () => content.value?.twitterCard || "summary_large_image",
+    () => content.value?.twitterCard || "summary_large_image"
   ),
   twitterTitle: computed(() => content.value?.twitterTitle || homeTitle.value),
   twitterDescription: computed(
-    () => content.value?.twitterDescription || homeDescription.value,
+    () => content.value?.twitterDescription || homeDescription.value
   ),
   twitterImage: homeTwitterImage,
   twitterSite: "@ICJIA_Illinois",
