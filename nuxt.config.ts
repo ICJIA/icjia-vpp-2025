@@ -240,10 +240,7 @@ export default defineNuxtConfig({
   },
 
   /**
-   * Performance monitoring configuration
-   *
-   * Configures performance monitoring and optimization features for the
-   * Illinois Violence Prevention Project (ICJIA VPP 2025).
+   * Experimental configuration
    */
   experimental: {
     // Enable payload extraction for better performance
@@ -308,14 +305,13 @@ export default defineNuxtConfig({
         'vue',
         'vuetify',
         '@vueuse/core',
-        'fuse.js',
-        'web-vitals'
+        'fuse.js'
       ]
     }
   },
 
   /**
-   * Runtime configuration for performance monitoring
+   * Runtime configuration
    */
   runtimeConfig: {
     // Private keys (only available on server-side)
@@ -323,29 +319,7 @@ export default defineNuxtConfig({
     // Public keys (exposed to client-side)
     public: {
       // Environment configuration for SSR consistency
-      NODE_ENV: process.env.NODE_ENV || 'production',
-
-      // Performance monitoring settings
-      performance: {
-        // Enable Core Web Vitals tracking
-        webVitalsEnabled: true,
-
-        // Performance budgets (in bytes)
-        budgets: {
-          totalSize: 250 * 1024,    // 250KB
-          jsSize: 200 * 1024,       // 200KB
-          cssSize: 50 * 1024,       // 50KB
-        },
-
-        // Core Web Vitals thresholds
-        thresholds: {
-          LCP: { good: 2500, poor: 4000 },
-          INP: { good: 200, poor: 500 },
-          CLS: { good: 0.1, poor: 0.25 },
-          FCP: { good: 1800, poor: 3000 },
-          TTFB: { good: 800, poor: 1800 }
-        }
-      }
+      NODE_ENV: process.env.NODE_ENV || 'production'
     }
   }
 });

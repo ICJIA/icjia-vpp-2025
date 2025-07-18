@@ -37,13 +37,7 @@
     "debug:config": "node scripts/generate-site-config.js --verbose",
     "dev:tools": "yarn debug:search && yarn debug:config",
     "lint": "npx prettier --check \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
-    "lint:fix": "npx prettier --write \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
-    "perf:bundle": "node scripts/bundle-size-report.js",
-    "perf:bundle:verbose": "node scripts/bundle-size-report.js --verbose",
-    "perf:bundle:open": "node scripts/bundle-size-report.js --open",
-    "perf:bundle:ci": "node scripts/bundle-size-report.js --ci",
-    "perf:all": "echo 'Performance monitoring disabled for build stability'",
-    "perf:report": "yarn perf:bundle:open"
+    "lint:fix": "npx prettier --write \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -85,9 +79,7 @@
     "typescript": "^5.8.3",
     "vitest": "^3.1.3",
     "vue-component-meta": "^3.0.1",
-    "vue-component-type-helpers": "3.0.1",
-    "web-vitals": "^5.0.3",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "vue-component-type-helpers": "3.0.1"
   },
   "resolutions": {
     "node-sass": "npm:sass@1.71.1"
