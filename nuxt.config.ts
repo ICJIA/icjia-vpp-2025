@@ -31,7 +31,6 @@ export default defineNuxtConfig({
   // Global CSS files
   css: [
     "vuetify/lib/styles/main.sass", // Vuetify styles
-    "@mdi/font/css/materialdesignicons.min.css", // Material Design Icons
     "~/assets/css/main.scss", // Custom application styles
   ],
 
@@ -187,6 +186,12 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
         { rel: "canonical", href: "https://vpp-2025.netlify.app" },
+        // Material Design Icons CSS
+        {
+          rel: "stylesheet",
+          href: "https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css",
+          crossorigin: "anonymous"
+        },
       ],
     },
 
@@ -280,14 +285,6 @@ export default defineNuxtConfig({
 
       // Optimize chunk splitting for better caching
       rollupOptions: {
-        // External dependencies that should not be bundled
-        external: (id) => {
-          // Externalize CSS files from @mdi/font to prevent bundling issues
-          if (id.includes('@mdi/font/css/')) {
-            return true;
-          }
-          return false;
-        },
         output: {
           // Manual chunk splitting for better caching
           manualChunks: {
