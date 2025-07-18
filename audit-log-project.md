@@ -2,6 +2,52 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-18 (Safari Cookie Compatibility Fix)
+
+- Fixed Safari-specific cookie handling issue where theme preferences were not persisting correctly in Safari browser.
+- **Issue**: Theme switching worked in Chrome but failed to persist in Safari when switching from dark to light theme and reloading the page.
+- **Root Cause**: Safari has stricter cookie policies regarding `sameSite` and `secure` attributes, especially for localhost development.
+- **Solution**: Updated cookie configuration to use Safari-compatible settings.
+- Files modified:
+  - `app/composables/useTheme.js`: Changed `sameSite` from "lax" to "none" and `secure` from production-only to `false` for better Safari compatibility
+  - `app/plugins/vuetify.ts`: Updated cookie settings to match the useTheme composable for consistency
+- Technical Notes:
+  - `sameSite: "none"` provides better cross-browser compatibility, especially for Safari
+  - `secure: false` allows cookies to work on localhost during development in Safari
+  - These changes ensure theme persistence works consistently across all major browsers
+  - Maintains security while improving Safari compatibility
+
+### 2025-07-18 (Critical SSR Theme Bug Fix)
+
+- Fixed critical server-side rendering (SSR) theme application bug where theme preferences were not being applied during initial page load.
+- **Issue**: When users selected light theme and refreshed the page, the theme switch showed correct state but page rendered with dark theme styling, creating visual inconsistency.
+- **Root Cause**: The `data-theme` attribute was only being set client-side via `document.documentElement.setAttribute()`, but during SSR the server had no access to the `document` object.
+- **Solution**: Implemented `useHead` in the `useTheme` composable to set the `data-theme` attribute on the HTML element during both server-side rendering and client-side hydration.
+- Files modified:
+  - `app/composables/useTheme.js`: Added `useHead({ htmlAttrs: { 'data-theme': theme } })` for SSR-compatible HTML attribute management
+  - Enhanced comments to clarify the dual approach: `useHead` for SSR/reactive updates and `document.setAttribute` for immediate client-side feedback
+- Technical Notes:
+  - The fix ensures theme preferences are applied from the very first paint, eliminating FOUC (Flash of Unstyled Content)
+  - Cookie-based theme storage continues to work seamlessly with both server and client sides
+  - Theme switching and persistence now work correctly across page refreshes and browser sessions
+  - Maintains backward compatibility with existing theme switching functionality
+
+### 2025-07-18 (FOUC Fix - Cookie-Based Theme Management)
+
+- Eliminated Flash of Unstyled Content (FOUC) by converting theme storage from localStorage to cookies for SSR compatibility.
+- Files modified/created:
+  - `app/composables/useTheme.js`: Created new cookie-based theme management composable with comprehensive JSDoc documentation
+  - `app/plugins/vuetify.ts`: Updated to read theme preference from cookies during SSR initialization
+  - `app/layouts/default.vue`: Replaced localStorage-based theme logic with useTheme composable integration
+- Technical Notes:
+  - Uses Nuxt's `useCookie` composable for SSR-safe theme persistence with 1-year expiration
+  - Cookie configuration: sameSite: 'lax', secure in production, httpOnly: false for client access
+  - Automatic migration from localStorage to cookies for backward compatibility
+  - Server-side rendering now correctly applies user's theme preference from the start
+  - Maintains all existing theme switching functionality while eliminating visual flash
+  - Comprehensive logging system for debugging theme initialization and changes
+  - WCAG 2.1 AA accessibility compliance maintained throughout theme system
+
 ### 2025-07-18 (Comprehensive Documentation Audit & Nuxt 4 Structure Updates)
 
 - Conducted comprehensive audit and update of all project documentation to accurately reflect Nuxt 4-compliant directory structure.

@@ -36,6 +36,7 @@ import { ref, watch, onMounted, provide } from "vue";
 // Composables and components
 import { useAnnouncer } from "~/composables/useAnnouncer";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
+import { useTheme } from "~/composables/useTheme";
 import ConsoleLogger from "~/components/dev/ConsoleLogger.vue";
 
 // Get logger instance for theme logging
@@ -55,14 +56,16 @@ const { logTheme, logError } = useConsoleLogger();
 const showConsoleLogger = true; // Intentionally enabled in all environments for pre-launch debugging
 
 /**
- * Theme state management
+ * Theme state management using cookie-based storage
  *
- * Reactive reference to the current theme ('light' or 'dark').
- * Default is 'dark' for server-side rendering to match Vuetify plugin, then updated from localStorage on client.
- *
- * @type {import('vue').Ref<'light'|'dark'>}
+ * Uses the useTheme composable for SSR-safe theme management.
+ * This eliminates FOUC by ensuring theme consistency between server and client.
  */
-const theme = ref("dark");
+const {
+  theme,
+  toggleTheme: toggleThemeComposable,
+  syncWithVuetify,
+} = useTheme();
 
 /**
  * Skip link visibility state
@@ -101,72 +104,17 @@ provide("announce", announce);
 const isClient = typeof window !== "undefined";
 
 /**
- * Initialize theme settings on component mount
+ * Initialize theme system on client-side mount
  *
- * This hook runs after the component is mounted to the DOM.
- * It only executes on the client-side to avoid SSR issues with localStorage.
- * Since the Vuetify plugin already handles localStorage and sets the correct
- * initial theme, we just need to sync our reactive state and apply CSS.
+ * Syncs the theme with Vuetify after the component is mounted.
+ * The useTheme composable handles cookie-based theme management automatically.
  */
 onMounted(() => {
   if (isClient) {
-    initThemeFromStorage();
+    // Sync theme with Vuetify after app initialization
+    syncWithVuetify();
   }
 });
-
-/**
- * Initialize theme from localStorage
- *
- * This function:
- * 1. Reads the theme preference from localStorage (same as Vuetify plugin)
- * 2. Sets our reactive theme state to match the saved preference
- * 3. Applies the theme to the document by setting a data-theme attribute
- * 4. Logs theme initialization for debugging purposes
- *
- * Since the Vuetify plugin already handles the initial theme setting,
- * this ensures our reactive state stays in sync with the user's preference.
- *
- * NOTE: Console logging is intentionally enabled in all environments (including production)
- * during the pre-launch phase for monitoring and debugging purposes.
- *
- * @returns {void}
- */
-function initThemeFromStorage() {
-  try {
-    // Get the same theme preference that Vuetify plugin used
-    const savedTheme = localStorage.getItem("theme-preference");
-
-    // Set our reactive state to match saved preference or default to dark
-    theme.value =
-      savedTheme && ["light", "dark"].includes(savedTheme)
-        ? savedTheme
-        : "dark";
-
-    // Apply theme class to document for CSS variable access
-    document.documentElement.setAttribute("data-theme", theme.value);
-
-    // Log theme initialization
-    logTheme("Theme initialized from localStorage", {
-      theme: theme.value,
-      source: savedTheme ? "localStorage" : "default",
-      savedTheme: savedTheme,
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      viewportWidth: window.innerWidth,
-    });
-  } catch (e) {
-    // Fallback if localStorage is not available
-    logError("Error accessing localStorage during theme initialization", e);
-    theme.value = "dark";
-    document.documentElement.setAttribute("data-theme", theme.value);
-
-    logTheme("Theme initialized with fallback", {
-      theme: theme.value,
-      reason: "localStorage error",
-      timestamp: new Date().toISOString(),
-    });
-  }
-}
 
 /**
  * Toggle between light and dark themes
@@ -188,44 +136,11 @@ function initThemeFromStorage() {
  * @returns {void}
  */
 const toggleTheme = () => {
-  // Safety check for SSR
-  if (!isClient) return;
+  // Use the composable's toggle function for cookie-based theme management
+  toggleThemeComposable();
 
-  // Store the original theme for logging
-  const originalTheme = theme.value;
-
-  // Toggle between light and dark
-  theme.value = theme.value === "light" ? "dark" : "light";
-
-  // Update Vuetify's theme to match our state
-  try {
-    const { $vuetify } = useNuxtApp();
-    if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
-      $vuetify.theme.global.name.value = theme.value;
-    }
-  } catch (e) {
-    logError("Error updating Vuetify theme", e);
-  }
-
-  // Log theme change with both origin and destination themes
-  logTheme("Theme switched", {
-    from: originalTheme,
-    to: theme.value,
-    timestamp: new Date().toISOString(),
-    userAgent: navigator.userAgent,
-    viewportWidth: window.innerWidth,
-  });
-
-  try {
-    // Store the user's preference in localStorage for persistence
-    localStorage.setItem("theme-preference", theme.value);
-
-    // Update document attribute for CSS variables
-    document.documentElement.setAttribute("data-theme", theme.value);
-  } catch (e) {
-    // Handle localStorage errors (e.g., private browsing, storage quota)
-    logError("Error saving theme preference", e);
-  }
+  // Sync with Vuetify after theme change
+  syncWithVuetify();
 };
 
 /**

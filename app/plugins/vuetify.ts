@@ -14,22 +14,27 @@ import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // Determine initial theme for SSR consistency
-  // Always start with 'dark' on server to match our site default
-  // Client-side theme switching will handle user preferences after hydration
-  let initialTheme = "dark";
+  // Determine initial theme for SSR consistency using cookies
+  // Cookies are available on both server and client sides, eliminating FOUC
+  let initialTheme = "dark"; // Site default theme
 
-  // Only check localStorage on client-side to avoid SSR/hydration mismatches
-  if (typeof window !== "undefined") {
-    try {
-      const savedTheme = localStorage.getItem("theme-preference");
-      if (savedTheme && ["light", "dark"].includes(savedTheme)) {
-        initialTheme = savedTheme;
-      }
-    } catch (e) {
-      // Fallback to default if localStorage is unavailable
-      console.warn("Could not access localStorage for theme preference:", e);
+  // Read theme preference from cookie (works on both server and client)
+  try {
+    // Use the same cookie name and settings as the useTheme composable
+    const themeCookie = useCookie("theme-preference", {
+      default: () => "dark",
+      maxAge: 60 * 60 * 24 * 365, // 1 year expiration
+      sameSite: "none", // Better Safari compatibility
+      secure: false, // Disabled for Safari localhost compatibility
+      httpOnly: false, // Allow client-side access for theme switching
+    });
+
+    if (themeCookie.value && ["light", "dark"].includes(themeCookie.value)) {
+      initialTheme = themeCookie.value;
     }
+  } catch (e) {
+    // Fallback to default if cookie is unavailable
+    console.warn("Could not access theme preference cookie:", e);
   }
 
   const vuetify = createVuetify({
