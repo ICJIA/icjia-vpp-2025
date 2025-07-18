@@ -2,6 +2,23 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-18 (SSR Hydration Fix)
+
+- Fixed critical SSR hydration mismatches causing layout issues on Netlify deployment.
+- Files modified/created:
+  - `app/pages/index.vue`: Temporarily disabled StructuredData component to resolve hydration conflicts
+  - `app/components/content/HomeHero.vue`: Updated section class from secondary to primary
+  - `app/components/content/HomeGoals.vue`: Updated section class from secondary to primary
+  - `app/components/content/HomePrinciples.vue`: Updated section class from primary to primary (corrected alternating pattern)
+  - `app/components/content/HomeApproach.vue`: Updated section class from primary to secondary
+  - `app/components/content/HomeAction.vue`: Updated section class from secondary to primary
+- Technical Notes:
+  - StructuredData component with empty template was causing server/client rendering mismatches
+  - Restored proper alternating background pattern: primary → secondary → primary → secondary → primary → secondary → primary
+  - Build now completes without hydration warnings and generates clean static files
+  - Alternating backgrounds work correctly in both light and dark themes
+  - Cookie-based theme persistence maintained throughout fix
+
 ### 2025-07-18 (Safari Cookie Compatibility Fix)
 
 - Fixed Safari-specific cookie handling issue where theme preferences were not persisting correctly in Safari browser.

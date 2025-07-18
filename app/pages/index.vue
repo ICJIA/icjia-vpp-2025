@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
-    <!-- SEO Structured Data -->
-    <StructuredData :content="homeContent" page-type="homepage" path="/" />
+    <!-- SEO Structured Data - temporarily disabled to fix hydration issues -->
+    <!-- <StructuredData :content="homeContent" page-type="homepage" path="/" /> -->
 
     <HomeHero />
     <HomeStatistics />
@@ -120,28 +120,28 @@ import HomeNews from "~/components/content/HomeNews.vue";
 import HomePrinciples from "~/components/content/HomePrinciples.vue";
 import HomeApproach from "~/components/content/HomeApproach.vue";
 import HomeAction from "~/components/content/HomeAction.vue";
-import StructuredData from "~/components/seo/StructuredData.vue";
+// import StructuredData from "~/components/seo/StructuredData.vue";
 
 // Initialize console logger
 const { log } = useConsoleLogger();
 
-// Create content object for StructuredData component
-const homeContent = {
-  title: "Violence Prevention Plan for Illinois: 2025-2029",
-  description:
-    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
-  _path: "/",
-  _dir: "",
-  _draft: false,
-  _partial: false,
-  _locale: "",
-  _empty: false,
-  _type: "markdown",
-  _id: "content:index.md",
-  _source: "content",
-  _file: "index.md",
-  _extension: "md",
-};
+// Create content object for StructuredData component - temporarily disabled
+// const homeContent = {
+//   title: "Violence Prevention Plan for Illinois: 2025-2029",
+//   description:
+//     "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
+//   _path: "/",
+//   _dir: "",
+//   _draft: false,
+//   _partial: false,
+//   _locale: "",
+//   _empty: false,
+//   _type: "markdown",
+//   _id: "content:index.md",
+//   _source: "content",
+//   _file: "index.md",
+//   _extension: "md",
+// };
 
 // Log page initialization
 log("content", "Home page initialized", {
