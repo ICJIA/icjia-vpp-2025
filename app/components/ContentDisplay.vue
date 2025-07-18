@@ -395,28 +395,26 @@ const {
 // Theme detection - SSR-safe
 const isDark = ref(false);
 
-// Only run theme detection on client-side to prevent hydration mismatches
-if (process.client) {
-  onMounted(() => {
-    // Check for dark theme preference on client-side only
-    try {
-      const { $vuetify } = useNuxtApp();
-      if ($vuetify && $vuetify.theme) {
-        isDark.value = $vuetify.theme.global.current.value.dark;
+// Use onMounted to ensure this only runs on client-side
+onMounted(() => {
+  // Check for dark theme preference on client-side only
+  try {
+    const { $vuetify } = useNuxtApp();
+    if ($vuetify && $vuetify.theme) {
+      isDark.value = $vuetify.theme.global.current.value.dark;
 
-        // Watch for theme changes
-        watch(
-          () => $vuetify.theme.global.current.value.dark,
-          (newVal) => {
-            isDark.value = newVal;
-          },
-        );
-      }
-    } catch (error) {
-      console.error("Theme detection error:", error);
+      // Watch for theme changes
+      watch(
+        () => $vuetify.theme.global.current.value.dark,
+        (newVal) => {
+          isDark.value = newVal;
+        }
+      );
     }
-  });
-}
+  } catch (error) {
+    console.error("Theme detection error:", error);
+  }
+});
 
 // Watch for content loading
 watch(
@@ -425,7 +423,7 @@ watch(
     if (newContent) {
       emit("content-loaded", newContent);
     }
-  },
+  }
 );
 
 // Watch for errors
@@ -438,7 +436,7 @@ watch(
         details: technicalErrorDetails.value,
       });
     }
-  },
+  }
 );
 
 /**

@@ -749,245 +749,7 @@ let updateActiveSection = () => {};
 let scrollToHeading = () => {};
 let scrollToTop = () => {};
 
-// Only define the actual functions on client-side to prevent hydration mismatches
-if (process.client) {
-  /**
-   * Monitors PageTitleSection visibility to determine fixed positioning activation
-   *
-   * This function tracks when the PageTitleSection component scrolls out of view
-   * behind the fixed navbar, which triggers the TOC to become position: fixed.
-   *
-   * Logic:
-   * - Gets the PageTitleSection element (handles Vue component refs)
-   * - Measures its bounding rectangle relative to viewport
-   * - Activates fixed positioning when title bottom <= navbar height
-   * - Stores title bottom position for debugging purposes
-   *
-   * Vue Component Handling:
-   * - Handles both component instances ($el) and direct DOM elements
-   * - Safely checks for getBoundingClientRect method existence
-   * - Gracefully handles component mounting/unmounting
-   *
-   * @function updateTitleVisibility
-   * @returns {void}
-   */
-  updateTitleVisibility = () => {
-    // Handle Vue component instance (PageTitleSection) - get the root element
-    const titleElement = titleRow.value?.$el || titleRow.value;
-
-    if (
-      titleElement &&
-      typeof titleElement.getBoundingClientRect === "function"
-    ) {
-      const rect = titleElement.getBoundingClientRect();
-
-      // Store title bottom position for debugging and display purposes
-      titleBottom.value = rect.bottom;
-
-      // Activate fixed positioning when title bottom edge reaches/passes navbar
-      // rect.bottom <= NAVBAR_HEIGHT means the title is completely hidden behind navbar
-      isFixed.value = rect.bottom <= NAVBAR_HEIGHT;
-    }
-  };
-
-  /**
-   * Calculates and stores exact positioning values for fixed mode
-   *
-   * This function ensures that when the TOC becomes position: fixed, it appears
-   * in exactly the same position as it had in normal document flow. This prevents
-   * visual jumping or layout shifts during the transition.
-   *
-   * Critical Timing:
-   * - ONLY measures position when element is in natural (not fixed) state
-   * - Prevents measurement of already-fixed positioning (which would be incorrect)
-   * - Stores values for use when transitioning to fixed state
-   *
-   * Measurements Stored:
-   * - fixedWidth: Exact width to maintain during fixed positioning
-   * - fixedLeft: Exact horizontal position relative to viewport
-   *
-   * Vue Component Handling:
-   * - Handles both component instances ($el) and direct DOM elements
-   * - Safely checks for getBoundingClientRect method existence
-   *
-   * @function updateFixedPosition
-   * @returns {void}
-   */
-  updateFixedPosition = () => {
-    // Get reference to the TOC content element
-    const contentElement = stickyElement.value?.$el || stickyElement.value;
-
-    if (
-      contentElement &&
-      typeof contentElement.getBoundingClientRect === "function"
-    ) {
-      // CRITICAL: Only measure position when element is in natural (not fixed) state
-      // This prevents measurement of already-fixed positioning which would be incorrect
-      if (!isFixed.value) {
-        const rect = contentElement.getBoundingClientRect();
-
-        // Store the exact natural dimensions and position
-        // These values will be used when the element becomes fixed
-        fixedWidth.value = rect.width; // Maintain exact width
-        fixedLeft.value = rect.left; // Maintain exact horizontal position
-      }
-    }
-  };
-
-  /**
-   * Detects which H2 section is currently most visible in the viewport
-   *
-   * This function implements intelligent section detection to highlight the
-   * appropriate TOC item based on what content is currently visible to the user.
-   *
-   * Detection Algorithm:
-   * 1. Iterates through all H2 headings in document order
-   * 2. Checks if each heading is within the "active zone" (considering header offset)
-   * 3. Uses the first heading that intersects with the active zone
-   * 4. Falls back to the last heading above the viewport if none intersect
-   *
-   * Active Zone Logic:
-   * - Uses 120px header offset for better detection accuracy
-   * - Considers a heading "active" if it's near the top of the viewport
-   * - Handles edge cases like very short sections or long content
-   *
-   * Performance Considerations:
-   * - Early return if no TOC items exist
-   * - Efficient DOM queries with getElementById
-   * - Only updates state when active section actually changes
-   *
-   * @function updateActiveSection
-   * @returns {void}
-   */
-  updateActiveSection = () => {
-    // Early return if no TOC items to process
-    if (!tocH2Items.value.length) return;
-
-    const headerOffset = 120; // Slightly larger offset for better detection accuracy
-    let currentActiveId = "";
-
-    // Find the section that's currently most visible in the viewport
-    for (const item of tocH2Items.value) {
-      const element = document.getElementById(item.id);
-      if (!element) continue; // Skip if heading element not found
-
-      const rect = element.getBoundingClientRect();
-
-      // Check if element is in the "active zone" (considering header offset)
-      if (rect.top <= headerOffset && rect.bottom > headerOffset) {
-        currentActiveId = item.id;
-        break; // Found the active section, stop searching
-      }
-
-      // If we're past all sections (heading is below viewport), use the last one
-      if (rect.top > headerOffset) {
-        break;
-      }
-
-      // If element is above viewport but still visible, it could be the active one
-      if (rect.bottom > 0) {
-        currentActiveId = item.id;
-      }
-    }
-
-    // Only update state if the active section has actually changed
-    if (currentActiveId && currentActiveId !== activeItemId.value) {
-      activeItemId.value = currentActiveId;
-    }
-  };
-
-  /**
-   * Smooth scrolls to a specific heading with header offset compensation
-   *
-   * This function provides the core navigation functionality for TOC items.
-   * It handles smooth scrolling to headings while accounting for the fixed
-   * navbar and providing proper accessibility support.
-   *
-   * Functionality:
-   * - Validates heading ID and target element existence
-   * - Immediately updates active state for responsive UI feedback
-   * - Calculates scroll position with header offset compensation
-   * - Performs smooth scroll animation
-   * - Sets focus to target element for accessibility
-   *
-   * Header Offset Logic:
-   * - Uses 80px offset to account for fixed navbar
-   * - Ensures target heading is visible below the navbar
-   * - Consistent with other scroll positioning in the app
-   *
-   * Accessibility Features:
-   * - Sets focus to target element for screen readers
-   * - Uses preventScroll to avoid double scrolling
-   * - Provides immediate visual feedback via active state
-   *
-   * Error Handling:
-   * - Validates headingId parameter
-   * - Checks for target element existence
-   * - Logs warnings for debugging when elements not found
-   *
-   * @function scrollToHeading
-   * @param {string} headingId - The HTML ID of the heading element to scroll to
-   * @returns {void}
-   */
-  scrollToHeading = (headingId) => {
-    // Validate input parameter
-    if (!headingId) return;
-
-    // Find the target heading element in the DOM
-    const targetElement = document.getElementById(headingId);
-    if (!targetElement) {
-      console.warn(`TOC: Could not find element with ID: ${headingId}`);
-      return;
-    }
-
-    // Update active state immediately for better UX responsiveness
-    activeItemId.value = headingId;
-
-    // Calculate scroll position with header offset compensation
-    const headerOffset = 80; // Keep consistent with navbar height for content visibility
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-    // Perform smooth scroll animation to target position
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
-
-    // Set focus to target element for accessibility (screen readers)
-    targetElement.focus({ preventScroll: true });
-  };
-
-  /**
-   * Smooth scrolls to the top of the page
-   *
-   * This function is triggered when users click on the "Table of Contents" title.
-   * It provides a quick way to return to the beginning of the page content.
-   *
-   * Functionality:
-   * - Clears active TOC item highlighting (no section is active at top)
-   * - Performs smooth scroll animation to page top
-   * - Resets TOC visual state appropriately
-   *
-   * User Experience:
-   * - Provides intuitive "back to top" functionality
-   * - Maintains smooth animation consistency
-   * - Clears section highlighting when appropriate
-   *
-   * @function scrollToTop
-   * @returns {void}
-   */
-  scrollToTop = () => {
-    // Clear active item when scrolling to top (no section is active)
-    activeItemId.value = "";
-
-    // Perform smooth scroll animation to page top
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-}
+// Function definitions moved to onMounted to prevent hydration mismatches
 
 /**
  * Navigation helper function to return to homepage
@@ -1042,7 +804,7 @@ if (error.value) {
 // =============================================================================
 
 /**
- * Component initialization and event listener setup - client-side only
+ * Component initialization and event listener setup
  *
  * Sets up all necessary event listeners and performs initial calculations
  * for the Table of Contents positioning system.
@@ -1055,43 +817,161 @@ if (error.value) {
  * - Uses setTimeout to ensure Vuetify components are fully rendered
  * - 100ms delay allows for proper DOM measurement
  *
- * SSR Safety:
- * - Wrapped in process.client to prevent hydration mismatches
- * - Only runs on client-side where window object is available
- *
  * @lifecycle onMounted
  */
-if (process.client) {
-  onMounted(() => {
-    // Listen for scroll events to update TOC positioning and active sections
-    window.addEventListener("scroll", updateScroll);
+onMounted(() => {
+  // Define the actual functions here to prevent hydration mismatches
+  updateTitleVisibility = () => {
+    // Handle Vue component instance (PageTitleSection) - get the root element
+    const titleElement = titleRow.value?.$el || titleRow.value;
 
-    // Listen for resize events to recalculate TOC positioning
-    window.addEventListener("resize", updateScroll);
+    if (
+      titleElement &&
+      typeof titleElement.getBoundingClientRect === "function"
+    ) {
+      const rect = titleElement.getBoundingClientRect();
 
-    // Perform initial calculation after DOM is ready
-    // setTimeout ensures all Vuetify components are fully rendered
-    setTimeout(() => {
-      updateScroll();
-    }, 100);
-  });
+      // Store title bottom position for debugging and display purposes
+      titleBottom.value = rect.bottom;
 
-  /**
-   * Component cleanup and memory leak prevention - client-side only
-   *
-   * Removes all event listeners to prevent memory leaks when the component
-   * is unmounted or the route changes.
-   *
-   * Critical for SPA performance as components may be created/destroyed
-   * frequently during navigation.
-   *
-   * @lifecycle onUnmounted
-   */
-  onUnmounted(() => {
-    window.removeEventListener("scroll", updateScroll);
-    window.removeEventListener("resize", updateScroll);
-  });
-}
+      // Activate fixed positioning when title bottom edge reaches/passes navbar
+      // rect.bottom <= NAVBAR_HEIGHT means the title is completely hidden behind navbar
+      isFixed.value = rect.bottom <= NAVBAR_HEIGHT;
+    }
+  };
+
+  updateFixedPosition = () => {
+    // Get reference to the TOC content element
+    const contentElement = stickyElement.value?.$el || stickyElement.value;
+
+    if (
+      contentElement &&
+      typeof contentElement.getBoundingClientRect === "function"
+    ) {
+      // CRITICAL: Only measure position when element is in natural (not fixed) state
+      // This prevents measurement of already-fixed positioning which would be incorrect
+      if (!isFixed.value) {
+        const rect = contentElement.getBoundingClientRect();
+
+        // Store the exact natural dimensions and position
+        // These values will be used when the element becomes fixed
+        fixedWidth.value = rect.width; // Maintain exact width
+        fixedLeft.value = rect.left; // Maintain exact horizontal position
+      }
+    }
+  };
+
+  updateActiveSection = () => {
+    // Early return if no TOC items to process
+    if (!tocH2Items.value.length) return;
+
+    const headerOffset = 120; // Slightly larger offset for better detection accuracy
+    let currentActiveId = "";
+
+    // Find the section that's currently most visible in the viewport
+    for (const item of tocH2Items.value) {
+      const element = document.getElementById(item.id);
+      if (!element) continue; // Skip if heading element not found
+
+      const rect = element.getBoundingClientRect();
+
+      // Check if element is in the "active zone" (considering header offset)
+      if (rect.top <= headerOffset && rect.bottom > headerOffset) {
+        currentActiveId = item.id;
+        break; // Found the active section, stop searching
+      }
+
+      // If we're past all sections (heading is below viewport), use the last one
+      if (rect.top > headerOffset) {
+        break;
+      }
+
+      // If element is above viewport but still visible, it could be the active one
+      if (rect.bottom > 0) {
+        currentActiveId = item.id;
+      }
+    }
+
+    // Only update state if the active section has actually changed
+    if (currentActiveId && currentActiveId !== activeItemId.value) {
+      activeItemId.value = currentActiveId;
+    }
+  };
+
+  scrollToHeading = (headingId) => {
+    // Validate input parameter
+    if (!headingId) return;
+
+    // Find the target heading element in the DOM
+    const targetElement = document.getElementById(headingId);
+    if (!targetElement) {
+      console.warn(`TOC: Could not find element with ID: ${headingId}`);
+      return;
+    }
+
+    // Update active state immediately for better UX responsiveness
+    activeItemId.value = headingId;
+
+    // Calculate scroll position with header offset compensation
+    const headerOffset = 80; // Keep consistent with navbar height for content visibility
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+    // Perform smooth scroll animation to target position
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+
+    // Set focus to target element for accessibility (screen readers)
+    targetElement.focus({ preventScroll: true });
+  };
+
+  updateScroll = () => {
+    updateTitleVisibility();
+    updateFixedPosition();
+    updateActiveSection();
+  };
+
+  scrollToTop = () => {
+    // Clear active item when scrolling to top (no section is active)
+    activeItemId.value = "";
+
+    // Perform smooth scroll animation to page top
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // Listen for scroll events to update TOC positioning and active sections
+  window.addEventListener("scroll", updateScroll);
+
+  // Listen for resize events to recalculate TOC positioning
+  window.addEventListener("resize", updateScroll);
+
+  // Perform initial calculation after DOM is ready
+  // setTimeout ensures all Vuetify components are fully rendered
+  setTimeout(() => {
+    updateScroll();
+  }, 100);
+});
+
+/**
+ * Component cleanup and memory leak prevention
+ *
+ * Removes all event listeners to prevent memory leaks when the component
+ * is unmounted or the route changes.
+ *
+ * Critical for SPA performance as components may be created/destroyed
+ * frequently during navigation.
+ *
+ * @lifecycle onUnmounted
+ */
+onUnmounted(() => {
+  window.removeEventListener("scroll", updateScroll);
+  window.removeEventListener("resize", updateScroll);
+});
 
 // =============================================================================
 // SEO AND METADATA CONFIGURATION
@@ -1182,7 +1062,7 @@ useSeoMeta({
   // Open Graph meta tags for Facebook, LinkedIn, etc.
   ogTitle: computed(() => content.value?.ogTitle || pageTitle.value),
   ogDescription: computed(
-    () => content.value?.ogDescription || pageDescription.value,
+    () => content.value?.ogDescription || pageDescription.value
   ),
   ogImage: socialImage,
   ogUrl: canonicalUrl,
@@ -1192,11 +1072,11 @@ useSeoMeta({
 
   // Twitter Card meta tags
   twitterCard: computed(
-    () => content.value?.twitterCard || "summary_large_image",
+    () => content.value?.twitterCard || "summary_large_image"
   ),
   twitterTitle: computed(() => content.value?.twitterTitle || pageTitle.value),
   twitterDescription: computed(
-    () => content.value?.twitterDescription || pageDescription.value,
+    () => content.value?.twitterDescription || pageDescription.value
   ),
   twitterImage: twitterImage,
   twitterSite: "@ICJIA_Illinois",
@@ -1218,14 +1098,13 @@ useSeoMeta({
   // Additional meta tags for better SEO
   author: computed(
     () =>
-      content.value?.author ||
-      "Illinois Criminal Justice Information Authority",
+      content.value?.author || "Illinois Criminal Justice Information Authority"
   ),
   publishedTime: computed(
-    () => content.value?.date || content.value?.publishedTime,
+    () => content.value?.date || content.value?.publishedTime
   ),
   modifiedTime: computed(
-    () => content.value?.lastModified || content.value?.modifiedTime,
+    () => content.value?.lastModified || content.value?.modifiedTime
   ),
 });
 </script>
