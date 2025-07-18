@@ -4,6 +4,42 @@
 
 This document defines the mandatory rules and standards for the Violence Prevention Plan for Illinois: 2025-2029 project. These rules ensure consistency, maintainability, and quality across all development work.
 
+## Framework and Architecture
+
+### Nuxt 4.0.0 with Modern Directory Structure
+
+**Current Status**: Successfully migrated to Nuxt 4.0.0 with new directory structure.
+
+#### Directory Structure Rules
+
+1. **App Directory**: All application code must be organized under the `app/` directory:
+   - `app/components/` - Vue components
+   - `app/composables/` - Composition API utilities
+   - `app/layouts/` - Layout templates
+   - `app/pages/` - Route pages
+   - `app/plugins/` - Nuxt plugins
+   - `app/utils/` - Utility functions
+   - `app/assets/` - Static assets
+
+2. **Root Directory**: Configuration and content remain in root:
+   - `content/` - Nuxt Content files
+   - `config/` - Configuration files
+   - `scripts/` - Build scripts
+   - `server/` - Server-side code
+   - `public/` - Static public assets
+
+3. **Import Path Rules**:
+   - Use relative paths for config imports: `../../../config/`
+   - Build scripts import from `app/utils/` directory
+   - Components auto-import from `app/components/`
+
+#### Migration Compliance
+
+- **Zero Breaking Changes**: All functionality must be preserved during updates
+- **Performance Standards**: Bundle size must remain consistent (≤8.42 MB total, ≤2.59 MB gzip)
+- **Build Compatibility**: All build commands (`yarn dev`, `yarn build`, `yarn generate`) must work without changes
+- **Accessibility Preservation**: WCAG 2.1 AA compliance must be maintained throughout any structural changes
+
 ## Package Manager Standard
 
 ### Rule: Yarn is the Official Package Manager
