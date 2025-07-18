@@ -1,6 +1,6 @@
 # Statewide Violence Prevention Plan for Illinois: 2025-2029 - Project Documentation
 
-**Last Updated: June 20, 2025**
+**Last Updated: July 18, 2025**
 
 ## Project Overview
 
@@ -47,7 +47,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 
 ### Core Framework
 
-- **Nuxt 3** (v3.17.5) - Vue.js meta-framework for static site generation
+- **Nuxt 4** (v4.0.0) - Vue.js meta-framework with modern directory structure and enhanced performance
 - **Vue 3** (v3.5.0) - Progressive JavaScript framework with Composition API
 - **Node.js** - JavaScript runtime (requires Node.js 18+)
 
@@ -60,7 +60,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 
 ### Content Management
 
-- **Nuxt Content v3** (@nuxt/content v3.5.1) - File-based CMS for markdown content
+- **Nuxt Content v3** (@nuxt/content v3.6.3) - File-based CMS for markdown content
 - **Gray Matter** (v4.0.3) - YAML frontmatter parsing
 - **Remark/Rehype** - Markdown processing pipeline with GFM support
 
@@ -91,9 +91,9 @@ This project serves as the official web presence for the Statewide Violence Prev
 
 ### High-Level Architecture
 
-The project follows a JAMstack architecture pattern:
+The project follows a JAMstack architecture pattern with Nuxt 4's modern directory structure:
 
-- **JavaScript**: Vue 3 with Nuxt 3 framework
+- **JavaScript**: Vue 3 with Nuxt 4 framework using app/ source directory
 - **APIs**: Static content via Nuxt Content, search via client-side Fuse.js
 - **Markup**: Pre-generated static HTML with dynamic hydration
 
@@ -124,28 +124,53 @@ The project follows a JAMstack architecture pattern:
 
 ```
 icjia-vpp-2025/
-├── app.vue                     # Root application component
 ├── nuxt.config.ts             # Nuxt configuration
 ├── package.json               # Dependencies and scripts
 ├── vitest.config.js           # Testing configuration
 ├── tsconfig.json              # TypeScript configuration
 ├──
-├── assets/                    # Static assets and styles
-│   └── css/
-│       └── main.scss          # Global SCSS styles
-├──
-├── components/                # Vue components
-│   ├── content/               # Content-specific components
-│   ├── dev/                   # Development utilities
-│   └── seo/                   # SEO-related components
-├──
-├── composables/               # Vue composables
-│   ├── useAnnouncer.js        # Accessibility announcements
-│   ├── useConsoleLogger.js    # Logging utilities
-│   ├── useContentFetcher.js   # Content fetching logic
-│   ├── useReferences.js       # Reference management
-│   ├── useReportNavigation.js # Navigation utilities
-│   └── useSiteSettings.js     # Site configuration
+├── app/                       # PRIMARY SOURCE DIRECTORY (Nuxt 4)
+│   ├── app.vue                # Root application component
+│   ├── error.vue              # Error page component
+│   ├── router.options.ts      # Router configuration
+│   ├──
+│   ├── assets/                # Static assets and styles
+│   │   └── css/
+│   │       └── main.scss      # Global SCSS styles
+│   ├──
+│   ├── components/            # Vue components
+│   │   ├── content/           # Content-specific components
+│   │   ├── dev/               # Development utilities
+│   │   └── seo/               # SEO-related components
+│   ├──
+│   ├── composables/           # Vue composables
+│   │   ├── useAnnouncer.js    # Accessibility announcements
+│   │   ├── useConsoleLogger.js # Logging utilities
+│   │   ├── useContentFetcher.js # Content fetching logic
+│   │   ├── useReferences.js   # Reference management
+│   │   ├── useReportNavigation.js # Navigation utilities
+│   │   └── useSiteSettings.js # Site configuration
+│   ├──
+│   ├── layouts/               # Layout components
+│   │   └── default.vue        # Default page layout
+│   ├──
+│   ├── pages/                 # Page components
+│   │   ├── [...slug].vue      # Dynamic catch-all page
+│   │   ├── index.vue          # Homepage
+│   │   ├── news.vue           # News listing page
+│   │   └── search.vue         # Search page
+│   ├──
+│   ├── plugins/               # Nuxt plugins
+│   │   ├── console-logger.client.js    # Client-side logging
+│   │   ├── error-handler.client.js     # Error handling
+│   │   ├── footnotes.client.js         # Footnote functionality
+│   │   ├── markdown-components.ts      # Markdown component registration
+│   │   ├── references.client.js        # Reference processing
+│   │   ├── refresh-scroll.client.js    # Scroll behavior
+│   │   ├── scroll-behavior.client.js   # Scroll management
+│   │   └── vuetify.ts                  # Vuetify configuration
+│   └──
+│   └── utils/                 # Utility functions
 ├──
 ├── content/                   # Markdown content files
 │   ├── accessibility/         # Accessibility documentation
@@ -156,28 +181,10 @@ icjia-vpp-2025/
 │   ├── download.md            # Download page
 │   └── index.md               # Homepage content
 ├──
-├── layouts/                   # Layout components
-│   └── default.vue            # Default page layout
-├──
-├── pages/                     # Page components
-│   ├── [...slug].vue          # Dynamic catch-all page
-│   ├── index.vue              # Homepage
-│   ├── news.vue               # News listing page
-│   └── search.vue             # Search page
-├──
-├── plugins/                   # Nuxt plugins
-│   ├── console-logger.client.js    # Client-side logging
-│   ├── error-handler.client.js     # Error handling
-│   ├── footnotes.client.js         # Footnote functionality
-│   ├── markdown-components.ts      # Markdown component registration
-│   ├── references.client.js        # Reference processing
-│   ├── refresh-scroll.client.js    # Scroll behavior
-│   ├── scroll-behavior.client.js   # Scroll management
-│   └── vuetify.ts                  # Vuetify configuration
-├──
 ├── public/                    # Static public files
 │   ├── config/                # Generated configuration files
 │   ├── data/                  # Generated data files
+│   ├── documentation/         # Generated documentation
 │   ├── files/                 # PDF and document files
 │   ├── images/                # Image assets
 │   ├── favicon.ico            # Site favicon
@@ -187,6 +194,7 @@ icjia-vpp-2025/
 │   └── vpp-plan-2025-2029.*   # Plan data in multiple formats
 ├──
 ├── scripts/                   # Build and utility scripts
+│   ├── generate-documentation.js      # JSDoc documentation generation
 │   ├── generate-llms-txt.js           # LLM content generation
 │   ├── generate-plan-json.js          # Plan data generation
 │   ├── generate-search-index-defuddle.js # Enhanced search indexing
@@ -195,8 +203,11 @@ icjia-vpp-2025/
 │   └── sync-accessibility-audit-logs.js # Accessibility sync
 ├──
 ├── server/                    # Server-side code
+│   └── tsconfig.json          # Server TypeScript configuration
+├──
+├── .output/                   # Nuxt 4 build output directory
+├── .nuxt/                     # Nuxt build cache
 ├── tests/                     # Test files
-├── utils/                     # Utility functions
 ├── config/                    # Source configuration files
 ├── docs/                      # Project documentation
 ├── audit-log-accessibility.md # Accessibility audit log
@@ -213,9 +224,9 @@ icjia-vpp-2025/
 
 ### Generated vs. Source Files
 
-- **Source Files**: All files in `/config/`, `/content/`, `/app/components/`, etc.
-- **Generated Files**: Files in `/public/config/`, `/public/data/`, `/dist/`, `/.nuxt/`, `/.output/`
-- **Build Artifacts**: `.nuxt`, `.output`, `dist` directories (excluded from version control)
+- **Source Files**: All files in `/app/`, `/config/`, `/content/`, `/scripts/`, etc.
+- **Generated Files**: Files in `/public/config/`, `/public/data/`, `/public/documentation/`, `/.nuxt/`, `/.output/`
+- **Build Artifacts**: `.nuxt`, `.output` directories (excluded from version control)
 
 ## Key Components
 
@@ -278,7 +289,7 @@ The project uses file-based content management with build-time processing:
 #### Content API (Nuxt Content)
 
 ```javascript
-// Fetch single content item
+// Fetch single content item (Nuxt 4 with app/ directory)
 const { data: page } = await $content("/plan/executive-summary").findOne();
 
 // Query multiple content items
@@ -1111,7 +1122,7 @@ The project complies with Illinois Information Technology Accessibility Act (IIT
 #### Content Hierarchy
 
 ```
-/content/
+/content/                       # Content files (outside app/ directory)
 ├── index.md                    # Homepage
 ├── plan/                       # Main plan content
 │   ├── front-cover.md
@@ -1312,6 +1323,6 @@ yarn test:coverage
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: June 20, 2025
-**Next Review**: September 20, 2025
+**Document Version**: 1.1
+**Last Updated**: July 18, 2025
+**Next Review**: October 18, 2025

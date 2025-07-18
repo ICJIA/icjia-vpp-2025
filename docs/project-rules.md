@@ -35,18 +35,19 @@ The project has been successfully migrated from Nuxt 3 to Nuxt 4.0.0, implementi
    ├── app.vue                    # Root application component
    ├── error.vue                  # Global error page
    ├── router.options.ts          # Router configuration
-   ├── assets/                    # Static assets and CSS
-   │   └── css/                   # Global stylesheets
-   ├── components/                # Vue components
-   │   ├── content/               # Content-specific components
-   │   ├── dev/                   # Development utilities
-   │   └── seo/                   # SEO components
-   ├── composables/               # Composition API utilities
-   ├── layouts/                   # Layout templates
-   │   └── default.vue            # Default layout
-   ├── pages/                     # Route pages
-   │   ├── [...slug].vue          # Dynamic content pages
-   │   ├── index.vue              # Homepage
+   ├── app/                       # PRIMARY SOURCE DIRECTORY (Nuxt 4)
+   │   ├── assets/                # Static assets and CSS
+   │   │   └── css/               # Global stylesheets
+   │   ├── components/            # Vue components
+   │   │   ├── content/           # Content-specific components
+   │   │   ├── dev/               # Development utilities
+   │   │   └── seo/               # SEO components
+   │   ├── composables/           # Composition API utilities
+   │   ├── layouts/               # Layout templates
+   │   │   └── default.vue        # Default layout
+   │   ├── pages/                 # Route pages
+   │   │   ├── [...slug].vue      # Dynamic content pages
+   │   │   ├── index.vue          # Homepage
    │   ├── news.vue               # News section
    │   └── search.vue             # Search page
    ├── plugins/                   # Nuxt plugins
