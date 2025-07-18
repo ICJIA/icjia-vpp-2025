@@ -213,7 +213,7 @@ icjia-vpp-2025/
 
 ### Generated vs. Source Files
 
-- **Source Files**: All files in `/config/`, `/content/`, `/components/`, etc.
+- **Source Files**: All files in `/config/`, `/content/`, `/app/components/`, etc.
 - **Generated Files**: Files in `/public/config/`, `/public/data/`, `/dist/`, `/.nuxt/`, `/.output/`
 - **Build Artifacts**: `.nuxt`, `.output`, `dist` directories (excluded from version control)
 
@@ -745,14 +745,12 @@ The project is configured for automatic deployment on Netlify:
 #### Deployment Checklist
 
 1. **Pre-deployment**:
-
    - Run `yarn test` to ensure all tests pass
    - Run `yarn build` to verify build success
    - Check accessibility compliance
    - Verify content accuracy
 
 2. **Deployment**:
-
    - Push to main branch for automatic deployment
    - Monitor build logs for errors
    - Verify deployment success

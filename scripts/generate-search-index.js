@@ -554,9 +554,9 @@ function extractComponentImports(scriptContent, baseDir) {
 
     // Common components that might be used in index.vue
     const commonComponents = [
-      "components/content/HeroSection.vue",
-      "components/content/FeatureSection.vue",
-      "components/content/ImageWithSpinner.vue",
+      "app/components/content/HeroSection.vue",
+      "app/components/content/FeatureSection.vue",
+      "app/components/content/ImageWithSpinner.vue",
     ];
 
     commonComponents.forEach((componentPath) => {
@@ -658,10 +658,14 @@ function processImportPath(
     ) {
       // Try in components directory first
       const projectRoot = path.resolve(__dirname, "..");
-      const componentPath = path.join(projectRoot, "components", importPath);
+      const componentPath = path.join(
+        projectRoot,
+        "app/components",
+        importPath
+      );
       const contentComponentPath = path.join(
         projectRoot,
-        "components/content",
+        "app/components/content",
         importPath
       );
 
@@ -722,29 +726,29 @@ function findAlternativeComponentPaths(importPath) {
   // Generate possible locations for the component
   return [
     // Check in components directory
-    path.join(projectRoot, "components", `${componentName}.vue`),
+    path.join(projectRoot, "app/components", `${componentName}.vue`),
     // Check in components/content directory
-    path.join(projectRoot, "components/content", `${componentName}.vue`),
+    path.join(projectRoot, "app/components/content", `${componentName}.vue`),
     // Check with PascalCase
     path.join(
       projectRoot,
-      "components",
+      "app/components",
       `${componentName.charAt(0).toUpperCase() + componentName.slice(1)}.vue`
     ),
     path.join(
       projectRoot,
-      "components/content",
+      "app/components/content",
       `${componentName.charAt(0).toUpperCase() + componentName.slice(1)}.vue`
     ),
     // Check with kebab-case
     path.join(
       projectRoot,
-      "components",
+      "app/components",
       `${componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}.vue`
     ),
     path.join(
       projectRoot,
-      "components/content",
+      "app/components/content",
       `${componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}.vue`
     ),
   ];
@@ -838,10 +842,10 @@ function extractTextFromVueFile(
 
             // Common locations for components
             const componentLocations = [
-              "components",
-              "components/content",
-              "components/layout",
-              "components/ui",
+              "app/components",
+              "app/components/content",
+              "app/components/layout",
+              "app/components/ui",
             ];
 
             autoImportedComponents.forEach((componentName) => {
@@ -1862,18 +1866,22 @@ async function generateSearchIndex(options = {}) {
             // Try to resolve the component path
             const projectRoot = path.resolve(__dirname, "..");
             const possiblePaths = [
-              path.join(projectRoot, "components", `${componentName}.vue`),
+              path.join(projectRoot, "app/components", `${componentName}.vue`),
               path.join(
                 projectRoot,
-                "components/content",
+                "app/components/content",
                 `${componentName}.vue`
               ),
               path.join(
                 projectRoot,
-                "components/layout",
+                "app/components/layout",
                 `${componentName}.vue`
               ),
-              path.join(projectRoot, "components/ui", `${componentName}.vue`),
+              path.join(
+                projectRoot,
+                "app/components/ui",
+                `${componentName}.vue`
+              ),
             ];
 
             // Check each possible path

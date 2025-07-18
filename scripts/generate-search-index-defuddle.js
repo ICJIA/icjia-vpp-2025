@@ -152,7 +152,7 @@ async function loadConfig() {
         blacklist: { vue: [], markdown: [] },
         paths: {
           content: "content",
-          pages: "pages",
+          pages: "app/pages",
           output: "public/data",
           outputFile: "search-index.json",
         },
