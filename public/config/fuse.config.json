@@ -62,7 +62,10 @@
         "public/documentation/*",
         "/news",
         "/news/*",
-        "news/*"
+        "news/*",
+        "/debug-search",
+        "/debug-search.html",
+        "debug-search.html"
       ]
     },
     "paths": {
