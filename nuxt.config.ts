@@ -22,12 +22,6 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  // Keep current folder structure initially (can be changed later)
-  srcDir: '.',
-  dir: {
-    app: 'app'
-  },
-
   // Enable Nuxt DevTools for development
   devtools: { enabled: true },
 

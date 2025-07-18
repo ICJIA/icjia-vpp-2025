@@ -16,11 +16,11 @@ import path from "path";
 import matter from "gray-matter";
 import yaml from "yaml";
 
-import { createLogger } from "../utils/logger.js";
+import { createLogger } from "../app/utils/logger.js";
 import {
   createScriptLoggerConfig,
   getVerbosityFromArgs,
-} from "../utils/config-loader.js";
+} from "../app/utils/config-loader.js";
 
 /**
  * Plan JSON Generator Class
@@ -52,7 +52,7 @@ class PlanJsonGenerator {
     try {
       const siteConfigPath = path.join(
         process.cwd(),
-        "config/site.config.json",
+        "config/site.config.json"
       );
       const siteConfigContent = await fs.readFile(siteConfigPath, "utf-8");
       this.siteConfig = JSON.parse(siteConfigContent);
@@ -72,7 +72,7 @@ class PlanJsonGenerator {
     try {
       const menuConfigPath = path.join(
         process.cwd(),
-        "config/menu.config.json",
+        "config/menu.config.json"
       );
       const menuConfigContent = await fs.readFile(menuConfigPath, "utf-8");
       this.menuConfig = JSON.parse(menuConfigContent);
@@ -95,7 +95,7 @@ class PlanJsonGenerator {
 
     const headerItems = this.menuConfig.header?.items || [];
     const readThePlanMenu = headerItems.find(
-      (item) => item.text === "Read the Plan",
+      (item) => item.text === "Read the Plan"
     );
 
     if (!readThePlanMenu || !readThePlanMenu.children) {
@@ -123,7 +123,7 @@ class PlanJsonGenerator {
       const filePath = path.join(
         process.cwd(),
         "content",
-        `${contentPath.replace(/^\//, "")}.md`,
+        `${contentPath.replace(/^\//, "")}.md`
       );
 
       // Check if file exists
@@ -182,7 +182,7 @@ class PlanJsonGenerator {
           contentLength: cleanContent.length,
           metadataFields: Object.keys(frontmatter).length,
           estimatedReadingTime: Math.ceil(
-            cleanContent.split(/\s+/).length / 200,
+            cleanContent.split(/\s+/).length / 200
           ), // ~200 words per minute
         },
       };
@@ -190,7 +190,7 @@ class PlanJsonGenerator {
       return pageObject;
     } catch (error) {
       this.logger?.error(
-        `Failed to process content file ${contentPath}: ${error.message}`,
+        `Failed to process content file ${contentPath}: ${error.message}`
       );
       this.stats.skippedPages++;
       return null;
@@ -230,10 +230,10 @@ class PlanJsonGenerator {
         totalContentLength: this.stats.totalContentLength,
         totalMetadataFields: this.stats.totalMetadataFields,
         averageContentLength: Math.round(
-          this.stats.totalContentLength / this.stats.processedPages,
+          this.stats.totalContentLength / this.stats.processedPages
         ),
         averageMetadataFields: Math.round(
-          this.stats.totalMetadataFields / this.stats.processedPages,
+          this.stats.totalMetadataFields / this.stats.processedPages
         ),
       },
 
@@ -273,14 +273,14 @@ class PlanJsonGenerator {
       await fs.writeFile(outputPath, jsonContent, "utf-8");
 
       this.logger?.success(
-        `✅ Generated vpp-plan-2025-2029.json file: ${outputPath}`,
+        `✅ Generated vpp-plan-2025-2029.json file: ${outputPath}`
       );
       this.logger?.info(
-        `📊 File size: ${(jsonContent.length / 1024).toFixed(2)} KB`,
+        `📊 File size: ${(jsonContent.length / 1024).toFixed(2)} KB`
       );
     } catch (error) {
       this.logger?.error(
-        `Failed to write vpp-plan-2025-2029.json file: ${error.message}`,
+        `Failed to write vpp-plan-2025-2029.json file: ${error.message}`
       );
       throw error;
     }
@@ -309,14 +309,14 @@ class PlanJsonGenerator {
       await fs.writeFile(outputPath, yamlContent, "utf-8");
 
       this.logger?.success(
-        `✅ Generated vpp-plan-2025-2029.yaml file: ${outputPath}`,
+        `✅ Generated vpp-plan-2025-2029.yaml file: ${outputPath}`
       );
       this.logger?.info(
-        `📊 File size: ${(yamlContent.length / 1024).toFixed(2)} KB`,
+        `📊 File size: ${(yamlContent.length / 1024).toFixed(2)} KB`
       );
     } catch (error) {
       this.logger?.error(
-        `Failed to write vpp-plan-2025-2029.yaml file: ${error.message}`,
+        `Failed to write vpp-plan-2025-2029.yaml file: ${error.message}`
       );
       throw error;
     }
@@ -381,14 +381,14 @@ class PlanJsonGenerator {
       await fs.writeFile(outputPath, csvContent, "utf-8");
 
       this.logger?.success(
-        `✅ Generated vpp-plan-2025-2029.csv file: ${outputPath}`,
+        `✅ Generated vpp-plan-2025-2029.csv file: ${outputPath}`
       );
       this.logger?.info(
-        `📊 File size: ${(csvContent.length / 1024).toFixed(2)} KB`,
+        `📊 File size: ${(csvContent.length / 1024).toFixed(2)} KB`
       );
     } catch (error) {
       this.logger?.error(
-        `Failed to write vpp-plan-2025-2029.csv file: ${error.message}`,
+        `Failed to write vpp-plan-2025-2029.csv file: ${error.message}`
       );
       throw error;
     }
@@ -401,20 +401,20 @@ class PlanJsonGenerator {
     this.logger?.info("📊 Plan JSON Generation Statistics:");
     this.logger?.info(`   Total pages identified: ${this.stats.totalPages}`);
     this.logger?.info(
-      `   Successfully processed: ${this.stats.processedPages}`,
+      `   Successfully processed: ${this.stats.processedPages}`
     );
     this.logger?.info(`   Skipped pages: ${this.stats.skippedPages}`);
     this.logger?.info(
-      `   Total content length: ${(this.stats.totalContentLength / 1024).toFixed(2)} KB`,
+      `   Total content length: ${(this.stats.totalContentLength / 1024).toFixed(2)} KB`
     );
     this.logger?.info(
-      `   Total metadata fields: ${this.stats.totalMetadataFields}`,
+      `   Total metadata fields: ${this.stats.totalMetadataFields}`
     );
     this.logger?.info(
-      `   Average content per page: ${Math.round(this.stats.totalContentLength / this.stats.processedPages)} chars`,
+      `   Average content per page: ${Math.round(this.stats.totalContentLength / this.stats.processedPages)} chars`
     );
     this.logger?.info(
-      `   Average metadata per page: ${Math.round(this.stats.totalMetadataFields / this.stats.processedPages)} fields`,
+      `   Average metadata per page: ${Math.round(this.stats.totalMetadataFields / this.stats.processedPages)} fields`
     );
   }
 
@@ -429,7 +429,7 @@ class PlanJsonGenerator {
     const loggerOptions = verbosity ? { level: verbosity } : {};
     const loggerConfig = await createScriptLoggerConfig(
       "Plan JSON Generator",
-      loggerOptions,
+      loggerOptions
     );
     this.logger = createLogger(loggerConfig);
 
@@ -445,7 +445,7 @@ class PlanJsonGenerator {
       this.stats.totalPages = reportPages.length;
 
       this.logger?.info(
-        `📄 Found ${reportPages.length} report pages to process`,
+        `📄 Found ${reportPages.length} report pages to process`
       );
 
       // Process each content file

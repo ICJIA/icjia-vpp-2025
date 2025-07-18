@@ -18,11 +18,11 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-import { createLogger } from "../utils/logger.js";
+import { createLogger } from "../app/utils/logger.js";
 import {
   createScriptLoggerConfig,
   getVerbosityFromArgs,
-} from "../utils/config-loader.js";
+} from "../app/utils/config-loader.js";
 
 /**
  * Reference Data Generator Class
@@ -316,7 +316,7 @@ class ReferenceDataGenerator {
       return reference;
     } catch (error) {
       this.logger?.warning(
-        `Failed to parse reference: ${referenceText.substring(0, 50)}...`,
+        `Failed to parse reference: ${referenceText.substring(0, 50)}...`
       );
       this.stats.parseErrors++;
       return null;
@@ -341,7 +341,7 @@ class ReferenceDataGenerator {
       const matches = [...content.matchAll(referenceItemRegex)];
 
       this.logger?.info(
-        `📊 Found ${matches.length} reference items to process`,
+        `📊 Found ${matches.length} reference items to process`
       );
 
       for (const match of matches) {
@@ -365,7 +365,7 @@ class ReferenceDataGenerator {
       }
 
       this.logger?.info(
-        `✅ Successfully parsed ${this.stats.totalReferences} references`,
+        `✅ Successfully parsed ${this.stats.totalReferences} references`
       );
     } catch (error) {
       this.logger?.error(`Failed to read references.md: ${error.message}`);
@@ -409,11 +409,11 @@ class ReferenceDataGenerator {
       await fs.writeFile(
         outputPath,
         JSON.stringify(jsonData, null, 2),
-        "utf-8",
+        "utf-8"
       );
 
       this.logger?.success(
-        `✅ Generated references.json with ${this.stats.totalReferences} references`,
+        `✅ Generated references.json with ${this.stats.totalReferences} references`
       );
       this.logger?.info(`📁 Output file: ${outputPath}`);
     } catch (error) {
@@ -451,7 +451,7 @@ class ReferenceDataGenerator {
         {
           level: verbosity,
           groupMessages: true,
-        },
+        }
       );
       this.logger =
         createLogger(loggerConfig).createScope("ReferenceGenerator");
@@ -475,11 +475,11 @@ class ReferenceDataGenerator {
       this.printStats();
 
       this.logger?.success(
-        "✅ Reference data generation completed successfully!",
+        "✅ Reference data generation completed successfully!"
       );
     } catch (error) {
       this.logger?.error(
-        `❌ Reference data generation failed: ${error.message}`,
+        `❌ Reference data generation failed: ${error.message}`
       );
       process.exit(1);
     }

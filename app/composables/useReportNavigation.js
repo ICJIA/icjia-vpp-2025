@@ -31,7 +31,7 @@
  */
 import { ref, computed } from "vue";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
-import menuConfig from "~/config/menu.config.json";
+import menuConfig from "../config/menu.config.json";
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
@@ -72,7 +72,7 @@ function extractReportPages() {
     const headerItems = menuConfig.header?.items || [];
     const planMenuItem = headerItems.find(
       (item) =>
-        item.text === "Read the Plan" && item.hasDropdown && item.children,
+        item.text === "Read the Plan" && item.hasDropdown && item.children
     );
 
     if (!planMenuItem) {

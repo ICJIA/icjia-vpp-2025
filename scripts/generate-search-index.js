@@ -83,7 +83,7 @@ import matter from "gray-matter";
 import {
   sanitizeContentForIndexing,
   containsDangerousContent,
-} from "../utils/sanitize.js";
+} from "../app/utils/sanitize.js";
 
 /**
  * Console Logger for Search Index Generation
@@ -146,10 +146,10 @@ const Logger = {
 
     // Log the current level
     const levelName = Object.keys(this.LEVELS).find(
-      (key) => this.LEVELS[key] === this.level,
+      (key) => this.LEVELS[key] === this.level
     );
     console.log(
-      `${this.COLORS.info}[INFO]${this.COLORS.reset} Logging level set to ${levelName}`,
+      `${this.COLORS.info}[INFO]${this.COLORS.reset} Logging level set to ${levelName}`
     );
   },
 
@@ -341,10 +341,10 @@ function calculateContentOverlap(text1, text2) {
 
   // Split texts into words for comparison
   const words1 = new Set(
-    normalizedText1.split(/\s+/).filter((word) => word.length > 3),
+    normalizedText1.split(/\s+/).filter((word) => word.length > 3)
   );
   const words2 = new Set(
-    normalizedText2.split(/\s+/).filter((word) => word.length > 3),
+    normalizedText2.split(/\s+/).filter((word) => word.length > 3)
   );
 
   // Count words that appear in both texts
@@ -452,22 +452,22 @@ function extractComponentImports(scriptContent, baseDir) {
 
   // 1. Standard imports: import Component from 'path' (only if path suggests a component)
   const standardImports = scriptContent.match(
-    /import\s+[A-Z]\w+\s+from\s+['"]([^'"]+)['"]/g,
+    /import\s+[A-Z]\w+\s+from\s+['"]([^'"]+)['"]/g
   );
 
   // 2. Named imports from component directories: import { Component1, Component2 } from 'components/...'
   const namedImports = scriptContent.match(
-    /import\s+\{\s*[^}]+\}\s+from\s+['"]([^'"]*(?:components|\.vue)[^'"]*)['"]/g,
+    /import\s+\{\s*[^}]+\}\s+from\s+['"]([^'"]*(?:components|\.vue)[^'"]*)['"]/g
   );
 
   // 3. Dynamic imports: const Component = () => import('path') (only if path suggests a component)
   const dynamicImports = scriptContent.match(
-    /import\(\s*['"]([^'"]*(?:components|\.vue)[^'"]*)['"]\s*\)/g,
+    /import\(\s*['"]([^'"]*(?:components|\.vue)[^'"]*)['"]\s*\)/g
   );
 
   // 4. Default and named imports from component directories
   const mixedImports = scriptContent.match(
-    /import\s+[A-Z]\w+\s*,\s*\{\s*[^}]+\}\s+from\s+['"]([^'"]*(?:components|\.vue)[^'"]*)['"]/g,
+    /import\s+[A-Z]\w+\s*,\s*\{\s*[^}]+\}\s+from\s+['"]([^'"]*(?:components|\.vue)[^'"]*)['"]/g
   );
 
   // Process standard imports
@@ -489,11 +489,11 @@ function extractComponentImports(scriptContent, baseDir) {
             importPath,
             baseDir,
             componentPaths,
-            processedComponents,
+            processedComponents
           );
         } else {
           Logger.debug(
-            `  Skipping non-component standard import: ${importPath}`,
+            `  Skipping non-component standard import: ${importPath}`
           );
         }
       }
@@ -509,7 +509,7 @@ function extractComponentImports(scriptContent, baseDir) {
           importPathMatch[1],
           baseDir,
           componentPaths,
-          processedComponents,
+          processedComponents
         );
       }
     });
@@ -524,7 +524,7 @@ function extractComponentImports(scriptContent, baseDir) {
           importPathMatch[1],
           baseDir,
           componentPaths,
-          processedComponents,
+          processedComponents
         );
       }
     });
@@ -539,7 +539,7 @@ function extractComponentImports(scriptContent, baseDir) {
           importPathMatch[1],
           baseDir,
           componentPaths,
-          processedComponents,
+          processedComponents
         );
       }
     });
@@ -549,7 +549,7 @@ function extractComponentImports(scriptContent, baseDir) {
   // This is a fallback for cases where the import might not be detected correctly
   if (baseDir.endsWith("index.vue") || baseDir.includes("/index.vue")) {
     Logger.info(
-      `  Special handling for index.vue: checking for common components`,
+      `  Special handling for index.vue: checking for common components`
     );
 
     // Common components that might be used in index.vue
@@ -563,7 +563,7 @@ function extractComponentImports(scriptContent, baseDir) {
       const fullPath = path.join(path.resolve(__dirname, ".."), componentPath);
       if (fs.existsSync(fullPath) && !processedComponents.has(fullPath)) {
         Logger.info(
-          `  Adding common component for index.vue: ${componentPath}`,
+          `  Adding common component for index.vue: ${componentPath}`
         );
         componentPaths.push(fullPath);
         processedComponents.add(fullPath);
@@ -573,17 +573,17 @@ function extractComponentImports(scriptContent, baseDir) {
           try {
             const heroContent = fs.readFileSync(fullPath, "utf8");
             const headlineMatch = heroContent.match(
-              /headline\s*=\s*['"]([^'"]+)['"]/,
+              /headline\s*=\s*['"]([^'"]+)['"]/
             );
             if (headlineMatch && headlineMatch[1]) {
               Logger.info(
-                `  Found HeroSection headline: "${headlineMatch[1]}"`,
+                `  Found HeroSection headline: "${headlineMatch[1]}"`
               );
               // We'll handle this headline in the processComponentRecursively function
             }
           } catch (error) {
             Logger.error(
-              `Error reading HeroSection component: ${error.message}`,
+              `Error reading HeroSection component: ${error.message}`
             );
           }
         }
@@ -606,7 +606,7 @@ function processImportPath(
   importPath,
   baseDir,
   componentPaths,
-  processedComponents,
+  processedComponents
 ) {
   // Skip non-component imports (utilities, composables, etc.)
   // Be more selective to avoid false positives
@@ -662,7 +662,7 @@ function processImportPath(
       const contentComponentPath = path.join(
         projectRoot,
         "components/content",
-        importPath,
+        importPath
       );
 
       if (fs.existsSync(componentPath + ".vue")) {
@@ -729,23 +729,23 @@ function findAlternativeComponentPaths(importPath) {
     path.join(
       projectRoot,
       "components",
-      `${componentName.charAt(0).toUpperCase() + componentName.slice(1)}.vue`,
+      `${componentName.charAt(0).toUpperCase() + componentName.slice(1)}.vue`
     ),
     path.join(
       projectRoot,
       "components/content",
-      `${componentName.charAt(0).toUpperCase() + componentName.slice(1)}.vue`,
+      `${componentName.charAt(0).toUpperCase() + componentName.slice(1)}.vue`
     ),
     // Check with kebab-case
     path.join(
       projectRoot,
       "components",
-      `${componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}.vue`,
+      `${componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}.vue`
     ),
     path.join(
       projectRoot,
       "components/content",
-      `${componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}.vue`,
+      `${componentName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}.vue`
     ),
   ];
 }
@@ -776,7 +776,7 @@ function findAlternativeComponentPaths(importPath) {
 function extractTextFromVueFile(
   vueContent,
   filePath,
-  processComponents = false,
+  processComponents = false
 ) {
   if (!vueContent)
     return { text: "", title: "", description: "", components: [] };
@@ -801,7 +801,7 @@ function extractTextFromVueFile(
       // First, remove script and style tags if present in the template
       templateContent = templateContent.replace(
         /<script[\s\S]*?<\/script>/g,
-        "",
+        ""
       );
       templateContent = templateContent.replace(/<style[\s\S]*?<\/style>/g, "");
 
@@ -810,7 +810,7 @@ function extractTextFromVueFile(
       if (processComponents && filePath) {
         // Look for components in PascalCase (standard Vue component naming)
         const componentTags = templateContent.match(
-          /<([A-Z][a-zA-Z0-9]+)[\s>]/g,
+          /<([A-Z][a-zA-Z0-9]+)[\s>]/g
         );
         if (componentTags) {
           const autoImportedComponents = new Set();
@@ -825,7 +825,7 @@ function extractTextFromVueFile(
             }
 
             Logger.info(
-              `  Found potential auto-imported component in template: ${componentName}`,
+              `  Found potential auto-imported component in template: ${componentName}`
             );
             autoImportedComponents.add(componentName);
           });
@@ -833,7 +833,7 @@ function extractTextFromVueFile(
           // Try to resolve auto-imported components
           if (autoImportedComponents.size > 0) {
             Logger.info(
-              `  Attempting to resolve ${autoImportedComponents.size} auto-imported components`,
+              `  Attempting to resolve ${autoImportedComponents.size} auto-imported components`
             );
 
             // Common locations for components
@@ -860,13 +860,13 @@ function extractTextFromVueFile(
                 const pascalPath = path.join(
                   projectRoot,
                   location,
-                  `${componentName}.vue`,
+                  `${componentName}.vue`
                 );
                 // Try kebab-case
                 const kebabPath = path.join(
                   projectRoot,
                   location,
-                  `${kebabCase}.vue`,
+                  `${kebabCase}.vue`
                 );
 
                 if (fs.existsSync(pascalPath)) {
@@ -884,7 +884,7 @@ function extractTextFromVueFile(
 
               if (!found) {
                 Logger.warning(
-                  `  Could not resolve auto-imported component: ${componentName}`,
+                  `  Could not resolve auto-imported component: ${componentName}`
                 );
               }
             });
@@ -910,7 +910,7 @@ function extractTextFromVueFile(
             // Extract the text content from the heading tag
             const regex = new RegExp(
               `<${level}[^>]*>([\\s\\S]*?)<\\/${level}>`,
-              "i",
+              "i"
             );
             const textMatch = match.match(regex);
             if (textMatch && textMatch[1]) {
@@ -929,7 +929,7 @@ function extractTextFromVueFile(
 
                 // Log the heading text for debugging
                 Logger.info(
-                  `  Found ${level} heading: "${headingText}" (weight: ${weight})`,
+                  `  Found ${level} heading: "${headingText}" (weight: ${weight})`
                 );
 
                 // If this is an h1, it might be the page title
@@ -1107,7 +1107,7 @@ function extractTextFromVueFile(
 
     // Extract metadata from script section
     const scriptMatch = vueContent.match(
-      /<script[\s\S]*?>([\s\S]*?)<\/script>/,
+      /<script[\s\S]*?>([\s\S]*?)<\/script>/
     );
     if (scriptMatch && scriptMatch[1]) {
       const scriptContent = scriptMatch[1];
@@ -1126,7 +1126,7 @@ function extractTextFromVueFile(
 
       // Look for JSDoc comments with page title
       const jsdocTitleMatch = scriptContent.match(
-        /@page\s*\n\s*\*\/\s*[\s\S]*?['"]([^'"]+)['"]/,
+        /@page\s*\n\s*\*\/\s*[\s\S]*?['"]([^'"]+)['"]/
       );
       if (!result.title && jsdocTitleMatch && jsdocTitleMatch[1]) {
         result.title = jsdocTitleMatch[1];
@@ -1154,7 +1154,7 @@ function extractTextFromVueFile(
       // Extract text from JavaScript variables and constants
       // This captures text content defined in the script section that might be used in the template
       Logger.info(
-        `  Extracting text from script section of ${path.basename(filePath)}`,
+        `  Extracting text from script section of ${path.basename(filePath)}`
       );
 
       // Track variables found in template interpolation
@@ -1177,13 +1177,13 @@ function extractTextFromVueFile(
 
       // Extract string literals from const/let/var declarations
       const variableDeclarations = scriptContent.match(
-        /(?:const|let|var)\s+(\w+)\s*=\s*(['"][^'"]+['"]|ref\(['"][^'"]+['"]\)|computed\(\s*\(\)\s*=>\s*['"][^'"]+['"]\))/g,
+        /(?:const|let|var)\s+(\w+)\s*=\s*(['"][^'"]+['"]|ref\(['"][^'"]+['"]\)|computed\(\s*\(\)\s*=>\s*['"][^'"]+['"]\))/g
       );
       if (variableDeclarations) {
         variableDeclarations.forEach((declaration) => {
           // Extract variable name
           const varNameMatch = declaration.match(
-            /(?:const|let|var)\s+(\w+)\s*=/,
+            /(?:const|let|var)\s+(\w+)\s*=/
           );
           if (varNameMatch && varNameMatch[1]) {
             const varName = varNameMatch[1];
@@ -1201,12 +1201,12 @@ function extractTextFromVueFile(
                 const repeatedValue = Array(3).fill(value).join(" ");
                 result.text += " " + repeatedValue;
                 Logger.info(
-                  `    Added template variable value: ${varName} = "${value}" (with higher weight)`,
+                  `    Added template variable value: ${varName} = "${value}" (with higher weight)`
                 );
               } else {
                 result.text += " " + value;
                 Logger.info(
-                  `    Added variable value: ${varName} = "${value}"`,
+                  `    Added variable value: ${varName} = "${value}"`
                 );
               }
             }
@@ -1216,7 +1216,7 @@ function extractTextFromVueFile(
 
       // Extract reactive variables (ref, reactive)
       const refMatches = scriptContent.match(
-        /(?:const|let|var)\s+(\w+)\s*=\s*ref\(['"]([^'"]+)['"]\)/g,
+        /(?:const|let|var)\s+(\w+)\s*=\s*ref\(['"]([^'"]+)['"]\)/g
       );
       if (refMatches) {
         refMatches.forEach((match) => {
@@ -1241,7 +1241,7 @@ function extractTextFromVueFile(
               const repeatedValue = Array(3).fill(refValue).join(" ");
               result.text += " " + repeatedValue;
               Logger.info(
-                `    Added template ref value: ${refName} = "${refValue}" (with higher weight)`,
+                `    Added template ref value: ${refName} = "${refValue}" (with higher weight)`
               );
             } else {
               result.text += " " + refValue;
@@ -1253,12 +1253,12 @@ function extractTextFromVueFile(
 
       // Extract computed properties
       const computedMatches = scriptContent.match(
-        /(?:const|let|var)\s+(\w+)\s*=\s*computed\(\s*\(\)\s*=>\s*(['"][^'"]+['"]|{[\s\S]*?return\s+['"]([^'"]+)['"]\s*;?\s*})/g,
+        /(?:const|let|var)\s+(\w+)\s*=\s*computed\(\s*\(\)\s*=>\s*(['"][^'"]+['"]|{[\s\S]*?return\s+['"]([^'"]+)['"]\s*;?\s*})/g
       );
       if (computedMatches) {
         computedMatches.forEach((match) => {
           const computedNameMatch = match.match(
-            /(?:const|let|var)\s+(\w+)\s*=/,
+            /(?:const|let|var)\s+(\w+)\s*=/
           );
 
           if (computedNameMatch && computedNameMatch[1]) {
@@ -1267,7 +1267,7 @@ function extractTextFromVueFile(
             // Try to extract direct string return
             let computedValue = "";
             const directReturnMatch = match.match(
-              /computed\(\s*\(\)\s*=>\s*['"]([^'"]+)['"]/,
+              /computed\(\s*\(\)\s*=>\s*['"]([^'"]+)['"]/
             );
             if (directReturnMatch && directReturnMatch[1]) {
               computedValue = directReturnMatch[1];
@@ -1289,12 +1289,12 @@ function extractTextFromVueFile(
                 const repeatedValue = Array(3).fill(computedValue).join(" ");
                 result.text += " " + repeatedValue;
                 Logger.info(
-                  `    Added template computed value: ${computedName} = "${computedValue}" (with higher weight)`,
+                  `    Added template computed value: ${computedName} = "${computedValue}" (with higher weight)`
                 );
               } else {
                 result.text += " " + computedValue;
                 Logger.info(
-                  `    Added computed value: ${computedName} = "${computedValue}"`,
+                  `    Added computed value: ${computedName} = "${computedValue}"`
                 );
               }
             }
@@ -1321,7 +1321,7 @@ function extractTextFromVueFile(
       // Special case for arrays of objects (common pattern in Vue components)
       // This handles cases like feature lists, menu items, etc.
       const arrayObjectMatches = scriptContent.match(
-        /(?:const|let|var)\s+(\w+)\s*=\s*\[([\s\S]*?)\];/g,
+        /(?:const|let|var)\s+(\w+)\s*=\s*\[([\s\S]*?)\];/g
       );
       if (arrayObjectMatches) {
         arrayObjectMatches.forEach((arrayMatch) => {
@@ -1333,7 +1333,7 @@ function extractTextFromVueFile(
 
             // Extract all string properties from the array objects
             const propertyMatches = arrayMatch.match(
-              /(\w+):\s*['"]([^'"]+)['"]/g,
+              /(\w+):\s*['"]([^'"]+)['"]/g
             );
             if (propertyMatches) {
               propertyMatches.forEach((propMatch) => {
@@ -1383,7 +1383,7 @@ function extractTextFromVueFile(
         // Process each imported component
         if (componentPaths.length > 0) {
           Logger.info(
-            `  Found ${componentPaths.length} component imports in ${path.basename(filePath)}`,
+            `  Found ${componentPaths.length} component imports in ${path.basename(filePath)}`
           );
 
           // Log the component paths for debugging
@@ -1478,7 +1478,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
 
       // Extract subheadline prop from the component
       const subheadlineMatch = content.match(
-        /subheadline\s*=\s*['"]([^'"]+)['"]/,
+        /subheadline\s*=\s*['"]([^'"]+)['"]/
       );
       if (subheadlineMatch && subheadlineMatch[1]) {
         const subheadline = subheadlineMatch[1];
@@ -1496,17 +1496,17 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
 
       // Extract features array from the component
       const featuresMatch = content.match(
-        /const\s+features\s*=\s*\[([\s\S]*?)\];/,
+        /const\s+features\s*=\s*\[([\s\S]*?)\];/
       );
       if (featuresMatch && featuresMatch[1]) {
         const featuresContent = featuresMatch[1];
 
         // Extract titles and descriptions from features
         const titleMatches = featuresContent.match(
-          /title:\s*['"]([^'"]+)['"]/g,
+          /title:\s*['"]([^'"]+)['"]/g
         );
         const descriptionMatches = featuresContent.match(
-          /description:\s*['"]([^'"]+)['"]/g,
+          /description:\s*['"]([^'"]+)['"]/g
         );
 
         if (titleMatches) {
@@ -1529,7 +1529,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
               const description = descMatch[1];
               result.text += " " + description;
               Logger.info(
-                `  Found FeatureSection description: "${description}"`,
+                `  Found FeatureSection description: "${description}"`
               );
             }
           });
@@ -1543,15 +1543,15 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
 
       // Extract props from the component
       const titlePropMatch = content.match(
-        /title:\s*{\s*type:\s*String,\s*required:\s*true\s*}/,
+        /title:\s*{\s*type:\s*String,\s*required:\s*true\s*}/
       );
       const descriptionPropMatch = content.match(
-        /description:\s*{\s*type:\s*String,\s*required:\s*true\s*}/,
+        /description:\s*{\s*type:\s*String,\s*required:\s*true\s*}/
       );
 
       if (titlePropMatch || descriptionPropMatch) {
         Logger.info(
-          `  Found FeatureCard props that will be populated by parent component`,
+          `  Found FeatureCard props that will be populated by parent component`
         );
       }
     }
@@ -1566,12 +1566,12 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
       // These components render dynamic content from the content directory
       // We need to ensure the path prop is captured to potentially link to the content
       const pathPropMatch = content.match(
-        /path:\s*{\s*type:\s*String,\s*required:\s*true\s*}/,
+        /path:\s*{\s*type:\s*String,\s*required:\s*true\s*}/
       );
 
       if (pathPropMatch) {
         Logger.info(
-          `  Found ContentDisplay path prop that will load dynamic content`,
+          `  Found ContentDisplay path prop that will load dynamic content`
         );
 
         // Try to find usages of this component in the parent file
@@ -1586,7 +1586,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
 
               // Look for path prop assignments
               const pathAssignments = parentContent.match(
-                /path\s*=\s*['"]([^'"]+)['"]/g,
+                /path\s*=\s*['"]([^'"]+)['"]/g
               );
 
               if (pathAssignments) {
@@ -1595,7 +1595,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
                   if (pathMatch && pathMatch[1]) {
                     const contentPath = pathMatch[1];
                     Logger.info(
-                      `  Found potential content path: ${contentPath}`,
+                      `  Found potential content path: ${contentPath}`
                     );
 
                     // Add a note about this content path
@@ -1615,7 +1615,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
     if (depth < 5 && result.components && result.components.length > 0) {
       const indent = "  ".repeat(depth + 1);
       Logger.info(
-        `${indent}Processing ${result.components.length} child components for ${path.basename(filePath)}`,
+        `${indent}Processing ${result.components.length} child components for ${path.basename(filePath)}`
       );
 
       // Track component processing statistics
@@ -1628,7 +1628,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
         // Skip processing if the component path doesn't exist
         if (!fs.existsSync(componentPath)) {
           Logger.warning(
-            `${indent}Skipping non-existent component: ${componentPath}`,
+            `${indent}Skipping non-existent component: ${componentPath}`
           );
           skippedCount++;
           continue;
@@ -1637,7 +1637,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
         // Skip if we've already processed this component at this depth or higher
         if (visited.has(componentPath)) {
           Logger.info(
-            `${indent}Skipping already processed component: ${path.basename(componentPath)}`,
+            `${indent}Skipping already processed component: ${path.basename(componentPath)}`
           );
           skippedCount++;
           continue;
@@ -1647,7 +1647,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
         const childResult = processComponentRecursively(
           componentPath,
           visited,
-          depth + 1,
+          depth + 1
         );
 
         // Add child component text to parent component text
@@ -1655,14 +1655,14 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
           // Log the text being added from child components for debugging
           if (childResult.text.length > 50) {
             Logger.info(
-              `${indent}Adding ${childResult.text.length} characters of text from ${path.basename(componentPath)}`,
+              `${indent}Adding ${childResult.text.length} characters of text from ${path.basename(componentPath)}`
             );
             Logger.info(
-              `${indent}Sample: "${childResult.text.substring(0, 50)}..."`,
+              `${indent}Sample: "${childResult.text.substring(0, 50)}..."`
             );
           } else if (childResult.text.length > 0) {
             Logger.info(
-              `${indent}Adding text from ${path.basename(componentPath)}: "${childResult.text}"`,
+              `${indent}Adding text from ${path.basename(componentPath)}: "${childResult.text}"`
             );
           }
 
@@ -1671,7 +1671,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
           processedCount++;
         } else {
           Logger.info(
-            `${indent}No text content found in component: ${path.basename(componentPath)}`,
+            `${indent}No text content found in component: ${path.basename(componentPath)}`
           );
           skippedCount++;
         }
@@ -1679,7 +1679,7 @@ function processComponentRecursively(filePath, visited = new Set(), depth = 0) {
 
       // Log component processing statistics
       Logger.info(
-        `${indent}Component processing complete: ${processedCount} processed, ${skippedCount} skipped, ${totalTextAdded} characters added`,
+        `${indent}Component processing complete: ${processedCount} processed, ${skippedCount} skipped, ${totalTextAdded} characters added`
       );
     }
 
@@ -1735,7 +1735,7 @@ async function generateSearchIndex(options = {}) {
   });
 
   Logger.info(
-    `📊 Found ${markdownFiles.length} markdown files (excluding blacklisted files)`,
+    `📊 Found ${markdownFiles.length} markdown files (excluding blacklisted files)`
   );
 
   // Track success and failure counts
@@ -1761,19 +1761,19 @@ async function generateSearchIndex(options = {}) {
       // Security check for dangerous content
       if (containsDangerousContent(plainText)) {
         Logger.warning(
-          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`,
+          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`
         );
       }
 
       // Create search item with sanitized content
       const searchItem = {
         title: sanitizeContentForIndexing(
-          data.title || path.basename(file, ".md"),
+          data.title || path.basename(file, ".md")
         ),
         content: plainText, // Already sanitized in extractTextFromMarkdown
         path: normalizedPath,
         description: sanitizeContentForIndexing(
-          data.description || plainText.substring(0, 160) + "...",
+          data.description || plainText.substring(0, 160) + "..."
         ),
         // Store the raw frontmatter data for additional search fields (but sanitize it)
         frontmatter: data,
@@ -1794,7 +1794,7 @@ async function generateSearchIndex(options = {}) {
   }
 
   Logger.info(
-    `📊 Markdown processing complete: ${markdownSuccessCount} successful, ${markdownFailureCount} failed`,
+    `📊 Markdown processing complete: ${markdownSuccessCount} successful, ${markdownFailureCount} failed`
   );
 
   // PART 2: Process Vue files from the pages directory
@@ -1807,7 +1807,7 @@ async function generateSearchIndex(options = {}) {
   });
 
   Logger.info(
-    `📊 Found ${vueFiles.length} Vue files (excluding blacklisted pages)`,
+    `📊 Found ${vueFiles.length} Vue files (excluding blacklisted pages)`
   );
 
   // Track success and failure counts
@@ -1834,7 +1834,7 @@ async function generateSearchIndex(options = {}) {
 
       // Check for explicitly imported components in the template
       const templateMatch = fileContent.match(
-        /<template>([\s\S]*?)<\/template>/,
+        /<template>([\s\S]*?)<\/template>/
       );
       if (templateMatch && templateMatch[1]) {
         const templateContent = templateMatch[1];
@@ -1856,7 +1856,7 @@ async function generateSearchIndex(options = {}) {
           const componentRegex = new RegExp(`<${componentName}[\\s>]`, "g");
           if (componentRegex.test(templateContent)) {
             Logger.info(
-              `  Found component usage in index.vue: ${componentName}`,
+              `  Found component usage in index.vue: ${componentName}`
             );
 
             // Try to resolve the component path
@@ -1866,12 +1866,12 @@ async function generateSearchIndex(options = {}) {
               path.join(
                 projectRoot,
                 "components/content",
-                `${componentName}.vue`,
+                `${componentName}.vue`
               ),
               path.join(
                 projectRoot,
                 "components/layout",
-                `${componentName}.vue`,
+                `${componentName}.vue`
               ),
               path.join(projectRoot, "components/ui", `${componentName}.vue`),
             ];
@@ -1906,13 +1906,13 @@ async function generateSearchIndex(options = {}) {
       const enhancedText = `${text} ${text}`;
 
       Logger.info(
-        `📝 Extracted ${text.length} characters of text from homepage and its components`,
+        `📝 Extracted ${text.length} characters of text from homepage and its components`
       );
 
       // Security check for dangerous content
       if (containsDangerousContent(enhancedText)) {
         Logger.warning(
-          `⚠️ Potentially dangerous content detected in homepage, applying extra sanitization`,
+          `⚠️ Potentially dangerous content detected in homepage, applying extra sanitization`
         );
       }
 
@@ -1972,7 +1972,7 @@ async function generateSearchIndex(options = {}) {
       // Skip if no meaningful text was extracted
       if (!text.trim()) {
         Logger.warning(
-          `⚠️ Skipping ${file} - no meaningful text content found`,
+          `⚠️ Skipping ${file} - no meaningful text content found`
         );
         vueSkippedCount++;
         continue;
@@ -1982,13 +1982,13 @@ async function generateSearchIndex(options = {}) {
       const pageDescription = description || text.substring(0, 160) + "...";
 
       Logger.info(
-        `📝 Extracted ${text.length} characters of text from ${file} and its components`,
+        `📝 Extracted ${text.length} characters of text from ${file} and its components`
       );
 
       // Security check for dangerous content
       if (containsDangerousContent(text)) {
         Logger.warning(
-          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`,
+          `⚠️ Potentially dangerous content detected in ${file}, applying extra sanitization`
         );
       }
 
@@ -2011,7 +2011,7 @@ async function generateSearchIndex(options = {}) {
         duplicateCount++;
         Logger.warning(`⚠️ Duplicate found for path ${normalizedPath}:`);
         Logger.warning(
-          `  Existing: ${existingItem.sourceFile} (${existingItem.type})`,
+          `  Existing: ${existingItem.sourceFile} (${existingItem.type})`
         );
         Logger.warning(`  New: ${file} (vue-page)`);
 
@@ -2048,7 +2048,7 @@ async function generateSearchIndex(options = {}) {
             // Check if the Vue content is substantially different
             const contentOverlap = calculateContentOverlap(
               existingItem.content,
-              searchItem.content,
+              searchItem.content
             );
 
             if (contentOverlap < 0.5) {
@@ -2056,11 +2056,11 @@ async function generateSearchIndex(options = {}) {
               // Append the Vue content to the markdown content
               mergedItem.content += " " + searchItem.content;
               Logger.info(
-                `  📊 Content overlap: ${Math.round(contentOverlap * 100)}% - Adding Vue content`,
+                `  📊 Content overlap: ${Math.round(contentOverlap * 100)}% - Adding Vue content`
               );
             } else {
               Logger.warning(
-                `  📊 Content overlap: ${Math.round(contentOverlap * 100)}% - Skipping duplicate content`,
+                `  📊 Content overlap: ${Math.round(contentOverlap * 100)}% - Skipping duplicate content`
               );
             }
           }
@@ -2068,7 +2068,7 @@ async function generateSearchIndex(options = {}) {
           // Update the search index with the merged item
           searchIndexMap.set(normalizedPath, mergedItem);
           Logger.success(
-            `  ✓ Resolution: Created combined entry with content from both sources`,
+            `  ✓ Resolution: Created combined entry with content from both sources`
           );
           vueSuccessCount++;
         } else {
@@ -2118,7 +2118,7 @@ async function generateSearchIndex(options = {}) {
   }
 
   Logger.info(
-    `📊 Vue processing complete: ${vueSuccessCount} successful, ${vueFailureCount} failed, ${vueSkippedCount} skipped, ${duplicateCount} duplicates merged`,
+    `📊 Vue processing complete: ${vueSuccessCount} successful, ${vueFailureCount} failed, ${vueSkippedCount} skipped, ${duplicateCount} duplicates merged`
   );
 
   // Convert map to array for final output
@@ -2148,13 +2148,13 @@ async function generateSearchIndex(options = {}) {
     // Copy the config file to public/config
     fs.copyFileSync(configPath, path.join(publicConfigDir, "fuse.config.json"));
     Logger.success(
-      "✓ Configuration file copied to public/config/fuse.config.json",
+      "✓ Configuration file copied to public/config/fuse.config.json"
     );
 
     // Copy the config file to public/data as a fallback
     fs.copyFileSync(configPath, path.join(outputDir, "fuse.config.json"));
     Logger.success(
-      "✓ Configuration file copied to public/data/fuse.config.json",
+      "✓ Configuration file copied to public/data/fuse.config.json"
     );
   } catch (error) {
     Logger.error("✗ Error copying configuration files:", error);
@@ -2178,10 +2178,10 @@ async function generateSearchIndex(options = {}) {
   // Display processing statistics
   Logger.info(`📝 Processing statistics:`);
   Logger.info(
-    `   - Markdown files: ${markdownSuccessCount} successful, ${markdownFailureCount} failed`,
+    `   - Markdown files: ${markdownSuccessCount} successful, ${markdownFailureCount} failed`
   );
   Logger.info(
-    `   - Vue files: ${vueSuccessCount} successful, ${vueFailureCount} failed, ${vueSkippedCount} skipped`,
+    `   - Vue files: ${vueSuccessCount} successful, ${vueFailureCount} failed, ${vueSkippedCount} skipped`
   );
   Logger.info(`   - Duplicates merged: ${duplicateCount}`);
 

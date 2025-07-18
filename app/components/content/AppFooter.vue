@@ -125,7 +125,7 @@
  */
 import { useRouter, useRoute } from "#imports";
 import AccessibleTooltip from "./AccessibleTooltip.vue";
-import menuConfig from "~/config/menu.config.json";
+import menuConfig from "../../../config/menu.config.json";
 
 // Get Nuxt app instance to access plugins
 const nuxtApp = useNuxtApp();

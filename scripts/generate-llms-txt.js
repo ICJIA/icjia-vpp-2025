@@ -15,11 +15,11 @@ import { promises as fs } from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-import { createLogger } from "../utils/logger.js";
+import { createLogger } from "../app/utils/logger.js";
 import {
   createScriptLoggerConfig,
   getVerbosityFromArgs,
-} from "../utils/config-loader.js";
+} from "../app/utils/config-loader.js";
 
 /**
  * LLMS.txt Generator Class
@@ -49,7 +49,7 @@ class LLMSTxtGenerator {
     try {
       const menuConfigPath = path.join(
         process.cwd(),
-        "config/menu.config.json",
+        "config/menu.config.json"
       );
       const menuConfigContent = await fs.readFile(menuConfigPath, "utf-8");
       this.menuConfig = JSON.parse(menuConfigContent);
@@ -72,7 +72,7 @@ class LLMSTxtGenerator {
 
     const headerItems = this.menuConfig.header?.items || [];
     const readThePlanMenu = headerItems.find(
-      (item) => item.text === "Read the Plan",
+      (item) => item.text === "Read the Plan"
     );
 
     if (!readThePlanMenu || !readThePlanMenu.children) {
@@ -99,7 +99,7 @@ class LLMSTxtGenerator {
       const filePath = path.join(
         process.cwd(),
         "content",
-        `${contentPath.replace(/^\//, "")}.md`,
+        `${contentPath.replace(/^\//, "")}.md`
       );
 
       // Check if file exists
@@ -133,7 +133,7 @@ class LLMSTxtGenerator {
       };
     } catch (error) {
       this.logger?.error(
-        `Failed to process content file ${contentPath}: ${error.message}`,
+        `Failed to process content file ${contentPath}: ${error.message}`
       );
       this.stats.skippedPages++;
       return null;
@@ -155,24 +155,24 @@ class LLMSTxtGenerator {
 
     // Blockquote summary (optional but recommended)
     lines.push(
-      "> This comprehensive violence prevention plan outlines Illinois's strategic approach to preventing violence through evidence-based practices, equity advancement, and collaborative efforts across state, municipal, and community-based agencies for 2025-2029.",
+      "> This comprehensive violence prevention plan outlines Illinois's strategic approach to preventing violence through evidence-based practices, equity advancement, and collaborative efforts across state, municipal, and community-based agencies for 2025-2029."
     );
     lines.push("");
 
     // Optional details section
     lines.push("This plan presents three primary violence prevention goals:");
     lines.push(
-      "1. **Prevent violence and promote health and safety** through trauma-informed, evidence-based prevention efforts",
+      "1. **Prevent violence and promote health and safety** through trauma-informed, evidence-based prevention efforts"
     );
     lines.push(
-      "2. **Advance equity** by increasing access to grants and economic opportunities",
+      "2. **Advance equity** by increasing access to grants and economic opportunities"
     );
     lines.push(
-      "3. **Promote collaboration** across agencies, informed by research, data sharing, and best practices",
+      "3. **Promote collaboration** across agencies, informed by research, data sharing, and best practices"
     );
     lines.push("");
     lines.push(
-      "The plan was developed by the Illinois Criminal Justice Information Authority (ICJIA) in collaboration with the Ad Hoc Violence Prevention Committee and various workgroups, building upon the previous 2020-2024 plan with updated research, implementation findings, and community feedback.",
+      "The plan was developed by the Illinois Criminal Justice Information Authority (ICJIA) in collaboration with the Ad Hoc Violence Prevention Committee and various workgroups, building upon the previous 2020-2024 plan with updated research, implementation findings, and community feedback."
     );
     lines.push("");
 
@@ -199,13 +199,13 @@ class LLMSTxtGenerator {
     lines.push("## Optional");
     lines.push("");
     lines.push(
-      "- [Full PDF Report](https://vpp-2025.netlify.app/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf): Complete downloadable version of the violence prevention plan",
+      "- [Full PDF Report](https://vpp-2025.netlify.app/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf): Complete downloadable version of the violence prevention plan"
     );
     lines.push(
-      "- [ICJIA Website](https://icjia.illinois.gov): Illinois Criminal Justice Information Authority main website",
+      "- [ICJIA Website](https://icjia.illinois.gov): Illinois Criminal Justice Information Authority main website"
     );
     lines.push(
-      "- [Project Repository](https://github.com/ICJIA/icjia-vpp-2025): Source code and development information",
+      "- [Project Repository](https://github.com/ICJIA/icjia-vpp-2025): Source code and development information"
     );
 
     return lines.join("\n");
@@ -229,7 +229,7 @@ class LLMSTxtGenerator {
 
       this.logger?.success(`✅ Generated llms.txt file: ${outputPath}`);
       this.logger?.info(
-        `📊 File size: ${(content.length / 1024).toFixed(2)} KB`,
+        `📊 File size: ${(content.length / 1024).toFixed(2)} KB`
       );
     } catch (error) {
       this.logger?.error(`Failed to write llms.txt file: ${error.message}`);
@@ -244,11 +244,11 @@ class LLMSTxtGenerator {
     this.logger?.info("📊 LLMS.txt Generation Statistics:");
     this.logger?.info(`   Total pages identified: ${this.stats.totalPages}`);
     this.logger?.info(
-      `   Successfully processed: ${this.stats.processedPages}`,
+      `   Successfully processed: ${this.stats.processedPages}`
     );
     this.logger?.info(`   Skipped pages: ${this.stats.skippedPages}`);
     this.logger?.info(
-      `   Total content length: ${(this.stats.totalContentLength / 1024).toFixed(2)} KB`,
+      `   Total content length: ${(this.stats.totalContentLength / 1024).toFixed(2)} KB`
     );
   }
 
@@ -263,7 +263,7 @@ class LLMSTxtGenerator {
     const loggerOptions = verbosity ? { level: verbosity } : {};
     const loggerConfig = await createScriptLoggerConfig(
       "LLMS.txt Generator",
-      loggerOptions,
+      loggerOptions
     );
     this.logger = createLogger(loggerConfig);
 
@@ -278,7 +278,7 @@ class LLMSTxtGenerator {
       this.stats.totalPages = reportPages.length;
 
       this.logger?.info(
-        `📄 Found ${reportPages.length} report pages to process`,
+        `📄 Found ${reportPages.length} report pages to process`
       );
 
       // Process each content file

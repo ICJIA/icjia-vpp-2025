@@ -23,11 +23,11 @@ import path from "path";
 import { glob } from "glob";
 import matter from "gray-matter";
 
-import { createLogger } from "../utils/logger.js";
+import { createLogger } from "../app/utils/logger.js";
 import {
   createScriptLoggerConfig,
   getVerbosityFromArgs,
-} from "../utils/config-loader.js";
+} from "../app/utils/config-loader.js";
 
 /**
  * Sitemap Generator Class
@@ -60,18 +60,18 @@ class SitemapGenerator {
       // Load sitemap-specific configuration
       const sitemapConfigPath = path.join(
         process.cwd(),
-        "config/sitemap.config.json",
+        "config/sitemap.config.json"
       );
       const sitemapConfigContent = await fs.readFile(
         sitemapConfigPath,
-        "utf-8",
+        "utf-8"
       );
       this.config = JSON.parse(sitemapConfigContent);
 
       // Load site configuration for routes
       const siteConfigPath = path.join(
         process.cwd(),
-        "config/routes.config.json",
+        "config/routes.config.json"
       );
       const siteConfigContent = await fs.readFile(siteConfigPath, "utf-8");
       this.siteConfig = JSON.parse(siteConfigContent);
@@ -222,7 +222,7 @@ class SitemapGenerator {
         this.stats.duplicatesRemoved++;
         this.logger?.addToGroup(
           "warning",
-          `Duplicate route removed: ${sanitizedPath}`,
+          `Duplicate route removed: ${sanitizedPath}`
         );
         continue;
       }
@@ -246,7 +246,7 @@ class SitemapGenerator {
 
     this.routes = Array.from(processedRoutes.values());
     this.logger?.info(
-      `📊 Route processing complete: ${this.stats.includedRoutes} included, ${this.stats.excludedRoutes} excluded, ${this.stats.duplicatesRemoved} duplicates removed`,
+      `📊 Route processing complete: ${this.stats.includedRoutes} included, ${this.stats.excludedRoutes} excluded, ${this.stats.duplicatesRemoved} duplicates removed`
     );
   }
 
@@ -297,7 +297,7 @@ class SitemapGenerator {
 
       if (
         !xml.includes(
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
         )
       ) {
         throw new Error("Missing or invalid urlset element");
@@ -311,7 +311,7 @@ class SitemapGenerator {
       const urlCount = (xml.match(/<url>/g) || []).length;
       if (urlCount > this.config.validation.maxUrls) {
         throw new Error(
-          `Too many URLs: ${urlCount} (max: ${this.config.validation.maxUrls})`,
+          `Too many URLs: ${urlCount} (max: ${this.config.validation.maxUrls})`
         );
       }
 
@@ -344,7 +344,7 @@ class SitemapGenerator {
     } catch (error) {
       this.logger?.error(
         `❌ Failed to write sitemap to ${outputPath}:`,
-        error.message,
+        error.message
       );
       throw error;
     }

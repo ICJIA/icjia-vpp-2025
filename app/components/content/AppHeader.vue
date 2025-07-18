@@ -256,7 +256,7 @@
                           index,
                           childIndex,
                           item.children.length,
-                          $event,
+                          $event
                         )
                       "
                     >
@@ -613,8 +613,8 @@ import {
   onBeforeUnmount,
   computed,
 } from "#imports";
-import menuConfig from "~/config/menu.config.json";
-import siteConfig from "~/config/site.config.json";
+import menuConfig from "../../../config/menu.config.json";
+import siteConfig from "../../../config/site.config.json";
 
 /**
  * Component props
@@ -933,7 +933,7 @@ const handleDropdownTabKey = (
   dropdownIndex,
   currentItemIndex,
   totalItems,
-  event,
+  event
 ) => {
   // If tabbing from the last item, close the dropdown
   if (currentItemIndex === totalItems - 1 && !event.shiftKey) {

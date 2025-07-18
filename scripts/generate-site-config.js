@@ -16,11 +16,11 @@ import path from "path";
 import { glob } from "glob";
 import matter from "gray-matter";
 
-import { createLogger } from "../utils/logger.js";
+import { createLogger } from "../app/utils/logger.js";
 import {
   createScriptLoggerConfig,
   getVerbosityFromArgs,
-} from "../utils/config-loader.js";
+} from "../app/utils/config-loader.js";
 
 /**
  * Enhanced Site Configuration Generator Class
@@ -83,7 +83,7 @@ class SiteConfigGenerator {
         },
       };
       this.logger?.info(
-        "Loaded routing configuration from config/site.config.json",
+        "Loaded routing configuration from config/site.config.json"
       );
     } catch (error) {
       this.logger?.warning("Site config file not found, using defaults");
@@ -119,14 +119,14 @@ class SiteConfigGenerator {
     try {
       const menuConfigPath = path.join(
         process.cwd(),
-        "config/menu.config.json",
+        "config/menu.config.json"
       );
       const menuConfigContent = await fs.readFile(menuConfigPath, "utf-8");
       this.menuConfig = JSON.parse(menuConfigContent);
       this.logger?.info("Loaded menu configuration for routing integration");
     } catch (error) {
       this.logger?.warning(
-        "Menu config file not found, skipping menu integration",
+        "Menu config file not found, skipping menu integration"
       );
       this.menuConfig = null;
     }
@@ -156,7 +156,7 @@ class SiteConfigGenerator {
         item.href === path ||
         item.to === path ||
         (item.href && item.href.endsWith(path)) ||
-        (item.to && item.to.endsWith(path)),
+        (item.to && item.to.endsWith(path))
     );
   }
 
@@ -168,7 +168,7 @@ class SiteConfigGenerator {
   calculateEnhancedStats(pages) {
     // Calculate menu integration statistics
     this.stats.menuIntegratedPages = pages.filter((page) =>
-      this.isPageInMenu(page.path),
+      this.isPageInMenu(page.path)
     ).length;
     this.stats.orphanedPages = pages.length - this.stats.menuIntegratedPages;
 
@@ -176,29 +176,29 @@ class SiteConfigGenerator {
     this.routeOptimizations.missingTitles = pages.filter(
       (page) =>
         !page.title ||
-        page.title.includes("Violence Prevention Plan for Illinois: 2025-2029"),
+        page.title.includes("Violence Prevention Plan for Illinois: 2025-2029")
     );
 
     this.routeOptimizations.longPaths = pages.filter(
-      (page) => page.path.length > 50,
+      (page) => page.path.length > 50
     );
 
     // Log optimization insights
     if (this.routeOptimizations.missingTitles.length > 0) {
       this.logger?.warning(
-        `Found ${this.routeOptimizations.missingTitles.length} pages with generic titles`,
+        `Found ${this.routeOptimizations.missingTitles.length} pages with generic titles`
       );
     }
 
     if (this.routeOptimizations.longPaths.length > 0) {
       this.logger?.info(
-        `Found ${this.routeOptimizations.longPaths.length} pages with long paths (>50 chars)`,
+        `Found ${this.routeOptimizations.longPaths.length} pages with long paths (>50 chars)`
       );
     }
 
     if (this.stats.orphanedPages > 0) {
       this.logger?.info(
-        `Found ${this.stats.orphanedPages} pages not referenced in menu configuration`,
+        `Found ${this.stats.orphanedPages} pages not referenced in menu configuration`
       );
     }
   }
@@ -243,7 +243,7 @@ class SiteConfigGenerator {
       return data.title || null;
     } catch (error) {
       this.logger?.warning(
-        `Failed to extract title from ${filePath}: ${error.message}`,
+        `Failed to extract title from ${filePath}: ${error.message}`
       );
       return null;
     }
@@ -261,7 +261,7 @@ class SiteConfigGenerator {
 
       // Look for useHead title (most common pattern)
       const useHeadMatch = content.match(
-        /useHead\s*\(\s*\{[^}]*title:\s*['"`]([^'"`]+)['"`]/,
+        /useHead\s*\(\s*\{[^}]*title:\s*['"`]([^'"`]+)['"`]/
       );
       if (useHeadMatch) {
         return useHeadMatch[1];
@@ -269,7 +269,7 @@ class SiteConfigGenerator {
 
       // Look for computed useHead title
       const computedUseHeadMatch = content.match(
-        /useHead\s*\(\s*\{[^}]*title:\s*computed\(\s*\(\)\s*=>\s*['"`]([^'"`]+)['"`]/,
+        /useHead\s*\(\s*\{[^}]*title:\s*computed\(\s*\(\)\s*=>\s*['"`]([^'"`]+)['"`]/
       );
       if (computedUseHeadMatch) {
         return computedUseHeadMatch[1];
@@ -277,12 +277,12 @@ class SiteConfigGenerator {
 
       // Look for template variables in title (fallback to default title)
       const templateVarMatch = content.match(
-        /title:\s*['"`][^'"`]*\$\{[^}]+\}[^'"`]*['"`]/,
+        /title:\s*['"`][^'"`]*\$\{[^}]+\}[^'"`]*['"`]/
       );
       if (templateVarMatch) {
         // If title contains template variables, try to extract default values
         const defaultTitleMatch = content.match(
-          /defaultTitle\s*=\s*['"`]([^'"`]+)['"`]/,
+          /defaultTitle\s*=\s*['"`]([^'"`]+)['"`]/
         );
         if (defaultTitleMatch) {
           return defaultTitleMatch[1];
@@ -291,7 +291,7 @@ class SiteConfigGenerator {
 
       // Look for useSeoMeta title
       const seoMetaMatch = content.match(
-        /useSeoMeta\s*\(\s*\{[^}]*title:\s*['"`]([^'"`]+)['"`]/,
+        /useSeoMeta\s*\(\s*\{[^}]*title:\s*['"`]([^'"`]+)['"`]/
       );
       if (seoMetaMatch) {
         return seoMetaMatch[1];
@@ -305,7 +305,7 @@ class SiteConfigGenerator {
 
       // Look for component name in JSDoc comments
       const componentMatch = content.match(
-        /\*\s*([A-Z][a-zA-Z\s]+)\s*(?:page|component)/i,
+        /\*\s*([A-Z][a-zA-Z\s]+)\s*(?:page|component)/i
       );
       if (componentMatch) {
         return componentMatch[1].trim();
@@ -314,7 +314,7 @@ class SiteConfigGenerator {
       return null;
     } catch (error) {
       this.logger?.warning(
-        `Failed to extract title from ${filePath}: ${error.message}`,
+        `Failed to extract title from ${filePath}: ${error.message}`
       );
       return null;
     }
@@ -372,7 +372,7 @@ class SiteConfigGenerator {
         segment
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" "),
+          .join(" ")
       )
       .join(" - ");
 
@@ -400,7 +400,7 @@ class SiteConfigGenerator {
         if (this.isBlacklisted(filePath, "markdown")) {
           this.logger?.addToGroup(
             "warning",
-            `Skipped blacklisted file: ${filePath}`,
+            `Skipped blacklisted file: ${filePath}`
           );
           continue;
         }
@@ -421,12 +421,12 @@ class SiteConfigGenerator {
 
         this.logger?.addToGroup(
           "success",
-          `Indexed markdown: ${filePath} -> ${urlPath}`,
+          `Indexed markdown: ${filePath} -> ${urlPath}`
         );
       }
 
       this.logger?.info(
-        `📊 Markdown processing complete: ${this.stats.contentPages} successful`,
+        `📊 Markdown processing complete: ${this.stats.contentPages} successful`
       );
     } catch (error) {
       this.logger?.error(`Failed to process markdown files: ${error.message}`);
@@ -450,7 +450,7 @@ class SiteConfigGenerator {
         if (this.isBlacklisted(filePath, "vue")) {
           this.logger?.addToGroup(
             "warning",
-            `Skipped blacklisted file: ${filePath}`,
+            `Skipped blacklisted file: ${filePath}`
           );
           continue;
         }
@@ -471,12 +471,12 @@ class SiteConfigGenerator {
 
         this.logger?.addToGroup(
           "success",
-          `Indexed Vue page: ${filePath} -> ${urlPath}`,
+          `Indexed Vue page: ${filePath} -> ${urlPath}`
         );
       }
 
       this.logger?.info(
-        `📊 Vue processing complete: ${this.stats.vuePages} successful`,
+        `📊 Vue processing complete: ${this.stats.vuePages} successful`
       );
     } catch (error) {
       this.logger?.error(`Failed to process Vue files: ${error.message}`);
@@ -531,16 +531,16 @@ class SiteConfigGenerator {
 
         this.logger?.debug(`🔗 Merged ${pages.length} pages for path: ${path}`);
         this.logger?.debug(
-          `   Sources: ${pages.map((p) => p.source).join(", ")}`,
+          `   Sources: ${pages.map((p) => p.source).join(", ")}`
         );
       }
     }
 
     this.logger?.info(
-      `✅ Deduplication complete: ${duplicatesFound} duplicate paths merged`,
+      `✅ Deduplication complete: ${duplicatesFound} duplicate paths merged`
     );
     this.logger?.debug(
-      `📊 Final page count: ${deduplicatedPages.length} unique pages`,
+      `📊 Final page count: ${deduplicatedPages.length} unique pages`
     );
 
     return deduplicatedPages;
@@ -599,7 +599,7 @@ class SiteConfigGenerator {
     }
 
     this.logger?.debug(
-      `   📝 Selected title: "${bestTitle}" (from ${titleSource})`,
+      `   📝 Selected title: "${bestTitle}" (from ${titleSource})`
     );
 
     return {
@@ -709,26 +709,26 @@ class SiteConfigGenerator {
       // Also write to public directory for runtime access
       const publicPath = path.join(
         process.cwd(),
-        "public/config/routes.config.json",
+        "public/config/routes.config.json"
       );
       await fs.writeFile(publicPath, JSON.stringify(config, null, 2));
 
       this.logger.timeEnd(
         "generation",
-        "Routes configuration generation completed",
+        "Routes configuration generation completed"
       );
 
       // Log success summary
       this.logger.success("✅ Routes configuration generated successfully!");
       this.logger.info(
-        `📊 Summary: ${this.stats.totalPages} pages (${this.stats.contentPages} content, ${this.stats.vuePages} Vue, ${this.stats.combinedPages} combined, ${this.stats.blacklistedFiles} blacklisted)`,
+        `📊 Summary: ${this.stats.totalPages} pages (${this.stats.contentPages} content, ${this.stats.vuePages} Vue, ${this.stats.combinedPages} combined, ${this.stats.blacklistedFiles} blacklisted)`
       );
       this.logger.debug(`📁 Files written to: ${outputPath} and ${publicPath}`);
 
       return config;
     } catch (error) {
       this.logger?.error(
-        `Site configuration generation failed: ${error.message}`,
+        `Site configuration generation failed: ${error.message}`
       );
       throw error;
     }

@@ -50,7 +50,7 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { marked } from "marked";
 import { createChecker } from "vue-component-meta";
-import { loadSiteConfigSync } from "../utils/config-loader.js";
+import { loadSiteConfigSync } from "../app/utils/config-loader.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
