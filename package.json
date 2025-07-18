@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.6.3",
+    "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/plausible": "1.2.0",
     "@vueuse/core": "^13.2.0",
     "@vueuse/head": "^2.0.0",
@@ -69,7 +70,6 @@
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",
-    "@nuxtjs/google-fonts": "^3.2.0",
     "@testing-library/vue": "^8.1.0",
     "@vitest/coverage-v8": "3.2.4",
     "@vue/compiler-sfc": "^3.5.17",
