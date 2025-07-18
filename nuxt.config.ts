@@ -25,6 +25,9 @@ export default defineNuxtConfig({
   // Enable Nuxt DevTools for development
   devtools: { enabled: true },
 
+  // Force static site generation
+  ssr: true,
+
   // Global CSS files
   css: [
     "vuetify/lib/styles/main.sass", // Vuetify styles
@@ -220,6 +223,9 @@ export default defineNuxtConfig({
    * @see https://nitro.unjs.io/
    */
   nitro: {
+    // Force static site generation preset
+    preset: 'static',
+
     // Static site generation configuration
     prerender: {
       // Automatically crawl and generate all linked pages

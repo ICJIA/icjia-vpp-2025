@@ -5,8 +5,8 @@
 # Build command with native module rebuild
 command = "yarn install && yarn check-sass && yarn rebuild-sqlite && yarn run generate"
 
-# Directory to publish (Nuxt 3 generates to dist by default)
-publish = "dist"
+# Directory to publish (Nuxt 3 static generation outputs to .output/public)
+publish = ".output/public"
 
 [build.environment]
 # Node.js version for build environment
