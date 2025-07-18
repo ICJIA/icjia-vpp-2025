@@ -17,6 +17,17 @@ export default defineNuxtConfig({
   // Set compatibility date for Nuxt features
   compatibilityDate: "2024-04-03",
 
+  // Enable Nuxt 4 compatibility mode for testing
+  future: {
+    compatibilityVersion: 4,
+  },
+
+  // Keep current folder structure initially (can be changed later)
+  srcDir: '.',
+  dir: {
+    app: 'app'
+  },
+
   // Enable Nuxt DevTools for development
   devtools: { enabled: true },
 
