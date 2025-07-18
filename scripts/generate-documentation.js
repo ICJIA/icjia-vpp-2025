@@ -1475,5 +1475,3 @@ async function generateDocumentation() {
 if (import.meta.url === `file://${process.argv[1]}`) {
   generateDocumentation();
 }
-
-
