@@ -43,11 +43,70 @@ This project serves as the official web presence for the Statewide Violence Prev
 - Comprehensive documentation for developers and users
 - Automated build processes with configurable logging levels
 
+## Recent Major Updates
+
+### Nuxt 4 Migration (July 18, 2025)
+
+The project has been successfully migrated from Nuxt 3 to Nuxt 4, bringing significant improvements in performance, developer experience, and modern development patterns.
+
+#### Migration Highlights
+
+**Directory Structure Modernization:**
+
+- **Primary Source Directory**: Moved from root-level directories to `app/` directory structure
+- **Components**: `components/` → `app/components/`
+- **Composables**: `composables/` → `app/composables/`
+- **Layouts**: `layouts/` → `app/layouts/`
+- **Pages**: `pages/` → `app/pages/`
+- **Plugins**: `plugins/` → `app/plugins/`
+- **Assets**: `assets/` → `app/assets/`
+- **Utils**: `utils/` → `app/utils/`
+
+**Content Management:**
+
+- **Content Directory**: Remains at root level (`/content/`) as per Nuxt Content v3 requirements
+- **Public Assets**: Remains at root level (`/public/`) for static file serving
+- **Configuration**: Build and configuration files remain at root level
+
+**Performance Improvements:**
+
+- **Faster Build Times**: Enhanced build pipeline with optimized dependency resolution
+- **Improved Hot Reload**: Faster development server with better file watching
+- **Enhanced SSR**: Better server-side rendering performance and reliability
+- **Modern Bundling**: Updated bundling strategies for smaller output sizes
+
+#### Theme System Enhancements (July 18, 2025)
+
+**Cookie-Based Theme Persistence:**
+
+- **Migration from localStorage**: Converted theme storage from localStorage to cookies for SSR compatibility
+- **FOUC Elimination**: Eliminated Flash of Unstyled Content through server-side theme application
+- **Cross-Browser Compatibility**: Enhanced Safari compatibility with optimized cookie settings
+- **SSR Integration**: Theme preferences applied during server-side rendering for consistent initial page load
+
+**Technical Implementation:**
+
+- **useHead Integration**: Uses Nuxt's `useHead` to set `data-theme` attribute during SSR
+- **Dual Approach**: Combines SSR-compatible `useHead` with client-side `document.setAttribute` for immediate feedback
+- **Cookie Configuration**: Optimized `sameSite` and `secure` settings for cross-browser compatibility
+- **Vuetify Integration**: Synchronized theme management between custom theme system and Vuetify
+
+**Browser Compatibility:**
+
+- **Chrome**: Full compatibility maintained
+- **Safari**: Enhanced compatibility with specialized cookie settings
+- **Firefox**: Full compatibility maintained
+- **Edge**: Full compatibility maintained
+
 ## Technology Stack
 
 ### Core Framework
 
 - **Nuxt 4** (v4.0.0) - Vue.js meta-framework with modern directory structure and enhanced performance
+  - **Migration Completed**: July 18, 2025 - Full migration from Nuxt 3 to Nuxt 4
+  - **Modern Directory Structure**: Uses `app/` as primary source directory instead of root-level directories
+  - **Enhanced Performance**: Improved build times and runtime performance
+  - **Backward Compatibility**: Maintains compatibility with existing Nuxt 3 patterns
 - **Vue 3** (v3.5.0) - Progressive JavaScript framework with Composition API
 - **Node.js** - JavaScript runtime (requires Node.js 18+)
 
@@ -93,9 +152,10 @@ This project serves as the official web presence for the Statewide Violence Prev
 
 The project follows a JAMstack architecture pattern with Nuxt 4's modern directory structure:
 
-- **JavaScript**: Vue 3 with Nuxt 4 framework using app/ source directory
+- **JavaScript**: Vue 3 with Nuxt 4 framework using `app/` source directory (migrated July 18, 2025)
 - **APIs**: Static content via Nuxt Content, search via client-side Fuse.js
 - **Markup**: Pre-generated static HTML with dynamic hydration
+- **Theme Management**: Cookie-based persistence with SSR-compatible theme application
 
 ### Data Flow Patterns
 
@@ -149,7 +209,8 @@ icjia-vpp-2025/
 │   │   ├── useContentFetcher.js # Content fetching logic
 │   │   ├── useReferences.js   # Reference management
 │   │   ├── useReportNavigation.js # Navigation utilities
-│   │   └── useSiteSettings.js # Site configuration
+│   │   ├── useSiteSettings.js # Site configuration
+│   │   └── useTheme.js        # Cookie-based theme management (added July 18, 2025)
 │   ├──
 │   ├── layouts/               # Layout components
 │   │   └── default.vue        # Default page layout
@@ -258,6 +319,7 @@ icjia-vpp-2025/
 The project uses Vue 3 Composition API with composables for state management:
 
 - **useSiteSettings**: Global site configuration and theme management
+- **useTheme**: Cookie-based theme persistence with SSR support (added July 18, 2025)
 - **useAnnouncer**: Accessibility announcements for screen readers
 - **useContentFetcher**: Content loading and caching logic
 - **useReportNavigation**: Navigation state and circular navigation
@@ -973,7 +1035,9 @@ The project complies with Illinois Information Technology Accessibility Act (IIT
 
 - **Default Theme**: Dark mode as default for professional appearance
 - **Theme Toggle**: Labeled switch component with clear light/dark indication
-- **Persistence**: Local storage saves user preference across sessions
+- **Persistence**: Cookie-based storage for SSR compatibility (migrated July 18, 2025)
+- **SSR Integration**: Theme applied during server-side rendering to eliminate FOUC
+- **Cross-Browser Support**: Enhanced Safari compatibility with optimized cookie settings
 - **System Preference**: Respects user's system theme preference initially
 
 #### Theme Switching Features
@@ -1323,6 +1387,14 @@ yarn test:coverage
 
 ---
 
-**Document Version**: 1.1
+**Document Version**: 2.0
 **Last Updated**: July 18, 2025
 **Next Review**: October 18, 2025
+
+**Major Updates in Version 2.0:**
+
+- Nuxt 4 migration completed with modern directory structure
+- Cookie-based theme system with SSR compatibility
+- Enhanced cross-browser support (especially Safari)
+- FOUC elimination through server-side theme application
+- Updated architecture documentation reflecting Nuxt 4 patterns
