@@ -1,5 +1,7 @@
 # Project Rules and Standards
 
+**Last Updated: July 18, 2025**
+
 ## Overview
 
 This document defines the mandatory rules and standards for the Violence Prevention Plan for Illinois: 2025-2029 project. These rules ensure consistency, maintainability, and quality across all development work.
@@ -8,37 +10,101 @@ This document defines the mandatory rules and standards for the Violence Prevent
 
 ### Nuxt 4.0.0 with Modern Directory Structure
 
-**Current Status**: Successfully migrated to Nuxt 4.0.0 with new directory structure.
+**Current Status**: Successfully migrated to Nuxt 4.0.0 with new directory structure (completed July 2025).
+
+#### Nuxt 4 Migration Summary
+
+The project has been successfully migrated from Nuxt 3 to Nuxt 4.0.0, implementing the new directory structure and build system improvements:
+
+**Key Changes from Nuxt 3 to Nuxt 4:**
+
+- **New App Directory Structure**: All application code moved to `app/` directory
+- **Enhanced Build Output**: Uses `.output/` directory instead of legacy build directories
+- **Improved Performance**: Better tree-shaking and bundle optimization
+- **TypeScript Integration**: Enhanced TypeScript support with better type inference
+- **Backward Compatibility**: Maintains compatibility with existing Nuxt 3 patterns
 
 #### Directory Structure Rules
 
-1. **App Directory**: All application code must be organized under the `app/` directory:
-   - `app/components/` - Vue components
-   - `app/composables/` - Composition API utilities
-   - `app/layouts/` - Layout templates
-   - `app/pages/` - Route pages
-   - `app/plugins/` - Nuxt plugins
-   - `app/utils/` - Utility functions
-   - `app/assets/` - Static assets
+**Current Project Structure (Nuxt 4.0.0):**
 
-2. **Root Directory**: Configuration and content remain in root:
-   - `content/` - Nuxt Content files
-   - `config/` - Configuration files
-   - `scripts/` - Build scripts
-   - `server/` - Server-side code
-   - `public/` - Static public assets
+1. **App Directory** (`app/`): All application code organized under the new Nuxt 4 structure:
 
-3. **Import Path Rules**:
-   - Use relative paths for config imports: `../../../config/`
-   - Build scripts import from `app/utils/` directory
-   - Components auto-import from `app/components/`
+   ```
+   app/
+   ├── app.vue                    # Root application component
+   ├── error.vue                  # Global error page
+   ├── router.options.ts          # Router configuration
+   ├── assets/                    # Static assets and CSS
+   │   └── css/                   # Global stylesheets
+   ├── components/                # Vue components
+   │   ├── content/               # Content-specific components
+   │   ├── dev/                   # Development utilities
+   │   └── seo/                   # SEO components
+   ├── composables/               # Composition API utilities
+   ├── layouts/                   # Layout templates
+   │   └── default.vue            # Default layout
+   ├── pages/                     # Route pages
+   │   ├── [...slug].vue          # Dynamic content pages
+   │   ├── index.vue              # Homepage
+   │   ├── news.vue               # News section
+   │   └── search.vue             # Search page
+   ├── plugins/                   # Nuxt plugins
+   │   ├── *.client.js            # Client-side plugins
+   │   ├── *.ts                   # TypeScript plugins
+   │   └── vuetify.ts             # Vuetify configuration
+   └── utils/                     # Utility functions
+       ├── config-loader.js       # Configuration utilities
+       ├── logger.js              # Logging system
+       └── sanitize.js            # Content sanitization
+   ```
+
+2. **Root Directory**: Configuration and content remain in project root:
+
+   ```
+   ├── content/                   # Nuxt Content files
+   │   ├── accessibility/         # Accessibility documentation
+   │   ├── legal/                 # Legal pages
+   │   ├── news/                  # News articles (disabled)
+   │   └── plan/                  # Main plan content
+   ├── config/                    # Configuration files
+   │   ├── *.config.json          # JSON configurations
+   │   └── *.config.md            # Configuration documentation
+   ├── scripts/                   # Build and utility scripts
+   ├── server/                    # Server-side code
+   ├── public/                    # Static public assets
+   ├── docs/                      # Internal project documentation
+   └── tests/                     # Test files
+   ```
+
+3. **Build Output** (`.output/`): Nuxt 4's optimized build directory:
+
+   ```
+   .output/
+   ├── nitro.json                 # Nitro configuration
+   └── public/                    # Generated static files
+       ├── _nuxt/                 # Bundled assets
+       ├── data/                  # Generated data files
+       └── [pages]                # Static HTML pages
+   ```
+
+4. **Legacy Directories**: These directories may exist but are not part of the active build:
+   - `dist/` - Legacy build output (replaced by `.output/`)
+   - `out/` - Legacy documentation output
+
+#### Import Path Rules
+
+- **Config Imports**: Use relative paths from app directory: `../../../config/`
+- **Utility Imports**: Build scripts import from `app/utils/` directory
+- **Component Auto-imports**: Components auto-import from `app/components/`
+- **Composable Auto-imports**: Composables auto-import from `app/composables/`
 
 #### Migration Compliance
 
-- **Zero Breaking Changes**: All functionality must be preserved during updates
-- **Performance Standards**: Bundle size must remain consistent (≤8.42 MB total, ≤2.59 MB gzip)
-- **Build Compatibility**: All build commands (`yarn dev`, `yarn build`, `yarn generate`) must work without changes
-- **Accessibility Preservation**: WCAG 2.1 AA compliance must be maintained throughout any structural changes
+- **Zero Breaking Changes**: All functionality preserved during Nuxt 4 migration
+- **Performance Standards**: Bundle size optimized with Nuxt 4 improvements
+- **Build Compatibility**: All build commands (`yarn dev`, `yarn build`, `yarn generate`) work without changes
+- **Accessibility Preservation**: WCAG 2.1 AA compliance maintained throughout migration
 
 ## Package Manager Standard
 
@@ -264,4 +330,22 @@ This document defines the mandatory rules and standards for the Violence Prevent
 - **Project Milestones**: Assess rules during major project phases
 - **Post-Implementation**: Evaluate rule impact after significant changes
 
-_Last Updated: May 25, 2025_
+## Changelog
+
+### July 18, 2025 - Nuxt 4.0.0 Migration Documentation Update
+
+- **Updated Framework Section**: Documented successful migration to Nuxt 4.0.0
+- **New Directory Structure**: Added comprehensive documentation of new `app/` directory structure
+- **Build Output Changes**: Documented transition from legacy build directories to `.output/` directory
+- **Migration Summary**: Added detailed explanation of key changes from Nuxt 3 to Nuxt 4
+- **Import Path Updates**: Updated import path rules for new directory structure
+- **Legacy Directory Notes**: Documented legacy directories that may exist but are not part of active build
+
+### May 25, 2025 - Initial Project Rules Documentation
+
+- **Initial Creation**: Established comprehensive project rules and standards
+- **Framework Standards**: Defined Nuxt 3 standards and directory structure (pre-migration)
+- **Accessibility Requirements**: Established WCAG 2.1 AA compliance standards
+- **Code Quality Standards**: Defined coding patterns and quality requirements
+
+_Last Updated: July 18, 2025_
