@@ -18,6 +18,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "rebuild-sqlite": "npm rebuild better-sqlite3",
+    "check-sass": "node -e \"console.log('Using Sass implementation:', require('sass').info)\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -87,6 +88,9 @@
     "vue-component-type-helpers": "3.0.1",
     "web-vitals": "^5.0.3",
     "webpack-bundle-analyzer": "^4.10.2"
+  },
+  "resolutions": {
+    "node-sass": "npm:sass@1.71.1"
   },
   "packageManager": "yarn@1.22.22"
 }

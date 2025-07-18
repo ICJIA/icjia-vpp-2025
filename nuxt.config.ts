@@ -259,6 +259,18 @@ export default defineNuxtConfig({
    * Configures Vite build settings to optimize bundle size and performance.
    */
   vite: {
+    // CSS configuration
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // Use modern Dart Sass instead of node-sass
+          implementation: 'sass',
+          // Additional Sass options
+          additionalData: `@use "sass:math";`
+        }
+      }
+    },
+
     build: {
       // Enable source maps in development only
       sourcemap: process.env.NODE_ENV === 'development',

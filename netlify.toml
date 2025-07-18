@@ -3,7 +3,7 @@
 
 [build]
 # Build command with native module rebuild
-command = "yarn install && yarn rebuild-sqlite && yarn run generate"
+command = "yarn install && yarn check-sass && yarn rebuild-sqlite && yarn run generate"
 
 # Directory to publish (Nuxt 3 generates to dist by default)
 publish = "dist"
@@ -17,6 +17,9 @@ NPM_FLAGS = "--production=false"
 
 # Set build environment variables
 NODE_ENV = "production"
+
+# Force use of modern Sass instead of node-sass
+SASS_IMPLEMENTATION = "sass"
 
 # Enable verbose logging for debugging
 DEBUG = "nuxt:*"
