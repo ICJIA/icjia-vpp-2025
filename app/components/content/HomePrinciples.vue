@@ -104,7 +104,7 @@ const principles = [
 </script>
 
 <style scoped>
-/* Background handled by global .section-secondary class */
+/* Background handled by global .section-primary class */
 
 .max-width-800 {
   max-width: 800px;

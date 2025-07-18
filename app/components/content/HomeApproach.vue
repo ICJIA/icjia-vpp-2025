@@ -1,5 +1,5 @@
 <template>
-  <section class="approach-section section section-primary py-16">
+  <section class="approach-section section section-secondary py-16">
     <v-container>
       <v-row align="center">
         <!-- Image column -->
@@ -176,7 +176,7 @@ const preventionLevels = [
 </script>
 
 <style scoped>
-/* Background handled by global .section-primary class */
+/* Background handled by global .section-secondary class */
 
 /* Content animations */
 .approach-content h2 {

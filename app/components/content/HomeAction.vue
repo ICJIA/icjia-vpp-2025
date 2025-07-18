@@ -1,5 +1,5 @@
 <template>
-  <section class="action-section section section-secondary py-16">
+  <section class="action-section section section-primary py-16">
     <v-container>
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">
@@ -230,7 +230,7 @@ const handleLegacyAction = (action) => {
 
 <style scoped>
 .action-section {
-  /* Base background handled by global .section-secondary class */
+  /* Base background handled by global .section-primary class */
   /* Add subtle primary color tint overlay for visual distinction */
   position: relative;
 }

@@ -1,43 +1,17 @@
 <template>
   <div class="home-page">
     <!-- SEO Structured Data -->
-    <StructuredData :content="content" page-type="homepage" path="/" />
+    <StructuredData :content="homeContent" page-type="homepage" path="/" />
 
-    <!-- Loading state -->
-    <div v-if="pending" class="text-center py-16">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        size="64"
-      ></v-progress-circular>
-      <p class="text-body-1 mt-4">Loading content...</p>
-    </div>
-
-    <!-- Error state -->
-    <div v-else-if="error" class="text-center py-16">
-      <v-icon color="error" size="64" class="mb-4">mdi-alert-circle</v-icon>
-      <h2 class="text-h4 mb-4">Content Loading Error</h2>
-      <p class="text-body-1 mb-4">{{ error.message }}</p>
-      <v-btn color="primary" @click="refresh()">Try Again</v-btn>
-    </div>
-
-    <!-- Content display -->
-    <div v-else-if="content">
-      <ContentRenderer :value="content" />
-    </div>
-
-    <!-- Fallback content if no markdown file -->
-    <div v-else>
-      <HomeHero />
-      <HomeStatistics />
-      <HomeGoals />
-      <HomeStakeholders />
-      <!-- Recent News Section with configurable item count - temporarily disabled -->
-      <!-- <HomeNews :item-count="3" /> -->
-      <HomePrinciples />
-      <HomeApproach />
-      <HomeAction />
-    </div>
+    <HomeHero />
+    <HomeStatistics />
+    <HomeGoals />
+    <HomeStakeholders />
+    <!-- Recent News Section with configurable item count - temporarily disabled -->
+    <!-- <HomeNews :item-count="3" /> -->
+    <HomePrinciples />
+    <HomeApproach />
+    <HomeAction />
   </div>
 </template>
 
@@ -136,7 +110,6 @@
 import { computed } from "vue";
 import { useHead, useSeoMeta } from "#imports";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
-import useContentFetcher from "~/composables/useContentFetcher";
 
 // Import home components
 import HomeHero from "~/components/content/HomeHero.vue";
@@ -152,40 +125,34 @@ import StructuredData from "~/components/seo/StructuredData.vue";
 // Initialize console logger
 const { log } = useConsoleLogger();
 
-// Content path for the home page
-const contentPath = "/";
+// Create content object for StructuredData component
+const homeContent = {
+  title: "Violence Prevention Plan for Illinois: 2025-2029",
+  description:
+    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
+  _path: "/",
+  _dir: "",
+  _draft: false,
+  _partial: false,
+  _locale: "",
+  _empty: false,
+  _type: "markdown",
+  _id: "content:index.md",
+  _source: "content",
+  _file: "index.md",
+  _extension: "md",
+};
 
-// Log the content path
-log("content", "Home page - loading MDC content", {
-  path: contentPath,
+// Log page initialization
+log("content", "Home page initialized", {
   timestamp: new Date().toISOString(),
 });
 
-console.log("DEBUG: contentPath is:", contentPath);
-
-// Use the project's content fetcher composable for homepage content
-const { content, pending, error, refresh } = useContentFetcher({
-  path: contentPath,
-});
-
-// Watch for successful content loading
-if (content.value) {
-  log("content", "Home page content loaded", {
-    title: content.value.title,
-    timestamp: new Date().toISOString(),
-  });
-}
-
 /**
  * Set page title and HTML attributes for accessibility and SEO
- * Uses content frontmatter when available, falls back to defaults
  */
 useHead({
-  title: computed(
-    () =>
-      content.value?.title ||
-      "Violence Prevention Plan for Illinois: 2025-2029 - Home"
-  ),
+  title: "Violence Prevention Plan for Illinois: 2025-2029 - Home",
   htmlAttrs: {
     lang: "en",
   },
@@ -193,52 +160,23 @@ useHead({
 
 /**
  * Enhanced SEO meta tags for homepage
- * Comprehensive social media optimization with proper fallbacks
  */
-
-// Computed properties for homepage SEO
-const homeTitle = computed(
-  () =>
-    content.value?.title ||
-    "Violence Prevention Plan for Illinois: 2025-2029 - Home"
-);
-const homeDescription = computed(
-  () =>
-    content.value?.description ||
-    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities."
-);
+const homeTitle = "Violence Prevention Plan for Illinois: 2025-2029 - Home";
+const homeDescription =
+  "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.";
 const homeCanonicalUrl = "https://vpp-2025.netlify.app/";
-
-// Social media image handling for homepage
-const homeSocialImage = computed(() => {
-  if (content.value?.ogImage) {
-    if (content.value.ogImage.startsWith("/")) {
-      return `https://vpp-2025.netlify.app${content.value.ogImage}`;
-    }
-    return content.value.ogImage;
-  }
-  return "https://vpp-2025.netlify.app/images/og-image-default.jpg";
-});
-
-const homeTwitterImage = computed(() => {
-  if (content.value?.twitterImage) {
-    if (content.value.twitterImage.startsWith("/")) {
-      return `https://vpp-2025.netlify.app${content.value.twitterImage}`;
-    }
-    return content.value.twitterImage;
-  }
-  return "https://vpp-2025.netlify.app/images/twitter-card-default.jpg";
-});
+const homeSocialImage =
+  "https://vpp-2025.netlify.app/images/og-image-default.jpg";
+const homeTwitterImage =
+  "https://vpp-2025.netlify.app/images/twitter-card-default.jpg";
 
 useSeoMeta({
   title: homeTitle,
   description: homeDescription,
 
   // Open Graph meta tags for social sharing
-  ogTitle: computed(() => content.value?.ogTitle || homeTitle.value),
-  ogDescription: computed(
-    () => content.value?.ogDescription || homeDescription.value
-  ),
+  ogTitle: homeTitle,
+  ogDescription: homeDescription,
   ogImage: homeSocialImage,
   ogUrl: homeCanonicalUrl,
   ogType: "website",
@@ -246,13 +184,9 @@ useSeoMeta({
   ogLocale: "en_US",
 
   // Twitter Card meta tags
-  twitterCard: computed(
-    () => content.value?.twitterCard || "summary_large_image"
-  ),
-  twitterTitle: computed(() => content.value?.twitterTitle || homeTitle.value),
-  twitterDescription: computed(
-    () => content.value?.twitterDescription || homeDescription.value
-  ),
+  twitterCard: "summary_large_image",
+  twitterTitle: homeTitle,
+  twitterDescription: homeDescription,
   twitterImage: homeTwitterImage,
   twitterSite: "@ICJIA_Illinois",
   twitterCreator: "@ICJIA_Illinois",
