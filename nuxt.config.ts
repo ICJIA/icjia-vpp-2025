@@ -76,6 +76,8 @@ export default defineNuxtConfig({
         },
       },
     },
+
+
   },
 
   /**
