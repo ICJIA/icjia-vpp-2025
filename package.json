@@ -46,6 +46,7 @@
     "perf:report": "yarn perf:bundle:open"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@nuxt/content": "^3.6.3",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/plausible": "1.2.0",
@@ -70,7 +71,6 @@
     "yaml": "^2.8.0"
   },
   "devDependencies": {
-    "@mdi/font": "^7.4.47",
     "@testing-library/vue": "^8.1.0",
     "@vitest/coverage-v8": "3.2.4",
     "@vue/compiler-sfc": "^3.5.17",

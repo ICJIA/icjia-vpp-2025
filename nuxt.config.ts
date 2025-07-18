@@ -277,6 +277,14 @@ export default defineNuxtConfig({
 
       // Optimize chunk splitting for better caching
       rollupOptions: {
+        // External dependencies that should not be bundled
+        external: (id) => {
+          // Externalize CSS files from @mdi/font to prevent bundling issues
+          if (id.includes('@mdi/font/css/')) {
+            return true;
+          }
+          return false;
+        },
         output: {
           // Manual chunk splitting for better caching
           manualChunks: {
