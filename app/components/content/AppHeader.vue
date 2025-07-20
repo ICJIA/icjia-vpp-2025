@@ -239,7 +239,11 @@
                       :href="child.href"
                       :target="child.isExternal ? child.target : undefined"
                       :rel="child.isExternal ? child.rel : undefined"
-                      :active="child.to && route.path === child.to"
+                      :active="
+                        child.to &&
+                        (route.path === child.to ||
+                          route.path === child.to + '/')
+                      "
                       :aria-label="child.ariaLabel"
                       :class="child.class"
                       :color="child.color"
@@ -509,7 +513,10 @@
                   :href="child.href"
                   :target="child.isExternal ? child.target : undefined"
                   :rel="child.isExternal ? child.rel : undefined"
-                  :active="child.to && route.path === child.to"
+                  :active="
+                    child.to &&
+                    (route.path === child.to || route.path === child.to + '/')
+                  "
                   :class="[
                     child.mobileClass,
                     { 'more-menu-item': item.isMoreMenu },
@@ -547,7 +554,10 @@
             :href="item.href"
             :target="item.isExternal ? item.target : undefined"
             :rel="item.isExternal ? item.rel : undefined"
-            :active="item.to && route.path === item.to"
+            :active="
+              item.to &&
+              (route.path === item.to || route.path === item.to + '/')
+            "
             :class="item.mobileClass"
             :title="item.ariaLabel"
             @click="item.href === '/' ? handleHomeClick() : undefined"
