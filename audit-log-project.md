@@ -2,6 +2,18 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-20 (Hydration Mismatch Fix)
+
+- Fixed hydration mismatch errors in navigation components by implementing manual active state detection for Vuetify v-list-item components.
+- Files modified:
+  - `app/components/content/AppHeader.vue`: Added `:active="child.to && route.path === child.to"` prop to all v-list-item components in both desktop and mobile navigation dropdowns to manually control active states instead of relying on Vuetify's automatic route matching
+- Technical Notes:
+  - The hydration mismatch was occurring because Vuetify's automatic active state detection for v-list-item components with `to` props was working differently between server-side rendering and client-side hydration
+  - Server was applying `v-list-item--active` class but client was not, causing the error: "Hydration class mismatch on v-list-item"
+  - Solution uses explicit `:active` prop with route comparison (`route.path === child.to`) to ensure consistent active state detection between server and client
+  - Applied fix to both desktop dropdown items and mobile navigation items
+  - Tested successfully on multiple routes (/plan/executive-summary, /plan/guiding-principles) with no hydration errors
+
 ### 2025-07-20 (Production Console Filter Implementation)
 
 - Implemented console filter to suppress known harmless Nuxt internal timer warnings in production builds.
