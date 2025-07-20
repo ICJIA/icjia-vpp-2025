@@ -2,6 +2,36 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-20 (Alternating Blue Background Pattern Implementation)
+
+- Implemented alternating blue background colors across all homepage sections for clear visual delineation.
+- **Pattern**: Light blue (section-primary) alternating with darker blue (section-secondary) backgrounds
+- Files modified:
+  - `app/assets/css/main.scss`: Updated section background colors to use distinct blue variants with WCAG 2.1 AA contrast ratios
+  - `app/components/content/HomeLetters.vue`: Changed from section-primary to section-secondary
+  - `app/components/content/HomeStatistics.vue`: Changed from section-secondary to section-primary
+  - `app/components/content/HomeGoals.vue`: Changed from section-primary to section-secondary
+  - `app/components/content/HomeStakeholders.vue`: Changed from section-secondary to section-primary
+  - `app/components/content/HomePrinciples.vue`: Changed from section-primary to section-secondary
+  - `app/components/content/HomeApproach.vue`: Changed from section-secondary to section-primary
+  - `app/components/content/HomeAction.vue`: Changed from section-primary to section-secondary
+- Technical Notes:
+  - Light mode: section-primary uses #F0F4F8 (light blue-grey), section-secondary uses #E3F2FD (light blue)
+  - Dark mode: section-primary uses #1A2234 (dark navy), section-secondary uses #1E2A3A (lighter navy)
+  - All color combinations maintain WCAG 2.1 AA accessibility standards for contrast ratios
+  - Alternating pattern: Hero(primary) → Letters(secondary) → Statistics(primary) → Goals(secondary) → Stakeholders(primary) → Principles(secondary) → Approach(primary) → Action(secondary)
+
+### 2025-07-20 (Letter from the Director Restoration)
+
+- Restored the "Letter from the Director" section to the homepage featuring ICJIA Executive Director Delrice Adams.
+- Files modified:
+  - `app/pages/index.vue`: Added HomeLetters component to template and imported the component
+- Technical Notes:
+  - HomeLetters component was already created but not included in the homepage layout
+  - Positioned after HomeHero section to align with the "Learn More" button functionality in the hero
+  - Component includes Director Adams' photo and message content with proper styling for both light and dark themes
+  - Maintains responsive design and accessibility standards
+
 ### 2025-07-18 (SSR Hydration Fix)
 
 - Fixed critical SSR hydration mismatches causing layout issues on Netlify deployment.

@@ -1580,41 +1580,44 @@ p .footnote-ref {
   }
 }
 
-// Alternating Section Background Pattern for Light Mode
-// Creates subtle visual rhythm and improved section separation
-// Only affects light mode to maintain existing dark mode design
+// Alternating Section Background Pattern with Distinct Blue Variants
+// Creates clear visual delineation between sections using two distinct blue color variants
+// Maintains WCAG 2.1 AA accessibility standards for contrast ratios
 
-// Primary sections (odd-numbered) - keep current off-white background
+// Primary sections (odd-numbered) - Light blue background
 // Higher specificity to ensure these styles take precedence
 section.section-primary,
 .section-primary {
-  // Uses default theme surface color (#F8F8F8 in light mode)
-  background: rgb(var(--v-theme-surface)) !important;
+  // Light mode: Light blue background (#F0F4F8 - very light blue-grey)
+  background: #F0F4F8 !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
 }
 
-// Secondary sections (even-numbered) - slightly darker but still subtle background
+// Secondary sections (even-numbered) - Darker blue background
 // Higher specificity to ensure these styles take precedence
 section.section-secondary,
 .section-secondary {
-  // Light mode: subtle grey background for visual differentiation
-  background: #F2F2F2 !important;
+  // Light mode: Darker blue background (#E3F2FD - light blue with more saturation)
+  background: #E3F2FD !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
 }
 
-// Dark theme override - implement alternating backgrounds for dark mode
+// Dark theme override - implement alternating blue backgrounds for dark mode
 :root[data-theme="dark"] {
-  // Primary sections (odd-numbered) - use default dark background
+  // Primary sections (odd-numbered) - Dark blue background
   section.section-primary,
   .section-primary {
-    // Uses default theme background color (darker)
-    background: rgb(var(--v-theme-background)) !important;
+    // Dark mode: Dark blue background (#1A2234 - dark navy blue)
+    background: #1A2234 !important;
+    color: rgb(var(--v-theme-on-surface)) !important;
   }
 
-  // Secondary sections (even-numbered) - slightly lighter dark background
+  // Secondary sections (even-numbered) - Slightly lighter dark blue background
   section.section-secondary,
   .section-secondary {
-    // Slightly lighter dark background for visual differentiation
-    // Using a subtle blue-grey that's lighter than the primary background
+    // Dark mode: Slightly lighter dark blue background (#1E2A3A - lighter navy blue)
     background: #1E2A3A !important;
+    color: rgb(var(--v-theme-on-surface)) !important;
   }
 }
 
