@@ -2,6 +2,17 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-20 (Timer Conflict Fix)
+
+- Fixed console error "Timer '[nuxt-app] page:loading:end' already exists" caused by improper hook registration.
+- Files modified:
+  - `app/plugins/references.client.js`: Changed `window.nuxtApp.hook()` to `nuxtApp.hook()` for proper lifecycle management
+- Technical Notes:
+  - Using `window.nuxtApp` can cause duplicate hook registrations during development hot reloading
+  - The provided `nuxtApp` parameter ensures proper hook registration and cleanup
+  - This eliminates timer conflicts and ensures clean plugin initialization/cleanup
+  - Error was development-only and didn't affect functionality, but fix improves code quality
+
 ### 2025-07-20 (Alternating Blue Background Pattern Implementation)
 
 - Implemented alternating blue background colors across all homepage sections for clear visual delineation.
