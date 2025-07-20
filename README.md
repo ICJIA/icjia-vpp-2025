@@ -21,7 +21,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 
 ## Dev Site
 
-The development version of this site is available at:
+The development version of this site is available at: 
 
 **[https://vpp-2025.netlify.app](https://vpp-2025.netlify.app)**
 
