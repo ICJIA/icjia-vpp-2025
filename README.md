@@ -21,7 +21,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 
 ## Dev Site
 
-The development version of this site is available at: 
+The development version of this site is available at:
 
 **[https://vpp-2025.netlify.app](https://vpp-2025.netlify.app)**
 
@@ -134,10 +134,23 @@ npm run preview
 
 ### Accessibility Resources
 
-- [Accessibility Documentation](/accessibility/documentation): User guide to accessibility features
-- [Accessibility Audit Log](/accessibility/audit-log): Technical assessment of compliance status
+- **[Accessibility Documentation](https://vpp-2025.netlify.app/accessibility/documentation)**: Comprehensive user guide to accessibility features and WCAG 2.1 AA compliance
+- **[Accessibility Audit Log](https://vpp-2025.netlify.app/accessibility/audit-log)**: Technical assessment and chronological record of accessibility improvements
 
-These resources are available through the Nuxt Content v3 system:
+### Documentation Portal
 
-- `/accessibility/documentation`: User-facing documentation
-- `/accessibility/audit-log`: Technical audit log
+- **[Developer Documentation Portal](https://vpp-2025.netlify.app/documentation/)**: Complete technical documentation including:
+  - **[Component Documentation](https://vpp-2025.netlify.app/documentation/components/)**: Vue component API reference and usage examples
+  - **[JSDoc API Reference](https://vpp-2025.netlify.app/documentation/jsdoc/)**: Detailed API documentation for all functions and modules
+  - **[Project Documentation](https://vpp-2025.netlify.app/documentation/dev/)**: Development guidelines, build processes, and technical specifications
+
+### External Standards and Guidelines
+
+- **[WCAG 2.1 Guidelines](https://www.w3.org/TR/WCAG21/)**: Web Content Accessibility Guidelines 2.1
+- **[Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards](https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html)**: State accessibility requirements
+
+These resources are available through the Nuxt Content v3 system and static documentation generation:
+
+- **[User-facing accessibility documentation](https://vpp-2025.netlify.app/accessibility/documentation)**: Complete accessibility guide and features
+- **[Technical accessibility audit log](https://vpp-2025.netlify.app/accessibility/audit-log)**: Chronological record of accessibility improvements
+- **[Developer documentation portal](https://vpp-2025.netlify.app/documentation/)**: Component and API references with technical specifications
