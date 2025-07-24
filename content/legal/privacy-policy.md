@@ -1,10 +1,10 @@
 ---
 title: "Privacy Policy"
-date: 2025-05-28
+date: 2025-07-24
 description: "This Privacy Policy describes how the Statewide Violence Prevention Plan for Illinois: 2025-2029 website collects, uses, and shares information about you when you visit our website."
 ---
 
-**Last Updated: May 21, 2025**
+**Last Updated: July 24, 2025**
 
 This Privacy Policy describes how the Violence Prevention Plan for Illinois: 2025-2029 website ("we," "our," or "us") collects, uses, and shares information about you when you visit our website. This policy is based on the State of Illinois Privacy Notice and has been enhanced to address specific aspects of this website.
 
@@ -63,7 +63,6 @@ Our website uses the following types of cookies:
 - **Essential cookies**: Required for the website to function properly
 - **Preference cookies**: Enable the website to remember information that changes how the website behaves or looks
 - **Analytics cookies**: Help us understand how visitors interact with our website by collecting and reporting information anonymously
-- **Marketing cookies**: Used to track visitors across websites to display relevant advertisements
 
 ### Managing Cookies
 
@@ -85,10 +84,6 @@ We implement reasonable security measures to protect your personal information f
 ## Data Retention
 
 We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
-
-## Children's Privacy
-
-Our website is not directed to children under the age of 13, and we do not knowingly collect personal information from children under 13. If we learn that we have collected personal information from a child under 13, we will promptly delete that information.
 
 ## Changes to This Privacy Policy
 
