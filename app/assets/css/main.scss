@@ -656,950 +656,178 @@ h2.main-page-title {
 
 // Reduced motion support
 @media (prefers-reduced-motion: reduce) {
-  h2 {
+  .primary-download-card,
+  .secondary-download-card {
     transition: none !important;
-  }
-}
-
-// More Menu Styling
-// Provides enhanced styling for the consolidated "More" menu system
-// Ensures WCAG 2.1 AA compliance with 8:1 contrast ratios
-
-// More menu button styling
-.more-menu-btn {
-  transition: all 250ms ease;
-  border-radius: 8px;
-
-  &:hover {
-    background-color: rgba(var(--v-theme-primary), 0.08) !important;
-    transform: scale(1.05);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--v-theme-primary);
-    outline-offset: 2px;
-  }
-}
-
-// More menu dropdown styling
-.more-menu-dropdown {
-  .v-card {
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    min-width: 180px;
-    overflow: hidden;
-  }
-
-  .v-list-item {
-    transition: all 200ms ease;
-    border-left: 3px solid transparent;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(var(--v-theme-primary), 0.08) !important;
-      border-left-color: var(--v-theme-primary);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--v-theme-primary);
-      outline-offset: -2px;
-    }
-  }
-
-  .v-list-item-title {
-    font-weight: 500;
-
-    .v-icon {
-      opacity: 0.8;
-      transition: opacity 200ms ease;
-    }
-
-    &:hover .v-icon {
-      opacity: 1;
-    }
-  }
-}
-
-// Theme-specific more menu styling
-// Light theme
-:root:not([data-theme="dark"]) {
-  .more-menu-dropdown .v-card {
-    background-color: #FFFFFF !important;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-  }
-
-  .more-menu-dropdown .v-list-item-title {
-    color: rgba(0, 0, 0, 0.87) !important; // 8:1 contrast ratio
-  }
-}
-
-// Dark theme
-:root[data-theme="dark"] {
-  .more-menu-dropdown .v-card {
-    background-color: #2A3441 !important;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .more-menu-dropdown .v-list-item-title {
-    color: rgba(255, 255, 255, 0.87) !important; // 8:1 contrast ratio
-  }
-}
-
-// Mobile more menu styling
-.mobile-nav-drawer {
-  .more-menu-item {
-    .v-list-item-title {
-      font-weight: 500;
-
-      .v-icon {
-        opacity: 0.8;
-        transition: opacity 200ms ease;
-      }
-    }
-
-    &:hover .v-list-item-title .v-icon {
-      opacity: 1;
-    }
-  }
-}
-
-// High contrast mode support for more menu
-@media (prefers-contrast: high) {
-  .more-menu-dropdown .v-list-item {
-    border-left-width: 4px;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(var(--v-theme-primary), 0.15) !important;
-    }
-  }
-
-  .more-menu-dropdown .v-list-item-title {
-    font-weight: 600 !important;
-  }
-}
-
-// Reduced motion support for more menu
-@media (prefers-reduced-motion: reduce) {
-  .more-menu-btn,
-  .more-menu-dropdown .v-list-item,
-  .more-menu-dropdown .v-list-item-title .v-icon {
-    transition: none !important;
-  }
-
-  .more-menu-btn:hover {
-    transform: none !important;
-  }
-}
-
-// Blockquote Styling for Visual Callouts
-// Creates distinct callout boxes with proper indentation hierarchy
-// and WCAG 2.1 AA compliant contrast ratios (8:1+) in both themes
-
-blockquote {
-  // Enhanced indentation: H2 content (2rem) + additional hierarchy spacing (1rem) = 3rem
-  margin-left: 3rem !important;
-  margin-right: 1rem !important;
-  margin-top: 1.5rem !important;
-  margin-bottom: 1.5rem !important;
-
-  // Padding for internal spacing
-  padding: 1.25rem 1.5rem !important;
-
-  // Border radius for modern callout appearance
-  border-radius: $border-radius-md !important; // 12px
-
-  // Typography adjustments with heavy font weight
-  font-style: normal !important; // Remove default italic styling
-  font-size: 0.95rem !important;
-  font-weight: 700 !important; // Bold weight for much better visibility
-  line-height: 1.6 !important;
-
-  // Subtle box shadow for depth
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-
-  // Smooth transitions for theme changes
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-
-  // Remove default margins from nested elements
-  p {
-    margin: 0;
-
-    // Add spacing between multiple paragraphs
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-
-  // Style nested lists appropriately
-  ul, ol {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
-  }
-
-  // Ensure proper spacing for nested headings
-  h3, h4, h5, h6 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-}
-
-// Light Theme Blockquote Styling - WCAG 2.1 AA Compliant
-:root:not([data-theme="dark"]) {
-  blockquote {
-    // Darker background for better visual distinction
-    background-color: #e9ecef !important; // Darker grey background for better standout
-    color: #1a1a1a !important; // Dark text - contrast ratio 14.8:1 on #e9ecef
-    font-weight: 700 !important; // Bold weight for much better visibility
-
-    // Very subtle shadow for light theme
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 1px rgba(0, 0, 0, 0.03) !important;
-
-    // Subtle border for definition with refined left accent
-    border: 1px solid #dee2e6 !important;
-    border-left: 4px solid #0747A6 !important; // Refined accent border width - !important for persistence
-
-    // Center content vertically only, keep left-aligned horizontally
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: left !important;
-  }
-}
-
-// Dark Theme Blockquote Styling - WCAG 2.1 AA Compliant
-:root[data-theme="dark"] {
-  blockquote {
-    // Slightly darker background for subtle visual distinction
-    background-color: #1a1f2e !important; // Slightly darker than page background for subtle standout
-    color: #ffffff !important; // White text - contrast ratio 12.8:1 on #1a1f2e
-    font-weight: 700 !important; // Bold weight for much better visibility
-
-    // Very subtle shadow for dark theme depth
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-
-    // Subtle border for definition with refined left accent
-    border: 1px solid #30363d !important;
-    border-left: 4px solid #64b5f6 !important; // Refined accent border width - !important for persistence
-
-    // Center content vertically only, keep left-aligned horizontally
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: left !important;
-  }
-}
-
-// Responsive Blockquote Styling
-@media (max-width: 768px) {
-  blockquote {
-    // Enhanced tablet indentation: H2 tablet (1.5rem) + hierarchy spacing (0.75rem) = 2.25rem
-    margin-left: 2.25rem !important;
-    margin-right: 0.5rem !important;
-
-    // Reduce padding for smaller screens
-    padding: 1rem 1.25rem !important;
-
-    // Smaller font size for mobile readability but maintain bold weight
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-
-    // Maintain refined left border on mobile
-    border-left-width: 4px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  blockquote {
-    // Enhanced mobile indentation: H2 mobile (1rem) + hierarchy spacing (0.5rem) = 1.5rem
-    margin-left: 1.5rem !important;
-    margin-right: 0.25rem !important;
-
-    // Compact padding for mobile
-    padding: 0.875rem 1rem !important;
-
-    // Smaller font size for mobile but maintain bold weight
-    font-size: 0.875rem !important;
-    font-weight: 700 !important;
-
-    // Maintain refined left border on small screens
-    border-left-width: 3px !important;
-
-    // Remove border radius on very small screens for edge-to-edge feel
-    border-radius: $border-radius-sm !important; // 8px instead of 12px
-  }
-
-  blockquote a {
-    // Enhanced touch targets for mobile accessibility
-    min-height: 44px; // iOS accessibility guideline minimum
-    display: inline-block;
-    padding: 0.25rem 0;
-
-    // Thicker underlines for better visibility on small screens
-    text-decoration-thickness: 2.5px !important;
 
     &:hover {
-      text-decoration-thickness: 3.5px !important;
-    }
-
-    // Enhanced focus state for mobile
-    &:focus,
-    &:focus-visible {
-      outline-width: 4px !important;
-      outline-offset: 2px !important;
-    }
-  }
-}
-
-// Blockquote Link Styling - Enhanced Accessibility and Security
-// Ensures links within blockquotes maintain high contrast and proper security attributes
-blockquote a {
-  // Enhanced font weight for visibility within callout context
-  font-weight: 700 !important;
-
-  // Ensure proper word breaking for long URLs
-  word-break: break-word;
-  overflow-wrap: break-word;
-
-  // Enhanced underline for visibility within blockquote context
-  text-decoration-thickness: 2px !important;
-  text-underline-offset: 0.15em;
-
-  // Smooth transitions
-  transition: all 0.2s ease;
-
-  // Enhanced focus state for accessibility
-  &:focus,
-  &:focus-visible {
-    outline: 3px solid var(--v-primary-base);
-    outline-offset: 3px;
-    border-radius: 3px;
-    background-color: rgba(var(--v-theme-primary), 0.15);
-  }
-
-  // Active state with subtle feedback
-  &:active {
-    opacity: 0.8;
-    transform: translateY(1px);
-  }
-}
-
-// Blockquote Italic Text Styling - Enhanced Readability
-// Ensures italic text within blockquotes maintains proper readability and contrast
-blockquote em,
-blockquote i {
-  // Maintain font weight for readability in italic context
-  font-weight: 600 !important;
-
-  // Ensure proper font style
-  font-style: italic;
-
-  // Slightly increase letter spacing for better readability in italic
-  letter-spacing: 0.01em;
-
-  // Maintain line height for readability
-  line-height: inherit;
-}
-
-// Light Theme Blockquote Styling - Enhanced Contrast
-:root:not([data-theme="dark"]) {
-  // Italic text styling for light theme
-  blockquote em,
-  blockquote i {
-    color: #1a1a1a !important; // Maintain high contrast for italic text
-  }
-
-  blockquote a {
-    // Enhanced contrast for blockquote background (#f8f9fa)
-    color: #0d47a1 !important; // Dark blue - 8.59:1 contrast on blockquote background
-    text-decoration-color: #0d47a1 !important;
-
-    &:hover {
-      color: #01579b !important; // Very dark blue - 10.2:1 contrast
-      text-decoration-color: #01579b !important;
-      text-decoration-thickness: 3px !important;
-    }
-
-    &:visited {
-      color: #4a148c !important; // Dark purple - 8.12:1 contrast
-      text-decoration-color: #4a148c !important;
-    }
-
-    &:visited:hover {
-      color: #3d1178 !important; // Darker purple for visited hover
-      text-decoration-color: #3d1178 !important;
-      text-decoration-thickness: 3px !important;
-    }
-  }
-}
-
-// Dark Theme Blockquote Styling - Enhanced Contrast
-:root[data-theme="dark"] {
-  // Italic text styling for dark theme
-  blockquote em,
-  blockquote i {
-    color: #ffffff !important; // Maintain high contrast for italic text
-  }
-
-  blockquote a {
-    // Enhanced contrast for dark blockquote background (#1e2a3a)
-    color: #90caf9 !important; // Light blue - 10.45:1 contrast on blockquote background
-    text-decoration-color: #90caf9 !important;
-
-    &:hover {
-      color: #bbdefb !important; // Very light blue - 12.8:1 contrast
-      text-decoration-color: #bbdefb !important;
-      text-decoration-thickness: 3px !important;
-    }
-
-    &:visited {
-      color: #ce93d8 !important; // Light purple - 9.67:1 contrast
-      text-decoration-color: #ce93d8 !important;
-    }
-
-    &:visited:hover {
-      color: #e1bee7 !important; // Lighter purple for visited hover
-      text-decoration-color: #e1bee7 !important;
-      text-decoration-thickness: 3px !important;
-    }
-  }
-}
-
-// High Contrast Mode Support for Enhanced Accessibility
-@media (prefers-contrast: high) {
-  blockquote {
-    // Extra thick borders for better visibility
-    border-left-width: 8px !important;
-    border-width: 2px !important;
-
-    // Enhanced shadow for better definition
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-
-    // Increase font weight for better readability
-    font-weight: 500 !important;
-  }
-
-  // Enhanced contrast colors for high contrast mode
-  :root:not([data-theme="dark"]) blockquote {
-    background-color: #e0e0e0 !important; // Darker background for better contrast
-    color: #000000 !important; // Pure black text for maximum contrast
-    border-color: #000080 !important; // Navy blue border
-    border-left-color: #000080 !important;
-    // Maintain vertical centering in high contrast mode
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: left !important;
-  }
-
-  :root[data-theme="dark"] blockquote {
-    background-color: #0a0a0a !important; // Very dark background
-    color: #ffffff !important; // Pure white text
-    border-color: #ffffff !important; // White border for maximum contrast
-    border-left-color: #ffffff !important;
-    // Maintain vertical centering in high contrast mode
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    text-align: left !important;
-  }
-
-  // High contrast blockquote content
-  blockquote em,
-  blockquote i {
-    font-weight: 700 !important; // Extra bold for italic text in high contrast
-    letter-spacing: 0.02em !important; // Increased letter spacing for better readability
-  }
-
-  // High contrast blockquote links
-  blockquote a {
-    font-weight: 800 !important; // Extra bold for maximum visibility
-    text-decoration-thickness: 3px !important;
-
-    &:focus,
-    &:focus-visible {
-      outline-width: 4px !important;
-      outline-offset: 4px !important;
-    }
-  }
-
-  :root:not([data-theme="dark"]) {
-    blockquote em,
-    blockquote i {
-      color: #000000 !important; // Pure black for maximum contrast
-    }
-
-    blockquote a {
-      color: #000080 !important; // Navy blue for maximum contrast
-      text-decoration-color: #000080 !important;
-
-      &:hover {
-        color: #000000 !important; // Pure black on hover
-        text-decoration-color: #000000 !important;
-      }
-
-      &:visited {
-        color: #800080 !important; // Purple for visited links
-        text-decoration-color: #800080 !important;
-      }
-    }
-  }
-
-  :root[data-theme="dark"] {
-    blockquote em,
-    blockquote i {
-      color: #ffffff !important; // Pure white for maximum contrast
-    }
-
-    blockquote a {
-      color: #ffffff !important; // Pure white for maximum contrast
-      text-decoration-color: #ffffff !important;
-
-      &:hover {
-        color: #ffff00 !important; // Yellow on hover for high visibility
-        text-decoration-color: #ffff00 !important;
-      }
-
-      &:visited {
-        color: #ff00ff !important; // Magenta for visited links
-        text-decoration-color: #ff00ff !important;
-      }
-    }
-  }
-}
-
-// Reduced Motion Support for Accessibility
-@media (prefers-reduced-motion: reduce) {
-  blockquote {
-    // Remove all transitions for users who prefer reduced motion
-    transition: none !important;
-  }
-
-  blockquote a {
-    // Remove all transitions and transforms for blockquote links
-    transition: none !important;
-
-    &:active {
       transform: none !important;
     }
-
-    &:hover {
-      // Keep color changes but remove transitions
-      transition: none !important;
-    }
   }
 }
 
-// External Link Icon Styling - Enhanced Accessibility
-// Provides visual indication for external links with proper accessibility support
-.external-link-icon {
-  // Subtle styling for the external link indicator
-  font-size: 0.875em;
-  margin-left: 0.25em;
-  opacity: 0.7;
-
-  // Smooth transitions for theme changes
-  transition: opacity 0.2s ease;
-
-  // Ensure proper spacing and alignment
-  display: inline;
-  vertical-align: baseline;
-
-  // Prevent text selection of the icon
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+// Enhanced contrast for Vuetify text emphasis classes to meet 7:1+ requirement
+.text-medium-emphasis {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important;
 }
 
-// Enhanced visibility on hover for external link icons
-a:hover .external-link-icon {
-  opacity: 1;
+.text-high-emphasis {
+  color: rgba(var(--v-theme-on-surface), 1) !important;
 }
 
-// Theme-specific styling for external link icons
-:root:not([data-theme="dark"]) .external-link-icon {
-  color: #0d47a1; // Match link color in light theme
+// Additional Vuetify text utility classes for enhanced contrast
+.text-disabled {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced from default for better visibility */
 }
 
-:root[data-theme="dark"] .external-link-icon {
-  color: #64b5f6; // Match link color in dark theme
+.text-caption {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
 }
 
-// High contrast mode support for external link icons
-@media (prefers-contrast: high) {
-  .external-link-icon {
-    opacity: 1 !important; // Always visible in high contrast mode
-    font-weight: 700 !important; // Bold for better visibility
-  }
-
-  :root:not([data-theme="dark"]) .external-link-icon {
-    color: #000080 !important; // Navy blue for maximum contrast
-  }
-
-  :root[data-theme="dark"] .external-link-icon {
-    color: #ffffff !important; // Pure white for maximum contrast
-  }
+.text-overline {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
 }
 
-// Reduced motion support for external link icons
-@media (prefers-reduced-motion: reduce) {
-  .external-link-icon {
-    transition: none !important;
-  }
+.text-subtitle-1,
+.text-subtitle-2 {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
 }
 
-// Footnote Styling for WCAG 2.1 AA Compliance
-// Provides accessible footnote rendering with high contrast ratios (8:1+)
-// and proper keyboard navigation support
-
-// Very subtle footnote styling - minimal but accessible
-a.footnote-ref,
-.footnote-ref,
-a[class*="footnote-ref"],
-*[class*="footnote-ref"] {
-  // Minimal size increase - just barely larger than default
-  font-size: 0.75em !important; // Smaller, closer to browser default
-  font-weight: 500 !important; // Medium weight for subtle visibility
-  line-height: 1 !important;
-  vertical-align: super !important;
-
-  // Very minimal styling
-  text-decoration: none !important;
-  padding: 0.1rem 0.2rem !important; // Much smaller padding
-  border-radius: 0.15rem !important; // Smaller border radius
-  margin-left: 0.1rem !important; // Smaller left margin
-  display: inline-block !important;
-
-  // Very subtle visual effects
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important; // Very gentle shadow
-  transform: translateY(-0.05em) !important; // Minimal superscript positioning
-
-  // Smooth transitions
-  transition: all 0.2s ease !important;
-
-  // Accessible focus states
-  &:focus,
-  &:focus-visible {
-    outline: 2px solid #1976d2 !important;
-    outline-offset: 2px !important;
-    transform: translateY(-0.08em) scale(1.03) !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-  }
-
-  &:focus:not(:focus-visible) {
-    outline: none !important;
-  }
-
-  // Very subtle hover states
-  &:hover {
-    transform: translateY(-0.08em) scale(1.03) !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-  }
-
-  &:active {
-    transform: translateY(-0.03em) scale(1.01) !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
-  }
+.text-body-1,
+.text-body-2 {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
 }
 
-// Backup styling with consistent specificity
-body .footnote-ref,
-html body .footnote-ref,
-div .footnote-ref,
-p .footnote-ref {
-  font-size: 0.75em !important; // Consistent smaller size
-  font-weight: 500 !important;
-  padding: 0.1rem 0.2rem !important;
-  margin-left: 0.1rem !important;
-  display: inline-block !important;
-  vertical-align: super !important;
-  line-height: 1 !important;
-  text-decoration: none !important;
-  border-radius: 0.15rem !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-  transform: translateY(-0.05em) !important;
-  transition: all 0.2s ease !important;
+// Global Target Size Enhancement for WCAG 2.5.5 Target Size (Enhanced)
+// Ensures all interactive navigation elements meet 44x44 pixel minimum requirement
+// Applied globally to override any component-specific styling
+
+// All navigation buttons and interactive elements
+.v-btn,
+button {
+  min-width: 44px !important;
+  min-height: 44px !important;
 }
 
-// Footnote definitions section
-.footnotes {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 2px solid rgba(var(--v-theme-outline), 0.3);
-
-  // Footnotes heading
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: rgb(var(--v-theme-on-surface));
-  }
-
-  // Individual footnote items
-  ol {
-    list-style: none;
-    counter-reset: footnote-counter;
-    padding-left: 0;
-
-    li {
-      counter-increment: footnote-counter;
-      margin-bottom: 1rem;
-      padding-left: 2rem;
-      position: relative;
-      line-height: 1.6;
-
-      // Footnote number
-      &::before {
-        content: counter(footnote-counter) ".";
-        position: absolute;
-        left: 0;
-        top: 0;
-        font-weight: 600;
-        font-size: 0.875rem;
-        color: rgb(var(--v-theme-on-surface));
-        min-width: 1.5rem;
-      }
-
-      // Footnote content
-      p {
-        margin: 0;
-        color: rgb(var(--v-theme-on-surface));
-      }
-    }
-  }
-
-  // Back-to-reference links
-  .footnote-backref {
-    margin-left: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.875rem;
-
-    // Ensure proper focus states
-    &:focus {
-      outline: 3px solid var(--v-primary-base);
-      outline-offset: 2px;
-    }
-
-    &:focus:not(:focus-visible) {
-      outline: none;
-    }
-
-    &:focus-visible {
-      outline: 3px solid var(--v-primary-base);
-      outline-offset: 2px;
-    }
-  }
+// Specific targeting for icon-only buttons
+.v-btn[icon],
+.v-btn--icon {
+  min-width: 44px !important;
+  min-height: 44px !important;
 }
 
-// Light theme colors - very subtle transparent
+// Specific targeting for icon-only buttons with width and height
+.v-btn[icon].v-btn--icon {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+// Navigation links and anchors
+a[role="button"],
+.v-list-item,
+.nav-link,
+.footer-link {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// Header and footer navigation specific enhancements
+.app-header a,
+.app-footer a,
+.v-app-bar a {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// Mobile navigation drawer enhancements
+.v-navigation-drawer .v-list-item {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+}
+
+// Dropdown menu items
+.v-menu .v-list-item,
+.dropdown-menu .v-list-item {
+  min-height: 44px !important;
+  padding: 8px 16px !important;
+}
+
+// Report navigation cards (if they exist)
+.navigation-card {
+  min-height: 44px !important;
+}
+
+// Table of Contents (TOC) target size enhancement - WCAG 2.5.5
+// Ensures all TOC interactive elements meet minimum 24x24 pixel requirement
+.toc-item,
+.toc-link,
+.v-list-item.toc-item {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// TOC specific interactive elements
+.toc-content .v-list-item,
+.toc-sheet .v-list-item {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  padding: 8px 16px !important;
+}
+
+// TOC links and anchors within content
+.toc-content a,
+.toc-sheet a {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+}
+
+// Page description text enhancement for better contrast
+.page-description p {
+  color: rgba(var(--v-theme-on-surface), 0.95) !important;
+}
+
+// HomePrincipleCard text contrast enhancement
+:root[data-theme="light"] .principle-description,
+:root:not([data-theme]) .principle-description {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+:root[data-theme="dark"] .principle-description {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+// Light theme - Primary sections (odd-numbered) - Warm off-white background
 :root:not([data-theme="dark"]) {
-  a.footnote-ref,
-  .footnote-ref,
-  a[class*="footnote-ref"],
-  *[class*="footnote-ref"],
-  body .footnote-ref,
-  html body .footnote-ref,
-  div .footnote-ref,
-  p .footnote-ref {
-    background-color: rgba(107, 114, 128, 0.3) !important; // Very light transparent grey
-    color: #374151 !important; // Dark text for readability
-    border: 1px solid rgba(107, 114, 128, 0.2) !important; // Very light border
-
-    &:hover {
-      background-color: rgba(107, 114, 128, 0.4) !important; // Slightly more visible on hover
-      color: #1f2937 !important;
-      border-color: rgba(107, 114, 128, 0.3) !important;
-    }
-
-    &:active {
-      background-color: rgba(107, 114, 128, 0.5) !important;
-      color: #1f2937 !important;
-      border-color: rgba(107, 114, 128, 0.4) !important;
-    }
-
-    &:focus,
-    &:focus-visible {
-      background-color: rgba(107, 114, 128, 0.4) !important;
-      color: #1f2937 !important;
-      border-color: rgba(107, 114, 128, 0.3) !important;
-    }
+  section.section-primary,
+  .section-primary {
+    // Light mode: Warm off-white background (#FAFAFA - neutral warm tone)
+    background: #FAFAFA !important;
+    color: rgb(var(--v-theme-on-surface)) !important;
+    // Subtle top border for clear section delineation
+    border-top: 1px solid #E0E0E0 !important;
   }
 
-  .footnote-backref {
-    color: #0d47a1;
-
-    &:hover {
-      color: #1565c0;
-      text-decoration: underline;
-    }
+  // Secondary sections (even-numbered) - Darker neutral grey background
+  section.section-secondary,
+  .section-secondary {
+    // Light mode: Darker neutral grey background (#E5E5E5 - provides better distinction)
+    background: #E5E5E5 !important;
+    color: rgb(var(--v-theme-on-surface)) !important;
+    // Subtle top border for clear section delineation
+    border-top: 1px solid #E0E0E0 !important;
   }
-
-  .footnotes {
-    h2 {
-      color: #1a1a1a;
-    }
-
-    ol li {
-      color: #2c2c2c;
-
-      &::before {
-        color: #2c2c2c;
-      }
-    }
-  }
-}
-
-// Dark theme colors - very subtle transparent
-:root[data-theme="dark"] {
-  a.footnote-ref,
-  .footnote-ref,
-  a[class*="footnote-ref"],
-  *[class*="footnote-ref"],
-  body .footnote-ref,
-  html body .footnote-ref,
-  div .footnote-ref,
-  p .footnote-ref {
-    background-color: rgba(156, 163, 175, 0.3) !important; // Very light transparent grey
-    color: #e5e7eb !important; // Light text for dark theme
-    border: 1px solid rgba(156, 163, 175, 0.2) !important; // Very light border
-
-    &:hover {
-      background-color: rgba(156, 163, 175, 0.4) !important; // Slightly more visible on hover
-      color: #f9fafb !important;
-      border-color: rgba(156, 163, 175, 0.3) !important;
-    }
-
-    &:active {
-      background-color: rgba(156, 163, 175, 0.5) !important;
-      color: #f9fafb !important;
-      border-color: rgba(156, 163, 175, 0.4) !important;
-    }
-
-    &:focus,
-    &:focus-visible {
-      background-color: rgba(156, 163, 175, 0.4) !important;
-      color: #f9fafb !important;
-      border-color: rgba(156, 163, 175, 0.3) !important;
-    }
-  }
-  .footnote-backref {
-    color: #e8eaf6;
-
-    &:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-  }
-
-  .footnotes {
-    h2 {
-      color: #ffffff;
-    }
-
-    ol li {
-      color: #e0e0e0;
-
-      &::before {
-        color: #e0e0e0;
-      }
-    }
-  }
-}
-
-// High contrast mode support
-@media (prefers-contrast: high) {
-  .footnote-ref {
-    border-width: 2px !important;
-    font-weight: 700 !important;
-  }
-
-  .footnotes ol li::before {
-    font-weight: 700 !important;
-  }
-
-  .footnote-backref {
-    font-weight: 700 !important;
-  }
-}
-
-// Responsive footnote styling - MAINTAIN PROMINENCE ON ALL DEVICES
-@media (max-width: 768px) {
-  .footnotes {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-
-    ol li {
-      padding-left: 1.5rem;
-
-      &::before {
-        min-width: 1.25rem;
-        font-size: 0.75rem;
-      }
-    }
-  }
-
-  // Maintain very subtle footnote styling on mobile
-  .footnote-ref,
-  a.footnote-ref,
-  a[class*="footnote-ref"],
-  *[class*="footnote-ref"],
-  body .footnote-ref,
-  html body .footnote-ref,
-  div .footnote-ref,
-  p .footnote-ref {
-    font-size: 0.7em !important; // Even smaller on mobile
-    font-weight: 500 !important;
-    padding: 0.08rem 0.15rem !important; // Much smaller padding for mobile
-    margin-left: 0.08rem !important; // Smaller spacing
-    border-radius: 0.12rem !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) !important;
-    transform: translateY(-0.04em) !important;
-    display: inline-block !important;
-    vertical-align: super !important;
-    line-height: 1 !important;
-    text-decoration: none !important;
-    transition: all 0.2s ease !important;
-  }
-}
-
-// Reduced motion support for footnotes
-@media (prefers-reduced-motion: reduce) {
-  .footnote-ref,
-  .footnote-backref {
-    transition: none !important;
-  }
-
-  .footnote-ref:hover {
-    transform: none !important;
-  }
-}
-
-// Alternating Section Background Pattern with Distinct Blue Variants
-// Creates clear visual delineation between sections using two distinct blue color variants
-// Maintains WCAG 2.1 AA accessibility standards for contrast ratios
-
-// Primary sections (odd-numbered) - Light blue background
-// Higher specificity to ensure these styles take precedence
-section.section-primary,
-.section-primary {
-  // Light mode: Light blue background (#F0F4F8 - very light blue-grey)
-  background: #F0F4F8 !important;
-  color: rgb(var(--v-theme-on-surface)) !important;
-}
-
-// Secondary sections (even-numbered) - Darker blue background
-// Higher specificity to ensure these styles take precedence
-section.section-secondary,
-.section-secondary {
-  // Light mode: Darker blue background (#E3F2FD - light blue with more saturation)
-  background: #E3F2FD !important;
-  color: rgb(var(--v-theme-on-surface)) !important;
 }
 
 // Dark theme override - implement alternating blue backgrounds for dark mode
@@ -2616,6 +1844,12 @@ button {
 // Specific targeting for icon-only buttons
 .v-btn[icon],
 .v-btn--icon {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+// Specific targeting for icon-only buttons with width and height
+.v-btn[icon].v-btn--icon {
   min-width: 44px !important;
   min-height: 44px !important;
   width: 44px !important;
