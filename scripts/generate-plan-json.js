@@ -150,9 +150,7 @@ class PlanJsonGenerator {
       this.stats.processedPages++;
 
       // Get base URL from site configuration for fullPath generation
-      const baseUrl =
-        this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") ||
-        "https://vpp-2025.netlify.app";
+      const baseUrl = this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") || "https://vpp-2025.netlify.app";
 
       // Create comprehensive page object
       const pageObject = {
@@ -205,9 +203,7 @@ class PlanJsonGenerator {
    */
   generatePlanJson(processedPages) {
     // Get base URL from site configuration, removing trailing slash if present
-    const baseUrl =
-      this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") ||
-      "https://vpp-2025.netlify.app";
+    const baseUrl = this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") || "https://vpp-2025.netlify.app";
     const validPages = processedPages.filter((page) => page !== null);
 
     const planJson = {

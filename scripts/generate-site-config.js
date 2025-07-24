@@ -64,7 +64,9 @@ class SiteConfigGenerator {
 
       // Extract routing-specific configuration
       this.baseConfig = {
-        baseUrl: siteConfig.urls?.baseUrl || "https://vpp-2025.netlify.app/",
+        baseUrl:
+          siteConfig.urls?.baseUrl?.replace(/\/$/, "") ||
+          "https://vpp-2025.netlify.app",
         blacklist: siteConfig.routing?.blacklist || {
           vue: ["sandbox.vue", "sandbox-*.vue"],
           markdown: ["sandbox.md", "sandbox-*.md"],
@@ -89,7 +91,7 @@ class SiteConfigGenerator {
       this.logger?.warning("Site config file not found, using defaults");
       // Use defaults if config file doesn't exist
       this.baseConfig = {
-        baseUrl: "https://vpp-2025.netlify.app/",
+        baseUrl: "https://vpp-2025.netlify.app",
         blacklist: {
           vue: ["sandbox.vue", "sandbox-*.vue"],
           markdown: ["sandbox.md", "sandbox-*.md"],
