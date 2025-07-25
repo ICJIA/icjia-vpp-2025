@@ -27,6 +27,32 @@ The development version of this site is available at:
 
 This development site is automatically updated with the latest changes from the main branch and serves as a preview environment before production deployment.
 
+## Access the Violence Prevention Plan
+
+The Statewide Violence Prevention Plan for Illinois: 2025-2029 is available in multiple formats to serve different user needs:
+
+### For Human Readers
+
+- **[Read Online](https://vpp-2025.netlify.app)**: Interactive web version with full navigation, search, and accessibility features
+- **[Download PDF](https://vpp-2025.netlify.app/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf)**: Complete plan as a downloadable PDF document
+
+### Machine-Readable Formats for AI & Developers
+
+For AI models, researchers, and developers who need programmatic access to the Violence Prevention Plan text:
+
+- **[llms.txt](https://vpp-2025.netlify.app/llms.txt)**: Optimized format following the [llms.txt standard](https://llmstxt.org/) for AI model consumption and analysis
+- **[JSON Format](https://vpp-2025.netlify.app/vpp-plan-2025-2029.json)**: Structured data in JSON format for web applications and APIs
+- **[CSV Format](https://vpp-2025.netlify.app/vpp-plan-2025-2029.csv)**: Tabular data format for spreadsheet analysis and data processing
+- **[YAML Format](https://vpp-2025.netlify.app/vpp-plan-2025-2029.yaml)**: Human-readable structured data format for configuration and data exchange
+
+These machine-readable formats enable:
+
+- **AI Analysis**: Large language models can directly consume the llms.txt format for comprehensive plan analysis
+- **Research Applications**: Structured data formats support academic research and policy analysis
+- **Developer Integration**: JSON and CSV formats facilitate integration with custom applications and data visualization tools
+
+This multi-format approach ensures the Violence Prevention Plan is accessible to both human readers and automated systems, supporting transparency and enabling innovative uses of public policy data.
+
 ## Nuxt 4 Migration
 
 This project has been successfully migrated to **Nuxt 4.0.0** with the new directory structure. Key improvements include:
