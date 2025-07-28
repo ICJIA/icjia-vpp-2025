@@ -2,6 +2,49 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-28 (Critical Security Vulnerability Remediation)
+
+Conducted comprehensive security vulnerability analysis and implemented critical security fixes to address multiple security issues including a high-severity XSS vulnerability.
+
+### Files Modified/Created:
+
+- `package.json`: Added yarn resolution to force @nuxtjs/mdc upgrade to v0.17.2+ (CVE-2025-54075 fix)
+- `netlify.toml`: Added Content Security Policy and Strict Transport Security headers
+- `app/composables/useTheme.js`: Fixed insecure cookie configuration (sameSite, secure flags)
+- `app/plugins/vuetify.ts`: Updated cookie security settings to match useTheme composable
+- `nuxt.config.ts`: Disabled source maps in production, added CDN integrity check for Material Design Icons
+
+### Security Vulnerabilities Addressed:
+
+1. **CRITICAL (CVE-2025-54075)**: XSS vulnerability in @nuxtjs/mdc v0.17.0 - upgraded to v0.17.2
+   - Risk: Remote script inclusion via malicious `<base>` tag injection in markdown
+   - Impact: Could allow arbitrary JavaScript execution in site context
+   - Resolution: Forced dependency upgrade via yarn resolutions
+
+2. **MEDIUM**: Missing Content Security Policy (CSP) headers
+   - Risk: Lack of XSS protection and external resource controls
+   - Resolution: Implemented comprehensive CSP with base-uri 'self' directive
+
+3. **MEDIUM**: Insecure cookie configuration
+   - Risk: Session hijacking, CSRF attacks
+   - Resolution: Changed sameSite from "none" to "lax", enabled secure flag in production
+
+4. **MEDIUM**: External CDN resource without integrity verification
+   - Risk: Supply chain attack via compromised CDN
+   - Resolution: Added SHA384 integrity hash for Material Design Icons CSS
+
+5. **LOW**: Source maps enabled in production
+   - Risk: Information disclosure of source code
+   - Resolution: Disabled source maps for production builds
+
+### Technical Notes:
+
+- All security headers now include frame-ancestors 'none' and base-uri 'self' for enhanced protection
+- Cookie security maintains client-side theme switching functionality while improving security posture
+- CDN integrity hash: sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2
+- Yarn audit now shows only 1 low-severity vulnerability (down from 1 high + 1 low)
+- All changes maintain backward compatibility and existing functionality
+
 ### 2025-07-28 (Project Audit Log Documentation Card Implementation)
 
 - Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.

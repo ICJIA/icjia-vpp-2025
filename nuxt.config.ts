@@ -190,7 +190,8 @@ export default defineNuxtConfig({
         {
           rel: "stylesheet",
           href: "https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css",
-          crossorigin: "anonymous"
+          crossorigin: "anonymous",
+          integrity: "sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2"
         },
       ],
     },
@@ -280,8 +281,8 @@ export default defineNuxtConfig({
     },
 
     build: {
-      // Enable source maps in development only
-      sourcemap: process.env.NODE_ENV === 'development',
+      // Disable source maps in production for security
+      sourcemap: false,
 
       // Optimize chunk splitting for better caching
       rollupOptions: {

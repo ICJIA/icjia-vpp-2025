@@ -83,7 +83,8 @@
     "vue-component-type-helpers": "3.0.1"
   },
   "resolutions": {
-    "node-sass": "npm:sass@1.71.1"
+    "node-sass": "npm:sass@1.71.1",
+    "@nuxtjs/mdc": "^0.17.2"
   },
   "packageManager": "yarn@1.22.22"
 }

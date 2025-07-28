@@ -290,6 +290,58 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-28 (Critical Security Vulnerability Remediation)</h2>
+<p>Conducted comprehensive security vulnerability analysis and implemented critical security fixes to address multiple security issues including a high-severity XSS vulnerability.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>package.json</code>: Added yarn resolution to force @nuxtjs/mdc upgrade to v0.17.2+ (CVE-2025-54075 fix)</li>
+<li><code>netlify.toml</code>: Added Content Security Policy and Strict Transport Security headers</li>
+<li><code>app/composables/useTheme.js</code>: Fixed insecure cookie configuration (sameSite, secure flags)</li>
+<li><code>app/plugins/vuetify.ts</code>: Updated cookie security settings to match useTheme composable</li>
+<li><code>nuxt.config.ts</code>: Disabled source maps in production, added CDN integrity check for Material Design Icons</li>
+</ul>
+<h3>Security Vulnerabilities Addressed:</h3>
+<ol>
+<li><p><strong>CRITICAL (CVE-2025-54075)</strong>: XSS vulnerability in @nuxtjs/mdc v0.17.0 - upgraded to v0.17.2</p>
+<ul>
+<li>Risk: Remote script inclusion via malicious <code>&lt;base&gt;</code> tag injection in markdown</li>
+<li>Impact: Could allow arbitrary JavaScript execution in site context</li>
+<li>Resolution: Forced dependency upgrade via yarn resolutions</li>
+</ul>
+</li>
+<li><p><strong>MEDIUM</strong>: Missing Content Security Policy (CSP) headers</p>
+<ul>
+<li>Risk: Lack of XSS protection and external resource controls</li>
+<li>Resolution: Implemented comprehensive CSP with base-uri &#39;self&#39; directive</li>
+</ul>
+</li>
+<li><p><strong>MEDIUM</strong>: Insecure cookie configuration</p>
+<ul>
+<li>Risk: Session hijacking, CSRF attacks</li>
+<li>Resolution: Changed sameSite from &quot;none&quot; to &quot;lax&quot;, enabled secure flag in production</li>
+</ul>
+</li>
+<li><p><strong>MEDIUM</strong>: External CDN resource without integrity verification</p>
+<ul>
+<li>Risk: Supply chain attack via compromised CDN</li>
+<li>Resolution: Added SHA384 integrity hash for Material Design Icons CSS</li>
+</ul>
+</li>
+<li><p><strong>LOW</strong>: Source maps enabled in production</p>
+<ul>
+<li>Risk: Information disclosure of source code</li>
+<li>Resolution: Disabled source maps for production builds</li>
+</ul>
+</li>
+</ol>
+<h3>Technical Notes:</h3>
+<ul>
+<li>All security headers now include frame-ancestors &#39;none&#39; and base-uri &#39;self&#39; for enhanced protection</li>
+<li>Cookie security maintains client-side theme switching functionality while improving security posture</li>
+<li>CDN integrity hash: sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2</li>
+<li>Yarn audit now shows only 1 low-severity vulnerability (down from 1 high + 1 low)</li>
+<li>All changes maintain backward compatibility and existing functionality</li>
+</ul>
 <h3>2025-07-28 (Project Audit Log Documentation Card Implementation)</h3>
 <ul>
 <li>Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.</li>

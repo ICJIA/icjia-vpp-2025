@@ -24,8 +24,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     const themeCookie = useCookie("theme-preference", {
       default: () => "dark",
       maxAge: 60 * 60 * 24 * 365, // 1 year expiration
-      sameSite: "none", // Better Safari compatibility
-      secure: false, // Disabled for Safari localhost compatibility
+      sameSite: "lax", // CSRF protection (changed from "none")
+      secure: process.env.NODE_ENV === 'production', // Enable secure flag in production
       httpOnly: false, // Allow client-side access for theme switching
     });
 

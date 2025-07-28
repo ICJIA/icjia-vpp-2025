@@ -76,16 +76,16 @@ export function useTheme() {
    * Uses Nuxt's useCookie composable for SSR-safe theme persistence.
    * The cookie is available on both server and client sides, eliminating FOUC.
    *
-   * Safari Compatibility Notes:
-   * - Uses sameSite: "none" for better cross-browser compatibility
-   * - Secure flag is disabled in development for localhost testing
-   * - These settings ensure theme persistence works in Safari
+   * Security Notes:
+   * - Uses sameSite: "lax" for CSRF protection
+   * - Secure flag enabled in production for HTTPS-only transmission
+   * - httpOnly disabled to allow client-side theme switching
    */
   const theme = useCookie("theme-preference", {
     default: () => "dark", // Site default theme
     maxAge: 60 * 60 * 24 * 365, // 1 year expiration
-    sameSite: "none", // Better Safari compatibility (was "lax")
-    secure: false, // Disabled for Safari localhost compatibility (was production-only)
+    sameSite: "lax", // CSRF protection (changed from "none")
+    secure: process.env.NODE_ENV === "production", // Enable secure flag in production
     httpOnly: false, // Allow client-side access for theme switching
   });
 
