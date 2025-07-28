@@ -2,6 +2,42 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+### 2025-07-28 (Project Audit Log Documentation Card Implementation)
+
+- Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.
+- **Files modified:**
+  - `public/documentation/index.html`: Added new Project Audit Log card with proper styling, accessibility attributes, and navigation link to `/documentation/audit-log/`
+- **Technical Notes:**
+  - Card uses `mdi-history` icon to represent logging/history functionality
+  - Maintains consistent visual design and layout with existing documentation cards (Project Documentation, API Documentation, Vue Components)
+  - Positioned as the fourth card after Vue Components in the documentation grid
+  - Includes proper ARIA attributes (`aria-describedby="audit-log-docs-desc"`) for screen reader accessibility
+  - Uses same hover effects and transitions as existing cards for visual consistency
+  - Description emphasizes transparency and accountability for external reviewers and future developers
+  - Follows WCAG 2.1 AA compliance standards with proper semantic HTML structure
+  - Link destination points to the automated audit log page at `/documentation/audit-log/`
+  - Maintains responsive grid layout and card ordering with existing documentation portal design
+
+### 2025-07-28 (Automated Project Audit Log Sync Implementation)
+
+- Implemented automated build process to ensure that the audit-log-project.md file is copied to /public/documentation/audit-log during every build, dev, and generate process.
+- **Issue**: The deployed version at /public/documentation/audit-log on Netlify did not reflect the current content of /audit-log-project.md in the repository root
+- Files created:
+  - `scripts/sync-project-audit-log.js`: New script that automatically copies audit-log-project.md to public/documentation/audit-log/index.html with proper HTML formatting
+- Files modified:
+  - `package.json`: Added `sync:project-audit` script and integrated it into all build processes (build, dev, generate commands and their variants)
+- Technical Notes:
+  - Script converts markdown to HTML using marked library with complete styling and navigation
+  - Includes light/dark theme support matching project design standards
+  - Maintains WCAG 2.1 AA accessibility compliance with proper semantic HTML
+  - Uses Chicago timezone for consistent date handling across all audit logs
+  - Automatically updates "Last Updated" date in the generated HTML
+  - Preserves all original audit log formatting and content structure
+  - Integrated into build pipeline to run before Nuxt build/dev/generate processes
+  - Ensures publicly accessible audit log always reflects current repository state without manual intervention
+  - Generated HTML includes proper meta tags, favicon, fonts, and responsive design
+  - Includes back navigation link to documentation portal for better user experience
+
 ### 2025-07-20 (Hydration Mismatch Fix)
 
 - Fixed hydration mismatch errors in navigation components by implementing manual active state detection for Vuetify v-list-item components with trailing slash handling.

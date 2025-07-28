@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Audit Log - Violence Prevention Plan for Illinois: 2025-2029</title>
+    <title>Project Audit Log - Violence Prevention Plan for Illinois: 2025-2029</title>
     <meta
       name="description"
       content="Chronological audit log of all significant changes made to the Illinois Violence Prevention Plan project."
@@ -48,70 +48,25 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
-      rel="stylesheet"
-      media="(prefers-color-scheme: light)"
-    />
 
     <style>
-      /* CSS Variables for Theme System */
       :root {
         --primary-color: #1976d2;
         --primary-dark: #1565c0;
         --secondary-color: #424242;
         --accent-color: #ff5722;
-
-        /* Light Theme */
-        --bg-primary: #ffffff;
-        --bg-secondary: #f5f5f5;
-        --bg-card: #ffffff;
-        --text-primary: #212121;
-        --text-secondary: #757575;
-        --border-color: #e0e0e0;
-        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+        --background-light: #ffffff;
+        --background-dark: #121212;
+        --surface-light: #f5f5f5;
+        --surface-dark: #1e1e1e;
+        --text-light: #212121;
+        --text-dark: #ffffff;
+        --text-secondary-light: #757575;
+        --text-secondary-dark: #b0b0b0;
+        --border-light: #e0e0e0;
+        --border-dark: #333333;
       }
 
-      /* Dark Theme (Default) */
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg-primary: #121212;
-          --bg-secondary: #1e1e1e;
-          --bg-card: #2d2d2d;
-          --text-primary: #ffffff;
-          --text-secondary: #b0b0b0;
-          --border-color: #404040;
-          --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-          --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
-      }
-
-      /* Force Dark Theme */
-      [data-theme="dark"] {
-        --bg-primary: #121212;
-        --bg-secondary: #1e1e1e;
-        --bg-card: #2d2d2d;
-        --text-primary: #ffffff;
-        --text-secondary: #b0b0b0;
-        --border-color: #404040;
-        --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.4);
-      }
-
-      /* Force Light Theme */
-      [data-theme="light"] {
-        --bg-primary: #ffffff;
-        --bg-secondary: #f5f5f5;
-        --bg-card: #ffffff;
-        --text-primary: #212121;
-        --text-secondary: #757575;
-        --border-color: #e0e0e0;
-        --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
-      }
-
-      /* Base Styles */
       * {
         margin: 0;
         padding: 0;
@@ -119,340 +74,592 @@
       }
 
       body {
-        font-family:
-          "Inter",
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         line-height: 1.6;
-        transition:
-          background-color 0.3s ease,
-          color 0.3s ease;
+        color: var(--text-light);
+        background-color: var(--background-light);
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
-      /* Container and Layout */
+      /* Dark theme styles */
+      [data-theme="dark"] {
+        color: var(--text-dark);
+        background-color: var(--background-dark);
+      }
+
+      [data-theme="dark"] .header {
+        border-bottom-color: var(--border-dark);
+      }
+
+      [data-theme="dark"] .header p {
+        color: var(--text-secondary-dark);
+      }
+
+      [data-theme="dark"] .last-updated {
+        background: var(--surface-dark);
+      }
+
+      [data-theme="dark"] .content {
+        background: var(--surface-dark);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      [data-theme="dark"] code {
+        background: var(--background-dark);
+      }
+
+      [data-theme="dark"] pre {
+        background: var(--background-dark);
+      }
+
+      /* Theme toggle button */
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .theme-toggle:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .theme-toggle:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+      }
+
+      .theme-toggle i {
+        font-size: 18px;
+      }
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
       }
 
-      /* Header */
       .header {
         text-align: center;
         margin-bottom: 3rem;
-        position: relative;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border-light);
       }
 
       .header h1 {
         font-size: 2.5rem;
         font-weight: 700;
-        color: var(--text-primary);
+        color: var(--primary-color);
         margin-bottom: 1rem;
       }
 
       .header p {
         font-size: 1.1rem;
-        color: var(--text-secondary);
+        color: var(--text-secondary-light);
         max-width: 800px;
         margin: 0 auto;
       }
 
-      /* Navigation */
-      .nav-links {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
+      .last-updated {
+        background: var(--surface-light);
+        padding: 1rem;
+        border-radius: 8px;
         margin-bottom: 2rem;
-        flex-wrap: wrap;
+        border-left: 4px solid var(--primary-color);
       }
 
-      .nav-links a {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--bg-card);
-        color: var(--text-primary);
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 500;
-        border: 2px solid var(--border-color);
-        transition: all 0.3s ease;
-        box-shadow: var(--shadow);
-      }
-
-      .nav-links a:hover {
-        background: var(--primary-color);
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-hover);
-      }
-
-      /* Theme Toggle */
-      .theme-toggle {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: var(--bg-card);
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 0.75rem 1rem;
-        cursor: pointer;
-        color: var(--text-primary);
-        font-weight: 500;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .theme-toggle:hover {
-        background: var(--primary-color);
-        color: white;
-        transform: translateY(-2px);
-      }
-
-      /* Content Styles */
       .content {
-        background: var(--bg-card);
-        border-radius: 12px;
+        background: var(--background-light);
+        border-radius: 8px;
         padding: 2rem;
-        box-shadow: var(--shadow);
-        border: 2px solid var(--border-color);
-        flex: 1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
 
-      .content h1 {
-        color: var(--primary-color);
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-        border-bottom: 3px solid var(--primary-color);
-        padding-bottom: 0.5rem;
-      }
-
-      .content h2 {
-        color: var(--text-primary);
-        font-size: 1.5rem;
-        margin: 2rem 0 1rem 0;
-        font-weight: 600;
-      }
-
-      .content h3 {
-        color: var(--primary-color);
-        font-size: 1.25rem;
-        margin: 1.5rem 0 1rem 0;
-        font-weight: 600;
-      }
-
-      .content p {
+      h1, h2, h3, h4, h5, h6 {
+        margin-top: 2rem;
         margin-bottom: 1rem;
-        color: var(--text-primary);
+        font-weight: 600;
       }
 
-      .content ul,
-      .content ol {
-        margin: 1rem 0 1rem 2rem;
-        color: var(--text-primary);
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.75rem; }
+      h3 { font-size: 1.5rem; }
+      h4 { font-size: 1.25rem; }
+
+      p {
+        margin-bottom: 1rem;
       }
 
-      .content li {
+      ul, ol {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+      }
+
+      li {
         margin-bottom: 0.5rem;
       }
 
-      .content code {
-        background: var(--bg-secondary);
+      code {
+        background: var(--surface-light);
         padding: 0.2rem 0.4rem;
         border-radius: 4px;
-        font-family: "JetBrains Mono", "Courier New", monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 0.9rem;
-        color: var(--accent-color);
-        border: 1px solid var(--border-color);
       }
 
-      .content pre {
-        background: var(--bg-secondary);
-        padding: 1.5rem;
+      pre {
+        background: var(--surface-light);
+        padding: 1rem;
         border-radius: 8px;
         overflow-x: auto;
-        margin: 1rem 0;
-        border: 2px solid var(--border-color);
+        margin-bottom: 1rem;
       }
 
-      .content pre code {
-        background: none;
-        padding: 0;
-        border: none;
-        color: var(--text-primary);
-      }
-
-      .content blockquote {
-        border-left: 4px solid var(--primary-color);
-        padding: 1rem 1.5rem;
-        margin: 1rem 0;
-        background: var(--bg-secondary);
-        border-radius: 0 8px 8px 0;
-        font-style: italic;
-      }
-
-      .content a {
+      .back-link {
+        display: inline-flex;
+        align-items: center;
         color: var(--primary-color);
         text-decoration: none;
+        margin-bottom: 2rem;
         font-weight: 500;
+        transition: color 0.3s ease;
       }
 
-      .content a:hover {
-        text-decoration: underline;
+      .back-link:hover {
+        color: var(--primary-dark);
       }
 
-      .content table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 1rem 0;
-        background: var(--bg-card);
-        border-radius: 8px;
-        overflow: hidden;
-        border: 2px solid var(--border-color);
+      .back-link i {
+        margin-right: 0.5rem;
       }
 
-      .content th,
-      .content td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .content th {
-        background: var(--bg-secondary);
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-
-      /* Footer */
-      .footer {
-        margin-top: 3rem;
-        text-align: center;
-        padding-top: 2rem;
-        border-top: 2px solid var(--border-color);
-        color: var(--text-secondary);
-      }
-
-      .footer p {
-        margin-bottom: 0.5rem;
-      }
-
-      .footer a {
-        color: var(--primary-color);
-        text-decoration: none;
-      }
-
-      .footer a:hover {
-        text-decoration: underline;
-      }
-
-      /* Responsive Design */
       @media (max-width: 768px) {
         .container {
           padding: 1rem;
         }
-
+        
         .header h1 {
           font-size: 2rem;
         }
-
+        
         .content {
-          padding: 1.5rem;
-        }
-
-        .theme-toggle {
-          position: static;
-          margin: 0 auto 2rem;
-          width: fit-content;
-        }
-
-        .nav-links {
-          flex-direction: column;
-          align-items: center;
-        }
-      }
-
-      /* Reduced Motion Support */
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-
-      /* High Contrast Support */
-      @media (prefers-contrast: high) {
-        :root {
-          --border-color: #000000;
-          --shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        [data-theme="dark"] {
-          --border-color: #ffffff;
-          --shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+          padding: 1rem;
         }
       }
     </style>
   </head>
-  <body>
+  <body data-theme="dark">
     <div class="container">
-      <header class="header">
-        <button
-          class="theme-toggle"
-          onclick="toggleTheme()"
-          aria-label="Toggle theme"
-        >
-          <i class="mdi mdi-theme-light-dark" aria-hidden="true"></i>
-          <span id="theme-text">Light Mode</span>
-        </button>
-        <h1>Audit Log</h1>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle between light and dark theme">
+        <i class="mdi mdi-theme-light-dark" aria-hidden="true"></i>
+        <span id="theme-text">Light Mode</span>
+      </button>
+
+      <a href="/documentation/" class="back-link">
+        <i class="mdi mdi-arrow-left"></i>
+        Back to Documentation
+      </a>
+      
+      <div class="header">
+        <h1>Project Audit Log</h1>
         <p>
-          Chronological record of all significant changes made to the Violence
-          Prevention Plan for Illinois: 2025-2029 project, providing
-          transparency and accountability for external reviewers and future
-          developers.
+          Chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, 
+          providing transparency and accountability for external reviewers and future developers.
         </p>
-      </header>
+      </div>
 
-      <nav class="nav-links">
-        <a href="../" aria-label="Return to Documentation Portal">
-          <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
-          Documentation Portal
-        </a>
-        <a href="../dev/" aria-label="View Project Documentation">
-          <i class="mdi mdi-book-open-page-variant" aria-hidden="true"></i>
-          Project Documentation
-        </a>
-        <a href="../jsdoc/" aria-label="View API Documentation">
-          <i class="mdi mdi-code-braces" aria-hidden="true"></i>
-          API Documentation
-        </a>
-        <a href="../components/" aria-label="View Vue Components">
-          <i class="mdi mdi-view-dashboard" aria-hidden="true"></i>
-          Vue Components
-        </a>
-      </nav>
+      <div class="last-updated">
+        <strong>Last Updated:</strong> July 28, 2025
+      </div>
 
-      <main class="content">
-            <h1>Complete Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
-            
-            <p>This document serves as a complete chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
-            
-            <div class="audit-content">
-                <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
+      <div class="content">
+        <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h3>2025-07-28 (Project Audit Log Documentation Card Implementation)</h3>
+<ul>
+<li>Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.</li>
+<li><strong>Files modified:</strong><ul>
+<li><code>public/documentation/index.html</code>: Added new Project Audit Log card with proper styling, accessibility attributes, and navigation link to <code>/documentation/audit-log/</code></li>
+</ul>
+</li>
+<li><strong>Technical Notes:</strong><ul>
+<li>Card uses <code>mdi-history</code> icon to represent logging/history functionality</li>
+<li>Maintains consistent visual design and layout with existing documentation cards (Project Documentation, API Documentation, Vue Components)</li>
+<li>Positioned as the fourth card after Vue Components in the documentation grid</li>
+<li>Includes proper ARIA attributes (<code>aria-describedby=&quot;audit-log-docs-desc&quot;</code>) for screen reader accessibility</li>
+<li>Uses same hover effects and transitions as existing cards for visual consistency</li>
+<li>Description emphasizes transparency and accountability for external reviewers and future developers</li>
+<li>Follows WCAG 2.1 AA compliance standards with proper semantic HTML structure</li>
+<li>Link destination points to the automated audit log page at <code>/documentation/audit-log/</code></li>
+<li>Maintains responsive grid layout and card ordering with existing documentation portal design</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-28 (Automated Project Audit Log Sync Implementation)</h3>
+<ul>
+<li>Implemented automated build process to ensure that the audit-log-project.md file is copied to /public/documentation/audit-log during every build, dev, and generate process.</li>
+<li><strong>Issue</strong>: The deployed version at /public/documentation/audit-log on Netlify did not reflect the current content of /audit-log-project.md in the repository root</li>
+<li>Files created:<ul>
+<li><code>scripts/sync-project-audit-log.js</code>: New script that automatically copies audit-log-project.md to public/documentation/audit-log/index.html with proper HTML formatting</li>
+</ul>
+</li>
+<li>Files modified:<ul>
+<li><code>package.json</code>: Added <code>sync:project-audit</code> script and integrated it into all build processes (build, dev, generate commands and their variants)</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Script converts markdown to HTML using marked library with complete styling and navigation</li>
+<li>Includes light/dark theme support matching project design standards</li>
+<li>Maintains WCAG 2.1 AA accessibility compliance with proper semantic HTML</li>
+<li>Uses Chicago timezone for consistent date handling across all audit logs</li>
+<li>Automatically updates &quot;Last Updated&quot; date in the generated HTML</li>
+<li>Preserves all original audit log formatting and content structure</li>
+<li>Integrated into build pipeline to run before Nuxt build/dev/generate processes</li>
+<li>Ensures publicly accessible audit log always reflects current repository state without manual intervention</li>
+<li>Generated HTML includes proper meta tags, favicon, fonts, and responsive design</li>
+<li>Includes back navigation link to documentation portal for better user experience</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-20 (Hydration Mismatch Fix)</h3>
+<ul>
+<li>Fixed hydration mismatch errors in navigation components by implementing manual active state detection for Vuetify v-list-item components with trailing slash handling.</li>
+<li>Files modified:<ul>
+<li><code>app/components/content/AppHeader.vue</code>: Added <code>:active=&quot;child.to &amp;&amp; (route.path === child.to || route.path === child.to + &#39;/&#39;)&quot;</code> prop to all v-list-item components in both desktop and mobile navigation dropdowns to manually control active states with trailing slash support</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>The hydration mismatch was occurring because Vuetify&#39;s automatic active state detection for v-list-item components with <code>to</code> props was working differently between server-side rendering and client-side hydration</li>
+<li>Server was applying <code>v-list-item--active</code> class but client was not, causing the error: &quot;Hydration class mismatch on v-list-item&quot;</li>
+<li>Root cause was trailing slash differences: menu items have paths like <code>/plan/executive-summary</code> but actual route paths include trailing slashes like <code>/plan/executive-summary/</code></li>
+<li>Solution uses explicit <code>:active</code> prop with route comparison that handles both with and without trailing slashes: <code>(route.path === child.to || route.path === child.to + &#39;/&#39;)</code></li>
+<li>Applied fix to both desktop dropdown items and mobile navigation items</li>
+<li>Tested successfully on multiple routes (/plan/executive-summary, /plan/guiding-principles) with complete elimination of hydration errors</li>
+<li>Console is now completely clean of hydration mismatch warnings and errors</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-20 (Production Console Filter Implementation)</h3>
+<ul>
+<li>Implemented console filter to suppress known harmless Nuxt internal timer warnings in production builds.</li>
+<li><strong>Issue</strong>: Timer warning &quot;Timer &#39;[nuxt-app] page:loading:end&#39; already exists&quot; appearing in Netlify production builds</li>
+<li>Files created:<ul>
+<li><code>app/plugins/console-filter.client.js</code>: Production-only console filter that suppresses known harmless warnings</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Warning is a known Nuxt internal issue that doesn&#39;t affect functionality but creates console noise</li>
+<li>Filter only runs in production builds, preserving all development logging</li>
+<li>Maintains important error messages while suppressing specific harmless patterns</li>
+<li>Uses regex patterns to match timer-related warnings from Nuxt internals</li>
+<li>Preserves console.warn, console.error, and console.log functionality for legitimate messages</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-20 (Timer Conflict Fix)</h3>
+<ul>
+<li>Fixed console error &quot;Timer &#39;[nuxt-app] page:loading:end&#39; already exists&quot; caused by improper hook registration.</li>
+<li>Files modified:<ul>
+<li><code>app/plugins/references.client.js</code>: Changed <code>window.nuxtApp.hook()</code> to <code>nuxtApp.hook()</code> for proper lifecycle management</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Using <code>window.nuxtApp</code> can cause duplicate hook registrations during development hot reloading</li>
+<li>The provided <code>nuxtApp</code> parameter ensures proper hook registration and cleanup</li>
+<li>This eliminates timer conflicts and ensures clean plugin initialization/cleanup</li>
+<li>Error was development-only and didn&#39;t affect functionality, but fix improves code quality</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-20 (Alternating Blue Background Pattern Implementation)</h3>
+<ul>
+<li>Implemented alternating blue background colors across all homepage sections for clear visual delineation.</li>
+<li><strong>Pattern</strong>: Light blue (section-primary) alternating with darker blue (section-secondary) backgrounds</li>
+<li>Files modified:<ul>
+<li><code>app/assets/css/main.scss</code>: Updated section background colors to use distinct blue variants with WCAG 2.1 AA contrast ratios</li>
+<li><code>app/components/content/HomeLetters.vue</code>: Changed from section-primary to section-secondary</li>
+<li><code>app/components/content/HomeStatistics.vue</code>: Changed from section-secondary to section-primary</li>
+<li><code>app/components/content/HomeGoals.vue</code>: Changed from section-primary to section-secondary</li>
+<li><code>app/components/content/HomeStakeholders.vue</code>: Changed from section-secondary to section-primary</li>
+<li><code>app/components/content/HomePrinciples.vue</code>: Changed from section-primary to section-secondary</li>
+<li><code>app/components/content/HomeApproach.vue</code>: Changed from section-secondary to section-primary</li>
+<li><code>app/components/content/HomeAction.vue</code>: Changed from section-primary to section-secondary</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Light mode: section-primary uses #F0F4F8 (light blue-grey), section-secondary uses #E3F2FD (light blue)</li>
+<li>Dark mode: section-primary uses #1A2234 (dark navy), section-secondary uses #1E2A3A (lighter navy)</li>
+<li>All color combinations maintain WCAG 2.1 AA accessibility standards for contrast ratios</li>
+<li>Alternating pattern: Hero(primary) → Letters(secondary) → Statistics(primary) → Goals(secondary) → Stakeholders(primary) → Principles(secondary) → Approach(primary) → Action(secondary)</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-20 (Letter from the Director Restoration)</h3>
+<ul>
+<li>Restored the &quot;Letter from the Director&quot; section to the homepage featuring ICJIA Executive Director Delrice Adams.</li>
+<li>Files modified:<ul>
+<li><code>app/pages/index.vue</code>: Added HomeLetters component to template and imported the component</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>HomeLetters component was already created but not included in the homepage layout</li>
+<li>Positioned after HomeHero section to align with the &quot;Learn More&quot; button functionality in the hero</li>
+<li>Component includes Director Adams&#39; photo and message content with proper styling for both light and dark themes</li>
+<li>Maintains responsive design and accessibility standards</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (SSR Hydration Fix)</h3>
+<ul>
+<li>Fixed critical SSR hydration mismatches causing layout issues on Netlify deployment.</li>
+<li>Files modified/created:<ul>
+<li><code>app/pages/index.vue</code>: Temporarily disabled StructuredData component to resolve hydration conflicts</li>
+<li><code>app/components/content/HomeHero.vue</code>: Updated section class from secondary to primary</li>
+<li><code>app/components/content/HomeGoals.vue</code>: Updated section class from secondary to primary</li>
+<li><code>app/components/content/HomePrinciples.vue</code>: Updated section class from primary to primary (corrected alternating pattern)</li>
+<li><code>app/components/content/HomeApproach.vue</code>: Updated section class from primary to secondary</li>
+<li><code>app/components/content/HomeAction.vue</code>: Updated section class from secondary to primary</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>StructuredData component with empty template was causing server/client rendering mismatches</li>
+<li>Restored proper alternating background pattern: primary → secondary → primary → secondary → primary → secondary → primary</li>
+<li>Build now completes without hydration warnings and generates clean static files</li>
+<li>Alternating backgrounds work correctly in both light and dark themes</li>
+<li>Cookie-based theme persistence maintained throughout fix</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (Safari Cookie Compatibility Fix)</h3>
+<ul>
+<li>Fixed Safari-specific cookie handling issue where theme preferences were not persisting correctly in Safari browser.</li>
+<li><strong>Issue</strong>: Theme switching worked in Chrome but failed to persist in Safari when switching from dark to light theme and reloading the page.</li>
+<li><strong>Root Cause</strong>: Safari has stricter cookie policies regarding <code>sameSite</code> and <code>secure</code> attributes, especially for localhost development.</li>
+<li><strong>Solution</strong>: Updated cookie configuration to use Safari-compatible settings.</li>
+<li>Files modified:<ul>
+<li><code>app/composables/useTheme.js</code>: Changed <code>sameSite</code> from &quot;lax&quot; to &quot;none&quot; and <code>secure</code> from production-only to <code>false</code> for better Safari compatibility</li>
+<li><code>app/plugins/vuetify.ts</code>: Updated cookie settings to match the useTheme composable for consistency</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li><code>sameSite: &quot;none&quot;</code> provides better cross-browser compatibility, especially for Safari</li>
+<li><code>secure: false</code> allows cookies to work on localhost during development in Safari</li>
+<li>These changes ensure theme persistence works consistently across all major browsers</li>
+<li>Maintains security while improving Safari compatibility</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (Critical SSR Theme Bug Fix)</h3>
+<ul>
+<li>Fixed critical server-side rendering (SSR) theme application bug where theme preferences were not being applied during initial page load.</li>
+<li><strong>Issue</strong>: When users selected light theme and refreshed the page, the theme switch showed correct state but page rendered with dark theme styling, creating visual inconsistency.</li>
+<li><strong>Root Cause</strong>: The <code>data-theme</code> attribute was only being set client-side via <code>document.documentElement.setAttribute()</code>, but during SSR the server had no access to the <code>document</code> object.</li>
+<li><strong>Solution</strong>: Implemented <code>useHead</code> in the <code>useTheme</code> composable to set the <code>data-theme</code> attribute on the HTML element during both server-side rendering and client-side hydration.</li>
+<li>Files modified:<ul>
+<li><code>app/composables/useTheme.js</code>: Added <code>useHead({ htmlAttrs: { &#39;data-theme&#39;: theme } })</code> for SSR-compatible HTML attribute management</li>
+<li>Enhanced comments to clarify the dual approach: <code>useHead</code> for SSR/reactive updates and <code>document.setAttribute</code> for immediate client-side feedback</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>The fix ensures theme preferences are applied from the very first paint, eliminating FOUC (Flash of Unstyled Content)</li>
+<li>Cookie-based theme storage continues to work seamlessly with both server and client sides</li>
+<li>Theme switching and persistence now work correctly across page refreshes and browser sessions</li>
+<li>Maintains backward compatibility with existing theme switching functionality</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (FOUC Fix - Cookie-Based Theme Management)</h3>
+<ul>
+<li>Eliminated Flash of Unstyled Content (FOUC) by converting theme storage from localStorage to cookies for SSR compatibility.</li>
+<li>Files modified/created:<ul>
+<li><code>app/composables/useTheme.js</code>: Created new cookie-based theme management composable with comprehensive JSDoc documentation</li>
+<li><code>app/plugins/vuetify.ts</code>: Updated to read theme preference from cookies during SSR initialization</li>
+<li><code>app/layouts/default.vue</code>: Replaced localStorage-based theme logic with useTheme composable integration</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Uses Nuxt&#39;s <code>useCookie</code> composable for SSR-safe theme persistence with 1-year expiration</li>
+<li>Cookie configuration: sameSite: &#39;lax&#39;, secure in production, httpOnly: false for client access</li>
+<li>Automatic migration from localStorage to cookies for backward compatibility</li>
+<li>Server-side rendering now correctly applies user&#39;s theme preference from the start</li>
+<li>Maintains all existing theme switching functionality while eliminating visual flash</li>
+<li>Comprehensive logging system for debugging theme initialization and changes</li>
+<li>WCAG 2.1 AA accessibility compliance maintained throughout theme system</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (Comprehensive Documentation Audit &amp; Nuxt 4 Structure Updates)</h3>
+<ul>
+<li>Conducted comprehensive audit and update of all project documentation to accurately reflect Nuxt 4-compliant directory structure.</li>
+<li>Files modified/created:<ul>
+<li><code>project-documentation.md</code>: Updated directory structure diagram to show <code>app/</code> as primary source directory, corrected version numbers (Nuxt 4.0.0, @nuxt/content 3.6.3), updated architecture descriptions, and revised file path references throughout</li>
+<li><code>docs/project-rules.md</code>: Updated directory structure diagram to reflect Nuxt 4 <code>app/</code> directory organization</li>
+<li>Verified <code>README.md</code>: Confirmed accuracy of Nuxt 4 migration documentation and directory structure details</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Replaced legacy root-level directory references (components/, pages/, layouts/) with correct app/ structure</li>
+<li>Updated all version numbers to match current package.json dependencies</li>
+<li>Corrected directory structure diagrams to show app/ as primary source directory</li>
+<li>Updated generated vs. source file distinctions to reflect .output/ build directory</li>
+<li>Verified import path examples and API documentation for Nuxt 4 compatibility</li>
+<li>Maintained consistency across all documentation files</li>
+<li>Document version updated to 1.1 with current date</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (Nuxt 4 Documentation Updates)</h3>
+<ul>
+<li>Updated project documentation to reflect Nuxt 4.0.0 migration and new directory structure.</li>
+<li>Files modified/created:<ul>
+<li><code>README.md</code>: Added comprehensive Nuxt 4 migration section with directory structure details, benefits, and technical specifications</li>
+<li><code>docs/project-rules.md</code>: Added framework architecture rules for Nuxt 4 directory structure, import path guidelines, and migration compliance standards</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Documentation now clearly explains the new <code>app/</code> directory structure</li>
+<li>Added migration benefits: enhanced performance, better organization, future-ready architecture</li>
+<li>Included technical details: Nuxt 4.0.0 with Nitro 2.12.0, @nuxt/content 3.6.3, Vuetify 3.8.5 compatibility</li>
+<li>Documented zero breaking changes and maintained performance metrics</li>
+<li>Added directory structure rules and import path guidelines for developers</li>
+<li>Emphasized accessibility preservation and build compatibility requirements</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-18 (Nuxt 4 Migration &amp; Directory Structure - Complete Success)</h3>
+<ul>
+<li>Successfully completed full migration from Nuxt 3.17.6 to Nuxt 4.0.0 with zero breaking changes and implemented new Nuxt 4 directory structure.</li>
+<li>Files modified/created:<ul>
+<li><code>nuxt.config.ts</code>: Added <code>future.compatibilityVersion: 4</code>, removed temporary folder structure configuration</li>
+<li><code>package.json</code>: Updated Nuxt to 4.0.0, @nuxt/content to 3.6.3, @nuxtjs/google-fonts to 3.2.0</li>
+<li>Created migration branch: <code>feature/nuxt-4-migration</code></li>
+<li><strong>New Directory Structure</strong>: Moved all app-related directories to <code>app/</code> folder<ul>
+<li><code>layouts/</code> → <code>app/layouts/</code></li>
+<li><code>pages/</code> → <code>app/pages/</code></li>
+<li><code>components/</code> → <code>app/components/</code></li>
+<li><code>composables/</code> → <code>app/composables/</code></li>
+<li><code>plugins/</code> → <code>app/plugins/</code></li>
+<li><code>utils/</code> → <code>app/utils/</code></li>
+<li><code>assets/</code> → <code>app/assets/</code></li>
+<li><code>app.vue</code> → <code>app/app.vue</code></li>
+<li><code>error.vue</code> → <code>app/error.vue</code></li>
+</ul>
+</li>
+<li>Updated import paths in components and scripts to work with new structure</li>
+<li>Fixed config imports in components to use relative paths (<code>../../../config/</code>)</li>
+<li>Updated all build scripts to import from new <code>app/utils/</code> directory</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li><strong>Phase 1</strong>: Enabled Nuxt 4 compatibility mode - no breaking changes detected</li>
+<li><strong>Phase 2</strong>: Skipped - no breaking changes required fixing</li>
+<li><strong>Phase 3</strong>: Successfully upgraded core dependencies using <code>npx nuxi@latest upgrade --force</code></li>
+<li><strong>Phase 4</strong>: Comprehensive testing passed - all functionality intact</li>
+<li><strong>Phase 5</strong>: Implemented new Nuxt 4 directory structure successfully</li>
+<li>All build processes work perfectly (build, dev server, custom scripts)</li>
+<li>All custom build scripts (search index, site config, sitemap, llms.txt, plan-json) function properly</li>
+<li>better-sqlite3 ^12.2.0 compiled successfully with Nuxt 4</li>
+<li>Performance and bundle sizes remain consistent (8.42 MB total, 2.59 MB gzip)</li>
+<li>All accessibility features and audit logging continue to function</li>
+<li>Vuetify 3.8.5 integration works seamlessly with Nuxt 4</li>
+<li>VueUse composables remain fully functional</li>
+<li>Migration completed without requiring codemods or manual code changes</li>
+<li>New directory structure follows Nuxt 4 best practices and improves project organization</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-14 (News and Updates Section Temporarily Disabled)</h3>
+<ul>
+<li>Temporarily disabled the &quot;News &amp; Updates&quot; section from the front page and navigation while preserving all code for future re-enablement.</li>
+<li>Files modified:<ul>
+<li><code>content/index.md</code>: Commented out the home-news component section using HTML comments</li>
+<li><code>pages/index.vue</code>: Commented out the HomeNews component in the fallback content section</li>
+<li><code>config/site.config.json</code>: Set news menu item enabled flag to false in the moreMenu configuration</li>
+<li><code>config/sitemap.config.json</code>: Added <code>/news</code> and <code>/news/*</code> patterns to sitemap exclusions</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>All news-related components and pages remain intact and functional</li>
+<li>News content is excluded from sitemap generation to prevent search engine indexing</li>
+<li>News content is excluded from search index generation to prevent internal search results</li>
+<li>Navigation menu no longer displays &quot;News &amp; Updates&quot; option in the &quot;More&quot; dropdown</li>
+<li>Front page no longer displays recent news items section</li>
+<li>Search index blacklist patterns added: <code>news.md</code>, <code>news/*.md</code>, <code>news.vue</code>, <code>/news</code>, <code>/news/*</code>, <code>news/*</code></li>
+<li>Changes are easily reversible by uncommenting sections and changing enabled flag back to true</li>
+<li>No code was deleted - only commented out or disabled through configuration flags</li>
+<li>Maintains clean layout on homepage without news section</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-10 (Goal Cards Made Static - No Hover or Click Interaction)</h3>
+<ul>
+<li>Converted goal cards from interactive navigation cards to static display cards.</li>
+<li>Files modified:<ul>
+<li><code>components/content/HomeGoalCard.vue</code>: Removed all click handlers, hover effects, focus states, and navigation functionality</li>
+<li><code>components/content/HomeGoals.vue</code>: Removed url prop from HomeGoalCard usage</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Removed <code>handleCardClick</code> function and all navigation logic</li>
+<li>Removed <code>url</code> prop definition and validation</li>
+<li>Removed all CSS hover and focus effects (<code>:hover</code>, <code>:focus-visible</code>)</li>
+<li>Removed <code>cursor: pointer</code> styling</li>
+<li>Removed <code>tabindex</code>, click handlers, and keyboard navigation</li>
+<li>Updated JSDoc comments to reflect static display purpose</li>
+<li>Cards now serve as pure informational displays without any interactive behavior</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-10 (Goal Cards Dark Mode Background Color Match)</h3>
+<ul>
+<li>Fixed goal cards in dark mode to match the background color of &quot;For More Information&quot; cards.</li>
+<li>Files modified:<ul>
+<li><code>components/content/HomeGoalCard.vue</code>: Added <code>background: #2a3441 !important</code> to dark theme styling to match HomeAction cards</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Goal cards now use the same enhanced contrast background color (#2a3441) as other cards on the homepage</li>
+<li>Maintains consistent visual appearance across all card components in dark mode</li>
+<li>Background color provides better contrast against the dark page background</li>
+</ul>
+</li>
+</ul>
+<h3>2025-07-10 (Balanced Goal Card Styling to Match Design System)</h3>
+<ul>
+<li>Adjusted goal card styling to match the balanced, professional appearance of the &quot;For More Information&quot; section cards, ensuring consistent visual hierarchy throughout the application.</li>
+<li>Files modified:<ul>
+<li><code>components/content/HomeGoalCard.vue</code>: Applied balanced styling matching HomeAction card approach for design consistency</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li><strong>Issue</strong>: Goal cards had excessive contrast that was too prominent compared to other card components in the design system</li>
+<li><strong>Solution</strong>: Applied the same subtle styling approach used by HomeAction cards for consistent visual balance</li>
+<li><strong>Light Mode</strong>: Restored subtle borders (rgba(0,0,0,0.05)) and balanced shadows (0 4px 6px -1px rgba(0,0,0,0.1)) for professional appearance</li>
+<li><strong>Dark Mode</strong>: Applied consistent dark theme styling (rgba(255,255,255,0.05) border, balanced shadows) matching other card components</li>
+<li><strong>Hover Effects</strong>: Implemented consistent hover elevation (translateY(-8px)) and shadow depth matching design system standards</li>
+<li><strong>Design Consistency</strong>: Now matches the visual approach of HomePrincipleCard, HomeStatisticCard, and HomeAction components</li>
+<li><strong>Visual Hierarchy</strong>: Maintains clear distinction from backgrounds while avoiding excessive prominence</li>
+<li><strong>Accessibility</strong>: Preserves WCAG 2.1 AA compliance with balanced contrast ratios appropriate for the design system</li>
+<li><strong>User Experience</strong>: Provides professional, cohesive appearance that doesn&#39;t overwhelm other content elements</li>
+<li><strong>Documentation</strong>: Updated JSDoc comments to reflect balanced styling approach</li>
+</ul>
+</li>
+</ul>
 <h3>2025-07-08 (Automated Audit Log Documentation System)</h3>
 <ul>
 <li>Implemented comprehensive automated audit log documentation system with HTML conversion and build integration.</li>
@@ -1368,31 +1575,6 @@
 </ul>
 </li>
 </ul>
-<h3>2025-01-10 (Comprehensive SEO Enhancement and Social Media Optimization)</h3>
-<p>Implemented comprehensive SEO improvements with focus on social media optimization for Facebook, Twitter/X, and LinkedIn sharing. Enhanced meta tag implementation, created structured data markup, and optimized social media images.</p>
-<p><strong>Files Modified/Created:</strong></p>
-<ul>
-<li><code>nuxt.config.ts</code>: Enhanced global SEO configuration with comprehensive meta tags, Open Graph properties, Twitter Card settings, and additional SEO directives</li>
-<li><code>pages/index.vue</code>: Upgraded homepage SEO with enhanced social media meta tags, canonical URLs, and structured data integration</li>
-<li><code>pages/[...slug].vue</code>: Enhanced dynamic page SEO with comprehensive Open Graph and Twitter Card support, canonical URL handling, and content-specific image optimization</li>
-<li><code>components/seo/StructuredData.vue</code>: Created new component for JSON-LD structured data markup supporting Organization, WebSite, Article, and Government Organization schemas</li>
-<li><code>public/images/og-image-default.jpg</code>: Created optimized Open Graph image (1200x630px) using Illinois seal with branded background</li>
-<li><code>public/images/twitter-card-default.jpg</code>: Created Twitter Card optimized image (1200x675px) for enhanced social media sharing</li>
-<li><code>scripts/test-seo.js</code>: Created comprehensive SEO validation script for automated testing of meta tags, images, sitemap, and structured data</li>
-</ul>
-<p><strong>Technical Notes:</strong></p>
-<ul>
-<li>Implemented dynamic social media image handling with content frontmatter image priority over fallback images</li>
-<li>Added comprehensive Open Graph meta tags: og:title, og:description, og:image, og:url, og:type, og:site_name, og:locale</li>
-<li>Enhanced Twitter Card implementation with twitter:card, twitter:title, twitter:description, twitter:image, twitter:site, twitter:creator</li>
-<li>Created structured data component supporting multiple schema types with automatic breadcrumb generation</li>
-<li>Optimized social media images meet platform requirements (Facebook: 1200x630px, Twitter: 1200x675px)</li>
-<li>Implemented canonical URL handling for duplicate content prevention</li>
-<li>Enhanced robots.txt and sitemap.xml integration for better search engine crawling</li>
-<li>Added automated SEO testing with validation for all critical SEO elements</li>
-<li>Maintained SSR compatibility for social media crawlers and search engines</li>
-<li>All implementations follow WCAG 2.1 AA accessibility standards</li>
-</ul>
 <h3>2025-06-10 (Theme Hydration Mismatch Fix and localStorage Persistence Resolution)</h3>
 <ul>
 <li>Fixed hydration mismatch error in console related to theme switching between server and client rendering, and resolved localStorage theme persistence issue by consolidating theme handling and fixing initialization timing.</li>
@@ -1985,6 +2167,31 @@
 <li><strong>User Experience</strong>: Creates clear visual hierarchy with focused emphasis on main plan title and primary action</li>
 </ul>
 </li>
+</ul>
+<h3>2025-06-08 (Comprehensive SEO Enhancement and Social Media Optimization)</h3>
+<p>Implemented comprehensive SEO improvements with focus on social media optimization for Facebook, Twitter/X, and LinkedIn sharing. Enhanced meta tag implementation, created structured data markup, and optimized social media images.</p>
+<p><strong>Files Modified/Created:</strong></p>
+<ul>
+<li><code>nuxt.config.ts</code>: Enhanced global SEO configuration with comprehensive meta tags, Open Graph properties, Twitter Card settings, and additional SEO directives</li>
+<li><code>pages/index.vue</code>: Upgraded homepage SEO with enhanced social media meta tags, canonical URLs, and structured data integration</li>
+<li><code>pages/[...slug].vue</code>: Enhanced dynamic page SEO with comprehensive Open Graph and Twitter Card support, canonical URL handling, and content-specific image optimization</li>
+<li><code>components/seo/StructuredData.vue</code>: Created new component for JSON-LD structured data markup supporting Organization, WebSite, Article, and Government Organization schemas</li>
+<li><code>public/images/og-image-default.jpg</code>: Created optimized Open Graph image (1200x630px) using Illinois seal with branded background</li>
+<li><code>public/images/twitter-card-default.jpg</code>: Created Twitter Card optimized image (1200x675px) for enhanced social media sharing</li>
+<li><code>scripts/test-seo.js</code>: Created comprehensive SEO validation script for automated testing of meta tags, images, sitemap, and structured data</li>
+</ul>
+<p><strong>Technical Notes:</strong></p>
+<ul>
+<li>Implemented dynamic social media image handling with content frontmatter image priority over fallback images</li>
+<li>Added comprehensive Open Graph meta tags: og:title, og:description, og:image, og:url, og:type, og:site_name, og:locale</li>
+<li>Enhanced Twitter Card implementation with twitter:card, twitter:title, twitter:description, twitter:image, twitter:site, twitter:creator</li>
+<li>Created structured data component supporting multiple schema types with automatic breadcrumb generation</li>
+<li>Optimized social media images meet platform requirements (Facebook: 1200x630px, Twitter: 1200x675px)</li>
+<li>Implemented canonical URL handling for duplicate content prevention</li>
+<li>Enhanced robots.txt and sitemap.xml integration for better search engine crawling</li>
+<li>Added automated SEO testing with validation for all critical SEO elements</li>
+<li>Maintained SSR compatibility for social media crawlers and search engines</li>
+<li>All implementations follow WCAG 2.1 AA accessibility standards</li>
 </ul>
 <h3>2025-06-07 (Comprehensive Accessibility Analysis and Audit)</h3>
 <ul>
@@ -4294,6 +4501,166 @@ tocLabel: &quot;Jump To&quot;
 </ul>
 <h2>Purpose and Scope</h2>
 <p><strong>Important Note</strong>: This audit log does not track git commits or version control history. Instead, it documents the actual iterative development process and working methodology used to create the website. The log serves as a detailed record of specific steps, decisions, and implementation approaches taken during development. The intended audience is future developers, project managers, or stakeholders who need to understand the development workflow and rationale behind implementation choices. Each entry captures the real-time development process, including iterations, refinements, and problem-solving approaches that occurred during the creation of this project.</p>
+<h3>2025-05-30 (PageTitleSection Date Display Enhancement - News Article Integration)</h3>
+<ul>
+<li><strong>Summary</strong>: Enhanced the PageTitleSection component with optional date display functionality for news articles and other time-sensitive content. Implemented configurable date display through frontmatter, updated all news content files, and integrated the feature across the catch-all route system for consistent date presentation.</li>
+<li><strong>Files Modified/Created</strong>:<ul>
+<li><code>components/content/PageTitleSection.vue</code>: Enhanced with date display functionality<ul>
+<li><strong>New Props</strong>: Added <code>showDate</code> (boolean, default: false) and <code>date</code> (string, optional) props with proper validation</li>
+<li><strong>Date Formatting</strong>: Implemented <code>formattedDate</code> computed property using <code>toLocaleDateString()</code> for Month DD, YYYY format</li>
+<li><strong>Visual Design</strong>: Added date chip component with calendar icon, positioned between title and description</li>
+<li><strong>Styling</strong>: Consistent with NewsCard date styling using primary color theme and subtle background</li>
+<li><strong>Animation</strong>: Integrated date section into existing staggered animation system with 0.3s delay</li>
+<li><strong>Accessibility</strong>: Used semantic <code>&lt;time&gt;</code> element with proper <code>datetime</code> attribute for screen readers</li>
+<li><strong>Theme Support</strong>: Full light/dark theme compatibility with proper contrast ratios</li>
+<li><strong>Responsive Design</strong>: Maintains proper spacing and layout across all screen sizes</li>
+<li><strong>Print Support</strong>: Added print-specific styling for date chip with appropriate colors</li>
+<li><strong>Reduced Motion</strong>: Included date section in reduced motion accessibility support</li>
+<li><strong>JSDoc Documentation</strong>: Updated component documentation with new props and usage examples</li>
+</ul>
+</li>
+<li><code>content/news/community-violence-prevention-grant-2024.md</code>: Added <code>showDate: true</code> to frontmatter</li>
+<li><code>content/news/data-sharing-initiative-launch.md</code>: Added <code>showDate: true</code> to frontmatter</li>
+<li><code>content/news/hospital-violence-intervention-expansion.md</code>: Added <code>showDate: true</code> to frontmatter</li>
+<li><code>content/news/rural-violence-prevention-network.md</code>: Added <code>showDate: true</code> to frontmatter</li>
+<li><code>content/news/youth-violence-prevention-summit-2024.md</code>: Added <code>showDate: true</code> to frontmatter</li>
+<li><code>pages/[...slug].vue</code>: Updated PageTitleSection integration to support date display<ul>
+<li><strong>Date Props</strong>: Added <code>:show-date=&quot;content.showDate || false&quot;</code> and <code>:date=&quot;content.date&quot;</code> to PageTitleSection call</li>
+<li><strong>Backward Compatibility</strong>: Maintains existing functionality for content without date configuration</li>
+<li><strong>Automatic Integration</strong>: News articles now automatically display dates when viewed individually</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Technical Implementation</strong>:<ul>
+<li><strong>Date Validation</strong>: Implemented comprehensive prop validation for YYYY-MM-DD format with actual date verification</li>
+<li><strong>Error Handling</strong>: Graceful fallback to original date string if formatting fails, with console warning</li>
+<li><strong>Consistent Formatting</strong>: Matches existing NewsCard date format for visual consistency across the site</li>
+<li><strong>Component Architecture</strong>: Maintains backward compatibility - existing pages continue working unchanged</li>
+<li><strong>Performance</strong>: Minimal impact with computed properties and efficient date formatting</li>
+<li><strong>Accessibility Standards</strong>:<ul>
+<li>✅ <strong>Semantic HTML</strong>: Uses <code>&lt;time&gt;</code> element with proper <code>datetime</code> attribute</li>
+<li>✅ <strong>ARIA Support</strong>: Calendar icon marked with <code>aria-hidden=&quot;true&quot;</code> to avoid redundant announcements</li>
+<li>✅ <strong>Screen Reader</strong>: Date text properly announced with formatted date string</li>
+<li>✅ <strong>Keyboard Navigation</strong>: Date chip respects existing focus management system</li>
+<li>✅ <strong>Color Contrast</strong>: Meets WCAG 2.1 AA standards in both light and dark themes</li>
+<li>✅ <strong>Reduced Motion</strong>: Included in accessibility motion preferences support</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Visual Design Features</strong>:<ul>
+<li><strong>Date Chip Design</strong>: Inline-flex layout with calendar icon and formatted date text</li>
+<li><strong>Color Scheme</strong>: Primary theme color with 10% opacity background and 20% opacity border</li>
+<li><strong>Typography</strong>: 0.875rem font size with medium weight (500) for optimal readability</li>
+<li><strong>Spacing</strong>: 0.5rem gap between icon and text, 0.5rem vertical padding, 1rem horizontal padding</li>
+<li><strong>Border Radius</strong>: 1rem for modern, pill-shaped appearance matching site design language</li>
+<li><strong>Icon Integration</strong>: mdi-calendar icon with small size and 80% opacity for subtle visual hierarchy</li>
+<li><strong>Positioning</strong>: Strategically placed between title and description for logical content flow</li>
+<li><strong>Animation Timing</strong>: 0.3s delay in staggered animation sequence (title → date → description)</li>
+</ul>
+</li>
+<li><strong>Content Management Benefits</strong>:<ul>
+<li><strong>Frontmatter Control</strong>: Simple <code>showDate: true</code> flag enables date display per content item</li>
+<li><strong>Flexible Configuration</strong>: Can be enabled/disabled independently for different content types</li>
+<li><strong>Consistent Formatting</strong>: Automatic date formatting ensures uniform presentation across all pages</li>
+<li><strong>Future-Proof</strong>: Ready for additional content types that may need date display (events, announcements, etc.)</li>
+<li><strong>Editorial Workflow</strong>: Clear content authoring pattern for enabling date display on time-sensitive content</li>
+</ul>
+</li>
+<li><strong>Integration Across Site</strong>:<ul>
+<li><strong>News Articles</strong>: All five news articles now display publication dates when viewed individually</li>
+<li><strong>Catch-All Routes</strong>: Any markdown content with <code>showDate: true</code> and <code>date</code> field will display dates</li>
+<li><strong>Backward Compatibility</strong>: Existing content without date configuration continues working unchanged</li>
+<li><strong>Theme Consistency</strong>: Date display matches existing site color palette and design patterns</li>
+<li><strong>Responsive Behavior</strong>: Maintains proper layout and readability across all device sizes</li>
+</ul>
+</li>
+<li><strong>User Experience Improvements</strong>:<ul>
+<li><strong>Information Hierarchy</strong>: Clear visual indication of content publication dates for time-sensitive information</li>
+<li><strong>Professional Appearance</strong>: Consistent date presentation enhances site credibility and organization</li>
+<li><strong>Content Discovery</strong>: Users can quickly identify when content was published for relevance assessment</li>
+<li><strong>Visual Consistency</strong>: Unified date styling across news cards and individual article pages</li>
+<li><strong>Accessibility</strong>: Screen reader users receive proper date information through semantic markup</li>
+</ul>
+</li>
+</ul>
+<h3>2025-05-30 (About Page Layout Standardization - PageTitleSection Implementation)</h3>
+<ul>
+<li><strong>Summary</strong>: Fixed the about page layout structure to match other content pages by implementing the standardized PageTitleSection component with proper background styling, content rendering, and consistent visual hierarchy. Resolved layout inconsistencies and ensured WCAG 2.1 AA compliance across all non-homepage pages.</li>
+<li><strong>Files Modified</strong>:<ul>
+<li><code>components/content/PageTitleSection.vue</code>: Enhanced background styling for consistency<ul>
+<li><strong>Background Implementation</strong>: Added <code>#FAFAFA</code> background to match project&#39;s soft light theme approach</li>
+<li><strong>Dark Theme Support</strong>: Added proper dark theme background override using <code>rgb(var(--v-theme-surface))</code></li>
+<li><strong>Visual Consistency</strong>: Ensures all pages using PageTitleSection have consistent background treatment</li>
+<li><strong>Eye Strain Reduction</strong>: Maintains project&#39;s preference for soft, off-white backgrounds over pure white</li>
+</ul>
+</li>
+<li><code>pages/about.vue</code>: Simplified and standardized content rendering approach<ul>
+<li><strong>Content Rendering</strong>: Replaced complex <code>contentWithoutHero</code> filtering with simple <code>hide-first-heading</code> approach</li>
+<li><strong>Template Simplification</strong>: Removed unnecessary content filtering logic that wasn&#39;t needed for about.md</li>
+<li><strong>Component Integration</strong>: Uses direct <code>ContentRenderer</code> with <code>content</code> value for cleaner implementation</li>
+<li><strong>CSS Enhancement</strong>: Added comprehensive content renderer styling matching catch-all page patterns</li>
+<li><strong>Code Cleanup</strong>: Removed unused <code>contentWithoutHero</code> computed property and related filtering logic</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Technical Implementation</strong>:<ul>
+<li><strong>Consistent Pattern</strong>: About page now follows same pattern as <code>pages/[...slug].vue</code> for content rendering</li>
+<li><strong>Content Styling</strong>: Added complete content renderer CSS with proper heading hierarchy and typography<ul>
+<li><strong>Heading Styles</strong>: H1 (1.8rem), H2 (1.5rem), H3 (1.25rem) with proper spacing and line heights</li>
+<li><strong>Typography</strong>: Consistent paragraph spacing (1rem bottom margin) and line height (1.6)</li>
+<li><strong>List Styling</strong>: Proper indentation (1.5rem) and spacing for ul/ol elements</li>
+<li><strong>Link Styling</strong>: Primary color links with proper focus states and accessibility</li>
+<li><strong>Blockquote Styling</strong>: Left border accent with proper padding and italic styling</li>
+</ul>
+</li>
+<li><strong>Hide First Heading</strong>: Implements <code>hide-first-heading</code> class to prevent duplicate titles when using PageTitleSection</li>
+<li><strong>Theme Compatibility</strong>: All styling works seamlessly in both light and dark themes</li>
+<li><strong>Responsive Design</strong>: Maintains proper responsive behavior across all screen sizes</li>
+</ul>
+</li>
+<li><strong>Layout Structure Standardization</strong>:<ul>
+<li><strong>PageTitleSection</strong>: 5rem infographic typography with show-border=true and #FAFAFA background</li>
+<li><strong>Content Spacing</strong>: 4.5rem content padding matching news page and other standardized pages</li>
+<li><strong>Container System</strong>: Consistent max-width (1200px) and responsive padding (1.5rem/1rem)</li>
+<li><strong>Visual Hierarchy</strong>: Proper separation between title section and content with subtle border</li>
+<li><strong>Background Pattern</strong>: Soft light theme background (#FAFAFA) for reduced eye strain</li>
+</ul>
+</li>
+<li><strong>Accessibility Compliance</strong>:<ul>
+<li>✅ <strong>WCAG 2.1 AA Standards</strong>: All typography and color combinations meet contrast requirements</li>
+<li>✅ <strong>Semantic Structure</strong>: Proper heading hierarchy with H1 in PageTitleSection, H2+ in content</li>
+<li>✅ <strong>Focus Management</strong>: Proper focus styles for all interactive elements</li>
+<li>✅ <strong>Screen Reader Support</strong>: Semantic HTML structure with proper landmark regions</li>
+<li>✅ <strong>Keyboard Navigation</strong>: Full keyboard accessibility for all interactive elements</li>
+<li>✅ <strong>Reduced Motion</strong>: Animation support with proper reduced motion handling</li>
+</ul>
+</li>
+<li><strong>Visual Consistency Benefits</strong>:<ul>
+<li><strong>Unified Design</strong>: About page now matches visual hierarchy of news, search, and other content pages</li>
+<li><strong>Professional Appearance</strong>: Consistent infographic-style typography across all internal pages</li>
+<li><strong>Content Organization</strong>: Clear separation between page title and content sections</li>
+<li><strong>Theme Integration</strong>: Seamless light/dark theme compatibility with proper contrast ratios</li>
+<li><strong>User Experience</strong>: Familiar layout pattern reduces cognitive load for users navigating between pages</li>
+</ul>
+</li>
+<li><strong>Content Management</strong>:<ul>
+<li><strong>Markdown Compatibility</strong>: Full support for existing about.md content without modifications</li>
+<li><strong>Component Integration</strong>: Ready for future MDC component integration within content</li>
+<li><strong>Frontmatter Support</strong>: Proper extraction of title and description from content frontmatter</li>
+<li><strong>SEO Optimization</strong>: Maintains existing SEO metadata and structured data</li>
+</ul>
+</li>
+<li><strong>Future Benefits</strong>:<ul>
+<li>Establishes consistent pattern for all content pages using PageTitleSection</li>
+<li>Provides template for content renderer styling across the application</li>
+<li>Ensures scalable approach for additional content pages</li>
+<li>Maintains design system consistency and professional appearance site-wide</li>
+</ul>
+</li>
+</ul>
 <h3>2025-05-29 (Guiding Principles Cards - Learn More Buttons Implementation)</h3>
 <ul>
 <li>Added &quot;Learn More&quot; buttons to the Guiding Principles cards on the homepage (HomePrincipleCard component) with bottom-aligned positioning and consistent styling that matches the project&#39;s design system patterns.</li>
@@ -5667,166 +6034,6 @@ tocLabel: &quot;Jump To&quot;
 </li>
 </ul>
 <h2>Audit Log Entries</h2>
-<h3>2025-05-30 (PageTitleSection Date Display Enhancement - News Article Integration)</h3>
-<ul>
-<li><strong>Summary</strong>: Enhanced the PageTitleSection component with optional date display functionality for news articles and other time-sensitive content. Implemented configurable date display through frontmatter, updated all news content files, and integrated the feature across the catch-all route system for consistent date presentation.</li>
-<li><strong>Files Modified/Created</strong>:<ul>
-<li><code>components/content/PageTitleSection.vue</code>: Enhanced with date display functionality<ul>
-<li><strong>New Props</strong>: Added <code>showDate</code> (boolean, default: false) and <code>date</code> (string, optional) props with proper validation</li>
-<li><strong>Date Formatting</strong>: Implemented <code>formattedDate</code> computed property using <code>toLocaleDateString()</code> for Month DD, YYYY format</li>
-<li><strong>Visual Design</strong>: Added date chip component with calendar icon, positioned between title and description</li>
-<li><strong>Styling</strong>: Consistent with NewsCard date styling using primary color theme and subtle background</li>
-<li><strong>Animation</strong>: Integrated date section into existing staggered animation system with 0.3s delay</li>
-<li><strong>Accessibility</strong>: Used semantic <code>&lt;time&gt;</code> element with proper <code>datetime</code> attribute for screen readers</li>
-<li><strong>Theme Support</strong>: Full light/dark theme compatibility with proper contrast ratios</li>
-<li><strong>Responsive Design</strong>: Maintains proper spacing and layout across all screen sizes</li>
-<li><strong>Print Support</strong>: Added print-specific styling for date chip with appropriate colors</li>
-<li><strong>Reduced Motion</strong>: Included date section in reduced motion accessibility support</li>
-<li><strong>JSDoc Documentation</strong>: Updated component documentation with new props and usage examples</li>
-</ul>
-</li>
-<li><code>content/news/community-violence-prevention-grant-2024.md</code>: Added <code>showDate: true</code> to frontmatter</li>
-<li><code>content/news/data-sharing-initiative-launch.md</code>: Added <code>showDate: true</code> to frontmatter</li>
-<li><code>content/news/hospital-violence-intervention-expansion.md</code>: Added <code>showDate: true</code> to frontmatter</li>
-<li><code>content/news/rural-violence-prevention-network.md</code>: Added <code>showDate: true</code> to frontmatter</li>
-<li><code>content/news/youth-violence-prevention-summit-2024.md</code>: Added <code>showDate: true</code> to frontmatter</li>
-<li><code>pages/[...slug].vue</code>: Updated PageTitleSection integration to support date display<ul>
-<li><strong>Date Props</strong>: Added <code>:show-date=&quot;content.showDate || false&quot;</code> and <code>:date=&quot;content.date&quot;</code> to PageTitleSection call</li>
-<li><strong>Backward Compatibility</strong>: Maintains existing functionality for content without date configuration</li>
-<li><strong>Automatic Integration</strong>: News articles now automatically display dates when viewed individually</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Technical Implementation</strong>:<ul>
-<li><strong>Date Validation</strong>: Implemented comprehensive prop validation for YYYY-MM-DD format with actual date verification</li>
-<li><strong>Error Handling</strong>: Graceful fallback to original date string if formatting fails, with console warning</li>
-<li><strong>Consistent Formatting</strong>: Matches existing NewsCard date format for visual consistency across the site</li>
-<li><strong>Component Architecture</strong>: Maintains backward compatibility - existing pages continue working unchanged</li>
-<li><strong>Performance</strong>: Minimal impact with computed properties and efficient date formatting</li>
-<li><strong>Accessibility Standards</strong>:<ul>
-<li>✅ <strong>Semantic HTML</strong>: Uses <code>&lt;time&gt;</code> element with proper <code>datetime</code> attribute</li>
-<li>✅ <strong>ARIA Support</strong>: Calendar icon marked with <code>aria-hidden=&quot;true&quot;</code> to avoid redundant announcements</li>
-<li>✅ <strong>Screen Reader</strong>: Date text properly announced with formatted date string</li>
-<li>✅ <strong>Keyboard Navigation</strong>: Date chip respects existing focus management system</li>
-<li>✅ <strong>Color Contrast</strong>: Meets WCAG 2.1 AA standards in both light and dark themes</li>
-<li>✅ <strong>Reduced Motion</strong>: Included in accessibility motion preferences support</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Visual Design Features</strong>:<ul>
-<li><strong>Date Chip Design</strong>: Inline-flex layout with calendar icon and formatted date text</li>
-<li><strong>Color Scheme</strong>: Primary theme color with 10% opacity background and 20% opacity border</li>
-<li><strong>Typography</strong>: 0.875rem font size with medium weight (500) for optimal readability</li>
-<li><strong>Spacing</strong>: 0.5rem gap between icon and text, 0.5rem vertical padding, 1rem horizontal padding</li>
-<li><strong>Border Radius</strong>: 1rem for modern, pill-shaped appearance matching site design language</li>
-<li><strong>Icon Integration</strong>: mdi-calendar icon with small size and 80% opacity for subtle visual hierarchy</li>
-<li><strong>Positioning</strong>: Strategically placed between title and description for logical content flow</li>
-<li><strong>Animation Timing</strong>: 0.3s delay in staggered animation sequence (title → date → description)</li>
-</ul>
-</li>
-<li><strong>Content Management Benefits</strong>:<ul>
-<li><strong>Frontmatter Control</strong>: Simple <code>showDate: true</code> flag enables date display per content item</li>
-<li><strong>Flexible Configuration</strong>: Can be enabled/disabled independently for different content types</li>
-<li><strong>Consistent Formatting</strong>: Automatic date formatting ensures uniform presentation across all pages</li>
-<li><strong>Future-Proof</strong>: Ready for additional content types that may need date display (events, announcements, etc.)</li>
-<li><strong>Editorial Workflow</strong>: Clear content authoring pattern for enabling date display on time-sensitive content</li>
-</ul>
-</li>
-<li><strong>Integration Across Site</strong>:<ul>
-<li><strong>News Articles</strong>: All five news articles now display publication dates when viewed individually</li>
-<li><strong>Catch-All Routes</strong>: Any markdown content with <code>showDate: true</code> and <code>date</code> field will display dates</li>
-<li><strong>Backward Compatibility</strong>: Existing content without date configuration continues working unchanged</li>
-<li><strong>Theme Consistency</strong>: Date display matches existing site color palette and design patterns</li>
-<li><strong>Responsive Behavior</strong>: Maintains proper layout and readability across all device sizes</li>
-</ul>
-</li>
-<li><strong>User Experience Improvements</strong>:<ul>
-<li><strong>Information Hierarchy</strong>: Clear visual indication of content publication dates for time-sensitive information</li>
-<li><strong>Professional Appearance</strong>: Consistent date presentation enhances site credibility and organization</li>
-<li><strong>Content Discovery</strong>: Users can quickly identify when content was published for relevance assessment</li>
-<li><strong>Visual Consistency</strong>: Unified date styling across news cards and individual article pages</li>
-<li><strong>Accessibility</strong>: Screen reader users receive proper date information through semantic markup</li>
-</ul>
-</li>
-</ul>
-<h3>2025-05-30 (About Page Layout Standardization - PageTitleSection Implementation)</h3>
-<ul>
-<li><strong>Summary</strong>: Fixed the about page layout structure to match other content pages by implementing the standardized PageTitleSection component with proper background styling, content rendering, and consistent visual hierarchy. Resolved layout inconsistencies and ensured WCAG 2.1 AA compliance across all non-homepage pages.</li>
-<li><strong>Files Modified</strong>:<ul>
-<li><code>components/content/PageTitleSection.vue</code>: Enhanced background styling for consistency<ul>
-<li><strong>Background Implementation</strong>: Added <code>#FAFAFA</code> background to match project&#39;s soft light theme approach</li>
-<li><strong>Dark Theme Support</strong>: Added proper dark theme background override using <code>rgb(var(--v-theme-surface))</code></li>
-<li><strong>Visual Consistency</strong>: Ensures all pages using PageTitleSection have consistent background treatment</li>
-<li><strong>Eye Strain Reduction</strong>: Maintains project&#39;s preference for soft, off-white backgrounds over pure white</li>
-</ul>
-</li>
-<li><code>pages/about.vue</code>: Simplified and standardized content rendering approach<ul>
-<li><strong>Content Rendering</strong>: Replaced complex <code>contentWithoutHero</code> filtering with simple <code>hide-first-heading</code> approach</li>
-<li><strong>Template Simplification</strong>: Removed unnecessary content filtering logic that wasn&#39;t needed for about.md</li>
-<li><strong>Component Integration</strong>: Uses direct <code>ContentRenderer</code> with <code>content</code> value for cleaner implementation</li>
-<li><strong>CSS Enhancement</strong>: Added comprehensive content renderer styling matching catch-all page patterns</li>
-<li><strong>Code Cleanup</strong>: Removed unused <code>contentWithoutHero</code> computed property and related filtering logic</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Technical Implementation</strong>:<ul>
-<li><strong>Consistent Pattern</strong>: About page now follows same pattern as <code>pages/[...slug].vue</code> for content rendering</li>
-<li><strong>Content Styling</strong>: Added complete content renderer CSS with proper heading hierarchy and typography<ul>
-<li><strong>Heading Styles</strong>: H1 (1.8rem), H2 (1.5rem), H3 (1.25rem) with proper spacing and line heights</li>
-<li><strong>Typography</strong>: Consistent paragraph spacing (1rem bottom margin) and line height (1.6)</li>
-<li><strong>List Styling</strong>: Proper indentation (1.5rem) and spacing for ul/ol elements</li>
-<li><strong>Link Styling</strong>: Primary color links with proper focus states and accessibility</li>
-<li><strong>Blockquote Styling</strong>: Left border accent with proper padding and italic styling</li>
-</ul>
-</li>
-<li><strong>Hide First Heading</strong>: Implements <code>hide-first-heading</code> class to prevent duplicate titles when using PageTitleSection</li>
-<li><strong>Theme Compatibility</strong>: All styling works seamlessly in both light and dark themes</li>
-<li><strong>Responsive Design</strong>: Maintains proper responsive behavior across all screen sizes</li>
-</ul>
-</li>
-<li><strong>Layout Structure Standardization</strong>:<ul>
-<li><strong>PageTitleSection</strong>: 5rem infographic typography with show-border=true and #FAFAFA background</li>
-<li><strong>Content Spacing</strong>: 4.5rem content padding matching news page and other standardized pages</li>
-<li><strong>Container System</strong>: Consistent max-width (1200px) and responsive padding (1.5rem/1rem)</li>
-<li><strong>Visual Hierarchy</strong>: Proper separation between title section and content with subtle border</li>
-<li><strong>Background Pattern</strong>: Soft light theme background (#FAFAFA) for reduced eye strain</li>
-</ul>
-</li>
-<li><strong>Accessibility Compliance</strong>:<ul>
-<li>✅ <strong>WCAG 2.1 AA Standards</strong>: All typography and color combinations meet contrast requirements</li>
-<li>✅ <strong>Semantic Structure</strong>: Proper heading hierarchy with H1 in PageTitleSection, H2+ in content</li>
-<li>✅ <strong>Focus Management</strong>: Proper focus styles for all interactive elements</li>
-<li>✅ <strong>Screen Reader Support</strong>: Semantic HTML structure with proper landmark regions</li>
-<li>✅ <strong>Keyboard Navigation</strong>: Full keyboard accessibility for all interactive elements</li>
-<li>✅ <strong>Reduced Motion</strong>: Animation support with proper reduced motion handling</li>
-</ul>
-</li>
-<li><strong>Visual Consistency Benefits</strong>:<ul>
-<li><strong>Unified Design</strong>: About page now matches visual hierarchy of news, search, and other content pages</li>
-<li><strong>Professional Appearance</strong>: Consistent infographic-style typography across all internal pages</li>
-<li><strong>Content Organization</strong>: Clear separation between page title and content sections</li>
-<li><strong>Theme Integration</strong>: Seamless light/dark theme compatibility with proper contrast ratios</li>
-<li><strong>User Experience</strong>: Familiar layout pattern reduces cognitive load for users navigating between pages</li>
-</ul>
-</li>
-<li><strong>Content Management</strong>:<ul>
-<li><strong>Markdown Compatibility</strong>: Full support for existing about.md content without modifications</li>
-<li><strong>Component Integration</strong>: Ready for future MDC component integration within content</li>
-<li><strong>Frontmatter Support</strong>: Proper extraction of title and description from content frontmatter</li>
-<li><strong>SEO Optimization</strong>: Maintains existing SEO metadata and structured data</li>
-</ul>
-</li>
-<li><strong>Future Benefits</strong>:<ul>
-<li>Establishes consistent pattern for all content pages using PageTitleSection</li>
-<li>Provides template for content renderer styling across the application</li>
-<li>Ensures scalable approach for additional content pages</li>
-<li>Maintains design system consistency and professional appearance site-wide</li>
-</ul>
-</li>
-</ul>
 <h3>2025-05-28 (Homepage Alternating Background Pattern - Complete Implementation)</h3>
 <ul>
 <li><strong>Summary</strong>: Implemented comprehensive alternating background color pattern for ALL homepage sections to create visual separation and bounded feeling between sections. Fixed the sequence to ensure proper Primary → Secondary → Primary → Secondary alternation throughout the entire homepage flow.</li>
@@ -10962,69 +11169,44 @@ tocLabel: &quot;Jump To&quot;
 </li>
 </ul>
 
-            </div>
-        </main>
-
-      <footer class="footer">
-        <p><strong>Violence Prevention Plan for Illinois: 2025-2029</strong></p>
-        <p>Illinois Criminal Justice Information Authority</p>
-        <p>60 E Van Buren St, Chicago, IL 60605</p>
-        <p>Documentation generated on July 08, 2025</p>
-        <p>
-          <a
-            href="https://github.com/ICJIA/icjia-vpp-2025"
-            target="_blank"
-            rel="noopener noreferrer"
-            >View on GitHub</a
-          >
-        </p>
-      </footer>
+      </div>
     </div>
 
+    <!-- Prism.js for Syntax Highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
+    <!-- Theme Toggle Functionality -->
     <script>
-      // Theme Management
-      function getPreferredTheme() {
-        const stored = localStorage.getItem("audit-log-theme");
-        if (stored) return stored;
+      function toggleTheme() {
+        const body = document.body;
+        const themeText = document.getElementById('theme-text');
+        const currentTheme = body.getAttribute('data-theme');
 
-        // Default to dark mode as per project preferences
-        return "dark";
-      }
-
-      function setTheme(theme) {
-        document.body.setAttribute("data-theme", theme);
-        localStorage.setItem("audit-log-theme", theme);
-
-        const themeText = document.getElementById("theme-text");
-        if (themeText) {
-          themeText.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
+        if (currentTheme === 'dark') {
+          body.setAttribute('data-theme', 'light');
+          themeText.textContent = 'Dark Mode';
+          localStorage.setItem('audit-log-theme', 'light');
+        } else {
+          body.setAttribute('data-theme', 'dark');
+          themeText.textContent = 'Light Mode';
+          localStorage.setItem('audit-log-theme', 'dark');
         }
       }
 
-      function toggleTheme() {
-        const current = document.body.getAttribute("data-theme");
-        const newTheme = current === "dark" ? "light" : "dark";
-        setTheme(newTheme);
-      }
+      // Initialize theme from localStorage or default to dark
+      document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('audit-log-theme') || 'dark';
+        const body = document.body;
+        const themeText = document.getElementById('theme-text');
 
-      // Initialize theme on page load
-      document.addEventListener("DOMContentLoaded", function () {
-        setTheme(getPreferredTheme());
-      });
+        // Always ensure we start with the saved theme or default to dark
+        body.setAttribute('data-theme', savedTheme);
+        themeText.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
 
-      // Keyboard navigation support
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") {
-          if (
-            e.target.classList.contains("nav-links") &&
-            e.target.tagName === "A"
-          ) {
-            e.preventDefault();
-            e.target.click();
-          }
+        // If no saved theme exists, explicitly save dark as default
+        if (!localStorage.getItem('audit-log-theme')) {
+          localStorage.setItem('audit-log-theme', 'dark');
         }
       });
     </script>

@@ -50,6 +50,9 @@ yarn sync:accessibility-audit
 
 # Generate documentation
 yarn create:docs
+
+# Generate references
+yarn create:references
 ```
 
 ### Verbose/Quiet Build Options
@@ -61,6 +64,32 @@ yarn build:verbose
 yarn build:quiet
 yarn generate:verbose
 yarn generate:quiet
+```
+
+### Utility Commands
+```bash
+# Clean build artifacts and cache
+yarn clean
+
+# Clean data files and config
+yarn clean:data
+
+# Clean and fresh development start
+yarn dev:clean
+
+# Debug tools
+yarn debug:search    # Debug search index generation
+yarn debug:config    # Debug site configuration
+yarn dev:tools       # Run both debug commands
+
+# Development server with serve after generation
+yarn generate:serve
+
+# Rebuild SQLite dependencies (if needed)
+yarn rebuild-sqlite
+
+# Check Sass implementation
+yarn check-sass
 ```
 
 ## Project Architecture
@@ -127,6 +156,23 @@ content/              # Markdown content files
 - `useConsoleLogger()`: Development logging system
 - `useAnnouncer()`: Screen reader announcements for accessibility
 
+### VueUse Integration
+- Leverage VueUse composables (already installed) whenever possible instead of writing custom solutions
+- Always check VueUse documentation (https://vueuse.org/) before implementing common UI/UX patterns
+- Prefer VueUse solutions for consistent code style, reduced boilerplate, and tested implementations
+- Use core VueUse composables for common needs:
+  - `useLocalStorage`/`useSessionStorage` for persistent state
+  - `useDark`/`usePreferredDark` for theme management
+  - `useMediaQuery` for responsive design logic
+  - `useScroll`/`useIntersectionObserver` for scroll-based interactions
+  - `useFetch`/`useAxios` for data fetching (alongside Nuxt's built-in fetching)
+  - `useEventListener` for DOM event handling
+  - `useTimeoutFn`/`useIntervalFn` for timing operations
+- Document any custom implementations that could be replaced by VueUse in future refactoring
+- Combine VueUse composables with Vuetify components for optimal developer experience
+- Consider VueUse's ecosystem packages for specialized needs (e.g., `@vueuse/motion`, `@vueuse/sound`)
+- **Important**: When using with Nuxt 3, some VueUse functions will NOT be auto-imported in favor of Nitro's built-in alternatives. For example, `useStorage()` from VueUse requires explicit import to avoid conflict with Nitro's built-in `useStorage()`. Always check for potential naming conflicts with Nuxt/Nitro built-ins.
+
 ### Search System
 - Uses Fuse.js for fuzzy search functionality
 - Search index automatically generated from all content
@@ -134,12 +180,25 @@ content/              # Markdown content files
 - Debug search interface available at `/debug-search.html`
 
 ### Accessibility Features
-- WCAG 2.1 AA compliant
+- **CRITICAL**: All new UI/UX updates MUST follow WCAG 2.1 AA compliance standards without exception
+- **CRITICAL**: Ensure all accessibility follows the guidelines for Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards: https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html
+- Target WCAG 2.1 AA compliance as the primary goal, with some AAA features implemented where feasible
+- Maintain color contrast ratios of at least 4.5:1 for all UI elements (AA requirement), with 8:1 preferred where possible
 - Skip links for keyboard navigation
 - Screen reader announcements via `useAnnouncer()`
 - High contrast themes (8:1 color ratios)
 - 44px minimum touch targets
 - Reduced motion support
+- Proper keyboard navigation for all interactive elements
+- ARIA labels for all interactive elements without visible text
+- Focus states for all interactive elements that match hover states
+- Test with screen readers before submitting any UI changes
+- Semantic HTML elements
+- Associated labels for all form elements
+- Text alternatives for non-text content
+- Proper heading hierarchy and landmark regions
+- Document accessibility features in code comments
+- All accessibility features must be documented in the audit log
 
 ### Content Management
 - Markdown files in `/content/` with frontmatter
@@ -152,6 +211,50 @@ content/              # Markdown content files
 - Tests located in `/tests/` directory
 - Component tests, composable tests, and plugin tests
 - Coverage reporting with v8 provider
+
+## Code Style & Naming Conventions
+
+### Core Principles
+- Write concise, technical JavaScript code (not TypeScript)
+- Use Vue 3 Composition API with `<script setup>` syntax
+- Follow mobile-first responsive design with Vuetify 3
+- Maintain the Nuxt Content 3 directory structure (/content inside /components)
+
+### Structure & Naming
+- **Files**: Structure as exported component → composables → helpers → static content
+- **Directories**: lowercase-with-dashes (e.g., `components/auth-wizard`)
+- **Components**: PascalCase (e.g., `AuthWizard.vue`)
+- **Composables**: camelCase (e.g., `useAuthState.js`)
+- **Variables**: Descriptive with auxiliary verbs (e.g., `isLoading`, `hasError`)
+
+### Vue & Nuxt Best Practices
+- Use Composition API patterns: `ref`, `reactive`, `computed`, `watch`, `provide/inject`
+- Leverage Nuxt 3 auto-imports for components and composables
+- Use `useFetch`/`useAsyncData` for data fetching
+- Implement SEO with `useHead` and `useSeoMeta`
+- Handle SSR limitations (e.g., localStorage unavailable during SSR)
+- Use Suspense for async components and lazy loading for routes
+
+## Audit Log Requirements
+
+### Purpose
+- Maintain chronological records of all significant changes in `audit-log-project.md` and `audit-log-accessibility.md`
+- Use current Chicago date with command: `TZ='America/Chicago' date +"%Y-%m-%d"`
+
+### Required Format
+Each entry must include:
+1. **Date and Title**: YYYY-MM-DD format with descriptive title
+2. **Summary**: 1-2 sentence overview of what changed and why
+3. **Files Modified/Created**: List with specific changes to each file
+4. **Technical Notes**: Implementation details helpful for developers
+
+### Guidelines
+- Entries in reverse chronological order (newest at top)
+- Be specific about changes and rationale
+- Include ALL significant changes
+- Generate dates based on current date when creating entries
+- Focus on information helpful for new developers
+- Update audit log after each change
 
 ## Common Development Tasks
 
