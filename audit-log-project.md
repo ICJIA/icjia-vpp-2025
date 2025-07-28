@@ -60,6 +60,21 @@ Fixed Netlify build failure caused by missing `marked` package dependency in pro
 - Moving to dependencies ensures the package is available during Netlify builds
 - No functional changes to the application, only dependency organization
 
+## 2025-07-28 (Content Security Policy Google Fonts Fix)
+
+Fixed Content Security Policy blocking Google Fonts on documentation pages.
+
+### Files Modified:
+
+- `netlify.toml`: Updated CSP to allow Google Fonts domains
+
+### Technical Notes:
+
+- Added `https://fonts.googleapis.com` to style-src directive for CSS loading
+- Added `https://fonts.gstatic.com` to font-src directive for font file loading
+- Resolves CSP violations: "Refused to load the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'"
+- Maintains security while allowing legitimate Google Fonts usage in documentation
+
 ### 2025-07-28 (Project Audit Log Documentation Card Implementation)
 
 - Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.
