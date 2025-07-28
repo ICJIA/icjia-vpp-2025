@@ -120,7 +120,7 @@ Fixed Content Security Policy blocking data URI fonts (base64 encoded fonts) use
 ### Technical Notes:
 
 - Added `data:` to font-src directive to allow base64 encoded fonts
-- Resolves CSP violation: "Refused to load the font 'data:font/woff2;base64,d09GMgABAAAAAA5UABIAAAAAGxAAAA3xAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhQbHhw0BmA/U1RBVFYAXgiBfgmfBhEMCoJ4gn4LFAABNgIkAyQEIAWFNAcgDIVOG8cZswMxbBzAo/POJ..."
+- Resolves CSP violation: "Refused to load the font 'data:font/woff2;base64,d09GMgABAAAAAA5U...' [base64 string truncated]"
 - Data URI fonts are commonly used by UI frameworks like Vuetify for icon fonts and embedded typography
 - Maintains security by only allowing specific data URI scheme for fonts
 
