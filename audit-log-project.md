@@ -75,6 +75,21 @@ Fixed Content Security Policy blocking Google Fonts on documentation pages.
 - Resolves CSP violations: "Refused to load the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'"
 - Maintains security while allowing legitimate Google Fonts usage in documentation
 
+## 2025-07-28 (Content Security Policy Data URI Fonts Fix)
+
+Fixed Content Security Policy blocking data URI fonts (base64 encoded fonts) used by Vuetify components.
+
+### Files Modified:
+
+- `netlify.toml`: Updated CSP font-src directive to allow data URI fonts
+
+### Technical Notes:
+
+- Added `data:` to font-src directive to allow base64 encoded fonts
+- Resolves CSP violation: "Refused to load the font 'data:font/woff2;base64,d09GMgABAAAAAA5UABIAAAAAGxAAAA3xAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhQbHhw0BmA/U1RBVFYAXgiBfgmfBhEMCoJ4gn4LFAABNgIkAyQEIAWFNAcgDIVOG8cZswMxbBzAo/POJ..."
+- Data URI fonts are commonly used by UI frameworks like Vuetify for icon fonts and embedded typography
+- Maintains security by only allowing specific data URI scheme for fonts
+
 ### 2025-07-28 (Project Audit Log Documentation Card Implementation)
 
 - Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.
