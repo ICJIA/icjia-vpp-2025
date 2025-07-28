@@ -342,6 +342,19 @@
 <li>Yarn audit now shows only 1 low-severity vulnerability (down from 1 high + 1 low)</li>
 <li>All changes maintain backward compatibility and existing functionality</li>
 </ul>
+<h2>2025-07-28 (Build Dependency Fix)</h2>
+<p>Fixed Netlify build failure caused by missing <code>marked</code> package dependency in production build.</p>
+<h3>Files Modified:</h3>
+<ul>
+<li><code>package.json</code>: Moved <code>marked</code> package from devDependencies to dependencies</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>The <code>sync-project-audit-log.js</code> script requires <code>marked</code> package during build process</li>
+<li>Build scripts run in production environment where devDependencies are not available</li>
+<li>Moving to dependencies ensures the package is available during Netlify builds</li>
+<li>No functional changes to the application, only dependency organization</li>
+</ul>
 <h3>2025-07-28 (Project Audit Log Documentation Card Implementation)</h3>
 <ul>
 <li>Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.</li>
