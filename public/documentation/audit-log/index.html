@@ -355,6 +355,47 @@
 <li>Moving to dependencies ensures the package is available during Netlify builds</li>
 <li>No functional changes to the application, only dependency organization</li>
 </ul>
+<h2>2025-07-28 (Content Security Policy Google Fonts Fix)</h2>
+<p>Fixed Content Security Policy blocking Google Fonts on documentation pages.</p>
+<h3>Files Modified:</h3>
+<ul>
+<li><code>netlify.toml</code>: Updated CSP to allow Google Fonts domains</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>Added <code>https://fonts.googleapis.com</code> to style-src directive for CSS loading</li>
+<li>Added <code>https://fonts.gstatic.com</code> to font-src directive for font file loading</li>
+<li>Resolves CSP violations: &quot;Refused to load the stylesheet &#39;<a href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap</a>&#39;&quot;</li>
+<li>Maintains security while allowing legitimate Google Fonts usage in documentation</li>
+</ul>
+<h2>2025-07-28 (Content Security Policy WebAssembly Fix)</h2>
+<p>Fixed Content Security Policy blocking WebAssembly modules required by @nuxt/content SQLite functionality.</p>
+<h3>Files Modified:</h3>
+<ul>
+<li><code>netlify.toml</code>: Added &#39;unsafe-eval&#39; to script-src directive for WebAssembly support</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>Added <code>&#39;unsafe-eval&#39;</code> to script-src directive to allow WebAssembly compilation and instantiation</li>
+<li>Resolves CSP violations: &quot;WebAssembly.instantiate(): Refused to compile or instantiate WebAssembly module because &#39;unsafe-eval&#39; is not an allowed source of script&quot;</li>
+<li>Required for @nuxt/content dependency @sqlite.org/sqlite-wasm (3.50.1-build1) which provides SQLite functionality in the browser</li>
+<li>WebAssembly modules require &#39;unsafe-eval&#39; for compilation - this is a standard requirement for WASM</li>
+<li>Maintains other security restrictions while enabling legitimate WebAssembly functionality</li>
+<li>Alternative would be to disable advanced @nuxt/content features that require SQLite</li>
+</ul>
+<h2>2025-07-28 (Content Security Policy Data URI Fonts Fix)</h2>
+<p>Fixed Content Security Policy blocking data URI fonts (base64 encoded fonts) used by Vuetify components.</p>
+<h3>Files Modified:</h3>
+<ul>
+<li><code>netlify.toml</code>: Updated CSP font-src directive to allow data URI fonts</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>Added <code>data:</code> to font-src directive to allow base64 encoded fonts</li>
+<li>Resolves CSP violation: &quot;Refused to load the font &#39;data:font/woff2;base64,d09GMgABAAAAAA5UABIAAAAAGxAAAA3xAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhQbHhw0BmA/U1RBVFYAXgiBfgmfBhEMCoJ4gn4LFAABNgIkAyQEIAWFNAcgDIVOG8cZswMxbBzAo/POJ...&quot;</li>
+<li>Data URI fonts are commonly used by UI frameworks like Vuetify for icon fonts and embedded typography</li>
+<li>Maintains security by only allowing specific data URI scheme for fonts</li>
+</ul>
 <h3>2025-07-28 (Project Audit Log Documentation Card Implementation)</h3>
 <ul>
 <li>Added a new documentation card for the Project Audit Log to the documentation portal page to provide easy access to the project audit log from the main documentation portal.</li>
