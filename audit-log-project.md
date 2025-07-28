@@ -75,6 +75,23 @@ Fixed Content Security Policy blocking Google Fonts on documentation pages.
 - Resolves CSP violations: "Refused to load the stylesheet 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'"
 - Maintains security while allowing legitimate Google Fonts usage in documentation
 
+## 2025-07-28 (Content Security Policy WebAssembly Fix)
+
+Fixed Content Security Policy blocking WebAssembly modules required by @nuxt/content SQLite functionality.
+
+### Files Modified:
+
+- `netlify.toml`: Added 'unsafe-eval' to script-src directive for WebAssembly support
+
+### Technical Notes:
+
+- Added `'unsafe-eval'` to script-src directive to allow WebAssembly compilation and instantiation
+- Resolves CSP violations: "WebAssembly.instantiate(): Refused to compile or instantiate WebAssembly module because 'unsafe-eval' is not an allowed source of script"
+- Required for @nuxt/content dependency @sqlite.org/sqlite-wasm (3.50.1-build1) which provides SQLite functionality in the browser
+- WebAssembly modules require 'unsafe-eval' for compilation - this is a standard requirement for WASM
+- Maintains other security restrictions while enabling legitimate WebAssembly functionality
+- Alternative would be to disable advanced @nuxt/content features that require SQLite
+
 ## 2025-07-28 (Content Security Policy Data URI Fonts Fix)
 
 Fixed Content Security Policy blocking data URI fonts (base64 encoded fonts) used by Vuetify components.
