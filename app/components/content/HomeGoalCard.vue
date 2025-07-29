@@ -9,21 +9,12 @@
       <v-card variant="elevated" class="goal-card-inner" role="article">
         <!-- Flexible Responsive Layout -->
         <div class="card-content-flex">
-          <!-- Icon and Badge Section -->
-          <div class="icon-badge-section">
-            <div class="badge-container" aria-hidden="true">
-              <v-chip
-                :color="goal.color"
-                size="large"
-                class="goal-number-badge"
-              >
-                Goal {{ goal.number }}
-              </v-chip>
-            </div>
+          <!-- Icon Section -->
+          <div class="icon-section">
             <div class="icon-container" aria-hidden="true">
               <v-icon
                 :icon="goal.icon"
-                size="64"
+                size="80"
                 :color="goal.color"
                 class="goal-icon"
               />
@@ -159,8 +150,8 @@ const animationStyle = computed(() => ({
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 500px;
-  padding: 2rem;
+  min-height: 320px;
+  padding: 1.5rem;
   border-radius: 1rem;
   transition:
     transform 0.3s ease,
@@ -188,25 +179,13 @@ const animationStyle = computed(() => ({
   justify-content: space-between;
 }
 
-/* Icon and Badge Section */
-.icon-badge-section {
+/* Icon Section */
+.icon-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  padding-bottom: 0.5rem;
-}
-
-.badge-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.goal-number-badge {
-  font-weight: 700;
-  letter-spacing: 0.025em;
+  padding-bottom: 1rem;
 }
 
 .icon-container {
@@ -318,22 +297,28 @@ const animationStyle = computed(() => ({
   }
 }
 
-/* Responsive adjustments for mobile and narrow screens */
-@media (max-width: 959px) {
+/* Responsive adjustments - matching HomeAction card styling */
+@media (max-width: 599px) {
   .goal-card-inner {
-    padding: 1.5rem;
+    min-height: 280px;
+    padding: 1.25rem;
   }
 
   .card-content-flex {
-    gap: 1rem;
+    gap: 0.875rem;
+    justify-content: center; /* Center content instead of space-between */
   }
 
-  .badge-container {
-    margin-bottom: 0.75rem;
+  .icon-section {
+    padding-bottom: 0.5rem;
   }
 
   .title-wrapper {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .title-description-section {
+    padding-bottom: 0.5rem;
   }
 
   .goal-title {
@@ -343,35 +328,18 @@ const animationStyle = computed(() => ({
 
   .goal-description {
     font-size: 0.875rem;
+    line-height: 1.5;
   }
 }
 
-/* Extra responsive adjustments for very narrow screens */
-@media (max-width: 600px) {
+@media (min-width: 1024px) {
   .goal-card-inner {
-    padding: 1rem;
+    min-height: 350px;
+    padding: 2rem;
   }
 
   .card-content-flex {
-    gap: 0.75rem;
-  }
-
-  .goal-title {
-    font-size: 1.125rem;
-    line-height: 1.4;
-  }
-
-  .goal-description {
-    font-size: 0.8125rem;
-    line-height: 1.5;
-  }
-
-  .highlights-title {
-    font-size: 0.9375rem;
-  }
-
-  .highlight-text {
-    font-size: 0.8125rem;
+    gap: 1.25rem;
   }
 }
 

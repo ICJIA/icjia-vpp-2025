@@ -4,12 +4,12 @@
       <!-- Section header -->
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-4">
-          Goals and Recommendations
+          Recommendations and Resources
         </h2>
         <p class="text-h6 text-medium-emphasis max-width-800 mx-auto">
-          Three actionable goals with specific strategies and measurable
-          outcomes that translate our values into concrete violence prevention
-          initiatives across Illinois.
+          Discover comprehensive violence prevention strategies, access valuable
+          resources, and explore organizational achievements that support
+          communities across Illinois.
         </p>
       </div>
 
@@ -57,62 +57,43 @@
 import HomeGoalCard from "./HomeGoalCard.vue";
 
 /**
- * Strategic goals from the Violence Prevention Plan - OFFICIAL TEXT
- * Updated to match exact wording from the official Violence Prevention Plan report
- * for government transparency and editorial integrity compliance
- * Using consistent primary color scheme to match original home page design
+ * Recommendations and Resources content
+ * Three main sections providing access to violence prevention strategies,
+ * resources, and organizational achievements across Illinois
  */
 const goals = [
   {
     number: "01",
-    title:
-      "Prevent violence and promote health and safety through trauma-informed/healing-centered, evidence-based and comprehensive primary, secondary, and/or tertiary prevention efforts.",
-    description: "",
-    icon: "mdi-shield-check",
+    title: "Goals and Recommendations",
+    description:
+      "Explore comprehensive violence prevention strategies with actionable goals, evidence-based practices, and measurable outcomes designed to create lasting change in Illinois communities.",
+    icon: "mdi-clipboard-list",
     color: "primary",
     url: "/plan/goals-and-recommendations",
-    relatedPrinciples: ["Promote Safety", "Support Health"],
-    highlights: [
-      "Honor complex histories and provide holistic services",
-      "Engage families, schools, and communities",
-      "Address multiple risk and protective factors",
-      "Focus on groups at higher risk for violence",
-      "Use evidence-based practices",
-    ],
+    relatedPrinciples: ["Strategic Planning", "Evidence-Based Practices"],
+    highlights: [],
   },
   {
     number: "02",
-    title:
-      "Advance equity by increasing access to grants and other economic opportunities.",
-    description: "",
-    icon: "mdi-scale-balance",
+    title: "Resources",
+    description:
+      "Access a comprehensive collection of tools, research, training materials, and best practices to support violence prevention initiatives across communities and organizations.",
+    icon: "mdi-book-open-variant",
     color: "primary",
-    url: "/plan/goals-and-recommendations",
-    relatedPrinciples: ["Advance Equity"],
-    highlights: [
-      "Continue improving access to funding",
-      "Support small and medium-sized organizations",
-      "Improve reimbursement and budget processes",
-      "Promote and connect grantee work",
-      "Improve systems and communication",
-    ],
+    url: "/resources",
+    relatedPrinciples: ["Resource Access", "Capacity Building"],
+    highlights: [],
   },
   {
     number: "03",
-    title:
-      "Promote collaboration across state, municipal, and community-based agencies, informed by research and data, sharing of best practices and lessons learned, and ongoing discussions.",
-    description: "",
-    icon: "mdi-account-group",
+    title: "Organizational and Agency Highlights",
+    description:
+      "Discover achievements, success stories, and innovative programs from organizations and agencies leading violence prevention efforts throughout Illinois.",
+    icon: "mdi-trophy",
     color: "primary",
-    url: "/plan/goals-and-recommendations",
-    relatedPrinciples: ["Engage State Agencies in Collaboration"],
-    highlights: [
-      "Analyze and disseminate statewide data trends",
-      "Coordinate violence prevention funding",
-      "Continue the Ad Hoc Violence Prevention Committee",
-      "Host statewide violence prevention events",
-      "Build community across stakeholders",
-    ],
+    url: "/organizational-and-agency-highlights",
+    relatedPrinciples: ["Collaboration", "Recognition"],
+    highlights: [],
   },
 ];
 </script>

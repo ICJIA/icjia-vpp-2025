@@ -5,13 +5,17 @@
 
     <HomeHero />
     <HomeLetters />
-    <HomeStatistics />
+    <!-- Violence in Illinois: The Data section - temporarily disabled -->
+    <!-- <HomeStatistics /> -->
     <HomeGoals />
-    <HomeStakeholders />
+    <!-- The Planning Process section - temporarily disabled -->
+    <!-- <HomeStakeholders /> -->
     <!-- Recent News Section with configurable item count - temporarily disabled -->
     <!-- <HomeNews :item-count="3" /> -->
-    <HomePrinciples />
-    <HomeApproach />
+    <!-- Guiding Principles section - temporarily disabled -->
+    <!-- <HomePrinciples /> -->
+    <!-- Public Health Approach to Violence Prevention section - temporarily disabled -->
+    <!-- <HomeApproach /> -->
     <HomeAction />
   </div>
 </template>

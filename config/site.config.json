@@ -81,6 +81,26 @@
         "ariaLabel": "More options menu",
         "tooltip": "More options",
         "items": {
+          "resources": {
+            "enabled": true,
+            "text": "Resources",
+            "to": "/resources",
+            "icon": "mdi-book-open-variant",
+            "ariaLabel": "View resources",
+            "tooltip": "View resources"
+          },
+          "highlights": {
+            "enabled": true,
+            "text": "Organizational and Agency Highlights",
+            "to": "/organizational-and-agency-highlights",
+            "icon": "mdi-trophy",
+            "ariaLabel": "View organizational and agency highlights",
+            "tooltip": "View organizational and agency highlights"
+          },
+          "divider": {
+            "enabled": true,
+            "isDivider": true
+          },
           "news": {
             "enabled": false,
             "text": "News & Updates",

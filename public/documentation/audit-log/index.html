@@ -290,6 +290,400 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-29 (Hero Section Animation Restoration)</h2>
+<p>Restored subtle animations to the home hero section that were previously removed, bringing back the gentle movement and visual interest that enhances user engagement while maintaining accessibility standards.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/HomeHero.vue</code> - Restored multiple animation effects</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Animation Restoration</strong>: Restored four key animation effects:<ul>
+<li><code>subtlePulseImage</code>: Gentle breathing effect on the hero image (8-second cycle)</li>
+<li><code>fadeSlideUpDescription</code>: Specialized fade-in animation for description text with 0.9 opacity</li>
+<li><code>float</code>: Floating animation for decorative gradient elements (6s and 8s cycles)</li>
+<li>Enhanced <code>fadeSlideUp</code>: Improved with proper from/to keyframes</li>
+</ul>
+</li>
+<li><strong>Decorative Elements</strong>: Restored floating gradient circles with:<ul>
+<li>Primary/accent gradient backgrounds</li>
+<li>Subtle rotation and vertical movement</li>
+<li>Proper z-index layering behind content</li>
+</ul>
+</li>
+<li><strong>Responsive Design</strong>: Decorative elements hidden on mobile and tablet for performance</li>
+<li><strong>Accessibility</strong>: All animations respect <code>prefers-reduced-motion</code> user preferences</li>
+<li><strong>Performance</strong>: Used <code>will-change: transform, box-shadow</code> for optimized rendering</li>
+<li><strong>Visual Polish</strong>: Animations provide subtle movement without being distracting or overwhelming</li>
+</ul>
+<h2>2025-07-29 (Title Simplification)</h2>
+<p>Simplified the title &quot;Violence Prevention Resources&quot; to simply &quot;Resources&quot; throughout the project for cleaner, more concise navigation and page titles while maintaining the same comprehensive content.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Content File</strong>: <code>content/resources.md</code> - Updated title and ogTitle in frontmatter</li>
+<li><strong>Component</strong>: <code>app/components/content/HomeGoals.vue</code> - Updated goal card title</li>
+<li><strong>Auto-generated Files</strong>: Regenerated routes configuration and search index</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Title Updates</strong>: Changed &quot;Violence Prevention Resources&quot; to &quot;Resources&quot; in:<ul>
+<li>Page title and metadata</li>
+<li>Navigation references</li>
+<li>Goal card display</li>
+<li>Route configurations</li>
+<li>Search index entries</li>
+</ul>
+</li>
+<li><strong>Content Preservation</strong>: All content, descriptions, and functionality remain unchanged</li>
+<li><strong>SEO Maintenance</strong>: Updated ogTitle to &quot;Resources - Violence Prevention Plan for Illinois: 2025-2029&quot;</li>
+<li><strong>Build Regeneration</strong>: Ran site config and search index generation to update all auto-generated files</li>
+<li><strong>Consistency</strong>: All references now use the simplified &quot;Resources&quot; title throughout the project</li>
+</ul>
+<h2>2025-07-29 (URL Naming Consistency Fix)</h2>
+<p>Corrected a naming inconsistency by renaming the content file and updating all URL references from <code>/organization-and-agency-highlights</code> to <code>/organizational-and-agency-highlights</code> (adding &quot;al&quot; to make it &quot;organizational&quot;) throughout the entire project.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Content File</strong>: Renamed <code>content/organization-and-agency-highlights.md</code> to <code>content/organizational-and-agency-highlights.md</code></li>
+<li><strong>Navigation Configuration</strong>: <code>config/site.config.json</code> - Updated menu item URL</li>
+<li><strong>Component</strong>: <code>app/components/content/HomeGoals.vue</code> - Updated goal card URL</li>
+<li><strong>Route Configuration</strong>: <code>config/routes.config.json</code> - Updated path and source references</li>
+<li><strong>Auto-generated Files</strong>: Regenerated all public configs, sitemap, and search index</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Systematic URL Update</strong>: Changed all references from <code>/organization-and-agency-highlights</code> to <code>/organizational-and-agency-highlights</code></li>
+<li><strong>Build Script Execution</strong>: Ran <code>yarn create:site-config</code>, <code>yarn create:search-index-defuddle</code>, and <code>yarn create:sitemap</code> to regenerate auto-generated files</li>
+<li><strong>Consistency Verification</strong>: Confirmed all references now use the consistent &quot;organizational-and-agency-highlights&quot; format</li>
+<li><strong>SEO Preservation</strong>: Maintained all metadata, descriptions, and structured data with the corrected URL</li>
+<li><strong>Navigation Integrity</strong>: All navigation links and internal references updated to use the new consistent URL</li>
+</ul>
+<h2>2025-07-29 (Navigation Menu Enhancement)</h2>
+<p>Enhanced the top navigation &#39;More&#39; dropdown menu by adding new menu items and organizing them with a visual divider for improved user experience and accessibility.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>config/site.config.json</code>: Added new menu items to the moreMenu configuration</li>
+<li><code>app/components/content/AppHeader.vue</code>: Updated moreMenuChildren computed property to handle dividers</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>New Menu Items Added</strong>:<ul>
+<li>&quot;Resources&quot; linking to <code>/resources</code> with book icon</li>
+<li>&quot;Organizational and Agency Highlights&quot; linking to <code>/organizational-and-agency-highlights</code> with trophy icon</li>
+</ul>
+</li>
+<li><strong>Menu Organization</strong>: Added visual divider between new items and existing Search/Contact items</li>
+<li><strong>Divider Support</strong>: Enhanced AppHeader component to properly handle <code>isDivider</code> items in dropdown menus</li>
+<li><strong>Accessibility</strong>: All new items include proper ARIA labels and tooltips for screen reader compatibility</li>
+<li><strong>Icons</strong>: Used Material Design icons (mdi-book-open-variant, mdi-trophy) consistent with existing menu styling</li>
+<li><strong>Responsive Design</strong>: Dividers work properly in both desktop dropdown and mobile navigation views</li>
+</ul>
+<h2>2025-07-29 (Homepage Navigation Functionality Restoration)</h2>
+<p>Restored navigation functionality to the &quot;Recommendations and Resources&quot; section cards by adding proper URLs and re-enabling NuxtLink wrappers with full interactive capabilities.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeGoals.vue</code>: Updated goals array with navigation URLs for all three cards</li>
+<li><code>app/components/content/HomeGoalCard.vue</code>: Restored NuxtLink wrapper and interactive functionality</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Navigation Links Added</strong>: Updated card URLs in goals array:<ul>
+<li>Card 1 (&quot;Goals and Recommendations&quot;): <code>/plan/goals-and-recommendations</code></li>
+<li>Card 2 (&quot;Violence Prevention Resources&quot;): <code>/violence-prevention-resources</code></li>
+<li>Card 3 (&quot;Organizational and Agency Highlights&quot;): <code>/resources</code></li>
+</ul>
+</li>
+<li><strong>Interactive Functionality Restored</strong>: Re-added NuxtLink wrapper around each card<ul>
+<li>Cards are now fully clickable with client-side routing</li>
+<li>Proper navigation using Nuxt&#39;s built-in routing system</li>
+<li>Maintains single-page application behavior</li>
+</ul>
+</li>
+<li><strong>Visual Indicators</strong>: Added <code>cursor: pointer</code> CSS property to indicate clickability</li>
+<li><strong>Hover Effects Preserved</strong>: Maintained all existing hover effects:<ul>
+<li>translateY(-4px) transform on hover</li>
+<li>Enhanced box-shadow transitions</li>
+<li>Smooth animation transitions</li>
+</ul>
+</li>
+<li><strong>Accessibility Compliance</strong>: Ensured WCAG 2.1 AA compliance:<ul>
+<li>Proper ARIA attributes (<code>aria-labelledby</code>, <code>aria-describedby</code>)</li>
+<li>Keyboard navigation support (Enter/Space key activation)</li>
+<li>Focus states with primary color outline and proper offset</li>
+<li>Screen reader compatibility with descriptive labels</li>
+</ul>
+</li>
+<li><strong>Responsive Design</strong>: All mobile optimizations and responsive breakpoints preserved</li>
+<li><strong>Theme Compatibility</strong>: Navigation functionality works correctly in both light and dark modes</li>
+<li><strong>Performance</strong>: Client-side routing provides fast navigation without page reloads</li>
+</ul>
+<h3>User Experience Improvements:</h3>
+<ul>
+<li><strong>Intuitive Navigation</strong>: Cards now provide clear visual and functional cues for interaction</li>
+<li><strong>Seamless Routing</strong>: Fast client-side navigation between homepage and target pages</li>
+<li><strong>Consistent Behavior</strong>: Navigation behavior matches other interactive elements on the site</li>
+<li><strong>Enhanced Accessibility</strong>: Full keyboard and screen reader support for navigation</li>
+<li><strong>Visual Feedback</strong>: Proper hover states and cursor changes indicate interactive elements</li>
+</ul>
+<h2>2025-07-29 (Resources Page Creation)</h2>
+<p>Created a new comprehensive resources page with one-page guides, research reports, and evidence-based practice materials following the established site structure and styling.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>content/resources.md</code>: New content page with comprehensive violence prevention resources and research materials</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Page Structure</strong>: Follows established content page format with proper frontmatter and SEO metadata</li>
+<li><strong>Consistent Styling</strong>: Uses same layout and styling as other content pages (showTOC: true, proper headings)</li>
+<li><strong>SEO Optimization</strong>: Includes title, description, ogTitle, ogDescription, ogImage, and twitterCard metadata</li>
+<li><strong>One-Page Guides</strong>: Organized key resource links as requested:<ul>
+<li>Trauma-informed and healing-centered practice</li>
+<li>Evidence-based practices</li>
+<li>Comprehensive practices using the social-ecological model</li>
+<li>Primary, secondary, and tertiary prevention</li>
+<li>Guiding Principles</li>
+</ul>
+</li>
+<li><strong>Research and Reports Section</strong>: Comprehensive collection including:<ul>
+<li>Needs Assessment Report (2021)</li>
+<li>Updated data trends report (2025)</li>
+<li>Reports from previous VPP including bullying policy, FAMILIES study, 2020-2024 plan and appendices</li>
+<li>Research hub links</li>
+</ul>
+</li>
+<li><strong>Additional Resource Categories</strong>: Enhanced with supplementary sections:<ul>
+<li>Implementation Guides</li>
+<li>Training Materials</li>
+<li>Policy Resources</li>
+</ul>
+</li>
+<li><strong>Professional Layout</strong>: Structured with clear headings, descriptions, and download placeholders</li>
+<li><strong>Accessibility</strong>: Proper heading hierarchy and descriptive content for screen readers</li>
+<li><strong>Future-Ready</strong>: TBD placeholders allow for easy link updates when resources become available</li>
+</ul>
+<h3>Content Features:</h3>
+<ul>
+<li><strong>Comprehensive Resource Collection</strong>: Covers practice guides, research reports, and implementation tools</li>
+<li><strong>Clear Organization</strong>: Logical grouping by resource type (guides, reports, additional materials)</li>
+<li><strong>Detailed Descriptions</strong>: Informative descriptions for each resource and report</li>
+<li><strong>Flexible Structure</strong>: Easy to update with actual download links and additional resources</li>
+<li><strong>Professional Presentation</strong>: Consistent with site&#39;s overall design and content standards</li>
+</ul>
+<h2>2025-07-29 (Violence Prevention Resources Page Creation)</h2>
+<p>Created a new content page for violence prevention resources with comprehensive links and information following the established site structure and styling.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>content/violence-prevention-resources.md</code>: New content page with violence prevention resource links and information</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Page Structure</strong>: Follows established content page format with proper frontmatter and SEO metadata</li>
+<li><strong>Consistent Styling</strong>: Uses same layout and styling as other content pages (showTOC: true, proper headings)</li>
+<li><strong>SEO Optimization</strong>: Includes title, description, ogTitle, ogDescription, ogImage, and twitterCard metadata</li>
+<li><strong>Resource Links</strong>: Organized key resource links as requested:<ul>
+<li>ICJIA – Institute 2 Innovate (I2I)</li>
+<li>Government Alliance for Safe Communities (GASC)</li>
+<li>ICADV – Survivor focus groups</li>
+<li>IDPH – Office of Family Violence Prevention (OFVP)</li>
+<li>ICJIA grantee highlights</li>
+</ul>
+</li>
+<li><strong>Additional Sections</strong>: Enhanced with supplementary resource categories:<ul>
+<li>Research and Data resources</li>
+<li>Training and Technical Assistance information</li>
+<li>Funding Opportunities section</li>
+</ul>
+</li>
+<li><strong>Contact Information</strong>: Included ICJIA contact details for resource inquiries</li>
+<li><strong>Professional Layout</strong>: Structured with clear headings, descriptions, and website links</li>
+<li><strong>Accessibility</strong>: Proper heading hierarchy and descriptive link text for screen readers</li>
+<li><strong>Last Updated</strong>: Included current date for content freshness indication</li>
+</ul>
+<h3>Content Features:</h3>
+<ul>
+<li><strong>Comprehensive Resource Collection</strong>: Covers tools, research, training materials, and best practices</li>
+<li><strong>Clear Organization</strong>: Logical grouping of resources by type and purpose</li>
+<li><strong>Actionable Links</strong>: Direct website links to all major resource providers</li>
+<li><strong>Professional Descriptions</strong>: Informative descriptions for each resource category</li>
+<li><strong>Future-Ready</strong>: Structure allows for easy addition of new resources and categories</li>
+</ul>
+<h2>2025-07-29 (Mobile Whitespace Elimination)</h2>
+<p>Eliminated excessive whitespace in mobile cards by removing fixed heights and centering content, creating a more compact and balanced mobile experience.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeGoalCard.vue</code>: Removed fixed min-heights on mobile and centered content to eliminate whitespace</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Removed Fixed Heights</strong>: Eliminated min-height constraints on mobile breakpoints to allow natural content sizing<ul>
+<li>Tablet (≤959px): Changed min-height from 400px to auto</li>
+<li>Mobile (≤600px): Changed min-height from 350px to auto</li>
+<li>iPhone (≤414px): Changed min-height from 320px to auto</li>
+</ul>
+</li>
+<li><strong>Centered Content Layout</strong>: Changed justify-content from space-between to center for better content distribution<ul>
+<li>Eliminates excessive whitespace at bottom of cards</li>
+<li>Creates balanced spacing around content</li>
+<li>Maintains visual hierarchy while reducing empty space</li>
+</ul>
+</li>
+<li><strong>Aggressive Spacing Reduction</strong>: Further minimized padding and margins<ul>
+<li>Mobile padding: 0.875rem → 0.75rem → 0.625rem</li>
+<li>Content gaps: 0.625rem → 0.5rem → 0.375rem</li>
+<li>Section padding: 0.5rem → 0.25rem → 0.125rem</li>
+</ul>
+</li>
+<li><strong>Optimized Icon Scaling</strong>: Progressive icon size reduction for better proportion<ul>
+<li>Mobile: 4rem → 3.5rem → 3rem (80px → 56px → 48px)</li>
+<li>Better balance with reduced card heights</li>
+</ul>
+</li>
+<li><strong>Tighter Typography</strong>: Minimized text spacing and margins<ul>
+<li>Reduced title and description wrapper margins</li>
+<li>Optimized line heights for compact display</li>
+<li>Eliminated unnecessary bottom margins</li>
+</ul>
+</li>
+<li><strong>Desktop Preservation</strong>: Maintained 500px min-height on desktop for grid consistency</li>
+<li><strong>Natural Sizing</strong>: Cards now size to their content on mobile rather than forcing artificial height</li>
+</ul>
+<h3>Mobile Experience Improvements:</h3>
+<ul>
+<li><strong>Eliminated Whitespace</strong>: No more excessive empty space at bottom of cards</li>
+<li><strong>Better Content Density</strong>: More efficient use of screen real estate</li>
+<li><strong>Improved Visual Balance</strong>: Content is properly centered and proportioned</li>
+<li><strong>Natural Card Heights</strong>: Cards adapt to content rather than forcing fixed dimensions</li>
+<li><strong>Enhanced Readability</strong>: Tighter, more focused content presentation</li>
+</ul>
+<h2>2025-07-29 (Mobile Responsive Optimization)</h2>
+<p>Optimized the mobile responsive design for the &quot;Recommendations and Resources&quot; section cards to reduce excessive whitespace and improve content positioning on narrow screens, particularly iPhone and similar mobile devices.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeGoalCard.vue</code>: Enhanced mobile responsive CSS with optimized spacing, padding, and content scaling</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Reduced Mobile Whitespace</strong>: Significantly decreased padding and margins within cards on narrow screens<ul>
+<li>Tablet (max-width: 959px): Reduced padding from 1.5rem to 1.25rem, min-height from 500px to 400px</li>
+<li>Mobile (max-width: 600px): Reduced padding from 1rem to 0.875rem, min-height to 350px</li>
+<li>iPhone (max-width: 414px): Further reduced padding to 0.75rem, min-height to 320px</li>
+</ul>
+</li>
+<li><strong>Improved Content Scaling</strong>: Implemented proportional scaling for icons, titles, and descriptions<ul>
+<li>Mobile icons scaled from 80px to 4rem (64px equivalent)</li>
+<li>iPhone icons scaled to 3.5rem (56px equivalent)</li>
+<li>Progressive font size reductions for titles and descriptions</li>
+</ul>
+</li>
+<li><strong>Optimized Card Layout</strong>: Enhanced internal spacing and positioning<ul>
+<li>Reduced gaps between content sections (1.5rem → 0.625rem → 0.5rem)</li>
+<li>Minimized icon section padding (1rem → 0.5rem → 0.375rem)</li>
+<li>Tightened title and description wrapper margins</li>
+</ul>
+</li>
+<li><strong>Enhanced Visual Balance</strong>: Improved content hierarchy while maintaining readability<ul>
+<li>Adjusted line-heights for better text flow on small screens</li>
+<li>Optimized margin and padding relationships</li>
+<li>Maintained proper visual hierarchy with scaled typography</li>
+</ul>
+</li>
+<li><strong>Progressive Enhancement</strong>: Three responsive breakpoints for optimal experience<ul>
+<li>959px and below: Tablet optimization</li>
+<li>600px and below: Standard mobile optimization</li>
+<li>414px and below: iPhone and narrow mobile optimization</li>
+</ul>
+</li>
+<li><strong>Preserved Features</strong>: Maintained all hover effects, accessibility, and desktop layouts</li>
+<li><strong>Performance</strong>: Optimized CSS specificity and reduced layout shifts on mobile</li>
+</ul>
+<h3>Mobile Improvements:</h3>
+<ul>
+<li>Eliminated excessive whitespace that made cards appear unbalanced</li>
+<li>Better utilization of available screen real estate</li>
+<li>Improved content density without compromising readability</li>
+<li>Enhanced visual hierarchy on small screens</li>
+<li>Smoother scaling across different mobile device sizes</li>
+</ul>
+<h2>2025-07-29 (Recommendations Section Refinement)</h2>
+<p>Refined the &quot;Recommendations, Resources, and Agency Highlights&quot; section by removing numbered badges, updating icons, changing the section title, and increasing icon sizes for better visual impact.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeGoals.vue</code>: Updated section title and replaced icons with more appropriate ones</li>
+<li><code>app/components/content/HomeGoalCard.vue</code>: Removed numbered badges and increased icon size from 64 to 80</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Section Title</strong>: Changed from &quot;Recommendations, Resources, and Agency Highlights&quot; to &quot;Recommendations and Resources&quot;</li>
+<li><strong>Numbered Badges Removed</strong>: Eliminated the numbered chips (01, 02, 03) that appeared above icons for cleaner design</li>
+<li><strong>Icon Updates</strong>: Replaced icons with more appropriate alternatives:<ul>
+<li>Card 1: Changed from <code>mdi-target</code> to <code>mdi-clipboard-list</code> for Goals and Recommendations</li>
+<li>Card 2: Changed from <code>mdi-library-shelves</code> to <code>mdi-book-open-variant</code> for Violence Prevention Resources</li>
+<li>Card 3: Changed from <code>mdi-star-circle</code> to <code>mdi-trophy</code> for Organizational and Agency Highlights</li>
+</ul>
+</li>
+<li><strong>Icon Size Increase</strong>: Enlarged icons from size 64 to size 80 for better visual impact and prominence</li>
+<li><strong>CSS Cleanup</strong>: Updated CSS classes from <code>icon-badge-section</code> to <code>icon-section</code> and removed badge-related styling</li>
+<li><strong>Layout Preservation</strong>: Maintained all existing hover effects, spacing, and responsive design</li>
+<li><strong>Accessibility</strong>: Preserved all ARIA attributes and accessibility features</li>
+<li><strong>Theme Compatibility</strong>: All changes work correctly in both light and dark modes</li>
+<li><strong>Responsive Design</strong>: Updated responsive breakpoints to accommodate larger icons</li>
+</ul>
+<h3>Visual Improvements:</h3>
+<ul>
+<li>Cleaner card design without numbered badges</li>
+<li>More intuitive and recognizable icons for each content type</li>
+<li>Enhanced visual hierarchy with larger, more prominent icons</li>
+<li>Improved card balance and spacing</li>
+</ul>
+<h2>2025-07-29 (Goals Section Transformation)</h2>
+<p>Transformed the homepage Goals section into &quot;Recommendations, Resources, and Agency Highlights&quot; with new content and styling while maintaining the same visual layout and hover effects.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeGoals.vue</code>: Updated section title, subtitle, and card data with new content</li>
+<li><code>app/components/content/HomeGoalCard.vue</code>: Removed navigation functionality while preserving hover effects and styling</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Section Title</strong>: Changed from &quot;Goals and Recommendations&quot; to &quot;Recommendations, Resources, and Agency Highlights&quot;</li>
+<li><strong>Section Subtitle</strong>: Updated to match homepage section style: &quot;Discover comprehensive violence prevention strategies, access valuable resources, and explore organizational achievements that support communities across Illinois.&quot;</li>
+<li><strong>Card Content</strong>: Replaced three goal cards with new content:<ul>
+<li>Card 1: &quot;Goals and Recommendations&quot; with mdi-target icon</li>
+<li>Card 2: &quot;Violence Prevention Resources&quot; with mdi-library-shelves icon</li>
+<li>Card 3: &quot;Organizational and Agency Highlights&quot; with mdi-star-circle icon</li>
+</ul>
+</li>
+<li><strong>Layout Preservation</strong>: Maintained exact same 3-card grid layout and visual styling</li>
+<li><strong>Hover Effects</strong>: Preserved all existing hover effects (translateY(-4px) and enhanced box-shadow)</li>
+<li><strong>Navigation Removed</strong>: Temporarily removed NuxtLink wrapper and cursor pointer for future link addition</li>
+<li><strong>Accessibility</strong>: Maintained all ARIA attributes and accessibility features</li>
+<li><strong>Responsive Design</strong>: Preserved all responsive breakpoints and mobile optimizations</li>
+<li><strong>Theme Compatibility</strong>: All changes work correctly in both light and dark modes</li>
+<li><strong>Card Descriptions</strong>: Added descriptive text for each card explaining their purpose and content</li>
+</ul>
+<h3>Future Enhancement:</h3>
+<p>Navigation links will be added to each card in a subsequent update once target pages are determined.</p>
+<h2>2025-07-29 (Homepage Section Removal)</h2>
+<p>Temporarily removed four sections from the homepage by commenting them out in both the Vue page and content files, preserving the ability to restore them if needed.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/pages/index.vue</code>: Commented out HomeStatistics, HomeStakeholders, HomePrinciples, and HomeApproach components</li>
+<li><code>content/index.md</code>: Commented out corresponding content sections for statistics, stakeholders, principles, and approach</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Sections Removed</strong>: Violence in Illinois: The Data, The Planning Process, Guiding Principles, Public Health Approach to Violence Prevention</li>
+<li><strong>Preservation Method</strong>: Used HTML comment blocks to wrap both component imports and content sections</li>
+<li><strong>Easy Restoration</strong>: All sections can be restored by simply uncommenting the relevant blocks</li>
+<li><strong>Component Mapping</strong>: HomeStatistics (data), HomeStakeholders (planning), HomePrinciples (principles), HomeApproach (public health)</li>
+<li><strong>Content Mapping</strong>: ::home-statistics, ::home-stakeholders, ::home-principles, ::home-approach sections</li>
+<li><strong>Maintained Structure</strong>: Homepage flow now goes from Hero → Letters → Goals → Action sections</li>
+<li><strong>No Breaking Changes</strong>: All imports and component definitions remain intact for easy restoration</li>
+</ul>
+<h3>Restoration Instructions:</h3>
+<p>To restore any section, uncomment the corresponding blocks in both files:</p>
+<ol>
+<li>In <code>app/pages/index.vue</code>: Remove comment tags around the component</li>
+<li>In <code>content/index.md</code>: Remove comment tags around the content section</li>
+</ol>
 <h2>2025-07-29 (Hero Image Proportional Sizing and Centering)</h2>
 <p>Modified the HomeHero component to improve hero image sizing, centering, and responsiveness for better visual balance between text content and image across all screen sizes.</p>
 <h3>Files Modified/Created:</h3>

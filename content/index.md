@@ -26,19 +26,23 @@ Learn More
 
 ::
 
+<!-- Violence in Illinois: The Data section - temporarily disabled
 ::home-statistics
 
 # Violence in Illinois: The Data
 
 Understanding the scope and impact of violence is the first step in prevention. These statistics highlight the urgent need for comprehensive violence prevention efforts across Illinois.
 ::
+-->
 
+<!-- Public Health Approach to Violence Prevention section - temporarily disabled
 ::home-approach
 
 # Public Health Approach to Violence Prevention
 
 Illinois is committed to violence prevention efforts from a public health perspective, utilizing evidence-based practices and addressing violence as a preventable public health crisis.
 ::
+-->
 
 ::home-goals
 
@@ -47,19 +51,23 @@ Illinois is committed to violence prevention efforts from a public health perspe
 Our violence prevention plan is built around three core goals that address the full spectrum of prevention, equity, and collaboration needed to create lasting change in Illinois communities.
 ::
 
+<!-- Guiding Principles section - temporarily disabled
 ::home-principles
 
 # Guiding Principles
 
 Five core principles guide our violence prevention efforts, ensuring that our work is grounded in equity, safety, health, belonging, and collaboration across all levels of government.
 ::
+-->
 
+<!-- The Planning Process section - temporarily disabled
 ::home-stakeholders
 
 # The Planning Process
 
 This plan was developed through an extensive collaborative process involving diverse stakeholders from across Illinois, ensuring community voices are centered in our violence prevention efforts.
 ::
+-->
 
 <!-- News & Updates section temporarily disabled
 ::home-news{:item-count=3}

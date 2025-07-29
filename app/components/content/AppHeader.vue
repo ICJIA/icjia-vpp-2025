@@ -714,22 +714,32 @@ const moreMenuChildren = computed(() => {
   // Add enabled items from site config
   Object.entries(moreMenuConfig.items).forEach(([key, item]) => {
     if (item.enabled) {
-      children.push({
-        text: item.text,
-        to: item.to,
-        href: item.href,
-        ariaLabel: item.ariaLabel,
-        tooltip: item.tooltip,
-        tooltipLocation: "right",
-        class: "dropdown-item",
-        mobileClass: "dropdown-item-mobile ml-4",
-        color: "on-app-bar",
-        displayMode: "both",
-        icon: item.icon,
-        isExternal: item.isExternal || false,
-        target: item.isExternal ? "_blank" : undefined,
-        rel: item.isExternal ? "noopener noreferrer" : undefined,
-      });
+      // Handle divider items
+      if (item.isDivider) {
+        children.push({
+          isDivider: true,
+          class: item.class || "dropdown-divider",
+          mobileClass: item.mobileClass || "dropdown-divider-mobile",
+        });
+      } else {
+        // Handle regular menu items
+        children.push({
+          text: item.text,
+          to: item.to,
+          href: item.href,
+          ariaLabel: item.ariaLabel,
+          tooltip: item.tooltip,
+          tooltipLocation: "right",
+          class: "dropdown-item",
+          mobileClass: "dropdown-item-mobile ml-4",
+          color: "on-app-bar",
+          displayMode: "both",
+          icon: item.icon,
+          isExternal: item.isExternal || false,
+          target: item.isExternal ? "_blank" : undefined,
+          rel: item.isExternal ? "noopener noreferrer" : undefined,
+        });
+      }
     }
   });
 

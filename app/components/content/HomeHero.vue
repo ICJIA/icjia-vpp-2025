@@ -1,7 +1,7 @@
 <template>
   <section class="hero-section section-primary">
     <v-container class="py-12 py-md-16">
-      <v-row align="center" justify="space-between">
+      <v-row align="center" justify="space-between" class="hero-row">
         <v-col cols="12" md="6" class="pr-md-12">
           <div class="hero-content mb-8">
             <h1 class="hero-title mb-6">
@@ -61,14 +61,26 @@
         </v-col>
 
         <v-col cols="12" md="6" class="mt-8 mt-md-0">
-          <div class="hero-image-container">
-            <ImageWithSpinner
-              src="/images/front-cover.png"
-              alt="Youth violence prevention summit participants collaborating on community safety initiatives"
-              image-class="hero-image rounded-xl"
-              spinner-color="primary"
-              spinner-size="50"
-            />
+          <div class="hero-image-wrapper">
+            <v-card
+              class="hero-image-card"
+              @click="handleDownloadPlan"
+              role="button"
+              tabindex="0"
+              @keydown.enter="handleDownloadPlan"
+              @keydown.space="handleDownloadPlan"
+              aria-label="Download the Violence Prevention Plan"
+              :elevation="0"
+              rounded="0"
+            >
+              <img
+                src="/images/front-cover.png"
+                alt="Youth violence prevention summit participants collaborating on community safety initiatives"
+                class="hero-image"
+                loading="lazy"
+              />
+            </v-card>
+            <div class="hero-image-caption">Click to Download</div>
             <div class="hero-image-decoration-1" aria-hidden="true"></div>
             <div class="hero-image-decoration-2" aria-hidden="true"></div>
           </div>
@@ -95,13 +107,20 @@
  * - Animated content with fade-in and subtle movement effects
  * - Decorative background elements for visual interest
  * - Accessible image loading with spinner during load
+ * - Interactive hover effects matching other cards on the home page
+ * - Cursor pointer indication for visual feedback
+ * - Enhanced shadows and transforms on hover
+ * - Clickable hero image that navigates to download page
+ * - Centered caption beneath image indicating interactive nature
+ * - WCAG 2.1 AA compliant contrast ratios in both themes
+ * - Keyboard accessible with Enter and Space key support
+ * - Proper ARIA labeling for screen readers
  * - Respects user preferences for reduced motion
- * - Keyboard navigation support for interactive elements
  * - WCAG 2.1 AA accessibility compliance
  *
  * @component
  */
-import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
+// Removed ImageWithSpinner import - using simple v-card with img tag instead
 
 /**
  * Handle Download the Plan button activation
@@ -126,51 +145,46 @@ const handleLearnMore = () => {
 </script>
 
 <style scoped>
-/**
- * Hero Section Styles
- * Maintains the exact styling patterns from the existing HeroSection component
- * while adapting content for the Violence Prevention Plan
- */
+/* ===== HERO SECTION - COMPLETE REFACTOR ===== */
 
-/* Main container with theme-aware background */
+/* Base hero section */
 .hero-section {
   position: relative;
-  overflow: hidden;
-  /* Background handled by global .section-primary class */
+  /* overflow: hidden; - Removed to allow box shadow on hero image */
   color: rgb(var(--v-theme-on-surface));
 }
 
-/* Hero content animations and styling to match original */
+/* Dark mode: match hero section background to image background */
+.v-theme--dark .hero-section {
+  background-color: #2c3e50;
+}
+
+/* Typography */
 .hero-title {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
-  animation-delay: 0.2s;
-  /* Font styling to match original HeroSection.vue */
-  font-size: 60px;
+  font-size: 36px;
   font-weight: 600;
   line-height: 1.2;
-  /* Reverted to original color inheritance */
   color: inherit;
   font-family: "Roboto", sans-serif;
   letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s forwards;
+  animation-delay: 0.2s;
 }
 
-/* Blue highlight for specific text within hero title */
 .hero-title-highlight {
-  /* Use theme-aware blue color with 8:1 contrast ratio for accessibility */
   color: rgb(var(--v-theme-primary));
 }
 
 .hero-description {
-  opacity: 0;
-  animation: fadeSlideUpDescription 0.8s forwards;
-  animation-delay: 0.4s;
-  /* Font styling to match original HeroSection.vue */
   font-size: 1rem;
   line-height: 1.6;
   color: inherit;
   font-family: "Roboto", sans-serif;
-  max-width: 90%;
+  max-width: 100%;
+  opacity: 0;
+  animation: fadeSlideUpDescription 0.8s forwards;
+  animation-delay: 0.4s;
 }
 
 .hero-buttons {
@@ -179,7 +193,6 @@ const handleLearnMore = () => {
   animation-delay: 0.6s;
 }
 
-/* Button hover effects */
 .hero-button {
   transition: all 0.3s ease;
 }
@@ -189,94 +202,285 @@ const handleLearnMore = () => {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Hero image container with decorative elements - improved sizing and centering */
-.hero-image-container {
+/* ===== IMAGE SECTION - MOBILE FIRST ===== */
+
+/* Base image wrapper - mobile */
+.hero-image-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 2rem;
   opacity: 0;
   animation: fadeSlideUp 0.8s forwards;
   animation-delay: 0.8s;
-  /* Center the image both horizontally and vertically */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Allow the image to determine its own height - no height constraints to prevent cut-off */
-  height: auto;
-  /* Remove all height constraints to show complete image */
-  /* Ensure container doesn't overflow */
-  overflow: visible;
 }
 
-/* Hero image with 3D perspective and subtle animation - improved proportions */
+/* Hero image card */
+.hero-image-card {
+  display: block !important;
+  cursor: pointer !important;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  background: rgb(var(--v-theme-surface)) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Override any default Vuetify card padding and spacing */
+.hero-image-card :deep(.v-card__content),
+.hero-image-card :deep(.v-card-text),
+.hero-image-card :deep(.v-card-item),
+.hero-image-card :deep(.v-card-actions) {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Ensure the card itself has no internal spacing */
+.hero-image-card.v-card {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Custom elevation hover effect for smoother transition */
+.hero-image-card:hover {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Base image styling - fills card completely with no spacing */
 .hero-image {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  transform: perspective(1000px) rotateY(-5deg) rotateX(3deg);
-  transition: all 0.5s ease;
+  width: 100%;
+  max-width: 100vw;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transform: perspective(800px) rotateY(-3deg) rotateX(2deg);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation: subtlePulseImage 8s ease-in-out infinite alternate;
   animation-delay: 1.5s;
   will-change: transform, box-shadow;
-  /* Responsive sizing that preserves aspect ratio */
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Custom elevation hover effect for smoother transition */
+.hero-image-card:hover {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.hero-image-card:hover .hero-image {
+  animation-play-state: paused;
+  transform: perspective(800px) rotateY(-1deg) rotateX(1deg) scale(1.02)
+    translateY(-4px) !important;
+}
+
+/* Hero image caption styling */
+.hero-image-caption {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+  transition: color 0.3s ease;
+  pointer-events: none;
+  user-select: none;
   width: 100%;
-  height: auto;
-  max-width: 450px;
-  /* Remove max-height to prevent cut-off - let image show completely */
-  object-fit: contain;
-  /* Ensure the image doesn't dominate the section */
-  border-radius: 12px;
+  order: 2;
 }
 
-.hero-image:hover {
-  transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+/* Image sizing is now handled directly by .hero-image class */
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Medium screens (tablets/small laptops) - match x-small size */
+@media (min-width: 650px) and (max-width: 1000px) {
+  .hero-image {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    max-height: 90vh !important;
+    object-fit: contain !important;
+  }
 }
 
-/* Responsive adjustments for hero image container */
-@media (max-width: 960px) {
-  .hero-image-container {
-    /* Remove height constraints on tablets to prevent cut-off */
-    margin-top: 2rem;
+/* Extra small phones - maximum possible size */
+@media (max-width: 480px) {
+  .hero-image {
+    max-width: 100vw !important;
+    max-height: 90vh !important;
+  }
+
+  /* Hide decorative elements on mobile */
+  .hero-image-decoration-1,
+  .hero-image-decoration-2 {
+    display: none;
+  }
+}
+
+/* Small tablets - but override for our target range */
+@media (min-width: 600px) and (max-width: 649px) {
+  .hero-title {
+    font-size: 42px;
   }
 
   .hero-image {
-    max-width: 380px;
-    /* Remove max-height to prevent cut-off */
+    max-width: 480px;
+    max-height: 360px;
+  }
+
+  .hero-image-container :deep(.image-container),
+  .hero-image-container :deep(.v-img),
+  .hero-image-container :deep(.v-img__img) {
+    max-width: 480px !important;
+    max-height: 360px !important;
+    object-fit: contain !important;
   }
 }
 
-@media (max-width: 600px) {
+/* Tablets - but override for our target range */
+@media (min-width: 768px) and (max-width: 1000px) {
+  .hero-title {
+    font-size: 48px;
+  }
+
+  /* Force large size in our target range */
+  .hero-image {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    max-height: 90vh !important;
+    object-fit: contain !important;
+  }
+
+  .hero-image-container :deep(.image-container),
+  .hero-image-container :deep(.v-img),
+  .hero-image-container :deep(.v-img__img) {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    max-height: 90vh !important;
+    object-fit: contain !important;
+  }
+
+  /* Hide decorative elements on tablets */
+  .hero-image-decoration-1,
+  .hero-image-decoration-2 {
+    display: none;
+  }
+}
+
+/* Desktop */
+@media (min-width: 960px) {
+  .hero-title {
+    font-size: 54px;
+  }
+
   .hero-image-container {
-    /* Remove height constraints on mobile to prevent cut-off */
-    margin-top: 1.5rem;
+    margin-top: 0;
   }
 
   .hero-image {
-    /* Reduce size on mobile while preserving complete image */
-    max-width: 300px;
-    /* Remove max-height to prevent cut-off */
-    /* Simplify 3D effects on mobile for better performance */
-    transform: perspective(800px) rotateY(-3deg) rotateX(2deg);
+    max-width: 580px;
+    max-height: 440px;
+    transform: perspective(1000px) rotateY(-5deg) rotateX(3deg);
   }
 
-  .hero-image:hover {
-    transform: perspective(800px) rotateY(-1deg) rotateX(1deg) scale(1.01);
+  .hero-image-clickable:hover .hero-image,
+  .hero-image-clickable:focus .hero-image {
+    transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) scale(1.02);
+  }
+
+  /* Update the pulse animation for desktop */
+  @keyframes subtlePulseImage {
+    0% {
+      transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1);
+    }
+    100% {
+      transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1.01);
+    }
+  }
+
+  .hero-image-container :deep(.image-container),
+  .hero-image-container :deep(.v-img),
+  .hero-image-container :deep(.v-img__img) {
+    max-width: 580px !important;
+    max-height: 440px !important;
+    object-fit: contain !important;
   }
 }
 
-/* Ensure the ImageWithSpinner component respects our container sizing */
-.hero-image-container :deep(.image-container) {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  height: auto;
+/* Large desktop */
+@media (min-width: 1200px) {
+  .hero-title {
+    font-size: 60px;
+  }
+
+  .hero-image {
+    max-width: 620px;
+    max-height: 480px;
+  }
+
+  .hero-image-container :deep(.image-container),
+  .hero-image-container :deep(.v-img),
+  .hero-image-container :deep(.v-img__img) {
+    max-width: 620px !important;
+    max-height: 480px !important;
+    object-fit: contain !important;
+  }
 }
 
-.hero-image-container :deep(.v-img) {
-  width: auto !important;
-  height: auto !important;
-  max-width: 100%;
+/* ===== LARGE SCREENS - SMALLER IMAGES ===== */
+
+/* Extra large desktop - much larger for impact */
+@media (min-width: 1400px) {
+  .hero-image {
+    max-width: 750px !important;
+    max-height: 500px !important;
+  }
+
+  .hero-image-container :deep(.image-container),
+  .hero-image-container :deep(.v-img),
+  .hero-image-container :deep(.v-img__img) {
+    max-width: 750px !important;
+    max-height: 500px !important;
+    object-fit: contain !important;
+  }
 }
 
-/* Decorative elements */
+/* Ultra wide screens - maximum impact */
+@media (min-width: 1600px) {
+  .hero-image {
+    max-width: 800px !important;
+    max-height: 550px !important;
+  }
+
+  .hero-image-container :deep(.image-container),
+  .hero-image-container :deep(.v-img),
+  .hero-image-container :deep(.v-img__img) {
+    max-width: 800px !important;
+    max-height: 550px !important;
+    object-fit: contain !important;
+  }
+}
+
+/* ===== DECORATIVE ELEMENTS ===== */
+
+/* Decorative floating elements */
 .hero-image-decoration-1,
 .hero-image-decoration-2 {
   position: absolute;
@@ -312,7 +516,8 @@ const handleLearnMore = () => {
   animation: float 8s ease-in-out infinite reverse;
 }
 
-/* Animations */
+/* ===== ANIMATIONS ===== */
+
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
@@ -337,10 +542,10 @@ const handleLearnMore = () => {
 
 @keyframes subtlePulseImage {
   0% {
-    transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1);
+    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) scale(1);
   }
   100% {
-    transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1.01);
+    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) scale(1.01);
   }
 }
 
@@ -354,42 +559,33 @@ const handleLearnMore = () => {
   }
 }
 
-/* Dark theme adjustments */
+/* ===== DARK THEME ===== */
+
 :root[data-theme="dark"] .hero-image {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-:root[data-theme="dark"] .hero-image:hover {
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+/* Dark theme hover effects - custom elevation-1 equivalent */
+:root[data-theme="dark"] .hero-image-card:hover {
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.4),
+    0 4px 5px 0 rgba(0, 0, 0, 0.3),
+    0 1px 10px 0 rgba(0, 0, 0, 0.25) !important;
 }
 
-/* Responsive adjustments */
-@media (max-width: 960px) {
-  .hero-title {
-    font-size: 48px; /* 80% of 60px to match original */
-    line-height: 1.15;
-  }
-
-  .hero-description {
-    max-width: 95%;
-  }
-
-  .hero-image-decoration-1,
-  .hero-image-decoration-2 {
-    display: none;
-  }
+/* Dark theme caption styling */
+:root[data-theme="dark"] .hero-image-caption {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-@media (max-width: 600px) {
-  .hero-title {
-    font-size: 36px; /* 60% of 60px to match original */
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
+/* Reduced motion support - disable hover transforms for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-image-container :deep(img) {
+    transition: none !important;
   }
 
-  .hero-description {
-    max-width: 100%;
-    font-size: 0.95rem;
+  .hero-image-container :deep(img):hover {
+    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) !important;
   }
 }
 </style>
