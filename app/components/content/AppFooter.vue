@@ -155,6 +155,11 @@ const handleHomeClick = () => {
   padding: 48px 0 32px;
 }
 
+/* Light mode footer - darker background for better visual separation */
+:root:not([data-theme="dark"]) .modern-footer {
+  background-color: #d1d5db !important; /* Darker grey than section backgrounds (#E5E5E5) */
+}
+
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;

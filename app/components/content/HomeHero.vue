@@ -11,11 +11,21 @@
               for Illinois: 2025-2029
             </h1>
             <p class="hero-description mb-8">
-              Violence is a global public health crisis. The prevention of
-              violence is paramount. Illinois is committed to supporting
-              violence prevention initiatives through trauma-informed,
-              healing-centered practices across communities most impacted by
-              violence.
+              Violence is a global public health crisis. Violence is prevalent
+              for many individuals and communities in Illinois, and a leading
+              cause of death. Experiencing or perpetrating violence can result
+              in an array of negative health, mental health, economic, and
+              relational impacts. Thus, the prevention of violence is paramount.
+            </p>
+            <p class="hero-description mb-8">
+              The Illinois Criminal Justice Information Authority (ICJIA) aims
+              to continue funding and supporting violence prevention efforts
+              across Illinois. This report was written to inform ICJIA’s
+              violence prevention planning for 2025-2029, but also with the
+              intent to be utilized by any state or community group interested
+              in violence prevention efforts or in developing their own
+              localized plan. This plan presents three violence prevention goals
+              and recommendations within each goal.
             </p>
             <div
               class="hero-buttons d-flex flex-column flex-sm-row"
@@ -53,13 +63,14 @@
         <v-col cols="12" md="6" class="mt-8 mt-md-0">
           <div class="hero-image-container">
             <ImageWithSpinner
-              src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
+              src="/images/front-cover.png"
               alt="Youth violence prevention summit participants collaborating on community safety initiatives"
               image-class="hero-image rounded-xl"
               cover
               aspect-ratio="4/3"
               spinner-color="primary"
               spinner-size="50"
+              
             />
             <div class="hero-image-decoration-1" aria-hidden="true"></div>
             <div class="hero-image-decoration-2" aria-hidden="true"></div>

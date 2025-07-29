@@ -2,6 +2,23 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-29 (Footer Background Enhancement)
+
+Enhanced footer visual distinction by implementing a darker background color in light mode only, providing better visual separation between the footer and main content sections while maintaining accessibility standards.
+
+### Files Modified/Created:
+
+- `app/components/content/AppFooter.vue`: Added light-mode-specific CSS rule for darker footer background
+
+### Technical Notes:
+
+- Implemented light-mode-only footer background using `:root:not([data-theme="dark"])` selector
+- Background color `#D1D5DB` is darker than existing section backgrounds (`#E5E5E5` and `#FAFAFA`)
+- Dark mode footer styling remains unchanged as requested
+- Uses `!important` declaration to override Vuetify's `color="background"` prop
+- Maintains all existing accessibility contrast ratios
+- Provides clear visual hierarchy with footer as distinct bottom section
+
 ## 2025-07-28 (Hydration Mismatch Resolution)
 
 Resolved multiple hydration mismatch errors caused by timestamp logging during server-side rendering (SSR) that created different values between server and client rendering, improving application stability and eliminating console errors.
