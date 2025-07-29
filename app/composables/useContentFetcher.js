@@ -154,11 +154,13 @@ export default function useContentFetcher(options) {
   // Initialize logger
   const { log, logError } = useConsoleLogger();
 
-  // Log fetch start
-  log("content", "Content fetching started", {
-    path,
-    timestamp: new Date().toISOString(),
-  });
+  // Log fetch start (client-side only to prevent hydration mismatch)
+  if (typeof window !== "undefined") {
+    log("content", "Content fetching started", {
+      path,
+      timestamp: new Date().toISOString(),
+    });
+  }
 
   // Fetch content using Nuxt's useAsyncData and queryCollection
   const {
@@ -178,19 +180,23 @@ export default function useContentFetcher(options) {
         throw notFoundError;
       }
 
-      // Log success
-      log("content", "Content successfully retrieved", {
-        path,
-        contentType: typeof result,
-      });
+      // Log success (client-side only to prevent hydration mismatch)
+      if (typeof window !== "undefined") {
+        log("content", "Content successfully retrieved", {
+          path,
+          contentType: typeof result,
+        });
+      }
 
       return result;
     } catch (err) {
-      // Log error
-      logError("Content error", {
-        path,
-        error: err.message,
-      });
+      // Log error (client-side only to prevent hydration mismatch)
+      if (typeof window !== "undefined") {
+        logError("Content error", {
+          path,
+          error: err.message,
+        });
+      }
 
       // Store technical details for development mode
       technicalErrorDetails.value = {

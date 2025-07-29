@@ -5,7 +5,11 @@
 
     <!-- Loading state -->
     <div v-if="pending" class="text-center py-16">
-      <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        size="64"
+      ></v-progress-circular>
       <p class="text-body-1 mt-4">Loading content...</p>
     </div>
 
@@ -25,13 +29,15 @@
 
         <h1 class="text-h2 font-weight-bold mb-4">Page Not Found</h1>
 
-        <p class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text">
+        <p
+          class="text-subtitle-1 text-primary font-weight-medium mb-2 max-width-text"
+        >
           Statewide Violence Prevention Plan for Illinois: 2025-2029
         </p>
 
         <p class="text-body-1 mb-8 max-width-text">
-          Oops! It seems like the page you're looking for doesn't exist or has been moved.
-          Let's get you back on track.
+          Oops! It seems like the page you're looking for doesn't exist or has
+          been moved. Let's get you back on track.
         </p>
 
         <div class="text-center">
@@ -94,7 +100,10 @@
               </div>
 
               <!-- Report Navigation - Only show for report pages -->
-              <ReportNavigation v-if="showReportNavigation" :current-path="route.path" />
+              <ReportNavigation
+                v-if="showReportNavigation"
+                :current-path="route.path"
+              />
             </v-col>
 
             <!-- TOC Sidebar Column - Hidden on mobile, visible on md+ screens -->
@@ -139,7 +148,11 @@
                         <!-- Left border indicator line -->
                         <div class="toc-indicator-line"></div>
 
-                        <v-list density="compact" class="toc-list" bg-color="transparent">
+                        <v-list
+                          density="compact"
+                          class="toc-list"
+                          bg-color="transparent"
+                        >
                           <v-list-item
                             v-for="(item, index) in tocH2Items"
                             :key="`toc-${index}`"
@@ -153,7 +166,9 @@
                             @keydown.enter="scrollToHeading(item.id)"
                             @keydown.space.prevent="scrollToHeading(item.id)"
                             :aria-label="`Navigate to section: ${item.text}`"
-                            :aria-current="activeItemId === item.id ? 'true' : 'false'"
+                            :aria-current="
+                              activeItemId === item.id ? 'true' : 'false'
+                            "
                             role="button"
                           >
                             <!-- Visual indicator dot positioned absolutely relative to container -->
@@ -161,7 +176,8 @@
                               :class="[
                                 'toc-indicator-dot',
                                 {
-                                  'toc-indicator-dot--active': activeItemId === item.id,
+                                  'toc-indicator-dot--active':
+                                    activeItemId === item.id,
                                 },
                               ]"
                             ></div>
@@ -198,7 +214,9 @@
 
     <!-- Fallback content if no content is found -->
     <div v-else class="text-center py-16">
-      <v-icon color="warning" size="64" class="mb-4">mdi-file-document-outline</v-icon>
+      <v-icon color="warning" size="64" class="mb-4"
+        >mdi-file-document-outline</v-icon
+      >
       <h2 class="text-h4 mb-4">No Content Found</h2>
       <p class="text-body-1">The requested page content could not be found.</p>
       <v-btn color="primary" @click="navigateToHome" class="mt-4">
@@ -260,13 +278,18 @@ const { isReportPage } = useReportNavigation();
 // Build content path from route params
 const contentPath = computed(() => {
   const slugArray = route.params.slug || [];
-  const path = Array.isArray(slugArray) ? `/${slugArray.join("/")}` : `/${slugArray}`;
+  const path = Array.isArray(slugArray)
+    ? `/${slugArray.join("/")}`
+    : `/${slugArray}`;
 
-  log("content", "Dynamic route - resolving content path", {
-    routePath: route.path,
-    contentPath: path,
-    timestamp: new Date().toISOString(),
-  });
+  // Log only on client-side to prevent hydration mismatch
+  if (typeof window !== "undefined") {
+    log("content", "Dynamic route - resolving content path", {
+      routePath: route.path,
+      contentPath: path,
+      timestamp: new Date().toISOString(),
+    });
+  }
 
   return path;
 });
@@ -490,7 +513,8 @@ const fixedStyles = computed(() => {
  */
 const tocH2Items = computed(() => {
   // Try different possible TOC data paths
-  const tocData = content.value?.body?.toc || content.value?.toc || content.value?._toc;
+  const tocData =
+    content.value?.body?.toc || content.value?.toc || content.value?._toc;
 
   if (!tocData) {
     return [];
@@ -597,7 +621,9 @@ const pageTitle = computed(() => {
 
   // Generate title from slug
   const slugArray = route.params.slug || [];
-  const lastSlug = Array.isArray(slugArray) ? slugArray[slugArray.length - 1] : slugArray;
+  const lastSlug = Array.isArray(slugArray)
+    ? slugArray[slugArray.length - 1]
+    : slugArray;
 
   if (lastSlug) {
     // Convert kebab-case to Title Case
@@ -753,7 +779,7 @@ const navigateToHome = () => {
  * Logs content loading events when content is successfully fetched and parsed.
  * Useful for debugging content resolution and monitoring page performance.
  */
-if (content.value) {
+if (content.value && typeof window !== "undefined") {
   log("content", "Dynamic route content loaded", {
     title: content.value.title,
     path: contentPath.value,
@@ -767,7 +793,7 @@ if (content.value) {
  * Logs detailed error information when content fails to load.
  * Helps with debugging content resolution issues and monitoring site health.
  */
-if (error.value) {
+if (error.value && typeof window !== "undefined") {
   logError("Dynamic route content error", {
     path: contentPath.value,
     error: error.value.message,
@@ -802,7 +828,10 @@ onMounted(() => {
     // Handle Vue component instance (PageTitleSection) - get the root element
     const titleElement = titleRow.value?.$el || titleRow.value;
 
-    if (titleElement && typeof titleElement.getBoundingClientRect === "function") {
+    if (
+      titleElement &&
+      typeof titleElement.getBoundingClientRect === "function"
+    ) {
       const rect = titleElement.getBoundingClientRect();
 
       // Store title bottom position for debugging and display purposes
@@ -818,7 +847,10 @@ onMounted(() => {
     // Get reference to the TOC content element
     const contentElement = stickyElement.value?.$el || stickyElement.value;
 
-    if (contentElement && typeof contentElement.getBoundingClientRect === "function") {
+    if (
+      contentElement &&
+      typeof contentElement.getBoundingClientRect === "function"
+    ) {
       // CRITICAL: Only measure position when element is in natural (not fixed) state
       // This prevents measurement of already-fixed positioning which would be incorrect
       if (!isFixed.value) {
@@ -1032,7 +1064,9 @@ useSeoMeta({
 
   // Open Graph meta tags for Facebook, LinkedIn, etc.
   ogTitle: computed(() => content.value?.ogTitle || pageTitle.value),
-  ogDescription: computed(() => content.value?.ogDescription || pageDescription.value),
+  ogDescription: computed(
+    () => content.value?.ogDescription || pageDescription.value
+  ),
   ogImage: socialImage,
   ogUrl: canonicalUrl,
   ogType: computed(() => content.value?.ogType || "article"),
@@ -1040,7 +1074,9 @@ useSeoMeta({
   ogLocale: "en_US",
 
   // Twitter Card meta tags
-  twitterCard: computed(() => content.value?.twitterCard || "summary_large_image"),
+  twitterCard: computed(
+    () => content.value?.twitterCard || "summary_large_image"
+  ),
   twitterTitle: computed(() => content.value?.twitterTitle || pageTitle.value),
   twitterDescription: computed(
     () => content.value?.twitterDescription || pageDescription.value
@@ -1064,9 +1100,12 @@ useSeoMeta({
 
   // Additional meta tags for better SEO
   author: computed(
-    () => content.value?.author || "Illinois Criminal Justice Information Authority"
+    () =>
+      content.value?.author || "Illinois Criminal Justice Information Authority"
   ),
-  publishedTime: computed(() => content.value?.date || content.value?.publishedTime),
+  publishedTime: computed(
+    () => content.value?.date || content.value?.publishedTime
+  ),
   modifiedTime: computed(
     () => content.value?.lastModified || content.value?.modifiedTime
   ),
@@ -1579,7 +1618,9 @@ useSeoMeta({
 .toc-indicator-dot--active {
   background-color: #4caf50 !important; /* High contrast green for selected items */
   border-color: rgba(76, 175, 80, 0.3) !important;
-  transform: scale(1.2); /* Remove translateY since we're using fixed top positioning */
+  transform: scale(
+    1.2
+  ); /* Remove translateY since we're using fixed top positioning */
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
 }
 

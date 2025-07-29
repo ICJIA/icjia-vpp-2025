@@ -197,7 +197,7 @@ const progressPercentage = computed(() => {
   return Math.round(
     ((navigationData.value.currentIndex + 1) /
       navigationData.value.totalPages) *
-      100,
+      100
   );
 });
 
@@ -219,17 +219,20 @@ const progressAriaLabel = computed(() => {
  * @param {string} path - Target page path
  */
 function navigateToPage(path) {
-  log("navigation", "Report navigation used", {
-    from: currentPath.value,
-    to: path,
-    timestamp: new Date().toISOString(),
-  });
+  // Log only on client-side to prevent hydration mismatch
+  if (typeof window !== "undefined") {
+    log("navigation", "Report navigation used", {
+      from: currentPath.value,
+      to: path,
+      timestamp: new Date().toISOString(),
+    });
+  }
 
   navigateTo(path);
 }
 
-// Log component initialization
-if (navigationData.value) {
+// Log component initialization (client-side only to prevent hydration mismatch)
+if (navigationData.value && typeof window !== "undefined") {
   log("navigation", "Report navigation component initialized", {
     currentPath: currentPath.value,
     hasNavigation: !!navigationData.value,

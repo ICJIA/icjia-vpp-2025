@@ -31,7 +31,7 @@
  * @requires ~/components/content/AppFooter
  */
 // Vue core imports
-import { ref, watch, onMounted, provide } from "vue";
+import { ref, watch, onMounted, provide, nextTick } from "vue";
 
 // Composables and components
 import { useAnnouncer } from "~/composables/useAnnouncer";
@@ -65,6 +65,7 @@ const {
   theme,
   toggleTheme: toggleThemeComposable,
   syncWithVuetify,
+  initializeTheme,
 } = useTheme();
 
 /**
@@ -111,8 +112,14 @@ const isClient = typeof window !== "undefined";
  */
 onMounted(() => {
   if (isClient) {
-    // Sync theme with Vuetify after app initialization
-    syncWithVuetify();
+    // Use nextTick to ensure DOM is fully hydrated before theme initialization
+    nextTick(() => {
+      // Initialize theme system (client-side only to prevent hydration mismatch)
+      initializeTheme();
+
+      // Sync theme with Vuetify after app initialization
+      syncWithVuetify();
+    });
   }
 });
 

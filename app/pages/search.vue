@@ -268,8 +268,8 @@ const fuseOptions = ref({
 // Load configuration from fuse.config.json
 async function loadFuseConfig() {
   try {
-    // Add cache-busting parameter to force fresh load
-    const cacheBuster = `?t=${Date.now()}`;
+    // Add cache-busting parameter to force fresh load (client-side only to prevent hydration mismatch)
+    const cacheBuster = typeof window !== "undefined" ? `?t=${Date.now()}` : "";
 
     console.log("🔧 Loading Fuse config...");
 
@@ -296,7 +296,7 @@ async function loadFuseConfig() {
 
       if (!response.ok) {
         throw new Error(
-          `Failed to load Fuse config: ${response.status} ${response.statusText}`,
+          `Failed to load Fuse config: ${response.status} ${response.statusText}`
         );
       }
     }
@@ -314,7 +314,7 @@ async function loadFuseConfig() {
       fuseOptions.value = fuseConfig.value.search.fuseOptions;
       console.log(
         "✅ Using Fuse.js options from config file:",
-        fuseOptions.value,
+        fuseOptions.value
       );
       log("search", "Using Fuse.js options from config file");
     }
@@ -340,8 +340,8 @@ async function loadSearchIndex() {
     console.log(`📊 Using search index path: ${indexPath}`);
     log("search", `Using search index path: ${indexPath}`);
 
-    // Add cache-busting parameter to force fresh load
-    const cacheBuster = `?t=${Date.now()}`;
+    // Add cache-busting parameter to force fresh load (client-side only to prevent hydration mismatch)
+    const cacheBuster = typeof window !== "undefined" ? `?t=${Date.now()}` : "";
     const fullIndexPath = `${indexPath}${cacheBuster}`;
 
     console.log(`📥 Fetching search index from: ${fullIndexPath}`);
@@ -356,7 +356,7 @@ async function loadSearchIndex() {
 
     if (!response.ok) {
       throw new Error(
-        `Failed to load search index: ${response.status} ${response.statusText}`,
+        `Failed to load search index: ${response.status} ${response.statusText}`
       );
     }
 
@@ -372,22 +372,22 @@ async function loadSearchIndex() {
       (item) =>
         containsDangerousContent(item.title) ||
         containsDangerousContent(item.content) ||
-        containsDangerousContent(item.description),
+        containsDangerousContent(item.description)
     );
 
     if (dangerousItems.length > 0) {
       console.warn(
-        `⚠️ Found ${dangerousItems.length} potentially dangerous items in search index`,
+        `⚠️ Found ${dangerousItems.length} potentially dangerous items in search index`
       );
       log(
         "search",
-        `Security warning: ${dangerousItems.length} items flagged for review`,
+        `Security warning: ${dangerousItems.length} items flagged for review`
       );
     }
 
     // Check for "Rex adipiscing" specifically
     const homepage = searchIndex.value.find(
-      (item) => item.path === "/" || item.path === "/index",
+      (item) => item.path === "/" || item.path === "/index"
     );
     console.log(`🏠 Homepage found:`, homepage);
 
@@ -397,7 +397,7 @@ async function loadSearchIndex() {
       console.log(
         `🏠 Homepage content length: ${
           homepage.content ? homepage.content.length : "undefined"
-        }`,
+        }`
       );
 
       const hasRexAdipiscing = homepage.content
@@ -407,7 +407,7 @@ async function loadSearchIndex() {
 
       if (homepage.content) {
         console.log(
-          `🏠 Homepage content preview: "${homepage.content.substring(0, 100)}..."`,
+          `🏠 Homepage content preview: "${homepage.content.substring(0, 100)}..."`
         );
       } else {
         console.log(`🏠 Homepage content is undefined or null`);
@@ -418,7 +418,7 @@ async function loadSearchIndex() {
 
     log(
       "search",
-      `Search index loaded with ${searchIndex.value.length} validated items`,
+      `Search index loaded with ${searchIndex.value.length} validated items`
     );
 
     // Initialize Fuse.js with the validated index and options
@@ -428,7 +428,7 @@ async function loadSearchIndex() {
       console.log("✅ Search index loading completed successfully!");
     } else {
       console.error(
-        "❌ Cannot initialize Fuse.js - search index is empty or invalid",
+        "❌ Cannot initialize Fuse.js - search index is empty or invalid"
       );
     }
 
@@ -466,7 +466,7 @@ function performSearch() {
     if (containsDangerousContent(searchQuery.value)) {
       console.warn(
         "⚠️ Potentially dangerous search query blocked:",
-        searchQuery.value,
+        searchQuery.value
       );
       log("search", "Blocked dangerous search query");
       searchResults.value = [];
@@ -493,7 +493,7 @@ function performSearch() {
       // Check if Fuse instance is available
       if (!fuseInstance.value) {
         console.error(
-          "❌ Fuse instance is null - search index may not have loaded properly",
+          "❌ Fuse instance is null - search index may not have loaded properly"
         );
         searchResults.value = [];
         return;
@@ -512,7 +512,7 @@ function performSearch() {
         if (result.matches && result.matches.length > 0) {
           // Find matches in content
           const contentMatches = result.matches.find(
-            (match) => match.key === "content",
+            (match) => match.key === "content"
           );
           if (contentMatches && contentMatches.indices.length > 0) {
             // Get the first match position
@@ -520,7 +520,7 @@ function performSearch() {
             const start = Math.max(0, firstMatch[0] - excerptContextChars);
             const end = Math.min(
               item.content.length,
-              firstMatch[1] + excerptContextChars,
+              firstMatch[1] + excerptContextChars
             );
 
             // Create excerpt with context around the match
@@ -544,7 +544,7 @@ function performSearch() {
       searchResults.value = validateSearchResults(processedResults);
       console.log(
         `✅ Final search results (${searchResults.value.length}):`,
-        searchResults.value,
+        searchResults.value
       );
 
       log("search", `Found ${searchResults.value.length} results`);

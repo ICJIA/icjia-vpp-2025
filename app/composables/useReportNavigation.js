@@ -76,7 +76,10 @@ function extractReportPages() {
     );
 
     if (!planMenuItem) {
-      logError('Report navigation: Could not find "Read the Plan" menu item');
+      // Log only on client-side to prevent hydration mismatch
+      if (typeof window !== "undefined") {
+        logError('Report navigation: Could not find "Read the Plan" menu item');
+      }
       return [];
     }
 
@@ -93,18 +96,24 @@ function extractReportPages() {
 
     cachedReportPages.value = reportPages;
 
-    log("navigation", "Report pages extracted from menu config", {
-      totalPages: reportPages.length,
-      pages: reportPages.map((p) => ({ path: p.path, title: p.title })),
-      timestamp: new Date().toISOString(),
-    });
+    // Log only on client-side to prevent hydration mismatch
+    if (typeof window !== "undefined") {
+      log("navigation", "Report pages extracted from menu config", {
+        totalPages: reportPages.length,
+        pages: reportPages.map((p) => ({ path: p.path, title: p.title })),
+        timestamp: new Date().toISOString(),
+      });
+    }
 
     return reportPages;
   } catch (error) {
-    logError("Error extracting report pages from menu config", {
-      error: error.message,
-      timestamp: new Date().toISOString(),
-    });
+    // Log only on client-side to prevent hydration mismatch
+    if (typeof window !== "undefined") {
+      logError("Error extracting report pages from menu config", {
+        error: error.message,
+        timestamp: new Date().toISOString(),
+      });
+    }
     return [];
   }
 }
@@ -148,7 +157,10 @@ function getNavigationData(currentPath) {
   const reportPages = extractReportPages();
 
   if (reportPages.length === 0) {
-    log("navigation", "No report pages found in menu config");
+    // Log only on client-side to prevent hydration mismatch
+    if (typeof window !== "undefined") {
+      log("navigation", "No report pages found in menu config");
+    }
     return null;
   }
 
@@ -186,18 +198,22 @@ function getNavigationData(currentPath) {
     isLastPage: currentIndex === totalPages - 1,
   };
 
-  log("navigation", "Navigation data generated with summaries", {
-    currentPath,
-    currentIndex,
-    totalPages,
-    previousPage: previousPage?.title || "none (first page)",
-    nextPage: nextPage?.title || "none (last page)",
-    previousSummary: previousPage?.summary?.substring(0, 50) + "..." || "none",
-    nextSummary: nextPage?.summary?.substring(0, 50) + "..." || "none",
-    isFirstPage: navigationData.isFirstPage,
-    isLastPage: navigationData.isLastPage,
-    timestamp: new Date().toISOString(),
-  });
+  // Log navigation data (client-side only to prevent hydration mismatch)
+  if (typeof window !== "undefined") {
+    log("navigation", "Navigation data generated with summaries", {
+      currentPath,
+      currentIndex,
+      totalPages,
+      previousPage: previousPage?.title || "none (first page)",
+      nextPage: nextPage?.title || "none (last page)",
+      previousSummary:
+        previousPage?.summary?.substring(0, 50) + "..." || "none",
+      nextSummary: nextPage?.summary?.substring(0, 50) + "..." || "none",
+      isFirstPage: navigationData.isFirstPage,
+      isLastPage: navigationData.isLastPage,
+      timestamp: new Date().toISOString(),
+    });
+  }
 
   return navigationData;
 }

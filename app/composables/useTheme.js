@@ -66,6 +66,7 @@ import { useConsoleLogger } from "~/composables/useConsoleLogger";
  * @returns {Function} returns.toggleTheme - Function to toggle between themes
  * @returns {Function} returns.syncWithVuetify - Function to sync theme with Vuetify
  * @returns {Function} returns.migrateFromLocalStorage - Function to migrate from localStorage
+ * @returns {Function} returns.initializeTheme - Function to initialize theme system (client-side only)
  */
 export function useTheme() {
   const { logTheme, logError } = useConsoleLogger();
@@ -116,14 +117,16 @@ export function useTheme() {
       document.documentElement.setAttribute("data-theme", newTheme);
     }
 
-    // Log theme change
-    logTheme("Theme changed via setTheme", {
-      from: previousTheme,
-      to: newTheme,
-      timestamp: new Date().toISOString(),
-      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "SSR",
-      viewportWidth: typeof window !== "undefined" ? window.innerWidth : "SSR",
-    });
+    // Log theme change (client-side only to prevent hydration mismatch)
+    if (typeof window !== "undefined") {
+      logTheme("Theme changed via setTheme", {
+        from: previousTheme,
+        to: newTheme,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        viewportWidth: window.innerWidth,
+      });
+    }
   };
 
   /**
@@ -219,17 +222,21 @@ export function useTheme() {
       document.documentElement.setAttribute("data-theme", theme.value);
     }
 
-    // Migrate from localStorage if needed
-    migrateFromLocalStorage();
+    // Migrate from localStorage if needed (client-side only)
+    if (typeof window !== "undefined") {
+      migrateFromLocalStorage();
+    }
 
-    // Log theme initialization
-    logTheme("Theme system initialized", {
-      theme: theme.value,
-      source: "cookie",
-      timestamp: new Date().toISOString(),
-      userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "SSR",
-      viewportWidth: typeof window !== "undefined" ? window.innerWidth : "SSR",
-    });
+    // Log theme initialization (client-side only to prevent hydration mismatch)
+    if (typeof window !== "undefined") {
+      logTheme("Theme system initialized", {
+        theme: theme.value,
+        source: "cookie",
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        viewportWidth: window.innerWidth,
+      });
+    }
   };
 
   /**
@@ -244,9 +251,6 @@ export function useTheme() {
     }
   });
 
-  // Initialize theme system when composable is first used
-  initializeTheme();
-
   return {
     theme,
     isDark,
@@ -254,5 +258,6 @@ export function useTheme() {
     toggleTheme,
     syncWithVuetify,
     migrateFromLocalStorage,
+    initializeTheme,
   };
 }
