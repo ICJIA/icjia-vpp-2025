@@ -1,101 +1,80 @@
 <template>
   <div class="goal-card-container" :style="animationStyle">
-    <v-card
-      variant="elevated"
-      class="goal-card-inner"
-      role="article"
+    <NuxtLink
+      :to="goal.url"
+      class="goal-card-link"
       :aria-labelledby="`goal-title-${uniqueId}`"
       :aria-describedby="`goal-desc-${uniqueId}`"
     >
-      <!-- Flexible Responsive Layout -->
-      <div class="card-content-flex">
-        <!-- Icon and Badge Section -->
-        <div class="icon-badge-section">
-          <div class="badge-container" aria-hidden="true">
-            <v-chip :color="goal.color" size="large" class="goal-number-badge">
-              Goal {{ goal.number }}
-            </v-chip>
+      <v-card variant="elevated" class="goal-card-inner" role="article">
+        <!-- Flexible Responsive Layout -->
+        <div class="card-content-flex">
+          <!-- Icon and Badge Section -->
+          <div class="icon-badge-section">
+            <div class="badge-container" aria-hidden="true">
+              <v-chip
+                :color="goal.color"
+                size="large"
+                class="goal-number-badge"
+              >
+                Goal {{ goal.number }}
+              </v-chip>
+            </div>
+            <div class="icon-container" aria-hidden="true">
+              <v-icon
+                :icon="goal.icon"
+                size="64"
+                :color="goal.color"
+                class="goal-icon"
+              />
+            </div>
           </div>
-          <div class="icon-container" aria-hidden="true">
-            <v-icon
-              :icon="goal.icon"
-              size="64"
-              :color="goal.color"
-              class="goal-icon"
-            />
-          </div>
-        </div>
 
-        <!-- Title and Description Section -->
-        <div class="title-description-section">
-          <div :id="`goal-title-${uniqueId}`" class="title-wrapper">
-            <h3 class="goal-title">
-              {{ goal.title }}
-            </h3>
-          </div>
-          <div :id="`goal-desc-${uniqueId}`" class="description-wrapper">
-            <p class="goal-description">
-              {{ goal.description }}
-            </p>
+          <!-- Title and Description Section -->
+          <div class="title-description-section">
+            <div :id="`goal-title-${uniqueId}`" class="title-wrapper">
+              <h3 class="goal-title">
+                {{ goal.title }}
+              </h3>
+            </div>
+            <div :id="`goal-desc-${uniqueId}`" class="description-wrapper">
+              <p class="goal-description">
+                {{ goal.description }}
+              </p>
+            </div>
           </div>
         </div>
-
-        <!-- Key Focus Areas Section -->
-        <div class="highlights-section">
-          <h4 class="highlights-title">Key Focus Areas:</h4>
-          <v-list class="highlights-list" role="list">
-            <v-list-item
-              v-for="(highlight, index) in goal.highlights"
-              :key="index"
-              class="highlight-item"
-              role="listitem"
-            >
-              <template v-slot:prepend>
-                <v-icon
-                  :color="goal.color"
-                  icon="mdi-check-circle"
-                  size="small"
-                  class="highlight-icon"
-                  aria-hidden="true"
-                />
-              </template>
-              <v-list-item-title class="highlight-text">
-                {{ highlight }}
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </div>
-      </div>
-    </v-card>
+      </v-card>
+    </NuxtLink>
   </div>
 </template>
 
 <script setup>
 /**
- * Home Goal Card Component - Static Display
+ * Home Goal Card Component - Interactive Navigation
  *
- * Displays individual strategic goals as static information cards without
- * interactive navigation.
+ * Displays individual strategic goals as clickable cards that navigate to
+ * the goals and recommendations page.
  *
  * Features:
  * - CSS Grid-based layout for optimal content organization
  * - Larger icons (size 64) for better visual impact
  * - Responsive design with consistent minimum heights and equal card heights
- * - Static display without hover effects or click navigation
+ * - Interactive hover effects and click navigation
  * - Enhanced accessibility with proper ARIA attributes
  * - Smooth animations with reduced motion support
  * - Full theme compatibility (light/dark)
  * - Enhanced background contrast for better visual separation from section backgrounds
  * - WCAG 2.1 AA compliance with enhanced text contrast
- * - Goal number badges and key focus areas with checkmarks
+ * - Goal number badges for clear identification
  *
  * Technical Implementation:
- * - Uses CSS Grid with 5-row template for optimal content alignment
- * - Highlights section expands with 1fr to fill available space
- * - Deep selectors override Vuetify card and list defaults
+ * - Uses NuxtLink for client-side navigation
+ * - CSS Grid with flexible layout for optimal content alignment
+ * - Deep selectors override Vuetify card defaults
  * - Enhanced text contrast for optimal readability in both themes
  * - Balanced styling matching HomeAction cards for consistent visual hierarchy
- * - Consistent vertical alignment of Key Focus Areas across cards
+ * - Hover effects that preserve background colors in both themes
  *
  * @component
  */
@@ -155,6 +134,26 @@ const animationStyle = computed(() => ({
   flex-direction: column;
 }
 
+/* NuxtLink wrapper styling */
+.goal-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.goal-card-link:hover {
+  transform: translateY(-4px);
+}
+
+.goal-card-link:focus {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+  border-radius: 1rem;
+}
+
 /* Card styling with perfect height control - matching HomeAction card styling */
 .goal-card-inner {
   display: flex;
@@ -171,6 +170,13 @@ const animationStyle = computed(() => ({
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.goal-card-link:hover .goal-card-inner {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* Flexible Responsive Layout */
@@ -249,43 +255,6 @@ const animationStyle = computed(() => ({
   text-align: center;
 }
 
-/* Key Focus Areas Section - Aligned to Bottom */
-.highlights-section {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  margin-top: auto;
-}
-
-.highlights-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 1rem 0;
-  color: rgb(var(--v-theme-on-surface));
-  text-align: center;
-}
-
-.highlights-list {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-.highlight-item {
-  padding: 0 !important;
-  margin-bottom: 0.75rem;
-  min-height: auto !important;
-}
-
-.highlight-icon {
-  margin-right: 0.75rem;
-}
-
-.highlight-text {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: rgba(var(--v-theme-on-surface), 0.8);
-}
-
 /* Dark Theme Adjustments - matching HomeAction card styling */
 :root[data-theme="dark"] .goal-card-inner {
   background: #2a3441 !important; /* Same color as HomeAction cards */
@@ -293,6 +262,12 @@ const animationStyle = computed(() => ({
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.5),
     0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .goal-card-link:hover .goal-card-inner {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.6),
+    0 4px 6px -2px rgba(0, 0, 0, 0.5);
 }
 
 :root[data-theme="dark"] .goal-icon {
@@ -310,16 +285,6 @@ const animationStyle = computed(() => ({
   color: rgba(0, 0, 0, 0.75);
 }
 
-:root[data-theme="light"] .highlights-title,
-:root:not([data-theme]) .highlights-title {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-:root[data-theme="light"] .highlight-text,
-:root:not([data-theme]) .highlight-text {
-  color: rgba(0, 0, 0, 0.7);
-}
-
 /* Enhanced text contrast for dark theme */
 :root[data-theme="dark"] .goal-title {
   color: rgba(255, 255, 255, 0.95);
@@ -327,14 +292,6 @@ const animationStyle = computed(() => ({
 
 :root[data-theme="dark"] .goal-description {
   color: rgba(255, 255, 255, 0.85);
-}
-
-:root[data-theme="dark"] .highlights-title {
-  color: rgba(255, 255, 255, 0.95);
-}
-
-:root[data-theme="dark"] .highlight-text {
-  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Force Vuetify card to use our grid layout */
@@ -347,17 +304,6 @@ const animationStyle = computed(() => ({
 :deep(.v-card__text) {
   padding: 0 !important;
   flex: 1 !important;
-}
-
-/* Override Vuetify list styling */
-:deep(.v-list-item__prepend) {
-  align-self: flex-start !important;
-  margin-top: 0.125rem !important;
-}
-
-:deep(.v-list-item-title) {
-  white-space: normal !important;
-  line-height: 1.5 !important;
 }
 
 /* Animation */

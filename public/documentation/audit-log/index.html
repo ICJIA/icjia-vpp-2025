@@ -290,6 +290,45 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-29 (Hero Image Proportional Sizing and Centering)</h2>
+<p>Modified the HomeHero component to improve hero image sizing, centering, and responsiveness for better visual balance between text content and image across all screen sizes.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeHero.vue</code>: Enhanced hero image container and styling for proportional sizing and centering</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Reduced Overall Height</strong>: Implemented natural height with min/max bounds (min-height: 300px, max-height: 600px) to ensure complete image visibility</li>
+<li><strong>Centered Image</strong>: Added flexbox centering (<code>display: flex</code>, <code>align-items: center</code>, <code>justify-content: center</code>) to <code>.hero-image-container</code></li>
+<li><strong>Responsive Height Matching</strong>: Image height now dynamically corresponds to screen width and text content height</li>
+<li><strong>Responsive Breakpoints</strong>: Added tablet (960px) and mobile (600px) breakpoints with progressively smaller heights</li>
+<li><strong>Improved Image Sizing</strong>: Removed fixed <code>aspect-ratio=&quot;4/3&quot;</code> and <code>cover</code> prop to preserve natural aspect ratio and complete image visibility</li>
+<li><strong>Enhanced CSS</strong>: Changed to <code>object-fit: contain</code> and natural sizing to preserve complete image visibility</li>
+<li><strong>Performance Optimization</strong>: Simplified 3D transforms on mobile devices for better performance</li>
+<li><strong>Deep Selectors</strong>: Added <code>:deep()</code> selectors to ensure ImageWithSpinner component respects container sizing</li>
+<li><strong>Maintained Accessibility</strong>: Preserved all existing ARIA attributes and accessibility features</li>
+<li><strong>Theme Compatibility</strong>: All changes work correctly in both light and dark modes</li>
+<li><strong>Animation Preservation</strong>: Maintained all existing animations and hover effects with responsive adjustments</li>
+</ul>
+<h2>2025-07-29 (Homepage Goals Section Interactive Update)</h2>
+<p>Updated the homepage goals section to change the title from &quot;Our Goals: 2025-2029&quot; to &quot;Goals and Recommendations&quot;, removed the &quot;Key Focus Areas&quot; content, and made each goal card hoverable and clickable with navigation to the goals and recommendations page.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeGoals.vue</code>: Updated section title and goal URLs for navigation</li>
+<li><code>app/components/content/HomeGoalCard.vue</code>: Removed Key Focus Areas section, added NuxtLink wrapper for navigation, implemented hover effects</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>Changed section title from &quot;Our Goals: 2025-2029&quot; to &quot;Goals and Recommendations&quot;</li>
+<li>Updated all goal URLs from <code>/plan/executive-summary</code> to <code>/plan/goals-and-recommendations</code></li>
+<li>Removed entire &quot;Key Focus Areas&quot; section including highlights list and related CSS</li>
+<li>Wrapped cards in NuxtLink components for client-side navigation</li>
+<li>Added hover effects: translateY(-4px) on link hover and enhanced box-shadow</li>
+<li>Implemented focus states with primary color outline for accessibility</li>
+<li>Preserved all existing background colors and styling in both light and dark modes</li>
+<li>Maintained WCAG 2.1 AA accessibility compliance with proper ARIA attributes</li>
+<li>Updated component documentation to reflect interactive navigation functionality</li>
+</ul>
 <h2>2025-07-29 (Footer Background Enhancement)</h2>
 <p>Enhanced footer visual distinction by implementing a darker background color in light mode only, providing better visual separation between the footer and main content sections while maintaining accessibility standards.</p>
 <h3>Files Modified/Created:</h3>

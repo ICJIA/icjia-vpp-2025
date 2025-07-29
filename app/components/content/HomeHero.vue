@@ -66,11 +66,8 @@
               src="/images/front-cover.png"
               alt="Youth violence prevention summit participants collaborating on community safety initiatives"
               image-class="hero-image rounded-xl"
-              cover
-              aspect-ratio="4/3"
               spinner-color="primary"
               spinner-size="50"
-              
             />
             <div class="hero-image-decoration-1" aria-hidden="true"></div>
             <div class="hero-image-decoration-2" aria-hidden="true"></div>
@@ -92,6 +89,9 @@
  * Features:
  * - Mission-driven opening statements from VPP analysis
  * - Responsive layout that adapts to different screen sizes
+ * - Proportional hero image that scales with content and viewport
+ * - Centered image positioning (both horizontal and vertical)
+ * - Responsive height matching between image and text content
  * - Animated content with fade-in and subtle movement effects
  * - Decorative background elements for visual interest
  * - Accessible image loading with spinner during load
@@ -189,15 +189,24 @@ const handleLearnMore = () => {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Hero image container with decorative elements */
+/* Hero image container with decorative elements - improved sizing and centering */
 .hero-image-container {
   position: relative;
   opacity: 0;
   animation: fadeSlideUp 0.8s forwards;
   animation-delay: 0.8s;
+  /* Center the image both horizontally and vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Allow the image to determine its own height - no height constraints to prevent cut-off */
+  height: auto;
+  /* Remove all height constraints to show complete image */
+  /* Ensure container doesn't overflow */
+  overflow: visible;
 }
 
-/* Hero image with 3D perspective and subtle animation */
+/* Hero image with 3D perspective and subtle animation - improved proportions */
 .hero-image {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   transform: perspective(1000px) rotateY(-5deg) rotateX(3deg);
@@ -205,11 +214,66 @@ const handleLearnMore = () => {
   animation: subtlePulseImage 8s ease-in-out infinite alternate;
   animation-delay: 1.5s;
   will-change: transform, box-shadow;
+  /* Responsive sizing that preserves aspect ratio */
+  width: 100%;
+  height: auto;
+  max-width: 450px;
+  /* Remove max-height to prevent cut-off - let image show completely */
+  object-fit: contain;
+  /* Ensure the image doesn't dominate the section */
+  border-radius: 12px;
 }
 
 .hero-image:hover {
   transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) scale(1.02);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive adjustments for hero image container */
+@media (max-width: 960px) {
+  .hero-image-container {
+    /* Remove height constraints on tablets to prevent cut-off */
+    margin-top: 2rem;
+  }
+
+  .hero-image {
+    max-width: 380px;
+    /* Remove max-height to prevent cut-off */
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-image-container {
+    /* Remove height constraints on mobile to prevent cut-off */
+    margin-top: 1.5rem;
+  }
+
+  .hero-image {
+    /* Reduce size on mobile while preserving complete image */
+    max-width: 300px;
+    /* Remove max-height to prevent cut-off */
+    /* Simplify 3D effects on mobile for better performance */
+    transform: perspective(800px) rotateY(-3deg) rotateX(2deg);
+  }
+
+  .hero-image:hover {
+    transform: perspective(800px) rotateY(-1deg) rotateX(1deg) scale(1.01);
+  }
+}
+
+/* Ensure the ImageWithSpinner component respects our container sizing */
+.hero-image-container :deep(.image-container) {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+}
+
+.hero-image-container :deep(.v-img) {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
 }
 
 /* Decorative elements */

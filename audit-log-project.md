@@ -2,6 +2,49 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-29 (Hero Image Proportional Sizing and Centering)
+
+Modified the HomeHero component to improve hero image sizing, centering, and responsiveness for better visual balance between text content and image across all screen sizes.
+
+### Files Modified/Created:
+
+- `app/components/content/HomeHero.vue`: Enhanced hero image container and styling for proportional sizing and centering
+
+### Technical Notes:
+
+- **Reduced Overall Height**: Implemented natural height with min/max bounds (min-height: 300px, max-height: 600px) to ensure complete image visibility
+- **Centered Image**: Added flexbox centering (`display: flex`, `align-items: center`, `justify-content: center`) to `.hero-image-container`
+- **Responsive Height Matching**: Image height now dynamically corresponds to screen width and text content height
+- **Responsive Breakpoints**: Added tablet (960px) and mobile (600px) breakpoints with progressively smaller heights
+- **Improved Image Sizing**: Removed fixed `aspect-ratio="4/3"` and `cover` prop to preserve natural aspect ratio and complete image visibility
+- **Enhanced CSS**: Changed to `object-fit: contain` and natural sizing to preserve complete image visibility
+- **Performance Optimization**: Simplified 3D transforms on mobile devices for better performance
+- **Deep Selectors**: Added `:deep()` selectors to ensure ImageWithSpinner component respects container sizing
+- **Maintained Accessibility**: Preserved all existing ARIA attributes and accessibility features
+- **Theme Compatibility**: All changes work correctly in both light and dark modes
+- **Animation Preservation**: Maintained all existing animations and hover effects with responsive adjustments
+
+## 2025-07-29 (Homepage Goals Section Interactive Update)
+
+Updated the homepage goals section to change the title from "Our Goals: 2025-2029" to "Goals and Recommendations", removed the "Key Focus Areas" content, and made each goal card hoverable and clickable with navigation to the goals and recommendations page.
+
+### Files Modified/Created:
+
+- `app/components/content/HomeGoals.vue`: Updated section title and goal URLs for navigation
+- `app/components/content/HomeGoalCard.vue`: Removed Key Focus Areas section, added NuxtLink wrapper for navigation, implemented hover effects
+
+### Technical Notes:
+
+- Changed section title from "Our Goals: 2025-2029" to "Goals and Recommendations"
+- Updated all goal URLs from `/plan/executive-summary` to `/plan/goals-and-recommendations`
+- Removed entire "Key Focus Areas" section including highlights list and related CSS
+- Wrapped cards in NuxtLink components for client-side navigation
+- Added hover effects: translateY(-4px) on link hover and enhanced box-shadow
+- Implemented focus states with primary color outline for accessibility
+- Preserved all existing background colors and styling in both light and dark modes
+- Maintained WCAG 2.1 AA accessibility compliance with proper ARIA attributes
+- Updated component documentation to reflect interactive navigation functionality
+
 ## 2025-07-29 (Footer Background Enhancement)
 
 Enhanced footer visual distinction by implementing a darker background color in light mode only, providing better visual separation between the footer and main content sections while maintaining accessibility standards.
