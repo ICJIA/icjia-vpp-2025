@@ -290,6 +290,27 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-29 (Feedback Form Dark Mode Fixes and UI Improvements)</h2>
+<p>Fixed dark mode visibility issues with form labels and helper text, and improved button layout by centering the form action buttons for better visual balance and user experience.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/FeedbackForm.vue</code> - Fixed dark mode styling and button layout</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Dark Mode Fixes</strong>: Resolved label visibility issues in dark mode by:<ul>
+<li>Enhanced label color contrast with <code>rgb(var(--v-theme-on-surface))</code> and 0.87 opacity</li>
+<li>Fixed floating label states for focused and dirty fields with primary color</li>
+<li>Improved placeholder text visibility with proper opacity settings</li>
+<li>Enhanced field outline visibility using theme outline colors</li>
+<li>Fixed helper text visibility with proper color variables</li>
+</ul>
+</li>
+<li><strong>Button Layout</strong>: Changed button container from <code>justify-end</code> to <code>justify-center</code> for better visual balance</li>
+<li><strong>Helper Text Styling</strong>: Created custom <code>.helper-text</code> class for consistent helper text visibility across themes</li>
+<li><strong>Form Element Contrast</strong>: Ensured all form elements meet WCAG contrast requirements in both light and dark modes</li>
+<li><strong>Responsive Design</strong>: Maintained responsive button layout while improving visual hierarchy</li>
+</ul>
 <h2>2025-07-29 (Feedback Form Implementation)</h2>
 <p>Implemented a comprehensive feedback form component for the contact page, allowing users to submit feedback about the Violence Prevention Plan with full accessibility compliance and proper form validation.</p>
 <h3>Files Modified/Created:</h3>

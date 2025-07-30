@@ -12,22 +12,5 @@ keywords:
 showBorder: true
 ---
 
-# Contact Us
-
-## Illinois Criminal Justice Information Authority
-
-The **Illinois Criminal Justice Information Authority (ICJIA)** is the lead agency responsible for the development and implementation of the Statewide Violence Prevention Plan for Illinois: 2025-2029.
-
-### General Information
-
-**Illinois Criminal Justice Information Authority**
-60 E Van Buren St
-Chicago, IL 60605
-
-**Phone:** (312) 793-8550
-**Website:** [icjia.illinois.gov](https://icjia.illinois.gov)
-
----
-
 ::FeedbackForm
 ::

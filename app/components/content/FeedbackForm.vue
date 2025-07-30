@@ -1,12 +1,16 @@
 <template>
   <section
-    class="feedback-form-section py-8"
+    class="feedback-form-section py-4"
     role="region"
     aria-labelledby="feedback-form-title"
   >
     <v-container>
       <div class="text-center mb-8">
-        <h2 id="feedback-form-title" class="text-h4 mb-4">
+        <h2
+          id="feedback-form-title"
+          class="text-h4 mb-4"
+          style="margin-top: -40px !important"
+        >
           Share Your Feedback
         </h2>
         <p class="text-body-1 text-medium-emphasis">
@@ -50,6 +54,10 @@
               @submit.prevent="handleSubmit"
             >
               <!-- Email Field -->
+              <div id="email-help" class="text-caption helper-text mb-2">
+                We'll use this email address to respond to your feedback if
+                needed.
+              </div>
               <v-text-field
                 v-model="formData.email"
                 label="Email Address"
@@ -65,10 +73,6 @@
                   <v-icon icon="mdi-email-outline" aria-hidden="true" />
                 </template>
               </v-text-field>
-              <div id="email-help" class="text-caption helper-text mb-4">
-                We'll use this email address to respond to your feedback if
-                needed.
-              </div>
 
               <!-- First Name Field -->
               <v-text-field
@@ -101,6 +105,11 @@
               </v-text-field>
 
               <!-- Comment/Feedback Field -->
+              <div id="comment-help" class="text-caption helper-text mb-2">
+                Please share your thoughts, suggestions, or questions about the
+                violence prevention plan. Minimum 10 characters, maximum 750
+                characters.
+              </div>
               <v-textarea
                 v-model="formData.comment"
                 label="Comment or Feedback"
@@ -117,45 +126,67 @@
                   <v-icon icon="mdi-message-text-outline" aria-hidden="true" />
                 </template>
               </v-textarea>
-              <div id="comment-help" class="text-caption helper-text mb-4">
-                Please share your thoughts, suggestions, or questions about the
-                violence prevention plan. Maximum 750 characters.
-              </div>
 
               <!-- Form Actions -->
-              <div class="d-flex flex-column flex-sm-row gap-4 justify-center">
+              <div
+                class="d-flex flex-column flex-sm-row justify-center form-actions"
+              >
                 <v-btn
                   type="button"
                   variant="outlined"
                   color="secondary"
                   @click="handleClear"
                   :disabled="isSubmitting"
-                  aria-describedby="clear-help"
                 >
                   <v-icon start icon="mdi-refresh" aria-hidden="true" />
                   Clear Form
                 </v-btn>
 
-                <v-btn
-                  type="submit"
-                  variant="elevated"
-                  color="primary"
-                  :loading="isSubmitting"
-                  :disabled="!isFormValid || isSubmitting"
-                  aria-describedby="submit-help"
-                >
-                  <v-icon start icon="mdi-send" aria-hidden="true" />
-                  Send Feedback
-                </v-btn>
-              </div>
+                <div class="position-relative">
+                  <v-btn
+                    type="submit"
+                    variant="elevated"
+                    :color="isFormValid && !isSubmitting ? 'primary' : 'grey'"
+                    :loading="isSubmitting"
+                    :disabled="!isFormValid || isSubmitting"
+                    class="submit-button"
+                    :class="{
+                      'submit-button--disabled': !isFormValid || isSubmitting,
+                    }"
+                    :style="{
+                      cursor: isSubmitting
+                        ? 'wait'
+                        : !isFormValid
+                          ? 'not-allowed'
+                          : 'pointer',
+                    }"
+                    @mouseenter="showTooltip = true"
+                    @mouseleave="hideTooltip"
+                    @focus="showTooltip = true"
+                    @blur="hideTooltip"
+                  >
+                    <v-icon
+                      start
+                      :icon="
+                        !isFormValid && !isSubmitting ? 'mdi-lock' : 'mdi-send'
+                      "
+                      aria-hidden="true"
+                    />
+                    {{
+                      !isFormValid && !isSubmitting
+                        ? "Form Incomplete"
+                        : "Send Feedback"
+                    }}
+                  </v-btn>
 
-              <!-- Helper Text -->
-              <div class="mt-4">
-                <div id="clear-help" class="text-caption helper-text">
-                  Clear form: Resets all fields and validation errors
-                </div>
-                <div id="submit-help" class="text-caption helper-text">
-                  Send feedback: Validates and submits your message
+                  <v-tooltip
+                    :model-value="showTooltip"
+                    location="bottom"
+                    :text="submitTooltipText"
+                    activator="parent"
+                    :open-delay="200"
+                    :close-delay="0"
+                  />
                 </div>
               </div>
             </v-form>
@@ -191,13 +222,17 @@
  * ::
  */
 
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 
 // Form state management
 const formRef = ref(null);
 const isFormValid = ref(false);
 const isSubmitting = ref(false);
 const isSubmitted = ref(false);
+
+// Tooltip state management
+const showTooltip = ref(false);
+let tooltipTimer = null;
 
 // Form data
 const formData = reactive({
@@ -235,6 +270,70 @@ const commentRules = [
     return true;
   },
 ];
+
+/**
+ * Computed property for submit button tooltip text
+ * Shows form status and what's needed to submit
+ */
+const submitTooltipText = computed(() => {
+  const tooltipText = (() => {
+    if (isSubmitting.value) {
+      return "Submitting your feedback...";
+    }
+
+    if (!isFormValid.value) {
+      const missingFields = [];
+
+      // Check each required field
+      if (!formData.email || emailRules[0](formData.email) !== true) {
+        missingFields.push("EMAIL ADDRESS");
+      }
+      if (!formData.firstName || nameRules[0](formData.firstName) !== true) {
+        missingFields.push("FIRST NAME");
+      }
+      if (!formData.lastName || nameRules[0](formData.lastName) !== true) {
+        missingFields.push("LAST NAME");
+      }
+      if (!formData.comment || commentRules[0](formData.comment) !== true) {
+        missingFields.push("COMMENT");
+      }
+
+      if (missingFields.length > 0) {
+        return `Please complete: ${missingFields.join(", ")}`;
+      }
+
+      return "Please complete all required fields";
+    }
+
+    return "Form is ready to submit";
+  })();
+
+  // Debug logging
+  if (process.dev) {
+    console.log("Submit tooltip text:", tooltipText);
+    console.log("Form valid:", isFormValid.value);
+    console.log("Is submitting:", isSubmitting.value);
+  }
+
+  return tooltipText;
+});
+
+/**
+ * Hide tooltip with auto-dismiss timer (like navbar tooltips)
+ */
+const hideTooltip = () => {
+  // Clear any existing timer
+  if (tooltipTimer) {
+    clearTimeout(tooltipTimer);
+    tooltipTimer = null;
+  }
+
+  // Set auto-dismiss timer for 2 seconds (matching navbar behavior)
+  tooltipTimer = setTimeout(() => {
+    showTooltip.value = false;
+    tooltipTimer = null;
+  }, 2000);
+};
 
 /**
  * Stub function to simulate email sending
@@ -350,79 +449,115 @@ function handleClear() {
   background: rgb(var(--v-theme-surface)) !important;
 }
 
-/* Ensure main heading and description have proper contrast in both themes */
-.feedback-form-section h2 {
-  color: rgb(var(--v-theme-on-surface)) !important;
+/* Light theme styling */
+:root:not([data-theme="dark"]) .feedback-form-section h2 {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
 }
 
-.feedback-form-section .text-body-1 {
-  color: rgb(var(--v-theme-on-surface-variant)) !important;
+:root:not([data-theme="dark"]) .feedback-form-section .text-body-1 {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
 }
 
-/* Enhanced focus styles for accessibility */
-:deep(.v-field--focused) {
-  box-shadow: 0 0 0 2px rgb(var(--v-theme-primary)) !important;
-}
-
-/* Ensure proper contrast for form elements */
-:deep(.v-field__input) {
-  color: rgb(var(--v-theme-on-surface)) !important;
-}
-
-/* Fix label visibility with theme-aware colors */
-:deep(.v-label) {
-  color: rgb(var(--v-theme-on-surface)) !important;
+:root:not([data-theme="dark"]) :deep(.v-label) {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
   opacity: 0.87 !important;
 }
 
-/* Ensure floating labels are visible with primary color */
+:root:not([data-theme="dark"]) :deep(.v-field__input) {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
+}
+
+:root:not([data-theme="dark"]) :deep(.v-field__input::placeholder) {
+  color: #666 !important; /* Dark grey for light mode - ensures 4.5:1+ contrast */
+  opacity: 0.8 !important;
+}
+
+:root:not([data-theme="dark"]) :deep(.v-field__outline) {
+  color: #ccc !important; /* Light grey border for light mode */
+}
+
+/* Dark theme styling */
+:root[data-theme="dark"] .feedback-form-section h2 {
+  color: #f1f5f9 !important; /* Light text for dark mode */
+}
+
+:root[data-theme="dark"] .feedback-form-section .text-body-1 {
+  color: #cbd5e1 !important; /* Light grey text for dark mode */
+}
+
+:root[data-theme="dark"] :deep(.v-label) {
+  color: #f1f5f9 !important; /* Light text for dark mode */
+  opacity: 0.87 !important;
+}
+
+:root[data-theme="dark"] :deep(.v-field__input) {
+  color: #f1f5f9 !important; /* Light text for dark mode */
+}
+
+:root[data-theme="dark"] :deep(.v-field__input::placeholder) {
+  color: #94a3b8 !important; /* Medium grey for dark mode */
+  opacity: 0.6 !important;
+}
+
+:root[data-theme="dark"] :deep(.v-field__outline) {
+  color: #475569 !important; /* Dark grey border for dark mode */
+}
+
+/* Remove custom focus styles to use Vuetify's native focus styling */
+
+/* Focused and dirty label states for both themes */
 :deep(.v-field--focused .v-label),
 :deep(.v-field--dirty .v-label) {
   color: rgb(var(--v-theme-primary)) !important;
   opacity: 1 !important;
 }
 
-/* Fix placeholder text visibility with theme-aware colors */
-:deep(.v-field__input::placeholder) {
-  color: rgb(var(--v-theme-on-surface-variant)) !important;
-  opacity: 0.6 !important;
-}
-
-/* Ensure field borders are visible with theme-aware colors */
-:deep(.v-field__outline) {
-  color: rgb(var(--v-theme-outline)) !important;
-}
-
-/* Fix helper text visibility with theme-aware colors */
-:deep(.v-messages__message) {
-  color: rgb(var(--v-theme-on-surface-variant)) !important;
+/* Light theme helper text and messages */
+:root:not([data-theme="dark"]) :deep(.v-messages__message) {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
   opacity: 0.87 !important;
 }
 
-/* Custom helper text styling for better visibility with theme-aware colors */
-.helper-text {
-  color: rgb(var(--v-theme-on-surface-variant)) !important;
+:root:not([data-theme="dark"]) .helper-text {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
   opacity: 0.87 !important;
 }
 
-/* Ensure input text uses theme-aware colors */
-:deep(.v-field__input) {
-  color: rgb(var(--v-theme-on-surface)) !important;
+:root:not([data-theme="dark"]) :deep(.v-counter) {
+  color: #666 !important; /* Dark grey for light mode - ensures 4.5:1+ contrast */
+  opacity: 0.8 !important;
 }
 
-/* Fix counter text visibility with theme-aware colors */
-:deep(.v-counter) {
-  color: rgb(var(--v-theme-on-surface-variant)) !important;
+:root:not([data-theme="dark"]) :deep(.v-alert .v-alert__content) {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
+}
+
+:root:not([data-theme="dark"]) :deep(.v-alert .text-h6) {
+  color: #000 !important; /* Pure black for maximum contrast in light mode */
+}
+
+/* Dark theme helper text and messages */
+:root[data-theme="dark"] :deep(.v-messages__message) {
+  color: #cbd5e1 !important; /* Light grey for dark mode */
+  opacity: 0.87 !important;
+}
+
+:root[data-theme="dark"] .helper-text {
+  color: #cbd5e1 !important; /* Light grey for dark mode */
+  opacity: 0.87 !important;
+}
+
+:root[data-theme="dark"] :deep(.v-counter) {
+  color: #94a3b8 !important; /* Medium grey for dark mode */
   opacity: 0.7 !important;
 }
 
-/* Ensure alert text has proper contrast with theme-aware colors */
-:deep(.v-alert .v-alert__content) {
-  color: rgb(var(--v-theme-on-surface)) !important;
+:root[data-theme="dark"] :deep(.v-alert .v-alert__content) {
+  color: #f1f5f9 !important; /* Light text for dark mode */
 }
 
-:deep(.v-alert .text-h6) {
-  color: rgb(var(--v-theme-on-surface)) !important;
+:root[data-theme="dark"] :deep(.v-alert .text-h6) {
+  color: #f1f5f9 !important; /* Light text for dark mode */
 }
 
 /* Ensure error messages are properly themed */
@@ -435,6 +570,110 @@ function handleClear() {
 :deep(.v-field--error .v-label) {
   color: rgb(var(--v-theme-error)) !important;
   opacity: 1 !important;
+}
+
+/* Form actions spacing */
+.form-actions {
+  gap: 24px; /* 24px spacing between buttons */
+}
+
+/* Mobile spacing adjustment */
+@media (max-width: 600px) {
+  .form-actions {
+    gap: 16px; /* Slightly less spacing on mobile */
+  }
+}
+
+/* Submit button styling for better disabled state visibility */
+.submit-button--disabled {
+  /* Simple light grey background with dark text */
+  background-color: #f5f5f5 !important; /* Light grey background */
+  border-color: #f5f5f5 !important;
+  box-shadow: none !important; /* Remove elevation for disabled state */
+  opacity: 1 !important; /* Override Vuetify's default opacity */
+  position: relative !important;
+}
+
+.submit-button--disabled :deep(.v-btn__content) {
+  color: #000 !important; /* Dark black text */
+}
+
+.submit-button--disabled :deep(.v-icon) {
+  color: #000 !important; /* Dark black icon */
+}
+
+/* Add a subtle "disabled" overlay effect */
+.submit-button--disabled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Loading state styling - light grey background with dark spinner */
+.submit-button :deep(.v-btn--loading) {
+  background-color: #f5f5f5 !important; /* Light grey background when loading */
+  border-color: #f5f5f5 !important;
+}
+
+.submit-button :deep(.v-btn--loading .v-btn__content) {
+  color: #000 !important; /* Black text when loading */
+}
+
+.submit-button :deep(.v-btn--loading .v-progress-circular) {
+  color: #000 !important; /* Black spinner */
+}
+
+/* Ensure loading spinner is visible in both themes */
+:deep(.v-btn--loading .v-progress-circular) {
+  color: #000 !important;
+}
+
+:deep(.v-btn--loading .v-progress-circular .v-progress-circular__overlay) {
+  stroke: #000 !important;
+}
+
+/* Aggressive cursor styling to override Vuetify */
+.submit-button {
+  cursor: pointer !important; /* Default pointer when enabled */
+}
+
+/* Force not-allowed cursor for disabled state with maximum specificity */
+.submit-button--disabled,
+.submit-button--disabled:hover,
+.submit-button--disabled:focus,
+.submit-button--disabled:active {
+  cursor: not-allowed !important;
+}
+
+/* Deep selectors to override all Vuetify button elements */
+.submit-button--disabled :deep(.v-btn),
+.submit-button--disabled :deep(.v-btn:hover),
+.submit-button--disabled :deep(.v-btn:focus),
+.submit-button--disabled :deep(.v-btn:active),
+.submit-button--disabled :deep(.v-btn:disabled),
+.submit-button--disabled :deep(.v-btn__content),
+.submit-button--disabled :deep(.v-btn__overlay),
+.submit-button--disabled :deep(.v-icon),
+.submit-button--disabled :deep(*) {
+  cursor: not-allowed !important;
+}
+
+/* Loading state cursors */
+.submit-button :deep(.v-btn--loading),
+.submit-button :deep(.v-btn--loading *) {
+  cursor: wait !important;
 }
 
 /* Button focus styles */
@@ -452,5 +691,20 @@ function handleClear() {
   .d-flex.flex-column.flex-sm-row .v-btn {
     width: 100%;
   }
+}
+</style>
+
+<style>
+/* Global styles to force cursor changes - highest priority */
+.submit-button--disabled,
+.submit-button--disabled .v-btn,
+.submit-button--disabled .v-btn *,
+.submit-button--disabled * {
+  cursor: not-allowed !important;
+}
+
+.submit-button .v-btn--loading,
+.submit-button .v-btn--loading * {
+  cursor: wait !important;
 }
 </style>
