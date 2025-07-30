@@ -1,18 +1,17 @@
-import { computed, watch } from "vue";
+import { computed, watch, ref } from "vue";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
 
 /**
- * Theme Management Composable
+ * Simplified Theme Management Composable
  *
- * Provides cookie-based theme management that works seamlessly with SSR.
- * This composable eliminates FOUC (Flash of Unstyled Content) by ensuring
- * the theme preference is available during server-side rendering.
+ * Provides session-only theme management without persistence.
+ * Always defaults to dark mode on page load/refresh.
  *
  * Features:
- * - Cookie-based storage for SSR compatibility
- * - Automatic migration from localStorage to cookies
- * - Reactive theme state that updates across components
- * - Comprehensive logging for debugging
+ * - Session-only theme state (no persistence)
+ * - Always defaults to dark mode
+ * - Runtime theme switching during session
+ * - No SSR hydration issues
  * - Accessibility announcements for theme changes
  * - WCAG 2.1 AA compliant theme switching
  *
@@ -36,23 +35,8 @@ import { useConsoleLogger } from "~/composables/useConsoleLogger";
  * </script>
  * ```
  *
- * @example Advanced usage with Vuetify integration
- * ```vue
- * <script setup>
- * const { theme, setTheme, syncWithVuetify } = useTheme();
- *
- * // Set specific theme
- * setTheme('light');
- *
- * // Sync with Vuetify after app initialization
- * onMounted(() => {
- *   syncWithVuetify();
- * });
- * </script>
- * ```
- *
  * @author Violence Prevention Plan for Illinois: 2025-2029
- * @version 1.0.0
+ * @version 2.0.0 - Simplified for demo purposes
  * @module useTheme
  */
 
@@ -65,29 +49,24 @@ import { useConsoleLogger } from "~/composables/useConsoleLogger";
  * @returns {Function} returns.setTheme - Function to set specific theme
  * @returns {Function} returns.toggleTheme - Function to toggle between themes
  * @returns {Function} returns.syncWithVuetify - Function to sync theme with Vuetify
- * @returns {Function} returns.migrateFromLocalStorage - Function to migrate from localStorage
  * @returns {Function} returns.initializeTheme - Function to initialize theme system (client-side only)
  */
 export function useTheme() {
   const { logTheme, logError } = useConsoleLogger();
 
   /**
-   * Cookie-based theme storage
+   * Session-only theme storage
    *
-   * Uses Nuxt's useCookie composable for SSR-safe theme persistence.
-   * The cookie is available on both server and client sides, eliminating FOUC.
-   *
-   * Security Notes:
-   * - Uses sameSite: "lax" for CSRF protection
-   * - Secure flag enabled in production for HTTPS-only transmission
-   * - httpOnly disabled to allow client-side theme switching
+   * Always defaults to dark mode, no persistence across sessions.
+   * This eliminates SSR hydration issues while maintaining runtime functionality.
    */
-  const theme = useCookie("theme-preference", {
-    default: () => "dark", // Site default theme
-    maxAge: 60 * 60 * 24 * 365, // 1 year expiration
-    sameSite: "lax", // CSRF protection (changed from "none")
-    secure: process.env.NODE_ENV === "production", // Enable secure flag in production
-    httpOnly: false, // Allow client-side access for theme switching
+  const theme = ref("dark"); // Always start with dark mode
+
+  // Use useHead to set document attributes reactively for SSR compatibility
+  useHead({
+    htmlAttrs: {
+      "data-theme": () => theme.value,
+    },
   });
 
   /**
@@ -173,7 +152,7 @@ export function useTheme() {
             timestamp: new Date().toISOString(),
           });
         } else {
-          logTheme("Vuetify theme already matches cookie", {
+          logTheme("Vuetify theme already matches session theme", {
             theme: targetTheme,
             timestamp: new Date().toISOString(),
           });
@@ -185,77 +164,22 @@ export function useTheme() {
   };
 
   /**
-   * Migrate theme preference from localStorage to cookie
-   *
-   * This function provides backward compatibility by checking for
-   * existing localStorage theme preference and migrating it to the
-   * new cookie-based system.
-   */
-  const migrateFromLocalStorage = () => {
-    // Only run on client-side
-    if (typeof window === "undefined") return;
-
-    try {
-      const localStorageTheme = localStorage.getItem("theme-preference");
-
-      // If localStorage has a theme and cookie doesn't have a user-set value
-      if (localStorageTheme && ["light", "dark"].includes(localStorageTheme)) {
-        // Only migrate if the cookie is still at default value
-        // This prevents overwriting user's cookie preference
-        if (theme.value === "dark") {
-          // Default value
-          theme.value = localStorageTheme;
-
-          logTheme("Theme migrated from localStorage to cookie", {
-            migratedTheme: localStorageTheme,
-            timestamp: new Date().toISOString(),
-          });
-        }
-
-        // Clean up localStorage after migration
-        localStorage.removeItem("theme-preference");
-      }
-    } catch (error) {
-      logError("Error migrating theme from localStorage", error);
-    }
-  };
-
-  /**
-   * Set up SSR-compatible HTML attribute management
-   *
-   * Uses Nuxt's useHead to set the data-theme attribute on the HTML element
-   * during both server-side rendering and client-side hydration.
-   * This ensures the theme is applied correctly from the initial page load.
-   */
-  useHead({
-    htmlAttrs: {
-      "data-theme": theme,
-    },
-  });
-
-  /**
    * Initialize theme system
    *
-   * Sets up document attributes and handles migration from localStorage.
-   * This runs automatically when the composable is first used.
+   * Sets up document attributes for session-only theme management.
+   * Always starts with dark mode.
    */
   const initializeTheme = () => {
     // Set document attribute for CSS variables (client-side only)
-    // Note: useHead above handles SSR, this is for immediate client-side updates
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", theme.value);
-    }
-
-    // Migrate from localStorage if needed (client-side only)
-    if (typeof window !== "undefined") {
-      migrateFromLocalStorage();
     }
 
     // Log theme initialization (client-side only to prevent hydration mismatch)
     if (typeof window !== "undefined") {
       logTheme("Theme system initialized", {
         theme: theme.value,
-        source: "cookie",
+        source: "session-only",
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
         viewportWidth: window.innerWidth,
@@ -281,7 +205,6 @@ export function useTheme() {
     setTheme,
     toggleTheme,
     syncWithVuetify,
-    migrateFromLocalStorage,
     initializeTheme,
   };
 }

@@ -56,10 +56,10 @@ const { logTheme, logError } = useConsoleLogger();
 const showConsoleLogger = true; // Intentionally enabled in all environments for pre-launch debugging
 
 /**
- * Theme state management using cookie-based storage
+ * Theme state management using session-only storage
  *
- * Uses the useTheme composable for SSR-safe theme management.
- * This eliminates FOUC by ensuring theme consistency between server and client.
+ * Uses the simplified useTheme composable for session-only theme management.
+ * Always defaults to dark mode on page load/refresh.
  */
 const {
   theme,
@@ -117,23 +117,23 @@ onMounted(() => {
       // Initialize theme system (client-side only to prevent hydration mismatch)
       initializeTheme();
 
-      // Check if Vuetify theme matches our cookie theme
+      // Check if Vuetify theme matches our session theme
       const { $vuetify } = useNuxtApp();
       if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
         const vuetifyTheme = $vuetify.theme.global.name.value;
-        const cookieTheme = theme.value;
+        const sessionTheme = theme.value;
 
         if (process.dev) {
           console.log(
-            `[Layout] Vuetify theme: ${vuetifyTheme}, Cookie theme: ${cookieTheme}`
+            `[Layout] Vuetify theme: ${vuetifyTheme}, Session theme: ${sessionTheme}`
           );
         }
 
         // Only sync if there's a mismatch and we're sure it's safe to do so
         // This should rarely happen if the Vuetify plugin is working correctly
-        if (vuetifyTheme !== cookieTheme) {
+        if (vuetifyTheme !== sessionTheme) {
           console.warn(
-            `[Layout] Theme mismatch detected. Vuetify: ${vuetifyTheme}, Cookie: ${cookieTheme}`
+            `[Layout] Theme mismatch detected. Vuetify: ${vuetifyTheme}, Session: ${sessionTheme}`
           );
           // Don't automatically sync to avoid hydration issues
           // Let the user manually toggle if needed
@@ -163,7 +163,7 @@ onMounted(() => {
  * @returns {void}
  */
 const toggleTheme = () => {
-  // Use the composable's toggle function for cookie-based theme management
+  // Use the composable's toggle function for session-only theme management
   toggleThemeComposable();
 
   // Sync with Vuetify after theme change

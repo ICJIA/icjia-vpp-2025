@@ -2,6 +2,69 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-29 (Feedback Form Dark Mode Fixes and UI Improvements)
+
+Fixed dark mode visibility issues with form labels and helper text, and improved button layout by centering the form action buttons for better visual balance and user experience.
+
+### Files Modified/Created:
+
+- **Component**: `app/components/content/FeedbackForm.vue` - Fixed dark mode styling and button layout
+
+### Technical Notes:
+
+- **Dark Mode Fixes**: Resolved label visibility issues in dark mode by:
+  - Enhanced label color contrast with `rgb(var(--v-theme-on-surface))` and 0.87 opacity
+  - Fixed floating label states for focused and dirty fields with primary color
+  - Improved placeholder text visibility with proper opacity settings
+  - Enhanced field outline visibility using theme outline colors
+  - Fixed helper text visibility with proper color variables
+- **Button Layout**: Changed button container from `justify-end` to `justify-center` for better visual balance
+- **Helper Text Styling**: Created custom `.helper-text` class for consistent helper text visibility across themes
+- **Form Element Contrast**: Ensured all form elements meet WCAG contrast requirements in both light and dark modes
+- **Responsive Design**: Maintained responsive button layout while improving visual hierarchy
+
+## 2025-07-29 (Feedback Form Implementation)
+
+Implemented a comprehensive feedback form component for the contact page, allowing users to submit feedback about the Violence Prevention Plan with full accessibility compliance and proper form validation.
+
+### Files Modified/Created:
+
+- **Component**: `app/components/content/FeedbackForm.vue` - Created new feedback form component
+- **Plugin**: `app/plugins/markdown-components.ts` - Registered FeedbackForm for MDC usage
+- **Content**: `content/contact.md` - Added FeedbackForm component to contact page
+
+### Technical Notes:
+
+- **Form Features**: Implemented comprehensive form with:
+  - Email address field with email format validation
+  - First name and last name fields with length validation (2-50 characters)
+  - Comment/feedback textarea with 750 character limit and counter
+  - Submit button with validation and loading states
+  - Clear button to reset all fields and validation
+- **Validation**: Used Vuetify 3 built-in validation rules for:
+  - Required field validation for all inputs
+  - Email format validation with regex pattern
+  - Character length limits and minimums
+  - Real-time validation feedback
+- **Accessibility**: Full WCAG 2.1 AA compliance with:
+  - Proper ARIA labels and descriptions
+  - Screen reader announcements for form actions
+  - Keyboard navigation support
+  - Focus management and visual indicators
+  - Semantic HTML structure with proper roles
+- **User Experience**: Enhanced UX features including:
+  - Success message display after submission
+  - Form disable state after successful submission
+  - Loading states during submission process
+  - Character counter for textarea
+  - Responsive design for mobile and desktop
+- **Technical Implementation**: Built with Vue 3 Composition API using:
+  - `<script setup>` syntax following project standards
+  - Reactive form data management
+  - Stub `send_email` function for console logging
+  - Proper error handling and state management
+  - MDC integration for seamless markdown embedding
+
 ## 2025-07-29 (Hero Section Animation Restoration)
 
 Restored subtle animations to the home hero section that were previously removed, bringing back the gentle movement and visual interest that enhances user engagement while maintaining accessibility standards.

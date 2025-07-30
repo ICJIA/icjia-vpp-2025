@@ -14,34 +14,13 @@ import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // Determine initial theme for SSR consistency using cookies
-  // Cookies are available on both server and client sides, eliminating FOUC
-  let initialTheme = "dark"; // Site default theme
+  // Always use dark theme as default for session-only theme management
+  // This eliminates SSR hydration issues by ensuring consistent initial state
+  const initialTheme = "dark"; // Always start with dark mode
 
-  // Read theme preference from cookie (works on both server and client)
-  try {
-    // Use the same cookie name and settings as the useTheme composable
-    const themeCookie = useCookie("theme-preference", {
-      default: () => "dark",
-      maxAge: 60 * 60 * 24 * 365, // 1 year expiration
-      sameSite: "lax", // CSRF protection (changed from "none")
-      secure: process.env.NODE_ENV === 'production', // Enable secure flag in production
-      httpOnly: false, // Allow client-side access for theme switching
-    });
-
-    // Ensure we get the actual cookie value, not just the default
-    const cookieValue = themeCookie.value;
-    if (cookieValue && ["light", "dark"].includes(cookieValue)) {
-      initialTheme = cookieValue;
-    }
-
-    // Log theme initialization for debugging
-    if (process.dev) {
-      console.log(`[Vuetify Plugin] Initializing with theme: ${initialTheme}, cookie value: ${cookieValue}`);
-    }
-  } catch (e) {
-    // Fallback to default if cookie is unavailable
-    console.warn("Could not access theme preference cookie:", e);
+  // Log theme initialization for debugging
+  if (process.dev) {
+    console.log(`[Vuetify Plugin] Initializing with theme: ${initialTheme} (session-only)`);
   }
 
   const vuetify = createVuetify({

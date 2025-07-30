@@ -30,6 +30,7 @@ import HomeStakeholders from "~/components/content/HomeStakeholders.vue";
 import HomeNews from "~/components/content/HomeNews.vue";
 import HomePrinciples from "~/components/content/HomePrinciples.vue";
 import HomeApproach from "~/components/content/HomeApproach.vue";
+import FeedbackForm from "~/components/content/FeedbackForm.vue";
 
 // Import Vuetify components for use in markdown
 import {
@@ -69,6 +70,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("HomeNews", HomeNews);
   nuxtApp.vueApp.component("HomePrinciples", HomePrinciples);
   nuxtApp.vueApp.component("HomeApproach", HomeApproach);
+  nuxtApp.vueApp.component("FeedbackForm", FeedbackForm);
 
   // Register Vuetify components for use in markdown
   // nuxtApp.vueApp.component('VBtn', VBtn)
@@ -84,7 +86,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Log registration in development environment
   if (process.env.NODE_ENV === "development") {
     console.log(
-      "📝 Registered markdown components: TextWrapImage, TextCenteredImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeLetters, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach",
+      "📝 Registered markdown components: TextWrapImage, TextCenteredImage, ImageWithSpinner, CenteredImage, HeroSection, FeatureSection, HomeHighlights, HomeAction, AboutHero, AboutStory, AboutValues, AboutApproach, AboutContact, HomeHero, HomeLetters, HomeStatistics, HomeGoals, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach, FeedbackForm",
     );
     console.log(
       "📝 Registered Vuetify components for markdown: VBtn, VIcon, VAlert, VCard, VCardTitle, VCardText, VCardActions, VDivider, VTooltip",
