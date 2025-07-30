@@ -19,12 +19,13 @@
         <v-row no-gutters align="center">
           <v-col cols="auto">
             <div class="logo d-flex align-center">
-              <v-icon
-                :icon="menuConfig.header.branding.icon"
-                :size="$vuetify.display.smAndDown ? 'large' : 'x-large'"
-                color="primary"
-                :class="$vuetify.display.smAndDown ? 'mr-1' : 'mr-2'"
-                aria-hidden="true"
+              <img
+                src="/images/illinois-seal.png"
+                alt="Illinois State Seal"
+                :height="$vuetify.display.smAndDown ? 32 : 40"
+                :width="$vuetify.display.smAndDown ? 32 : 40"
+                :class="$vuetify.display.smAndDown ? 'mr-2' : 'mr-3'"
+                style="object-fit: contain"
               />
               <!-- Responsive title display based on screen size -->
               <span
