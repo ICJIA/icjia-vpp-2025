@@ -290,6 +290,33 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-30 (TOC Vertical Line Restoration)</h2>
+<p>Fixed missing vertical line in table of contents on plan pages by correcting CSS specificity issue where overly broad background overrides were affecting the indicator line styling.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/pages/[...slug].vue</code> - Fixed CSS selector specificity to exclude TOC indicator elements from background overrides</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Root Cause Identification</strong>:<ul>
+<li>The CSS rule <code>.toc-content *</code> was applying <code>background-color: transparent !important</code> to ALL elements inside the TOC</li>
+<li>This overly broad selector was overriding the <code>.toc-indicator-line</code> background color styling</li>
+<li>The vertical line was being rendered but made invisible due to the transparent background override</li>
+</ul>
+</li>
+<li><strong>Specificity Fix Implementation</strong>:<ul>
+<li>Changed selector from <code>.toc-content *</code> to <code>.toc-content *:not(.toc-indicator-line):not(.toc-indicator-dot)</code></li>
+<li>This preserves the background transparency for unwanted elements while allowing indicator styling to work</li>
+<li>Maintains the original intent of removing gray backgrounds while preserving visual indicators</li>
+</ul>
+</li>
+<li><strong>Visual Restoration</strong>:<ul>
+<li>Vertical line now displays correctly on the left side of the TOC as originally designed</li>
+<li>Indicator dots and line maintain proper contrast ratios in both light and dark themes</li>
+<li>No impact on other TOC functionality or accessibility features</li>
+</ul>
+</li>
+</ul>
 <h2>2025-07-30 (Report Navigation Circular Arrow Removal)</h2>
 <p>Removed circular arrow icons from report navigation cards to eliminate mobile overflow issues and create cleaner visual design while preserving directional text indicators.</p>
 <h3>Files Modified/Created:</h3>

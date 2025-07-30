@@ -1580,7 +1580,8 @@ useSeoMeta({
 }
 
 /* Additional comprehensive overrides to eliminate any gray backgrounds */
-.toc-content * {
+/* Exclude the indicator line from background overrides */
+.toc-content *:not(.toc-indicator-line):not(.toc-indicator-dot) {
   background-color: transparent !important;
   background: none !important;
 }
@@ -1681,13 +1682,12 @@ useSeoMeta({
   border-color: rgba(25, 118, 210, 0.3);
 }
 
+/* Active dot styling - High contrast bright green */
 .toc-indicator-dot--active {
-  background-color: #4caf50 !important; /* High contrast green for selected items */
-  border-color: rgba(76, 175, 80, 0.3) !important;
-  transform: scale(
-    1.2
-  ); /* Remove translateY since we're using fixed top positioning */
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  background-color: #00e676 !important; /* Bright, vibrant green for maximum contrast */
+  border-color: #00e676 !important; /* Solid bright green border */
+  transform: scale(1.3) !important; /* Slightly larger for better visibility */
+  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.4) !important; /* Bright green glow */
 }
 
 .toc-item:hover .toc-indicator-dot {

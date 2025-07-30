@@ -2,6 +2,58 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-30 (TOC Styling Reversion)
+
+Reverted experimental TOC styling changes that caused visual issues with the sticky TOC behavior, returning to the original clean styling approach.
+
+### Files Modified/Created:
+
+- **Component**: `app/pages/[...slug].vue` - Reverted TOC content styling, indicator line styling, and dot styling back to original specifications
+
+### Technical Notes:
+
+- **Reversion Rationale**:
+  - Experimental enhancements to TOC styling caused visual issues when the TOC became sticky/fixed
+  - Enhanced styling with borders, backgrounds, and stronger specificity created layout problems
+  - User feedback indicated the enhanced styling was problematic and needed to be undone
+- **Reverted Changes**:
+  - Removed enhanced `.toc-content` styling (borders, background, padding changes)
+  - Reverted `.toc-indicator-line` back to original subtle styling with proper opacity
+  - Restored original `.toc-indicator-dot` sizing and positioning
+  - Removed pseudo-element fallback attempts for the indicator line
+  - Simplified background override rules back to original exclusion approach
+- **Current State**:
+  - TOC styling returned to original clean, minimal approach
+  - Vertical line issue remains unresolved and requires different investigation approach
+  - All experimental styling removed to prevent interference with sticky behavior
+- **Future Considerations**:
+  - TOC vertical line visibility issue needs to be addressed through different means
+  - Any future TOC enhancements should be tested thoroughly with sticky behavior
+  - Focus should be on identifying root cause of line visibility rather than styling workarounds
+
+## 2025-07-30 (TOC Vertical Line Restoration)
+
+Fixed missing vertical line in table of contents on plan pages by correcting CSS specificity issue where overly broad background overrides were affecting the indicator line styling.
+
+### Files Modified/Created:
+
+- **Component**: `app/pages/[...slug].vue` - Fixed CSS selector specificity to exclude TOC indicator elements from background overrides
+
+### Technical Notes:
+
+- **Root Cause Identification**:
+  - The CSS rule `.toc-content *` was applying `background-color: transparent !important` to ALL elements inside the TOC
+  - This overly broad selector was overriding the `.toc-indicator-line` background color styling
+  - The vertical line was being rendered but made invisible due to the transparent background override
+- **Specificity Fix Implementation**:
+  - Changed selector from `.toc-content *` to `.toc-content *:not(.toc-indicator-line):not(.toc-indicator-dot)`
+  - This preserves the background transparency for unwanted elements while allowing indicator styling to work
+  - Maintains the original intent of removing gray backgrounds while preserving visual indicators
+- **Visual Restoration**:
+  - Vertical line now displays correctly on the left side of the TOC as originally designed
+  - Indicator dots and line maintain proper contrast ratios in both light and dark themes
+  - No impact on other TOC functionality or accessibility features
+
 ## 2025-07-30 (Report Navigation Circular Arrow Removal)
 
 Removed circular arrow icons from report navigation cards to eliminate mobile overflow issues and create cleaner visual design while preserving directional text indicators.
