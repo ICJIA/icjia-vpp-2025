@@ -290,6 +290,41 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-30 (TOC Styling Reversion)</h2>
+<p>Reverted experimental TOC styling changes that caused visual issues with the sticky TOC behavior, returning to the original clean styling approach.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/pages/[...slug].vue</code> - Reverted TOC content styling, indicator line styling, and dot styling back to original specifications</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Reversion Rationale</strong>:<ul>
+<li>Experimental enhancements to TOC styling caused visual issues when the TOC became sticky/fixed</li>
+<li>Enhanced styling with borders, backgrounds, and stronger specificity created layout problems</li>
+<li>User feedback indicated the enhanced styling was problematic and needed to be undone</li>
+</ul>
+</li>
+<li><strong>Reverted Changes</strong>:<ul>
+<li>Removed enhanced <code>.toc-content</code> styling (borders, background, padding changes)</li>
+<li>Reverted <code>.toc-indicator-line</code> back to original subtle styling with proper opacity</li>
+<li>Restored original <code>.toc-indicator-dot</code> sizing and positioning</li>
+<li>Removed pseudo-element fallback attempts for the indicator line</li>
+<li>Simplified background override rules back to original exclusion approach</li>
+</ul>
+</li>
+<li><strong>Current State</strong>:<ul>
+<li>TOC styling returned to original clean, minimal approach</li>
+<li>Vertical line issue remains unresolved and requires different investigation approach</li>
+<li>All experimental styling removed to prevent interference with sticky behavior</li>
+</ul>
+</li>
+<li><strong>Future Considerations</strong>:<ul>
+<li>TOC vertical line visibility issue needs to be addressed through different means</li>
+<li>Any future TOC enhancements should be tested thoroughly with sticky behavior</li>
+<li>Focus should be on identifying root cause of line visibility rather than styling workarounds</li>
+</ul>
+</li>
+</ul>
 <h2>2025-07-30 (TOC Vertical Line Restoration)</h2>
 <p>Fixed missing vertical line in table of contents on plan pages by correcting CSS specificity issue where overly broad background overrides were affecting the indicator line styling.</p>
 <h3>Files Modified/Created:</h3>

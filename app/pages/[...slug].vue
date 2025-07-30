@@ -1649,14 +1649,22 @@ useSeoMeta({
   outline-offset: 2px;
 }
 
-/* Active TOC Item */
+/* Active TOC Item - No background highlight, dot indicator only */
 .toc-item--active {
-  background-color: rgba(var(--v-theme-primary), 0.12) !important;
+  /* Remove background highlight - rely on dot indicator for active state */
+  background-color: transparent !important;
   transform: translateX(4px);
 }
 
 .toc-item--active:hover {
-  background-color: rgba(var(--v-theme-primary), 0.16) !important;
+  /* Keep consistent hover behavior */
+  background-color: rgba(var(--v-theme-on-surface), 0.08) !important;
+}
+
+.toc-item--active:focus {
+  /* Remove focus background for active items - dot indicator is sufficient */
+  background-color: transparent !important;
+  outline: none !important;
 }
 
 /* Visual Indicator Dots - Adjusted for wrapped text */
