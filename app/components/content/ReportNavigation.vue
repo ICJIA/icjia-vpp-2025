@@ -39,14 +39,6 @@
           @keydown.enter="navigateToPage(navigationData.previous.path)"
           @keydown.space.prevent="navigateToPage(navigationData.previous.path)"
         >
-          <!-- Enhanced Left Arrow Indicator -->
-          <div
-            class="navigation-arrow navigation-arrow--left"
-            aria-hidden="true"
-          >
-            <v-icon icon="mdi-chevron-left" size="x-large" class="arrow-icon" />
-          </div>
-
           <v-card-text class="navigation-content">
             <!-- Top section with direction and title -->
             <div class="navigation-top">
@@ -65,14 +57,6 @@
               <h3 class="navigation-title">
                 {{ navigationData.previous.title }}
               </h3>
-            </div>
-
-            <!-- Bottom section with summary -->
-            <div class="navigation-bottom">
-              <!-- Page summary -->
-              <p class="navigation-summary">
-                {{ navigationData.previous.summary }}
-              </p>
             </div>
           </v-card-text>
         </v-card>
@@ -93,18 +77,6 @@
           @keydown.enter="navigateToPage(navigationData.next.path)"
           @keydown.space.prevent="navigateToPage(navigationData.next.path)"
         >
-          <!-- Enhanced Right Arrow Indicator -->
-          <div
-            class="navigation-arrow navigation-arrow--right"
-            aria-hidden="true"
-          >
-            <v-icon
-              icon="mdi-chevron-right"
-              size="x-large"
-              class="arrow-icon"
-            />
-          </div>
-
           <v-card-text class="navigation-content">
             <!-- Top section with direction and title -->
             <div class="navigation-top">
@@ -124,14 +96,6 @@
                 {{ navigationData.next.title }}
               </h3>
             </div>
-
-            <!-- Bottom section with summary -->
-            <div class="navigation-bottom">
-              <!-- Page summary -->
-              <p class="navigation-summary">
-                {{ navigationData.next.summary }}
-              </p>
-            </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -143,14 +107,14 @@
 /**
  * Report Navigation Component
  *
- * Provides stylish previous/next page navigation for report pages with:
- * - Card-based design with hover effects
- * - Page titles and descriptions
+ * Provides clean previous/next page navigation for report pages with:
+ * - Streamlined card-based design with hover effects
+ * - Page titles with directional indicators (no circular arrows)
  * - Progress indicator
  * - Linear navigation (no circular logic)
  * - TOC-responsive layout
  * - Full accessibility support (WCAG 2.1 AA)
- * - Responsive design
+ * - Mobile-optimized design without overflow issues
  * - Theme-aware styling
  *
  * @component
@@ -310,62 +274,6 @@ if (navigationData.value && typeof window !== "undefined") {
   transform: translateY(-2px);
 }
 
-/* Enhanced Navigation Arrows */
-.navigation-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 999; /* Very high z-index to ensure visibility above all card elements */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(var(--v-theme-primary), 0.1);
-  backdrop-filter: blur(8px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.8;
-  /* Ensure minimum touch target size for accessibility */
-  min-width: 44px;
-  min-height: 44px;
-  /* Ensure proper stacking context */
-  pointer-events: auto;
-}
-
-.navigation-arrow--left {
-  left: -30px; /* Positioned further outside to avoid text overlap */
-}
-
-.navigation-arrow--right {
-  right: -30px; /* Positioned further outside to avoid text overlap */
-}
-
-.arrow-icon {
-  color: rgb(var(--v-theme-primary));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Arrow hover effects */
-.navigation-card:hover .navigation-arrow {
-  opacity: 1;
-  background: rgba(var(--v-theme-primary), 0.15);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.navigation-card:hover .arrow-icon {
-  color: rgb(var(--v-theme-primary));
-  transform: scale(1.1);
-}
-
-/* Arrow focus states for accessibility */
-.navigation-card:focus-visible .navigation-arrow {
-  opacity: 1;
-  background: rgba(var(--v-theme-primary), 0.2);
-  outline: 2px solid rgb(var(--v-theme-primary));
-  outline-offset: 2px;
-}
-
 /* Mobile card adjustments */
 .navigation-card--mobile {
   margin-bottom: 1rem;
@@ -375,42 +283,14 @@ if (navigationData.value && typeof window !== "undefined") {
   transform: translateY(-2px);
 }
 
-/* Mobile arrow adjustments */
-.navigation-card--mobile .navigation-arrow {
-  width: 50px;
-  height: 50px;
-  opacity: 0.9; /* More visible on mobile */
-}
-
-.navigation-card--mobile .navigation-arrow--left {
-  left: -25px; /* Positioned outside to avoid overlap on mobile */
-}
-
-.navigation-card--mobile .navigation-arrow--right {
-  right: -25px; /* Positioned outside to avoid overlap on mobile */
-}
-
-.navigation-card--mobile:hover .navigation-arrow {
-  transform: translateY(-50%) scale(1.05); /* Less dramatic scaling on mobile */
-}
-
-/* Mobile content padding adjustments */
-.navigation-card--mobile .navigation-content {
-  padding-left: 2.5rem !important; /* Reduced padding for mobile */
-  padding-right: 2.5rem !important; /* Reduced padding for mobile */
-}
-
 /* Navigation content padding */
 .navigation-content {
   padding: 1.5rem !important;
-  /* Add extra horizontal padding to prevent arrow overlap */
-  padding-left: 3rem !important; /* Extra space for left arrow */
-  padding-right: 3rem !important; /* Extra space for right arrow */
   /* Ensure content takes full height and allows proper vertical alignment */
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center; /* Center content since no bottom section */
   min-height: 0; /* Allow flex items to shrink */
 }
 
@@ -418,19 +298,11 @@ if (navigationData.value && typeof window !== "undefined") {
 .navigation-top {
   /* Contains direction indicator and title */
   flex-shrink: 0;
-  /* Ensure consistent height for top sections */
-  min-height: 4rem; /* Adjust based on direction indicator + title height */
+  /* Ensure consistent height for top sections - reduced since no summary */
+  min-height: 3rem; /* Reduced from 4rem since no bottom section */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-}
-
-.navigation-bottom {
-  /* Contains summary text */
-  flex: 1;
-  display: flex;
-  align-items: flex-start; /* Align text to top of bottom section */
-  margin-top: 1rem;
+  justify-content: center; /* Center content vertically since no bottom section */
 }
 
 /* Direction indicator styling */
@@ -474,24 +346,6 @@ if (navigationData.value && typeof window !== "undefined") {
   flex: 1;
   display: flex;
   align-items: flex-start;
-}
-
-/* Navigation summary styling */
-.navigation-summary {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: rgba(
-    var(--v-theme-on-surface),
-    0.95
-  ); /* Enhanced from 0.7 to 0.95 for AAA contrast compliance (7:1) */
-  margin-bottom: 0;
-  margin-top: 0;
-  /* Allow summary to wrap naturally */
-  word-wrap: break-word;
-  hyphens: auto;
-  /* Ensure summary text fills available space and aligns to top */
-  flex: 1;
-  align-self: flex-start;
 }
 
 /* Legacy navigation description styling (for backward compatibility) */
@@ -563,22 +417,6 @@ if (navigationData.value && typeof window !== "undefined") {
   opacity: 0.95;
 }
 
-/* Dark theme arrow adjustments */
-:root[data-theme="dark"] .navigation-arrow {
-  background: rgba(var(--v-theme-primary), 0.15);
-  border: 1px solid rgba(var(--v-theme-primary), 0.2);
-}
-
-:root[data-theme="dark"] .navigation-card:hover .navigation-arrow {
-  background: rgba(var(--v-theme-primary), 0.25);
-  border-color: rgba(var(--v-theme-primary), 0.4);
-}
-
-:root[data-theme="dark"] .navigation-card:focus-visible .navigation-arrow {
-  background: rgba(var(--v-theme-primary), 0.3);
-  border-color: rgba(var(--v-theme-primary), 0.6);
-}
-
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .navigation-card {
@@ -590,22 +428,6 @@ if (navigationData.value && typeof window !== "undefined") {
   }
 
   .navigation-card:focus-visible {
-    transform: none !important;
-  }
-
-  .navigation-arrow {
-    transition: none !important;
-  }
-
-  .navigation-card:hover .navigation-arrow {
-    transform: translateY(-50%) !important; /* No scaling animation */
-  }
-
-  .arrow-icon {
-    transition: none !important;
-  }
-
-  .navigation-card:hover .arrow-icon {
     transform: none !important;
   }
 }
@@ -630,17 +452,6 @@ if (navigationData.value && typeof window !== "undefined") {
     opacity: 1;
     color: rgb(var(--v-theme-on-surface)) !important;
   }
-
-  .navigation-arrow {
-    background: rgba(var(--v-theme-primary), 0.3) !important;
-    border: 2px solid rgb(var(--v-theme-primary)) !important;
-    opacity: 1 !important;
-  }
-
-  .arrow-icon {
-    color: rgb(var(--v-theme-primary)) !important;
-    font-weight: bold;
-  }
 }
 
 /* Mobile responsive adjustments */
@@ -662,8 +473,7 @@ if (navigationData.value && typeof window !== "undefined") {
     font-size: 1.125rem;
   }
 
-  .navigation-description,
-  .navigation-summary {
+  .navigation-description {
     font-size: 0.8125rem;
   }
 }
