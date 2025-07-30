@@ -10,8 +10,6 @@ showTOC: false
 
 <div class="download-page">
 
-## Download the Complete Plan
-
 <div class="download-sections">
 
 ### Download the Plan as PDF

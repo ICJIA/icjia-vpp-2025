@@ -107,9 +107,7 @@
  * - Animated content with fade-in and subtle movement effects
  * - Decorative background elements for visual interest
  * - Accessible image loading with spinner during load
- * - Interactive hover effects matching other cards on the home page
- * - Cursor pointer indication for visual feedback
- * - Enhanced shadows and transforms on hover
+ * - Cursor pointer indication for visual feedback (hover effects removed)
  * - Clickable hero image that navigates to download page
  * - Centered caption beneath image indicating interactive nature
  * - WCAG 2.1 AA compliant contrast ratios in both themes
@@ -275,19 +273,7 @@ const handleLearnMore = () => {
   outline: none !important;
 }
 
-/* Custom elevation hover effect for smoother transition */
-.hero-image-card:hover {
-  box-shadow:
-    0 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
-}
-
-.hero-image-card:hover .hero-image {
-  animation-play-state: paused;
-  transform: perspective(800px) rotateY(-1deg) rotateX(1deg) scale(1.02)
-    translateY(-4px) !important;
-}
+/* Removed hover effects - keeping cursor pointer only */
 
 /* Hero image caption styling */
 .hero-image-caption {
@@ -400,10 +386,7 @@ const handleLearnMore = () => {
     transform: perspective(1000px) rotateY(-5deg) rotateX(3deg);
   }
 
-  .hero-image-clickable:hover .hero-image,
-  .hero-image-clickable:focus .hero-image {
-    transform: perspective(1000px) rotateY(-2deg) rotateX(1deg) scale(1.02);
-  }
+  /* Removed hover effects for desktop - keeping cursor pointer only */
 
   /* Update the pulse animation for desktop */
   @keyframes subtlePulseImage {
@@ -565,13 +548,7 @@ const handleLearnMore = () => {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Dark theme hover effects - custom elevation-1 equivalent */
-:root[data-theme="dark"] .hero-image-card:hover {
-  box-shadow:
-    0 2px 4px -1px rgba(0, 0, 0, 0.4),
-    0 4px 5px 0 rgba(0, 0, 0, 0.3),
-    0 1px 10px 0 rgba(0, 0, 0, 0.25) !important;
-}
+/* Removed dark theme hover effects - keeping cursor pointer only */
 
 /* Dark theme caption styling */
 :root[data-theme="dark"] .hero-image-caption {
