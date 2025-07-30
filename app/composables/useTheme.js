@@ -117,6 +117,19 @@ export function useTheme() {
       document.documentElement.setAttribute("data-theme", newTheme);
     }
 
+    // Sync with Vuetify immediately when theme is changed programmatically
+    // This is safe because it's triggered by user action, not during hydration
+    if (typeof window !== "undefined") {
+      try {
+        const { $vuetify } = useNuxtApp();
+        if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
+          $vuetify.theme.global.name.value = newTheme;
+        }
+      } catch (error) {
+        logError("Error updating Vuetify theme in setTheme", error);
+      }
+    }
+
     // Log theme change (client-side only to prevent hydration mismatch)
     if (typeof window !== "undefined") {
       logTheme("Theme changed via setTheme", {
@@ -140,20 +153,31 @@ export function useTheme() {
   /**
    * Sync theme with Vuetify's theme system
    *
-   * Should be called after Vuetify is initialized to ensure
-   * the Vuetify theme matches the cookie preference.
+   * Should be called carefully to avoid hydration mismatches.
+   * Only use when you're certain it won't cause SSR issues.
    */
   const syncWithVuetify = () => {
     try {
       const { $vuetify } = useNuxtApp();
       if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
-        $vuetify.theme.global.name.value = theme.value;
+        const currentVuetifyTheme = $vuetify.theme.global.name.value;
+        const targetTheme = theme.value;
 
-        logTheme("Theme synced with Vuetify", {
-          theme: theme.value,
-          vuetifyTheme: $vuetify.theme.global.name.value,
-          timestamp: new Date().toISOString(),
-        });
+        // Only sync if there's actually a difference
+        if (currentVuetifyTheme !== targetTheme) {
+          $vuetify.theme.global.name.value = targetTheme;
+
+          logTheme("Theme synced with Vuetify", {
+            from: currentVuetifyTheme,
+            to: targetTheme,
+            timestamp: new Date().toISOString(),
+          });
+        } else {
+          logTheme("Vuetify theme already matches cookie", {
+            theme: targetTheme,
+            timestamp: new Date().toISOString(),
+          });
+        }
       }
     } catch (error) {
       logError("Error syncing theme with Vuetify", error);

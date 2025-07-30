@@ -29,8 +29,15 @@ export default defineNuxtPlugin((nuxtApp) => {
       httpOnly: false, // Allow client-side access for theme switching
     });
 
-    if (themeCookie.value && ["light", "dark"].includes(themeCookie.value)) {
-      initialTheme = themeCookie.value;
+    // Ensure we get the actual cookie value, not just the default
+    const cookieValue = themeCookie.value;
+    if (cookieValue && ["light", "dark"].includes(cookieValue)) {
+      initialTheme = cookieValue;
+    }
+
+    // Log theme initialization for debugging
+    if (process.dev) {
+      console.log(`[Vuetify Plugin] Initializing with theme: ${initialTheme}, cookie value: ${cookieValue}`);
     }
   } catch (e) {
     // Fallback to default if cookie is unavailable

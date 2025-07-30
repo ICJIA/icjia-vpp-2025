@@ -107,8 +107,8 @@ const isClient = typeof window !== "undefined";
 /**
  * Initialize theme system on client-side mount
  *
- * Syncs the theme with Vuetify after the component is mounted.
- * The useTheme composable handles cookie-based theme management automatically.
+ * Only initializes the theme system without syncing with Vuetify to prevent hydration mismatches.
+ * Vuetify should already be initialized with the correct theme from the plugin.
  */
 onMounted(() => {
   if (isClient) {
@@ -117,8 +117,28 @@ onMounted(() => {
       // Initialize theme system (client-side only to prevent hydration mismatch)
       initializeTheme();
 
-      // Sync theme with Vuetify after app initialization
-      syncWithVuetify();
+      // Check if Vuetify theme matches our cookie theme
+      const { $vuetify } = useNuxtApp();
+      if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
+        const vuetifyTheme = $vuetify.theme.global.name.value;
+        const cookieTheme = theme.value;
+
+        if (process.dev) {
+          console.log(
+            `[Layout] Vuetify theme: ${vuetifyTheme}, Cookie theme: ${cookieTheme}`
+          );
+        }
+
+        // Only sync if there's a mismatch and we're sure it's safe to do so
+        // This should rarely happen if the Vuetify plugin is working correctly
+        if (vuetifyTheme !== cookieTheme) {
+          console.warn(
+            `[Layout] Theme mismatch detected. Vuetify: ${vuetifyTheme}, Cookie: ${cookieTheme}`
+          );
+          // Don't automatically sync to avoid hydration issues
+          // Let the user manually toggle if needed
+        }
+      }
     });
   }
 });
