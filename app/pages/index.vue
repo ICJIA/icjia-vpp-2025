@@ -5,6 +5,7 @@
 
     <HomeHero />
     <HomeLetters />
+    <HomeLieutenantGovernor />
     <!-- Violence in Illinois: The Data section - temporarily disabled -->
     <!-- <HomeStatistics /> -->
     <HomeGoals />
@@ -119,6 +120,7 @@ import { useConsoleLogger } from "~/composables/useConsoleLogger";
 // Import home components
 import HomeHero from "~/components/content/HomeHero.vue";
 import HomeLetters from "~/components/content/HomeLetters.vue";
+import HomeLieutenantGovernor from "~/components/content/HomeLieutenantGovernor.vue";
 import HomeStatistics from "~/components/content/HomeStatistics.vue";
 import HomeGoals from "~/components/content/HomeGoals.vue";
 import HomeStakeholders from "~/components/content/HomeStakeholders.vue";

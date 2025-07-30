@@ -1,6 +1,91 @@
 # Statewide Violence Prevention Plan for Illinois: 2025-2029 - Project Documentation
 
-**Last Updated: July 18, 2025**
+**Last Updated: July 30, 2025**
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+  - [Repository Information](#repository-information)
+  - [Project Purpose and Goals](#project-purpose-and-goals)
+  - [Target Audience](#target-audience)
+  - [Key Features](#key-features)
+- [Recent Major Updates](#recent-major-updates)
+  - [Nuxt 4 Migration (July 18, 2025)](#nuxt-4-migration-july-18-2025)
+  - [Theme System Enhancements (July 18, 2025)](#theme-system-enhancements-july-18-2025)
+- [Technology Stack](#technology-stack)
+  - [Core Framework](#core-framework)
+  - [UI Framework & Styling](#ui-framework--styling)
+  - [Content Management](#content-management)
+  - [Build Tools & Development](#build-tools--development)
+  - [Search & Utility Libraries](#search--utility-libraries)
+  - [Analytics & Monitoring](#analytics--monitoring)
+  - [Deployment & Hosting](#deployment--hosting)
+- [Architecture Overview](#architecture-overview)
+  - [High-Level Architecture](#high-level-architecture)
+  - [Data Flow Patterns](#data-flow-patterns)
+  - [Key Design Patterns](#key-design-patterns)
+  - [Integration Points](#integration-points)
+- [Directory Structure](#directory-structure)
+  - [Key Configuration Files](#key-configuration-files)
+  - [Generated vs. Source Files](#generated-vs-source-files)
+- [Key Components](#key-components)
+  - [Layout Components](#layout-components)
+  - [Content Components](#content-components)
+  - [Page Components](#page-components)
+  - [Utility Components](#utility-components)
+  - [State Management Components](#state-management-components)
+- [API Documentation](#api-documentation)
+  - [External API Integrations](#external-api-integrations)
+  - [Internal API Patterns](#internal-api-patterns)
+  - [Data Processing Workflows](#data-processing-workflows)
+  - [Error Handling Strategies](#error-handling-strategies)
+- [Database Schema](#database-schema)
+  - [Content Structure](#content-structure)
+  - [Data Models](#data-models)
+  - [Content Validation Rules](#content-validation-rules)
+  - [Migration and Seeding Strategies](#migration-and-seeding-strategies)
+- [Setup Instructions](#setup-instructions)
+  - [Prerequisites and System Requirements](#prerequisites-and-system-requirements)
+  - [Step-by-Step Installation Process](#step-by-step-installation-process)
+  - [Verification Steps and Troubleshooting](#verification-steps-and-troubleshooting)
+- [Development Workflow](#development-workflow)
+  - [Git Workflow and Branching Strategy](#git-workflow-and-branching-strategy)
+  - [Code Standards and Formatting Rules](#code-standards-and-formatting-rules)
+  - [Testing Approach and Procedures](#testing-approach-and-procedures)
+  - [Common Development Tasks and Procedures](#common-development-tasks-and-procedures)
+- [Build and Deployment](#build-and-deployment)
+  - [Build Process Overview](#build-process-overview)
+  - [Build Scripts and Commands](#build-scripts-and-commands)
+  - [Content Generation Workflows](#content-generation-workflows)
+  - [Deployment Configuration and Process](#deployment-configuration-and-process)
+  - [Environment Variables and Configuration](#environment-variables-and-configuration)
+- [Accessibility Standards](#accessibility-standards)
+  - [WCAG 2.1 AA Compliance Requirements](#wcag-21-aa-compliance-requirements)
+  - [IITAA 2.1 Standards Adherence](#iitaa-21-standards-adherence)
+  - [Accessibility Features Implementation](#accessibility-features-implementation)
+  - [Accessibility Testing and Validation](#accessibility-testing-and-validation)
+  - [Accessibility Documentation and Maintenance](#accessibility-documentation-and-maintenance)
+- [UI/UX Guidelines](#uiux-guidelines)
+  - [Design Principles](#design-principles)
+  - [Theme Management](#theme-management)
+  - [Component Usage Patterns](#component-usage-patterns)
+  - [Responsive Design Standards](#responsive-design-standards)
+  - [Animation and Motion](#animation-and-motion)
+  - [Accessibility Integration](#accessibility-integration)
+- [Navigation Structure](#navigation-structure)
+  - [Menu Configuration and Management](#menu-configuration-and-management)
+  - [Routing Patterns and Implementation](#routing-patterns-and-implementation)
+  - [Content Organization Patterns](#content-organization-patterns)
+  - [Footer Navigation and Links](#footer-navigation-and-links)
+- [Content Management](#content-management)
+  - [Working with Nuxt Content v3](#working-with-nuxt-content-v3)
+  - [Markdown Files and YAML Frontmatter](#markdown-files-and-yaml-frontmatter)
+  - [Image Management and Optimization](#image-management-and-optimization)
+  - [Content Validation and Quality Assurance](#content-validation-and-quality-assurance)
+- [Maintenance](#maintenance)
+  - [Audit Log Procedures](#audit-log-procedures)
+  - [Testing Guidelines and Procedures](#testing-guidelines-and-procedures)
+  - [Ongoing Development Practices](#ongoing-development-practices)
 
 ## Project Overview
 
@@ -1028,6 +1113,28 @@ The project complies with Illinois Information Technology Accessibility Act (IIT
 - **Accent Font**: Raleway (special headings, branding)
 - **Font Weights**: 100, 300, 400, 700, 900 available
 - **Line Height**: 1.6 for optimal readability
+
+##### Font Size System
+
+**Global Default Font Size**: 16px (browser default)
+
+- The project does not explicitly set a global font size on html or body elements
+- Relies on browser defaults (typically 16px) for optimal accessibility and user preference respect
+- All font sizes are defined using `rem` units relative to this 16px base
+
+**Heading Font Sizes** (relative to 16px base):
+
+- **H1**: `1.8rem` (≈28.8px)
+- **H2**: `1.5rem` (≈24px)
+- **H3**: `1.25rem` (≈20px)
+- **Body Text**: Browser default (≈16px)
+- **Code**: `0.875rem` (≈14px)
+
+**Key Benefits**:
+
+- **Accessibility**: Users can adjust browser font size and all text scales proportionally
+- **Consistency**: Relative sizing maintains visual hierarchy across different user preferences
+- **Standards Compliance**: Follows modern web development best practices by respecting browser defaults
 
 ### Theme Management
 

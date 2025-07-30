@@ -26,6 +26,12 @@ Learn More
 
 ::
 
+::home-lieutenant-governor
+
+# A message from Lieutenant Governor Juliana Stratton
+
+::
+
 <!-- Violence in Illinois: The Data section - temporarily disabled
 ::home-statistics
 

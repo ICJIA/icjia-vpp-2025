@@ -290,6 +290,57 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-30 (Homepage Background Alternation Fix)</h2>
+<p>Fixed the background alternation pattern on the homepage to ensure the &quot;For More Information&quot; section (HomeAction) matches the background of the &quot;A message from Lieutenant Governor Juliana Stratton&quot; section for visual consistency.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/HomeAction.vue</code> - Confirmed section-primary class usage for consistent background</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Background Pattern Verification</strong>: Confirmed the correct alternating background pattern:<ul>
+<li>HomeHero: Default background</li>
+<li>HomeLetters: section-secondary (darker grey in light mode, lighter blue in dark mode)</li>
+<li>HomeLieutenantGovernor: section-primary (lighter off-white in light mode, darker blue in dark mode)</li>
+<li>HomeGoals: section-secondary (darker grey in light mode, lighter blue in dark mode)</li>
+<li>HomeAction: section-primary (lighter off-white in light mode, darker blue in dark mode) ✅ <strong>Matches Lieutenant Governor</strong></li>
+</ul>
+</li>
+<li><strong>Visual Consistency</strong>: Both the Lieutenant Governor section and &quot;For More Information&quot; section now share the same background color (section-primary), creating proper visual rhythm and consistency</li>
+<li><strong>Theme Compatibility</strong>: The fix works correctly in both light and dark themes:<ul>
+<li>Light theme: Both sections have #FAFAFA (warm off-white) background</li>
+<li>Dark theme: Both sections have #1A2234 (dark navy blue) background</li>
+</ul>
+</li>
+<li><strong>CSS Comments</strong>: Updated component comments to reflect the correct background class usage</li>
+</ul>
+<h2>2025-07-30 (Lieutenant Governor Section Addition)</h2>
+<p>Added a new section to the homepage featuring a message from Lieutenant Governor Juliana Stratton, positioned between the existing ICJIA Executive Director section and the Recommendations and Resources section.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/HomeLieutenantGovernor.vue</code> - Created new component for Lieutenant Governor message section</li>
+<li><strong>Page</strong>: <code>app/pages/index.vue</code> - Added HomeLieutenantGovernor component and import</li>
+<li><strong>Content</strong>: <code>content/index.md</code> - Added home-lieutenant-governor section</li>
+<li><strong>Component</strong>: <code>app/components/content/HomeGoals.vue</code> - Updated background class from section-primary to section-secondary</li>
+<li><strong>Component</strong>: <code>app/components/content/HomeAction.vue</code> - Updated background class from section-secondary to section-primary</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Layout Structure</strong>: Used identical layout structure to existing ICJIA Executive Director section for visual consistency</li>
+<li><strong>Image Integration</strong>: Implemented <code>/public/images/stratton-lg-cropped.jpg</code> as headshot with proper text wrapping using CSS float and shape-outside properties</li>
+<li><strong>Content</strong>: Generated Lorem ipsum placeholder text matching the length and word count of the ICJIA Executive Director message for visual balance</li>
+<li><strong>Background Alternation</strong>: Fixed homepage background color alternation pattern to ensure proper visual alternation:<ul>
+<li>HomeHero: default background</li>
+<li>HomeLetters: section-secondary (light background)</li>
+<li>HomeLieutenantGovernor: section-primary (dark background)</li>
+<li>HomeGoals: section-secondary (light background)</li>
+<li>HomeAction: section-primary (dark background)</li>
+</ul>
+</li>
+<li><strong>Responsive Design</strong>: Maintained responsive image sizing and text wrapping for both desktop and mobile layouts</li>
+<li><strong>Accessibility</strong>: Proper alt text for Lieutenant Governor image and maintained WCAG 2.1 AA compliance</li>
+<li><strong>Theme Compatibility</strong>: Full support for both light and dark themes with appropriate card styling and hover effects</li>
+</ul>
 <h2>2025-07-29 (Feedback Form Dark Mode Fixes and UI Improvements)</h2>
 <p>Fixed dark mode visibility issues with form labels and helper text, and improved button layout by centering the form action buttons for better visual balance and user experience.</p>
 <h3>Files Modified/Created:</h3>

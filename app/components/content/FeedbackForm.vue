@@ -14,8 +14,7 @@
           Share Your Feedback
         </h2>
         <p class="text-body-1 text-medium-emphasis">
-          We value your input on the Statewide Violence Prevention Plan for
-          Illinois: 2025-2029. Please share your thoughts, suggestions, or
+          We value your input. Please share your thoughts, suggestions, or
           questions with us.
         </p>
       </div>
@@ -69,7 +68,7 @@
               <!-- Email Field -->
               <div id="email-help" class="text-caption helper-text mb-2">
                 We'll use this email address to respond to your feedback if
-                needed.
+                needed. (required field)
               </div>
               <v-text-field
                 v-model="formData.email"
@@ -130,8 +129,7 @@
 
               <!-- Comment/Feedback Field -->
               <div id="comment-help" class="text-caption helper-text mb-2">
-                Please share your thoughts, suggestions, or questions about the
-                violence prevention plan. Minimum 10 characters, maximum 750
+                Please share your comments. Minimum 10 characters, maximum 750
                 characters.
               </div>
               <v-textarea

@@ -1,5 +1,5 @@
 <template>
-  <section class="action-section section section-secondary py-16">
+  <section class="action-section section section-primary py-16">
     <v-container>
       <div class="text-center mb-12">
         <h2 class="text-h3 text-md-h2 font-weight-bold mb-6">
@@ -231,31 +231,7 @@ const handleLegacyAction = (action) => {
 <style scoped>
 .action-section {
   /* Base background handled by global .section-primary class */
-  /* Add subtle primary color tint overlay for visual distinction */
   position: relative;
-}
-
-.action-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(var(--v-theme-primary), 0.03);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Dark theme background adjustment */
-:root[data-theme="dark"] .action-section::before {
-  background: rgb(var(--v-theme-primary), 0.05);
-}
-
-/* Ensure content appears above the overlay */
-.action-section > .v-container {
-  position: relative;
-  z-index: 1;
 }
 
 .max-width-800 {

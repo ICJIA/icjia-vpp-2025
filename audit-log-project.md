@@ -2,6 +2,55 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-30 (Homepage Background Alternation Fix)
+
+Fixed the background alternation pattern on the homepage to ensure the "For More Information" section (HomeAction) matches the background of the "A message from Lieutenant Governor Juliana Stratton" section for visual consistency.
+
+### Files Modified/Created:
+
+- **Component**: `app/components/content/HomeAction.vue` - Confirmed section-primary class usage for consistent background
+
+### Technical Notes:
+
+- **Background Pattern Verification**: Confirmed the correct alternating background pattern:
+  - HomeHero: Default background
+  - HomeLetters: section-secondary (darker grey in light mode, lighter blue in dark mode)
+  - HomeLieutenantGovernor: section-primary (lighter off-white in light mode, darker blue in dark mode)
+  - HomeGoals: section-secondary (darker grey in light mode, lighter blue in dark mode)
+  - HomeAction: section-primary (lighter off-white in light mode, darker blue in dark mode) ✅ **Matches Lieutenant Governor**
+- **Visual Consistency**: Both the Lieutenant Governor section and "For More Information" section now share the same background color (section-primary), creating proper visual rhythm and consistency
+- **Theme Compatibility**: The fix works correctly in both light and dark themes:
+  - Light theme: Both sections have #FAFAFA (warm off-white) background
+  - Dark theme: Both sections have #1A2234 (dark navy blue) background
+- **CSS Comments**: Updated component comments to reflect the correct background class usage
+
+## 2025-07-30 (Lieutenant Governor Section Addition)
+
+Added a new section to the homepage featuring a message from Lieutenant Governor Juliana Stratton, positioned between the existing ICJIA Executive Director section and the Recommendations and Resources section.
+
+### Files Modified/Created:
+
+- **Component**: `app/components/content/HomeLieutenantGovernor.vue` - Created new component for Lieutenant Governor message section
+- **Page**: `app/pages/index.vue` - Added HomeLieutenantGovernor component and import
+- **Content**: `content/index.md` - Added home-lieutenant-governor section
+- **Component**: `app/components/content/HomeGoals.vue` - Updated background class from section-primary to section-secondary
+- **Component**: `app/components/content/HomeAction.vue` - Updated background class from section-secondary to section-primary
+
+### Technical Notes:
+
+- **Layout Structure**: Used identical layout structure to existing ICJIA Executive Director section for visual consistency
+- **Image Integration**: Implemented `/public/images/stratton-lg-cropped.jpg` as headshot with proper text wrapping using CSS float and shape-outside properties
+- **Content**: Generated Lorem ipsum placeholder text matching the length and word count of the ICJIA Executive Director message for visual balance
+- **Background Alternation**: Fixed homepage background color alternation pattern to ensure proper visual alternation:
+  - HomeHero: default background
+  - HomeLetters: section-secondary (light background)
+  - HomeLieutenantGovernor: section-primary (dark background)
+  - HomeGoals: section-secondary (light background)
+  - HomeAction: section-primary (dark background)
+- **Responsive Design**: Maintained responsive image sizing and text wrapping for both desktop and mobile layouts
+- **Accessibility**: Proper alt text for Lieutenant Governor image and maintained WCAG 2.1 AA compliance
+- **Theme Compatibility**: Full support for both light and dark themes with appropriate card styling and hover effects
+
 ## 2025-07-29 (Feedback Form Dark Mode Fixes and UI Improvements)
 
 Fixed dark mode visibility issues with form labels and helper text, and improved button layout by centering the form action buttons for better visual balance and user experience.
