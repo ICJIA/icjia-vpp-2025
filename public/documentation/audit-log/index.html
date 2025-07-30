@@ -290,6 +290,92 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-30 (Mobile Navigation Static Menus &amp; Gray Background Removal)</h2>
+<p>Converted all expandable mobile navigation menus to static headings and comprehensively removed gray background shading from both mobile navigation and TOC sidebar components.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/AppHeader.vue</code> - Converted mobile navigation expandable menus to static headings</li>
+<li><strong>Component</strong>: <code>app/pages/[...slug].vue</code> - Enhanced TOC sidebar styling with comprehensive background removal</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Mobile Navigation Static Menu Implementation</strong>:<ul>
+<li>Converted &quot;Read the Plan&quot; dropdown from <code>v-list-group</code> to static heading with permanently expanded sub-items</li>
+<li>Maintained existing &quot;More&quot; menu static heading implementation</li>
+<li>Removed all expandable/collapsible functionality from mobile navigation drawer</li>
+<li>Added <code>.dropdown-menu-heading</code> and <code>.dropdown-menu-item</code> classes for consistent styling</li>
+<li>Applied proper indentation (pl-8) and visual hierarchy for sub-items</li>
+</ul>
+</li>
+<li><strong>Gray Background Elimination Strategy</strong>:<ul>
+<li>Mobile Navigation: Added comprehensive overrides for <code>.v-list-group</code>, <code>.v-list-item</code>, and <code>.v-navigation-drawer__content</code></li>
+<li>TOC Sidebar: Enhanced existing transparency overrides with universal child element targeting</li>
+<li>Implemented <code>--v-theme-surface: transparent !important</code> across all components</li>
+<li>Added theme-specific overrides for both light and dark modes</li>
+</ul>
+</li>
+<li><strong>Comprehensive Vuetify Override Implementation</strong>:<ul>
+<li>Mobile: <code>.mobile-nav-drawer .v-list-group</code>, <code>.mobile-nav-drawer .v-list-item</code> transparency</li>
+<li>TOC: <code>.toc-content *</code>, <code>.toc-content .v-sheet</code>, <code>.toc-content .v-list</code> universal overrides</li>
+<li>Added pseudo-element overrides (::before, ::after) for all component states</li>
+<li>Implemented both component-level and theme-level background removal</li>
+</ul>
+</li>
+<li><strong>Visual Hierarchy Preservation</strong>:<ul>
+<li>Maintained primary color accents for section headings</li>
+<li>Preserved left border indicators for visual grouping</li>
+<li>Applied consistent indentation and spacing for sub-items</li>
+<li>Kept hover effects for interactive elements while removing background shading</li>
+</ul>
+</li>
+<li><strong>Accessibility Compliance</strong>:<ul>
+<li>Maintained all existing WCAG 2.1 AA compliance features</li>
+<li>Preserved proper heading roles and aria-level attributes</li>
+<li>Ensured keyboard navigation and screen reader compatibility</li>
+<li>Maintained proper contrast ratios for all text and interactive elements</li>
+</ul>
+</li>
+<li><strong>Theme Compatibility</strong>: All changes work correctly in both light and dark themes without affecting functionality or accessibility</li>
+</ul>
+<h2>2025-07-30 (Mobile Navigation &#39;More&#39; Menu Enhancement)</h2>
+<p>Enhanced the mobile navigation drawer to improve the &#39;More&#39; menu behavior by removing expandable functionality and implementing automatic expansion with visual improvements.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/AppHeader.vue</code> - Modified mobile navigation drawer implementation</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>More Menu Behavior Changes</strong>:<ul>
+<li>Removed v-list-group expandable functionality for &#39;More&#39; menu items</li>
+<li>&#39;More&#39; menu now displays as a static heading with all sub-items automatically expanded</li>
+<li>Sub-items are visually indented (pl-8 class) to show hierarchical relationship</li>
+<li>Added special styling for More menu heading with primary color accent and background</li>
+</ul>
+</li>
+<li><strong>Text Truncation Implementation</strong>:<ul>
+<li>Added <code>truncateText()</code> utility function with middle ellipsis truncation</li>
+<li>Implemented character-width-based calculation for responsive text fitting</li>
+<li>Applied truncation to all menu items based on available width (280px sidebar)</li>
+<li>Different truncation limits for different menu item types (220px for main items, 200px for sub-items)</li>
+</ul>
+</li>
+<li><strong>Visual Enhancements</strong>:<ul>
+<li>More menu heading: Primary color background with left border accent</li>
+<li>More menu items: Subtle background color and left border for visual grouping</li>
+<li>Hover effects for better user interaction feedback</li>
+<li>Maintained proper spacing and indentation for visual hierarchy</li>
+</ul>
+</li>
+<li><strong>Accessibility Preservation</strong>:<ul>
+<li>Maintained all ARIA attributes and labels</li>
+<li>Added proper heading role and aria-level for More menu section</li>
+<li>Preserved keyboard navigation functionality</li>
+<li>Ensured screen reader compatibility with proper labeling</li>
+</ul>
+</li>
+<li><strong>Theme Switcher</strong>: Confirmed theme toggle component remains visible in mobile navigation drawer</li>
+<li><strong>Responsive Design</strong>: All changes work correctly within the 280px mobile drawer width constraint</li>
+</ul>
 <h2>2025-07-30 (Homepage Background Alternation Fix)</h2>
 <p>Fixed the background alternation pattern on the homepage to ensure the &quot;For More Information&quot; section (HomeAction) matches the background of the &quot;A message from Lieutenant Governor Juliana Stratton&quot; section for visual consistency.</p>
 <h3>Files Modified/Created:</h3>

@@ -451,156 +451,12 @@
     </div>
   </v-app-bar>
 
-  <!-- Mobile navigation drawer -->
-  <v-navigation-drawer
+  <!-- Mobile Navigation Sidebar -->
+  <AppSidebar
     v-model="mobileDrawerOpen"
-    location="right"
-    temporary
-    width="280"
-    class="mobile-nav-drawer"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Mobile Navigation Menu"
-  >
-    <v-list aria-label="Mobile Navigation Menu" role="navigation">
-      <!-- Mobile navigation items, sorted by order property -->
-      <template v-for="(item, index) in sortedHeaderItems" :key="index">
-        <template v-if="shouldDisplayInMobile(item)">
-          <!-- Dropdown menu item -->
-          <template v-if="item.hasDropdown">
-            <v-list-group
-              :value="mobileExpandedDropdowns[index]"
-              @click="toggleMobileDropdown(index)"
-            >
-              <template v-slot:activator="{ props }">
-                <v-list-item
-                  v-bind="props"
-                  :class="item.mobileClass"
-                  :aria-label="item.ariaLabel"
-                >
-                  <v-list-item-title>{{ item.text }}</v-list-item-title>
-                  <template v-slot:append>
-                    <v-icon
-                      :icon="item.mobileDropdownIcon || 'mdi-chevron-right'"
-                      size="large"
-                      :class="{
-                        'rotate-90': mobileExpandedDropdowns[index],
-                        'mobile-dropdown-chevron': true,
-                      }"
-                      aria-hidden="true"
-                    ></v-icon>
-                  </template>
-                </v-list-item>
-              </template>
-
-              <!-- Dropdown children -->
-              <template
-                v-for="(child, childIndex) in item.children"
-                :key="`dropdown-${index}-child-${childIndex}`"
-              >
-                <!-- Divider item -->
-                <v-divider
-                  v-if="child.isDivider"
-                  class="dropdown-divider-mobile"
-                  :class="child.mobileClass"
-                ></v-divider>
-
-                <!-- Regular dropdown item -->
-                <v-list-item
-                  v-else-if="shouldDisplayInMobile(child)"
-                  :value="`dropdown-${index}-item-${childIndex}`"
-                  :to="child.to"
-                  :href="child.href"
-                  :target="child.isExternal ? child.target : undefined"
-                  :rel="child.isExternal ? child.rel : undefined"
-                  :active="
-                    child.to &&
-                    (route.path === child.to || route.path === child.to + '/')
-                  "
-                  :class="[
-                    child.mobileClass,
-                    { 'more-menu-item': item.isMoreMenu },
-                  ]"
-                  :title="child.ariaLabel"
-                  @click="handleMobileDropdownItemClick(index, child.href)"
-                >
-                  <v-list-item-title class="d-flex align-center">
-                    <v-icon
-                      v-if="child.icon"
-                      :icon="child.icon"
-                      size="small"
-                      class="mr-2"
-                      aria-hidden="true"
-                    ></v-icon>
-                    {{ child.text }}
-                    <v-icon
-                      v-if="child.isExternal && child.externalIcon"
-                      :icon="child.externalIcon"
-                      size="small"
-                      class="ml-1"
-                      aria-hidden="true"
-                    ></v-icon>
-                  </v-list-item-title>
-                </v-list-item>
-              </template>
-            </v-list-group>
-          </template>
-
-          <!-- Regular menu item -->
-          <v-list-item
-            v-else
-            :value="`mobile-nav-item-${index}`"
-            :to="item.to"
-            :href="item.href"
-            :target="item.isExternal ? item.target : undefined"
-            :rel="item.isExternal ? item.rel : undefined"
-            :active="
-              item.to &&
-              (route.path === item.to || route.path === item.to + '/')
-            "
-            :class="item.mobileClass"
-            :title="item.ariaLabel"
-            @click="item.href === '/' ? handleHomeClick() : undefined"
-          >
-            <v-list-item-title class="d-flex align-center">
-              <v-icon
-                v-if="item.iconOnly && item.icon"
-                :icon="item.icon"
-                size="default"
-                class="mr-2"
-                aria-hidden="true"
-              ></v-icon>
-              {{
-                item.iconOnly
-                  ? item.isMoreMenu
-                    ? item.text
-                    : "Search"
-                  : item.text
-              }}
-              <v-icon
-                v-if="item.isExternal && item.externalIcon"
-                :icon="item.externalIcon"
-                size="small"
-                class="ml-1"
-                aria-hidden="true"
-              ></v-icon>
-            </v-list-item-title>
-          </v-list-item>
-        </template>
-      </template>
-
-      <!-- Theme toggle in mobile menu -->
-      <v-list-item class="mt-4">
-        <v-list-item-title>
-          <ThemeSwitch
-            :theme="theme"
-            @toggle-theme="$emit('toggle-theme')"
-            class="ml-2"
-          />
-        </v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
+    :theme="theme"
+    @toggle-theme="$emit('toggle-theme')"
+  />
 </template>
 
 <script setup>
@@ -763,12 +619,14 @@ const sortedHeaderItems = computed(() => {
     return item;
   });
 
-  return items.sort((a, b) => {
+  const sorted = items.sort((a, b) => {
     // Default order for items without an order property
     const orderA = a.order || 1000;
     const orderB = b.order || 1000;
     return orderA - orderB;
   });
+
+  return sorted;
 });
 
 /**
@@ -778,23 +636,6 @@ const sortedHeaderItems = computed(() => {
  */
 const shouldDisplayInDesktop = (item) => {
   return item.displayMode === "desktop" || item.displayMode === "both";
-};
-
-/**
- * Determine if an item should be displayed in mobile view
- * @param {Object} item - Navigation item from config
- * @returns {boolean} - Whether the item should be displayed in mobile view
- */
-const shouldDisplayInMobile = (item) => {
-  return item.displayMode === "mobile" || item.displayMode === "both";
-};
-
-/**
- * Toggle a dropdown menu in mobile view
- * @param {number} index - Index of the dropdown menu to toggle
- */
-const toggleMobileDropdown = (index) => {
-  mobileExpandedDropdowns.value[index] = !mobileExpandedDropdowns.value[index];
 };
 
 /**
@@ -914,6 +755,38 @@ const handleDropdownBlur = (index) => {
 };
 
 /**
+ * Utility function to truncate text with middle ellipsis for mobile navigation
+ * @param {string} text - The text to truncate
+ * @param {number} maxWidth - Maximum width in pixels (approximate)
+ * @returns {string} Truncated text with middle ellipsis if needed
+ */
+const truncateText = (text, maxWidth) => {
+  if (!text) return "";
+
+  // Approximate character width in pixels (rough estimate for mobile)
+  const charWidth = 8;
+  const maxChars = Math.floor(maxWidth / charWidth);
+
+  // If text fits within the limit, return as-is
+  if (text.length <= maxChars) {
+    return text;
+  }
+
+  // Calculate how many characters to show on each side
+  const ellipsis = "...";
+  const availableChars = maxChars - ellipsis.length;
+  const leftChars = Math.ceil(availableChars / 2);
+  const rightChars = Math.floor(availableChars / 2);
+
+  // Create truncated text with middle ellipsis
+  return (
+    text.substring(0, leftChars) +
+    ellipsis +
+    text.substring(text.length - rightChars)
+  );
+};
+
+/**
  * Focus the next item in a dropdown menu
  */
 const focusNextDropdownItem = (dropdownIndex, currentItemIndex) => {
@@ -980,25 +853,6 @@ const handleDropdownItemClick = (index) => {
 const handleDropdownMouseLeave = (index) => {
   // Close the dropdown when mouse leaves the dropdown area
   openDropdowns.value[index] = false;
-};
-
-/**
- * Handle click on dropdown menu items in mobile view
- * Closes the dropdown menu and mobile drawer when an item is clicked
- * @param {number} index - Index of the dropdown menu
- * @param {string} href - The href attribute of the clicked item
- */
-const handleMobileDropdownItemClick = (index, href) => {
-  // Close the dropdown
-  mobileExpandedDropdowns.value[index] = false;
-
-  // Close the mobile drawer
-  mobileDrawerOpen.value = false;
-
-  // Handle home link special case
-  if (href === "/") {
-    handleHomeClick();
-  }
 };
 
 /**
@@ -1378,7 +1232,7 @@ const handleRegularDropdownFocus = (index) => {
 }
 
 /* Mobile navigation dropdown items target size enhancement */
-.mobile-nav-drawer .v-list-group .v-list-item {
+.mobile-nav-drawer .v-list-item {
   min-height: 44px !important;
 }
 
@@ -1395,5 +1249,79 @@ const handleRegularDropdownFocus = (index) => {
   display: flex !important;
   align-items: center !important;
   padding: 4px 8px !important;
+}
+
+/* Static menu heading styling for both More menu and dropdown menus */
+.mobile-nav-drawer .more-menu-heading,
+.mobile-nav-drawer .dropdown-menu-heading {
+  background-color: transparent !important;
+  background: none !important;
+  border-left: 4px solid rgb(var(--v-theme-primary)) !important;
+  margin: 8px 0 4px 0 !important;
+  pointer-events: none !important;
+}
+
+.mobile-nav-drawer .more-menu-heading .v-list-item-title,
+.mobile-nav-drawer .dropdown-menu-heading .v-list-item-title {
+  color: rgb(var(--v-theme-primary)) !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+/* Menu items styling (indented) - transparent backgrounds */
+.mobile-nav-drawer .more-menu-item,
+.mobile-nav-drawer .dropdown-menu-item {
+  border-left: 2px solid rgba(var(--v-theme-primary), 0.2) !important;
+  margin-left: 16px !important;
+  background-color: transparent !important;
+  background: none !important;
+}
+
+.mobile-nav-drawer .more-menu-item:hover,
+.mobile-nav-drawer .dropdown-menu-item:hover {
+  background-color: rgba(var(--v-theme-primary), 0.08) !important;
+  border-left-color: rgba(var(--v-theme-primary), 0.4) !important;
+}
+
+/* Remove all gray backgrounds and surface colors from mobile navigation */
+.mobile-nav-drawer .v-list-group {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+.mobile-nav-drawer .v-list-group .v-list-group__items {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+.mobile-nav-drawer .v-list-item {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Override any Vuetify surface colors in mobile navigation */
+.mobile-nav-drawer .v-list,
+.mobile-nav-drawer .v-navigation-drawer__content {
+  background-color: transparent !important;
+  background: none !important;
+  --v-theme-surface: transparent !important;
+}
+
+/* Ensure no gray backgrounds in any theme */
+.v-theme--light .mobile-nav-drawer .v-list-item,
+.v-theme--dark .mobile-nav-drawer .v-list-item,
+.v-theme--light .mobile-nav-drawer .v-list-group,
+.v-theme--dark .mobile-nav-drawer .v-list-group {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Ensure proper text truncation styling */
+.mobile-nav-drawer .v-list-item-title {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
 }
 </style>

@@ -2,6 +2,78 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-30 (Mobile Navigation Static Menus & Gray Background Removal)
+
+Converted all expandable mobile navigation menus to static headings and comprehensively removed gray background shading from both mobile navigation and TOC sidebar components.
+
+### Files Modified/Created:
+
+- **Component**: `app/components/content/AppHeader.vue` - Converted mobile navigation expandable menus to static headings
+- **Component**: `app/pages/[...slug].vue` - Enhanced TOC sidebar styling with comprehensive background removal
+
+### Technical Notes:
+
+- **Mobile Navigation Static Menu Implementation**:
+  - Converted "Read the Plan" dropdown from `v-list-group` to static heading with permanently expanded sub-items
+  - Maintained existing "More" menu static heading implementation
+  - Removed all expandable/collapsible functionality from mobile navigation drawer
+  - Added `.dropdown-menu-heading` and `.dropdown-menu-item` classes for consistent styling
+  - Applied proper indentation (pl-8) and visual hierarchy for sub-items
+- **Gray Background Elimination Strategy**:
+  - Mobile Navigation: Added comprehensive overrides for `.v-list-group`, `.v-list-item`, and `.v-navigation-drawer__content`
+  - TOC Sidebar: Enhanced existing transparency overrides with universal child element targeting
+  - Implemented `--v-theme-surface: transparent !important` across all components
+  - Added theme-specific overrides for both light and dark modes
+- **Comprehensive Vuetify Override Implementation**:
+  - Mobile: `.mobile-nav-drawer .v-list-group`, `.mobile-nav-drawer .v-list-item` transparency
+  - TOC: `.toc-content *`, `.toc-content .v-sheet`, `.toc-content .v-list` universal overrides
+  - Added pseudo-element overrides (::before, ::after) for all component states
+  - Implemented both component-level and theme-level background removal
+- **Visual Hierarchy Preservation**:
+  - Maintained primary color accents for section headings
+  - Preserved left border indicators for visual grouping
+  - Applied consistent indentation and spacing for sub-items
+  - Kept hover effects for interactive elements while removing background shading
+- **Accessibility Compliance**:
+  - Maintained all existing WCAG 2.1 AA compliance features
+  - Preserved proper heading roles and aria-level attributes
+  - Ensured keyboard navigation and screen reader compatibility
+  - Maintained proper contrast ratios for all text and interactive elements
+- **Theme Compatibility**: All changes work correctly in both light and dark themes without affecting functionality or accessibility
+
+## 2025-07-30 (Mobile Navigation 'More' Menu Enhancement)
+
+Enhanced the mobile navigation drawer to improve the 'More' menu behavior by removing expandable functionality and implementing automatic expansion with visual improvements.
+
+### Files Modified/Created:
+
+- **Component**: `app/components/content/AppHeader.vue` - Modified mobile navigation drawer implementation
+
+### Technical Notes:
+
+- **More Menu Behavior Changes**:
+  - Removed v-list-group expandable functionality for 'More' menu items
+  - 'More' menu now displays as a static heading with all sub-items automatically expanded
+  - Sub-items are visually indented (pl-8 class) to show hierarchical relationship
+  - Added special styling for More menu heading with primary color accent and background
+- **Text Truncation Implementation**:
+  - Added `truncateText()` utility function with middle ellipsis truncation
+  - Implemented character-width-based calculation for responsive text fitting
+  - Applied truncation to all menu items based on available width (280px sidebar)
+  - Different truncation limits for different menu item types (220px for main items, 200px for sub-items)
+- **Visual Enhancements**:
+  - More menu heading: Primary color background with left border accent
+  - More menu items: Subtle background color and left border for visual grouping
+  - Hover effects for better user interaction feedback
+  - Maintained proper spacing and indentation for visual hierarchy
+- **Accessibility Preservation**:
+  - Maintained all ARIA attributes and labels
+  - Added proper heading role and aria-level for More menu section
+  - Preserved keyboard navigation functionality
+  - Ensured screen reader compatibility with proper labeling
+- **Theme Switcher**: Confirmed theme toggle component remains visible in mobile navigation drawer
+- **Responsive Design**: All changes work correctly within the 280px mobile drawer width constraint
+
 ## 2025-07-30 (Homepage Background Alternation Fix)
 
 Fixed the background alternation pattern on the homepage to ensure the "For More Information" section (HomeAction) matches the background of the "A message from Lieutenant Governor Juliana Stratton" section for visual consistency.

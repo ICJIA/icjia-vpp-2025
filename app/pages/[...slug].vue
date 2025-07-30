@@ -1416,11 +1416,13 @@ useSeoMeta({
   background-color: transparent;
 }
 
-/* Sidebar wrapper for flex layout with increased left spacing */
+/* Sidebar wrapper for flex layout with increased left spacing - Ensure transparent background */
 .sidebar-wrapper {
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem 2rem 3rem; /* Increased left padding from 1.5rem to 3rem */
+  background-color: transparent !important;
+  background: none !important;
 }
 
 /* Responsive sidebar padding */
@@ -1454,25 +1456,45 @@ useSeoMeta({
   box-shadow: none !important;
 }
 
-/* TOC Sheet Styling - Completely blended into background with no hover effects */
+/* TOC Sheet Styling - Completely transparent with no background or effects */
 .toc-sheet {
   background-color: transparent !important;
+  background: none !important;
   border: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
   /* Remove all hover effects and transitions */
   transition: none !important;
+  /* Override any Vuetify surface color defaults */
+  --v-theme-surface: transparent !important;
+}
+
+/* Override Vuetify v-sheet default styles that might apply surface colors */
+.toc-sheet.v-sheet {
+  background-color: transparent !important;
+  background: none !important;
+  --v-theme-surface: transparent !important;
+}
+
+/* Ensure transparency in both light and dark themes */
+.v-theme--light .toc-sheet,
+.v-theme--dark .toc-sheet {
+  background-color: transparent !important;
+  background: none !important;
 }
 
 .toc-sheet:hover {
   box-shadow: none !important;
   transform: none !important;
   background-color: transparent !important;
+  background: none !important;
 }
 
 .toc-sheet::before,
 .toc-sheet::after {
   box-shadow: none !important;
+  background: none !important;
+  background-color: transparent !important;
 }
 
 /* Remove hover effects from all sheet states */
@@ -1481,6 +1503,8 @@ useSeoMeta({
 .toc-sheet:focus::before,
 .toc-sheet:focus::after {
   box-shadow: none !important;
+  background: none !important;
+  background-color: transparent !important;
 }
 
 /* Clickable TOC Title */
@@ -1508,10 +1532,12 @@ useSeoMeta({
   transform: translateY(0px);
 }
 
-/* TOC Container with Visual Indicator */
+/* TOC Container with Visual Indicator - Ensure transparent background */
 .toc-container {
   position: relative;
   padding-left: 0;
+  background-color: transparent !important;
+  background: none !important;
 }
 
 /* Vertical indicator line */
@@ -1531,11 +1557,51 @@ useSeoMeta({
   background-color: rgba(255, 255, 255, 0.12);
 }
 
-/* TOC List Styling */
+/* TOC List Styling - Ensure complete transparency */
 .toc-list {
   background-color: transparent !important;
+  background: none !important;
   position: relative;
   z-index: 2;
+}
+
+/* Override any Vuetify v-list default backgrounds */
+.toc-list.v-list {
+  background-color: transparent !important;
+  background: none !important;
+  --v-theme-surface: transparent !important;
+}
+
+/* Ensure transparency in both themes for v-list */
+.v-theme--light .toc-list,
+.v-theme--dark .toc-list {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Additional comprehensive overrides to eliminate any gray backgrounds */
+.toc-content * {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+/* Override any potential Vuetify component backgrounds in TOC */
+.toc-content .v-sheet,
+.toc-content .v-list,
+.toc-content .v-list-item,
+.toc-content .v-card {
+  background-color: transparent !important;
+  background: none !important;
+  --v-theme-surface: transparent !important;
+  --v-theme-background: transparent !important;
+}
+
+/* Force transparency on all child elements */
+.toc-content .v-sheet *,
+.toc-content .v-list *,
+.toc-content .v-list-item * {
+  background-color: transparent !important;
+  background: none !important;
 }
 
 /* TOC Item Styling */
