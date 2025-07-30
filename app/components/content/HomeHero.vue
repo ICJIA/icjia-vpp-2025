@@ -80,7 +80,7 @@
                 loading="lazy"
               />
             </v-card>
-            <div class="hero-image-caption">Click to Download</div>
+            <div class="hero-image-caption">Click image to download</div>
             <div class="hero-image-decoration-1" aria-hidden="true"></div>
             <div class="hero-image-decoration-2" aria-hidden="true"></div>
           </div>

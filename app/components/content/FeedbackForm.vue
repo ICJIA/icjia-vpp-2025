@@ -28,6 +28,16 @@
             role="form"
             aria-labelledby="feedback-form-title"
           >
+            <!-- Accessibility: Live region for form validation announcements -->
+            <div
+              id="form-status"
+              class="sr-only"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {{ formStatusMessage }}
+            </div>
+
             <!-- Success Message -->
             <v-alert
               v-if="isSubmitted"
@@ -52,6 +62,9 @@
               ref="formRef"
               v-model="isFormValid"
               @submit.prevent="handleSubmit"
+              novalidate
+              role="form"
+              aria-label="Feedback form for the Statewide Violence Prevention Plan"
             >
               <!-- Email Field -->
               <div id="email-help" class="text-caption helper-text mb-2">
@@ -60,7 +73,7 @@
               </div>
               <v-text-field
                 v-model="formData.email"
-                label="Email Address"
+                label="Email Address *"
                 type="email"
                 variant="outlined"
                 :rules="emailRules"
@@ -68,6 +81,7 @@
                 class="mb-4"
                 aria-describedby="email-help"
                 autocomplete="email"
+                aria-required="true"
               >
                 <template #prepend-inner>
                   <v-icon icon="mdi-email-outline" aria-hidden="true" />
@@ -75,14 +89,19 @@
               </v-text-field>
 
               <!-- First Name Field -->
+              <div id="firstName-help" class="text-caption helper-text mb-2">
+                Enter your first name (required field).
+              </div>
               <v-text-field
                 v-model="formData.firstName"
-                label="First Name"
+                label="First Name *"
                 variant="outlined"
                 :rules="nameRules"
                 required
                 class="mb-4"
                 autocomplete="given-name"
+                aria-describedby="firstName-help"
+                aria-required="true"
               >
                 <template #prepend-inner>
                   <v-icon icon="mdi-account-outline" aria-hidden="true" />
@@ -90,14 +109,19 @@
               </v-text-field>
 
               <!-- Last Name Field -->
+              <div id="lastName-help" class="text-caption helper-text mb-2">
+                Enter your last name (required field).
+              </div>
               <v-text-field
                 v-model="formData.lastName"
-                label="Last Name"
+                label="Last Name *"
                 variant="outlined"
                 :rules="nameRules"
                 required
                 class="mb-4"
                 autocomplete="family-name"
+                aria-describedby="lastName-help"
+                aria-required="true"
               >
                 <template #prepend-inner>
                   <v-icon icon="mdi-account-outline" aria-hidden="true" />
@@ -112,7 +136,7 @@
               </div>
               <v-textarea
                 v-model="formData.comment"
-                label="Comment or Feedback"
+                label="Comment or Feedback *"
                 variant="outlined"
                 :rules="commentRules"
                 required
@@ -121,6 +145,7 @@
                 :maxlength="750"
                 class="mb-6"
                 aria-describedby="comment-help"
+                aria-required="true"
               >
                 <template #prepend-inner>
                   <v-icon icon="mdi-message-text-outline" aria-hidden="true" />
@@ -137,6 +162,7 @@
                   color="secondary"
                   @click="handleClear"
                   :disabled="isSubmitting"
+                  aria-label="Clear all form fields and reset the form"
                 >
                   <v-icon start icon="mdi-refresh" aria-hidden="true" />
                   Clear Form
@@ -160,6 +186,7 @@
                           ? 'not-allowed'
                           : 'pointer',
                     }"
+                    :aria-label="submitButtonAriaLabel"
                     @mouseenter="showTooltip = true"
                     @mouseleave="hideTooltip"
                     @focus="showTooltip = true"
@@ -308,14 +335,84 @@ const submitTooltipText = computed(() => {
     return "Form is ready to submit";
   })();
 
-  // Debug logging
-  if (process.dev) {
+  // Debug logging in development
+  if (process.env.NODE_ENV === "development") {
     console.log("Submit tooltip text:", tooltipText);
     console.log("Form valid:", isFormValid.value);
     console.log("Is submitting:", isSubmitting.value);
   }
 
   return tooltipText;
+});
+
+/**
+ * Computed property for submit button aria-label
+ * Provides accessible description of button state for screen readers
+ */
+const submitButtonAriaLabel = computed(() => {
+  if (isSubmitting.value) {
+    return "Submitting your feedback, please wait";
+  }
+
+  if (!isFormValid.value) {
+    const missingFields = [];
+
+    // Check each required field for aria-label
+    if (!formData.email || emailRules[0](formData.email) !== true) {
+      missingFields.push("email address");
+    }
+    if (!formData.firstName || nameRules[0](formData.firstName) !== true) {
+      missingFields.push("first name");
+    }
+    if (!formData.lastName || nameRules[0](formData.lastName) !== true) {
+      missingFields.push("last name");
+    }
+    if (!formData.comment || commentRules[0](formData.comment) !== true) {
+      missingFields.push("comment");
+    }
+
+    if (missingFields.length > 0) {
+      return `Form incomplete. Please complete the following required fields: ${missingFields.join(", ")}`;
+    }
+  }
+
+  return "Send your feedback about the violence prevention plan";
+});
+
+/**
+ * Computed property for form status announcements
+ * Provides screen reader announcements for form validation state changes
+ */
+const formStatusMessage = computed(() => {
+  // Only announce when form becomes invalid after user interaction
+  if (
+    !isFormValid.value &&
+    (formData.email ||
+      formData.firstName ||
+      formData.lastName ||
+      formData.comment)
+  ) {
+    const missingFields = [];
+
+    if (!formData.email || emailRules[0](formData.email) !== true) {
+      missingFields.push("email address");
+    }
+    if (!formData.firstName || nameRules[0](formData.firstName) !== true) {
+      missingFields.push("first name");
+    }
+    if (!formData.lastName || nameRules[0](formData.lastName) !== true) {
+      missingFields.push("last name");
+    }
+    if (!formData.comment || commentRules[0](formData.comment) !== true) {
+      missingFields.push("comment");
+    }
+
+    if (missingFields.length > 0) {
+      return `Form validation: Please complete the following required fields: ${missingFields.join(", ")}`;
+    }
+  }
+
+  return "";
 });
 
 /**
@@ -445,8 +542,17 @@ function handleClear() {
 
 .feedback-form-card {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
-  border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
-  background: rgb(var(--v-theme-surface)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  /* Enhanced background for better contrast against page backgrounds - matching homepage cards */
+  background: #ffffff !important;
+}
+
+/* Dark theme card styling - matching homepage cards */
+:root[data-theme="dark"] .feedback-form-card {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+  /* Lighter surface color for better contrast against dark page backgrounds */
+  background: #2a3441 !important;
 }
 
 /* Light theme styling */
@@ -468,8 +574,8 @@ function handleClear() {
 }
 
 :root:not([data-theme="dark"]) :deep(.v-field__input::placeholder) {
-  color: #666 !important; /* Dark grey for light mode - ensures 4.5:1+ contrast */
-  opacity: 0.8 !important;
+  color: #555 !important; /* Darker grey for better contrast - ensures 7.5:1+ contrast */
+  opacity: 1 !important; /* Remove opacity to maintain contrast */
 }
 
 :root:not([data-theme="dark"]) :deep(.v-field__outline) {
@@ -495,8 +601,8 @@ function handleClear() {
 }
 
 :root[data-theme="dark"] :deep(.v-field__input::placeholder) {
-  color: #94a3b8 !important; /* Medium grey for dark mode */
-  opacity: 0.6 !important;
+  color: #e2e8f0 !important; /* Lighter grey for better contrast - ensures 4.5:1+ contrast */
+  opacity: 1 !important; /* Remove opacity to maintain contrast */
 }
 
 :root[data-theme="dark"] :deep(.v-field__outline) {
@@ -524,8 +630,8 @@ function handleClear() {
 }
 
 :root:not([data-theme="dark"]) :deep(.v-counter) {
-  color: #666 !important; /* Dark grey for light mode - ensures 4.5:1+ contrast */
-  opacity: 0.8 !important;
+  color: #555 !important; /* Darker grey for better contrast - ensures 7.5:1+ contrast */
+  opacity: 1 !important; /* Remove opacity to maintain contrast */
 }
 
 :root:not([data-theme="dark"]) :deep(.v-alert .v-alert__content) {
@@ -548,8 +654,8 @@ function handleClear() {
 }
 
 :root[data-theme="dark"] :deep(.v-counter) {
-  color: #94a3b8 !important; /* Medium grey for dark mode */
-  opacity: 0.7 !important;
+  color: #e2e8f0 !important; /* Lighter grey for better contrast - ensures 4.5:1+ contrast */
+  opacity: 1 !important; /* Remove opacity to maintain contrast */
 }
 
 :root[data-theme="dark"] :deep(.v-alert .v-alert__content) {
@@ -706,5 +812,18 @@ function handleClear() {
 .submit-button .v-btn--loading,
 .submit-button .v-btn--loading * {
   cursor: wait !important;
+}
+
+/* Screen reader only class for accessibility announcements */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 </style>

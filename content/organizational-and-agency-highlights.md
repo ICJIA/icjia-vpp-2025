@@ -8,7 +8,24 @@ twitterCard: "summary_large_image"
 showTOC: false
 ---
 
-Highlighting key organizations and agencies that are making significant contributions to violence prevention efforts across Illinois.
+<style scoped>
+/* H3 Content Indentation System */
+/* Indent all content following H3 headings by 10px for visual hierarchy */
+:deep(h3 ~ *) {
+  margin-left: 10px;
+}
+
+/* Ensure H3 headings themselves are not indented (override the sibling selector) */
+:deep(h3 ~ h3) {
+  margin-left: 0;
+}
+
+/* Ensure H2 headings and their content are not affected by H3 indentation */
+:deep(h2 ~ h2),
+:deep(h2) {
+  margin-left: 0;
+}
+</style>
 
 ## Key Organizations and Agencies
 
@@ -44,8 +61,4 @@ The Illinois Criminal Justice Information Authority supports numerous grantees a
 
 ## Contact Information
 
-For more information about these organizations and their violence prevention efforts, please contact:
-
-**Illinois Criminal Justice Information Authority**
-**Email:** [info@icjia.illinois.gov](mailto:info@icjia.illinois.gov)
-**Phone:** (312) 793-8550
+Do you have an organization or agency that should be highlighted? [Contact us](/contact).

@@ -8,6 +8,30 @@ twitterCard: "summary_large_image"
 showTOC: false
 ---
 
+<style scoped>
+/* H3 Content Indentation System */
+/* Indent all content following H3 headings by 10px for visual hierarchy */
+:deep(h3 ~ *) {
+  margin-left: 10px;
+}
+
+/* Ensure H3 headings themselves are not indented (override the sibling selector) */
+:deep(h3 ~ h3) {
+  margin-left: 0;
+}
+
+/* Ensure H2 headings and their content are not affected by H3 indentation */
+:deep(h2 ~ h2),
+:deep(h2) {
+  margin-left: 0;
+}
+
+/* Ensure H4 headings (if any) inherit the H3 indentation */
+:deep(h3 ~ h4) {
+  margin-left: 10px;
+}
+</style>
+
 Access comprehensive violence prevention resources including one-page guides, research reports, and evidence-based practice materials designed to support Illinois communities and organizations.
 
 ## Links to 1-Pagers
@@ -78,10 +102,3 @@ Complete documentation from the previous Violence Prevention Plan period, includ
 
 **Download:** TBD
 
-## Contact Information
-
-For questions about resources or to request additional materials, please contact:
-
-**Illinois Criminal Justice Information Authority**
-**Email:** [info@icjia.illinois.gov](mailto:info@icjia.illinois.gov)
-**Phone:** (312) 793-8550
