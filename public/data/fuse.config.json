@@ -4,31 +4,23 @@
     "fuseOptions": {
       "keys": [
         {
-          "name": "title",
-          "weight": 1.0
-        },
-        {
           "name": "content",
           "weight": 1.0
         },
         {
           "name": "description",
           "weight": 0.6
-        },
-        {
-          "name": "path",
-          "weight": 0.3
         }
       ],
       "includeScore": true,
       "isCaseSensitive": false,
-      "threshold": 0.6,
-      "distance": 150,
+      "threshold": 0.3,
+      "distance": 50,
       "useExtendedSearch": false,
       "includeMatches": true,
       "maxPatternLength": 100,
-      "minMatchCharLength": 2,
-      "ignoreLocation": true,
+      "minMatchCharLength": 3,
+      "ignoreLocation": false,
       "findAllMatches": true
     },
     "debounceMs": 300,
@@ -44,12 +36,43 @@
   },
   "indexing": {
     "blacklist": {
-      "vue": ["sandbox.vue", "sandbox-*.vue"],
-      "markdown": ["sandbox.md", "sandbox-*.md"]
+      "vue": [
+        "sandbox.vue",
+        "sandbox-*.vue",
+        "news.vue"
+      ],
+      "markdown": [
+        "sandbox.md",
+        "sandbox-*.md",
+        "news.md",
+        "news/*.md"
+      ],
+      "paths": [
+        "/documentation/*",
+        "/public/documentation/*",
+        "documentation/*",
+        "public/documentation/*",
+        "/reports/*",
+        "/public/reports/*",
+        "reports/*",
+        "public/reports/*",
+        "/news",
+        "/news/*",
+        "news/*",
+        "/debug-search",
+        "/debug-search.html",
+        "debug-search.html",
+        "/bundle-size-report*",
+        "bundle-size-report*",
+        "reports/bundle-size-report.html",
+        "public/reports/bundle-size-report.html",
+        "reports/index.html",
+        "public/reports/index.html"
+      ]
     },
     "paths": {
       "content": "content",
-      "pages": "pages",
+      "pages": "app/pages",
       "output": "public/data",
       "outputFile": "search-index.json"
     },
@@ -81,13 +104,21 @@
           "v-chip",
           "v-tooltip"
         ],
-        "attributes": ["text", "label", "placeholder", "title", "alt"],
+        "attributes": [
+          "text",
+          "label",
+          "placeholder",
+          "title",
+          "alt"
+        ],
         "metadata": {
           "titlePatterns": [
             "title:\\s*['\"]([^'\"]+)['\"]",
             "@page\\s*\\n\\s*\\*/\\s*[\\s\\S]*?['\"]([^'\"]+)['\"]"
           ],
-          "descriptionPatterns": ["description:\\s*['\"]([^'\"]+)['\"]"]
+          "descriptionPatterns": [
+            "description:\\s*['\"]([^'\"]+)['\"]"
+          ]
         }
       },
       "markdown": {
@@ -102,7 +133,10 @@
       }
     },
     "normalization": {
-      "removeExtensions": [".vue", ".md"],
+      "removeExtensions": [
+        ".vue",
+        ".md"
+      ],
       "ensureLeadingSlash": true,
       "indexToRoot": true
     }

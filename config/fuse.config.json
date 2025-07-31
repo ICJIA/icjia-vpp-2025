@@ -14,20 +14,16 @@
         {
           "name": "description",
           "weight": 0.6
-        },
-        {
-          "name": "path",
-          "weight": 0.3
         }
       ],
       "includeScore": true,
       "isCaseSensitive": false,
-      "threshold": 0.6,
-      "distance": 150,
+      "threshold": 0.8,
+      "distance": 1000,
       "useExtendedSearch": false,
       "includeMatches": true,
-      "maxPatternLength": 100,
-      "minMatchCharLength": 2,
+      "maxPatternLength": 1000,
+      "minMatchCharLength": 3,
       "ignoreLocation": true,
       "findAllMatches": true
     },

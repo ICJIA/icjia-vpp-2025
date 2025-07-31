@@ -290,20 +290,72 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
-<h2>2025-07-31 (Safari Dropdown Fix)</h2>
-<p>Fixed Safari-specific issue where the &quot;Read the Plan&quot; dropdown menu failed to open by removing tooltip functionality and making it behave identically to the &quot;More&quot; dropdown menu.</p>
+<h2>2025-07-31 (LLMs.txt Generation Fix)</h2>
+<p>Fixed the LLMs.txt file generation process to properly populate the &quot;Plan Content&quot; section with actual plan content instead of leaving it empty.</p>
 <h3>Files Modified/Created:</h3>
 <ul>
-<li><code>config/menu.config.json</code>: Removed <code>enableTooltip: true</code>, <code>tooltip</code>, and <code>tooltipLocation</code> properties from &quot;Read the Plan&quot; menu item</li>
-<li><code>app/components/content/AppHeader.vue</code>: Cleaned up Safari-specific code and tooltip handling logic that was no longer needed</li>
+<li><code>scripts/generate-llms-txt.js</code>:<ul>
+<li>Updated <code>loadMenuConfig()</code> method to read from <code>config/site.config.json</code> instead of <code>config/menu.config.json</code></li>
+<li>Modified <code>getReportPages()</code> method to extract menu items from <code>ui.navigation.readThePlanMenu.items</code> structure</li>
+<li>Completely rewrote <code>generateLLMSTxtContent()</code> method to include full page content instead of just links</li>
+<li>Added proper section headers and content separation with markdown formatting</li>
+</ul>
+</li>
+<li><code>public/llms.txt</code>:<ul>
+<li>File now contains complete plan content (40.92 KB) with all 7 sections from the plan</li>
+<li>Includes: Front Cover, Executive Summary, Public Health Approach, Guiding Principles, Planning Process, Goals and Recommendations, and References</li>
+<li>Properly formatted according to llms.txt specification for LLM consumption</li>
+</ul>
+</li>
 </ul>
 <h3>Technical Notes:</h3>
 <ul>
-<li>The issue was caused by complex tooltip event handling that Safari couldn&#39;t process properly</li>
-<li>&quot;Read the Plan&quot; dropdown now uses the same simple click/hover behavior as &quot;More&quot; dropdown</li>
-<li>Both dropdowns now have <code>open-on-hover</code> enabled and use direct focus handlers</li>
-<li>Removed Safari detection code and Safari-specific click handlers as they&#39;re no longer needed</li>
-<li>Solution maintains full functionality while ensuring cross-browser compatibility</li>
+<li>The script was previously reading from the wrong configuration file (<code>menu.config.json</code> vs <code>site.config.json</code>)</li>
+<li>The &quot;Read the Plan&quot; menu items are stored in <code>site.config.json</code> under <code>ui.navigation.readThePlanMenu.items</code></li>
+<li>The generated file now includes actual markdown content from each plan page, not just links</li>
+<li>File is accessible at <code>/llms.txt</code> on the download page for AI systems and developers</li>
+<li>Script runs automatically during build/dev/generate processes as part of the yarn scripts</li>
+</ul>
+<h2>2025-07-31 (Complete Navigation Dropdown Redesign)</h2>
+<p>Completely redesigned the navigation dropdown system to fix Safari compatibility issues by cloning the &quot;More&quot; menu logic for the &quot;Read the Plan&quot; dropdown and removing all tooltip functionality from navigation.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>config/menu.config.json</code>:<ul>
+<li>Removed all tooltip-related properties (<code>enableTooltip</code>, <code>tooltip</code>, <code>tooltipLocation</code>) from all navigation items</li>
+<li>Simplified &quot;Read the Plan&quot; menu configuration to use dynamic children like &quot;More&quot; menu</li>
+<li>Added <code>isReadThePlanMenu: true</code> flag for identification</li>
+</ul>
+</li>
+<li><code>config/site.config.json</code>:<ul>
+<li>Added new <code>readThePlanMenu</code> configuration section with all plan page links</li>
+<li>Structured identically to <code>moreMenu</code> for consistency</li>
+</ul>
+</li>
+<li><code>app/components/content/AppHeader.vue</code>:<ul>
+<li>Created <code>readThePlanMenuChildren</code> computed property that mirrors <code>moreMenuChildren</code></li>
+<li>Updated <code>sortedHeaderItems</code> to inject &quot;Read the Plan&quot; children from site config</li>
+<li>Completely removed all tooltip functionality (states, timers, handlers, templates)</li>
+<li>Simplified dropdown templates to use identical logic for both dropdowns</li>
+<li>Removed Safari detection and Safari-specific workarounds</li>
+<li>Cleaned up event handlers to remove tooltip complexity</li>
+</ul>
+</li>
+<li><code>app/components/content/AppSidebar.vue</code>:<ul>
+<li>Updated to use new &quot;Read the Plan&quot; menu structure from site config</li>
+<li>Mirrors the approach used for other dynamic menu sections</li>
+</ul>
+</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>Both &quot;Read the Plan&quot; and &quot;More&quot; dropdowns now use identical simple click/hover behavior</li>
+<li>All dropdowns have <code>open-on-hover</code> enabled for better user experience</li>
+<li>Removed over 200 lines of complex tooltip-related code</li>
+<li>No more JavaScript errors related to undefined tooltip states</li>
+<li>Cross-browser compatibility ensured by using proven &quot;More&quot; menu patterns</li>
+<li>Dropdown functionality prioritized over tooltip features for better reliability</li>
+<li>Mobile navigation also benefits from simplified structure</li>
+<li>All navigation items now use consistent event handling without tooltip interference</li>
 </ul>
 <h2>2025-07-31 (Developer Files Update and Enhancement)</h2>
 <p>Updated and regenerated all developer files on the /download page to ensure they accurately reflect the current state of the project, including all routes, content, and new features added since the original creation.</p>

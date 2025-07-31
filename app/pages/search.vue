@@ -112,9 +112,12 @@
                     class="search-result-card"
                     tabindex="0"
                   >
-                    <v-card-title class="text-h6">
+                    <div
+                      class="pa-4 pb-0 font-weight-bold text-body-1"
+                      style="font-size: 1.1rem"
+                    >
                       {{ result.title }}
-                    </v-card-title>
+                    </div>
                     <v-card-text>
                       <p class="text-body-2 text-medium-emphasis mb-2">
                         <v-icon
@@ -126,9 +129,9 @@
                         <span class="sr-only">Path: </span>{{ result.path }}
                       </p>
                       <div
-                        v-html="safeHighlight(result.excerpt)"
+                        v-html="result.excerpt"
                         class="search-result-excerpt"
-                        aria-label="Result excerpt"
+                        aria-label="Result excerpt with highlighted search terms"
                       ></div>
                     </v-card-text>
                     <v-card-actions>
@@ -138,7 +141,7 @@
                         color="primary"
                         :to="result.path"
                         class="text-none"
-                        aria-label="View content for {{ result.title }}"
+                        :aria-label="`View content for ${result.titlePlain}`"
                       >
                         View content
                         <v-icon
@@ -203,6 +206,8 @@ import {
   sanitizeString,
   sanitizeSearchQuery,
   safeHighlightMatches,
+  createHighlightedSnippets,
+  createFallbackExcerpt,
   validateSearchResults,
   containsDangerousContent,
 } from "~/utils/sanitize";
@@ -246,24 +251,7 @@ const sanitizedSearchDisplay = computed(() => {
 
 // Load Fuse.js configuration from config file
 const fuseConfig = ref(null);
-const fuseOptions = ref({
-  /**
-   * Default Fuse.js configuration options
-   * These will be used if the config file cannot be loaded
-   */
-  keys: [
-    { name: "title", weight: 1.0 },
-    { name: "content", weight: 1.0 },
-    { name: "description", weight: 0.6 },
-    { name: "path", weight: 0.3 },
-  ],
-  includeScore: true,
-  isCaseSensitive: false,
-  threshold: 0.6,
-  distance: 150,
-  useExtendedSearch: false,
-  includeMatches: true,
-});
+const fuseOptions = ref(null);
 
 // Load configuration from fuse.config.json
 async function loadFuseConfig() {
@@ -305,7 +293,7 @@ async function loadFuseConfig() {
     console.log("✅ Loaded Fuse.js configuration:", fuseConfig.value);
     log("search", "Loaded Fuse.js configuration from config file");
 
-    // Update Fuse options from config
+    // Extract Fuse options from config
     if (
       fuseConfig.value &&
       fuseConfig.value.search &&
@@ -317,10 +305,19 @@ async function loadFuseConfig() {
         fuseOptions.value
       );
       log("search", "Using Fuse.js options from config file");
+    } else {
+      throw new Error(
+        "Invalid config file structure - missing search.fuseOptions"
+      );
     }
   } catch (error) {
     console.error("❌ Error loading Fuse config:", error);
-    log("search", "Using default Fuse.js configuration");
+    log(
+      "search",
+      "Failed to load Fuse.js configuration - search will not work"
+    );
+    // Don't provide fallback - force proper config file usage
+    throw new Error("Search configuration is required but could not be loaded");
   }
 }
 
@@ -422,13 +419,17 @@ async function loadSearchIndex() {
     );
 
     // Initialize Fuse.js with the validated index and options
-    if (searchIndex.value && searchIndex.value.length > 0) {
+    if (
+      searchIndex.value &&
+      searchIndex.value.length > 0 &&
+      fuseOptions.value
+    ) {
       fuseInstance.value = new Fuse(searchIndex.value, fuseOptions.value);
       console.log(`🔍 Fuse.js initialized with options:`, fuseOptions.value);
       console.log("✅ Search index loading completed successfully!");
     } else {
       console.error(
-        "❌ Cannot initialize Fuse.js - search index is empty or invalid"
+        "❌ Cannot initialize Fuse.js - search index is empty, invalid, or config not loaded"
       );
     }
 
@@ -503,42 +504,160 @@ function performSearch() {
       const results = fuseInstance.value.search(safeQuery);
       console.log(`📊 Search results:`, results);
 
-      // Process results to add excerpts with context
-      const processedResults = results.map((result) => {
-        const item = result.item;
+      // Process results to add excerpts with context using enhanced highlighting
+      const processedResults = results
+        .map((result) => {
+          const item = result.item;
 
-        // Create excerpt from content, focusing on the first match
-        let excerpt = item.description || "";
-        if (result.matches && result.matches.length > 0) {
-          // Find matches in content
-          const contentMatches = result.matches.find(
-            (match) => match.key === "content"
-          );
-          if (contentMatches && contentMatches.indices.length > 0) {
-            // Get the first match position
-            const firstMatch = contentMatches.indices[0];
-            const start = Math.max(0, firstMatch[0] - excerptContextChars);
-            const end = Math.min(
-              item.content.length,
-              firstMatch[1] + excerptContextChars
+          // Create highlighted excerpt using Fuse.js match data
+          let excerpt = "";
+
+          // Always try to create highlighted snippets if we have matches
+          // We'll check if highlighting actually worked later
+          if (result.matches && result.matches.length > 0) {
+            excerpt = createHighlightedSnippets(
+              result,
+              "content",
+              excerptContextChars,
+              2,
+              safeQuery
             );
 
-            // Create excerpt with context around the match
-            excerpt =
-              (start > 0 ? "..." : "") +
-              item.content.substring(start, end) +
-              (end < item.content.length ? "..." : "");
-          }
-        }
+            // If no content matches, try title matches
+            if (!excerpt) {
+              excerpt = createHighlightedSnippets(
+                result,
+                "title",
+                excerptContextChars,
+                1,
+                safeQuery
+              );
+            }
 
-        return {
-          title: sanitizeString(item.title || ""),
-          path: sanitizeString(item.path || ""),
-          excerpt: sanitizeString(excerpt),
-          score: typeof result.score === "number" ? result.score : 0,
-          type: sanitizeString(item.type || ""), // Include content type for potential filtering
-        };
-      });
+            // If no title matches, try description matches
+            if (!excerpt) {
+              excerpt = createHighlightedSnippets(
+                result,
+                "description",
+                excerptContextChars,
+                1,
+                safeQuery
+              );
+            }
+          }
+
+          // If no highlighted excerpts were created, use fallback
+          if (!excerpt) {
+            excerpt = createFallbackExcerpt(
+              item,
+              "content",
+              excerptContextChars * 2
+            );
+
+            // If still no excerpt, try description
+            if (!excerpt) {
+              excerpt = createFallbackExcerpt(
+                item,
+                "description",
+                excerptContextChars * 2
+              );
+            }
+          }
+
+          // Highlight search terms in the title as well
+          const highlightedTitle = safeHighlightMatches(
+            item.title || "",
+            searchQuery.value,
+            2 // Use minimum term length of 2 for title highlighting
+          );
+
+          // Calculate adjusted score - prioritize exact matches over partial matches
+          const searchTerms = safeQuery
+            .toLowerCase()
+            .split(/\s+/)
+            .filter((term) => term.length >= 2);
+          const itemText = [
+            item.title || "",
+            item.content || "",
+            item.description || "",
+          ]
+            .join(" ")
+            .toLowerCase();
+
+          // Check for exact word matches (highest priority)
+          // Only consider text that would actually be highlighted by Fuse.js
+          const hasExactMatch = searchTerms.some((term) => {
+            if (term.length < 2) return false; // Skip very short terms
+
+            // Check if any of the Fuse.js matched fields contain exact word matches
+            if (result.matches && result.matches.length > 0) {
+              return result.matches.some((match) => {
+                const matchText = match.value.toLowerCase();
+                const wordBoundaryRegex = new RegExp(
+                  `\\b${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`,
+                  "i"
+                );
+                return wordBoundaryRegex.test(matchText);
+              });
+            }
+
+            return false;
+          });
+
+          // Check for partial matches (lower priority)
+          // Only consider text that would actually be highlighted by Fuse.js
+          const hasPartialMatch = searchTerms.some((term) => {
+            if (term.length < 2) return false; // Skip very short terms
+
+            // Check if any of the Fuse.js matched fields contain the search term
+            if (result.matches && result.matches.length > 0) {
+              return result.matches.some((match) => {
+                const matchText = match.value.toLowerCase();
+
+                // Check if search term is contained in matched content (original logic)
+                if (matchText.includes(term)) return true;
+
+                // Check if search term is a prefix of any word in matched content (new logic)
+                const words = matchText.split(/\s+/);
+                return words.some(
+                  (word) => word.startsWith(term) && word !== term
+                ); // Exclude exact matches
+              });
+            }
+
+            return false;
+          });
+          // Create tiered scoring system:
+          // Fuse.js scores: 0 = perfect match, 1 = poor match
+          // We want: exact matches first, then partial matches, then fuzzy-only
+          const originalScore =
+            typeof result.score === "number" ? result.score : 1;
+          let adjustedScore;
+
+          if (hasExactMatch) {
+            adjustedScore = 0 + originalScore; // Tier 1: 0.0 - 1.0 range
+          } else if (hasPartialMatch) {
+            adjustedScore = 10 + originalScore; // Tier 2: 10.0 - 11.0 range
+          } else {
+            adjustedScore = 20 + originalScore; // Tier 3: 20.0 - 21.0 range
+          }
+
+          return {
+            title: sanitizeString(item.title || ""), // Plain text title without highlighting
+            titlePlain: sanitizeString(item.title || ""), // Plain text version for accessibility
+            path: sanitizeString(item.path || ""),
+            excerpt: excerpt, // Already sanitized by the highlighting functions
+            score: typeof result.score === "number" ? result.score : 0, // Original score for debugging
+            adjustedScore: adjustedScore, // Score used for sorting
+            type: sanitizeString(item.type || ""), // Include content type for potential filtering
+            matches: result.matches || [], // Include match data for potential debugging
+            hasExactMatch: hasExactMatch, // Track if result has exact match
+            hasPartialMatch: hasPartialMatch, // Track if result has partial match
+          };
+        })
+        // Sort by adjusted score (lower scores = better matches)
+        // Tier 1: 0.0-1.0 (exact matches), Tier 2: 10.0-11.0 (partial), Tier 3: 20.0-21.0 (fuzzy)
+        .sort((a, b) => a.adjustedScore - b.adjustedScore);
 
       // Validate the processed results for security
       searchResults.value = validateSearchResults(processedResults);
@@ -566,17 +685,6 @@ watch(searchQuery, () => {
 function clearSearch() {
   searchQuery.value = "";
   searchResults.value = [];
-}
-
-// Safely highlight matched terms in search results
-function safeHighlight(text) {
-  if (!text) return "";
-
-  // Get minimum term length from config or use default
-  const minTermLength = fuseConfig.value?.search?.minTermLength || 2;
-
-  // Use our safe highlighting function from the sanitize utility
-  return safeHighlightMatches(text, searchQuery.value, minTermLength);
 }
 
 // Initialize on component mount
@@ -645,13 +753,18 @@ onMounted(() => {
   }
 }
 
-:deep(.search-result-excerpt) {
-  mark {
-    background-color: rgba(var(--v-theme-primary), 0.15);
-    color: inherit;
-    padding: 0 2px;
-    border-radius: 2px;
-    font-weight: 500;
+:deep(.search-result-excerpt),
+:deep(.search-result-title) {
+  mark,
+  .search-highlight {
+    /* Enhanced highlighting with better contrast for WCAG 2.1 AA compliance */
+    background-color: #ffeb3b; /* Yellow background for high contrast */
+    color: #000000; /* Black text for maximum contrast */
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+    /* Ensure minimum 7:1 contrast ratio (exceeds WCAG AA requirement) */
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -697,10 +810,16 @@ onMounted(() => {
   }
 }
 
-/* Ensure highlighted text is accessible */
-:deep(.search-result-excerpt mark) {
-  /* Ensure sufficient contrast for highlighted text */
-  color: rgb(var(--v-theme-on-surface));
-  font-weight: 500;
+/* Dark mode highlighting with proper contrast */
+:root[data-theme="dark"] :deep(.search-result-excerpt),
+:root[data-theme="dark"] :deep(.search-result-title) {
+  mark,
+  .search-highlight {
+    /* Dark mode: Use bright yellow background with black text for maximum contrast */
+    background-color: #ffd600; /* Brighter yellow for dark backgrounds */
+    color: #000000; /* Black text maintains high contrast */
+    /* Ensure visibility against dark card backgrounds */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
 }
 </style>

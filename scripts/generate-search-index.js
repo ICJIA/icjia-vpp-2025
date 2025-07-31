@@ -83,6 +83,7 @@ import matter from "gray-matter";
 import {
   sanitizeContentForIndexing,
   containsDangerousContent,
+  filterCodeFromContent,
 } from "../app/utils/sanitize.js";
 
 /**
@@ -427,6 +428,9 @@ function extractTextFromMarkdown(markdown) {
 
   // Apply additional security sanitization
   text = sanitizeContentForIndexing(text);
+
+  // Filter out code content that shouldn't be in search results
+  text = filterCodeFromContent(text);
 
   return text;
 }
@@ -1927,9 +1931,13 @@ async function generateSearchIndex(options = {}) {
       // Create search item for homepage with sanitized content
       const searchItem = {
         title: sanitizeContentForIndexing(pageTitle),
-        content: sanitizeContentForIndexing(enhancedText),
+        content: filterCodeFromContent(
+          sanitizeContentForIndexing(enhancedText)
+        ),
         path: normalizedPath,
-        description: sanitizeContentForIndexing(pageDescription),
+        description: filterCodeFromContent(
+          sanitizeContentForIndexing(pageDescription)
+        ),
         type: "vue-page",
         sourceFile: indexFile,
       };
@@ -2003,9 +2011,11 @@ async function generateSearchIndex(options = {}) {
       // Create search item with sanitized content
       const searchItem = {
         title: sanitizeContentForIndexing(title || "Untitled"),
-        content: sanitizeContentForIndexing(text),
+        content: filterCodeFromContent(sanitizeContentForIndexing(text)),
         path: normalizedPath,
-        description: sanitizeContentForIndexing(pageDescription),
+        description: filterCodeFromContent(
+          sanitizeContentForIndexing(pageDescription)
+        ),
         // Add type field to identify content source
         type: "vue-page",
         // Add source file for debugging
