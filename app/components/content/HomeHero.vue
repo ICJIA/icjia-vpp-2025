@@ -74,7 +74,7 @@
               rounded="0"
             >
               <img
-                src="/images/front-cover.png"
+                src="/images/vpp-cover.png"
                 alt="Youth violence prevention summit participants collaborating on community safety initiatives"
                 class="hero-image"
                 loading="lazy"

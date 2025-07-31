@@ -7,7 +7,13 @@ showBorder: true
 
 <div style="text-align: center;" class="mb-12">
 
-![Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](/images/front-cover.png)
+<!--
+
+![Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](/images/vpp-cover_small.png)
+
+-->
+
+<img src="/images/vpp-cover.png" style="max-height: 80vh;" alt="Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029">
 
 </div>
 
