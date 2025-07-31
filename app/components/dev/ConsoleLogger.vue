@@ -119,7 +119,7 @@ const {
  * When false, only a small toggle button is shown
  * When true, the full control panel is displayed
  *
- * @type {import('vue').Ref<boolean>}
+ * @type {Object}
  */
 const showControls = ref(false);
 

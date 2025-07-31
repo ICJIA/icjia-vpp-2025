@@ -606,27 +606,36 @@ function performSearch() {
 
           // Check for partial matches (lower priority)
           // Only consider text that would actually be highlighted by Fuse.js
-          const hasPartialMatch = searchTerms.some((term) => {
-            if (term.length < 2) return false; // Skip very short terms
+          const hasPartialMatch =
+            !hasExactMatch &&
+            searchTerms.some((term) => {
+              if (term.length < 2) return false; // Skip very short terms
 
-            // Check if any of the Fuse.js matched fields contain the search term
-            if (result.matches && result.matches.length > 0) {
-              return result.matches.some((match) => {
-                const matchText = match.value.toLowerCase();
+              // Check if any of the Fuse.js matched fields contain the search term as substring
+              if (result.matches && result.matches.length > 0) {
+                return result.matches.some((match) => {
+                  const matchText = match.value.toLowerCase();
 
-                // Check if search term is contained in matched content (original logic)
-                if (matchText.includes(term)) return true;
+                  // Check if search term is contained in matched content
+                  if (matchText.includes(term)) {
+                    // Make sure it's not already counted as an exact match
+                    const wordBoundaryRegex = new RegExp(
+                      `\\b${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`,
+                      "i"
+                    );
+                    return !wordBoundaryRegex.test(matchText);
+                  }
 
-                // Check if search term is a prefix of any word in matched content (new logic)
-                const words = matchText.split(/\s+/);
-                return words.some(
-                  (word) => word.startsWith(term) && word !== term
-                ); // Exclude exact matches
-              });
-            }
+                  // Check if search term is a prefix of any word in matched content
+                  const words = matchText.split(/\s+/);
+                  return words.some(
+                    (word) => word.startsWith(term) && word !== term
+                  );
+                });
+              }
 
-            return false;
-          });
+              return false;
+            });
           // Create tiered scoring system:
           // Fuse.js scores: 0 = perfect match, 1 = poor match
           // We want: exact matches first, then partial matches, then fuzzy-only

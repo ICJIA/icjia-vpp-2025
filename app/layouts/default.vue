@@ -74,7 +74,7 @@ const {
  * Controls the visibility of the skip-to-content link.
  * Only visible when focused (for keyboard users).
  *
- * @type {import('vue').Ref<boolean>}
+ * @type {Object}
  */
 const skipLinkVisible = ref(false);
 

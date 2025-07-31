@@ -236,7 +236,7 @@ const uniqueId = useId();
  * Tracks whether the image has failed to load.
  * When true, displays an error message and updates ARIA attributes.
  *
- * @type {import('vue').Ref<boolean>}
+ * @type {Object}
  */
 const hasError = ref(false);
 
@@ -247,7 +247,7 @@ const hasError = ref(false);
  * When true, displays the loading spinner and sets appropriate ARIA attributes.
  * Defaults to true until the image loads or errors.
  *
- * @type {import('vue').Ref<boolean>}
+ * @type {Object}
  */
 const isLoading = ref(true);
 

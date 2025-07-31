@@ -1,348 +1,409 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Documentation - Violence Prevention Plan for Illinois: 2025-2029</title>
-    <meta name="description" content="Comprehensive project documentation for the Illinois Violence Prevention Plan development.">
-    <meta name="author" content="Illinois Criminal Justice Information Authority">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Documentation - Violence Prevention Plan for Illinois: 2025-2029</title>
+  <meta name="description" content="Comprehensive project documentation for the Illinois Violence Prevention Plan development.">
+  <meta name="author" content="Illinois Criminal Justice Information Authority">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --primary-color: #1976d2;
+      --background-color: #121212;
+      --surface-color: #1e1e1e;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0b0;
+      --border-color: #333;
+      --code-bg: #2d2d2d;
+    }
 
-    <!-- Theme and Accessibility -->
-    <meta name="color-scheme" content="dark light">
-    <meta name="theme-color" content="#1A2234" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#F2F2F2" media="(prefers-color-scheme: light)">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
-    <!-- Material Design Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
 
-    <!-- Syntax Highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
 
-    <style>
-        /* CSS Variables for Theme System */
-        :root {
-            --primary-color: #1976D2;
-            --primary-dark: #1565C0;
-            --secondary-color: #424242;
-            --accent-color: #FF5722;
+    .nav-links a {
+      color: var(--primary-color);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
 
-            /* Light Theme */
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8F9FA;
-            --bg-card: #FFFFFF;
-            --bg-code: #F5F5F5;
-            --text-primary: #212121;
-            --text-secondary: #757575;
-            --text-code: #333333;
-            --border-color: #E0E0E0;
-            --shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+    .nav-links a:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
 
-        /* Dark Theme (Default) */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-primary: #121212;
-                --bg-secondary: #1E1E1E;
-                --bg-card: #2D2D2D;
-                --bg-code: #1E1E1E;
-                --text-primary: #FFFFFF;
-                --text-secondary: #B0B0B0;
-                --text-code: #E0E0E0;
-                --border-color: #404040;
-                --shadow: 0 2px 4px rgba(0,0,0,0.3);
-            }
-        }
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-color);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
 
-        /* Force Dark Theme */
-        [data-theme="dark"] {
-            --bg-primary: #121212;
-            --bg-secondary: #1E1E1E;
-            --bg-card: #2D2D2D;
-            --bg-code: #1E1E1E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B0B0B0;
-            --text-code: #E0E0E0;
-            --border-color: #404040;
-            --shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-top: 0;
+    }
 
-        /* Force Light Theme */
-        [data-theme="light"] {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8F9FA;
-            --bg-card: #FFFFFF;
-            --bg-code: #F5F5F5;
-            --text-primary: #212121;
-            --text-secondary: #757575;
-            --text-code: #333333;
-            --border-color: #E0E0E0;
-            --shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+    h2 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
 
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    ul, ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
 
-        /* Container and Layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-        }
+    li {
+      margin-bottom: 0.5rem;
+    }
 
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--border-color);
-        }
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
 
-        .header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
+    a:hover {
+      text-decoration: underline;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
+    code {
+      background-color: var(--code-bg);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+    }
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    pre {
+      background-color: var(--code-bg);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
 
-        .nav-links a:hover {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
+    pre code {
+      background: none;
+      padding: 0;
+    }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 50px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
 
-        .theme-toggle:hover {
-            background: var(--bg-secondary);
-        }
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem;
+      text-align: left;
+    }
 
-        .theme-toggle:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
+    th {
+      background-color: var(--surface-color);
+      font-weight: 600;
+    }
 
-        /* Content Styles */
-        .content {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
+    blockquote {
+      border-left: 4px solid var(--primary-color);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
 
-        .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      margin-top: 3rem;
+    }
 
-        .content h1:first-child {
-            margin-top: 0;
-        }
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
 
-        .content h1 { font-size: 2.5rem; font-weight: 700; }
-        .content h2 { font-size: 2rem; font-weight: 600; }
-        .content h3 { font-size: 1.5rem; font-weight: 600; }
-        .content h4 { font-size: 1.25rem; font-weight: 500; }
-        .content h5 { font-size: 1.1rem; font-weight: 500; }
-        .content h6 { font-size: 1rem; font-weight: 500; }
+      .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
 
-        .content p {
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
+      .nav-links {
+        flex-wrap: wrap;
+      }
 
-        .content ul, .content ol {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-        }
+      h1 {
+        font-size: 2rem;
+      }
 
-        .content li {
-            margin-bottom: 0.5rem;
-        }
-
-        .content a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .content a:hover {
-            text-decoration: underline;
-        }
-
-        .content blockquote {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--primary-color);
-            padding: 1rem 1.5rem;
-            margin: 1rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .content code {
-            font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
-            background: var(--bg-code);
-            color: var(--text-code);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-
-        .content pre {
-            background: var(--bg-code);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .content pre code {
-            background: none;
-            padding: 0;
-        }
-
-        .content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .content th, .content td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .content th {
-            background: var(--bg-secondary);
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 2rem;
-            text-align: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: stretch;
-            }
-
-            .nav-links {
-                justify-content: center;
-            }
-
-            .content {
-                padding: 1.5rem;
-            }
-
-            .content h1 { font-size: 2rem; }
-            .content h2 { font-size: 1.5rem; }
-        }
-
-        /* Reduced Motion Support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
-<body data-theme="dark">
-    <div class="container">
-        <header class="header">
-            <h1>Project Documentation</h1>
-            <nav class="nav-links">
-                <a href="/documentation/" aria-label="Back to documentation portal">
-                    <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
-                    Portal
-                </a>
-                <a href="/documentation/jsdoc/" aria-label="View API documentation">
-                    <i class="mdi mdi-code-braces" aria-hidden="true"></i>
-                    API Docs
-                </a>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle between light and dark theme">
-                    <i class="mdi mdi-theme-light-dark" aria-hidden="true"></i>
-                    <span id="theme-text">Light Mode</span>
-                </button>
-            </nav>
-        </header>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Project Documentation</h1>
+      <nav class="nav-links">
+        <a href="/documentation/">← Portal</a>
+        <a href="/documentation/jsdoc/">API Docs</a>
+        <a href="#" onclick="toggleTheme()">🌙 Light Mode</a>
+      </nav>
+    </header>
 
-        <main class="content">
-            <h1>Statewide Violence Prevention Plan for Illinois: 2025-2029 - Project Documentation</h1>
-<p><strong>Last Updated: June 20, 2025</strong></p>
-<h2>Project Overview</h2>
-<h3>Repository Information</h3>
+    <main>
+      <h1 id="statewide-violence-prevention-plan-for-illinois-2025-2029-project-documentation">Statewide Violence Prevention Plan for Illinois: 2025-2029 - Project Documentation</h1>
+<p><strong>Last Updated: July 31, 2025</strong></p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#-quick-start-for-new-developers">🚀 Quick Start for New Developers</a></li>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#recent-major-updates">Recent Major Updates</a></li>
+<li><a href="#technology-stack">Technology Stack</a></li>
+<li><a href="#architecture-overview">Architecture Overview</a></li>
+<li><a href="#directory-structure">Directory Structure</a></li>
+<li><a href="#development-guidelines">Development Guidelines</a></li>
+<li><a href="#key-components">Key Components</a></li>
+<li><a href="#build-system--scripts">Build System &amp; Scripts</a></li>
+<li><a href="#api-documentation">API Documentation</a></li>
+<li><a href="#database-schema">Database Schema</a></li>
+<li><a href="#setup-instructions">Setup Instructions</a></li>
+<li><a href="#development-workflow">Development Workflow</a></li>
+<li><a href="#build-and-deployment">Build and Deployment</a></li>
+<li><a href="#accessibility-standards">Accessibility Standards</a></li>
+<li><a href="#uiux-guidelines">UI/UX Guidelines</a></li>
+<li><a href="#navigation-structure">Navigation Structure</a></li>
+<li><a href="#content-management">Content Management</a></li>
+<li><a href="#maintenance">Maintenance</a></li>
+</ul>
+<hr>
+<h2 id="-quick-start-for-new-developers">🚀 Quick Start for New Developers</h2>
+<p>Welcome to the Violence Prevention Plan for Illinois project! This section will help you get up and running quickly.</p>
+<h3 id="essential-first-steps">Essential First Steps</h3>
+<ol>
+<li><p><strong>Clone and Setup</strong> (5 minutes):</p>
+<pre><code class="language-bash">git clone https://github.com/ICJIA/icjia-vpp-2025.git
+cd icjia-vpp-2025
+yarn install
+yarn dev
+</code></pre>
+</li>
+<li><p><strong>Access the Development Server</strong>:</p>
+<ul>
+<li><strong>Main Site</strong>: <a href="http://localhost:8000">http://localhost:8000</a></li>
+<li><strong>Documentation Portal</strong>: <a href="http://localhost:8000/documentation/">http://localhost:8000/documentation/</a></li>
+<li><strong>Search</strong>: <a href="http://localhost:8000/search">http://localhost:8000/search</a></li>
+<li><strong>Tools Documentation</strong>: <a href="http://localhost:8000/documentation/tools/">http://localhost:8000/documentation/tools/</a></li>
+</ul>
+</li>
+<li><p><strong>Read Key Documentation</strong>:</p>
+<ul>
+<li><strong>Development Guidelines</strong>: <code>.augment-guidelines</code> (project coding standards)</li>
+<li><strong>Tools Reference</strong>: <code>tools.md</code> (all project tools and links)</li>
+<li><strong>Audit Logs</strong>: <code>audit-log-project.md</code> and <code>audit-log-accessibility.md</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="development-workflow">Development Workflow</h3>
+<h4 id="daily-development-commands">Daily Development Commands</h4>
+<pre><code class="language-bash"># Start development server with all build processes
+yarn dev
+
+# Generate production build
+yarn generate
+
+# Run specific build scripts
+yarn create:search-index-defuddle    # Update search index
+yarn create:tools-docs               # Generate tools documentation
+yarn create:site-config              # Update site configuration
+</code></pre>
+<h4 id="making-changes">Making Changes</h4>
+<ol>
+<li><strong>Content Changes</strong>: Edit files in <code>/content/</code> directory (markdown files)</li>
+<li><strong>Component Changes</strong>: Edit files in <code>/app/components/</code> directory (Vue files)</li>
+<li><strong>Styling Changes</strong>: Use Vuetify classes or edit component <code>&lt;style&gt;</code> sections</li>
+<li><strong>Configuration</strong>: Edit files in <code>/config/</code> directory (JSON files)</li>
+</ol>
+<h3 id="key-commands">Key Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>yarn dev</code></td>
+<td>Start development server</td>
+<td>Daily development</td>
+</tr>
+<tr>
+<td><code>yarn generate</code></td>
+<td>Build for production</td>
+<td>Before deployment</td>
+</tr>
+<tr>
+<td><code>yarn create:search-index-defuddle</code></td>
+<td>Update search index</td>
+<td>After content changes</td>
+</tr>
+<tr>
+<td><code>yarn create:tools-docs</code></td>
+<td>Generate tools docs</td>
+<td>After updating tools.md</td>
+</tr>
+<tr>
+<td><code>yarn create:site-config</code></td>
+<td>Update site config</td>
+<td>After config changes</td>
+</tr>
+<tr>
+<td><code>yarn sync:accessibility-audit</code></td>
+<td>Sync accessibility logs</td>
+<td>After accessibility updates</td>
+</tr>
+<tr>
+<td><code>yarn sync:project-audit</code></td>
+<td>Sync project logs</td>
+<td>After project updates</td>
+</tr>
+</tbody></table>
+<h3 id="important-files-to-know">Important Files to Know</h3>
+<h4 id="configuration-files-edit-these">Configuration Files (Edit These)</h4>
+<ul>
+<li><strong><code>config/site.config.json</code></strong>: Main site configuration (contact info, URLs, etc.)</li>
+<li><strong><code>config/menu.config.json</code></strong>: Navigation menu structure</li>
+<li><strong><code>nuxt.config.ts</code></strong>: Nuxt framework configuration</li>
+<li><strong><code>package.json</code></strong>: Dependencies and build scripts</li>
+</ul>
+<h4 id="content-files-edit-these">Content Files (Edit These)</h4>
+<ul>
+<li><strong><code>content/index.md</code></strong>: Homepage content</li>
+<li><strong><code>content/plan/</code></strong>: All plan sections (Executive Summary, Goals, etc.)</li>
+<li><strong><code>content/accessibility/</code></strong>: Accessibility documentation</li>
+<li><strong><code>content/legal/</code></strong>: Privacy Policy, Terms of Service</li>
+</ul>
+<h4 id="generated-files-don39t-edit-these">Generated Files (Don&#39;t Edit These)</h4>
+<ul>
+<li><strong><code>public/config/</code></strong>: Auto-generated from <code>/config/</code> files</li>
+<li><strong><code>public/data/</code></strong>: Auto-generated search and routing data</li>
+<li><strong><code>public/documentation/</code></strong>: Auto-generated documentation</li>
+<li><strong><code>.nuxt/</code> and <code>.output/</code></strong>: Build artifacts</li>
+</ul>
+<h4 id="key-component-files">Key Component Files</h4>
+<ul>
+<li><strong><code>app/layouts/default.vue</code></strong>: Main page layout with header/footer</li>
+<li><strong><code>app/components/content/AppHeader.vue</code></strong>: Navigation header</li>
+<li><strong><code>app/components/content/AppFooter.vue</code></strong>: Site footer</li>
+<li><strong><code>app/pages/index.vue</code></strong>: Homepage component</li>
+</ul>
+<h3 id="project-architecture-quick-overview">Project Architecture Quick Overview</h3>
+<pre><code>🏗️ Architecture Pattern: JAMstack (Nuxt 4 + Static Generation)
+🎨 UI Framework: Vuetify 3 (Material Design)
+📝 Content: Nuxt Content v3 (Markdown files)
+🔍 Search: Fuse.js with custom content extraction
+🎯 Accessibility: WCAG 2.1 AA compliant
+🌙 Themes: Light/Dark with cookie persistence
+📱 Responsive: Mobile-first design
+</code></pre>
+<h3 id="common-development-tasks">Common Development Tasks</h3>
+<h4 id="adding-new-content">Adding New Content</h4>
+<ol>
+<li>Create markdown file in appropriate <code>/content/</code> subdirectory</li>
+<li>Add frontmatter with title, description, etc.</li>
+<li>Run <code>yarn create:search-index-defuddle</code> to update search</li>
+<li>Test with <code>yarn dev</code></li>
+</ol>
+<h4 id="modifying-navigation">Modifying Navigation</h4>
+<ol>
+<li>Edit <code>config/menu.config.json</code> for main navigation</li>
+<li>Edit <code>config/site.config.json</code> for dropdown menus</li>
+<li>Run <code>yarn create:site-config</code> to regenerate</li>
+<li>Test navigation functionality</li>
+</ol>
+<h4 id="updating-styles">Updating Styles</h4>
+<ol>
+<li>Use Vuetify classes when possible (e.g., <code>class=&quot;text-h4 mb-4&quot;</code>)</li>
+<li>For custom styles, add to component <code>&lt;style scoped&gt;</code> sections</li>
+<li>Follow existing color and spacing patterns</li>
+<li>Test in both light and dark themes</li>
+</ol>
+<h4 id="accessibility-considerations">Accessibility Considerations</h4>
+<ul>
+<li><strong>Always</strong> include <code>alt</code> text for images</li>
+<li><strong>Always</strong> use semantic HTML elements</li>
+<li><strong>Always</strong> test keyboard navigation</li>
+<li><strong>Always</strong> check color contrast (4.5:1 minimum)</li>
+<li><strong>Always</strong> test with screen readers when possible</li>
+</ul>
+<h3 id="getting-help">Getting Help</h3>
+<ol>
+<li><strong>Documentation Portal</strong>: <a href="http://localhost:8000/documentation/">http://localhost:8000/documentation/</a></li>
+<li><strong>Tools Reference</strong>: <a href="http://localhost:8000/documentation/tools/">http://localhost:8000/documentation/tools/</a></li>
+<li><strong>Audit Logs</strong>: Check recent changes and patterns</li>
+<li><strong>Code Comments</strong>: Look for JSDoc comments in components</li>
+<li><strong>Configuration</strong>: Check <code>/config/</code> files for examples</li>
+</ol>
+<h3 id="next-steps">Next Steps</h3>
+<p>After completing the quick start:</p>
+<ol>
+<li>Read the full <a href="#project-overview">Project Overview</a> section</li>
+<li>Review <a href="#development-guidelines">Development Guidelines</a></li>
+<li>Understand <a href="#accessibility-standards">Accessibility Standards</a></li>
+<li>Explore <a href="#key-components">Key Components</a></li>
+<li>Check <a href="#build-system--scripts">Build System &amp; Scripts</a></li>
+</ol>
+<hr>
+<h2 id="project-overview">Project Overview</h2>
+<h3 id="repository-information">Repository Information</h3>
 <ul>
 <li><strong>Project Name</strong>: Statewide Violence Prevention Plan for Illinois: 2025-2029</li>
 <li><strong>Repository</strong>: <a href="https://github.com/ICJIA/icjia-vpp-2025">https://github.com/ICJIA/icjia-vpp-2025</a></li>
@@ -350,7 +411,7 @@
 <li><strong>Organization</strong>: Illinois Criminal Justice Information Authority (ICJIA)</li>
 <li><strong>License</strong>: MIT</li>
 </ul>
-<h3>Project Purpose and Goals</h3>
+<h3 id="project-purpose-and-goals">Project Purpose and Goals</h3>
 <p>This project serves as the official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029. The plan represents a comprehensive, evidence-based approach to preventing violence through collaborative efforts across state, municipal, and community-based agencies.</p>
 <p><strong>Key Objectives:</strong></p>
 <ul>
@@ -360,7 +421,7 @@
 <li>Support both light and dark themes with persistent user preferences</li>
 <li>Deliver responsive design optimized for all devices</li>
 </ul>
-<h3>Target Audience</h3>
+<h3 id="target-audience">Target Audience</h3>
 <ul>
 <li>State and local government officials</li>
 <li>Community-based organizations</li>
@@ -368,7 +429,7 @@
 <li>Researchers and academics</li>
 <li>General public interested in violence prevention</li>
 </ul>
-<h3>Key Features</h3>
+<h3 id="key-features">Key Features</h3>
 <ul>
 <li>Modern, responsive design using Vuetify 3 components</li>
 <li>Accessibility-first development approach (WCAG 2.1 AA compliant)</li>
@@ -379,65 +440,176 @@
 <li>Comprehensive documentation for developers and users</li>
 <li>Automated build processes with configurable logging levels</li>
 </ul>
-<h2>Technology Stack</h2>
-<h3>Core Framework</h3>
+<h2 id="recent-major-updates">Recent Major Updates</h2>
+<h3 id="nuxt-4-migration-july-18-2025">Nuxt 4 Migration (July 18, 2025)</h3>
+<p>The project has been successfully migrated from Nuxt 3 to Nuxt 4, bringing significant improvements in performance, developer experience, and modern development patterns.</p>
+<h4 id="migration-highlights">Migration Highlights</h4>
+<p><strong>Directory Structure Modernization:</strong></p>
 <ul>
-<li><strong>Nuxt 3</strong> (v3.17.5) - Vue.js meta-framework for static site generation</li>
+<li><strong>Primary Source Directory</strong>: Moved from root-level directories to <code>app/</code> directory structure</li>
+<li><strong>Components</strong>: <code>components/</code> → <code>app/components/</code></li>
+<li><strong>Composables</strong>: <code>composables/</code> → <code>app/composables/</code></li>
+<li><strong>Layouts</strong>: <code>layouts/</code> → <code>app/layouts/</code></li>
+<li><strong>Pages</strong>: <code>pages/</code> → <code>app/pages/</code></li>
+<li><strong>Plugins</strong>: <code>plugins/</code> → <code>app/plugins/</code></li>
+<li><strong>Assets</strong>: <code>assets/</code> → <code>app/assets/</code></li>
+<li><strong>Utils</strong>: <code>utils/</code> → <code>app/utils/</code></li>
+</ul>
+<p><strong>Content Management:</strong></p>
+<ul>
+<li><strong>Content Directory</strong>: Remains at root level (<code>/content/</code>) as per Nuxt Content v3 requirements</li>
+<li><strong>Public Assets</strong>: Remains at root level (<code>/public/</code>) for static file serving</li>
+<li><strong>Configuration</strong>: Build and configuration files remain at root level</li>
+</ul>
+<p><strong>Performance Improvements:</strong></p>
+<ul>
+<li><strong>Faster Build Times</strong>: Enhanced build pipeline with optimized dependency resolution</li>
+<li><strong>Improved Hot Reload</strong>: Faster development server with better file watching</li>
+<li><strong>Enhanced SSR</strong>: Better server-side rendering performance and reliability</li>
+<li><strong>Modern Bundling</strong>: Updated bundling strategies for smaller output sizes</li>
+</ul>
+<h4 id="theme-system-enhancements-july-18-2025">Theme System Enhancements (July 18, 2025)</h4>
+<p><strong>Cookie-Based Theme Persistence:</strong></p>
+<ul>
+<li><strong>Migration from localStorage</strong>: Converted theme storage from localStorage to cookies for SSR compatibility</li>
+<li><strong>FOUC Elimination</strong>: Eliminated Flash of Unstyled Content through server-side theme application</li>
+<li><strong>Cross-Browser Compatibility</strong>: Enhanced Safari compatibility with optimized cookie settings</li>
+<li><strong>SSR Integration</strong>: Theme preferences applied during server-side rendering for consistent initial page load</li>
+</ul>
+<p><strong>Technical Implementation:</strong></p>
+<ul>
+<li><strong>useHead Integration</strong>: Uses Nuxt&#39;s <code>useHead</code> to set <code>data-theme</code> attribute during SSR</li>
+<li><strong>Dual Approach</strong>: Combines SSR-compatible <code>useHead</code> with client-side <code>document.setAttribute</code> for immediate feedback</li>
+<li><strong>Cookie Configuration</strong>: Optimized <code>sameSite</code> and <code>secure</code> settings for cross-browser compatibility</li>
+<li><strong>Vuetify Integration</strong>: Synchronized theme management between custom theme system and Vuetify</li>
+</ul>
+<p><strong>Browser Compatibility:</strong></p>
+<ul>
+<li><strong>Chrome</strong>: Full compatibility maintained</li>
+<li><strong>Safari</strong>: Enhanced compatibility with specialized cookie settings</li>
+<li><strong>Firefox</strong>: Full compatibility maintained</li>
+<li><strong>Edge</strong>: Full compatibility maintained</li>
+</ul>
+<h3 id="tools-documentation-system-july-31-2025">Tools Documentation System (July 31, 2025)</h3>
+<p><strong>Comprehensive Developer Tooling Reference:</strong></p>
+<ul>
+<li><strong>Tools Documentation</strong>: Created <code>tools.md</code> with comprehensive list of project tools and resources</li>
+<li><strong>Automated HTML Generation</strong>: Built <code>scripts/generate-tools-documentation.js</code> for converting markdown to styled HTML</li>
+<li><strong>Documentation Portal Integration</strong>: Added Tools card to <code>/documentation/</code> portal for easy access</li>
+<li><strong>Build Process Integration</strong>: Integrated into all build, dev, and generate scripts for automatic updates</li>
+</ul>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>Organized Sections</strong>: Core Framework &amp; UI, Content &amp; Documentation, Search &amp; Typography, Development &amp; Source, Accessibility Resources</li>
+<li><strong>Direct Links</strong>: All tools include working links to official documentation</li>
+<li><strong>Theme Support</strong>: Light/dark theme toggle with localStorage persistence</li>
+<li><strong>Accessibility Compliance</strong>: WCAG 2.1 AA compliant with proper focus states and reduced motion support</li>
+<li><strong>Responsive Design</strong>: Works across all device sizes with professional styling</li>
+</ul>
+<h3 id="search-functionality-improvements-july-31-2025">Search Functionality Improvements (July 31, 2025)</h3>
+<p><strong>Enhanced Search Accuracy and Consistency:</strong></p>
+<ul>
+<li><strong>Highlighting Fixes</strong>: Resolved inconsistent highlighting between partial searches (&quot;preven&quot;) and complete words (&quot;prevention&quot;)</li>
+<li><strong>Result Consistency</strong>: Fixed issue where adding letters to search terms reduced valid results</li>
+<li><strong>Validation Logic</strong>: Improved search term validation to prevent false positives while maintaining comprehensive results</li>
+<li><strong>Bidirectional Matching</strong>: Enhanced fuzzy search to catch spelling errors while prioritizing exact matches</li>
+</ul>
+<p><strong>Technical Improvements:</strong></p>
+<ul>
+<li><strong>Sanitization Logic</strong>: Updated <code>utils/sanitize.js</code> with better validation for search term matching</li>
+<li><strong>Search Component</strong>: Enhanced <code>pages/search.vue</code> with improved exact vs partial match detection</li>
+<li><strong>Error Handling</strong>: Added robust fallback logic for regex operations</li>
+<li><strong>Performance</strong>: Maintained fast search performance while improving accuracy</li>
+</ul>
+<h3 id="address-standardization-july-31-2025">Address Standardization (July 31, 2025)</h3>
+<p><strong>Updated Organization Address Information:</strong></p>
+<ul>
+<li><strong>Current Address</strong>: Standardized all references to &quot;60 E Van Buren St, Suite 650, Chicago, IL 60605&quot;</li>
+<li><strong>Legacy Address Removal</strong>: Updated all instances of &quot;300 W. Adams Street&quot; to current address</li>
+<li><strong>Comprehensive Update</strong>: Updated documentation portal, legal pages, structured data, and configuration files</li>
+<li><strong>Historical Preservation</strong>: Maintained historical address references in audit logs for documentation purposes</li>
+</ul>
+<p><strong>Files Updated:</strong></p>
+<ul>
+<li><strong>Documentation Portal</strong>: Footer address information</li>
+<li><strong>Legal Pages</strong>: Terms of Service and Privacy Policy contact information</li>
+<li><strong>Structured Data</strong>: SEO and schema markup address information</li>
+<li><strong>Configuration Files</strong>: Site configuration and public config files</li>
+</ul>
+<h3 id="documentation-portal-enhancements-july-31-2025">Documentation Portal Enhancements (July 31, 2025)</h3>
+<p><strong>Improved Layout and Navigation:</strong></p>
+<ul>
+<li><strong>Three-Card Layout</strong>: Optimized grid to display three cards across instead of two for better space utilization</li>
+<li><strong>Accessibility Audit Log</strong>: Added dedicated card for accessibility documentation</li>
+<li><strong>Streamlined Footer</strong>: Removed external GitHub link for cleaner, more focused documentation experience</li>
+<li><strong>Responsive Design</strong>: Enhanced mobile and tablet layouts with optimized card sizing</li>
+</ul>
+<h2 id="technology-stack">Technology Stack</h2>
+<h3 id="core-framework">Core Framework</h3>
+<ul>
+<li><strong>Nuxt 4</strong> (v4.0.0) - Vue.js meta-framework with modern directory structure and enhanced performance<ul>
+<li><strong>Migration Completed</strong>: July 18, 2025 - Full migration from Nuxt 3 to Nuxt 4</li>
+<li><strong>Modern Directory Structure</strong>: Uses <code>app/</code> as primary source directory instead of root-level directories</li>
+<li><strong>Enhanced Performance</strong>: Improved build times and runtime performance</li>
+<li><strong>Backward Compatibility</strong>: Maintains compatibility with existing Nuxt 3 patterns</li>
+</ul>
+</li>
 <li><strong>Vue 3</strong> (v3.5.0) - Progressive JavaScript framework with Composition API</li>
 <li><strong>Node.js</strong> - JavaScript runtime (requires Node.js 18+)</li>
 </ul>
-<h3>UI Framework &amp; Styling</h3>
+<h3 id="ui-framework-amp-styling">UI Framework &amp; Styling</h3>
 <ul>
 <li><strong>Vuetify 3</strong> (v3.8.5) - Material Design component framework</li>
 <li><strong>Material Design Icons</strong> (@mdi/font v7.4.47) - Icon library</li>
 <li><strong>Sass</strong> (v1.71.1) - CSS preprocessor for custom styling</li>
 <li><strong>Google Fonts</strong> - Typography (Roboto, Lato, Raleway families)</li>
 </ul>
-<h3>Content Management</h3>
+<h3 id="content-management">Content Management</h3>
 <ul>
-<li><strong>Nuxt Content v3</strong> (@nuxt/content v3.5.1) - File-based CMS for markdown content</li>
+<li><strong>Nuxt Content v3</strong> (@nuxt/content v3.6.3) - File-based CMS for markdown content</li>
 <li><strong>Gray Matter</strong> (v4.0.3) - YAML frontmatter parsing</li>
 <li><strong>Remark/Rehype</strong> - Markdown processing pipeline with GFM support</li>
 </ul>
-<h3>Build Tools &amp; Development</h3>
+<h3 id="build-tools-amp-development">Build Tools &amp; Development</h3>
 <ul>
 <li><strong>Vite</strong> - Fast build tool and development server</li>
 <li><strong>Vitest</strong> (v3.1.3) - Unit testing framework with Vue Test Utils</li>
 <li><strong>ESBuild</strong> - JavaScript bundler and minifier</li>
 <li><strong>PostCSS</strong> - CSS processing and optimization</li>
 </ul>
-<h3>Search &amp; Utility Libraries</h3>
+<h3 id="search-amp-utility-libraries">Search &amp; Utility Libraries</h3>
 <ul>
 <li><strong>Defuddle</strong> (v0.6.4) - Enhanced content extraction for search indexing</li>
 <li><strong>Fuse.js</strong> (v7.1.0) - Fuzzy search library for client-side search</li>
 <li><strong>VueUse</strong> (v13.2.0) - Collection of Vue composition utilities</li>
 <li><strong>Better SQLite3</strong> (v11.10.0) - Database for content processing</li>
 </ul>
-<h3>Analytics &amp; Monitoring</h3>
+<h3 id="analytics-amp-monitoring">Analytics &amp; Monitoring</h3>
 <ul>
 <li><strong>Plausible Analytics</strong> (@nuxtjs/plausible v1.2.0) - Privacy-focused analytics</li>
 </ul>
-<h3>Deployment &amp; Hosting</h3>
+<h3 id="deployment-amp-hosting">Deployment &amp; Hosting</h3>
 <ul>
 <li><strong>Netlify</strong> - Static site hosting with automatic deployments</li>
 <li><strong>Nitro</strong> - Server engine for static site generation</li>
 </ul>
-<h2>Architecture Overview</h2>
-<h3>High-Level Architecture</h3>
-<p>The project follows a JAMstack architecture pattern:</p>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<p>The project follows a JAMstack architecture pattern with Nuxt 4&#39;s modern directory structure:</p>
 <ul>
-<li><strong>JavaScript</strong>: Vue 3 with Nuxt 3 framework</li>
+<li><strong>JavaScript</strong>: Vue 3 with Nuxt 4 framework using <code>app/</code> source directory (migrated July 18, 2025)</li>
 <li><strong>APIs</strong>: Static content via Nuxt Content, search via client-side Fuse.js</li>
 <li><strong>Markup</strong>: Pre-generated static HTML with dynamic hydration</li>
+<li><strong>Theme Management</strong>: Cookie-based persistence with SSR-compatible theme application</li>
 </ul>
-<h3>Data Flow Patterns</h3>
+<h3 id="data-flow-patterns">Data Flow Patterns</h3>
 <ol>
 <li><strong>Content Processing</strong>: Markdown files → Nuxt Content → Static generation</li>
 <li><strong>Search Indexing</strong>: Content files → Defuddle extraction → Fuse.js index</li>
 <li><strong>Configuration</strong>: JSON configs → Build scripts → Public assets</li>
 <li><strong>Accessibility</strong>: Audit logs → Sync scripts → Documentation pages</li>
 </ol>
-<h3>Key Design Patterns</h3>
+<h3 id="key-design-patterns">Key Design Patterns</h3>
 <ul>
 <li><strong>Composition API</strong>: Vue 3 composables for reusable logic</li>
 <li><strong>Component-Based Architecture</strong>: Modular, reusable Vue components</li>
@@ -445,7 +617,7 @@
 <li><strong>Static Site Generation</strong>: Pre-rendered pages for optimal performance</li>
 <li><strong>Progressive Enhancement</strong>: Core functionality works without JavaScript</li>
 </ul>
-<h3>Integration Points</h3>
+<h3 id="integration-points">Integration Points</h3>
 <ul>
 <li><strong>Nuxt Content</strong>: Markdown content processing and rendering</li>
 <li><strong>Vuetify</strong>: Material Design component integration</li>
@@ -453,30 +625,56 @@
 <li><strong>Defuddle</strong>: Enhanced search content extraction</li>
 <li><strong>Plausible</strong>: Privacy-focused analytics integration</li>
 </ul>
-<h2>Directory Structure</h2>
+<h2 id="directory-structure">Directory Structure</h2>
 <pre><code>icjia-vpp-2025/
-├── app.vue                     # Root application component
 ├── nuxt.config.ts             # Nuxt configuration
 ├── package.json               # Dependencies and scripts
 ├── vitest.config.js           # Testing configuration
 ├── tsconfig.json              # TypeScript configuration
 ├──
-├── assets/                    # Static assets and styles
-│   └── css/
-│       └── main.scss          # Global SCSS styles
-├──
-├── components/                # Vue components
-│   ├── content/               # Content-specific components
-│   ├── dev/                   # Development utilities
-│   └── seo/                   # SEO-related components
-├──
-├── composables/               # Vue composables
-│   ├── useAnnouncer.js        # Accessibility announcements
-│   ├── useConsoleLogger.js    # Logging utilities
-│   ├── useContentFetcher.js   # Content fetching logic
-│   ├── useReferences.js       # Reference management
-│   ├── useReportNavigation.js # Navigation utilities
-│   └── useSiteSettings.js     # Site configuration
+├── app/                       # PRIMARY SOURCE DIRECTORY (Nuxt 4)
+│   ├── app.vue                # Root application component
+│   ├── error.vue              # Error page component
+│   ├── router.options.ts      # Router configuration
+│   ├──
+│   ├── assets/                # Static assets and styles
+│   │   └── css/
+│   │       └── main.scss      # Global SCSS styles
+│   ├──
+│   ├── components/            # Vue components
+│   │   ├── content/           # Content-specific components
+│   │   ├── dev/               # Development utilities
+│   │   └── seo/               # SEO-related components
+│   ├──
+│   ├── composables/           # Vue composables
+│   │   ├── useAnnouncer.js    # Accessibility announcements
+│   │   ├── useConsoleLogger.js # Logging utilities
+│   │   ├── useContentFetcher.js # Content fetching logic
+│   │   ├── useReferences.js   # Reference management
+│   │   ├── useReportNavigation.js # Navigation utilities
+│   │   ├── useSiteSettings.js # Site configuration
+│   │   └── useTheme.js        # Cookie-based theme management (added July 18, 2025)
+│   ├──
+│   ├── layouts/               # Layout components
+│   │   └── default.vue        # Default page layout
+│   ├──
+│   ├── pages/                 # Page components
+│   │   ├── [...slug].vue      # Dynamic catch-all page
+│   │   ├── index.vue          # Homepage
+│   │   ├── news.vue           # News listing page
+│   │   └── search.vue         # Search page
+│   ├──
+│   ├── plugins/               # Nuxt plugins
+│   │   ├── console-logger.client.js    # Client-side logging
+│   │   ├── error-handler.client.js     # Error handling
+│   │   ├── footnotes.client.js         # Footnote functionality
+│   │   ├── markdown-components.ts      # Markdown component registration
+│   │   ├── references.client.js        # Reference processing
+│   │   ├── refresh-scroll.client.js    # Scroll behavior
+│   │   ├── scroll-behavior.client.js   # Scroll management
+│   │   └── vuetify.ts                  # Vuetify configuration
+│   └──
+│   └── utils/                 # Utility functions
 ├──
 ├── content/                   # Markdown content files
 │   ├── accessibility/         # Accessibility documentation
@@ -487,28 +685,10 @@
 │   ├── download.md            # Download page
 │   └── index.md               # Homepage content
 ├──
-├── layouts/                   # Layout components
-│   └── default.vue            # Default page layout
-├──
-├── pages/                     # Page components
-│   ├── [...slug].vue          # Dynamic catch-all page
-│   ├── index.vue              # Homepage
-│   ├── news.vue               # News listing page
-│   └── search.vue             # Search page
-├──
-├── plugins/                   # Nuxt plugins
-│   ├── console-logger.client.js    # Client-side logging
-│   ├── error-handler.client.js     # Error handling
-│   ├── footnotes.client.js         # Footnote functionality
-│   ├── markdown-components.ts      # Markdown component registration
-│   ├── references.client.js        # Reference processing
-│   ├── refresh-scroll.client.js    # Scroll behavior
-│   ├── scroll-behavior.client.js   # Scroll management
-│   └── vuetify.ts                  # Vuetify configuration
-├──
 ├── public/                    # Static public files
 │   ├── config/                # Generated configuration files
 │   ├── data/                  # Generated data files
+│   ├── documentation/         # Generated documentation
 │   ├── files/                 # PDF and document files
 │   ├── images/                # Image assets
 │   ├── favicon.ico            # Site favicon
@@ -518,6 +698,7 @@
 │   └── vpp-plan-2025-2029.*   # Plan data in multiple formats
 ├──
 ├── scripts/                   # Build and utility scripts
+│   ├── generate-documentation.js      # JSDoc documentation generation
 │   ├── generate-llms-txt.js           # LLM content generation
 │   ├── generate-plan-json.js          # Plan data generation
 │   ├── generate-search-index-defuddle.js # Enhanced search indexing
@@ -526,14 +707,17 @@
 │   └── sync-accessibility-audit-logs.js # Accessibility sync
 ├──
 ├── server/                    # Server-side code
+│   └── tsconfig.json          # Server TypeScript configuration
+├──
+├── .output/                   # Nuxt 4 build output directory
+├── .nuxt/                     # Nuxt build cache
 ├── tests/                     # Test files
-├── utils/                     # Utility functions
 ├── config/                    # Source configuration files
 ├── docs/                      # Project documentation
 ├── audit-log-accessibility.md # Accessibility audit log
 └── audit-log-project.md      # Project audit log
 </code></pre>
-<h3>Key Configuration Files</h3>
+<h3 id="key-configuration-files">Key Configuration Files</h3>
 <ul>
 <li><strong>nuxt.config.ts</strong>: Main Nuxt configuration with modules, CSS, and build settings</li>
 <li><strong>package.json</strong>: Dependencies, scripts, and project metadata</li>
@@ -541,65 +725,66 @@
 <li><strong>config/</strong>: Source configuration files for various build processes</li>
 <li><strong>public/config/</strong>: Auto-generated configuration copies (do not edit directly)</li>
 </ul>
-<h3>Generated vs. Source Files</h3>
+<h3 id="generated-vs-source-files">Generated vs. Source Files</h3>
 <ul>
-<li><strong>Source Files</strong>: All files in <code>/config/</code>, <code>/content/</code>, <code>/components/</code>, etc.</li>
-<li><strong>Generated Files</strong>: Files in <code>/public/config/</code>, <code>/public/data/</code>, <code>/dist/</code>, <code>/.nuxt/</code>, <code>/.output/</code></li>
-<li><strong>Build Artifacts</strong>: <code>.nuxt</code>, <code>.output</code>, <code>dist</code> directories (excluded from version control)</li>
+<li><strong>Source Files</strong>: All files in <code>/app/</code>, <code>/config/</code>, <code>/content/</code>, <code>/scripts/</code>, etc.</li>
+<li><strong>Generated Files</strong>: Files in <code>/public/config/</code>, <code>/public/data/</code>, <code>/public/documentation/</code>, <code>/.nuxt/</code>, <code>/.output/</code></li>
+<li><strong>Build Artifacts</strong>: <code>.nuxt</code>, <code>.output</code> directories (excluded from version control)</li>
 </ul>
-<h2>Key Components</h2>
-<h3>Layout Components</h3>
+<h2 id="key-components">Key Components</h2>
+<h3 id="layout-components">Layout Components</h3>
 <ul>
 <li><strong>default.vue</strong>: Main application layout with navigation, footer, and theme management</li>
 <li><strong>app.vue</strong>: Root application component with global providers and error boundaries</li>
 </ul>
-<h3>Content Components</h3>
+<h3 id="content-components">Content Components</h3>
 <ul>
 <li><strong>ContentDisplay.vue</strong>: Primary content rendering component with accessibility features</li>
 <li><strong>SimpleContentDisplay.vue</strong>: Simplified content display for specific use cases</li>
 <li><strong>AccessibleTooltip.vue</strong>: Enhanced tooltip component with mobile auto-hide and ARIA support</li>
 </ul>
-<h3>Page Components</h3>
+<h3 id="page-components">Page Components</h3>
 <ul>
 <li><strong>[...slug].vue</strong>: Dynamic catch-all page for content routing</li>
 <li><strong>index.vue</strong>: Homepage with feature cards and navigation</li>
 <li><strong>search.vue</strong>: Full-text search interface with Fuse.js integration</li>
 <li><strong>news.vue</strong>: News and updates listing page</li>
 </ul>
-<h3>Utility Components</h3>
+<h3 id="utility-components">Utility Components</h3>
 <ul>
 <li><strong>SEO components</strong>: Meta tag management and structured data</li>
 <li><strong>Development components</strong>: Debug utilities and development aids</li>
 </ul>
-<h3>State Management Components</h3>
+<h3 id="state-management-components">State Management Components</h3>
 <p>The project uses Vue 3 Composition API with composables for state management:</p>
 <ul>
 <li><strong>useSiteSettings</strong>: Global site configuration and theme management</li>
+<li><strong>useTheme</strong>: Cookie-based theme persistence with SSR support (added July 18, 2025)</li>
 <li><strong>useAnnouncer</strong>: Accessibility announcements for screen readers</li>
 <li><strong>useContentFetcher</strong>: Content loading and caching logic</li>
 <li><strong>useReportNavigation</strong>: Navigation state and circular navigation</li>
 </ul>
-<h2>API Documentation</h2>
-<h3>External API Integrations</h3>
+<h2 id="api-documentation">API Documentation</h2>
+<h3 id="external-api-integrations">External API Integrations</h3>
 <p>The project primarily uses static content with minimal external API dependencies:</p>
-<h4>Plausible Analytics API</h4>
+<h4 id="plausible-analytics-api">Plausible Analytics API</h4>
 <ul>
 <li><strong>Purpose</strong>: Privacy-focused website analytics</li>
 <li><strong>Configuration</strong>: Configured in <code>nuxt.config.ts</code> with custom domain</li>
 <li><strong>Endpoint</strong>: <code>https://plausible.icjia.cloud</code></li>
 <li><strong>Authentication</strong>: Domain-based (no API keys required)</li>
 </ul>
-<h4>Google Fonts API</h4>
+<h4 id="google-fonts-api">Google Fonts API</h4>
 <ul>
 <li><strong>Purpose</strong>: Web font loading for typography</li>
 <li><strong>Configuration</strong>: Managed via <code>@nuxtjs/google-fonts</code> module</li>
 <li><strong>Fonts</strong>: Roboto, Lato, Raleway families with various weights</li>
 <li><strong>Optimization</strong>: Preconnect and font-display optimizations</li>
 </ul>
-<h3>Internal API Patterns</h3>
+<h3 id="internal-api-patterns">Internal API Patterns</h3>
 <p>The project uses file-based content management with build-time processing:</p>
-<h4>Content API (Nuxt Content)</h4>
-<pre><code class="language-javascript">// Fetch single content item
+<h4 id="content-api-nuxt-content">Content API (Nuxt Content)</h4>
+<pre><code class="language-javascript">// Fetch single content item (Nuxt 4 with app/ directory)
 const { data: page } = await $content(&quot;/plan/executive-summary&quot;).findOne();
 
 // Query multiple content items
@@ -608,7 +793,7 @@ const { data: pages } = await $content(&quot;/plan&quot;).find();
 // Search content
 const { data: results } = await $content().search(&quot;violence prevention&quot;);
 </code></pre>
-<h4>Search API (Client-side)</h4>
+<h4 id="search-api-client-side">Search API (Client-side)</h4>
 <pre><code class="language-javascript">// Initialize search
 const fuse = new Fuse(searchIndex, fuseOptions);
 
@@ -618,23 +803,23 @@ const results = fuse.search(query);
 // Enhanced search with Defuddle
 const enhancedResults = await searchWithDefuddle(query);
 </code></pre>
-<h3>Data Processing Workflows</h3>
+<h3 id="data-processing-workflows">Data Processing Workflows</h3>
 <ol>
 <li><strong>Content Processing</strong>: Markdown → Nuxt Content → Static HTML</li>
 <li><strong>Search Indexing</strong>: Content → Defuddle extraction → Fuse.js index</li>
 <li><strong>Configuration Generation</strong>: Source configs → Build scripts → Public assets</li>
 <li><strong>Asset Optimization</strong>: Images → Compression → WebP conversion</li>
 </ol>
-<h3>Error Handling Strategies</h3>
+<h3 id="error-handling-strategies">Error Handling Strategies</h3>
 <ul>
 <li><strong>Client-side</strong>: Global error handler plugin with user-friendly messages</li>
 <li><strong>Build-time</strong>: Comprehensive error logging in build scripts</li>
 <li><strong>Content</strong>: Graceful fallbacks for missing content or broken links</li>
 <li><strong>Search</strong>: Fallback to basic search if enhanced search fails</li>
 </ul>
-<h2>Database Schema</h2>
+<h2 id="database-schema">Database Schema</h2>
 <p>This project uses a file-based content management system rather than a traditional database. However, it does use SQLite for content processing during build time.</p>
-<h3>Content Structure</h3>
+<h3 id="content-structure">Content Structure</h3>
 <p>Content is organized using YAML frontmatter and markdown:</p>
 <pre><code class="language-yaml">---
 title: &quot;Page Title&quot;
@@ -646,8 +831,8 @@ author: &quot;Author Name&quot;
 # Markdown Content
 Content body in markdown format...
 </code></pre>
-<h3>Data Models</h3>
-<h4>Page Content Model</h4>
+<h3 id="data-models">Data Models</h3>
+<h4 id="page-content-model">Page Content Model</h4>
 <ul>
 <li><strong>title</strong>: String (required) - Page title</li>
 <li><strong>date</strong>: Date - Publication/update date</li>
@@ -656,7 +841,7 @@ Content body in markdown format...
 <li><strong>author</strong>: String - Content author</li>
 <li><strong>body</strong>: Markdown - Main content body</li>
 </ul>
-<h4>Search Index Model</h4>
+<h4 id="search-index-model">Search Index Model</h4>
 <ul>
 <li><strong>id</strong>: String - Unique page identifier</li>
 <li><strong>title</strong>: String - Page title</li>
@@ -665,22 +850,22 @@ Content body in markdown format...
 <li><strong>tags</strong>: Array - Content tags</li>
 <li><strong>excerpt</strong>: String - Content summary</li>
 </ul>
-<h3>Content Validation Rules</h3>
+<h3 id="content-validation-rules">Content Validation Rules</h3>
 <ul>
 <li>All pages must have title and description</li>
 <li>Dates must be in YYYY-MM-DD format</li>
 <li>Content must be valid markdown</li>
 <li>Images must have alt text for accessibility</li>
 </ul>
-<h3>Migration and Seeding Strategies</h3>
+<h3 id="migration-and-seeding-strategies">Migration and Seeding Strategies</h3>
 <ul>
 <li>Content migration via markdown file imports</li>
 <li>Build-time validation and processing</li>
 <li>Automated content indexing during builds</li>
 <li>Version control for content history</li>
 </ul>
-<h2>Setup Instructions</h2>
-<h3>Prerequisites and System Requirements</h3>
+<h2 id="setup-instructions">Setup Instructions</h2>
+<h3 id="prerequisites-and-system-requirements">Prerequisites and System Requirements</h3>
 <p>⚠️ <strong>IMPORTANT PLATFORM COMPATIBILITY WARNING</strong> ⚠️</p>
 <p>This project framework is <strong>NOT compatible with vanilla Windows</strong> (native Windows without WSL2). Development requires one of these supported platforms:</p>
 <ol>
@@ -689,46 +874,46 @@ Content body in markdown format...
 <li><strong>Linux</strong> (Debian/Ubuntu distributions recommended, other distributions may work but are not supported)</li>
 </ol>
 <p><strong>Technical Reasoning</strong>: Node.js development tools, file system operations, and build processes work more reliably on Unix-like systems. Many npm packages, build tools, and file watchers have compatibility issues with native Windows environments.</p>
-<h4>System Requirements</h4>
+<h4 id="system-requirements">System Requirements</h4>
 <ul>
 <li><strong>Node.js</strong>: Version 18+ with ES modules support</li>
 <li><strong>Package Manager</strong>: Yarn v1.22.22 (specified in package.json)</li>
 <li><strong>Memory</strong>: Minimum 4GB RAM (8GB recommended for development)</li>
 <li><strong>Storage</strong>: At least 2GB free space for dependencies and build artifacts</li>
 </ul>
-<h3>Step-by-Step Installation Process</h3>
-<h4>1. Clone the Repository</h4>
+<h3 id="step-by-step-installation-process">Step-by-Step Installation Process</h3>
+<h4 id="1-clone-the-repository">1. Clone the Repository</h4>
 <pre><code class="language-bash">git clone https://github.com/ICJIA/icjia-vpp-2025.git
 cd icjia-vpp-2025
 </code></pre>
-<h4>2. Install Dependencies</h4>
+<h4 id="2-install-dependencies">2. Install Dependencies</h4>
 <pre><code class="language-bash"># Using Yarn (recommended and required)
 yarn install
 
 # Verify installation
 yarn --version  # Should show 1.22.22
 </code></pre>
-<h4>3. Environment Configuration</h4>
+<h4 id="3-environment-configuration">3. Environment Configuration</h4>
 <p>The project uses environment-specific configurations but does not require a <code>.env</code> file for basic development.</p>
 <p><strong>Optional Environment Variables:</strong></p>
 <ul>
 <li><code>NUXT_PUBLIC_PLAUSIBLE_DOMAIN</code>: Analytics domain (defaults to disabled)</li>
 <li><code>NODE_ENV</code>: Environment mode (development/production)</li>
 </ul>
-<h4>4. Initial Build Setup</h4>
+<h4 id="4-initial-build-setup">4. Initial Build Setup</h4>
 <pre><code class="language-bash"># Run initial build processes to generate required files
 yarn dev:fast  # Quick development server without full build
 # OR
 yarn dev       # Full development build with all generation scripts
 </code></pre>
-<h3>Verification Steps and Troubleshooting</h3>
-<h4>Verify Installation</h4>
+<h3 id="verification-steps-and-troubleshooting">Verification Steps and Troubleshooting</h3>
+<h4 id="verify-installation">Verify Installation</h4>
 <ol>
 <li><strong>Development Server</strong>: <code>yarn dev</code> should start server on <a href="http://localhost:8000">http://localhost:8000</a></li>
 <li><strong>Build Process</strong>: <code>yarn build</code> should complete without errors</li>
 <li><strong>Tests</strong>: <code>yarn test</code> should run test suite successfully</li>
 </ol>
-<h4>Common Issues and Solutions</h4>
+<h4 id="common-issues-and-solutions">Common Issues and Solutions</h4>
 <p><strong>Windows Users (WSL2 Required):</strong></p>
 <ul>
 <li><strong>Error</strong>: <code>ENOENT: no such file or directory, scandir</code> → <strong>Solution</strong>: Use WSL2, not native Windows</li>
@@ -743,7 +928,7 @@ yarn dev       # Full development build with all generation scripts
 <li><strong>Build Failures</strong>: Clear cache with <code>yarn clean</code> and retry</li>
 <li><strong>Missing Dependencies</strong>: Delete <code>node_modules</code> and run <code>yarn install</code> again</li>
 </ul>
-<h4>Platform-Specific Setup</h4>
+<h4 id="platform-specific-setup">Platform-Specific Setup</h4>
 <p><strong>Windows with WSL2 (MANDATORY for Windows Users):</strong></p>
 <ol>
 <li>Install WSL2 and Ubuntu distribution</li>
@@ -763,16 +948,16 @@ yarn dev       # Full development build with all generation scripts
 <li>Install Yarn: <code>npm install -g yarn@1.22.22</code></li>
 <li>Clone repository and follow standard setup</li>
 </ol>
-<h2>Development Workflow</h2>
-<h3>Git Workflow and Branching Strategy</h3>
-<h4>Branch Naming Conventions</h4>
+<h2 id="development-workflow">Development Workflow</h2>
+<h3 id="git-workflow-and-branching-strategy">Git Workflow and Branching Strategy</h3>
+<h4 id="branch-naming-conventions">Branch Naming Conventions</h4>
 <ul>
 <li><strong>Feature branches</strong>: <code>feature/short-description</code></li>
 <li><strong>Bug fixes</strong>: <code>bugfix/issue-description</code></li>
 <li><strong>Hotfixes</strong>: <code>hotfix/critical-issue</code></li>
 <li><strong>Documentation</strong>: <code>docs/update-description</code></li>
 </ul>
-<h4>Workflow Process</h4>
+<h4 id="workflow-process">Workflow Process</h4>
 <ol>
 <li><strong>Create Feature Branch</strong>: <code>git checkout -b feature/new-feature</code></li>
 <li><strong>Make Changes</strong>: Implement feature with proper commits</li>
@@ -781,7 +966,7 @@ yarn dev       # Full development build with all generation scripts
 <li><strong>Code Review</strong>: At least one reviewer required</li>
 <li><strong>Merge</strong>: Squash commits when merging to maintain clean history</li>
 </ol>
-<h4>Commit Message Standards</h4>
+<h4 id="commit-message-standards">Commit Message Standards</h4>
 <ul>
 <li>Use present tense with clear descriptions</li>
 <li>Reference issue numbers when applicable</li>
@@ -792,8 +977,8 @@ yarn dev       # Full development build with all generation scripts
 </ul>
 </li>
 </ul>
-<h3>Code Standards and Formatting Rules</h3>
-<h4>JavaScript/Vue Standards</h4>
+<h3 id="code-standards-and-formatting-rules">Code Standards and Formatting Rules</h3>
+<h4 id="javascriptvue-standards">JavaScript/Vue Standards</h4>
 <ul>
 <li><strong>Vue 3 Composition API</strong>: Use <code>&lt;script setup&gt;</code> syntax</li>
 <li><strong>ES6+ Features</strong>: Use modern JavaScript features</li>
@@ -805,33 +990,33 @@ yarn dev       # Full development build with all generation scripts
 </ul>
 </li>
 </ul>
-<h4>File and Directory Naming</h4>
+<h4 id="file-and-directory-naming">File and Directory Naming</h4>
 <ul>
 <li><strong>Directories</strong>: lowercase-with-dashes (e.g., <code>components/auth-wizard</code>)</li>
 <li><strong>Vue Files</strong>: PascalCase (e.g., <code>ContentDisplay.vue</code>)</li>
 <li><strong>JavaScript Files</strong>: camelCase (e.g., <code>useContentFetcher.js</code>)</li>
 <li><strong>Markdown Files</strong>: lowercase-with-dashes (e.g., <code>executive-summary.md</code>)</li>
 </ul>
-<h4>Code Organization</h4>
+<h4 id="code-organization">Code Organization</h4>
 <ul>
 <li><strong>Structure</strong>: Exported component → composables → helpers → static content</li>
 <li><strong>Imports</strong>: Group and order: Vue imports → third-party → local components → composables</li>
 <li><strong>Comments</strong>: Use JSDoc for functions and components</li>
 </ul>
-<h3>Testing Approach and Procedures</h3>
-<h4>Testing Framework</h4>
+<h3 id="testing-approach-and-procedures">Testing Approach and Procedures</h3>
+<h4 id="testing-framework">Testing Framework</h4>
 <ul>
 <li><strong>Vitest</strong>: Primary testing framework with Vue Test Utils</li>
 <li><strong>Coverage</strong>: V8 coverage provider with HTML reports</li>
 <li><strong>Environment</strong>: jsdom for DOM simulation</li>
 </ul>
-<h4>Test Types</h4>
+<h4 id="test-types">Test Types</h4>
 <ol>
 <li><strong>Unit Tests</strong>: Individual component and composable testing</li>
 <li><strong>Integration Tests</strong>: Component interaction testing</li>
 <li><strong>Accessibility Tests</strong>: ARIA and keyboard navigation testing</li>
 </ol>
-<h4>Running Tests</h4>
+<h4 id="running-tests">Running Tests</h4>
 <pre><code class="language-bash"># Run all tests
 yarn test
 
@@ -841,14 +1026,14 @@ yarn test:watch
 # Generate coverage report
 yarn test:coverage
 </code></pre>
-<h4>Test File Organization</h4>
+<h4 id="test-file-organization">Test File Organization</h4>
 <ul>
 <li><strong>Location</strong>: <code>/tests/</code> directory</li>
 <li><strong>Naming</strong>: <code>*.test.js</code> or <code>*.spec.js</code></li>
 <li><strong>Structure</strong>: Mirror source file structure</li>
 </ul>
-<h3>Common Development Tasks and Procedures</h3>
-<h4>Starting Development</h4>
+<h3 id="common-development-tasks-and-procedures">Common Development Tasks and Procedures</h3>
+<h4 id="starting-development">Starting Development</h4>
 <pre><code class="language-bash"># Quick start (skips build scripts)
 yarn dev:fast
 
@@ -858,14 +1043,14 @@ yarn dev
 # Development with verbose logging
 yarn dev:verbose
 </code></pre>
-<h4>Content Management</h4>
+<h4 id="content-management">Content Management</h4>
 <ol>
 <li><strong>Adding Content</strong>: Create markdown files in <code>/content/</code> directory</li>
 <li><strong>Content Structure</strong>: Use YAML frontmatter for metadata</li>
 <li><strong>Images</strong>: Place in <code>/public/images/</code> with descriptive alt text</li>
 <li><strong>Navigation</strong>: Update <code>/config/menu.config.json</code> for menu changes</li>
 </ol>
-<h4>Build and Generation Scripts</h4>
+<h4 id="build-and-generation-scripts">Build and Generation Scripts</h4>
 <pre><code class="language-bash"># Individual script execution
 yarn create:search-index-defuddle    # Generate search index
 yarn create:site-config              # Generate site configuration
@@ -880,24 +1065,24 @@ yarn clean
 yarn debug:search                    # Debug search indexing
 yarn debug:config                    # Debug configuration generation
 </code></pre>
-<h4>Accessibility Development</h4>
+<h4 id="accessibility-development">Accessibility Development</h4>
 <ol>
 <li><strong>Test with Screen Readers</strong>: Use NVDA, JAWS, or VoiceOver</li>
 <li><strong>Keyboard Navigation</strong>: Ensure all interactive elements are keyboard accessible</li>
 <li><strong>Color Contrast</strong>: Verify 8:1 contrast ratio (exceeding WCAG AA 4.5:1)</li>
 <li><strong>Update Audit Log</strong>: Document accessibility changes in audit logs</li>
 </ol>
-<h4>Performance Optimization</h4>
+<h4 id="performance-optimization">Performance Optimization</h4>
 <ol>
 <li><strong>Bundle Analysis</strong>: Monitor build output size</li>
 <li><strong>Image Optimization</strong>: Use WebP format and appropriate sizing</li>
 <li><strong>Code Splitting</strong>: Implement dynamic imports for large components</li>
 <li><strong>Core Web Vitals</strong>: Monitor LCP, CLS, and FID metrics</li>
 </ol>
-<h2>Build and Deployment</h2>
-<h3>Build Process Overview</h3>
+<h2 id="build-and-deployment">Build and Deployment</h2>
+<h3 id="build-process-overview">Build Process Overview</h3>
 <p>The project uses a comprehensive build pipeline that generates static assets, processes content, and creates optimized production builds.</p>
-<h4>Build Pipeline Stages</h4>
+<h4 id="build-pipeline-stages">Build Pipeline Stages</h4>
 <ol>
 <li><strong>Accessibility Sync</strong>: Synchronize accessibility audit logs</li>
 <li><strong>Search Indexing</strong>: Generate enhanced search index with Defuddle</li>
@@ -907,8 +1092,8 @@ yarn debug:config                    # Debug configuration generation
 <li><strong>Plan Data</strong>: Generate plan data in multiple formats</li>
 <li><strong>Nuxt Build</strong>: Compile and optimize application</li>
 </ol>
-<h3>Build Scripts and Commands</h3>
-<h4>Development Builds</h4>
+<h3 id="build-scripts-and-commands">Build Scripts and Commands</h3>
+<h4 id="development-builds">Development Builds</h4>
 <pre><code class="language-bash"># Standard development build
 yarn dev
 
@@ -924,7 +1109,7 @@ yarn dev:quiet
 # Clean development build (clears cache first)
 yarn dev:clean
 </code></pre>
-<h4>Production Builds</h4>
+<h4 id="production-builds">Production Builds</h4>
 <pre><code class="language-bash"># Standard production build
 yarn build
 
@@ -940,7 +1125,7 @@ yarn generate
 # Generate and serve locally
 yarn generate:serve
 </code></pre>
-<h4>Individual Build Scripts</h4>
+<h4 id="individual-build-scripts">Individual Build Scripts</h4>
 <pre><code class="language-bash"># Content and configuration generation
 yarn create:search-index-defuddle    # Enhanced search indexing
 yarn create:site-config              # Site configuration
@@ -953,30 +1138,30 @@ yarn sync:accessibility-audit        # Accessibility logs
 yarn clean                          # Clear build artifacts
 yarn clean:data                     # Clear generated data files
 </code></pre>
-<h3>Content Generation Workflows</h3>
-<h4>Search Index Generation</h4>
+<h3 id="content-generation-workflows">Content Generation Workflows</h3>
+<h4 id="search-index-generation">Search Index Generation</h4>
 <ul>
 <li><strong>Input</strong>: All markdown content files, configuration</li>
 <li><strong>Process</strong>: Defuddle content extraction, Fuse.js index creation</li>
 <li><strong>Output</strong>: <code>/public/data/search-index.json</code></li>
 <li><strong>Features</strong>: Enhanced content extraction, metadata preservation</li>
 </ul>
-<h4>Site Configuration Generation</h4>
+<h4 id="site-configuration-generation">Site Configuration Generation</h4>
 <ul>
 <li><strong>Input</strong>: Source configuration files in <code>/config/</code></li>
 <li><strong>Process</strong>: Validation, merging, route generation</li>
 <li><strong>Output</strong>: <code>/config/site.config.json</code>, <code>/public/config/routes.config.json</code></li>
 <li><strong>Features</strong>: Route discovery, metadata extraction</li>
 </ul>
-<h4>Sitemap Generation</h4>
+<h4 id="sitemap-generation">Sitemap Generation</h4>
 <ul>
 <li><strong>Input</strong>: All discoverable routes and content</li>
 <li><strong>Process</strong>: URL generation, priority assignment, validation</li>
 <li><strong>Output</strong>: <code>/public/sitemap.xml</code></li>
 <li><strong>Features</strong>: SEO optimization, automatic updates</li>
 </ul>
-<h3>Deployment Configuration and Process</h3>
-<h4>Netlify Deployment</h4>
+<h3 id="deployment-configuration-and-process">Deployment Configuration and Process</h3>
+<h4 id="netlify-deployment">Netlify Deployment</h4>
 <p>The project is configured for automatic deployment on Netlify:</p>
 <p><strong>Build Settings:</strong></p>
 <ul>
@@ -990,7 +1175,7 @@ yarn clean:data                     # Clear generated data files
 <li><strong>Manual</strong>: Deploy previews for pull requests</li>
 <li><strong>Scheduled</strong>: Optional scheduled rebuilds</li>
 </ul>
-<h4>Environment-Specific Configurations</h4>
+<h4 id="environment-specific-configurations">Environment-Specific Configurations</h4>
 <p><strong>Development Environment:</strong></p>
 <ul>
 <li><strong>URL</strong>: <a href="http://localhost:8000">http://localhost:8000</a></li>
@@ -1005,7 +1190,7 @@ yarn clean:data                     # Clear generated data files
 <li><strong>Logging</strong>: Minimal</li>
 <li><strong>Optimization</strong>: Full</li>
 </ul>
-<h4>Deployment Checklist</h4>
+<h4 id="deployment-checklist">Deployment Checklist</h4>
 <ol>
 <li><p><strong>Pre-deployment</strong>:</p>
 <ul>
@@ -1031,16 +1216,16 @@ yarn clean:data                     # Clear generated data files
 </ul>
 </li>
 </ol>
-<h3>Environment Variables and Configuration</h3>
-<h4>Required Environment Variables</h4>
+<h3 id="environment-variables-and-configuration">Environment Variables and Configuration</h3>
+<h4 id="required-environment-variables">Required Environment Variables</h4>
 <p>None required for basic functionality.</p>
-<h4>Optional Environment Variables</h4>
+<h4 id="optional-environment-variables">Optional Environment Variables</h4>
 <ul>
 <li><code>NUXT_PUBLIC_PLAUSIBLE_DOMAIN</code>: Analytics domain</li>
 <li><code>NODE_ENV</code>: Environment mode (development/production)</li>
 <li><code>NODE_OPTIONS</code>: Node.js runtime options (e.g., memory limits)</li>
 </ul>
-<h4>Configuration Files</h4>
+<h4 id="configuration-files">Configuration Files</h4>
 <ul>
 <li><strong>nuxt.config.ts</strong>: Main Nuxt configuration</li>
 <li><strong>package.json</strong>: Dependencies and scripts</li>
@@ -1048,10 +1233,10 @@ yarn clean:data                     # Clear generated data files
 <li><strong>config/</strong>: Source configuration files</li>
 <li><strong>public/config/</strong>: Generated configuration files (auto-generated)</li>
 </ul>
-<h2>Accessibility Standards</h2>
-<h3>WCAG 2.1 AA Compliance Requirements</h3>
+<h2 id="accessibility-standards">Accessibility Standards</h2>
+<h3 id="wcag-21-aa-compliance-requirements">WCAG 2.1 AA Compliance Requirements</h3>
 <p>The project maintains strict adherence to Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards, with many features exceeding requirements to approach AAA level compliance.</p>
-<h4>Core Accessibility Principles</h4>
+<h4 id="core-accessibility-principles">Core Accessibility Principles</h4>
 <p><strong>1. Perceivable</strong></p>
 <ul>
 <li><strong>Color Contrast</strong>: 8:1 contrast ratio for all UI elements (exceeding 4.5:1 AA requirement)</li>
@@ -1080,24 +1265,24 @@ yarn clean:data                     # Clear generated data files
 <li><strong>Assistive Technology</strong>: Compatible with screen readers and other AT</li>
 <li><strong>Future-Proof</strong>: Standards-compliant code for long-term compatibility</li>
 </ul>
-<h3>IITAA 2.1 Standards Adherence</h3>
+<h3 id="iitaa-21-standards-adherence">IITAA 2.1 Standards Adherence</h3>
 <p>The project complies with Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards:</p>
-<h4>Technical Standards</h4>
+<h4 id="technical-standards">Technical Standards</h4>
 <ul>
 <li><strong>Section 508 Compliance</strong>: Meets federal accessibility requirements</li>
 <li><strong>WCAG 2.1 AA</strong>: Full compliance with international standards</li>
 <li><strong>State Requirements</strong>: Adheres to Illinois-specific accessibility mandates</li>
 <li><strong>Regular Auditing</strong>: Ongoing accessibility assessment and improvement</li>
 </ul>
-<h4>Implementation Features</h4>
+<h4 id="implementation-features">Implementation Features</h4>
 <ul>
 <li><strong>Screen Reader Support</strong>: Tested with NVDA, JAWS, and VoiceOver</li>
 <li><strong>Keyboard Navigation</strong>: Complete keyboard accessibility</li>
 <li><strong>High Contrast</strong>: Enhanced contrast ratios for visual accessibility</li>
 <li><strong>Mobile Accessibility</strong>: Touch-friendly interface with proper target sizes</li>
 </ul>
-<h3>Accessibility Features Implementation</h3>
-<h4>Specialized Components</h4>
+<h3 id="accessibility-features-implementation">Accessibility Features Implementation</h3>
+<h4 id="specialized-components">Specialized Components</h4>
 <p><strong>AccessibleTooltip Component</strong></p>
 <ul>
 <li>Auto-dismiss functionality on mobile devices (4-second timeout)</li>
@@ -1119,29 +1304,29 @@ yarn clean:data                     # Clear generated data files
 <li>Descriptive link text and button labels</li>
 <li>Alternative text for all images</li>
 </ul>
-<h4>Screen Reader Support</h4>
+<h4 id="screen-reader-support">Screen Reader Support</h4>
 <ul>
 <li><strong>ARIA Live Regions</strong>: Dynamic content announcements</li>
 <li><strong>Landmark Navigation</strong>: Proper page structure for AT navigation</li>
 <li><strong>Content Structure</strong>: Logical reading order and relationships</li>
 <li><strong>State Announcements</strong>: Interactive element state changes</li>
 </ul>
-<h4>Keyboard Navigation</h4>
+<h4 id="keyboard-navigation">Keyboard Navigation</h4>
 <ul>
 <li><strong>Tab Order</strong>: Logical keyboard navigation sequence</li>
 <li><strong>Focus Indicators</strong>: Visible focus states for all interactive elements</li>
 <li><strong>Keyboard Shortcuts</strong>: Standard keyboard interaction patterns</li>
 <li><strong>Escape Handling</strong>: Proper modal and dropdown dismissal</li>
 </ul>
-<h3>Accessibility Testing and Validation</h3>
-<h4>Testing Tools and Methods</h4>
+<h3 id="accessibility-testing-and-validation">Accessibility Testing and Validation</h3>
+<h4 id="testing-tools-and-methods">Testing Tools and Methods</h4>
 <ul>
 <li><strong>Automated Testing</strong>: Integrated accessibility linting and validation</li>
 <li><strong>Manual Testing</strong>: Regular keyboard and screen reader testing</li>
 <li><strong>Color Contrast</strong>: Verified with contrast analysis tools</li>
 <li><strong>User Testing</strong>: Feedback from users with disabilities</li>
 </ul>
-<h4>Assistive Technology Compatibility</h4>
+<h4 id="assistive-technology-compatibility">Assistive Technology Compatibility</h4>
 <p><strong>Screen Readers:</strong></p>
 <ul>
 <li>NVDA (Windows) - Fully supported</li>
@@ -1156,37 +1341,37 @@ yarn clean:data                     # Clear generated data files
 <li>Switch controls - Compatible</li>
 <li>Eye tracking devices - Compatible</li>
 </ul>
-<h4>Accessibility Audit Process</h4>
+<h4 id="accessibility-audit-process">Accessibility Audit Process</h4>
 <ol>
 <li><strong>Regular Audits</strong>: Quarterly accessibility assessments</li>
 <li><strong>Documentation</strong>: Comprehensive audit logs maintained</li>
 <li><strong>Issue Tracking</strong>: Accessibility issues prioritized and resolved</li>
 <li><strong>Compliance Verification</strong>: Regular WCAG and IITAA compliance checks</li>
 </ol>
-<h3>Accessibility Documentation and Maintenance</h3>
-<h4>Audit Logs</h4>
+<h3 id="accessibility-documentation-and-maintenance">Accessibility Documentation and Maintenance</h3>
+<h4 id="audit-logs">Audit Logs</h4>
 <ul>
 <li><strong>audit-log-accessibility.md</strong>: Detailed accessibility change log</li>
 <li><strong>content/accessibility/audit-log.md</strong>: Public accessibility documentation</li>
 <li><strong>Sync Process</strong>: Automated synchronization between audit logs</li>
 </ul>
-<h4>Developer Guidelines</h4>
+<h4 id="developer-guidelines">Developer Guidelines</h4>
 <ul>
 <li><strong>Component Standards</strong>: Accessibility requirements for all components</li>
 <li><strong>Testing Requirements</strong>: Mandatory accessibility testing for new features</li>
 <li><strong>Code Review</strong>: Accessibility considerations in all code reviews</li>
 <li><strong>Training</strong>: Ongoing accessibility education for development team</li>
 </ul>
-<h2>UI/UX Guidelines</h2>
-<h3>Design Principles</h3>
-<h4>Visual Design Philosophy</h4>
+<h2 id="uiux-guidelines">UI/UX Guidelines</h2>
+<h3 id="design-principles">Design Principles</h3>
+<h4 id="visual-design-philosophy">Visual Design Philosophy</h4>
 <ul>
 <li><strong>Subtle and Muted</strong>: Clean color palettes with neutral grays and subtle blues</li>
 <li><strong>Professional Appearance</strong>: Appropriate for government and academic audiences</li>
 <li><strong>Accessibility First</strong>: Design decisions prioritize accessibility and usability</li>
 <li><strong>Responsive Design</strong>: Mobile-first approach with progressive enhancement</li>
 </ul>
-<h4>Color Palette and Themes</h4>
+<h4 id="color-palette-and-themes">Color Palette and Themes</h4>
 <p><strong>Light Theme:</strong></p>
 <ul>
 <li><strong>Primary Background</strong>: Clean light backgrounds (#F8F9FA)</li>
@@ -1201,7 +1386,7 @@ yarn clean:data                     # Clear generated data files
 <li><strong>Navbar</strong>: Darker blue (#1A2234)</li>
 <li><strong>Text</strong>: High contrast light text for readability</li>
 </ul>
-<h4>Typography Standards</h4>
+<h4 id="typography-standards">Typography Standards</h4>
 <ul>
 <li><strong>Primary Font</strong>: Roboto (body text, UI elements)</li>
 <li><strong>Secondary Font</strong>: Lato (headings, emphasis)</li>
@@ -1209,104 +1394,127 @@ yarn clean:data                     # Clear generated data files
 <li><strong>Font Weights</strong>: 100, 300, 400, 700, 900 available</li>
 <li><strong>Line Height</strong>: 1.6 for optimal readability</li>
 </ul>
-<h3>Theme Management</h3>
-<h4>Theme System Implementation</h4>
+<h5 id="font-size-system">Font Size System</h5>
+<p><strong>Global Default Font Size</strong>: 16px (browser default)</p>
+<ul>
+<li>The project does not explicitly set a global font size on html or body elements</li>
+<li>Relies on browser defaults (typically 16px) for optimal accessibility and user preference respect</li>
+<li>All font sizes are defined using <code>rem</code> units relative to this 16px base</li>
+</ul>
+<p><strong>Heading Font Sizes</strong> (relative to 16px base):</p>
+<ul>
+<li><strong>H1</strong>: <code>1.8rem</code> (≈28.8px)</li>
+<li><strong>H2</strong>: <code>1.5rem</code> (≈24px)</li>
+<li><strong>H3</strong>: <code>1.25rem</code> (≈20px)</li>
+<li><strong>Body Text</strong>: Browser default (≈16px)</li>
+<li><strong>Code</strong>: <code>0.875rem</code> (≈14px)</li>
+</ul>
+<p><strong>Key Benefits</strong>:</p>
+<ul>
+<li><strong>Accessibility</strong>: Users can adjust browser font size and all text scales proportionally</li>
+<li><strong>Consistency</strong>: Relative sizing maintains visual hierarchy across different user preferences</li>
+<li><strong>Standards Compliance</strong>: Follows modern web development best practices by respecting browser defaults</li>
+</ul>
+<h3 id="theme-management">Theme Management</h3>
+<h4 id="theme-system-implementation">Theme System Implementation</h4>
 <ul>
 <li><strong>Default Theme</strong>: Dark mode as default for professional appearance</li>
 <li><strong>Theme Toggle</strong>: Labeled switch component with clear light/dark indication</li>
-<li><strong>Persistence</strong>: Local storage saves user preference across sessions</li>
+<li><strong>Persistence</strong>: Cookie-based storage for SSR compatibility (migrated July 18, 2025)</li>
+<li><strong>SSR Integration</strong>: Theme applied during server-side rendering to eliminate FOUC</li>
+<li><strong>Cross-Browser Support</strong>: Enhanced Safari compatibility with optimized cookie settings</li>
 <li><strong>System Preference</strong>: Respects user&#39;s system theme preference initially</li>
 </ul>
-<h4>Theme Switching Features</h4>
+<h4 id="theme-switching-features">Theme Switching Features</h4>
 <ul>
 <li><strong>Smooth Transitions</strong>: CSS transitions for polished theme switching</li>
 <li><strong>Component Consistency</strong>: All components support both themes</li>
 <li><strong>Accessibility</strong>: Theme toggle includes proper ARIA labels and keyboard support</li>
 <li><strong>Visual Feedback</strong>: Clear indication of current theme state</li>
 </ul>
-<h3>Component Usage Patterns</h3>
-<h4>Button Standards</h4>
+<h3 id="component-usage-patterns">Component Usage Patterns</h3>
+<h4 id="button-standards">Button Standards</h4>
 <ul>
 <li><strong>Primary Actions</strong>: Use v-btn with &#39;to&#39; attribute for navigation</li>
 <li><strong>Secondary Actions</strong>: Standard button styling with appropriate contrast</li>
 <li><strong>Touch Targets</strong>: Minimum 44px for mobile accessibility</li>
 <li><strong>Focus States</strong>: Visible focus indicators matching hover states</li>
 </ul>
-<h4>Card Design Patterns</h4>
+<h4 id="card-design-patterns">Card Design Patterns</h4>
 <ul>
 <li><strong>Three-Section Layout</strong>: Icon, title, key focus areas</li>
 <li><strong>Horizontal Alignment</strong>: CSS Grid/Flexbox with fixed heights</li>
 <li><strong>Responsive Spacing</strong>: Generous on desktop, compact on mobile</li>
 <li><strong>Click Navigation</strong>: Entire cards clickable for better UX</li>
 </ul>
-<h4>Image and Media Guidelines</h4>
+<h4 id="image-and-media-guidelines">Image and Media Guidelines</h4>
 <ul>
 <li><strong>Alt Text</strong>: Required descriptive alt text for all images</li>
 <li><strong>Modal Display</strong>: Images open in Vuetify modal windows at 95% viewport width</li>
 <li><strong>No Extra Spacing</strong>: Images without unnecessary borders or padding</li>
 <li><strong>Caption Styling</strong>: Font-weight 700 for better visual prominence</li>
 </ul>
-<h3>Responsive Design Standards</h3>
-<h4>Breakpoint Strategy</h4>
+<h3 id="responsive-design-standards">Responsive Design Standards</h3>
+<h4 id="breakpoint-strategy">Breakpoint Strategy</h4>
 <ul>
 <li><strong>Mobile First</strong>: Design for mobile, enhance for larger screens</li>
 <li><strong>Vuetify Breakpoints</strong>: xs, sm, md, lg, xl following Material Design</li>
 <li><strong>Touch Optimization</strong>: 44px minimum touch targets on mobile</li>
 <li><strong>Content Adaptation</strong>: Different spacing behavior between desktop and mobile</li>
 </ul>
-<h4>Mobile Optimization</h4>
+<h4 id="mobile-optimization">Mobile Optimization</h4>
 <ul>
 <li><strong>Navigation</strong>: Simplified navigation patterns for mobile</li>
 <li><strong>Touch Targets</strong>: Enhanced spacing for touch interaction</li>
 <li><strong>Content Density</strong>: Reduced spacing on mobile for better mobile UX</li>
 <li><strong>Performance</strong>: Optimized loading and rendering for mobile devices</li>
 </ul>
-<h4>Desktop Enhancement</h4>
+<h4 id="desktop-enhancement">Desktop Enhancement</h4>
 <ul>
 <li><strong>Generous Spacing</strong>: More spacious layouts on larger screens</li>
 <li><strong>Advanced Navigation</strong>: Full navigation features and hover states</li>
 <li><strong>Multi-Column Layouts</strong>: Utilize available screen real estate</li>
 <li><strong>Enhanced Interactions</strong>: Hover effects and advanced UI patterns</li>
 </ul>
-<h3>Animation and Motion</h3>
-<h4>Animation Principles</h4>
+<h3 id="animation-and-motion">Animation and Motion</h3>
+<h4 id="animation-principles">Animation Principles</h4>
 <ul>
 <li><strong>Subtle and Professional</strong>: One-time animations on component load</li>
 <li><strong>Accessibility First</strong>: Respects prefers-reduced-motion preferences</li>
 <li><strong>Performance Optimized</strong>: GPU-accelerated animations where possible</li>
 <li><strong>Purposeful Motion</strong>: Animations enhance UX, not distract</li>
 </ul>
-<h4>Reduced Motion Support</h4>
+<h4 id="reduced-motion-support">Reduced Motion Support</h4>
 <ul>
 <li><strong>System Preference</strong>: Automatically detects and respects user preference</li>
 <li><strong>Graceful Degradation</strong>: Full functionality without animations</li>
 <li><strong>Alternative Feedback</strong>: Non-motion feedback for state changes</li>
 <li><strong>User Control</strong>: Option to disable animations if needed</li>
 </ul>
-<h3>Accessibility Integration</h3>
-<h4>Visual Accessibility</h4>
+<h3 id="accessibility-integration">Accessibility Integration</h3>
+<h4 id="visual-accessibility">Visual Accessibility</h4>
 <ul>
 <li><strong>High Contrast</strong>: 8:1 contrast ratio exceeding WCAG requirements</li>
 <li><strong>Color Independence</strong>: Information not conveyed by color alone</li>
 <li><strong>Scalable Text</strong>: Text scales up to 200% without loss of functionality</li>
 <li><strong>Clear Visual Hierarchy</strong>: Proper use of headings and visual structure</li>
 </ul>
-<h4>Interaction Accessibility</h4>
+<h4 id="interaction-accessibility">Interaction Accessibility</h4>
 <ul>
 <li><strong>Keyboard Navigation</strong>: All interactive elements keyboard accessible</li>
 <li><strong>Focus Management</strong>: Logical tab order and visible focus indicators</li>
 <li><strong>Screen Reader Support</strong>: Proper ARIA labels and semantic markup</li>
 <li><strong>Touch Accessibility</strong>: Appropriate touch target sizes and spacing</li>
 </ul>
-<h2>Navigation Structure</h2>
-<h3>Menu Configuration and Management</h3>
-<h4>Menu System Architecture</h4>
+<h2 id="navigation-structure">Navigation Structure</h2>
+<h3 id="menu-configuration-and-management">Menu Configuration and Management</h3>
+<h4 id="menu-system-architecture">Menu System Architecture</h4>
 <ul>
 <li><strong>Single Source of Truth</strong>: <code>/config/menu.config.json</code> controls all navigation</li>
 <li><strong>Hierarchical Structure</strong>: Parent menus with structured submenus</li>
 <li><strong>Dynamic Generation</strong>: Menu items generated from configuration during build</li>
 </ul>
-<h4>Primary Navigation Structure</h4>
+<h4 id="primary-navigation-structure">Primary Navigation Structure</h4>
 <p><strong>&quot;The 2024-2029 Plan&quot; Parent Menu:</strong></p>
 <ul>
 <li>Executive Summary</li>
@@ -1324,35 +1532,35 @@ yarn clean:data                     # Clear generated data files
 <li>Download</li>
 <li>More (consolidated menu with three-dot icon)</li>
 </ul>
-<h4>Consolidated &quot;More&quot; Menu System</h4>
+<h4 id="consolidated-quotmorequot-menu-system">Consolidated &quot;More&quot; Menu System</h4>
 <ul>
 <li><strong>Desktop</strong>: Three-dot icon for compact navigation</li>
 <li><strong>Mobile</strong>: &quot;More&quot; text link for clarity</li>
 <li><strong>Contents</strong>: Legal pages, accessibility documentation, additional resources</li>
 </ul>
-<h3>Routing Patterns and Implementation</h3>
-<h4>Hash-Based Routing</h4>
+<h3 id="routing-patterns-and-implementation">Routing Patterns and Implementation</h3>
+<h4 id="hash-based-routing">Hash-Based Routing</h4>
 <ul>
 <li><strong>Smooth Scrolling</strong>: 80px offset for fixed navigation</li>
 <li><strong>URL Fragments</strong>: Support for deep linking to content sections</li>
 <li><strong>Accessibility</strong>: Proper focus management for hash navigation</li>
 </ul>
-<h4>File-Based Routing</h4>
+<h4 id="file-based-routing">File-Based Routing</h4>
 <ul>
 <li><strong>Automatic Routes</strong>: Nuxt generates routes from file structure</li>
 <li><strong>Dynamic Routes</strong>: <code>[...slug].vue</code> handles content routing</li>
 <li><strong>Catch-All</strong>: Flexible routing for content management system</li>
 </ul>
-<h4>Circular Navigation</h4>
+<h4 id="circular-navigation">Circular Navigation</h4>
 <ul>
 <li><strong>Report Pages</strong>: Previous/next navigation between plan sections</li>
 <li><strong>Page Titles</strong>: Actual page titles from YAML frontmatter</li>
 <li><strong>Summaries</strong>: Brief descriptions for context</li>
 <li><strong>Visual Navigation</strong>: Prominent navigation arrows with proper positioning</li>
 </ul>
-<h3>Content Organization Patterns</h3>
-<h4>Content Hierarchy</h4>
-<pre><code>/content/
+<h3 id="content-organization-patterns">Content Organization Patterns</h3>
+<h4 id="content-hierarchy">Content Hierarchy</h4>
+<pre><code>/content/                       # Content files (outside app/ directory)
 ├── index.md                    # Homepage
 ├── plan/                       # Main plan content
 │   ├── front-cover.md
@@ -1368,15 +1576,15 @@ yarn clean:data                     # Clear generated data files
 ├── contact.md                  # Contact information
 └── download.md                 # Download page
 </code></pre>
-<h4>URL Structure</h4>
+<h4 id="url-structure">URL Structure</h4>
 <ul>
 <li><strong>Clean URLs</strong>: <code>/plan/executive-summary</code> (no .html extension)</li>
 <li><strong>Logical Hierarchy</strong>: URLs reflect content organization</li>
 <li><strong>SEO Friendly</strong>: Descriptive URLs for search engines</li>
 <li><strong>Consistent Patterns</strong>: Predictable URL structure</li>
 </ul>
-<h3>Footer Navigation and Links</h3>
-<h4>Footer Structure</h4>
+<h3 id="footer-navigation-and-links">Footer Navigation and Links</h3>
+<h4 id="footer-structure">Footer Structure</h4>
 <ul>
 <li><strong>Organization Info</strong>: ICJIA contact information and address</li>
 <li><strong>Quick Links</strong>: Key navigation items</li>
@@ -1384,16 +1592,16 @@ yarn clean:data                     # Clear generated data files
 <li><strong>Legal</strong>: Privacy policy, terms of service</li>
 <li><strong>Accessibility</strong>: Links to accessibility documentation</li>
 </ul>
-<h4>Link Styling Standards</h4>
+<h4 id="link-styling-standards">Link Styling Standards</h4>
 <ul>
 <li><strong>Anchor Links</strong>: Heavier font weight (600-700) for consistency</li>
 <li><strong>No Underlines</strong>: Clean appearance for buttons and download pages</li>
 <li><strong>Consistent Styling</strong>: Uniform link appearance across site</li>
 <li><strong>Accessibility</strong>: Proper contrast and focus states</li>
 </ul>
-<h2>Content Management</h2>
-<h3>Working with Nuxt Content v3</h3>
-<h4>Content File Structure</h4>
+<h2 id="content-management">Content Management</h2>
+<h3 id="working-with-nuxt-content-v3">Working with Nuxt Content v3</h3>
+<h4 id="content-file-structure">Content File Structure</h4>
 <p>All content is managed through markdown files with YAML frontmatter:</p>
 <pre><code class="language-yaml">---
 title: &quot;Page Title&quot;
@@ -1404,7 +1612,7 @@ tags: [&quot;violence-prevention&quot;, &quot;public-health&quot;]
 # Page Content
 Markdown content goes here...
 </code></pre>
-<h4>Content Processing Pipeline</h4>
+<h4 id="content-processing-pipeline">Content Processing Pipeline</h4>
 <ol>
 <li><strong>Markdown Parsing</strong>: Nuxt Content processes markdown files</li>
 <li><strong>Frontmatter Extraction</strong>: YAML metadata parsed and available</li>
@@ -1412,77 +1620,77 @@ Markdown content goes here...
 <li><strong>Component Integration</strong>: Custom components available in markdown</li>
 <li><strong>Search Indexing</strong>: Content indexed for search functionality</li>
 </ol>
-<h3>Markdown Files and YAML Frontmatter</h3>
-<h4>Required Frontmatter Fields</h4>
+<h3 id="markdown-files-and-yaml-frontmatter">Markdown Files and YAML Frontmatter</h3>
+<h4 id="required-frontmatter-fields">Required Frontmatter Fields</h4>
 <ul>
 <li><strong>title</strong>: Page title (required)</li>
 <li><strong>description</strong>: SEO description (required)</li>
 <li><strong>date</strong>: Publication/update date (YYYY-MM-DD format)</li>
 </ul>
-<h4>Optional Frontmatter Fields</h4>
+<h4 id="optional-frontmatter-fields">Optional Frontmatter Fields</h4>
 <ul>
 <li><strong>tags</strong>: Array of content tags</li>
 <li><strong>author</strong>: Content author</li>
 <li><strong>lastModified</strong>: Last modification date</li>
 <li><strong>featured</strong>: Boolean for featured content</li>
 </ul>
-<h4>Markdown Extensions</h4>
+<h4 id="markdown-extensions">Markdown Extensions</h4>
 <ul>
 <li><strong>GitHub Flavored Markdown</strong>: Tables, strikethrough, task lists</li>
 <li><strong>Custom Components</strong>: Vue components available in markdown</li>
 <li><strong>Footnotes</strong>: Automatic footnote processing</li>
 <li><strong>Syntax Highlighting</strong>: Code block highlighting (when enabled)</li>
 </ul>
-<h3>Image Management and Optimization</h3>
-<h4>Image Storage</h4>
+<h3 id="image-management-and-optimization">Image Management and Optimization</h3>
+<h4 id="image-storage">Image Storage</h4>
 <ul>
 <li><strong>Location</strong>: <code>/public/images/</code> directory</li>
 <li><strong>Organization</strong>: Logical subdirectories by content type</li>
 <li><strong>Naming</strong>: Descriptive filenames with hyphens</li>
 </ul>
-<h4>Image Requirements</h4>
+<h4 id="image-requirements">Image Requirements</h4>
 <ul>
 <li><strong>Alt Text</strong>: Required for all images (accessibility)</li>
 <li><strong>Formats</strong>: WebP preferred, fallback to PNG/JPG</li>
 <li><strong>Sizing</strong>: Appropriate dimensions for use case</li>
 <li><strong>Optimization</strong>: Compressed for web delivery</li>
 </ul>
-<h4>Image Component Usage</h4>
+<h4 id="image-component-usage">Image Component Usage</h4>
 <pre><code class="language-markdown">![Descriptive alt text](/images/example-image.webp)
 </code></pre>
-<h3>Content Validation and Quality Assurance</h3>
-<h4>Automated Validation</h4>
+<h3 id="content-validation-and-quality-assurance">Content Validation and Quality Assurance</h3>
+<h4 id="automated-validation">Automated Validation</h4>
 <ul>
 <li><strong>Frontmatter Validation</strong>: Required fields checked during build</li>
 <li><strong>Link Validation</strong>: Internal links verified</li>
 <li><strong>Image Validation</strong>: Alt text and file existence checked</li>
 <li><strong>Markdown Validation</strong>: Syntax and structure validation</li>
 </ul>
-<h4>Content Standards</h4>
+<h4 id="content-standards">Content Standards</h4>
 <ul>
 <li><strong>Writing Style</strong>: Clear, professional, accessible language</li>
 <li><strong>Structure</strong>: Proper heading hierarchy (h1 → h2 → h3)</li>
 <li><strong>Links</strong>: Descriptive link text, no &quot;click here&quot;</li>
 <li><strong>Accessibility</strong>: Alt text, proper markup, clear structure</li>
 </ul>
-<h2>Maintenance</h2>
-<h3>Audit Log Procedures</h3>
-<h4>Accessibility Audit Logs</h4>
+<h2 id="maintenance">Maintenance</h2>
+<h3 id="audit-log-procedures">Audit Log Procedures</h3>
+<h4 id="accessibility-audit-logs">Accessibility Audit Logs</h4>
 <ul>
 <li><strong>Primary Log</strong>: <code>audit-log-accessibility.md</code> (detailed technical log)</li>
 <li><strong>Public Log</strong>: <code>content/accessibility/audit-log.md</code> (user-facing)</li>
 <li><strong>Sync Process</strong>: Automated synchronization via <code>yarn sync:accessibility-audit</code></li>
 <li><strong>Update Frequency</strong>: After each accessibility-related change</li>
 </ul>
-<h4>Project Audit Logs</h4>
+<h4 id="project-audit-logs">Project Audit Logs</h4>
 <ul>
 <li><strong>Technical Changes</strong>: <code>audit-log-project.md</code></li>
 <li><strong>Format</strong>: Chronological entries with date, summary, files modified</li>
 <li><strong>Content</strong>: Implementation details, rationale, technical notes</li>
 <li><strong>Maintenance</strong>: Updated with each significant project change</li>
 </ul>
-<h3>Testing Guidelines and Procedures</h3>
-<h4>Automated Testing</h4>
+<h3 id="testing-guidelines-and-procedures">Testing Guidelines and Procedures</h3>
+<h4 id="automated-testing">Automated Testing</h4>
 <pre><code class="language-bash"># Run full test suite
 yarn test
 
@@ -1492,7 +1700,7 @@ yarn test:watch
 # Coverage reporting
 yarn test:coverage
 </code></pre>
-<h4>Manual Testing Checklist</h4>
+<h4 id="manual-testing-checklist">Manual Testing Checklist</h4>
 <ol>
 <li><strong>Functionality</strong>: All features work as expected</li>
 <li><strong>Accessibility</strong>: Keyboard navigation, screen reader compatibility</li>
@@ -1501,29 +1709,29 @@ yarn test:coverage
 <li><strong>Mobile</strong>: Responsive design, touch targets</li>
 <li><strong>Content</strong>: Accuracy, links, images</li>
 </ol>
-<h4>Accessibility Testing</h4>
+<h4 id="accessibility-testing">Accessibility Testing</h4>
 <ul>
 <li><strong>Screen Readers</strong>: Test with NVDA, JAWS, VoiceOver</li>
 <li><strong>Keyboard Navigation</strong>: Tab through all interactive elements</li>
 <li><strong>Color Contrast</strong>: Verify 8:1 contrast ratios</li>
 <li><strong>Mobile Accessibility</strong>: Touch targets, screen reader compatibility</li>
 </ul>
-<h3>Ongoing Development Practices</h3>
-<h4>Regular Maintenance Tasks</h4>
+<h3 id="ongoing-development-practices">Ongoing Development Practices</h3>
+<h4 id="regular-maintenance-tasks">Regular Maintenance Tasks</h4>
 <ul>
 <li><strong>Dependency Updates</strong>: Monthly security and feature updates</li>
 <li><strong>Content Review</strong>: Quarterly content accuracy review</li>
 <li><strong>Accessibility Audit</strong>: Quarterly comprehensive accessibility assessment</li>
 <li><strong>Performance Monitoring</strong>: Ongoing Core Web Vitals monitoring</li>
 </ul>
-<h4>Documentation Maintenance</h4>
+<h4 id="documentation-maintenance">Documentation Maintenance</h4>
 <ul>
 <li><strong>Code Documentation</strong>: JSDoc comments for all functions</li>
 <li><strong>README Updates</strong>: Keep setup instructions current</li>
 <li><strong>Audit Logs</strong>: Document all significant changes</li>
 <li><strong>API Documentation</strong>: Update with any API changes</li>
 </ul>
-<h4>Quality Assurance</h4>
+<h4 id="quality-assurance">Quality Assurance</h4>
 <ul>
 <li><strong>Code Reviews</strong>: All changes require review</li>
 <li><strong>Testing Requirements</strong>: Tests for new features</li>
@@ -1531,49 +1739,88 @@ yarn test:coverage
 <li><strong>Performance Standards</strong>: Meet Core Web Vitals targets</li>
 </ul>
 <hr>
-<p><strong>Document Version</strong>: 1.0
-<strong>Last Updated</strong>: June 20, 2025
-<strong>Next Review</strong>: September 20, 2025</p>
+<p><strong>Document Version</strong>: 2.0
+<strong>Last Updated</strong>: July 18, 2025
+<strong>Next Review</strong>: October 18, 2025</p>
+<p><strong>Major Updates in Version 2.0:</strong></p>
+<ul>
+<li>Nuxt 4 migration completed with modern directory structure</li>
+<li>Cookie-based theme system with SSR compatibility</li>
+<li>Enhanced cross-browser support (especially Safari)</li>
+<li>FOUC elimination through server-side theme application</li>
+<li>Updated architecture documentation reflecting Nuxt 4 patterns</li>
+</ul>
 
-        </main>
+    </main>
 
-        <footer class="footer">
-            <p>Documentation generated on July 08, 2025 | <a href="https://github.com/ICJIA/icjia-vpp-2025" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>
-        </footer>
-    </div>
+    <footer class="footer">
+      <p>Illinois Criminal Justice Information Authority</p>
+      <p>60 E Van Buren St, Suite 650, Chicago, IL 60605</p>
+      <p>Documentation generated on July 31, 2025</p>
+    </footer>
+  </div>
 
-    <!-- Syntax Highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
 
-    <script>
-        // Theme Management
-        function getPreferredTheme() {
-            const stored = localStorage.getItem('documentation-theme');
-            if (stored) return stored;
-            return 'dark'; // Default to dark mode
-        }
+      const button = document.querySelector('nav a[onclick="toggleTheme()"]');
+      button.textContent = newTheme === 'dark' ? '🌙 Light Mode' : '☀️ Dark Mode';
 
-        function setTheme(theme) {
-            document.body.setAttribute('data-theme', theme);
-            localStorage.setItem('documentation-theme', theme);
+      localStorage.setItem('theme', newTheme);
+    }
 
-            const themeText = document.getElementById('theme-text');
-            if (themeText) {
-                themeText.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
-            }
-        }
+    // Smooth scrolling for anchor links
+    function setupSmoothScrolling() {
+      // Add smooth scrolling to all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
 
-        function toggleTheme() {
-            const current = document.body.getAttribute('data-theme');
-            const newTheme = current === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        }
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
 
-        // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            setTheme(getPreferredTheme());
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Update URL without triggering page reload
+            history.pushState(null, null, this.getAttribute('href'));
+          }
         });
-    </script>
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setupSmoothScrolling();
+
+      // Handle direct navigation to anchors (e.g., from URL)
+      if (window.location.hash) {
+        setTimeout(() => {
+          const targetElement = document.querySelector(window.location.hash);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
+      }
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const button = document.querySelector('nav a[onclick="toggleTheme()"]');
+    if (button) {
+      button.textContent = savedTheme === 'dark' ? '🌙 Light Mode' : '☀️ Dark Mode';
+    }
+  </script>
 </body>
 </html>

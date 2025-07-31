@@ -89,7 +89,7 @@ const organizationSchema = computed(() => ({
     "The Illinois Criminal Justice Information Authority (ICJIA) aims to continue funding and supporting violence prevention efforts across Illinois.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "60 E Van Buren St",
+    streetAddress: "60 E Van Buren St, Suite 650",
     addressLocality: "Chicago",
     addressRegion: "IL",
     postalCode: "60605",

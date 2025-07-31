@@ -1,91 +1,185 @@
 # Statewide Violence Prevention Plan for Illinois: 2025-2029 - Project Documentation
 
-**Last Updated: July 30, 2025**
+**Last Updated: July 31, 2025**
 
 ## Table of Contents
 
+- [🚀 Quick Start for New Developers](#-quick-start-for-new-developers)
 - [Project Overview](#project-overview)
-  - [Repository Information](#repository-information)
-  - [Project Purpose and Goals](#project-purpose-and-goals)
-  - [Target Audience](#target-audience)
-  - [Key Features](#key-features)
 - [Recent Major Updates](#recent-major-updates)
-  - [Nuxt 4 Migration (July 18, 2025)](#nuxt-4-migration-july-18-2025)
-  - [Theme System Enhancements (July 18, 2025)](#theme-system-enhancements-july-18-2025)
 - [Technology Stack](#technology-stack)
-  - [Core Framework](#core-framework)
-  - [UI Framework & Styling](#ui-framework--styling)
-  - [Content Management](#content-management)
-  - [Build Tools & Development](#build-tools--development)
-  - [Search & Utility Libraries](#search--utility-libraries)
-  - [Analytics & Monitoring](#analytics--monitoring)
-  - [Deployment & Hosting](#deployment--hosting)
 - [Architecture Overview](#architecture-overview)
-  - [High-Level Architecture](#high-level-architecture)
-  - [Data Flow Patterns](#data-flow-patterns)
-  - [Key Design Patterns](#key-design-patterns)
-  - [Integration Points](#integration-points)
 - [Directory Structure](#directory-structure)
-  - [Key Configuration Files](#key-configuration-files)
-  - [Generated vs. Source Files](#generated-vs-source-files)
+- [Development Guidelines](#development-guidelines)
 - [Key Components](#key-components)
-  - [Layout Components](#layout-components)
-  - [Content Components](#content-components)
-  - [Page Components](#page-components)
-  - [Utility Components](#utility-components)
-  - [State Management Components](#state-management-components)
+- [Build System & Scripts](#build-system--scripts)
 - [API Documentation](#api-documentation)
-  - [External API Integrations](#external-api-integrations)
-  - [Internal API Patterns](#internal-api-patterns)
-  - [Data Processing Workflows](#data-processing-workflows)
-  - [Error Handling Strategies](#error-handling-strategies)
 - [Database Schema](#database-schema)
-  - [Content Structure](#content-structure)
-  - [Data Models](#data-models)
-  - [Content Validation Rules](#content-validation-rules)
-  - [Migration and Seeding Strategies](#migration-and-seeding-strategies)
 - [Setup Instructions](#setup-instructions)
-  - [Prerequisites and System Requirements](#prerequisites-and-system-requirements)
-  - [Step-by-Step Installation Process](#step-by-step-installation-process)
-  - [Verification Steps and Troubleshooting](#verification-steps-and-troubleshooting)
 - [Development Workflow](#development-workflow)
-  - [Git Workflow and Branching Strategy](#git-workflow-and-branching-strategy)
-  - [Code Standards and Formatting Rules](#code-standards-and-formatting-rules)
-  - [Testing Approach and Procedures](#testing-approach-and-procedures)
-  - [Common Development Tasks and Procedures](#common-development-tasks-and-procedures)
 - [Build and Deployment](#build-and-deployment)
-  - [Build Process Overview](#build-process-overview)
-  - [Build Scripts and Commands](#build-scripts-and-commands)
-  - [Content Generation Workflows](#content-generation-workflows)
-  - [Deployment Configuration and Process](#deployment-configuration-and-process)
-  - [Environment Variables and Configuration](#environment-variables-and-configuration)
 - [Accessibility Standards](#accessibility-standards)
-  - [WCAG 2.1 AA Compliance Requirements](#wcag-21-aa-compliance-requirements)
-  - [IITAA 2.1 Standards Adherence](#iitaa-21-standards-adherence)
-  - [Accessibility Features Implementation](#accessibility-features-implementation)
-  - [Accessibility Testing and Validation](#accessibility-testing-and-validation)
-  - [Accessibility Documentation and Maintenance](#accessibility-documentation-and-maintenance)
 - [UI/UX Guidelines](#uiux-guidelines)
-  - [Design Principles](#design-principles)
-  - [Theme Management](#theme-management)
-  - [Component Usage Patterns](#component-usage-patterns)
-  - [Responsive Design Standards](#responsive-design-standards)
-  - [Animation and Motion](#animation-and-motion)
-  - [Accessibility Integration](#accessibility-integration)
 - [Navigation Structure](#navigation-structure)
-  - [Menu Configuration and Management](#menu-configuration-and-management)
-  - [Routing Patterns and Implementation](#routing-patterns-and-implementation)
-  - [Content Organization Patterns](#content-organization-patterns)
-  - [Footer Navigation and Links](#footer-navigation-and-links)
 - [Content Management](#content-management)
-  - [Working with Nuxt Content v3](#working-with-nuxt-content-v3)
-  - [Markdown Files and YAML Frontmatter](#markdown-files-and-yaml-frontmatter)
-  - [Image Management and Optimization](#image-management-and-optimization)
-  - [Content Validation and Quality Assurance](#content-validation-and-quality-assurance)
 - [Maintenance](#maintenance)
-  - [Audit Log Procedures](#audit-log-procedures)
-  - [Testing Guidelines and Procedures](#testing-guidelines-and-procedures)
-  - [Ongoing Development Practices](#ongoing-development-practices)
+
+---
+
+## 🚀 Quick Start for New Developers
+
+Welcome to the Violence Prevention Plan for Illinois project! This section will help you get up and running quickly.
+
+### Essential First Steps
+
+1. **Clone and Setup** (5 minutes):
+
+   ```bash
+   git clone https://github.com/ICJIA/icjia-vpp-2025.git
+   cd icjia-vpp-2025
+   yarn install
+   yarn dev
+   ```
+
+2. **Access the Development Server**:
+   - **Main Site**: http://localhost:8000
+   - **Documentation Portal**: http://localhost:8000/documentation/
+   - **Search**: http://localhost:8000/search
+   - **Tools Documentation**: http://localhost:8000/documentation/tools/
+
+3. **Read Key Documentation**:
+   - **Development Guidelines**: `.augment-guidelines` (project coding standards)
+   - **Tools Reference**: `tools.md` (all project tools and links)
+   - **Audit Logs**: `audit-log-project.md` and `audit-log-accessibility.md`
+
+### Development Workflow
+
+#### Daily Development Commands
+
+```bash
+# Start development server with all build processes
+yarn dev
+
+# Generate production build
+yarn generate
+
+# Run specific build scripts
+yarn create:search-index-defuddle    # Update search index
+yarn create:tools-docs               # Generate tools documentation
+yarn create:site-config              # Update site configuration
+```
+
+#### Making Changes
+
+1. **Content Changes**: Edit files in `/content/` directory (markdown files)
+2. **Component Changes**: Edit files in `/app/components/` directory (Vue files)
+3. **Styling Changes**: Use Vuetify classes or edit component `<style>` sections
+4. **Configuration**: Edit files in `/config/` directory (JSON files)
+
+### Key Commands
+
+| Command                             | Purpose                  | When to Use                 |
+| ----------------------------------- | ------------------------ | --------------------------- |
+| `yarn dev`                          | Start development server | Daily development           |
+| `yarn generate`                     | Build for production     | Before deployment           |
+| `yarn create:search-index-defuddle` | Update search index      | After content changes       |
+| `yarn create:tools-docs`            | Generate tools docs      | After updating tools.md     |
+| `yarn create:site-config`           | Update site config       | After config changes        |
+| `yarn sync:accessibility-audit`     | Sync accessibility logs  | After accessibility updates |
+| `yarn sync:project-audit`           | Sync project logs        | After project updates       |
+
+### Important Files to Know
+
+#### Configuration Files (Edit These)
+
+- **`config/site.config.json`**: Main site configuration (contact info, URLs, etc.)
+- **`config/menu.config.json`**: Navigation menu structure
+- **`nuxt.config.ts`**: Nuxt framework configuration
+- **`package.json`**: Dependencies and build scripts
+
+#### Content Files (Edit These)
+
+- **`content/index.md`**: Homepage content
+- **`content/plan/`**: All plan sections (Executive Summary, Goals, etc.)
+- **`content/accessibility/`**: Accessibility documentation
+- **`content/legal/`**: Privacy Policy, Terms of Service
+
+#### Generated Files (Don't Edit These)
+
+- **`public/config/`**: Auto-generated from `/config/` files
+- **`public/data/`**: Auto-generated search and routing data
+- **`public/documentation/`**: Auto-generated documentation
+- **`.nuxt/` and `.output/`**: Build artifacts
+
+#### Key Component Files
+
+- **`app/layouts/default.vue`**: Main page layout with header/footer
+- **`app/components/content/AppHeader.vue`**: Navigation header
+- **`app/components/content/AppFooter.vue`**: Site footer
+- **`app/pages/index.vue`**: Homepage component
+
+### Project Architecture Quick Overview
+
+```
+🏗️ Architecture Pattern: JAMstack (Nuxt 4 + Static Generation)
+🎨 UI Framework: Vuetify 3 (Material Design)
+📝 Content: Nuxt Content v3 (Markdown files)
+🔍 Search: Fuse.js with custom content extraction
+🎯 Accessibility: WCAG 2.1 AA compliant
+🌙 Themes: Light/Dark with cookie persistence
+📱 Responsive: Mobile-first design
+```
+
+### Common Development Tasks
+
+#### Adding New Content
+
+1. Create markdown file in appropriate `/content/` subdirectory
+2. Add frontmatter with title, description, etc.
+3. Run `yarn create:search-index-defuddle` to update search
+4. Test with `yarn dev`
+
+#### Modifying Navigation
+
+1. Edit `config/menu.config.json` for main navigation
+2. Edit `config/site.config.json` for dropdown menus
+3. Run `yarn create:site-config` to regenerate
+4. Test navigation functionality
+
+#### Updating Styles
+
+1. Use Vuetify classes when possible (e.g., `class="text-h4 mb-4"`)
+2. For custom styles, add to component `<style scoped>` sections
+3. Follow existing color and spacing patterns
+4. Test in both light and dark themes
+
+#### Accessibility Considerations
+
+- **Always** include `alt` text for images
+- **Always** use semantic HTML elements
+- **Always** test keyboard navigation
+- **Always** check color contrast (4.5:1 minimum)
+- **Always** test with screen readers when possible
+
+### Getting Help
+
+1. **Documentation Portal**: http://localhost:8000/documentation/
+2. **Tools Reference**: http://localhost:8000/documentation/tools/
+3. **Audit Logs**: Check recent changes and patterns
+4. **Code Comments**: Look for JSDoc comments in components
+5. **Configuration**: Check `/config/` files for examples
+
+### Next Steps
+
+After completing the quick start:
+
+1. Read the full [Project Overview](#project-overview) section
+2. Review [Development Guidelines](#development-guidelines)
+3. Understand [Accessibility Standards](#accessibility-standards)
+4. Explore [Key Components](#key-components)
+5. Check [Build System & Scripts](#build-system--scripts)
+
+---
 
 ## Project Overview
 
@@ -182,6 +276,64 @@ The project has been successfully migrated from Nuxt 3 to Nuxt 4, bringing signi
 - **Safari**: Enhanced compatibility with specialized cookie settings
 - **Firefox**: Full compatibility maintained
 - **Edge**: Full compatibility maintained
+
+### Tools Documentation System (July 31, 2025)
+
+**Comprehensive Developer Tooling Reference:**
+
+- **Tools Documentation**: Created `tools.md` with comprehensive list of project tools and resources
+- **Automated HTML Generation**: Built `scripts/generate-tools-documentation.js` for converting markdown to styled HTML
+- **Documentation Portal Integration**: Added Tools card to `/documentation/` portal for easy access
+- **Build Process Integration**: Integrated into all build, dev, and generate scripts for automatic updates
+
+**Key Features:**
+
+- **Organized Sections**: Core Framework & UI, Content & Documentation, Search & Typography, Development & Source, Accessibility Resources
+- **Direct Links**: All tools include working links to official documentation
+- **Theme Support**: Light/dark theme toggle with localStorage persistence
+- **Accessibility Compliance**: WCAG 2.1 AA compliant with proper focus states and reduced motion support
+- **Responsive Design**: Works across all device sizes with professional styling
+
+### Search Functionality Improvements (July 31, 2025)
+
+**Enhanced Search Accuracy and Consistency:**
+
+- **Highlighting Fixes**: Resolved inconsistent highlighting between partial searches ("preven") and complete words ("prevention")
+- **Result Consistency**: Fixed issue where adding letters to search terms reduced valid results
+- **Validation Logic**: Improved search term validation to prevent false positives while maintaining comprehensive results
+- **Bidirectional Matching**: Enhanced fuzzy search to catch spelling errors while prioritizing exact matches
+
+**Technical Improvements:**
+
+- **Sanitization Logic**: Updated `utils/sanitize.js` with better validation for search term matching
+- **Search Component**: Enhanced `pages/search.vue` with improved exact vs partial match detection
+- **Error Handling**: Added robust fallback logic for regex operations
+- **Performance**: Maintained fast search performance while improving accuracy
+
+### Address Standardization (July 31, 2025)
+
+**Updated Organization Address Information:**
+
+- **Current Address**: Standardized all references to "60 E Van Buren St, Suite 650, Chicago, IL 60605"
+- **Legacy Address Removal**: Updated all instances of "300 W. Adams Street" to current address
+- **Comprehensive Update**: Updated documentation portal, legal pages, structured data, and configuration files
+- **Historical Preservation**: Maintained historical address references in audit logs for documentation purposes
+
+**Files Updated:**
+
+- **Documentation Portal**: Footer address information
+- **Legal Pages**: Terms of Service and Privacy Policy contact information
+- **Structured Data**: SEO and schema markup address information
+- **Configuration Files**: Site configuration and public config files
+
+### Documentation Portal Enhancements (July 31, 2025)
+
+**Improved Layout and Navigation:**
+
+- **Three-Card Layout**: Optimized grid to display three cards across instead of two for better space utilization
+- **Accessibility Audit Log**: Added dedicated card for accessibility documentation
+- **Streamlined Footer**: Removed external GitHub link for cleaner, more focused documentation experience
+- **Responsive Design**: Enhanced mobile and tablet layouts with optimized card sizing
 
 ## Technology Stack
 

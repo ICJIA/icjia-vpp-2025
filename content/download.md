@@ -150,18 +150,6 @@ showTOC: false
       >
         YAML
       </v-btn>
-      <v-btn
-        to="/vpp-plan-2025-2029.csv"
-        target="_blank"
-        rel="noopener noreferrer"
-        color="primary"
-        variant="outlined"
-        size="large"
-        class="download-btn secondary-download-btn"
-        prepend-icon="mdi-download"
-      >
-        CSV
-      </v-btn>
     </div>
 
   </div>

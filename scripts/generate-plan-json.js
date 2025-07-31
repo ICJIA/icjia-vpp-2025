@@ -150,7 +150,9 @@ class PlanJsonGenerator {
       this.stats.processedPages++;
 
       // Get base URL from site configuration for fullPath generation
-      const baseUrl = this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") || "https://vpp-2025.netlify.app";
+      const baseUrl =
+        this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") ||
+        "https://vpp-2025.netlify.app";
 
       // Create comprehensive page object
       const pageObject = {
@@ -203,7 +205,9 @@ class PlanJsonGenerator {
    */
   generatePlanJson(processedPages) {
     // Get base URL from site configuration, removing trailing slash if present
-    const baseUrl = this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") || "https://vpp-2025.netlify.app";
+    const baseUrl =
+      this.siteConfig?.urls?.baseUrl?.replace(/\/$/, "") ||
+      "https://vpp-2025.netlify.app";
     const validPages = processedPages.filter((page) => page !== null);
 
     const planJson = {
@@ -319,78 +323,6 @@ class PlanJsonGenerator {
   }
 
   /**
-   * Write the generated plan data as CSV to the public directory
-   *
-   * @param {Object} planData - The complete plan data object
-   * @returns {Promise<void>}
-   */
-  async writePlanCsvFile(planData) {
-    try {
-      // Ensure public directory exists
-      const publicDir = path.join(process.cwd(), "public");
-      await fs.mkdir(publicDir, { recursive: true });
-
-      // Create CSV headers
-      const headers = [
-        "path",
-        "fullPath",
-        "slug",
-        "menuTitle",
-        "menuSummary",
-        "menuAriaLabel",
-        "sourceFile",
-        "title",
-        "description",
-        "keywords",
-        "contentLength",
-        "metadataFields",
-        "estimatedReadingTime",
-        "bodyContent",
-      ];
-
-      // Create CSV rows from pages data
-      const rows = planData.pages.map((page) => [
-        `"${(page.path || "").replace(/"/g, '""')}"`,
-        `"${(page.fullPath || "").replace(/"/g, '""')}"`,
-        `"${(page.slug || "").replace(/"/g, '""')}"`,
-        `"${(page.menuTitle || "").replace(/"/g, '""')}"`,
-        `"${(page.menuSummary || "").replace(/"/g, '""')}"`,
-        `"${(page.menuAriaLabel || "").replace(/"/g, '""')}"`,
-        `"${(page.sourceFile || "").replace(/"/g, '""')}"`,
-        `"${(page.meta?.title || "").replace(/"/g, '""')}"`,
-        `"${(page.meta?.description || "").replace(/"/g, '""')}"`,
-        `"${(Array.isArray(page.meta?.keywords) ? page.meta.keywords.join("; ") : "").replace(/"/g, '""')}"`,
-        page.stats?.contentLength || 0,
-        page.stats?.metadataFields || 0,
-        page.stats?.estimatedReadingTime || 0,
-        `"${(page.body || "").replace(/"/g, '""').replace(/\n/g, "\\n")}"`,
-      ]);
-
-      // Combine headers and rows
-      const csvContent = [
-        headers.join(","),
-        ...rows.map((row) => row.join(",")),
-      ].join("\n");
-
-      // Write the vpp-plan-2025-2029.csv file
-      const outputPath = path.join(publicDir, "vpp-plan-2025-2029.csv");
-      await fs.writeFile(outputPath, csvContent, "utf-8");
-
-      this.logger?.success(
-        `✅ Generated vpp-plan-2025-2029.csv file: ${outputPath}`
-      );
-      this.logger?.info(
-        `📊 File size: ${(csvContent.length / 1024).toFixed(2)} KB`
-      );
-    } catch (error) {
-      this.logger?.error(
-        `Failed to write vpp-plan-2025-2029.csv file: ${error.message}`
-      );
-      throw error;
-    }
-  }
-
-  /**
    * Display generation statistics
    */
   displayStats() {
@@ -460,7 +392,6 @@ class PlanJsonGenerator {
       // Write to public directory in multiple formats
       await this.writePlanJsonFile(planJson);
       await this.writePlanYamlFile(planJson);
-      await this.writePlanCsvFile(planJson);
 
       // Display statistics
       this.displayStats();

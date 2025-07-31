@@ -2,6 +2,41 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-31 (Tools Documentation System)
+
+Created comprehensive tools documentation system with automated HTML generation from markdown for future developers.
+
+### Files Modified/Created:
+
+- `tools.md`:
+  - Created comprehensive list of project tools and resources with direct links
+  - Organized into logical sections: Core Framework & UI, Content & Documentation, Search & Typography, Development & Source, and Accessibility Resources
+  - Includes tools like Nuxt 4, Vuetify, Fuse.js, Google Fonts, JSDoc, GitHub, WCAG 2.1, and IITAA 2.1 standards
+  - Features quick reference table for easy lookup
+- `scripts/generate-tools-documentation.js`:
+  - Created script to convert tools.md to styled HTML with marked.js markdown parsing
+  - Implements consistent light/dark theme styling matching project design system
+  - Defaults to dark mode as per project preferences
+  - Includes responsive design and WCAG 2.1 AA accessibility compliance
+  - Features theme toggle with localStorage persistence and smooth scrolling
+  - Generates complete HTML document with embedded CSS and JavaScript
+- `package.json`:
+  - Added `create:tools-docs` script definition
+  - Integrated tools documentation generation into all build, dev, and generate scripts
+  - Ensures tools documentation is always up-to-date during development and deployment
+- `public/documentation/tools/index.html`:
+  - Generated HTML documentation with professional styling and navigation
+  - Includes theme toggle functionality and accessibility features
+  - Provides comprehensive tooling reference for future developers
+
+### Technical Notes:
+
+- Uses marked.js for markdown parsing with GitHub Flavored Markdown support
+- Automatically runs during every build, dev, and generate process
+- Provides centralized documentation of all project tooling and resources
+- Maintains consistency with existing documentation styling patterns
+- Ensures future developers have comprehensive tooling reference
+
 ## 2025-07-31 (LLMs.txt Generation Fix)
 
 Fixed the LLMs.txt file generation process to properly populate the "Plan Content" section with actual plan content instead of leaving it empty.

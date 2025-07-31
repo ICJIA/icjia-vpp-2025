@@ -139,7 +139,7 @@ Illinois Criminal Justice Information Authority
 Violence Prevention Plan for Illinois: 2025-2029
 Email: info@icjia.illinois.gov
 Phone: (312) 793-8550
-Address: 60 E Van Buren St, Chicago, IL 60605
+Address: 60 E Van Buren St, Suite 650, Chicago, IL 60605
 
 This Terms of Service document is available in alternative formats upon request. To request an alternative format, please contact us using the information above.
 

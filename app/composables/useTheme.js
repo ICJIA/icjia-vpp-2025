@@ -44,8 +44,8 @@ import { useConsoleLogger } from "~/composables/useConsoleLogger";
  * Theme management composable
  *
  * @returns {Object} Theme management utilities
- * @returns {import('vue').Ref<string>} returns.theme - Reactive theme state ('light' or 'dark')
- * @returns {import('vue').ComputedRef<boolean>} returns.isDark - Computed boolean for dark theme state
+ * @returns {Object} returns.theme - Reactive theme state ('light' or 'dark')
+ * @returns {Object} returns.isDark - Computed boolean for dark theme state
  * @returns {Function} returns.setTheme - Function to set specific theme
  * @returns {Function} returns.toggleTheme - Function to toggle between themes
  * @returns {Function} returns.syncWithVuetify - Function to sync theme with Vuetify

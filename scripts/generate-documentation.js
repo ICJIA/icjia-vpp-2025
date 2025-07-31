@@ -3,45 +3,17 @@
 /**
  * Documentation Generation Script
  *
- * This script generates comprehensive documentation for the Illinois Violent Prevention Project:
- * 1. Converts project-documentation.md to HTML with light/dark theme support
- * 2. Generates JSDoc API documentation using clean-jsdoc-theme
- * 3. Generates Vue component documentation using vue-component-meta
- * 4. Creates a modern documentation portal with navigation
+ * Generates comprehensive project documentation including:
+ * - Documentation portal (index.html)
+ * - Project documentation (dev/index.html)
+ * - JSDoc API documentation (jsdoc/index.html)
+ * - Vue component documentation (components/*.html)
  *
- * Features:
- * - Automatic integration with build pipeline
- * - Dark mode as default (matching project preferences)
- * - WCAG 2.1 AA accessibility compliance
- * - Responsive design compatible with project's Vuetify theme
- * - Unified logging system integration
- * - Error handling with detailed feedback
+ * This script is automatically run during build, dev, and generate processes.
  *
- * Output Structure:
- * /public/documentation/
- * ├── index.html (portal page)
- * ├── dev/
- * │   └── index.html (project documentation)
- * ├── jsdoc/
- * │   └── [JSDoc generated files]
- * └── components/
- *     └── [Vue component documentation]
- *
- * @module GenerateDocumentation
- * @version 1.0.0
- * @author Violence Prevention Plan for Illinois: 2025-2029
- *
- * @example
- * // Run manually:
- * node scripts/generate-documentation.js
- *
- * @example
- * // Run via yarn:
- * yarn create:docs
- *
- * @example
- * // Run with verbose logging:
- * yarn create:docs --verbose
+ * @author Illinois Criminal Justice Information Authority
+ * @version 2.1.0
+ * @since 2025-07-31
  */
 
 import fs from "fs";
@@ -49,9 +21,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import { marked } from "marked";
-import { createChecker } from "vue-component-meta";
-import { loadSiteConfigSync } from "../app/utils/config-loader.js";
 
+// Get current file directory for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
@@ -60,54 +31,67 @@ const projectRoot = path.resolve(__dirname, "..");
  * Parse command line arguments for logging configuration
  *
  * @returns {Object} Configuration object with logging settings
- * @returns {string} returns.logLevel - Logging level (Concise, Standard, Detailed)
- * @returns {boolean} returns.verbose - Whether to use verbose logging
- * @returns {boolean} returns.quiet - Whether to use quiet logging
  */
-const parseArgs = () => {
+function parseArgs() {
   const args = process.argv.slice(2);
   const config = {
-    logLevel: "Standard",
     verbose: false,
-    quiet: false,
+    silent: false,
+    logLevel: "INFO",
   };
 
-  if (args.includes("--verbose")) {
-    config.logLevel = "Detailed";
-    config.verbose = true;
-  } else if (args.includes("--quiet")) {
-    config.logLevel = "Concise";
-    config.quiet = true;
-  } else if (args.includes("--log-level")) {
-    const levelIndex = args.indexOf("--log-level");
-    if (levelIndex !== -1 && args[levelIndex + 1]) {
-      config.logLevel = args[levelIndex + 1];
+  for (let i = 0; i < args.length; i++) {
+    switch (args[i]) {
+      case "--verbose":
+      case "-v":
+        config.verbose = true;
+        config.logLevel = "DEBUG";
+        break;
+      case "--silent":
+      case "-s":
+        config.silent = true;
+        config.logLevel = "ERROR";
+        break;
     }
   }
 
   return config;
-};
+}
 
 /**
- * Unified logging function that respects project logging standards
+ * Enhanced logging function with multiple levels and optional data
  *
- * @param {string} level - Log level (INFO, SUCCESS, WARNING, ERROR)
- * @param {string} message - Message to log
+ * @param {string} level - Log level (DEBUG, INFO, WARN, ERROR, SUCCESS)
+ * @param {string} message - Log message
  * @param {Object} config - Logging configuration
- * @param {Object} [details] - Additional details for verbose logging
+ * @param {*} [data] - Optional data to log in verbose mode
  */
-const log = (level, message, config, details = null) => {
-  if (config.quiet && level !== "ERROR") return;
+function log(level, message, config, data = null) {
+  if (config.silent && level !== "ERROR") return;
+
+  const levels = { DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3, SUCCESS: 1 };
+  const configLevel = levels[config.logLevel] || 1;
+  const messageLevel = levels[level] || 1;
+
+  if (messageLevel < configLevel) return;
 
   const timestamp = new Date().toISOString();
-  const prefix = `[${timestamp}] [DOCS-GEN] [${level}]`;
+  const colors = {
+    DEBUG: "\x1b[36m", // Cyan
+    INFO: "\x1b[34m", // Blue
+    WARN: "\x1b[33m", // Yellow
+    ERROR: "\x1b[31m", // Red
+    SUCCESS: "\x1b[32m", // Green
+  };
+  const reset = "\x1b[0m";
 
+  const prefix = `${colors[level] || ""}[${level}]${reset}`;
   console.log(`${prefix} ${message}`);
 
-  if (config.verbose && details) {
-    console.log(`${prefix} Details:`, details);
+  if (config.verbose && data) {
+    console.log(`${colors.DEBUG}[DEBUG]${reset} Additional data:`, data);
   }
-};
+}
 
 /**
  * Ensure directory exists, create if it doesn't
@@ -115,926 +99,59 @@ const log = (level, message, config, details = null) => {
  * @param {string} dirPath - Directory path to ensure
  * @param {Object} config - Logging configuration
  */
-const ensureDirectory = (dirPath, config) => {
+function ensureDirectory(dirPath, config) {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
-    log("INFO", `Created directory: ${dirPath}`, config);
+    log("DEBUG", `Created directory: ${dirPath}`, config);
   }
-};
+}
+
+/**
+ * Load site configuration synchronously
+ *
+ * @returns {Object} Site configuration object
+ * @throws {Error} If configuration file cannot be loaded
+ */
+function loadSiteConfigSync() {
+  try {
+    const configPath = path.join(projectRoot, "config", "site.config.json");
+    const configContent = fs.readFileSync(configPath, "utf8");
+    return JSON.parse(configContent);
+  } catch (error) {
+    throw new Error(`Failed to load site configuration: ${error.message}`);
+  }
+}
 
 /**
  * Get current date in Chicago timezone
  *
- * @returns {string} Current date in YYYY-MM-DD format
+ * @returns {string} Formatted date string
  */
-const getCurrentDate = () => {
-  const now = new Date();
-  const chicagoTime = new Date(
-    now.toLocaleString("en-US", { timeZone: "America/Chicago" })
-  );
-  return chicagoTime.toISOString().split("T")[0];
-};
-
-/**
- * Get current date formatted for display in Chicago timezone
- *
- * @returns {string} Current date in "Month DD, YYYY" format
- */
-const getCurrentDateFormatted = () => {
-  const now = new Date();
-  const chicagoTime = new Date(
-    now.toLocaleString("en-US", { timeZone: "America/Chicago" })
-  );
-  return chicagoTime.toLocaleDateString("en-US", {
+function getCurrentDate() {
+  return new Date().toLocaleDateString("en-US", {
+    timeZone: "America/Chicago",
     year: "numeric",
     month: "long",
-    day: "2-digit",
+    day: "numeric",
   });
-};
+}
 
 /**
- * Generate the documentation portal HTML
+ * Generate documentation portal HTML
  *
  * @param {Object} config - Logging configuration
- * @returns {string} HTML content for the portal page
+ * @returns {string} HTML content for the documentation portal
  */
-const generatePortalHTML = (config) => {
-  log("INFO", "Generating documentation portal HTML...", config);
-
-  const currentDate = getCurrentDateFormatted();
+function generatePortalHTML(config) {
+  const currentDate = getCurrentDate();
 
   return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation Portal - Violence Prevention Plan for Illinois: 2025-2029</title>
-    <meta name="description" content="Comprehensive documentation portal for the Illinois Violence Prevention Plan project, including project documentation and API reference.">
-    <meta name="author" content="Illinois Criminal Justice Information Authority">
-    
-    <!-- Theme and Accessibility -->
-    <meta name="color-scheme" content="dark light">
-    <meta name="theme-color" content="#1A2234" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#F2F2F2" media="(prefers-color-scheme: light)">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Material Design Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
-    
-    <style>
-        /* CSS Variables for Theme System */
-        :root {
-            --primary-color: #1976D2;
-            --primary-dark: #1565C0;
-            --secondary-color: #424242;
-            --accent-color: #FF5722;
-            
-            /* Light Theme */
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F5F5;
-            --bg-card: #FFFFFF;
-            --text-primary: #212121;
-            --text-secondary: #757575;
-            --border-color: #E0E0E0;
-            --shadow: 0 2px 4px rgba(0,0,0,0.1);
-            --shadow-hover: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
-        /* Dark Theme (Default) */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-primary: #121212;
-                --bg-secondary: #1E1E1E;
-                --bg-card: #2D2D2D;
-                --text-primary: #FFFFFF;
-                --text-secondary: #B0B0B0;
-                --border-color: #404040;
-                --shadow: 0 2px 4px rgba(0,0,0,0.3);
-                --shadow-hover: 0 4px 8px rgba(0,0,0,0.4);
-            }
-        }
-        
-        /* Force Dark Theme */
-        [data-theme="dark"] {
-            --bg-primary: #121212;
-            --bg-secondary: #1E1E1E;
-            --bg-card: #2D2D2D;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B0B0B0;
-            --border-color: #404040;
-            --shadow: 0 2px 4px rgba(0,0,0,0.3);
-            --shadow-hover: 0 4px 8px rgba(0,0,0,0.4);
-        }
-        
-        /* Force Light Theme */
-        [data-theme="light"] {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F5F5;
-            --bg-card: #FFFFFF;
-            --text-primary: #212121;
-            --text-secondary: #757575;
-            --border-color: #E0E0E0;
-            --shadow: 0 2px 4px rgba(0,0,0,0.1);
-            --shadow-hover: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        /* Container and Layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--border-color);
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-        
-        .header p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Theme Toggle */
-        .theme-toggle {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 50px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .theme-toggle:hover {
-            background: var(--bg-secondary);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .theme-toggle:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-        
-        /* Documentation Cards */
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .doc-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .doc-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--primary-color);
-        }
-        
-        .doc-card:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-        
-        .doc-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .doc-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .doc-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .doc-card h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        
-        .doc-card p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-        
-        .doc-card .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-        
-        .doc-card .btn:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* Footer */
-        .footer {
-            margin-top: auto;
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 2px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-        
-        .footer p {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .docs-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .doc-card {
-                padding: 1.5rem;
-            }
-            
-            .theme-toggle {
-                position: static;
-                margin: 0 auto 2rem;
-                width: fit-content;
-            }
-        }
-        
-        /* Reduced Motion Support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-        
-        /* High Contrast Support */
-        @media (prefers-contrast: high) {
-            :root {
-                --border-color: #000000;
-                --shadow: 0 2px 4px rgba(0,0,0,0.5);
-            }
-            
-            [data-theme="dark"] {
-                --border-color: #FFFFFF;
-            }
-        }
-    </style>
-</head>
-<body data-theme="dark">
-    <div class="container">
-        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle between light and dark theme">
-            <i class="mdi mdi-theme-light-dark" aria-hidden="true"></i>
-            <span id="theme-text">Light Mode</span>
-        </button>
-        
-        <header class="header">
-            <h1>Documentation Portal</h1>
-            <p>Comprehensive documentation for the Illinois Violence Prevention Plan: 2025-2029 project, including project guides and API reference documentation.</p>
-        </header>
-        
-        <main class="docs-grid">
-            <a href="/documentation/dev/" class="doc-card" aria-describedby="project-docs-desc">
-                <div class="doc-icon">
-                    <i class="mdi mdi-book-open-page-variant" aria-hidden="true"></i>
-                </div>
-                <h2>Project Documentation</h2>
-                <p id="project-docs-desc">Complete project documentation including development guidelines, architecture overview, and implementation details for the Violence Prevention Plan.</p>
-                <span class="btn">
-                    <i class="mdi mdi-arrow-right" aria-hidden="true"></i>
-                    View Documentation
-                </span>
-            </a>
-
-            <a href="/documentation/audit-log/" class="doc-card" aria-describedby="audit-log-desc">
-                <div class="doc-icon">
-                    <i class="mdi mdi-history" aria-hidden="true"></i>
-                </div>
-                <h2>Audit Log</h2>
-                <p id="audit-log-desc">Chronological record of all significant changes made to the project, providing transparency and accountability for external reviewers and future developers.</p>
-                <span class="btn">
-                    <i class="mdi mdi-arrow-right" aria-hidden="true"></i>
-                    View Audit Log
-                </span>
-            </a>
-
-            <a href="/documentation/jsdoc/" class="doc-card" aria-describedby="api-docs-desc">
-                <div class="doc-icon">
-                    <i class="mdi mdi-code-braces" aria-hidden="true"></i>
-                </div>
-                <h2>API Documentation</h2>
-                <p id="api-docs-desc">Comprehensive JSDoc API reference for all functions, composables, utilities, and scripts in the codebase with detailed examples and usage information.</p>
-                <span class="btn">
-                    <i class="mdi mdi-arrow-right" aria-hidden="true"></i>
-                    View API Reference
-                </span>
-            </a>
-
-            <a href="/documentation/components/" class="doc-card" aria-describedby="components-docs-desc">
-                <div class="doc-icon">
-                    <i class="mdi mdi-view-dashboard" aria-hidden="true"></i>
-                </div>
-                <h2>Vue Components</h2>
-                <p id="components-docs-desc">Complete documentation for all Vue 3 components including props, events, slots, and usage examples extracted from component source code.</p>
-                <span class="btn">
-                    <i class="mdi mdi-arrow-right" aria-hidden="true"></i>
-                    View Components
-                </span>
-            </a>
-        </main>
-        
-        <footer class="footer">
-            <p><strong>Violence Prevention Plan for Illinois: 2025-2029</strong></p>
-            <p>Illinois Criminal Justice Information Authority</p>
-            <p>60 E Van Buren St, Chicago, IL 60605</p>
-            <p>Documentation generated on ${currentDate}</p>
-            <p><a href="https://github.com/ICJIA/icjia-vpp-2025" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>
-        </footer>
-    </div>
-    
-    <script>
-        // Theme Management
-        function getPreferredTheme() {
-            const stored = localStorage.getItem('documentation-theme');
-            if (stored) return stored;
-            
-            // Default to dark mode as per project preferences
-            return 'dark';
-        }
-        
-        function setTheme(theme) {
-            document.body.setAttribute('data-theme', theme);
-            localStorage.setItem('documentation-theme', theme);
-            
-            const themeText = document.getElementById('theme-text');
-            if (themeText) {
-                themeText.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
-            }
-        }
-        
-        function toggleTheme() {
-            const current = document.body.getAttribute('data-theme');
-            const newTheme = current === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        }
-        
-        // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            setTheme(getPreferredTheme());
-        });
-        
-        // Keyboard navigation support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (e.target.classList.contains('doc-card')) {
-                    e.preventDefault();
-                    e.target.click();
-                }
-            }
-        });
-    </script>
-</body>
-</html>`;
-};
-
-/**
- * Convert project documentation markdown to HTML
- *
- * @param {Object} config - Logging configuration
- * @returns {Promise<void>}
- * @throws {Error} If markdown conversion fails
- */
-const generateProjectDocumentation = async (config) => {
-  log("INFO", "Converting project documentation to HTML...", config);
-
-  const markdownPath = path.join(projectRoot, "project-documentation.md");
-  const outputPath = path.join(
-    projectRoot,
-    "public",
-    "documentation",
-    "dev",
-    "index.html"
-  );
-
-  if (!fs.existsSync(markdownPath)) {
-    log(
-      "WARNING",
-      "project-documentation.md not found, skipping project docs generation",
-      config
-    );
-    return;
-  }
-
-  const markdownContent = fs.readFileSync(markdownPath, "utf-8");
-  const htmlContent = marked(markdownContent);
-  const currentDate = getCurrentDateFormatted();
-
-
-
-
-
-/**
-
- * Generate JSDoc configuration file
-
-/**
- * Generate JSDoc configuration file
- *
- * @param {Object} config - Logging configuration
- * @returns {string} Path to the generated JSDoc configuration file
- */
-const generateJSDocConfig = (config) => {
-  log("INFO", "Generating JSDoc configuration...", config);
-
-  const jsdocConfig = {
-    source: {
-      include: [
-        "./composables/",
-        "./utils/",
-        "./plugins/",
-        "./scripts/",
-
-        "./README.md",
-      ],
-      includePattern: "\\.js$",
-      exclude: [
-        "./node_modules/",
-        "./.nuxt/",
-        "./.output/",
-        "./dist/",
-        "./coverage/",
-      ],
-    },
-    plugins: ["plugins/markdown"],
-    opts: {
-      destination: "./public/documentation/jsdoc/",
-      recurse: true,
-      readme: "./README.md",
-      template: "node_modules/clean-jsdoc-theme",
-      theme_opts: {
-        default_theme: "fallback-dark",
-        homepageTitle: "Violence Prevention Plan API Documentation",
-        title: "VPP API Docs",
-        favicon: "/favicon.ico",
-        base_url: "/documentation/jsdoc/",
-        meta: [
-          {
-            name: "description",
-            content:
-              "Comprehensive API documentation for the Illinois Violence Prevention Plan: 2025-2029 project",
-          },
-          {
-            name: "author",
-            content: "Illinois Criminal Justice Information Authority",
-          },
-        ],
-        search: true,
-        menu: [
-          {
-            title: "Documentation Portal",
-            link: "/documentation/",
-            target: "_self",
-          },
-          {
-            title: "Project Documentation",
-            link: "/documentation/dev/",
-            target: "_self",
-          },
-          {
-            title: "GitHub Repository",
-            link: "https://github.com/ICJIA/icjia-vpp-2025",
-            target: "_blank",
-          },
-        ],
-        footer:
-          "Illinois Criminal Justice Information Authority | 60 E Van Buren St, Chicago, IL 60605",
-        displayModuleHeader: true,
-        includeFilesListInHomepage: true,
-        create_style: `
-          /* Force dark mode initialization */
-          :root {
-            --primary-color: #1976d2;
-            --background-color: #121212;
-            --text-color: #ffffff;
-          }
-
-          /* Ensure dark theme is applied immediately */
-          body {
-            background-color: var(--background-color) !important;
-            color: var(--text-color) !important;
-          }
-
-          /* Dark theme class application */
-          .dark-theme,
-          [data-theme="dark"] {
-            --primary-color: #1976d2;
-            --background-color: #121212;
-            --text-color: #ffffff;
-          }
-        `,
-        add_scripts: `
-          // Force dark mode initialization on page load
-          (function() {
-            // Set dark theme immediately
-            document.documentElement.setAttribute('data-theme', 'dark');
-            document.body.classList.add('dark-theme');
-
-            // Override any theme detection
-            if (typeof window !== 'undefined') {
-              localStorage.setItem('theme', 'dark');
-              localStorage.setItem('clean-jsdoc-theme', 'dark');
-            }
-
-            // Ensure theme is applied after DOM is ready
-            document.addEventListener('DOMContentLoaded', function() {
-              document.documentElement.setAttribute('data-theme', 'dark');
-              document.body.classList.add('dark-theme');
-
-              // Find and trigger any theme switcher to dark mode
-              const themeToggle = document.querySelector('[data-theme-toggle]') ||
-                                 document.querySelector('.theme-toggle') ||
-                                 document.querySelector('#theme-toggle');
-              if (themeToggle && themeToggle.textContent !== 'dark') {
-                themeToggle.click();
-              }
-            });
-          })();
-        `,
-      },
-    },
-    templates: {
-      cleverLinks: false,
-      monospaceLinks: false,
-    },
-    markdown: {
-      hardwrap: false,
-      idInHeadings: true,
-    },
-  };
-
-  const configPath = path.join(projectRoot, "jsdoc.config.json");
-  fs.writeFileSync(configPath, JSON.stringify(jsdocConfig, null, 2));
-  log("SUCCESS", "JSDoc configuration generated", config);
-
-  return configPath;
-};
-
-/**
- * Generate JSDoc API documentation
- *
- * @param {Object} config - Logging configuration
- * @returns {Promise<void>}
- * @throws {Error} If JSDoc generation fails
- */
-const generateJSDocDocumentation = async (config) => {
-  log("INFO", "Generating JSDoc API documentation...", config);
-
-  try {
-    const configPath = generateJSDocConfig(config);
-    // Use relative path to avoid hardcoded absolute paths in output
-    const relativeConfigPath = path.relative(projectRoot, configPath);
-    const jsdocCommand = `npx jsdoc -c "${relativeConfigPath}"`;
-
-    log("INFO", `Running JSDoc command: ${jsdocCommand}`, config);
-
-    const output = execSync(jsdocCommand, {
-      cwd: projectRoot,
-      encoding: "utf-8",
-      stdio: config.verbose ? "inherit" : "pipe",
-    });
-
-    if (config.verbose && output) {
-      log("INFO", "JSDoc output:", config, output);
-    }
-
-    // Clean up config file
-    fs.unlinkSync(configPath);
-
-    // Clean up files with invalid characters for Netlify deployment
-    cleanupInvalidFilenames(config);
-
-    log("SUCCESS", "JSDoc API documentation generated successfully", config);
-  } catch (error) {
-    log("ERROR", `JSDoc generation failed: ${error.message}`, config, error);
-    throw error;
-  }
-};
-
-/**
- * Clean up files with invalid characters for Netlify deployment
- * Removes files with # or ? characters in filenames
- *
- * @param {Object} config - Logging configuration
- */
-const cleanupInvalidFilenames = (config) => {
-  log(
-    "INFO",
-    "Cleaning up files with invalid characters for Netlify...",
-    config
-  );
-
-  const jsdocDir = path.join(projectRoot, "public", "documentation", "jsdoc");
-
-  try {
-    const files = fs.readdirSync(jsdocDir, { recursive: true });
-    let removedCount = 0;
-
-    for (const file of files) {
-      if (
-        typeof file === "string" &&
-        (file.includes("#") || file.includes("?"))
-      ) {
-        const fullPath = path.join(jsdocDir, file);
-        try {
-          if (fs.existsSync(fullPath)) {
-            fs.unlinkSync(fullPath);
-            removedCount++;
-            log("INFO", `Removed invalid filename: ${file}`, config);
-          }
-        } catch (error) {
-          log(
-            "WARN",
-            `Failed to remove file ${file}: ${error.message}`,
-            config
-          );
-        }
-      }
-    }
-
-    log(
-      "SUCCESS",
-      `Cleaned up ${removedCount} files with invalid characters`,
-      config
-    );
-  } catch (error) {
-    log(
-      "WARN",
-      `Failed to clean up invalid filenames: ${error.message}`,
-      config
-    );
-  }
-};
-
-/**
- * Generate Vue component documentation using vue-component-meta
- *
- * @param {Object} config - Logging configuration
- * @returns {Promise<void>}
- * @throws {Error} If Vue component documentation generation fails
- */
-const generateVueComponentDocumentation = async (config) => {
-  log("INFO", "Generating Vue component documentation...", config);
-
-  try {
-    // Create TypeScript checker for Vue components
-    const checker = createChecker(
-      // Use the project's tsconfig.json or create a minimal one for Vue components
-      path.join(projectRoot, "tsconfig.json"),
-      {
-        forceUseTs: true,
-        schema: { ignore: [] },
-        printer: { newLine: 1 },
-      }
-    );
-
-    // Find all Vue components
-    const componentsDir = path.join(projectRoot, "components");
-    const pagesDir = path.join(projectRoot, "pages");
-
-    const vueFiles = [];
-
-    // Recursively find Vue files in components directory
-    if (fs.existsSync(componentsDir)) {
-      const findVueFiles = (dir) => {
-        const files = fs.readdirSync(dir);
-        for (const file of files) {
-          const filePath = path.join(dir, file);
-          const stat = fs.statSync(filePath);
-          if (stat.isDirectory()) {
-            findVueFiles(filePath);
-          } else if (file.endsWith(".vue")) {
-            vueFiles.push(filePath);
-          }
-        }
-      };
-      findVueFiles(componentsDir);
-    }
-
-    // Find Vue files in pages directory
-    if (fs.existsSync(pagesDir)) {
-      const findVueFiles = (dir) => {
-        const files = fs.readdirSync(dir);
-        for (const file of files) {
-          const filePath = path.join(dir, file);
-          const stat = fs.statSync(filePath);
-          if (stat.isDirectory()) {
-            findVueFiles(filePath);
-          } else if (file.endsWith(".vue")) {
-            vueFiles.push(filePath);
-          }
-        }
-      };
-      findVueFiles(pagesDir);
-    }
-
-    log("INFO", `Found ${vueFiles.length} Vue components to document`, config);
-
-    // Generate documentation for each component
-    const componentDocs = [];
-    for (const filePath of vueFiles) {
-      try {
-        const meta = checker.getComponentMeta(filePath);
-        const relativePath = path.relative(projectRoot, filePath);
-
-        componentDocs.push({
-          filePath: relativePath,
-          name: path.basename(filePath, ".vue"),
-          meta: meta,
-        });
-
-        if (config.verbose) {
-          log("INFO", `Processed component: ${relativePath}`, config);
-        }
-      } catch (error) {
-        log(
-          "WARNING",
-          `Failed to process component ${filePath}: ${error.message}`,
-          config
-        );
-      }
-    }
-
-    // Generate HTML documentation
-    const componentDocsDir = path.join(
-      projectRoot,
-      "public",
-      "documentation",
-      "components"
-    );
-    ensureDirectory(componentDocsDir, config);
-
-    // Generate individual component pages
-    for (const doc of componentDocs) {
-      const componentHTML = generateComponentHTML(doc, config);
-      // Avoid overwriting index.html by using a different name for index page component
-      const fileName =
-        doc.name === "index" ? "page-index.html" : `${doc.name}.html`;
-      fs.writeFileSync(path.join(componentDocsDir, fileName), componentHTML);
-    }
-
-    // Generate index page for components (after individual pages to avoid overwriting)
-    const indexHTML = generateComponentIndexHTML(componentDocs, config);
-    fs.writeFileSync(path.join(componentDocsDir, "index.html"), indexHTML);
-
-    log(
-      "SUCCESS",
-      `Vue component documentation generated for ${componentDocs.length} components`,
-      config
-    );
-  } catch (error) {
-    log(
-      "ERROR",
-      `Vue component documentation generation failed: ${error.message}`,
-      config,
-      error
-    );
-    throw error;
-  }
-};
-
-/**
- * Generate HTML for component index page
- *
- * @param {Array} componentDocs - Array of component documentation objects
- * @param {Object} config - Logging configuration
- * @returns {string} HTML content for the component index page
- */
-const generateComponentIndexHTML = (componentDocs, config) => {
-  const componentsList = componentDocs
-    .map((doc) => {
-      const propsCount = doc.meta.props?.length || 0;
-      const eventsCount = doc.meta.events?.length || 0;
-      const slotsCount = doc.meta.slots?.length || 0;
-
-      // Use correct filename for index page component
-      const fileName =
-        doc.name === "index" ? "page-index.html" : `${doc.name}.html`;
-
-      return `
-        <div class="component-card">
-          <h3><a href="${fileName}">${doc.name}</a></h3>
-          <p class="component-path">${doc.filePath}</p>
-          <div class="component-stats">
-            <span class="stat">Props: ${propsCount}</span>
-            <span class="stat">Events: ${eventsCount}</span>
-            <span class="stat">Slots: ${slotsCount}</span>
-          </div>
-        </div>
-      `;
-    })
-    .join("");
-
-  return `
-<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vue Components - Violence Prevention Plan API Documentation</title>
-  <meta name="description" content="Vue component documentation for the Illinois Violence Prevention Plan: 2025-2029 project">
+  <title>Documentation Portal - Violence Prevention Plan for Illinois: 2025-2029</title>
+  <meta name="description" content="Comprehensive documentation portal for the Illinois Violence Prevention Plan development.">
   <meta name="author" content="Illinois Criminal Justice Information Authority">
   <link rel="icon" href="/favicon.ico">
   <style>
@@ -1046,6 +163,243 @@ const generateComponentIndexHTML = (componentDocs, config) => {
       --text-secondary: #b0b0b0;
       --border-color: #333;
     }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .card {
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .card:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    .card h2 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Documentation Portal</h1>
+      <p class="subtitle">Comprehensive documentation for the Violence Prevention Plan for Illinois: 2025-2029</p>
+    </header>
+    
+    <main>
+      <div class="cards-grid">
+        <a href="/documentation/dev/" class="card" aria-label="View Project Documentation">
+          <h2>Project Documentation</h2>
+          <p>Complete project documentation including setup instructions, architecture overview, and development guidelines.</p>
+          <span class="card-link">View Project Docs →</span>
+        </a>
+
+        <a href="/documentation/jsdoc/" class="card" aria-label="View API Documentation">
+          <h2>API Documentation</h2>
+          <p>JSDoc-generated API documentation for all JavaScript functions, classes, and modules.</p>
+          <span class="card-link">View API Docs →</span>
+        </a>
+
+        <a href="/documentation/components/" class="card" aria-label="View Component Documentation">
+          <h2>Component Documentation</h2>
+          <p>Vue component documentation with props, events, and usage examples.</p>
+          <span class="card-link">View Components →</span>
+        </a>
+
+        <a href="/documentation/tools/" class="card" aria-label="View Tools Documentation">
+          <h2>Tools Documentation</h2>
+          <p>Comprehensive reference for all development tools and resources used in this project.</p>
+          <span class="card-link">View Tools →</span>
+        </a>
+
+        <a href="/accessibility/documentation" class="card" aria-label="View Accessibility Documentation">
+          <h2>Accessibility Documentation</h2>
+          <p>Detailed accessibility compliance documentation and implementation guidelines.</p>
+          <span class="card-link">View Accessibility →</span>
+        </a>
+
+        <a href="/documentation/audit-log/" class="card" aria-label="View Project Audit Log">
+          <h2>Project Audit Log</h2>
+          <p>Complete chronological record of all project changes, updates, and development milestones.</p>
+          <span class="card-link">View Audit Log →</span>
+        </a>
+      </div>
+    </main>
+    
+    <footer class="footer">
+      <p>Illinois Criminal Justice Information Authority</p>
+      <p>60 E Van Buren St, Suite 650, Chicago, IL 60605</p>
+      <p>Documentation generated on ${currentDate}</p>
+    </footer>
+  </div>
+</body>
+</html>`;
+}
+
+/**
+ * Generate project documentation HTML from markdown
+ *
+ * @param {Object} config - Logging configuration
+ * @returns {Promise<void>}
+ */
+async function generateProjectDocumentation(config) {
+  try {
+    log("INFO", "Generating project documentation...", config);
+
+    const markdownPath = path.join(projectRoot, "project-documentation.md");
+    const outputPath = path.join(
+      projectRoot,
+      "public",
+      "documentation",
+      "dev",
+      "index.html"
+    );
+
+    if (!fs.existsSync(markdownPath)) {
+      throw new Error(`Project documentation file not found: ${markdownPath}`);
+    }
+
+    const markdownContent = fs.readFileSync(markdownPath, "utf8");
+
+    // Function to generate slug from heading text
+    function generateSlug(text) {
+      // Ensure text is a string and strip HTML tags
+      const cleanText = String(text).replace(/<[^>]*>/g, "");
+      return cleanText
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, "") // Remove special characters except spaces and hyphens
+        .replace(/\s+/g, "-") // Replace spaces with hyphens
+        .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+        .trim();
+    }
+
+    // Generate HTML content from markdown
+    marked.setOptions({
+      gfm: true,
+      breaks: false,
+    });
+
+    let htmlContent = marked(markdownContent);
+
+    // Post-process HTML to add IDs to headings
+    htmlContent = htmlContent.replace(
+      /<h([1-6])>([^<]+)<\/h[1-6]>/g,
+      (match, level, text) => {
+        const slug = generateSlug(text);
+        return `<h${level} id="${slug}">${text}</h${level}>`;
+      }
+    );
+    const currentDate = getCurrentDate();
+
+    const fullHTML = `<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Documentation - Violence Prevention Plan for Illinois: 2025-2029</title>
+  <meta name="description" content="Comprehensive project documentation for the Illinois Violence Prevention Plan development.">
+  <meta name="author" content="Illinois Criminal Justice Information Authority">
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --primary-color: #1976d2;
+      --background-color: #121212;
+      --surface-color: #1e1e1e;
+      --text-color: #ffffff;
+      --text-secondary: #b0b0b0;
+      --border-color: #333;
+      --code-bg: #2d2d2d;
+    }
 
     * {
       margin: 0;
@@ -1054,10 +408,11 @@ const generateComponentIndexHTML = (componentDocs, config) => {
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     .container {
@@ -1066,357 +421,289 @@ const generateComponentIndexHTML = (componentDocs, config) => {
       padding: 2rem;
     }
 
-    h1 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 2.5rem;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .nav-links {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      background: var(--surface-color);
-      border-radius: 8px;
-    }
-
-    .nav-links a {
-      color: var(--primary-color);
-      text-decoration: none;
-      margin-right: 1rem;
-    }
-
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
-
-    .components-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .component-card {
-      background: var(--surface-color);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.5rem;
-      transition: transform 0.2s ease;
-    }
-
-    .component-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--primary-color);
-    }
-
-    .component-card h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .component-card h3 a {
-      color: var(--text-color);
-      text-decoration: none;
-    }
-
-    .component-card h3 a:hover {
-      color: var(--primary-color);
-    }
-
-    .component-path {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      font-family: monospace;
-    }
-
-    .component-stats {
       display: flex;
       gap: 1rem;
     }
 
-    .stat {
-      background: var(--primary-color);
-      color: white;
-      padding: 0.25rem 0.5rem;
+    .nav-links a {
+      color: var(--primary-color);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
-      font-size: 0.8rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Vue Components</h1>
-
-    <div class="nav-links">
-      <a href="../">← Documentation Portal</a>
-      <a href="../jsdoc/">JSDoc API</a>
-      <a href="../dev/">Project Documentation</a>
-    </div>
-
-    <p>This page contains documentation for all Vue components in the Violence Prevention Plan project. Components are documented using vue-component-meta to extract props, events, and slots information.</p>
-
-    <div class="components-grid">
-      ${componentsList}
-    </div>
-  </div>
-</body>
-</html>
-  `;
-};
-
-/**
- * Generate HTML for individual component page
- *
- * @param {Object} doc - Component documentation object
- * @param {Object} config - Logging configuration
- * @returns {string} HTML content for the component page
- */
-const generateComponentHTML = (doc, config) => {
-  const { name, filePath, meta } = doc;
-
-  // Generate props documentation
-  const propsHTML =
-    meta.props && meta.props.length > 0
-      ? `
-      <section class="section">
-        <h2>Props</h2>
-        <div class="props-table">
-          ${meta.props
-            .map(
-              (prop) => `
-            <div class="prop-item">
-              <div class="prop-header">
-                <h3 class="prop-name">${prop.name}</h3>
-                <span class="prop-type">${prop.type || "any"}</span>
-                ${prop.required ? '<span class="prop-required">required</span>' : ""}
-              </div>
-              ${prop.description ? `<p class="prop-description">${prop.description}</p>` : ""}
-              ${prop.default !== undefined ? `<p class="prop-default"><strong>Default:</strong> <code>${JSON.stringify(prop.default)}</code></p>` : ""}
-            </div>
-          `
-            )
-            .join("")}
-        </div>
-      </section>
-    `
-      : "";
-
-  // Generate events documentation
-  const eventsHTML =
-    meta.events && meta.events.length > 0
-      ? `
-      <section class="section">
-        <h2>Events</h2>
-        <div class="events-table">
-          ${meta.events
-            .map(
-              (event) => `
-            <div class="event-item">
-              <div class="event-header">
-                <h3 class="event-name">${event.name}</h3>
-                <span class="event-type">${event.type || "any"}</span>
-              </div>
-              ${event.description ? `<p class="event-description">${event.description}</p>` : ""}
-            </div>
-          `
-            )
-            .join("")}
-        </div>
-      </section>
-    `
-      : "";
-
-  // Generate slots documentation
-  const slotsHTML =
-    meta.slots && meta.slots.length > 0
-      ? `
-      <section class="section">
-        <h2>Slots</h2>
-        <div class="slots-table">
-          ${meta.slots
-            .map(
-              (slot) => `
-            <div class="slot-item">
-              <div class="slot-header">
-                <h3 class="slot-name">${slot.name}</h3>
-              </div>
-              ${slot.description ? `<p class="slot-description">${slot.description}</p>` : ""}
-            </div>
-          `
-            )
-            .join("")}
-        </div>
-      </section>
-    `
-      : "";
-
-  return `
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${name} - Vue Components Documentation</title>
-  <meta name="description" content="Documentation for ${name} Vue component">
-  <meta name="author" content="Illinois Criminal Justice Information Authority">
-  <link rel="icon" href="/favicon.ico">
-  <style>
-    :root {
-      --primary-color: #1976d2;
-      --background-color: #121212;
-      --surface-color: #1e1e1e;
-      --text-color: #ffffff;
-      --text-secondary: #b0b0b0;
-      --border-color: #333;
-      --success-color: #4caf50;
-      --warning-color: #ff9800;
+      transition: all 0.2s ease;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .nav-links a:hover {
+      background-color: var(--primary-color);
+      color: white;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--background-color);
+    h1, h2, h3, h4, h5, h6 {
       color: var(--text-color);
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
     }
 
     h1 {
       color: var(--primary-color);
-      margin-bottom: 0.5rem;
       font-size: 2.5rem;
+      margin-top: 0;
     }
 
-    .component-path {
-      color: var(--text-secondary);
-      font-family: monospace;
-      margin-bottom: 2rem;
-    }
-
-    .nav-links {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      background: var(--surface-color);
-      border-radius: 8px;
-    }
-
-    .nav-links a {
+    h2 {
       color: var(--primary-color);
-      text-decoration: none;
-      margin-right: 1rem;
-    }
-
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
-
-    .section {
-      margin-bottom: 3rem;
-    }
-
-    .section h2 {
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
+      font-size: 2rem;
       border-bottom: 2px solid var(--border-color);
       padding-bottom: 0.5rem;
     }
 
-    .prop-item, .event-item, .slot-item {
-      background: var(--surface-color);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.5rem;
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    ul, ol {
+      margin-left: 2rem;
       margin-bottom: 1rem;
     }
 
-    .prop-header, .event-header, .slot-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    li {
       margin-bottom: 0.5rem;
     }
 
-    .prop-name, .event-name, .slot-name {
-      color: var(--text-color);
-      font-size: 1.2rem;
-      font-family: monospace;
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
     }
 
-    .prop-type, .event-type {
-      background: var(--primary-color);
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-family: monospace;
+    a:hover {
+      text-decoration: underline;
     }
 
-    .prop-required {
-      background: var(--warning-color);
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-    }
-
-    .prop-description, .event-description, .slot-description {
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
-    }
-
-    .prop-default {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    .prop-default code {
-      background: var(--background-color);
+    code {
+      background-color: var(--code-bg);
       padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      font-family: monospace;
+      border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--surface-color);
+      font-weight: 600;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary-color);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>${name}</h1>
-    <p class="component-path">${filePath}</p>
+    <header class="header">
+      <h1>Project Documentation</h1>
+      <nav class="nav-links">
+        <a href="/documentation/">← Portal</a>
+        <a href="/documentation/jsdoc/">API Docs</a>
+        <a href="#" onclick="toggleTheme()">🌙 Light Mode</a>
+      </nav>
+    </header>
 
-    <div class="nav-links">
-      <a href="index.html">← All Components</a>
-      <a href="../">Documentation Portal</a>
-      <a href="../jsdoc/">JSDoc API</a>
-    </div>
+    <main>
+      ${htmlContent}
+    </main>
 
-    ${propsHTML}
-    ${eventsHTML}
-    ${slotsHTML}
-
-    ${!propsHTML && !eventsHTML && !slotsHTML ? "<p>No props, events, or slots documented for this component.</p>" : ""}
+    <footer class="footer">
+      <p>Illinois Criminal Justice Information Authority</p>
+      <p>60 E Van Buren St, Suite 650, Chicago, IL 60605</p>
+      <p>Documentation generated on ${currentDate}</p>
+    </footer>
   </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+
+      const button = document.querySelector('nav a[onclick="toggleTheme()"]');
+      button.textContent = newTheme === 'dark' ? '🌙 Light Mode' : '☀️ Dark Mode';
+
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Smooth scrolling for anchor links
+    function setupSmoothScrolling() {
+      // Add smooth scrolling to all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Update URL without triggering page reload
+            history.pushState(null, null, this.getAttribute('href'));
+          }
+        });
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setupSmoothScrolling();
+
+      // Handle direct navigation to anchors (e.g., from URL)
+      if (window.location.hash) {
+        setTimeout(() => {
+          const targetElement = document.querySelector(window.location.hash);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
+      }
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    const button = document.querySelector('nav a[onclick="toggleTheme()"]');
+    if (button) {
+      button.textContent = savedTheme === 'dark' ? '🌙 Light Mode' : '☀️ Dark Mode';
+    }
+  </script>
 </body>
-</html>
-  `;
-};
+</html>`;
+
+    fs.writeFileSync(outputPath, fullHTML);
+    log("SUCCESS", `Project documentation generated: ${outputPath}`, config);
+  } catch (error) {
+    log(
+      "ERROR",
+      `Failed to generate project documentation: ${error.message}`,
+      config
+    );
+    throw error;
+  }
+}
+
+/**
+ * Generate JSDoc API documentation
+ *
+ * @param {Object} config - Logging configuration
+ * @returns {Promise<void>}
+ */
+async function generateJSDocDocumentation(config) {
+  try {
+    log("INFO", "Generating JSDoc API documentation...", config);
+
+    const outputDir = path.join(
+      projectRoot,
+      "public",
+      "documentation",
+      "jsdoc"
+    );
+
+    // Run JSDoc command with dynamic configuration (updated for Nuxt 4 structure)
+    const jsdocCommand = `npx jsdoc -d ${outputDir} -t node_modules/clean-jsdoc-theme -R README.md --recurse app/ scripts/`;
+    execSync(jsdocCommand, {
+      cwd: projectRoot,
+      stdio: config.verbose ? "inherit" : "pipe",
+    });
+
+    log("SUCCESS", `JSDoc documentation generated: ${outputDir}`, config);
+  } catch (error) {
+    log("WARN", `JSDoc generation failed: ${error.message}`, config);
+    // Don't throw error for JSDoc failures as it's not critical
+  }
+}
 
 /**
  * Main function to generate all documentation
  *
- * @async
- * @function generateDocumentation
  * @returns {Promise<void>}
- * @throws {Error} If documentation generation fails
  */
 async function generateDocumentation() {
   const config = parseArgs();
@@ -1432,12 +719,10 @@ async function generateDocumentation() {
     const docsDir = path.join(projectRoot, "public", "documentation");
     const devDocsDir = path.join(docsDir, "dev");
     const jsdocDir = path.join(docsDir, "jsdoc");
-    const componentsDir = path.join(docsDir, "components");
 
     ensureDirectory(docsDir, config);
     ensureDirectory(devDocsDir, config);
     ensureDirectory(jsdocDir, config);
-    ensureDirectory(componentsDir, config);
 
     // Generate documentation portal
     log("INFO", "Generating documentation portal...", config);
@@ -1451,14 +736,10 @@ async function generateDocumentation() {
     // Generate JSDoc API documentation
     await generateJSDocDocumentation(config);
 
-    // Generate Vue component documentation
-    await generateVueComponentDocumentation(config);
-
     log("SUCCESS", "Documentation generation completed successfully!", config, {
       portalPath: "/documentation/",
       projectDocsPath: "/documentation/dev/",
       apiDocsPath: "/documentation/jsdoc/",
-      componentsPath: "/documentation/components/",
     });
   } catch (error) {
     log(
