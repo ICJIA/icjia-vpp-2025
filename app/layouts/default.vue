@@ -10,7 +10,8 @@
  * - Skip-to-content accessibility link for keyboard users
  * - Screen reader announcement system for dynamic content
  * - Common header and footer components
- * - Development console logger (dev mode only)
+ * - Development console logger (hidden but functional)
+ * - Scroll to top button for user navigation
  *
  * Accessibility Features:
  * - Skip link for keyboard navigation
@@ -27,6 +28,7 @@
  * @component
  * @requires ~/composables/useAnnouncer
  * @requires ~/components/dev/ConsoleLogger
+ * @requires ~/components/ui/ScrollToTop
  * @requires ~/components/content/AppHeader
  * @requires ~/components/content/AppFooter
  */
@@ -38,6 +40,7 @@ import { useAnnouncer } from "~/composables/useAnnouncer";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
 import { useTheme } from "~/composables/useTheme";
 import ConsoleLogger from "~/components/dev/ConsoleLogger.vue";
+import ScrollToTop from "~/components/ui/ScrollToTop.vue";
 
 // Get logger instance for theme logging
 // NOTE: Console logging is intentionally enabled in all environments (including production)
@@ -236,9 +239,14 @@ onMounted(() => {
       {{ announceAssertive }}
     </div>
 
-    <!-- Console Logger (enabled in all environments for pre-launch debugging) -->
+    <!-- Console Logger (hidden but functionality preserved for development) -->
     <ClientOnly>
       <ConsoleLogger v-if="showConsoleLogger" />
+    </ClientOnly>
+
+    <!-- Scroll to Top Button (replaces console logger UI) -->
+    <ClientOnly>
+      <ScrollToTop />
     </ClientOnly>
   </v-app>
 </template>

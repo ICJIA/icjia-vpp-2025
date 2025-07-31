@@ -1,4 +1,13 @@
 <template>
+  <!-- Console Logger UI Hidden - Functionality Preserved for Development -->
+  <!--
+    The console logger UI has been hidden to replace it with a scroll-to-top button.
+    All functionality is preserved and can be re-enabled by uncommenting the sections below.
+    The underlying logging system remains fully functional.
+  -->
+
+  <!-- Hidden Console Logger Controls Panel -->
+  <!--
   <div v-if="showControls" class="console-logger-controls">
     <v-card class="pa-2" variant="outlined" width="300">
       <v-card-title class="text-subtitle-1 pb-1">
@@ -55,6 +64,10 @@
       </v-card-text>
     </v-card>
   </div>
+  -->
+
+  <!-- Hidden Console Logger Toggle Button -->
+  <!--
   <div v-else class="console-logger-toggle">
     <v-btn
       icon="mdi-console"
@@ -64,6 +77,12 @@
       @click="showControls = true"
       aria-label="Show console logger controls"
     ></v-btn>
+  </div>
+  -->
+
+  <!-- Empty template - all UI elements are commented out but functionality preserved -->
+  <div style="display: none">
+    <!-- This empty div ensures the component still renders without visible content -->
   </div>
 </template>
 

@@ -3,39 +3,46 @@
     <div class="footer-content">
       <!-- Main footer section -->
       <div class="footer-main">
-        <!-- Branding section -->
-        <div class="footer-branding">
-          <AccessibleTooltip
-            :text="menuConfig.footer.branding.tooltip"
-            location="top"
-          >
+        <!-- ICJIA Logo section -->
+        <div class="footer-icjia-logo d-none d-md-block">
+          <AccessibleTooltip text="Go to ICJIA" location="top">
             <template v-slot="{ props }">
               <a
-                :href="menuConfig.footer.branding.href"
-                class="brand-link"
+                href="https://icjia.illinois.gov"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="icjia-logo-link"
                 v-bind="props"
-                :aria-label="menuConfig.footer.branding.ariaLabel"
-                @click.prevent="handleHomeClick"
+                aria-label="Visit Illinois Criminal Justice Information Authority website"
               >
-                <v-icon
-                  :icon="menuConfig.footer.branding.icon"
-                  size="large"
-                  color="primary"
-                  class="brand-icon"
-                  aria-hidden="true"
+                <img
+                  src="/images/icjia-logo.png"
+                  alt="Illinois Criminal Justice Information Authority Logo"
+                  class="icjia-logo"
                 />
-                <span class="brand-text">
-                  {{
-                    $vuetify.display.smAndDown
-                      ? menuConfig.footer.branding.textSm
-                      : $vuetify.display.mdAndDown
-                        ? menuConfig.footer.branding.textMd
-                        : menuConfig.footer.branding.text
-                  }}
-                </span>
               </a>
             </template>
           </AccessibleTooltip>
+        </div>
+
+        <!-- Branding section -->
+        <div class="footer-branding">
+          <a
+            :href="menuConfig.footer.branding.href"
+            class="brand-link"
+            :aria-label="menuConfig.footer.branding.ariaLabel"
+            @click.prevent="handleHomeClick"
+          >
+            <span class="brand-text">
+              {{
+                $vuetify.display.smAndDown
+                  ? menuConfig.footer.branding.textSm
+                  : $vuetify.display.mdAndDown
+                    ? menuConfig.footer.branding.textMd
+                    : menuConfig.footer.branding.text
+              }}
+            </span>
+          </a>
         </div>
 
         <!-- Description section -->
@@ -63,32 +70,9 @@
 
       <!-- Footer bottom section -->
       <div class="footer-bottom">
-        <nav class="footer-nav" aria-label="Footer navigation">
-          <nuxt-link
-            to="/accessibility/documentation"
-            class="nav-link"
-            aria-label="View accessibility documentation"
-          >
-            Accessibility
-          </nuxt-link>
-          <nuxt-link
-            to="/legal/privacy-policy"
-            class="nav-link"
-            aria-label="View Privacy Policy"
-          >
-            Privacy
-          </nuxt-link>
-          <nuxt-link
-            to="/legal/terms-of-service"
-            class="nav-link"
-            aria-label="View Terms of Service"
-          >
-            Terms of Service
-          </nuxt-link>
-        </nav>
-
-        <div class="copyright">
-          <span>
+        <div class="footer-bottom-content">
+          <!-- Copyright -->
+          <span class="footer-item">
             © {{ new Date().getFullYear() }}
             <a
               href="https://icjia.illinois.gov"
@@ -100,6 +84,54 @@
               Illinois Criminal Justice Information Authority
             </a>
           </span>
+
+          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
+            >|</span
+          >
+
+          <nuxt-link
+            to="/accessibility/documentation"
+            class="footer-item"
+            aria-label="View accessibility documentation"
+          >
+            Accessibility
+          </nuxt-link>
+
+          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
+            >|</span
+          >
+
+          <nuxt-link
+            to="/legal/privacy-policy"
+            class="footer-item"
+            aria-label="View Privacy Policy"
+          >
+            Privacy
+          </nuxt-link>
+
+          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
+            >|</span
+          >
+
+          <nuxt-link
+            to="/legal/terms-of-service"
+            class="footer-item"
+            aria-label="View Terms of Service"
+          >
+            Terms of Service
+          </nuxt-link>
+
+          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
+            >|</span
+          >
+
+          <nuxt-link
+            to="/contact"
+            class="footer-item"
+            aria-label="Contact Illinois Criminal Justice Information Authority"
+          >
+            Contact
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -177,7 +209,7 @@ const handleHomeClick = () => {
 
 /* Branding section */
 .footer-branding {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .brand-link {
@@ -185,7 +217,7 @@ const handleHomeClick = () => {
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-radius: 12px;
   transition: all 0.2s ease;
   min-height: 44px;
@@ -205,6 +237,36 @@ const handleHomeClick = () => {
   font-weight: 600;
   color: rgb(var(--v-theme-primary));
   line-height: 1.3;
+}
+
+/* ICJIA Logo section */
+.footer-icjia-logo {
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.icjia-logo-link {
+  display: inline-block;
+  padding: 4px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.icjia-logo-link:hover {
+  background-color: rgba(var(--v-theme-primary), 0.04);
+  transform: translateY(-1px);
+}
+
+.icjia-logo {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.icjia-logo-link:hover .icjia-logo {
+  opacity: 0.8;
 }
 
 /* Description section */
@@ -235,44 +297,48 @@ const handleHomeClick = () => {
 
 /* Footer bottom section */
 .footer-bottom {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
   padding-top: 24px;
   border-top: 1px solid rgba(var(--v-theme-on-background), 0.06);
   text-align: center;
 }
 
-.copyright {
+.footer-bottom-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
   font-size: 0.875rem;
-  color: rgba(var(--v-theme-on-background), 0.7);
   text-align: center;
 }
 
-.footer-nav {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  justify-content: center;
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 4px;
+  }
 }
 
-.nav-link {
-  font-size: 0.875rem;
+.footer-item {
   color: rgba(var(--v-theme-on-background), 0.8);
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 2px 0;
+  margin: 0 4px;
+  border-radius: 4px;
   transition: all 0.2s ease;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
   font-weight: 500;
+  white-space: nowrap;
 }
 
-.nav-link:hover {
+.footer-item:hover {
   color: rgb(var(--v-theme-primary));
   background-color: rgba(var(--v-theme-primary), 0.04);
+}
+
+.footer-divider {
+  color: rgba(var(--v-theme-on-background), 0.5);
+  margin: 0 4px;
 }
 
 /* Responsive design */
@@ -298,24 +364,34 @@ const handleHomeClick = () => {
   }
 
   .footer-bottom {
-    gap: 16px;
     padding-top: 28px;
   }
 
-  .footer-nav {
-    gap: 16px;
+  .footer-bottom-content {
+    gap: 8px;
+    font-size: 0.8rem;
   }
 
-  .nav-link {
+  .nav-link-inline {
     font-size: 0.8rem;
-    padding: 6px 8px;
+    padding: 4px 6px;
   }
 }
 
 @media (max-width: 480px) {
-  .footer-nav {
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .footer-nav-inline {
     flex-direction: column;
     gap: 8px;
+  }
+
+  .nav-link-inline {
+    padding: 6px 12px;
   }
 
   .brand-link {
@@ -331,8 +407,8 @@ const handleHomeClick = () => {
 
 /* Desktop layout improvements */
 @media (min-width: 769px) {
-  .footer-nav {
-    gap: 32px;
+  .footer-nav-inline {
+    gap: 16px;
   }
 }
 

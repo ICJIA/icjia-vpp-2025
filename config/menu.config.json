@@ -33,17 +33,6 @@
         "children": []
       },
       {
-        "text": "Home",
-        "to": "/",
-        "ariaLabel": "Go to homepage",
-        "variant": "text",
-        "color": "on-app-bar",
-        "class": "font-weight-bold mx-2 nav-link",
-        "mobileClass": "font-weight-bold py-2 nav-link-mobile",
-        "displayMode": "both",
-        "order": 20
-      },
-      {
         "text": "Download",
         "to": "/download",
         "ariaLabel": "Go to download page for the Violence Prevention Plan",
@@ -77,6 +66,8 @@
   "footer": {
     "branding": {
       "icon": "mdi-account-group",
+      "image": "/images/illinois-seal.png",
+      "imageAlt": "Illinois State Seal",
       "text": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
       "textMd": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
       "textSm": "Statewide Violence Prevention Plan",
