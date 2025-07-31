@@ -190,7 +190,7 @@
                                 },
                               ]"
                             >
-                              {{ item.text }}
+                              {{ truncateText(item.text) }}
                             </v-list-item-title>
                           </v-list-item>
                         </v-list>
@@ -672,6 +672,35 @@ const pageDescription = computed(() => {
 const showReportNavigation = computed(() => {
   return isReportPage(route.path);
 });
+
+// =============================================================================
+// UTILITY FUNCTIONS
+// =============================================================================
+
+/**
+ * Truncates text to a specified length while preserving word boundaries
+ *
+ * @param {string} text - The text to truncate
+ * @param {number} maxLength - Maximum length before truncation (default: 70)
+ * @returns {string} Truncated text with ellipsis if needed
+ */
+const truncateText = (text, maxLength = 70) => {
+  if (!text || text.length <= maxLength) {
+    return text;
+  }
+
+  // Find the last space within the max length to avoid breaking words
+  const truncated = text.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+
+  // If we found a space and it's not too close to the beginning, break there
+  if (lastSpaceIndex > maxLength * 0.6) {
+    return truncated.substring(0, lastSpaceIndex) + "...";
+  }
+
+  // Otherwise, just truncate at max length
+  return truncated + "...";
+};
 
 // =============================================================================
 // CORE FUNCTIONALITY METHODS
@@ -1596,8 +1625,8 @@ useSeoMeta({
 /* TOC Item Styling */
 .toc-item {
   border-radius: 6px !important;
-  margin: 4px 8px 4px 0 !important; /* Increased margin for better spacing between interactive elements */
-  padding: 12px 16px 12px 40px !important; /* Unified padding for single interactive area */
+  margin: 2px 8px 2px 0 !important; /* Reduced vertical margin for more compact spacing */
+  padding: 8px 16px 8px 40px !important; /* Reduced vertical padding for more compact appearance */
   min-height: 44px !important; /* Enhanced from 40px to meet WCAG 2.5.5 requirements */
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -1611,8 +1640,8 @@ useSeoMeta({
   min-width: 44px !important; /* Ensure minimum width for touch targets */
   display: flex !important; /* Ensure proper layout for target size */
 
-  /* Ensure proper spacing to prevent overlapping interactive areas */
-  margin-bottom: 8px !important; /* Additional bottom margin for 24px spacing requirement */
+  /* Reduced spacing for more compact TOC appearance */
+  margin-bottom: 4px !important; /* Reduced bottom margin for tighter spacing */
 }
 
 /* Override Vuetify v-list-item-title default truncation styles */
@@ -1623,7 +1652,7 @@ useSeoMeta({
   word-wrap: break-word !important; /* Break long words */
   hyphens: auto !important; /* Add hyphens for better readability */
   line-height: 1.4 !important; /* Consistent line height */
-  padding: 0.25rem 0 !important; /* Add vertical padding for better spacing */
+  padding: 0.125rem 0 !important; /* Reduced vertical padding for more compact spacing */
 }
 
 .toc-item:hover {
@@ -1741,7 +1770,7 @@ useSeoMeta({
 /* TOC Link Text Styling - Fix truncation and allow text wrapping */
 .toc-link {
   color: rgba(var(--v-theme-on-surface), 0.87) !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important; /* Increased font-weight for better visual prominence */
   line-height: 1.4 !important;
   transition: all 0.3s ease-in-out;
 
@@ -1762,16 +1791,16 @@ useSeoMeta({
 
 .toc-link--active {
   color: rgb(var(--v-theme-primary)) !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important; /* Increased font-weight for active state prominence */
 }
 
 .toc-item:hover .toc-link {
   color: rgb(var(--v-theme-primary)) !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important; /* Maintain consistent font-weight on hover */
 }
 
 .toc-item:hover .toc-link--active {
-  font-weight: 600 !important;
+  font-weight: 700 !important; /* Maintain active state font-weight on hover */
 }
 
 /* Dark theme support */
