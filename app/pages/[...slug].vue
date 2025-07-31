@@ -1379,26 +1379,14 @@ useSeoMeta({
   }
 
   /* Other elements */
-  :deep(blockquote) {
-    border-left: 4px solid var(--v-primary-lighten-1);
-    padding-left: 1rem;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
+  /* Blockquote styling is now handled by global CSS for consistent theming */
+  /* This ensures proper contrast in both light and dark themes */
 
   /* Code styling is now handled by global CSS with Shiki integration */
 }
 
 /* Dark theme adjustments for content renderer */
-:deep(.v-theme--dark) {
-  .content-renderer {
-    :deep(blockquote) {
-      border-left-color: var(--v-primary-lighten-2);
-    }
-  }
-}
+/* Blockquote styling is now handled by global CSS for consistent theming */
 
 /**
  * =============================================================================
@@ -1661,10 +1649,53 @@ useSeoMeta({
   background-color: rgba(var(--v-theme-on-surface), 0.08) !important;
 }
 
-.toc-item--active:focus {
-  /* Remove focus background for active items - dot indicator is sufficient */
+/* Comprehensive removal of all focus/active/click states for active TOC items */
+.toc-item--active:focus,
+.toc-item--active:focus-visible,
+.toc-item--active:focus-within,
+.toc-item--active:active,
+.toc-item--active.v-list-item--active,
+.toc-item--active.v-list-item--selected {
   background-color: transparent !important;
+  background: none !important;
   outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Deep selectors to override Vuetify's default styling */
+:deep(.toc-item--active) {
+  background-color: transparent !important;
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:deep(.toc-item--active:focus),
+:deep(.toc-item--active:focus-visible),
+:deep(.toc-item--active:focus-within),
+:deep(.toc-item--active:active),
+:deep(.toc-item--active.v-list-item--active),
+:deep(.toc-item--active.v-list-item--selected) {
+  background-color: transparent !important;
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Override any Vuetify list item states */
+:deep(.v-list-item.toc-item--active),
+:deep(.v-list-item.toc-item--active:focus),
+:deep(.v-list-item.toc-item--active:focus-visible),
+:deep(.v-list-item.toc-item--active:active),
+:deep(.v-list-item.toc-item--active.v-list-item--active) {
+  background-color: transparent !important;
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Visual Indicator Dots - Adjusted for wrapped text */

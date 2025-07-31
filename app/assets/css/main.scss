@@ -580,6 +580,50 @@ code:not(pre code) {
   }
 }
 
+// Global blockquote styling with high contrast for accessibility
+// Ensures blockquotes are readable in both light and dark themes
+blockquote {
+  border-left: 4px solid var(--v-primary-lighten-1);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 2rem; // Add left and right indentation for visual distinction
+  border-radius: 0.5rem;
+  font-style: italic;
+  font-weight: 600; // Add weight to improve readability of italic text
+  position: relative;
+
+  // Smooth transitions for theme changes
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+  // Responsive indentation - reduce on smaller screens
+  @media (max-width: 768px) {
+    margin: 1.5rem 1rem; // Smaller indentation on mobile
+  }
+
+  @media (max-width: 480px) {
+    margin: 1.5rem 0.5rem; // Minimal indentation on very small screens
+  }
+}
+
+// Light theme blockquote styling - black text on light background
+:root:not([data-theme="dark"]) blockquote {
+  background-color: #f1f3f4; // Slightly darker grey background for better distinction
+  color: #000000 !important; // Pure black text for maximum contrast
+  border-left-color: var(--v-primary-base);
+
+  // Add subtle shadow for depth
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Dark theme blockquote styling - white text on dark background
+:root[data-theme="dark"] blockquote {
+  background-color: #2d3748; // Darker background than page background
+  color: #ffffff !important; // Pure white text for maximum contrast
+  border-left-color: var(--v-primary-lighten-2);
+
+  // Add subtle shadow for depth
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 // High contrast mode support for accessibility
 @media (prefers-contrast: high) {
   code {

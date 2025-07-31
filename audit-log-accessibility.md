@@ -2,6 +2,23 @@
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+### 2025-07-31 (Blockquote Accessibility Enhancement)
+
+- **Summary**: Fixed blockquote text contrast issues that made content very difficult to read in both light and dark themes, ensuring WCAG 2.1 AA compliance with high contrast ratios.
+- **Files modified/created**:
+  - `app/assets/css/main.scss`: Added comprehensive global blockquote styling with high contrast colors
+  - `app/components/ContentDisplay.vue`: Removed component-specific blockquote styling to use global styles
+  - `app/components/SimpleContentDisplay.vue`: Removed component-specific blockquote styling to use global styles
+  - `app/pages/[...slug].vue`: Removed page-specific blockquote styling to use global styles
+- **Technical Notes**:
+  - Light theme: Pure black text (#000000) on slightly darker grey background (#f1f3f4) for maximum contrast and better distinction
+  - Dark theme: Pure white text (#ffffff) on darker background (#2d3748) for maximum contrast
+  - Added font-weight: 600 to improve readability of italic text
+  - Added left and right indentation (2rem on desktop, responsive on mobile) for visual distinction
+  - Added proper padding, margins, border-radius, and subtle shadows for better visual distinction
+  - Ensures WCAG 2.1 AA compliance with high contrast ratios exceeding 4.5:1 requirement
+  - Centralized styling prevents inconsistencies across components
+
 ### 2025-07-30 (Mobile Navigation Accessibility Enhancements)
 
 - **Summary**: Enhanced mobile navigation accessibility through improved semantic structure, ARIA attributes, keyboard navigation, and screen reader compatibility while maintaining WCAG 2.1 AA compliance.

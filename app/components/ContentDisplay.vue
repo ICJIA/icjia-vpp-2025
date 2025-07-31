@@ -558,13 +558,8 @@ const onContentRendered = () => {
     }
   }
 
-  :deep(blockquote) {
-    border-left: 4px solid var(--v-primary-lighten-1);
-    padding-left: 1rem;
-    margin-left: 0;
-    margin-right: 0;
-    font-style: italic;
-  }
+  // Blockquote styling is now handled by global CSS for consistent theming
+  // This ensures proper contrast in both light and dark themes
 
   :deep(code) {
     font-family: monospace;
