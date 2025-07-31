@@ -201,7 +201,7 @@ const isOpen = computed({
 });
 
 /**
- * Get the "Read the Plan" menu item and its children from menu config
+ * Get the "Read the Plan" menu item from menu config
  */
 const readThePlanItem = computed(() => {
   return menuConfig.header.items.find(
@@ -210,10 +210,37 @@ const readThePlanItem = computed(() => {
 });
 
 /**
- * Get the children of "Read the Plan" menu item
+ * Get the "Read the Plan" menu children from site config (same as AppHeader)
  */
 const readThePlanChildren = computed(() => {
-  return readThePlanItem.value ? readThePlanItem.value.children || [] : [];
+  if (!siteConfig.ui?.navigation?.readThePlanMenu?.enabled) {
+    return [];
+  }
+
+  const readThePlanMenuConfig = siteConfig.ui.navigation.readThePlanMenu;
+  const children = [];
+
+  // Add enabled items from site config (excluding dividers for sidebar)
+  Object.entries(readThePlanMenuConfig.items).forEach(([key, item]) => {
+    if (item.enabled) {
+      // Handle regular menu items only
+      children.push({
+        text: item.text,
+        to: item.to,
+        href: item.href,
+        ariaLabel: item.ariaLabel,
+        class: "dropdown-item",
+        mobileClass: "dropdown-item-mobile ml-4",
+        color: "on-app-bar",
+        displayMode: "both",
+        isExternal: item.isExternal,
+        target: item.target,
+        rel: item.rel,
+      });
+    }
+  });
+
+  return children;
 });
 
 /**

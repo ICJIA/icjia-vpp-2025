@@ -2,6 +2,91 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-31 (LLMs.txt Generation Fix)
+
+Fixed the LLMs.txt file generation process to properly populate the "Plan Content" section with actual plan content instead of leaving it empty.
+
+### Files Modified/Created:
+
+- `scripts/generate-llms-txt.js`:
+  - Updated `loadMenuConfig()` method to read from `config/site.config.json` instead of `config/menu.config.json`
+  - Modified `getReportPages()` method to extract menu items from `ui.navigation.readThePlanMenu.items` structure
+  - Completely rewrote `generateLLMSTxtContent()` method to include full page content instead of just links
+  - Added proper section headers and content separation with markdown formatting
+- `public/llms.txt`:
+  - File now contains complete plan content (40.92 KB) with all 7 sections from the plan
+  - Includes: Front Cover, Executive Summary, Public Health Approach, Guiding Principles, Planning Process, Goals and Recommendations, and References
+  - Properly formatted according to llms.txt specification for LLM consumption
+
+### Technical Notes:
+
+- The script was previously reading from the wrong configuration file (`menu.config.json` vs `site.config.json`)
+- The "Read the Plan" menu items are stored in `site.config.json` under `ui.navigation.readThePlanMenu.items`
+- The generated file now includes actual markdown content from each plan page, not just links
+- File is accessible at `/llms.txt` on the download page for AI systems and developers
+- Script runs automatically during build/dev/generate processes as part of the yarn scripts
+
+## 2025-07-31 (Complete Navigation Dropdown Redesign)
+
+Completely redesigned the navigation dropdown system to fix Safari compatibility issues by cloning the "More" menu logic for the "Read the Plan" dropdown and removing all tooltip functionality from navigation.
+
+### Files Modified/Created:
+
+- `config/menu.config.json`:
+  - Removed all tooltip-related properties (`enableTooltip`, `tooltip`, `tooltipLocation`) from all navigation items
+  - Simplified "Read the Plan" menu configuration to use dynamic children like "More" menu
+  - Added `isReadThePlanMenu: true` flag for identification
+- `config/site.config.json`:
+  - Added new `readThePlanMenu` configuration section with all plan page links
+  - Structured identically to `moreMenu` for consistency
+- `app/components/content/AppHeader.vue`:
+  - Created `readThePlanMenuChildren` computed property that mirrors `moreMenuChildren`
+  - Updated `sortedHeaderItems` to inject "Read the Plan" children from site config
+  - Completely removed all tooltip functionality (states, timers, handlers, templates)
+  - Simplified dropdown templates to use identical logic for both dropdowns
+  - Removed Safari detection and Safari-specific workarounds
+  - Cleaned up event handlers to remove tooltip complexity
+- `app/components/content/AppSidebar.vue`:
+  - Updated to use new "Read the Plan" menu structure from site config
+  - Mirrors the approach used for other dynamic menu sections
+
+### Technical Notes:
+
+- Both "Read the Plan" and "More" dropdowns now use identical simple click/hover behavior
+- All dropdowns have `open-on-hover` enabled for better user experience
+- Removed over 200 lines of complex tooltip-related code
+- No more JavaScript errors related to undefined tooltip states
+- Cross-browser compatibility ensured by using proven "More" menu patterns
+- Dropdown functionality prioritized over tooltip features for better reliability
+- Mobile navigation also benefits from simplified structure
+- All navigation items now use consistent event handling without tooltip interference
+
+## 2025-07-31 (Developer Files Update and Enhancement)
+
+Updated and regenerated all developer files on the /download page to ensure they accurately reflect the current state of the project, including all routes, content, and new features added since the original creation.
+
+### Files Modified/Created:
+
+- **public/llms.txt**: Regenerated LLM-friendly content file with current plan structure and all 7 main plan pages
+- **public/vpp-plan-2025-2029.json**: Updated comprehensive JSON export with current content, metadata, and statistics
+- **public/vpp-plan-2025-2029.yaml**: Regenerated YAML format with identical content structure
+- **public/vpp-plan-2025-2029.csv**: Updated CSV export for spreadsheet analysis and data processing
+- **public/config/routes.config.json**: Refreshed complete routes catalog with all 21 current pages
+- **content/download.md**: Enhanced download page with additional developer resources section
+
+### Technical Notes:
+
+- **Content Accuracy**: All developer files now reflect the current project state with 21 total pages including plan content, accessibility documentation, legal pages, news articles, and resource pages
+- **Enhanced Developer Resources**: Added new section on download page with links to additional useful files:
+  - Routes configuration (complete site navigation structure)
+  - References database (all citations and bibliography data)
+  - Search index (full-text search data)
+  - Site configuration (project settings and metadata)
+- **File Generation Process**: Used automated scripts (yarn create:llms-txt, yarn create:plan-json, yarn create:site-config) to ensure consistency and accuracy
+- **Timestamp Verification**: All files updated with current timestamp (2025-07-31) to reflect latest content state
+- **Download Page Enhancement**: Added "Additional Developer Resources" section with smaller secondary buttons for supplementary data files
+- **Link Validation**: All download links point to correct file paths and are configured to open in new tabs with proper security attributes
+
 ## 2025-07-31 (JSDoc Documentation Review and Validation)
 
 Conducted a comprehensive review of all JSDoc documentation across composables and Vue components to ensure consistency, completeness, and adherence to project standards.

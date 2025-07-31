@@ -34,28 +34,27 @@ class LLMSTxtGenerator {
       totalPages: 0,
       processedPages: 0,
       skippedPages: 0,
-      totalContentLength: 0,
     };
     this.logger = null; // Will be initialized in generate()
     this.options = options;
   }
 
   /**
-   * Load menu configuration to identify report pages
+   * Load site configuration to identify report pages
    *
    * @returns {Promise<void>}
    */
   async loadMenuConfig() {
     try {
-      const menuConfigPath = path.join(
+      const siteConfigPath = path.join(
         process.cwd(),
-        "config/menu.config.json"
+        "config/site.config.json"
       );
-      const menuConfigContent = await fs.readFile(menuConfigPath, "utf-8");
-      this.menuConfig = JSON.parse(menuConfigContent);
-      this.logger?.info("Loaded menu configuration");
+      const siteConfigContent = await fs.readFile(siteConfigPath, "utf-8");
+      this.menuConfig = JSON.parse(siteConfigContent);
+      this.logger?.info("Loaded site configuration");
     } catch (error) {
-      this.logger?.error("Failed to load menu configuration");
+      this.logger?.error("Failed to load site configuration");
       throw error;
     }
   }
@@ -67,24 +66,33 @@ class LLMSTxtGenerator {
    */
   getReportPages() {
     if (!this.menuConfig) {
-      throw new Error("Menu configuration not loaded");
+      throw new Error("Site configuration not loaded");
     }
 
-    const headerItems = this.menuConfig.header?.items || [];
-    const readThePlanMenu = headerItems.find(
-      (item) => item.text === "Read the Plan"
-    );
+    const readThePlanMenuConfig =
+      this.menuConfig.ui?.navigation?.readThePlanMenu;
 
-    if (!readThePlanMenu || !readThePlanMenu.children) {
-      throw new Error('Could not find "Read the Plan" menu section');
+    if (!readThePlanMenuConfig || !readThePlanMenuConfig.enabled) {
+      throw new Error('Could not find enabled "Read the Plan" menu section');
     }
 
-    return readThePlanMenu.children.map((child) => ({
-      path: child.to,
-      title: child.text,
-      summary: child.summary || "",
-      ariaLabel: child.ariaLabel || "",
-    }));
+    if (!readThePlanMenuConfig.items) {
+      throw new Error('No items found in "Read the Plan" menu section');
+    }
+
+    const pages = [];
+    Object.entries(readThePlanMenuConfig.items).forEach(([key, item]) => {
+      if (item.enabled && item.to) {
+        pages.push({
+          path: item.to,
+          title: item.text,
+          summary: item.summary || "",
+          ariaLabel: item.ariaLabel || "",
+        });
+      }
+    });
+
+    return pages;
   }
 
   /**
@@ -112,22 +120,13 @@ class LLMSTxtGenerator {
       }
 
       const fileContent = await fs.readFile(filePath, "utf-8");
-      const { data: frontmatter, content } = matter(fileContent);
+      const { data: frontmatter } = matter(fileContent);
 
-      // Clean the content - remove frontmatter delimiters and extra whitespace
-      const cleanContent = content
-        .trim()
-        .replace(/\n{3,}/g, "\n\n") // Replace multiple newlines with double newlines
-        .replace(/^\s+|\s+$/gm, "") // Trim whitespace from each line
-        .replace(/\n\n+/g, "\n\n"); // Normalize paragraph spacing
-
-      this.stats.totalContentLength += cleanContent.length;
       this.stats.processedPages++;
 
       return {
         title: frontmatter.title || "Untitled",
         description: frontmatter.description || "",
-        content: cleanContent,
         path: contentPath,
         filePath: filePath,
       };
@@ -141,9 +140,10 @@ class LLMSTxtGenerator {
   }
 
   /**
-   * Generate the llms.txt content according to the specification
+   * Generate the llms.txt content according to the llms.txt specification
+   * Following the format at https://llmstxt.org/
    *
-   * @param {Array<Object>} processedPages - Array of processed page content
+   * @param {Array<Object>} processedPages - Array of processed page metadata
    * @returns {string} Formatted llms.txt content
    */
   generateLLMSTxtContent(processedPages) {
@@ -176,16 +176,16 @@ class LLMSTxtGenerator {
     );
     lines.push("");
 
-    // Main content sections
+    // Main content sections - following llms.txt specification
     lines.push("## Plan Content");
     lines.push("");
 
     for (const page of processedPages) {
-      if (page && page.content) {
+      if (page && page.title && page.path) {
         const baseUrl = "https://vpp-2025.netlify.app";
         const fullUrl = `${baseUrl}${page.path}`;
 
-        // Create markdown link with description
+        // Create markdown link with description following llms.txt spec
         const linkText = `[${page.title}](${fullUrl})`;
         const description = page.description ? `: ${page.description}` : "";
 
@@ -247,9 +247,6 @@ class LLMSTxtGenerator {
       `   Successfully processed: ${this.stats.processedPages}`
     );
     this.logger?.info(`   Skipped pages: ${this.stats.skippedPages}`);
-    this.logger?.info(
-      `   Total content length: ${(this.stats.totalContentLength / 1024).toFixed(2)} KB`
-    );
   }
 
   /**

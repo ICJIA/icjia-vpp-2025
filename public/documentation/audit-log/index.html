@@ -290,6 +290,175 @@
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-31 (Safari Dropdown Fix)</h2>
+<p>Fixed Safari-specific issue where the &quot;Read the Plan&quot; dropdown menu failed to open by removing tooltip functionality and making it behave identically to the &quot;More&quot; dropdown menu.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>config/menu.config.json</code>: Removed <code>enableTooltip: true</code>, <code>tooltip</code>, and <code>tooltipLocation</code> properties from &quot;Read the Plan&quot; menu item</li>
+<li><code>app/components/content/AppHeader.vue</code>: Cleaned up Safari-specific code and tooltip handling logic that was no longer needed</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li>The issue was caused by complex tooltip event handling that Safari couldn&#39;t process properly</li>
+<li>&quot;Read the Plan&quot; dropdown now uses the same simple click/hover behavior as &quot;More&quot; dropdown</li>
+<li>Both dropdowns now have <code>open-on-hover</code> enabled and use direct focus handlers</li>
+<li>Removed Safari detection code and Safari-specific click handlers as they&#39;re no longer needed</li>
+<li>Solution maintains full functionality while ensuring cross-browser compatibility</li>
+</ul>
+<h2>2025-07-31 (Developer Files Update and Enhancement)</h2>
+<p>Updated and regenerated all developer files on the /download page to ensure they accurately reflect the current state of the project, including all routes, content, and new features added since the original creation.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>public/llms.txt</strong>: Regenerated LLM-friendly content file with current plan structure and all 7 main plan pages</li>
+<li><strong>public/vpp-plan-2025-2029.json</strong>: Updated comprehensive JSON export with current content, metadata, and statistics</li>
+<li><strong>public/vpp-plan-2025-2029.yaml</strong>: Regenerated YAML format with identical content structure</li>
+<li><strong>public/vpp-plan-2025-2029.csv</strong>: Updated CSV export for spreadsheet analysis and data processing</li>
+<li><strong>public/config/routes.config.json</strong>: Refreshed complete routes catalog with all 21 current pages</li>
+<li><strong>content/download.md</strong>: Enhanced download page with additional developer resources section</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Content Accuracy</strong>: All developer files now reflect the current project state with 21 total pages including plan content, accessibility documentation, legal pages, news articles, and resource pages</li>
+<li><strong>Enhanced Developer Resources</strong>: Added new section on download page with links to additional useful files:<ul>
+<li>Routes configuration (complete site navigation structure)</li>
+<li>References database (all citations and bibliography data)</li>
+<li>Search index (full-text search data)</li>
+<li>Site configuration (project settings and metadata)</li>
+</ul>
+</li>
+<li><strong>File Generation Process</strong>: Used automated scripts (yarn create:llms-txt, yarn create:plan-json, yarn create:site-config) to ensure consistency and accuracy</li>
+<li><strong>Timestamp Verification</strong>: All files updated with current timestamp (2025-07-31) to reflect latest content state</li>
+<li><strong>Download Page Enhancement</strong>: Added &quot;Additional Developer Resources&quot; section with smaller secondary buttons for supplementary data files</li>
+<li><strong>Link Validation</strong>: All download links point to correct file paths and are configured to open in new tabs with proper security attributes</li>
+</ul>
+<h2>2025-07-31 (JSDoc Documentation Review and Validation)</h2>
+<p>Conducted a comprehensive review of all JSDoc documentation across composables and Vue components to ensure consistency, completeness, and adherence to project standards.</p>
+<h3>Files Reviewed:</h3>
+<ul>
+<li><strong>Composables (7 files)</strong>: All composables in <code>app/composables/</code> directory including useAnnouncer.js, useConsoleLogger.js, useContentFetcher.js, useReferences.js, useReportNavigation.js, useSiteSettings.js, and useTheme.js</li>
+<li><strong>Components (15+ files)</strong>: Key Vue components in <code>app/components/</code> directory including ContentDisplay.vue, SimpleContentDisplay.vue, AccessibleTooltip.vue, ReferenceTooltip.vue, ThemeSwitch.vue, AppHeader.vue, AppFooter.vue, FeatureCard.vue, HomeGoalCard.vue, ImageWithSpinner.vue, NewsCard.vue, FeedbackForm.vue, StructuredData.vue, and others</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Documentation Standards Validation</strong>:<ul>
+<li>All files meet or exceed project JSDoc standards with proper <code>@param</code>, <code>@returns</code>, <code>@throws</code>, and <code>@example</code> tags</li>
+<li>Consistent formatting throughout with proper JSDoc comment structure using <code>/**</code> blocks</li>
+<li>Comprehensive type annotations and clear parameter descriptions</li>
+<li>Multiple usage scenarios documented with practical examples</li>
+</ul>
+</li>
+<li><strong>Accessibility Documentation Excellence</strong>:<ul>
+<li>Outstanding WCAG 2.1 AA compliance documentation across all components</li>
+<li>Detailed accessibility notes for screen reader support, keyboard navigation, and ARIA attributes</li>
+<li>Comprehensive documentation of reduced motion support and focus management</li>
+</ul>
+</li>
+<li><strong>Project-Specific Standards Compliance</strong>:<ul>
+<li>Author and version information included where appropriate</li>
+<li>Module-level documentation with feature descriptions</li>
+<li>Error handling documentation with comprehensive <code>@throws</code> tags</li>
+<li>Real-world usage examples demonstrating component integration</li>
+</ul>
+</li>
+<li><strong>Key Documentation Highlights</strong>:<ul>
+<li>useContentFetcher.js: Exceptional documentation with multiple detailed examples and error handling scenarios</li>
+<li>useAnnouncer.js: Excellent accessibility-focused documentation with screen reader integration</li>
+<li>ReferenceTooltip.vue: Comprehensive component documentation with multiple usage examples</li>
+<li>ImageWithSpinner.vue: Outstanding accessibility documentation with loading state management</li>
+<li>FeedbackForm.vue: Excellent WCAG compliance documentation with form validation details</li>
+</ul>
+</li>
+<li><strong>Review Results</strong>: No missing documentation found - all composables and components have exemplary JSDoc documentation that serves as a model for other projects</li>
+</ul>
+<h2>2025-07-31 (Hero Image Interactive Enhancement)</h2>
+<p>Enhanced the HomeHero component with improved visual styling, interactive hover effects, and coordinated animations to create a more engaging and professional user experience.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/components/content/HomeHero.vue</code> - Removed box-shadow and tilt effects, restored click functionality, added homepage-consistent hover effects, and implemented coordinated fade-up animations</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Visual Styling Improvements</strong>:<ul>
+<li>Removed all box-shadow effects from hero image card for completely flat appearance against background</li>
+<li>Eliminated 3D perspective transforms (<code>rotateY(-5deg) rotateX(3deg)</code>) to achieve non-tilted, straight image presentation</li>
+<li>Updated animation keyframes to remove perspective effects while preserving subtle scale animations</li>
+<li>Added subtle border-radius (0.5rem) for visual polish</li>
+</ul>
+</li>
+<li><strong>Interactive Functionality Restoration</strong>:<ul>
+<li>Added click handlers to both hero image and caption elements for navigation to <code>/download</code> page</li>
+<li>Implemented comprehensive keyboard accessibility with Enter and Space key support</li>
+<li>Added proper ARIA attributes (<code>role=&quot;button&quot;</code>, <code>aria-label</code>) for screen reader compatibility</li>
+<li>Included <code>tabindex=&quot;0&quot;</code> for keyboard focus management</li>
+</ul>
+</li>
+<li><strong>Homepage-Consistent Hover Effects</strong>:<ul>
+<li>Applied <code>translateY(-4px)</code> transform matching goal card hover patterns</li>
+<li>Implemented soft box-shadow on hover: <code>0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)</code></li>
+<li>Added dark theme hover effects with enhanced shadow intensity for proper contrast</li>
+<li>Used 0.3s ease transitions for smooth, professional animation timing</li>
+<li>Constrained hover effects to actual image dimensions (not container) using <code>max-width: 100%</code> and <code>display: block</code></li>
+</ul>
+</li>
+<li><strong>Coordinated Animation Sequence</strong>:<ul>
+<li>Added <code>fadeSlideUp</code> animation to hero image with 0.8s delay following text content sequence</li>
+<li>Implemented caption animation with 1.0s delay for complete coordinated entrance effect</li>
+<li>Animation timeline: title (0.2s) → description (0.4s) → buttons (0.6s) → image (0.8s) → caption (1.0s)</li>
+<li>Maintained <code>opacity: 0</code> initial state for proper fade-in behavior</li>
+</ul>
+</li>
+<li><strong>Accessibility Compliance</strong>:<ul>
+<li>Added <code>prefers-reduced-motion</code> support to disable hover transforms for users with motion sensitivity</li>
+<li>Preserved all WCAG 2.1 AA compliance features including proper contrast ratios and keyboard navigation</li>
+<li>Maintained visual feedback through cursor pointer and caption color changes on hover</li>
+<li>Ensured all interactive elements meet minimum touch target requirements</li>
+</ul>
+</li>
+</ul>
+<h2>2025-07-31 (TOC Spacing and Text Truncation Enhancement)</h2>
+<p>Enhanced Table of Contents (TOC) component with reduced vertical spacing and intelligent text truncation to improve readability and user experience.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><strong>Component</strong>: <code>app/pages/[...slug].vue</code> - Reduced TOC item spacing, increased font-weight, added text truncation function, and updated template rendering</li>
+<li><strong>Styles</strong>: <code>app/assets/css/main.scss</code> - Updated TOC accessibility styles to maintain consistent compact spacing</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Spacing Optimization</strong>:<ul>
+<li>Reduced TOC item margins from <code>4px 8px 4px 0</code> to <code>2px 8px 2px 0</code> for more compact appearance</li>
+<li>Decreased padding from <code>12px 16px 12px 40px</code> to <code>8px 16px 8px 40px</code> for tighter vertical spacing</li>
+<li>Reduced bottom margin from <code>8px</code> to <code>4px</code> and list item title padding from <code>0.25rem</code> to <code>0.125rem</code></li>
+<li>Updated accessibility styles in main.scss from <code>8px</code> to <code>6px</code> vertical padding for consistency</li>
+</ul>
+</li>
+<li><strong>Typography Enhancement</strong>:<ul>
+<li>Increased normal state font-weight from <code>400</code> to <code>600</code> for better visual prominence</li>
+<li>Enhanced active state font-weight from <code>600</code> to <code>700</code> for stronger visual hierarchy</li>
+<li>Maintained hover state at <code>600</code> for consistent interaction feedback</li>
+</ul>
+</li>
+<li><strong>Text Truncation Implementation</strong>:<ul>
+<li>Added <code>truncateText()</code> function with smart word-boundary preservation (70 character limit)</li>
+<li>Implemented intelligent truncation that breaks at word boundaries when possible (within 60% of max length)</li>
+<li>Added ellipsis indication for truncated text to improve user understanding</li>
+<li>Removed tooltip functionality per user feedback to avoid distraction while maintaining clean truncated display</li>
+</ul>
+</li>
+<li><strong>Accessibility Preservation</strong>:<ul>
+<li>Maintained all existing WCAG 2.1 AA compliance features</li>
+<li>Preserved full text in aria-label attributes for screen reader compatibility</li>
+<li>Kept minimum 44px touch target requirements for mobile accessibility</li>
+<li>Maintained all keyboard navigation and focus management functionality</li>
+</ul>
+</li>
+<li><strong>User Experience Improvements</strong>:<ul>
+<li>TOC now displays much more compact and scannable navigation</li>
+<li>Long headings (like &quot;Goal #1 - Prevent violence and promote health and safety through trauma-informed/healing-centered...&quot;) are truncated to readable length</li>
+<li>Improved visual hierarchy with heavier font-weights makes navigation items more prominent</li>
+<li>Reduced visual clutter while preserving all functional capabilities</li>
+</ul>
+</li>
+</ul>
 <h2>2025-07-30 (TOC Styling Reversion)</h2>
 <p>Reverted experimental TOC styling changes that caused visual issues with the sticky TOC behavior, returning to the original clean styling approach.</p>
 <h3>Files Modified/Created:</h3>

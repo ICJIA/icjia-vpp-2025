@@ -897,6 +897,14 @@ onMounted(() => {
     // Early return if no TOC items to process
     if (!tocH2Items.value.length) return;
 
+    // Check if we're at the top of the page - clear active state
+    if (window.scrollY < 100) {
+      if (activeItemId.value !== "") {
+        activeItemId.value = "";
+      }
+      return;
+    }
+
     const headerOffset = 120; // Slightly larger offset for better detection accuracy
     let currentActiveId = "";
 
@@ -924,7 +932,7 @@ onMounted(() => {
       }
     }
 
-    // Only update state if the active section has actually changed
+    // Only update state if the active section has actually changed and we found a valid section
     if (currentActiveId && currentActiveId !== activeItemId.value) {
       activeItemId.value = currentActiveId;
     }
@@ -1552,26 +1560,21 @@ useSeoMeta({
 /* TOC Container with Visual Indicator - Ensure transparent background */
 .toc-container {
   position: relative;
-  padding-left: 0;
+  padding-left: 8px; /* Add padding to accommodate the border */
   background-color: transparent !important;
   background: none !important;
 }
 
-/* Vertical indicator line */
-.toc-indicator-line {
-  position: absolute;
-  left: 20px;
-  top: 18px;
-  bottom: 18px;
-  width: 2px;
-  background-color: rgba(var(--v-theme-on-surface), 0.12);
-  border-radius: 1px;
-  z-index: 1;
-  transition: background-color 0.3s ease;
+/* Vertical line positioned to align with TOC entries only */
+.toc-list {
+  border-left: 2px solid rgba(var(--v-theme-on-surface), 0.2); /* Border on the list itself */
+  margin-left: -8px; /* Offset to align with container padding */
+  padding-left: 8px; /* Restore spacing for content */
 }
 
-.v-theme--dark .toc-indicator-line {
-  background-color: rgba(255, 255, 255, 0.12);
+/* Dark theme border */
+.v-theme--dark .toc-list {
+  border-left-color: rgba(255, 255, 255, 0.2);
 }
 
 /* TOC List Styling - Ensure complete transparency */

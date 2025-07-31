@@ -20,8 +20,6 @@
       {
         "text": "Read the Plan",
         "ariaLabel": "Read the Plan - Violence Prevention Plan for Illinois",
-        "tooltip": "Read the Plan - Violence Prevention Plan for Illinois",
-        "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
         "class": "font-weight-bold mx-2 nav-link",
@@ -30,121 +28,30 @@
         "hasDropdown": true,
         "dropdownIcon": "mdi-chevron-down",
         "mobileDropdownIcon": "mdi-chevron-right",
-        "enableTooltip": true,
+        "isReadThePlanMenu": true,
         "order": 30,
-        "children": [
-          {
-            "text": "Cover: Statewide Violence Plan for Illinois: 2025-2029",
-            "to": "/plan/front-cover",
-            "ariaLabel": "View the cover page of the violence prevention plan",
-            "tooltip": "View the cover page of the violence prevention plan",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "The cover page of the Statewide Violence Prevention Plan for Illinois: 2025-2029."
-          },
-          {
-            "text": "Executive Summary",
-            "to": "/plan/executive-summary",
-            "ariaLabel": "Read the executive summary of our violence prevention plan",
-            "tooltip": "Read the executive summary of our violence prevention plan",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "Learn about our mission, values, and approach to violence prevention across Illinois."
-          },
-          {
-            "text": "Violence Prevention from a Public Health Approach",
-            "to": "/plan/public-health-approach",
-            "ariaLabel": "Learn about our public health approach to violence prevention",
-            "tooltip": "Learn about our public health approach to violence prevention",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities."
-          },
-          {
-            "text": "Guiding Principles",
-            "to": "/plan/guiding-principles",
-            "ariaLabel": "View our guiding principles",
-            "tooltip": "View our guiding principles",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration."
-          },
-          {
-            "text": "Planning Process",
-            "to": "/plan/planning-process",
-            "ariaLabel": "View our planning process",
-            "tooltip": "View our planning process",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback."
-          },
-          {
-            "text": "Goals and Recommendations",
-            "to": "/plan/goals-and-recommendations",
-            "ariaLabel": "View our goals and recommendations",
-            "tooltip": "View our goals and recommendations",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "Comprehensive goals and actionable recommendations for preventing violence and promoting health and safety through evidence-based practices, advancing equity, and fostering collaboration across Illinois."
-          },
-          {
-            "text": "References",
-            "to": "/plan/references",
-            "ariaLabel": "View references and bibliography",
-            "tooltip": "View references and bibliography",
-            "tooltipLocation": "right",
-            "class": "dropdown-item",
-            "mobileClass": "dropdown-item-mobile ml-4",
-            "color": "on-app-bar",
-            "displayMode": "both",
-            "summary": "Complete bibliography and citations for all research, data sources, and evidence-based practices referenced throughout the Violence Prevention Plan."
-          }
-        ]
+        "children": []
       },
       {
         "text": "Home",
         "to": "/",
         "ariaLabel": "Go to homepage",
-        "tooltip": "Go to homepage",
-        "tooltipLocation": "bottom",
         "variant": "text",
         "color": "on-app-bar",
         "class": "font-weight-bold mx-2 nav-link",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
-        "enableTooltip": true,
         "order": 20
       },
       {
         "text": "Download",
         "to": "/download",
         "ariaLabel": "Go to download page for the Violence Prevention Plan",
-        "tooltip": "Go to download page",
-        "tooltipLocation": "bottom",
         "variant": "elevated",
         "color": "primary",
         "class": "ml-4 font-weight-bold rounded-pill elevation-2 hidden-sm-and-down nav-download-btn",
         "mobileClass": "font-weight-bold py-2 nav-link-mobile",
         "displayMode": "both",
-        "enableTooltip": true,
         "order": 40
       },
       {

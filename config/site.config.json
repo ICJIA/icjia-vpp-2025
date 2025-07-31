@@ -74,12 +74,60 @@
       "defaultLabel": "Jump To..."
     },
     "navigation": {
+      "readThePlanMenu": {
+        "enabled": true,
+        "mobileText": "Read the Plan",
+        "ariaLabel": "Read the Plan - Violence Prevention Plan for Illinois",
+        "items": {
+          "cover": {
+            "enabled": true,
+            "text": "Cover: Statewide Violence Plan for Illinois: 2025-2029",
+            "to": "/plan/front-cover",
+            "ariaLabel": "View the cover page of the violence prevention plan"
+          },
+          "executive-summary": {
+            "enabled": true,
+            "text": "Executive Summary",
+            "to": "/plan/executive-summary",
+            "ariaLabel": "Read the executive summary of our violence prevention plan"
+          },
+          "public-health-approach": {
+            "enabled": true,
+            "text": "Violence Prevention from a Public Health Approach",
+            "to": "/plan/public-health-approach",
+            "ariaLabel": "Learn about our public health approach to violence prevention"
+          },
+          "guiding-principles": {
+            "enabled": true,
+            "text": "Guiding Principles",
+            "to": "/plan/guiding-principles",
+            "ariaLabel": "View our guiding principles"
+          },
+          "planning-process": {
+            "enabled": true,
+            "text": "Planning Process",
+            "to": "/plan/planning-process",
+            "ariaLabel": "View our planning process"
+          },
+          "goals-and-recommendations": {
+            "enabled": true,
+            "text": "Goals and Recommendations",
+            "to": "/plan/goals-and-recommendations",
+            "ariaLabel": "View our goals and recommendations"
+          },
+          "references": {
+            "enabled": true,
+            "text": "References",
+            "to": "/plan/references",
+            "ariaLabel": "View references and bibliography"
+          }
+        }
+      },
       "moreMenu": {
         "enabled": true,
         "desktopIcon": "mdi-dots-horizontal",
         "mobileText": "More",
         "ariaLabel": "More options menu",
-        "tooltip": "More options",
         "items": {
           "resources": {
             "enabled": true,

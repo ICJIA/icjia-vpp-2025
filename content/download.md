@@ -163,6 +163,7 @@ showTOC: false
         CSV
       </v-btn>
     </div>
+
   </div>
 </div>
 
@@ -177,9 +178,7 @@ showTOC: false
       <h4>Questions about these downloads?</h4>
       <p>
         If you need assistance with any of these file formats or have questions about how to use them,
-        please visit our <nuxt-link to="/contact" class="internal-link">contact page</nuxt-link> or
-        check the <a href="https://github.com/ICJIA/icjia-vpp-2025" target="_blank" rel="noopener noreferrer" class="external-link">project repository</a>
-        for technical documentation.
+        please visit our <nuxt-link to="/contact" class="internal-link">contact page</nuxt-link>.
       </p>
     </div>
   </div>
