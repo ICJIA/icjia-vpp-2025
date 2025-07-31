@@ -61,26 +61,31 @@
         </v-col>
 
         <v-col cols="12" md="6" class="mt-8 mt-md-0">
-          <div class="hero-image-wrapper">
-            <v-card
-              class="hero-image-card"
+          <div class="">
+            <img
+              src="/images/vpp-cover.png"
+              alt="Youth violence prevention summit participants collaborating on community safety initiatives"
+              class="hero-image"
+              loading="lazy"
               @click="handleDownloadPlan"
-              role="button"
-              tabindex="0"
               @keydown.enter="handleDownloadPlan"
-              @keydown.space="handleDownloadPlan"
-              aria-label="Download the Violence Prevention Plan"
-              :elevation="0"
-              rounded="0"
+              @keydown.space.prevent="handleDownloadPlan"
+              tabindex="0"
+              role="button"
+              aria-label="Download the Violence Prevention Plan PDF"
+            />
+
+            <div
+              class="hero-image-caption"
+              @click="handleDownloadPlan"
+              @keydown.enter="handleDownloadPlan"
+              @keydown.space.prevent="handleDownloadPlan"
+              tabindex="0"
+              role="button"
+              aria-label="Download the Violence Prevention Plan PDF"
             >
-              <img
-                src="/images/vpp-cover.png"
-                alt="Youth violence prevention summit participants collaborating on community safety initiatives"
-                class="hero-image"
-                loading="lazy"
-              />
-            </v-card>
-            <div class="hero-image-caption">Click image to download</div>
+              Click image to download
+            </div>
             <div class="hero-image-decoration-1" aria-hidden="true"></div>
             <div class="hero-image-decoration-2" aria-hidden="true"></div>
           </div>
@@ -203,7 +208,7 @@ const handleLearnMore = () => {
 /* ===== IMAGE SECTION - MOBILE FIRST ===== */
 
 /* Base image wrapper - mobile */
-.hero-image-wrapper {
+/* .hero-image-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -214,7 +219,7 @@ const handleLearnMore = () => {
   opacity: 0;
   animation: fadeSlideUp 0.8s forwards;
   animation-delay: 0.8s;
-}
+} */
 
 /* Hero image card */
 .hero-image-card {
@@ -243,34 +248,30 @@ const handleLearnMore = () => {
   margin: 0 !important;
 }
 
-/* Custom elevation hover effect for smoother transition */
-.hero-image-card:hover {
-  box-shadow:
-    0 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
+/* Custom elevation hover effect removed for flat appearance */
+
+/* Base image styling - constrained to actual image dimensions */
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  border-radius: 0.5rem;
+  display: block;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s forwards;
+  animation-delay: 0.8s;
 }
 
-/* Base image styling - fills card completely with no spacing */
-.hero-image {
-  width: 100%;
-  max-width: 100vw;
-  height: auto;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transform: perspective(800px) rotateY(-3deg) rotateX(2deg);
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: subtlePulseImage 8s ease-in-out infinite alternate;
-  animation-delay: 1.5s;
-  will-change: transform, box-shadow;
-  display: block;
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 0 !important;
-  border: none !important;
-  outline: none !important;
+.hero-image:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* Removed hover effects - keeping cursor pointer only */
@@ -283,10 +284,17 @@ const handleLearnMore = () => {
   font-weight: 500;
   color: rgba(0, 0, 0, 0.7);
   transition: color 0.3s ease;
-  pointer-events: none;
+  cursor: pointer;
   user-select: none;
   width: 100%;
   order: 2;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s forwards;
+  animation-delay: 1s;
+}
+
+.hero-image-caption:hover {
+  color: rgb(var(--v-theme-primary));
 }
 
 /* Image sizing is now handled directly by .hero-image class */
@@ -383,18 +391,18 @@ const handleLearnMore = () => {
   .hero-image {
     max-width: 580px;
     max-height: 440px;
-    transform: perspective(1000px) rotateY(-5deg) rotateX(3deg);
+    /* transform removed to achieve flat, non-tilted appearance */
   }
 
   /* Removed hover effects for desktop - keeping cursor pointer only */
 
-  /* Update the pulse animation for desktop */
+  /* Update the pulse animation for desktop - transforms removed for flat appearance */
   @keyframes subtlePulseImage {
     0% {
-      transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1);
+      transform: scale(1);
     }
     100% {
-      transform: perspective(1000px) rotateY(-5deg) rotateX(3deg) scale(1.01);
+      transform: scale(1.01);
     }
   }
 
@@ -525,10 +533,10 @@ const handleLearnMore = () => {
 
 @keyframes subtlePulseImage {
   0% {
-    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) scale(1);
+    transform: scale(1);
   }
   100% {
-    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) scale(1.01);
+    transform: scale(1.01);
   }
 }
 
@@ -544,11 +552,12 @@ const handleLearnMore = () => {
 
 /* ===== DARK THEME ===== */
 
-:root[data-theme="dark"] .hero-image {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+/* Dark theme hover effects - matching homepage card patterns */
+:root[data-theme="dark"] .hero-image:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.6),
+    0 4px 6px -2px rgba(0, 0, 0, 0.5);
 }
-
-/* Removed dark theme hover effects - keeping cursor pointer only */
 
 /* Dark theme caption styling */
 :root[data-theme="dark"] .hero-image-caption {
@@ -557,12 +566,12 @@ const handleLearnMore = () => {
 
 /* Reduced motion support - disable hover transforms for accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .hero-image-container :deep(img) {
+  .hero-image {
     transition: none !important;
   }
 
-  .hero-image-container :deep(img):hover {
-    transform: perspective(800px) rotateY(-3deg) rotateX(2deg) !important;
+  .hero-image:hover {
+    transform: none !important;
   }
 }
 </style>
