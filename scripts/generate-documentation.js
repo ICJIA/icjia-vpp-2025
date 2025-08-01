@@ -296,15 +296,15 @@ function generatePortalHTML(config) {
           <span class="card-link">View Components →</span>
         </a>
 
-        <a href="/documentation/tools/" class="card" aria-label="View Tools Documentation">
-          <h2>Tools Documentation</h2>
-          <p>Comprehensive reference for all development tools and resources used in this project.</p>
+        <a href="/documentation/tools/" class="card" aria-label="View Tooling Documentation">
+          <h2>Tooling Documentation</h2>
+          <p>Comprehensive reference for all development tools and resources used in this project. Includes extensive digital accessibility resources for web and mobile app accessibility, as well as social media and video accessibility guidelines.</p>
           <span class="card-link">View Tools →</span>
         </a>
 
-        <a href="/accessibility/documentation" class="card" aria-label="View Accessibility Documentation">
-          <h2>Accessibility Documentation</h2>
-          <p>Detailed accessibility compliance documentation and implementation guidelines.</p>
+        <a href="/accessibility/documentation" class="card" aria-label="View Project Accessibility Documentation">
+          <h2>Project Accessibility Documentation</h2>
+          <p>Violence Prevention Plan website-specific accessibility compliance documentation and implementation guidelines.</p>
           <span class="card-link">View Accessibility →</span>
         </a>
 

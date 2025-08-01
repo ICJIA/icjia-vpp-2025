@@ -122,14 +122,24 @@
         }
         
         /* Typography */
-        h1, h2, h3, h4, h5, h6 {
+        h1, h3, h4, h5, h6 {
             color: var(--text-primary);
             margin-bottom: 1rem;
             font-weight: 600;
         }
-        
+
+        /* Main section headings with high contrast */
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-weight: 700;
+            font-size: 2rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
         h1 { font-size: 2.5rem; }
-        h2 { font-size: 2rem; margin-top: 2rem; }
         h3 { font-size: 1.5rem; margin-top: 1.5rem; }
         h4 { font-size: 1.25rem; margin-top: 1rem; }
         
@@ -311,6 +321,11 @@
 <li><strong>Link</strong>: <a href="https://markdown.icjia.cloud">https://markdown.icjia.cloud</a></li>
 <li><strong>Purpose</strong>: Edit and preview markdown content used throughout the project</li>
 </ul>
+<p><strong>Notepad</strong> - Simple text editor for quick markdown file edits on Windows.</p>
+<ul>
+<li><strong>Access</strong>: Right-click on any .md file → &quot;Open With...&quot; → Select Notepad (not WordPad!)</li>
+<li><strong>Purpose</strong>: Quick local editing of markdown files without additional software</li>
+</ul>
 <h3>Documentation</h3>
 <p><strong>JSDoc</strong> - JavaScript documentation generator for creating API documentation.</p>
 <ul>
@@ -355,17 +370,66 @@
 <li><strong>Link</strong>: <a href="https://www.w3.org/WAI/WCAG21/quickref/">https://www.w3.org/WAI/WCAG21/quickref/</a></li>
 <li><strong>Purpose</strong>: Federal accessibility compliance standards (AA level required)</li>
 </ul>
+<p><strong>ADA Digital Accessibility Rule</strong> - New federal rule on accessibility of web content, mobile apps, and social media for state and local governments.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://www.ada.gov/resources/2024-03-08-web-rule/">https://www.ada.gov/resources/2024-03-08-web-rule/</a></li>
+<li><strong>Purpose</strong>: Fact sheet covering new ADA requirements for web content, mobile apps, and social media accessibility for state and local governments. As a state agency, ICJIA must comply with these new ADA requirements, making this resource essential for ensuring accessibility across all digital platforms used by the project.</li>
+</ul>
 <h3>Illinois State Guidelines</h3>
 <p><strong>Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards</strong> - State-specific accessibility requirements.</p>
 <ul>
 <li><strong>Link</strong>: <a href="https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html">https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html</a></li>
 <li><strong>Purpose</strong>: Illinois state accessibility compliance requirements</li>
 </ul>
-<h3>Project Accessibility Documentation</h3>
+<h3>PDF Accessibility</h3>
+<p><strong>PDF/UA (ISO 14289-1)</strong> - International standard for accessible PDF technology.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://www.iso.org/standard/64599.html">https://www.iso.org/standard/64599.html</a></li>
+<li><strong>Purpose</strong>: Official ISO standard for PDF Universal Accessibility, defining technical requirements for accessible PDF documents</li>
+</ul>
+<p><strong>Adobe PDF Accessibility Guide</strong> - Comprehensive guide for creating and verifying accessible PDF documents.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://helpx.adobe.com/acrobat/using/create-verify-pdf-accessibility.html">https://helpx.adobe.com/acrobat/using/create-verify-pdf-accessibility.html</a></li>
+<li><strong>Purpose</strong>: Guidelines for creating accessible PDF documents and verifying accessibility compliance</li>
+</ul>
+<h3>Social Media Accessibility</h3>
+<p><strong>Section 508 Social Media Accessibility</strong> - Federal guidance for creating accessible social media content.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://www.section508.gov/create/social-media/">https://www.section508.gov/create/social-media/</a></li>
+<li><strong>Purpose</strong>: Guidelines for making social media posts, images, and content accessible to users with disabilities. Includes specific accessibility guidelines for YouTube, LinkedIn, Facebook, and X (Twitter).</li>
+</ul>
+<h3>Email Marketing Accessibility</h3>
+<p><strong>Constant Contact Screen Reader-Friendly Emails</strong> - Guide for creating accessible emails with the Cross-Device Editor.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://knowledgebase.constantcontact.com/email-digital-marketing/articles/KnowledgeBase/37417-Create-a-screen-reader-friendly-email-with-the-Cross-Device-Editor?lang=en_US">https://knowledgebase.constantcontact.com/email-digital-marketing/articles/KnowledgeBase/37417-Create-a-screen-reader-friendly-email-with-the-Cross-Device-Editor?lang=en_US</a></li>
+<li><strong>Purpose</strong>: Step-by-step guide for creating screen reader-friendly email campaigns using Constant Contact&#39;s editor</li>
+</ul>
+<p><strong>Constant Contact Accessible Email Creation</strong> - Comprehensive tutorial for creating accessible email campaigns.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://knowledgebase.constantcontact.com/email-digital-marketing/tutorials/KnowledgeBase/36885-Creating-accessible-emails?lang=en_US">https://knowledgebase.constantcontact.com/email-digital-marketing/tutorials/KnowledgeBase/36885-Creating-accessible-emails?lang=en_US</a></li>
+<li><strong>Purpose</strong>: Complete tutorial covering accessibility best practices for email marketing campaigns</li>
+</ul>
+<h3>Accessibility Compliance Reports</h3>
+<p><strong>Adobe Accessibility Compliance Portal</strong> - Comprehensive portal for Adobe product accessibility compliance reports.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://www.adobe.com/accessibility/compliance/">https://www.adobe.com/accessibility/compliance/</a></li>
+<li><strong>Purpose</strong>: Central portal providing access to accessibility conformance reports for all Adobe products and services</li>
+</ul>
+<p><strong>Adobe Express iOS Accessibility Conformance Report</strong> - Accessibility compliance report for Adobe Express iOS application.</p>
+<ul>
+<li><strong>Link</strong>: <a href="https://www.adobe.com/accessibility/compliance/adobe-express-ios-2025-acr.html">https://www.adobe.com/accessibility/compliance/adobe-express-ios-2025-acr.html</a></li>
+<li><strong>Purpose</strong>: Official accessibility conformance report detailing WCAG compliance status and known issues. Note: Some findings may be problematic here at ICJIA when attempting to adhere to WCAG 2.1 and current state accessibility guidelines.</li>
+</ul>
+<h3>VPP website-specific Accessibility Documentation</h3>
 <p><strong>Project Accessibility Information</strong> - This project&#39;s accessibility documentation and audit logs.</p>
 <ul>
 <li><strong>Link</strong>: <a href="/accessibility/documentation">/accessibility/documentation</a></li>
 <li><strong>Purpose</strong>: Project-specific accessibility features, testing, and compliance documentation</li>
+</ul>
+<p><strong>Accessibility Audit Log</strong> - Chronological record of all accessibility-related changes and updates.</p>
+<ul>
+<li><strong>Link</strong>: <a href="/accessibility/audit-log">/accessibility/audit-log</a></li>
+<li><strong>Purpose</strong>: Tracks all accessibility related changes and updates for this project, providing transparency and compliance history</li>
 </ul>
 <hr>
 <h2>Quick Reference</h2>
@@ -428,13 +492,53 @@
 <td><a href="https://www.w3.org/WAI/WCAG21/quickref/">W3C Guidelines</a></td>
 </tr>
 <tr>
+<td>Section 508 Social</td>
+<td>Social Media Accessibility</td>
+<td><a href="https://www.section508.gov/create/social-media/">Section 508 Social Media</a></td>
+</tr>
+<tr>
+<td>ADA Digital Rules</td>
+<td>Web Accessibility</td>
+<td><a href="https://www.ada.gov/resources/2024-03-08-web-rule/">ADA Web Accessibility Rule</a></td>
+</tr>
+<tr>
 <td>IITAA 2.1</td>
 <td>IL Accessibility</td>
 <td><a href="https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html">Illinois Standards</a></td>
 </tr>
+<tr>
+<td>PDF/UA (ISO 14289-1)</td>
+<td>PDF Standard</td>
+<td><a href="https://www.iso.org/standard/64599.html">ISO Standard</a></td>
+</tr>
+<tr>
+<td>Adobe PDF Guide</td>
+<td>PDF Accessibility</td>
+<td><a href="https://helpx.adobe.com/acrobat/using/create-verify-pdf-accessibility.html">Adobe Accessibility Guide</a></td>
+</tr>
+<tr>
+<td>CC Screen Reader</td>
+<td>Email Accessibility</td>
+<td><a href="https://knowledgebase.constantcontact.com/email-digital-marketing/articles/KnowledgeBase/37417-Create-a-screen-reader-friendly-email-with-the-Cross-Device-Editor?lang=en_US">Constant Contact Screen Reader Guide</a></td>
+</tr>
+<tr>
+<td>CC Accessible Emails</td>
+<td>Email Accessibility</td>
+<td><a href="https://knowledgebase.constantcontact.com/email-digital-marketing/tutorials/KnowledgeBase/36885-Creating-accessible-emails?lang=en_US">Constant Contact Accessible Emails</a></td>
+</tr>
+<tr>
+<td>Adobe Accessibility Portal</td>
+<td>Accessibility Reports</td>
+<td><a href="https://www.adobe.com/accessibility/compliance/">Adobe Accessibility Compliance</a></td>
+</tr>
+<tr>
+<td>Adobe Express ACR</td>
+<td>Accessibility Report</td>
+<td><a href="https://www.adobe.com/accessibility/compliance/adobe-express-ios-2025-acr.html">Adobe Express Accessibility Report</a></td>
+</tr>
 </tbody></table>
 <hr>
-<p><em>Last Updated: July 31, 2025</em></p>
+<p><em>Last Updated: August 1, 2025</em></p>
 
         </main>
     </div>

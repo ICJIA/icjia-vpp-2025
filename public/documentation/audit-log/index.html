@@ -284,12 +284,39 @@
       </div>
 
       <div class="last-updated">
-        <strong>Last Updated:</strong> July 31, 2025
+        <strong>Last Updated:</strong> August 01, 2025
       </div>
 
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-07-31 (Navigation Fix)</h2>
+<p>Fixed missing bottom navigation on all /plan/ pages by updating useReportNavigation composable to use site configuration instead of menu configuration.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/composables/useReportNavigation.js</code>:<ul>
+<li>Updated import statement to use site.config.json instead of menu.config.json</li>
+<li>Modified extractReportPages function to read from ui.navigation.readThePlanMenu.items instead of menu.config.json children array</li>
+<li>Updated page extraction logic to iterate through items object using Object.entries() instead of mapping children array</li>
+<li>Updated JSDoc comments and error messages to reflect site config usage</li>
+</ul>
+</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Root Cause</strong>: The navigation system was broken because useReportNavigation was looking for plan pages in menu.config.json under a children array, but the actual configuration is stored in site.config.json under ui.navigation.readThePlanMenu.items</li>
+<li><strong>Solution</strong>: Changed the composable to import and use the correct configuration source (site.config.json) and updated the data extraction logic to match the actual data structure</li>
+<li><strong>Navigation Features Restored</strong>: Progress indicators showing current section (e.g., &quot;Section 2 of 7&quot;), previous/next buttons with proper page titles, linear navigation (no previous button on first page, no next button on last page)</li>
+<li><strong>Testing Completed</strong>: Verified navigation works correctly on all plan pages:<ul>
+<li><code>/plan/front-cover</code> (first page): Shows only next button to Executive Summary</li>
+<li><code>/plan/executive-summary</code> (middle page): Shows both previous (Cover) and next (Public Health Approach) buttons</li>
+<li><code>/plan/goals-and-recommendations</code> (middle page): Shows both previous (Planning Process) and next (References) buttons</li>
+<li><code>/plan/references</code> (last page): Shows only previous button to Goals and Recommendations</li>
+</ul>
+</li>
+<li><strong>Console Verification</strong>: Browser console shows successful navigation initialization with &quot;Report pages extracted from site config&quot; logging 7 total pages found</li>
+<li><strong>Note</strong>: The plan JSON generation script still uses the old menu config approach and shows 0 pages, but this doesn&#39;t affect the navigation functionality</li>
+</ul>
 <h2>2025-07-31 (Tools Documentation System)</h2>
 <p>Created comprehensive tools documentation system with automated HTML generation from markdown for future developers.</p>
 <h3>Files Modified/Created:</h3>
