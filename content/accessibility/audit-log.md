@@ -1,6 +1,6 @@
 ---
 title: "Accessibility Audit Log"
-date: 2025-07-31
+date: 2025-08-01
 description: "This document contains a log of accessibility updates and audits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
 ---
 

@@ -2,6 +2,31 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-07-31 (Navigation Fix)
+
+Fixed missing bottom navigation on all /plan/ pages by updating useReportNavigation composable to use site configuration instead of menu configuration.
+
+### Files Modified/Created:
+
+- `app/composables/useReportNavigation.js`:
+  - Updated import statement to use site.config.json instead of menu.config.json
+  - Modified extractReportPages function to read from ui.navigation.readThePlanMenu.items instead of menu.config.json children array
+  - Updated page extraction logic to iterate through items object using Object.entries() instead of mapping children array
+  - Updated JSDoc comments and error messages to reflect site config usage
+
+### Technical Notes:
+
+- **Root Cause**: The navigation system was broken because useReportNavigation was looking for plan pages in menu.config.json under a children array, but the actual configuration is stored in site.config.json under ui.navigation.readThePlanMenu.items
+- **Solution**: Changed the composable to import and use the correct configuration source (site.config.json) and updated the data extraction logic to match the actual data structure
+- **Navigation Features Restored**: Progress indicators showing current section (e.g., "Section 2 of 7"), previous/next buttons with proper page titles, linear navigation (no previous button on first page, no next button on last page)
+- **Testing Completed**: Verified navigation works correctly on all plan pages:
+  - `/plan/front-cover` (first page): Shows only next button to Executive Summary
+  - `/plan/executive-summary` (middle page): Shows both previous (Cover) and next (Public Health Approach) buttons
+  - `/plan/goals-and-recommendations` (middle page): Shows both previous (Planning Process) and next (References) buttons
+  - `/plan/references` (last page): Shows only previous button to Goals and Recommendations
+- **Console Verification**: Browser console shows successful navigation initialization with "Report pages extracted from site config" logging 7 total pages found
+- **Note**: The plan JSON generation script still uses the old menu config approach and shows 0 pages, but this doesn't affect the navigation functionality
+
 ## 2025-07-31 (Tools Documentation System)
 
 Created comprehensive tools documentation system with automated HTML generation from markdown for future developers.

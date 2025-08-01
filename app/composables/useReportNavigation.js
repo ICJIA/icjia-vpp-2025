@@ -2,8 +2,8 @@
  * Report Navigation Composable
  *
  * Provides next/previous navigation functionality for report pages based on the
- * menu configuration order. Extracts page order from the "The 2025-2029 Plan"
- * dropdown menu section and provides linear navigation between report pages.
+ * site configuration order. Extracts page order from the "Read the Plan"
+ * menu section in site config and provides linear navigation between report pages.
  *
  * Features:
  * - Linear navigation (first page has no previous, last page has no next)
@@ -31,7 +31,7 @@
  */
 import { ref, computed } from "vue";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
-import menuConfig from "../config/menu.config.json";
+import siteConfig from "../config/site.config.json";
 
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
@@ -68,37 +68,48 @@ function extractReportPages() {
   }
 
   try {
-    // Find "Read the Plan" menu item
-    const headerItems = menuConfig.header?.items || [];
-    const planMenuItem = headerItems.find(
-      (item) =>
-        item.text === "Read the Plan" && item.hasDropdown && item.children
-    );
+    // Get "Read the Plan" menu configuration from site config
+    const readThePlanMenuConfig = siteConfig.ui?.navigation?.readThePlanMenu;
 
-    if (!planMenuItem) {
+    if (!readThePlanMenuConfig || !readThePlanMenuConfig.enabled) {
       // Log only on client-side to prevent hydration mismatch
       if (typeof window !== "undefined") {
-        logError('Report navigation: Could not find "Read the Plan" menu item');
+        logError(
+          'Report navigation: Could not find enabled "Read the Plan" menu section'
+        );
       }
       return [];
     }
 
-    // Extract child pages in order
-    const reportPages = planMenuItem.children
-      .filter((child) => child.to) // Only include items with routes
-      .map((child) => ({
-        path: child.to,
-        title: child.text,
-        summary: child.summary || "Navigate to this section of the report",
-        ariaLabel: child.ariaLabel || child.text,
-        tooltip: child.tooltip || child.text,
-      }));
+    if (!readThePlanMenuConfig.items) {
+      // Log only on client-side to prevent hydration mismatch
+      if (typeof window !== "undefined") {
+        logError(
+          'Report navigation: No items found in "Read the Plan" menu section'
+        );
+      }
+      return [];
+    }
+
+    // Extract enabled pages in order
+    const reportPages = [];
+    Object.entries(readThePlanMenuConfig.items).forEach(([key, item]) => {
+      if (item.enabled && item.to) {
+        reportPages.push({
+          path: item.to,
+          title: item.text,
+          summary: item.summary || "Navigate to this section of the report",
+          ariaLabel: item.ariaLabel || item.text,
+          tooltip: item.tooltip || item.text,
+        });
+      }
+    });
 
     cachedReportPages.value = reportPages;
 
     // Log only on client-side to prevent hydration mismatch
     if (typeof window !== "undefined") {
-      log("navigation", "Report pages extracted from menu config", {
+      log("navigation", "Report pages extracted from site config", {
         totalPages: reportPages.length,
         pages: reportPages.map((p) => ({ path: p.path, title: p.title })),
         timestamp: new Date().toISOString(),
@@ -109,7 +120,7 @@ function extractReportPages() {
   } catch (error) {
     // Log only on client-side to prevent hydration mismatch
     if (typeof window !== "undefined") {
-      logError("Error extracting report pages from menu config", {
+      logError("Error extracting report pages from site config", {
         error: error.message,
         timestamp: new Date().toISOString(),
       });
