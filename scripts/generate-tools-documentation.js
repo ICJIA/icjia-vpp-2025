@@ -57,6 +57,21 @@ marked.setOptions({
 });
 
 /**
+ * Generate a URL-friendly slug from text
+ * @param {string} text - The text to convert to a slug
+ * @returns {string} URL-friendly slug
+ */
+function generateSlug(text) {
+  return text
+    .toLowerCase()
+    .replace(/&/g, "amp") // Replace & with amp
+    .replace(/[^\w\s-]/g, "") // Remove special characters except hyphens and spaces
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+    .trim();
+}
+
+/**
  * Generate the HTML template with embedded CSS and JavaScript
  * @param {string} content - The rendered markdown content
  * @returns {string} Complete HTML document
@@ -117,6 +132,10 @@ function generateHTMLTemplate(content) {
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-primary);
@@ -385,7 +404,7 @@ function generateHTMLTemplate(content) {
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', initTheme);
-        
+
         // Smooth scrolling for anchor links
         document.addEventListener('click', function(e) {
             if (e.target.tagName === 'A' && e.target.getAttribute('href').startsWith('#')) {
@@ -417,7 +436,29 @@ async function generateToolsDocumentation() {
     const markdownContent = fs.readFileSync(toolsMarkdownPath, "utf-8");
 
     // Convert markdown to HTML
-    const htmlContent = marked(markdownContent);
+    let htmlContent = marked(markdownContent);
+
+    // Post-process HTML to add IDs to headings
+    htmlContent = htmlContent.replace(
+      /<h([1-6])>([^<]+)<\/h[1-6]>/g,
+      (match, level, text) => {
+        const slug = generateSlug(text);
+        return `<h${level} id="${slug}">${text}</h${level}>`;
+      }
+    );
+
+    // Fix TOC links to match the generated heading IDs
+    htmlContent = htmlContent.replace(
+      /<a href="#([^"]+)">([^<]+)<\/a>/g,
+      (match, href, text) => {
+        // Only fix TOC links that contain & characters
+        if (text.includes("&")) {
+          const correctedHref = generateSlug(text);
+          return `<a href="#${correctedHref}">${text}</a>`;
+        }
+        return match;
+      }
+    );
 
     // Generate the complete HTML document
     const fullHTML = generateHTMLTemplate(htmlContent);

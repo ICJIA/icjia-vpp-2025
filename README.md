@@ -15,6 +15,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 - Accessibility-first development approach (WCAG 2.1 AA compliant)
 - Dynamic content rendering with Nuxt Content 3
 - Comprehensive documentation for developers and users
+- **Extensive digital accessibility resources** covering web, mobile, social media, and video accessibility
 - Subtle animations with reduced motion support
 - Dark/light theme with persistent user preferences
 - Full-text search functionality across all content with Defuddle-enhanced content extraction
@@ -215,14 +216,49 @@ yarn preview
 npm run preview
 ```
 
+### Documentation Generation
+
+The project includes automated documentation generation for comprehensive developer resources:
+
+```bash
+# Generate all documentation (portal, JSDoc, project docs, tools docs)
+yarn create:docs
+
+# Generate tooling and accessibility resources documentation
+yarn create:tools-docs
+
+# Generate search index with content extraction
+yarn create:search-index-defuddle
+```
+
+These commands automatically generate:
+
+- **Tooling Documentation**: HTML version of tools.md with comprehensive accessibility resources
+- **API Documentation**: JSDoc-generated documentation for all JavaScript functions and modules
+- **Component Documentation**: Vue component API references and usage examples
+- **Project Documentation**: Development guidelines and technical specifications
+
 ### Accessibility Resources
 
-- **[Accessibility Documentation](https://vpp-2025.netlify.app/accessibility/documentation)**: Comprehensive user guide to accessibility features and WCAG 2.1 AA compliance
-- **[Accessibility Audit Log](https://vpp-2025.netlify.app/accessibility/audit-log)**: Technical assessment and chronological record of accessibility improvements
+This project maintains comprehensive accessibility resources for developers and content creators:
+
+- **[Project Accessibility Documentation](https://vpp-2025.netlify.app/accessibility/documentation)**: Violence Prevention Plan website-specific accessibility features and WCAG 2.1 AA compliance guide
+- **[VPP Accessibility Audit Log](https://vpp-2025.netlify.app/accessibility/audit-log)**: Chronological record of all accessibility-related changes and improvements
+- **[Tooling and Accessibility Resources](https://vpp-2025.netlify.app/documentation/tools/)**: Comprehensive digital accessibility resources including:
+  - **Federal Guidelines**: WCAG 2.1, Section 508, and ADA Digital Accessibility Rule compliance
+  - **Social Media Accessibility**: Platform-specific guidelines for YouTube, LinkedIn, Facebook, and X (Twitter)
+  - **Email Marketing Accessibility**: Accessible email campaign creation with Constant Contact
+  - **PDF Accessibility**: PDF/UA standards and Adobe accessibility guides
+  - **Accessibility Compliance Reports**: Adobe product accessibility conformance reports
+
+#### Why Accessibility Matters for ICJIA
+
+As a state agency, ICJIA must comply with federal ADA requirements and Illinois IITAA 2.1 standards. The comprehensive accessibility resources ensure that all digital assets - from websites to social media content - meet the highest accessibility standards, preventing legal risks and ensuring equal access to violence prevention information for all community members, including those with disabilities.
 
 ### Documentation Portal
 
 - **[Developer Documentation Portal](https://vpp-2025.netlify.app/documentation/)**: Complete technical documentation including:
+  - **[Tooling and Accessibility Resources](https://vpp-2025.netlify.app/documentation/tools/)**: Comprehensive digital accessibility resources for web, mobile, social media, and video accessibility, plus development tools and frameworks
   - **[Component Documentation](https://vpp-2025.netlify.app/documentation/components/)**: Vue component API reference and usage examples
   - **[JSDoc API Reference](https://vpp-2025.netlify.app/documentation/jsdoc/)**: Detailed API documentation for all functions and modules
   - **[Project Documentation](https://vpp-2025.netlify.app/documentation/dev/)**: Development guidelines, build processes, and technical specifications

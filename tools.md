@@ -2,6 +2,17 @@
 
 This document provides a comprehensive list of tools, frameworks, and digital resources used in the Violence Prevention Plan for Illinois: 2025-2029 website.
 
+## Table of Contents
+
+- [Core Framework & UI](#core-framework-amp-ui)
+- [Content & Documentation](#content-amp-documentation)
+- [Search & Typography](#search-amp-typography)
+- [Development & Source](#development-amp-source)
+- [Accessibility Resources](#accessibility-resources)
+- [Quick Reference](#quick-reference)
+
+---
+
 ## Core Framework & UI
 
 ### App Framework
@@ -68,6 +79,11 @@ This document provides a comprehensive list of tools, frameworks, and digital re
 
 - **Link**: [https://fonts.google.com/](https://fonts.google.com/)
 - **Purpose**: Typography and font selection for the project
+
+**Section 508 Typography Guidelines** - Federal guidelines for accessible typography and font selection.
+
+- **Link**: [https://www.section508.gov/develop/fonts-typography/](https://www.section508.gov/develop/fonts-typography/)
+- **Purpose**: Guidelines for accessible typography, including why sans-serif fonts are more accessible than serif fonts and best practices for readable text
 
 ### Icons
 
@@ -213,6 +229,7 @@ Accessibility isn't optional -- it's a legal requirement, moral obligation, and 
 | Material Design            | Design System              | [material.io/design](https://material.io/design)                                                                                                                                                                     |
 | Fuse.js                    | Search                     | [fusejs.io](https://fusejs.io/)                                                                                                                                                                                      |
 | Google Fonts               | Typography                 | [fonts.google.com](https://fonts.google.com/)                                                                                                                                                                        |
+| Section 508 Typography     | Accessible Typography      | [Section 508 Typography Guidelines](https://www.section508.gov/develop/fonts-typography/)                                                                                                                            |
 | Google Icons               | Icons                      | [fonts.google.com/icons](https://fonts.google.com/icons)                                                                                                                                                             |
 | MDI Icons                  | Extended Icons             | [pictogrammers.com/library/mdi](https://pictogrammers.com/library/mdi/)                                                                                                                                              |
 | JSDoc                      | Documentation              | [jsdoc.app](https://jsdoc.app/)                                                                                                                                                                                      |
