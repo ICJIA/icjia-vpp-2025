@@ -92,6 +92,47 @@ This document provides a comprehensive list of tools, frameworks, and digital re
 
 ## Accessibility Resources
 
+### Understanding Digital Accessibility: Why It Matters
+
+**What is Digital Accessibility?**
+Digital accessibility ensures that websites, mobile applications, social media content, videos, documents, and all other digital assets can be used by everyone, including people with disabilities. This includes individuals who are blind or have low vision, are deaf or hard of hearing, have motor disabilities, cognitive disabilities, or other conditions that affect how they interact with digital content.
+
+**Why Accessibility is Critical in 2025 and Beyond:**
+
+**Legal Compliance & Risk Management**
+
+- The Americans with Disabilities Act (ADA) now explicitly covers digital content for state and local governments
+- Section 508 compliance is mandatory for all federal agencies and their contractors
+- Illinois IITAA 2.1 standards require state agencies like ICJIA to maintain accessible digital properties
+- Non-compliance can result in lawsuits, financial penalties, and reputational damage
+- Accessibility lawsuits have increased dramatically, with thousands filed annually against organizations with inaccessible digital content
+
+**Moral Imperative & Social Justice**
+
+- Over 61 million adults in the United States live with a disability.
+- Digital accessibility is a civil rights issue - everyone deserves equal access to information and services
+- Accessible design benefits everyone, not just people with disabilities.
+  **Business & Organizational Benefits**
+
+- Accessible websites reach a larger audience and improve user experience for all users
+- Better SEO performance - many accessibility practices improve search engine rankings
+- Improved usability leads to higher engagement and better outcomes
+- Demonstrates organizational values of inclusion and equity
+- Future-proofs digital assets as accessibility requirements continue to expand
+
+**Technical Excellence**
+
+- Accessible code is typically cleaner, more semantic, and easier to maintain
+- Accessibility practices align with modern web development best practices
+- Improves performance and compatibility across devices and assistive technologies
+- Enhances content structure and navigation for all users
+
+**Specific Risks for ICJIA**
+For ICJIA specifically, inaccessible digital resources could result in federal compliance violations, state audit findings, and potential legal action that could divert resources from critical violence prevention work. As a state agency handling sensitive criminal justice data and serving vulnerable populations, ICJIA cannot afford the reputational damage or operational disruption that accessibility violations would cause. Additionally, inaccessible content could prevent crime victims, community members, and stakeholders with disabilities from accessing vital violence prevention information and resources.
+
+**The Bottom Line: "Why Are We Doing This?"**
+Accessibility isn't optional -- it's a legal requirement, moral obligation, and strategic advantage. In 2025, creating inaccessible digital content is not just discriminatory, it's legally risky and professionally irresponsible. Every digital asset we create moving forward must be accessible from the start, not retrofitted later. The resources below provide the tools and guidance needed to ensure the Violence Prevention Plan website and all related digital communications meet the highest accessibility standards.
+
 ### Federal Guidelines
 
 **Web Content Accessibility Guidelines (WCAG) 2.1** - International accessibility standards.
@@ -149,19 +190,14 @@ This document provides a comprehensive list of tools, frameworks, and digital re
 - **Link**: [https://www.adobe.com/accessibility/compliance/](https://www.adobe.com/accessibility/compliance/)
 - **Purpose**: Central portal providing access to accessibility conformance reports for all Adobe products and services
 
-**Adobe Express iOS Accessibility Conformance Report** - Accessibility compliance report for Adobe Express iOS application.
+### VPP-specific website Accessibility Documentation
 
-- **Link**: [https://www.adobe.com/accessibility/compliance/adobe-express-ios-2025-acr.html](https://www.adobe.com/accessibility/compliance/adobe-express-ios-2025-acr.html)
-- **Purpose**: Official accessibility conformance report detailing WCAG compliance status and known issues. Note: Some findings may be problematic here at ICJIA when attempting to adhere to WCAG 2.1 and current state accessibility guidelines.
-
-### VPP website-specific Accessibility Documentation
-
-**Project Accessibility Information** - This project's accessibility documentation and audit logs.
+**VPP Accessibility Documentation** - This project's accessibility documentation and audit logs.
 
 - **Link**: [/accessibility/documentation](/accessibility/documentation)
 - **Purpose**: Project-specific accessibility features, testing, and compliance documentation
 
-**Accessibility Audit Log** - Chronological record of all accessibility-related changes and updates.
+**VPP Accessibility Audit Log** - Chronological record of all accessibility-related changes and updates.
 
 - **Link**: [/accessibility/audit-log](/accessibility/audit-log)
 - **Purpose**: Tracks all accessibility related changes and updates for this project, providing transparency and compliance history
@@ -190,7 +226,6 @@ This document provides a comprehensive list of tools, frameworks, and digital re
 | CC Screen Reader           | Email Accessibility        | [Constant Contact Screen Reader Guide](https://knowledgebase.constantcontact.com/email-digital-marketing/articles/KnowledgeBase/37417-Create-a-screen-reader-friendly-email-with-the-Cross-Device-Editor?lang=en_US) |
 | CC Accessible Emails       | Email Accessibility        | [Constant Contact Accessible Emails](https://knowledgebase.constantcontact.com/email-digital-marketing/tutorials/KnowledgeBase/36885-Creating-accessible-emails?lang=en_US)                                          |
 | Adobe Accessibility Portal | Accessibility Reports      | [Adobe Accessibility Compliance](https://www.adobe.com/accessibility/compliance/)                                                                                                                                    |
-| Adobe Express ACR          | Accessibility Report       | [Adobe Express Accessibility Report](https://www.adobe.com/accessibility/compliance/adobe-express-ios-2025-acr.html)                                                                                                 |
 
 ---
 
