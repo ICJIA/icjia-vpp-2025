@@ -2,6 +2,46 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-08-02 (Hero Learn More Button Update)
+
+Updated the 'Learn More' button in the hero section to scroll to the 'For More Information' section instead of the removed message sections.
+
+### Files Modified/Created:
+
+- `app/components/content/HomeHero.vue`:
+  - Updated `handleLearnMore()` function to target `.action-section` instead of `.letters-section`
+  - Added proper scroll offset calculation (80px) for fixed navigation header
+  - Enhanced JSDoc documentation to reflect new scroll target
+  - Implemented smooth scrolling with `window.scrollTo()` for better cross-browser compatibility
+
+### Technical Notes:
+
+- **Scroll Target**: Now scrolls to the "For More Information" section (HomeAction component with class `.action-section`)
+- **Navigation Offset**: Accounts for 80px fixed header offset as per project guidelines for hash-based routing
+- **Smooth Scrolling**: Uses native `behavior: "smooth"` for accessibility and performance
+- **Cross-browser Support**: Uses `window.scrollTo()` method for consistent behavior across browsers
+- **Accessibility Maintained**: Preserves keyboard navigation (Enter/Space) and screen reader compatibility
+
+## 2025-08-02 (Homepage Message Sections Removal)
+
+Temporarily removed the 'Message from the Director' and 'Message from the Lieutenant Governor' sections from the homepage while preserving them for potential future reinstatement.
+
+### Files Modified/Created:
+
+- `app/pages/index.vue`:
+  - Commented out `<HomeLetters />` component (Message from the Director)
+  - Commented out `<HomeLieutenantGovernor />` component (Message from the Lieutenant Governor)
+  - Added descriptive comments indicating sections are temporarily disabled but preserved for potential reinstatement
+  - Maintained proper section background alternating pattern (section-secondary/section-primary)
+
+### Technical Notes:
+
+- **Components Preserved**: Both HomeLetters.vue and HomeLieutenantGovernor.vue components remain intact and functional in the codebase
+- **Section Background Pattern**: After removal, the alternating pattern flows correctly from HomeHero (no section class) → HomeGoals (section-secondary) → HomeAction (section-primary)
+- **Easy Restoration**: Components can be quickly restored by uncommenting the two lines in pages/index.vue
+- **No Breaking Changes**: All imports and component definitions remain in place, only template usage is commented out
+- **Accessibility Maintained**: Section heading hierarchy and navigation flow remain intact with remaining sections
+
 ## 2025-07-31 (Navigation Fix)
 
 Fixed missing bottom navigation on all /plan/ pages by updating useReportNavigation composable to use site configuration instead of menu configuration.

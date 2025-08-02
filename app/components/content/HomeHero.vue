@@ -176,9 +176,9 @@ const handleDownloadPlan = () => {
 /**
  * Handle Learn More button activation
  *
- * Smoothly scrolls to the letters section for additional information about
- * the Violence Prevention Plan. Uses native smooth scrolling behavior for
- * better user experience and accessibility.
+ * Smoothly scrolls to the "For More Information" section for additional
+ * resources and action items about the Violence Prevention Plan. Uses native
+ * smooth scrolling behavior with proper offset for fixed navigation header.
  *
  * @function
  * @returns {void}
@@ -187,10 +187,18 @@ const handleDownloadPlan = () => {
  * handleLearnMore();
  */
 const handleLearnMore = () => {
-  // Scroll to letters section
-  const lettersSection = document.querySelector(".letters-section");
-  if (lettersSection) {
-    lettersSection.scrollIntoView({ behavior: "smooth" });
+  // Scroll to the "For More Information" section (action-section)
+  const actionSection = document.querySelector(".action-section");
+  if (actionSection) {
+    // Calculate offset for fixed navigation (80px as per project guidelines)
+    const offset = 80;
+    const elementPosition = actionSection.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   }
 };
 </script>
