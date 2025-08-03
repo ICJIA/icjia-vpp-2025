@@ -34,6 +34,7 @@
                   hide-details
                   clearable
                   @click:clear="clearSearch"
+                  @focus="initializeSearch"
                   prepend-inner-icon="mdi-magnify"
                   :loading="isSearching"
                   aria-label="Search content"
@@ -44,7 +45,7 @@
             </v-card>
 
             <!-- Search results -->
-            <!-- Loading state -->
+            <!-- Loading state during search initialization -->
             <div
               v-if="isInitializing"
               class="text-center py-8"
@@ -55,9 +56,31 @@
                 indeterminate
                 color="primary"
                 size="64"
-                aria-label="Loading search index"
+                aria-label="Initializing search"
               ></v-progress-circular>
-              <div class="mt-4 text-body-1">Loading search index...</div>
+              <div class="mt-4 text-body-1">Initializing search...</div>
+              <div class="mt-2 text-body-2 text-medium-emphasis">
+                Loading search functionality on demand for optimal performance
+              </div>
+            </div>
+
+            <!-- Initial state before search is initialized -->
+            <div
+              v-else-if="!searchInitialized && !searchQuery"
+              class="text-center py-12"
+              role="status"
+            >
+              <v-icon
+                icon="mdi-magnify"
+                size="64"
+                color="primary"
+                class="mb-4"
+              ></v-icon>
+              <div class="text-h6 mb-2">Ready to Search</div>
+              <div class="text-body-2 text-medium-emphasis">
+                Start typing to search through all content in the Violence
+                Prevention Plan
+              </div>
             </div>
 
             <!-- No results state -->
@@ -198,9 +221,8 @@ without script execution * * @page * @accessibility WCAG 2.1 AA compliant *
 tags * * @example * // Search functionality is automatically available at
 /search * // Users can search through all plan content with real-time results */
 <script setup>
-import { ref, watch, onMounted, computed } from "vue";
+import { ref, watch, computed } from "vue";
 import { useHead, useSeoMeta } from "#imports";
-import Fuse from "fuse.js";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
 import {
   sanitizeString,
@@ -235,9 +257,10 @@ useSeoMeta({
 const searchQuery = ref("");
 const searchIndex = ref([]);
 const searchResults = ref([]);
-const isInitializing = ref(true);
+const isInitializing = ref(false); // Changed: Start as false, only initialize when needed
 const isSearching = ref(false);
 const fuseInstance = ref(null);
+const searchInitialized = ref(false); // New: Track if search has been initialized
 
 // Computed properties
 const sanitizedSearchQuery = computed(() => {
@@ -321,8 +344,35 @@ async function loadFuseConfig() {
   }
 }
 
-// Load search index
-async function loadSearchIndex() {
+// Lazy load Fuse.js and initialize search functionality
+async function initializeSearch() {
+  if (searchInitialized.value) {
+    return; // Already initialized
+  }
+
+  try {
+    isInitializing.value = true;
+    console.log("🔍 Lazy loading search functionality...");
+    log("search", "Initializing search on demand");
+
+    // Dynamically import Fuse.js only when needed
+    const { default: Fuse } = await import("fuse.js");
+    console.log("✅ Fuse.js loaded dynamically");
+
+    // Load search index and configuration
+    await loadSearchIndex(Fuse);
+
+    searchInitialized.value = true;
+    console.log("✅ Search functionality fully initialized");
+  } catch (error) {
+    console.error("❌ Error initializing search:", error);
+    log("search", "Failed to initialize search functionality");
+    isInitializing.value = false;
+  }
+}
+
+// Load search index (now accepts Fuse as parameter)
+async function loadSearchIndex(Fuse) {
   try {
     isInitializing.value = true;
     console.log("🔍 Starting search index loading...");
@@ -440,12 +490,17 @@ async function loadSearchIndex() {
   }
 }
 
-// Perform search with debouncing
+// Perform search with debouncing and lazy initialization
 let debounceTimeout = null;
-function performSearch() {
+async function performSearch() {
   // Clear any existing timeout
   if (debounceTimeout) {
     clearTimeout(debounceTimeout);
+  }
+
+  // Initialize search functionality if not already done
+  if (!searchInitialized.value) {
+    await initializeSearch();
   }
 
   // Get debounce time from config or use default
@@ -696,10 +751,8 @@ function clearSearch() {
   searchResults.value = [];
 }
 
-// Initialize on component mount
-onMounted(() => {
-  loadSearchIndex();
-});
+// Search is now initialized lazily when user starts typing
+// No need for onMounted initialization
 </script>
 
 <style lang="scss" scoped>
