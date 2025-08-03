@@ -23,34 +23,22 @@
                     class="director-photo"
                   />
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Sed ut
-                    perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudantium, totam rem aperiam, eaque
-                    ipsa quae ab illo inventore veritatis et quasi architecto
-                    beatae vitae dicta sunt explicabo.
-                  </p>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  </p>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    At the heart of our mission is a commitment to fairness and
+                    opportunity. As we forge ahead in building more resilient,
+                    safe, and thriving communities across Illinois, we must
+                    strategically deploy every resource to realize
+                    equity-centered violence prevention. The 2025-2029 Statewide
+                    Violence Prevention Plan focuses on promoting health and
+                    safety through trauma-informed violence prevention efforts
+                    while advancing increased grant access and continued
+                    collaboration across state, municipal, and community-based
+                    agencies. We are incredibly proud of this comprehensive plan
+                    and look forward to continued collaboration with
+                    stakeholders across the state. This plan marks another
+                    pivotal step on our journey to elevate the quality of life
+                    in Illinois. Together, we will cultivate community
+                    infrastructure that is essential for supporting truly
+                    healthy communities.
                   </p>
                 </div>
               </div>

@@ -17,36 +17,22 @@
                     src="/images/stratton-lg-cropped.jpg"
                     alt="Lieutenant Governor Juliana Stratton"
                     class="director-photo"
+                   
                   />
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Sed ut
-                    perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudantium, totam rem aperiam, eaque
-                    ipsa quae ab illo inventore veritatis et quasi architecto
-                    beatae vitae dicta sunt explicabo.
-                  </p>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                  </p>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Since we first stepped into office, the Pritzker-Stratton
+                    administration has been committed to healing communities in
+                    partnership with the people we serve. For decades, too many
+                    voices have gone unheard, and too much pain has gone without
+                    relief. We are proud to uplift this statewide plan in
+                    service of those who need it most; by continuing to focus on
+                    equity, restoration, and effective violence prevention,
+                    Illinois is illuminating a path toward safer communities and
+                    healthier residents. Thank you to the members of the
+                    Violence Prevention Committee for dedicating your time and
+                    insight to empower change. Governor Pritzker and I look
+                    forward to working with Illinoisans across the state to
+                    implement this powerful plan of action.
                   </p>
                 </div>
               </div>

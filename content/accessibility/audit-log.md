@@ -1,10 +1,10 @@
 ---
 title: "Accessibility Audit Log"
-date: 2025-08-02
+date: 2025-08-03
 description: "This document contains a log of accessibility updates and audits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
 ---
 
-**Last Updated: August 02, 2025**
+**Last Updated: August 03, 2025**
 
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.

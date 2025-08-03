@@ -284,12 +284,81 @@
       </div>
 
       <div class="last-updated">
-        <strong>Last Updated:</strong> August 02, 2025
+        <strong>Last Updated:</strong> August 03, 2025
       </div>
 
       <div class="content">
         <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
+<h2>2025-08-02 (Message Sections Restoration)</h2>
+<p>Restored the &#39;Message from the Director&#39; and &#39;Message from the Lieutenant Governor&#39; sections to the homepage and corrected section background alternating pattern.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><p><code>app/pages/index.vue</code>:</p>
+<ul>
+<li>Uncommented <code>&lt;HomeLetters /&gt;</code> component (Message from the Director)</li>
+<li>Uncommented <code>&lt;HomeLieutenantGovernor /&gt;</code> component (Message from the Lieutenant Governor)</li>
+<li>Restored both sections to their original positions in the homepage layout</li>
+</ul>
+</li>
+<li><p><code>app/components/content/HomeGoals.vue</code>:</p>
+<ul>
+<li>Updated section class from <code>section-secondary</code> to <code>section-primary</code> to maintain proper alternating pattern</li>
+</ul>
+</li>
+<li><p><code>app/components/content/HomeAction.vue</code>:</p>
+<ul>
+<li>Updated section class from <code>section-primary</code> to <code>section-secondary</code> to complete proper alternating pattern</li>
+</ul>
+</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Section Background Pattern</strong>: Corrected alternating pattern now flows: HomeHero (no section class) → HomeLetters (section-secondary) → HomeLieutenantGovernor (section-primary) → HomeGoals (section-primary) → HomeAction (section-secondary)</li>
+<li><strong>Visual Consistency</strong>: Maintains proper visual rhythm with alternating light/dark section backgrounds</li>
+<li><strong>Content Restoration</strong>: Both message sections are fully functional with original content and styling</li>
+<li><strong>No Breaking Changes</strong>: All components were preserved during temporary removal, ensuring seamless restoration</li>
+</ul>
+<h2>2025-08-02 (Hero Learn More Button Update)</h2>
+<p>Updated the &#39;Learn More&#39; button in the hero section to scroll to the &#39;For More Information&#39; section instead of the removed message sections.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/components/content/HomeHero.vue</code>:<ul>
+<li>Updated <code>handleLearnMore()</code> function to target <code>.action-section</code> instead of <code>.letters-section</code></li>
+<li>Added proper scroll offset calculation (80px) for fixed navigation header</li>
+<li>Enhanced JSDoc documentation to reflect new scroll target</li>
+<li>Implemented smooth scrolling with <code>window.scrollTo()</code> for better cross-browser compatibility</li>
+</ul>
+</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Scroll Target</strong>: Now scrolls to the &quot;For More Information&quot; section (HomeAction component with class <code>.action-section</code>)</li>
+<li><strong>Navigation Offset</strong>: Accounts for 80px fixed header offset as per project guidelines for hash-based routing</li>
+<li><strong>Smooth Scrolling</strong>: Uses native <code>behavior: &quot;smooth&quot;</code> for accessibility and performance</li>
+<li><strong>Cross-browser Support</strong>: Uses <code>window.scrollTo()</code> method for consistent behavior across browsers</li>
+<li><strong>Accessibility Maintained</strong>: Preserves keyboard navigation (Enter/Space) and screen reader compatibility</li>
+</ul>
+<h2>2025-08-02 (Homepage Message Sections Removal)</h2>
+<p>Temporarily removed the &#39;Message from the Director&#39; and &#39;Message from the Lieutenant Governor&#39; sections from the homepage while preserving them for potential future reinstatement.</p>
+<h3>Files Modified/Created:</h3>
+<ul>
+<li><code>app/pages/index.vue</code>:<ul>
+<li>Commented out <code>&lt;HomeLetters /&gt;</code> component (Message from the Director)</li>
+<li>Commented out <code>&lt;HomeLieutenantGovernor /&gt;</code> component (Message from the Lieutenant Governor)</li>
+<li>Added descriptive comments indicating sections are temporarily disabled but preserved for potential reinstatement</li>
+<li>Maintained proper section background alternating pattern (section-secondary/section-primary)</li>
+</ul>
+</li>
+</ul>
+<h3>Technical Notes:</h3>
+<ul>
+<li><strong>Components Preserved</strong>: Both HomeLetters.vue and HomeLieutenantGovernor.vue components remain intact and functional in the codebase</li>
+<li><strong>Section Background Pattern</strong>: After removal, the alternating pattern flows correctly from HomeHero (no section class) → HomeGoals (section-secondary) → HomeAction (section-primary)</li>
+<li><strong>Easy Restoration</strong>: Components can be quickly restored by uncommenting the two lines in pages/index.vue</li>
+<li><strong>No Breaking Changes</strong>: All imports and component definitions remain in place, only template usage is commented out</li>
+<li><strong>Accessibility Maintained</strong>: Section heading hierarchy and navigation flow remain intact with remaining sections</li>
+</ul>
 <h2>2025-07-31 (Navigation Fix)</h2>
 <p>Fixed missing bottom navigation on all /plan/ pages by updating useReportNavigation composable to use site configuration instead of menu configuration.</p>
 <h3>Files Modified/Created:</h3>

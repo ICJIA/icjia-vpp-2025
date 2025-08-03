@@ -2,6 +2,49 @@
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
 
+## 2025-08-02 (Section Background Pattern Fix)
+
+Fixed the section background alternating pattern on the homepage to ensure proper visual rhythm with no consecutive sections having the same background color.
+
+### Files Modified/Created:
+
+- `app/components/content/HomeGoals.vue`:
+  - Updated section class from `section-primary` to `section-secondary` to fix alternating pattern
+
+- `app/components/content/HomeAction.vue`:
+  - Updated section class from `section-secondary` to `section-primary` to complete proper alternating pattern
+
+### Technical Notes:
+
+- **Problem Identified**: After restoring message sections, there were two consecutive `section-primary` backgrounds (HomeLieutenantGovernor and HomeGoals), breaking the visual alternating pattern
+- **Corrected Pattern**: Now flows properly: HomeHero (no section class) → HomeLetters (section-secondary/light) → HomeLieutenantGovernor (section-primary/dark) → HomeGoals (section-secondary/light) → HomeAction (section-primary/dark)
+- **Visual Consistency**: Maintains smooth visual rhythm with proper light/dark alternation throughout the homepage
+- **User Experience**: Eliminates visual jarring from consecutive same-colored sections, improving readability and flow
+
+## 2025-08-02 (Message Sections Restoration)
+
+Restored the 'Message from the Director' and 'Message from the Lieutenant Governor' sections to the homepage and corrected section background alternating pattern.
+
+### Files Modified/Created:
+
+- `app/pages/index.vue`:
+  - Uncommented `<HomeLetters />` component (Message from the Director)
+  - Uncommented `<HomeLieutenantGovernor />` component (Message from the Lieutenant Governor)
+  - Restored both sections to their original positions in the homepage layout
+
+- `app/components/content/HomeGoals.vue`:
+  - Updated section class from `section-secondary` to `section-primary` to maintain proper alternating pattern
+
+- `app/components/content/HomeAction.vue`:
+  - Updated section class from `section-primary` to `section-secondary` to complete proper alternating pattern
+
+### Technical Notes:
+
+- **Section Background Pattern**: Corrected alternating pattern now flows: HomeHero (no section class) → HomeLetters (section-secondary) → HomeLieutenantGovernor (section-primary) → HomeGoals (section-primary) → HomeAction (section-secondary)
+- **Visual Consistency**: Maintains proper visual rhythm with alternating light/dark section backgrounds
+- **Content Restoration**: Both message sections are fully functional with original content and styling
+- **No Breaking Changes**: All components were preserved during temporary removal, ensuring seamless restoration
+
 ## 2025-08-02 (Hero Learn More Button Update)
 
 Updated the 'Learn More' button in the hero section to scroll to the 'For More Information' section instead of the removed message sections.

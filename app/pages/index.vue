@@ -4,10 +4,8 @@
     <!-- <StructuredData :content="homeContent" page-type="homepage" path="/" /> -->
 
     <HomeHero />
-    <!-- Message from the Director section - temporarily disabled but preserved for potential reinstatement -->
-    <!-- <HomeLetters /> -->
-    <!-- Message from the Lieutenant Governor section - temporarily disabled but preserved for potential reinstatement -->
-    <!-- <HomeLieutenantGovernor /> -->
+    <HomeLetters />
+    <HomeLieutenantGovernor />
     <!-- Violence in Illinois: The Data section - temporarily disabled -->
     <!-- <HomeStatistics /> -->
     <HomeGoals />
