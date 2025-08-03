@@ -99,23 +99,17 @@ export default defineNuxtConfig({
     families: {
       // Primary font for body text and UI elements
       Roboto: {
-        wght: [100, 400, 700, 900], // Various weights for different UI elements
-        ital: [100], // Italic style for emphasis
-      },
-      // Secondary font for certain UI elements
-      Lato: {
-        wght: [100, 300, 400, 700, 900],
-        ital: [100],
+        wght: [400, 700], // Essential weights only: normal and bold
       },
       // Display font for headings and titles
       Raleway: {
-        wght: [100, 400, 900],
-        ital: [100],
+        wght: [400, 700], // Essential weights only: normal and bold
       },
-      // Accent font for special elements
-      "Caveat+Brush": {
-        wght: [400],
-      },
+      // Removed fonts for performance optimization:
+      // - Lato: Redundant with Roboto for UI text
+      // - Caveat Brush: Decorative font, rarely used
+      // - All italic variants: Removed to reduce bundle size
+      // - Light (100) and black (900) weights: Removed to reduce bundle size
     },
   },
 
@@ -183,7 +177,6 @@ export default defineNuxtConfig({
       // Favicon and icon configuration
       link: [
         { rel: "icon", type: "image/png", href: "/favicon.png" },
-        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
         { rel: "canonical", href: "https://vpp-2025.netlify.app" },
         // Material Design Icons CSS
