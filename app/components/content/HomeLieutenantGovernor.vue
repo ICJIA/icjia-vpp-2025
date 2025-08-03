@@ -17,7 +17,6 @@
                     src="/images/stratton-lg-cropped.jpg"
                     alt="A photo of Lieutenant Governor Juliana Stratton"
                     class="director-photo"
-                   
                   />
                   <p>
                     Since we first stepped into office, the Pritzker-Stratton
@@ -77,15 +76,6 @@
   overflow: hidden; /* Ensures proper text wrapping around floated image */
 }
 
-.director-message-intro {
-  font-style: italic;
-  font-weight: 500;
-  color: rgb(var(--v-theme-primary));
-  font-size: 1.2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
 .director-photo {
   float: left;
   width: 150px;
@@ -95,11 +85,6 @@
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   shape-outside: margin-box;
-}
-
-.message-paragraph {
-  margin-bottom: 1rem;
-  text-align: left;
 }
 
 /* Dark theme card styling */

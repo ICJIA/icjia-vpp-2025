@@ -5,19 +5,31 @@
 
     <HomeHero />
     <HomeLetters />
-    <HomeLieutenantGovernor />
-    <!-- Violence in Illinois: The Data section - temporarily disabled -->
-    <!-- <HomeStatistics /> -->
+
+    <!-- Lazy load below-the-fold sections -->
+    <IntersectionSection
+      root-margin="300px"
+      skeleton-type="card"
+      placeholder-height="400px"
+      component-name="HomeLieutenantGovernor"
+      show-loading-text
+      loading-text="Loading Lieutenant Governor message..."
+    >
+      <LazyHomeLieutenantGovernor />
+    </IntersectionSection>
+
     <HomeGoals />
-    <!-- The Planning Process section - temporarily disabled -->
-    <!-- <HomeStakeholders /> -->
-    <!-- Recent News Section with configurable item count - temporarily disabled -->
-    <!-- <HomeNews :item-count="3" /> -->
-    <!-- Guiding Principles section - temporarily disabled -->
-    <!-- <HomePrinciples /> -->
-    <!-- Public Health Approach to Violence Prevention section - temporarily disabled -->
-    <!-- <HomeApproach /> -->
-    <HomeAction />
+
+    <IntersectionSection
+      root-margin="200px"
+      skeleton-type="card"
+      placeholder-height="300px"
+      component-name="HomeAction"
+      show-loading-text
+      loading-text="Loading action section..."
+    >
+      <LazyHomeAction />
+    </IntersectionSection>
   </div>
 </template>
 
@@ -25,27 +37,26 @@
 /**
  * Home Page for Statewide Violence Prevention Plan for Illinois: 2025-2029
  *
- * This is a comprehensive implementation of the new homepage design
- * based on the Violence Prevention Plan analysis. It maintains the exact
- * look, feel, and styling of the current homepage while implementing
- * all content recommendations from the VPP analysis.
+ * This is the current homepage implementation with core sections only.
+ * Additional sections (statistics, stakeholders, news, principles, approach)
+ * are currently disabled and can be re-enabled with lazy loading when needed.
+ *
+ * Current Active Sections:
+ * - Hero section with mission-driven opening statements
+ * - Letters from leadership
+ * - Lieutenant Governor message
+ * - Strategic priorities overview (3 main goals)
+ * - Call to action section with URL navigation support
  *
  * Features:
- * - Hero section with mission-driven opening statements
- * - Key statistics dashboard with visual presentation
- * - Strategic priorities overview (3 main goals)
- * - Stakeholder/partnership information
- * - Guiding principles section
- * - Public health approach explanation
- * - Call to action section with URL navigation support
  * - Full theme compatibility (light/dark)
  * - WCAG 2.1 AA accessibility compliance
  * - Responsive design
- * - Optional URL navigation for all card components
+ * - Performance optimized with minimal bundle size
  *
  * Component Props Documentation:
  *
- * SandboxHomeHero:
+ * HomeHero:
  * - No props required (self-contained hero section)
  *
  * SandboxHomeStatistics:
@@ -117,17 +128,23 @@ import { computed } from "vue";
 import { useHead, useSeoMeta } from "#imports";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
 
-// Import home components
+// Import IntersectionSection wrapper component
+import IntersectionSection from "~/components/IntersectionSection.vue";
+
+// Immediate imports (above the fold components)
 import HomeHero from "~/components/content/HomeHero.vue";
 import HomeLetters from "~/components/content/HomeLetters.vue";
-import HomeLieutenantGovernor from "~/components/content/HomeLieutenantGovernor.vue";
-import HomeStatistics from "~/components/content/HomeStatistics.vue";
 import HomeGoals from "~/components/content/HomeGoals.vue";
-import HomeStakeholders from "~/components/content/HomeStakeholders.vue";
-import HomeNews from "~/components/content/HomeNews.vue";
-import HomePrinciples from "~/components/content/HomePrinciples.vue";
-import HomeApproach from "~/components/content/HomeApproach.vue";
-import HomeAction from "~/components/content/HomeAction.vue";
+
+// Lazy imports (below the fold components) - loaded dynamically when needed
+const LazyHomeLieutenantGovernor = defineAsyncComponent(
+  () => import("~/components/content/HomeLieutenantGovernor.vue")
+);
+
+const LazyHomeAction = defineAsyncComponent(
+  () => import("~/components/content/HomeAction.vue")
+);
+
 // import StructuredData from "~/components/seo/StructuredData.vue";
 
 // Initialize console logger

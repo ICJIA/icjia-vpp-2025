@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts", // Content management system
     "@nuxt/content",
     "@nuxtjs/plausible",
+    "@nuxt/image",
   ],
 
   // Components configuration
@@ -306,6 +307,52 @@ export default defineNuxtConfig({
         '@vueuse/core',
         'fuse.js'
       ]
+    }
+  },
+
+  /**
+   * Image optimization configuration
+   */
+  image: {
+    // Default image format for optimization
+    format: ['webp', 'avif'],
+
+    // Screen sizes for responsive images
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+
+    // Device pixel ratio densities
+    densities: [1, 2],
+
+    // Quality settings
+    quality: 80,
+
+    // Provider configuration (using default ipx)
+    provider: 'ipx',
+
+    // Presets for common image sizes
+    presets: {
+      avatar: {
+        modifiers: {
+          format: 'webp',
+          width: 150,
+          height: 150,
+          quality: 80
+        }
+      },
+      hero: {
+        modifiers: {
+          format: 'webp',
+          quality: 85,
+          width: 1200
+        }
+      }
     }
   },
 
