@@ -280,10 +280,12 @@ export default defineNuxtConfig({
       // Optimize chunk splitting for better caching
       rollupOptions: {
         output: {
-          // Manual chunk splitting for better caching
+          // Manual chunk splitting for better caching (simplified for tree-shaking)
           manualChunks: {
-            // Vendor chunks (safe ones only)
+            // Vuetify (now tree-shaken, single chunk for better compatibility)
             'vendor-vuetify': ['vuetify'],
+
+            // VueUse chunks
             'vendor-vueuse': ['@vueuse/core', '@vueuse/head', '@vueuse/motion'],
 
             // Content and search chunks

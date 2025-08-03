@@ -9,9 +9,79 @@
  */
 
 import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
+
+// Explicit component imports for tree-shaking optimization
+// Only import components that are actually used in the application
+import {
+  // Layout Components
+  VApp,
+  VMain,
+  VContainer,
+  VRow,
+  VCol,
+  VFooter,
+  VAppBar,
+  VNavigationDrawer,
+  VSpacer,
+  VSheet,
+
+  // UI Components
+  VBtn,
+  VCard,
+  VCardTitle,
+  VCardText,
+  VCardItem,
+  VCardActions,
+  VIcon,
+  VImg,
+  VChip,
+  VDivider,
+  VAlert,
+  VDialog,
+  VMenu,
+  VTooltip,
+  VProgressCircular,
+  VProgressLinear,
+  VSkeletonLoader,
+
+  // Form Components
+  VForm,
+  VTextField,
+  VTextarea,
+  VSwitch,
+
+  // List Components
+  VList,
+  VListItem,
+  VListItemTitle,
+  VListItemSubtitle,
+  VListGroup,
+
+  // Expansion Components
+  VExpansionPanels,
+  VExpansionPanel,
+  VExpansionPanelTitle,
+  VExpansionPanelText,
+
+  // Transitions
+  VExpandTransition,
+  VSlideYTransition,
+} from "vuetify/components";
+
+// Explicit directive imports for tree-shaking optimization
+import {
+  Ripple,
+  Tooltip,
+  ClickOutside,
+  Intersect,
+  Resize,
+  Scroll,
+  Touch,
+} from "vuetify/directives";
+
+// Labs components can be imported here when needed in the future:
+// import { VDatePicker, VTimePicker } from "vuetify/labs/components";
 
 export default defineNuxtPlugin((nuxtApp) => {
   // Always use dark theme as default for session-only theme management
@@ -19,14 +89,78 @@ export default defineNuxtPlugin((nuxtApp) => {
   const initialTheme = "dark"; // Always start with dark mode
 
   // Log theme initialization for debugging
-  if (process.dev) {
-    console.log(`[Vuetify Plugin] Initializing with theme: ${initialTheme} (session-only)`);
+  if (process.env.NODE_ENV === "development") {
+    console.log(
+      `[Vuetify Plugin] Initializing with theme: ${initialTheme} (session-only)`
+    );
   }
 
   const vuetify = createVuetify({
     ssr: true,
-    components,
-    directives,
+    components: {
+      // Layout Components
+      VApp,
+      VMain,
+      VContainer,
+      VRow,
+      VCol,
+      VFooter,
+      VAppBar,
+      VNavigationDrawer,
+      VSpacer,
+      VSheet,
+
+      // UI Components
+      VBtn,
+      VCard,
+      VCardTitle,
+      VCardText,
+      VCardItem,
+      VCardActions,
+      VIcon,
+      VImg,
+      VChip,
+      VDivider,
+      VAlert,
+      VDialog,
+      VMenu,
+      VTooltip,
+      VProgressCircular,
+      VProgressLinear,
+      VSkeletonLoader,
+
+      // Form Components
+      VForm,
+      VTextField,
+      VTextarea,
+      VSwitch,
+
+      // List Components
+      VList,
+      VListItem,
+      VListItemTitle,
+      VListItemSubtitle,
+      VListGroup,
+
+      // Expansion Components
+      VExpansionPanels,
+      VExpansionPanel,
+      VExpansionPanelTitle,
+      VExpansionPanelText,
+
+      // Transitions
+      VExpandTransition,
+      VSlideYTransition,
+    },
+    directives: {
+      Ripple,
+      Tooltip,
+      ClickOutside,
+      Intersect,
+      Resize,
+      Scroll,
+      Touch,
+    },
     icons: {
       defaultSet: "mdi",
       aliases,
