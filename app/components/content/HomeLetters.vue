@@ -19,7 +19,7 @@
                   </p> -->
                   <img
                     src="/images/DirectorAdamsResized.jpg"
-                    alt="ICJIA Executive Director Delrice Adams"
+                    alt="A photo of ICJIA Executive Director Delrice Adams"
                     class="director-photo"
                   />
                   <p>

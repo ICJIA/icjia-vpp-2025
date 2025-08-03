@@ -15,7 +15,7 @@
                 <div class="message-text">
                   <img
                     src="/images/stratton-lg-cropped.jpg"
-                    alt="Lieutenant Governor Juliana Stratton"
+                    alt="A photo of Lieutenant Governor Juliana Stratton"
                     class="director-photo"
                    
                   />
