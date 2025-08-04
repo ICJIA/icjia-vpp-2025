@@ -60,7 +60,6 @@ Cookies are small text files that are stored on your device when you visit a web
 
 Our website uses the following types of cookies:
 
-- **Essential cookies**: Required for the website to function properly
 - **Preference cookies**: Enable the website to remember information that changes how the website behaves or looks
 - **Analytics cookies**: Help us understand how visitors interact with our website by collecting and reporting information anonymously
 

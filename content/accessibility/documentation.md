@@ -6,7 +6,7 @@ description: "Documentation for accessibility features of the Statewide Violence
 
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: July 10, 2025**
+**Last Updated: August 04, 2025**
 
 **Latest Accessibility Update**: A comprehensive accessibility audit has been completed on July 10, 2025. The project demonstrates **EXEMPLARY** accessibility implementation, exceeding WCAG 2.1 AA requirements in multiple areas. All components, navigation systems, and content maintain excellent accessibility compliance with contrast ratios exceeding 8:1, comprehensive keyboard navigation, robust screen reader support, and mobile-optimized touch accessibility.
 
@@ -279,7 +279,6 @@ The Violence Prevention Plan for Illinois: 2025-2029 website is designed to be a
 
 - Accessibility integrated from initial design through final implementation
 - Regular accessibility audits and continuous improvement
-- Testing with assistive technologies and real users
 - Adherence to WCAG 2.1 AA and IITAA 2.1 Standards
 
 **Ongoing Commitment:**
@@ -287,14 +286,13 @@ The Violence Prevention Plan for Illinois: 2025-2029 website is designed to be a
 - Continuous monitoring and improvement of accessibility features
 - Regular updates based on user feedback and best practices
 - Proactive identification and resolution of accessibility barriers
-- Collaboration with disability advocacy groups and accessibility experts
 
 ## Feedback and Assistance
 
 Feedback is welcome on the accessibility of the Violence Prevention Plan for Illinois: 2025-2029. Please report accessibility barriers:
 
-- Email: Contact through website's contact form
-- Phone: See contact page for current phone numbers
+- Email: Contact through this website's [contact form](/contact)
+- Phone: 312-793-8550
 
 ## Resources
 
