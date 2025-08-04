@@ -5,11 +5,10 @@
     location="right"
     width="280"
     class="mobile-nav-drawer"
-    role="dialog"
     aria-modal="true"
     aria-label="Mobile Navigation Menu"
   >
-    <v-list aria-label="Mobile Navigation Menu" role="navigation">
+    <v-list aria-label="Mobile Navigation Menu">
       <!-- Theme toggle at top of mobile menu -->
       <v-list-item class="mb-4 d-flex justify-center">
         <ThemeSwitch :theme="theme" @toggle-theme="$emit('toggle-theme')" />

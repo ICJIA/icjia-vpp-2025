@@ -180,7 +180,7 @@ export function useTheme() {
       logTheme("Theme system initialized", {
         theme: theme.value,
         source: "session-only",
-        timestamp: new Date().toISOString(),
+        date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
         userAgent: navigator.userAgent,
         viewportWidth: window.innerWidth,
       });

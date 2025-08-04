@@ -11,74 +11,11 @@
 import { createVuetify } from "vuetify";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 
-// Explicit component imports for tree-shaking optimization
-// Only import components that are actually used in the application
-import {
-  // Layout Components
-  VApp,
-  VMain,
-  VContainer,
-  VRow,
-  VCol,
-  VFooter,
-  VAppBar,
-  VNavigationDrawer,
-  VSpacer,
-  VSheet,
-
-  // UI Components
-  VBtn,
-  VCard,
-  VCardTitle,
-  VCardText,
-  VCardItem,
-  VCardActions,
-  VIcon,
-  VImg,
-  VChip,
-  VDivider,
-  VAlert,
-  VDialog,
-  VMenu,
-  VTooltip,
-  VProgressCircular,
-  VProgressLinear,
-  VSkeletonLoader,
-
-  // Form Components
-  VForm,
-  VTextField,
-  VTextarea,
-  VSwitch,
-
-  // List Components
-  VList,
-  VListItem,
-  VListItemTitle,
-  VListItemSubtitle,
-  VListGroup,
-
-  // Expansion Components
-  VExpansionPanels,
-  VExpansionPanel,
-  VExpansionPanelTitle,
-  VExpansionPanelText,
-
-  // Transitions
-  VExpandTransition,
-  VSlideYTransition,
-} from "vuetify/components";
-
-// Explicit directive imports for tree-shaking optimization
-import {
-  Ripple,
-  Tooltip,
-  ClickOutside,
-  Intersect,
-  Resize,
-  Scroll,
-  Touch,
-} from "vuetify/directives";
+// Import all Vuetify components to avoid initialization order issues
+// This prevents the "Cannot access 'Ml' before initialization" error
+// caused by circular dependencies in selective imports
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 
 // Labs components can be imported here when needed in the future:
 // import { VDatePicker, VTimePicker } from "vuetify/labs/components";
@@ -97,70 +34,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const vuetify = createVuetify({
     ssr: true,
-    components: {
-      // Layout Components
-      VApp,
-      VMain,
-      VContainer,
-      VRow,
-      VCol,
-      VFooter,
-      VAppBar,
-      VNavigationDrawer,
-      VSpacer,
-      VSheet,
-
-      // UI Components
-      VBtn,
-      VCard,
-      VCardTitle,
-      VCardText,
-      VCardItem,
-      VCardActions,
-      VIcon,
-      VImg,
-      VChip,
-      VDivider,
-      VAlert,
-      VDialog,
-      VMenu,
-      VTooltip,
-      VProgressCircular,
-      VProgressLinear,
-      VSkeletonLoader,
-
-      // Form Components
-      VForm,
-      VTextField,
-      VTextarea,
-      VSwitch,
-
-      // List Components
-      VList,
-      VListItem,
-      VListItemTitle,
-      VListItemSubtitle,
-      VListGroup,
-
-      // Expansion Components
-      VExpansionPanels,
-      VExpansionPanel,
-      VExpansionPanelTitle,
-      VExpansionPanelText,
-
-      // Transitions
-      VExpandTransition,
-      VSlideYTransition,
-    },
-    directives: {
-      Ripple,
-      Tooltip,
-      ClickOutside,
-      Intersect,
-      Resize,
-      Scroll,
-      Touch,
-    },
+    components,
+    directives,
     icons: {
       defaultSet: "mdi",
       aliases,

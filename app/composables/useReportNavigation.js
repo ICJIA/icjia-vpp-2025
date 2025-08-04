@@ -112,7 +112,7 @@ function extractReportPages() {
       log("navigation", "Report pages extracted from site config", {
         totalPages: reportPages.length,
         pages: reportPages.map((p) => ({ path: p.path, title: p.title })),
-        timestamp: new Date().toISOString(),
+        date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
       });
     }
 
@@ -122,7 +122,7 @@ function extractReportPages() {
     if (typeof window !== "undefined") {
       logError("Error extracting report pages from site config", {
         error: error.message,
-        timestamp: new Date().toISOString(),
+        date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
       });
     }
     return [];

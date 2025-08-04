@@ -287,7 +287,7 @@ const contentPath = computed(() => {
     log("content", "Dynamic route - resolving content path", {
       routePath: route.path,
       contentPath: path,
-      timestamp: new Date().toISOString(),
+      date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
     });
   }
 
@@ -812,7 +812,7 @@ if (content.value && typeof window !== "undefined") {
   log("content", "Dynamic route content loaded", {
     title: content.value.title,
     path: contentPath.value,
-    timestamp: new Date().toISOString(),
+    date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
   });
 }
 
@@ -827,7 +827,7 @@ if (error.value && typeof window !== "undefined") {
     path: contentPath.value,
     error: error.value.message,
     code: error.value.code,
-    timestamp: new Date().toISOString(),
+    date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
   });
 }
 

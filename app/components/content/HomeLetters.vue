@@ -13,10 +13,6 @@
             <v-card-text class="pa-8 pa-md-12">
               <div class="message-content">
                 <div class="message-text">
-                  <!--  -->
-                  <!-- <p class="mb-10" style="font-weight: 900">
-                    <em>A message from ICJIA Executive Director Delrice Adams</em>
-                  </p> -->
                   <img
                     src="/images/DirectorAdamsResized.jpg"
                     alt="A photo of ICJIA Executive Director Delrice Adams"
@@ -39,6 +35,10 @@
                     in Illinois. Together, we will cultivate community
                     infrastructure that is essential for supporting truly
                     healthy communities.
+                  </p>
+                  <p class="mt-8 signature">
+                    Delrice Adams<br />
+                    ICJIA Executive Director
                   </p>
                 </div>
               </div>
@@ -94,6 +94,11 @@
   shape-outside: margin-box;
 }
 
+.signature {
+  font-weight: 600;
+  clear: left; /* Ensures signature always appears below the floated image */
+}
+
 /* Dark theme card styling */
 :root[data-theme="dark"] .message-card-inner {
   background: rgb(var(--v-theme-surface)) !important;
@@ -107,12 +112,15 @@
 
 @media (max-width: 768px) {
   .director-photo {
-    width: 120px !important;
-    margin-right: 15px !important;
+    max-width: 150px;
   }
 
   .message-content {
     font-size: 1rem;
+  }
+
+  .image-column {
+    margin-bottom: 1rem;
   }
 }
 </style>

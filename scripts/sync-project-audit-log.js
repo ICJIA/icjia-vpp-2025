@@ -92,53 +92,46 @@ const generateHTMLTemplate = (content, lastUpdated) => {
   return `<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Audit Log - Violence Prevention Plan for Illinois: 2025-2029</title>
     <meta
       name="description"
-      content="Chronological audit log of all significant changes made to the Illinois Violence Prevention Plan project."
-    />
+      content="Chronological audit log of all significant changes made to the Illinois Violence Prevention Plan project.">
     <meta
       name="author"
-      content="Illinois Criminal Justice Information Authority"
-    />
+      content="Illinois Criminal Justice Information Authority">
 
     <!-- Theme and Accessibility -->
-    <meta name="color-scheme" content="dark light" />
+    <meta name="color-scheme" content="dark light">
     <meta
       name="theme-color"
       content="#1A2234"
-      media="(prefers-color-scheme: dark)"
-    />
+      media="(prefers-color-scheme: dark)">
     <meta
       name="theme-color"
       content="#F2F2F2"
-      media="(prefers-color-scheme: light)"
-    />
+      media="(prefers-color-scheme: light)">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet">
 
     <!-- Material Design Icons -->
     <link
       href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
-      rel="stylesheet"
-    />
+      rel="stylesheet">
 
     <!-- Prism.js for Syntax Highlighting -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
-      rel="stylesheet"
-    />
+      rel="stylesheet">
 
     <style>
       :root {
@@ -197,6 +190,36 @@ const generateHTMLTemplate = (content, lastUpdated) => {
 
       [data-theme="dark"] code {
         background: var(--background-dark);
+      }
+
+      [data-theme="dark"] .skip-link {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      [data-theme="dark"] .back-link:hover,
+      [data-theme="dark"] .back-link:focus {
+        background-color: rgba(25, 118, 210, 0.15);
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        :root {
+          --text-light: #000000;
+          --text-dark: #ffffff;
+          --background-light: #ffffff;
+          --background-dark: #000000;
+          --primary-color: #0066cc;
+        }
+      }
+
+      /* Reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
       }
 
       [data-theme="dark"] pre {
@@ -329,14 +352,43 @@ const generateHTMLTemplate = (content, lastUpdated) => {
         margin-bottom: 2rem;
         font-weight: 500;
         transition: color 0.3s ease;
+        padding: 8px 12px;
+        border-radius: 8px;
+        min-height: 44px;
+        min-width: 44px;
       }
 
       .back-link:hover {
         color: var(--primary-dark);
+        background-color: rgba(25, 118, 210, 0.08);
+      }
+
+      .back-link:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+        background-color: rgba(25, 118, 210, 0.08);
       }
 
       .back-link i {
         margin-right: 0.5rem;
+      }
+
+      /* Skip to main content link for screen readers */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: var(--primary-color);
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        border-radius: 4px;
+        z-index: 1000;
+        font-weight: 500;
+      }
+
+      .skip-link:focus {
+        top: 6px;
       }
 
       @media (max-width: 768px) {
@@ -355,32 +407,37 @@ const generateHTMLTemplate = (content, lastUpdated) => {
     </style>
   </head>
   <body data-theme="dark">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle between light and dark theme">
-        <i class="mdi mdi-theme-light-dark" aria-hidden="true"></i>
-        <span id="theme-text">Light Mode</span>
-      </button>
+      <header role="banner">
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle between light and dark theme">
+          <i class="mdi mdi-theme-light-dark" aria-hidden="true"></i>
+          <span id="theme-text">Light Mode</span>
+        </button>
 
-      <a href="/documentation/" class="back-link">
-        <i class="mdi mdi-arrow-left"></i>
-        Back to Documentation
-      </a>
-      
-      <div class="header">
-        <h1>Project Audit Log</h1>
-        <p>
-          Chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, 
-          providing transparency and accountability for external reviewers and future developers.
-        </p>
-      </div>
+        <nav role="navigation" aria-label="Documentation navigation">
+          <a href="/documentation/" class="back-link" aria-label="Return to main documentation portal">
+            <i class="mdi mdi-arrow-left" aria-hidden="true"></i>
+            Back to Documentation
+          </a>
+        </nav>
 
-      <div class="last-updated">
-        <strong>Last Updated:</strong> ${lastUpdated}
-      </div>
+        <div class="header">
+          <h1>Project Audit Log</h1>
+          <p>
+            Chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029,
+            providing transparency and accountability for external reviewers and future developers.
+          </p>
+        </div>
 
-      <div class="content">
+        <div class="last-updated" role="status" aria-live="polite">
+          <strong>Last Updated:</strong> <time datetime="${getCurrentDate()}">${lastUpdated}</time>
+        </div>
+      </header>
+
+      <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
         ${content}
-      </div>
+      </main>
     </div>
 
     <!-- Prism.js for Syntax Highlighting -->

@@ -23,26 +23,22 @@
       <div class="container">
         <v-row>
           <v-col cols="12" md="10" lg="8" class="mx-auto">
-            <!-- Search input -->
-            <v-card class="mb-8" elevation="2">
-              <v-card-text>
-                <v-text-field
-                  v-model="searchQuery"
-                  label="Search content"
-                  :placeholder="searchQuery ? '' : 'Enter search terms...'"
-                  variant="outlined"
-                  hide-details
-                  clearable
-                  @click:clear="clearSearch"
-                  @focus="initializeSearch"
-                  prepend-inner-icon="mdi-magnify"
-                  :loading="isSearching"
-                  aria-label="Search content"
-                  class="search-input"
-                  autofocus
-                ></v-text-field>
-              </v-card-text>
-            </v-card>
+            <!-- Lazy load search functionality -->
+            <IntersectionSection
+              root-margin="100px"
+              skeleton-type="card"
+              placeholder-height="200px"
+              component-name="SearchInterface"
+              show-loading-text
+              loading-text="Loading search interface..."
+            >
+              <LazySearchInterface
+                v-model="searchQuery"
+                :is-searching="isSearching"
+                @clear="clearSearch"
+                @focus="initializeSearch"
+              />
+            </IntersectionSection>
 
             <!-- Search results -->
             <!-- Loading state during search initialization -->
@@ -235,6 +231,12 @@ import {
 } from "~/utils/sanitize";
 import PageTitleSection from "~/components/content/PageTitleSection.vue";
 import StructuredData from "~/components/seo/StructuredData.vue";
+import IntersectionSection from "~/components/IntersectionSection.vue";
+
+// Lazy load search interface with heavy Vuetify components
+const LazySearchInterface = defineAsyncComponent(
+  () => import("~/components/content/SearchInterface.vue")
+);
 
 // Initialize logger
 const { log } = useConsoleLogger();

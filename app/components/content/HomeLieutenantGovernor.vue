@@ -33,6 +33,10 @@
                     forward to working with Illinoisans across the state to
                     implement this powerful plan of action.
                   </p>
+                  <p class="mt-8 signature">
+                    Juliana Stratton<br />
+                    Illinois Lieutenant Governor
+                  </p>
                 </div>
               </div>
             </v-card-text>
@@ -78,13 +82,18 @@
 
 .director-photo {
   float: left;
-  width: 150px;
+  width: 130px;
   margin-right: 20px;
   margin-bottom: 10px;
   margin-top: 5px;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   shape-outside: margin-box;
+}
+
+.signature {
+  font-weight: 600;
+  clear: left; /* Ensures signature always appears below the floated image */
 }
 
 /* Dark theme card styling */
@@ -100,12 +109,15 @@
 
 @media (max-width: 768px) {
   .director-photo {
-    width: 120px !important;
-    margin-right: 15px !important;
+    max-width: 130px;
   }
 
   .message-content {
     font-size: 1rem;
+  }
+
+  .image-column {
+    margin-bottom: 1rem;
   }
 }
 </style>

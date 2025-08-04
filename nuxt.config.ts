@@ -266,9 +266,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          // Use modern Dart Sass instead of node-sass
-          implementation: 'sass',
-          // Additional Sass options
+          // Additional Sass options for modern Dart Sass
           additionalData: `@use "sass:math";`
         }
       }
@@ -281,20 +279,33 @@ export default defineNuxtConfig({
       // Optimize chunk splitting for better caching
       rollupOptions: {
         output: {
-          // Manual chunk splitting for better caching (simplified for tree-shaking)
-          manualChunks: {
-            // Vuetify (now tree-shaken, single chunk for better compatibility)
-            'vendor-vuetify': ['vuetify'],
+          // TEMPORARILY DISABLED: Manual chunk splitting to resolve initialization order issues
+          // The manual chunk splitting was causing "Cannot access 'Co' before initialization" errors
+          // in production builds due to dependency loading order problems
+          /*
+          manualChunks: (id) => {
+            // Vendor libraries - separate chunks
+            if (id.includes('node_modules/vuetify/')) return 'vendor-vuetify';
+            if (id.includes('node_modules/@vueuse/')) return 'vendor-vueuse';
+            if (id.includes('node_modules/fuse.js/')) return 'search';
 
-            // VueUse chunks
-            'vendor-vueuse': ['@vueuse/core', '@vueuse/head', '@vueuse/motion'],
+            // Page-specific chunks to reduce main bundle
+            if (id.includes('/pages/search.vue') || id.includes('SearchInterface')) return 'search-page';
+            if (id.includes('/pages/[...slug].vue')) return 'content-pages';
 
-            // Content and search chunks
-            'search': ['fuse.js'],
+            // Component chunks
+            if (id.includes('/components/content/Home')) return 'home-components';
+            if (id.includes('/components/content/About')) return 'about-components';
+            if (id.includes('/components/seo/')) return 'seo-components';
 
-            // Utilities
-            'utils': ['gray-matter', 'yaml', 'remove-markdown']
+            // Utility chunks
+            if (id.includes('/composables/')) return 'composables';
+            if (id.includes('gray-matter') || id.includes('yaml') || id.includes('remove-markdown')) return 'utils';
+
+            // Default vendor chunk for other node_modules
+            if (id.includes('node_modules/')) return 'vendor';
           }
+          */
         }
       }
     },
