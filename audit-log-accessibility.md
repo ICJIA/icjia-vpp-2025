@@ -180,7 +180,7 @@ This document serves as a chronological record of all accessibility-related chan
 
 - **Technical Implementation**:
   - **Theme Detection**: Uses `:root[data-theme="dark"]` and `:root:not([data-theme="dark"])` selectors for proper theme detection
-  - **Light Mode Colors**: Pure black (#000) for maximum contrast on light backgrounds, ensuring WCAG 2.1 AA compliance
+  - **Light Mode Colors**: Pure black (#000) for maximum contrast on light backgrounds, ensuring WCAG 2.1 Afix:LA compliance
   - **Dark Mode Colors**: Light text (#F1F5F9) for headings/labels, light grey (#CBD5E1, #94A3B8) for helper text and placeholders
   - **Form Labels**: Light theme uses #000 (21:1 contrast ratio), dark theme uses #F1F5F9 with 0.87 opacity
   - **Input Text**: Light theme uses #000 (21:1 contrast ratio), dark theme uses #F1F5F9 for optimal readability
