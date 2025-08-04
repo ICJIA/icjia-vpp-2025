@@ -358,6 +358,19 @@
 <li>♿ <strong>Accessibility Enhancements</strong> - WCAG compliance improvements, screen reader support, and inclusive design</li>
 <li>🔧 <strong>Bug Fixes &amp; Minor Updates</strong> - Issue resolution, small improvements, and maintenance tasks</li>
 </ul>
+<h2>🎨 2025-08-04 (Home Hero Learn More Button Navigation Update)</h2>
+<p><strong>Summary</strong>: Updated the &#39;Learn More&#39; button in the home hero section to scroll to the Letter from Delrice Adams section instead of the previous &quot;For More Information&quot; section, providing users with immediate context about the Violence Prevention Plan from ICJIA&#39;s Executive Director.</p>
+<p><strong>Files Modified/Created</strong>:</p>
+<ul>
+<li><code>app/components/content/HomeHero.vue</code>: Updated <code>handleLearnMore()</code> function to target <code>.letters-section</code> instead of <code>.action-section</code>, modified JSDoc documentation to reflect new scroll target and purpose</li>
+</ul>
+<p><strong>Technical Notes</strong>:</p>
+<ul>
+<li>Maintains existing smooth scrolling behavior with 80px offset for fixed navigation header</li>
+<li>Uses same scroll implementation pattern as before but targets the Letter from Delrice Adams section</li>
+<li>Provides better user flow from hero CTA to executive director&#39;s message about the plan</li>
+<li>No changes to accessibility features or keyboard navigation support</li>
+</ul>
 <h2>🎨 2025-08-03 (Audit Log Visual Enhancement - Entry Type Indicators)</h2>
 <p><strong>Summary</strong>: Enhanced the audit log with visual emoji indicators to help users quickly distinguish between major features, bug fixes, performance optimizations, security enhancements, and other types of changes when scrolling through the extensive development history.</p>
 <p><strong>Files Modified/Created</strong>:</p>

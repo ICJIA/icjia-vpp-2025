@@ -176,9 +176,10 @@ const handleDownloadPlan = () => {
 /**
  * Handle Learn More button activation
  *
- * Smoothly scrolls to the "For More Information" section for additional
- * resources and action items about the Violence Prevention Plan. Uses native
- * smooth scrolling behavior with proper offset for fixed navigation header.
+ * Smoothly scrolls to the Letter from Delrice Adams section to provide users
+ * with immediate context about the Violence Prevention Plan from ICJIA's
+ * Executive Director. Uses native smooth scrolling behavior with proper offset
+ * for fixed navigation header.
  *
  * @function
  * @returns {void}
@@ -187,12 +188,12 @@ const handleDownloadPlan = () => {
  * handleLearnMore();
  */
 const handleLearnMore = () => {
-  // Scroll to the "For More Information" section (action-section)
-  const actionSection = document.querySelector(".action-section");
-  if (actionSection) {
+  // Scroll to the Letter from Delrice Adams section (letters-section)
+  const lettersSection = document.querySelector(".letters-section");
+  if (lettersSection) {
     // Calculate offset for fixed navigation (80px as per project guidelines)
     const offset = 80;
-    const elementPosition = actionSection.getBoundingClientRect().top;
+    const elementPosition = lettersSection.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - offset;
 
     window.scrollTo({
