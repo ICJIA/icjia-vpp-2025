@@ -8,6 +8,6 @@ twitterCard: "summary_large_image"
 showTOC: false
 ---
 
-<div style="display: flex; align-items: center; justify-content: center; min-height: 50vh; text-align: center;">
-  <h2 style="color: rgb(var(--v-theme-primary)); font-weight: 600; margin: 0;">We're preparing organizational and agency highlights. Please check back soon.</h2>
+<div style="display: flex; justify-content: center; text-align: center; padding-top: 3rem; padding-bottom: 6rem;">
+  <h2 style="color: rgb(var(--v-theme-primary)); font-weight: 600; margin: 0; min-height: 50vh; border-bottom: 0;">We're preparing organizational and agency highlights. Please check back soon.</h2>
 </div>
