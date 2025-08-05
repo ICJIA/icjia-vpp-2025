@@ -13,10 +13,14 @@
             <v-card-text class="pa-8 pa-md-12">
               <div class="message-content">
                 <div class="message-text">
-                  <img
+                  <NuxtImg
                     src="/images/stratton-lg-cropped.jpg"
                     alt="A photo of Lieutenant Governor Juliana Stratton"
                     class="director-photo"
+                    format="webp"
+                    quality="85"
+                    width="150"
+                    loading="lazy"
                   />
                   <p>
                     Since we first stepped into office, the Pritzker-Stratton

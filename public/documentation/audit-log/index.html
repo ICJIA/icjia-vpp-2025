@@ -358,6 +358,25 @@
 <li>♿ <strong>Accessibility Enhancements</strong> - WCAG compliance improvements, screen reader support, and inclusive design</li>
 <li>🔧 <strong>Bug Fixes &amp; Minor Updates</strong> - Issue resolution, small improvements, and maintenance tasks</li>
 </ul>
+<h2>⚡ 2025-08-05 (Homepage Letter Images Optimization)</h2>
+<p><strong>Summary</strong>: Optimized the two images in the homepage letter sections (Director Adams and Lieutenant Governor Stratton) by replacing standard <code>&lt;img&gt;</code> tags with Nuxt&#39;s <code>&lt;NuxtImg&gt;</code> component, enabling automatic WebP conversion with fallbacks and improved performance through lazy loading.</p>
+<p><strong>Files Modified/Created</strong>:</p>
+<ul>
+<li><code>app/components/content/HomeLetters.vue</code>: Replaced <code>&lt;img&gt;</code> with <code>&lt;NuxtImg&gt;</code> component for Director Adams photo, added WebP format optimization, quality settings, and lazy loading</li>
+<li><code>app/components/content/HomeLieutenantGovernor.vue</code>: Replaced <code>&lt;img&gt;</code> with <code>&lt;NuxtImg&gt;</code> component for Lieutenant Governor Stratton photo, added WebP format optimization, quality settings, and lazy loading</li>
+</ul>
+<p><strong>Technical Notes</strong>:</p>
+<ul>
+<li>Images now automatically convert to WebP format with JPEG/PNG fallbacks for browsers that don&#39;t support WebP</li>
+<li>Added <code>loading=&quot;lazy&quot;</code> attribute for improved page load performance</li>
+<li>Set <code>quality=&quot;85&quot;</code> for optimal balance between file size and visual quality</li>
+<li>Fixed <code>width=&quot;150&quot;</code> for consistent sizing across devices</li>
+<li>Images are served through IPX optimization pipeline with URLs like: <code>/_ipx/w_150&amp;f_webp&amp;q_85/images/[filename]</code></li>
+<li>Maintains full accessibility with proper alt text and semantic HTML structure</li>
+<li>Leverages existing Nuxt Image module configuration (@nuxt/image already installed and configured)</li>
+<li>No visual changes to the user interface, only performance improvements</li>
+<li>Automatic format detection and serving based on browser capabilities</li>
+</ul>
 <h2>🎨 2025-08-04 (Home Hero Learn More Button Navigation Update)</h2>
 <p><strong>Summary</strong>: Updated the &#39;Learn More&#39; button in the home hero section to scroll to the Letter from Delrice Adams section instead of the previous &quot;For More Information&quot; section, providing users with immediate context about the Violence Prevention Plan from ICJIA&#39;s Executive Director.</p>
 <p><strong>Files Modified/Created</strong>:</p>

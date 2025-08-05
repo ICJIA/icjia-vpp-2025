@@ -13,10 +13,14 @@
             <v-card-text class="pa-8 pa-md-12">
               <div class="message-content">
                 <div class="message-text">
-                  <img
+                  <NuxtImg
                     src="/images/DirectorAdamsResized.jpg"
                     alt="A photo of ICJIA Executive Director Delrice Adams"
                     class="director-photo"
+                    format="webp"
+                    quality="85"
+                    width="150"
+                    loading="lazy"
                   />
                   <p>
                     At the heart of our mission is a commitment to fairness and

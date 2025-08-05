@@ -13,6 +13,27 @@ This document serves as a chronological record of all significant changes made t
 - ♿ **Accessibility Enhancements** - WCAG compliance improvements, screen reader support, and inclusive design
 - 🔧 **Bug Fixes & Minor Updates** - Issue resolution, small improvements, and maintenance tasks
 
+## ⚡ 2025-08-05 (Homepage Letter Images Optimization)
+
+**Summary**: Optimized the two images in the homepage letter sections (Director Adams and Lieutenant Governor Stratton) by replacing standard `<img>` tags with Nuxt's `<NuxtImg>` component, enabling automatic WebP conversion with fallbacks and improved performance through lazy loading.
+
+**Files Modified/Created**:
+
+- `app/components/content/HomeLetters.vue`: Replaced `<img>` with `<NuxtImg>` component for Director Adams photo, added WebP format optimization, quality settings, and lazy loading
+- `app/components/content/HomeLieutenantGovernor.vue`: Replaced `<img>` with `<NuxtImg>` component for Lieutenant Governor Stratton photo, added WebP format optimization, quality settings, and lazy loading
+
+**Technical Notes**:
+
+- Images now automatically convert to WebP format with JPEG/PNG fallbacks for browsers that don't support WebP
+- Added `loading="lazy"` attribute for improved page load performance
+- Set `quality="85"` for optimal balance between file size and visual quality
+- Fixed `width="150"` for consistent sizing across devices
+- Images are served through IPX optimization pipeline with URLs like: `/_ipx/w_150&f_webp&q_85/images/[filename]`
+- Maintains full accessibility with proper alt text and semantic HTML structure
+- Leverages existing Nuxt Image module configuration (@nuxt/image already installed and configured)
+- No visual changes to the user interface, only performance improvements
+- Automatic format detection and serving based on browser capabilities
+
 ## 🎨 2025-08-04 (Home Hero Learn More Button Navigation Update)
 
 **Summary**: Updated the 'Learn More' button in the home hero section to scroll to the Letter from Delrice Adams section instead of the previous "For More Information" section, providing users with immediate context about the Violence Prevention Plan from ICJIA's Executive Director.
