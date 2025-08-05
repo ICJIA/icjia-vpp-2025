@@ -13,12 +13,10 @@
             <v-card-text class="pa-8 pa-md-12">
               <div class="message-content">
                 <div class="message-text">
-                  <NuxtImg
+                  <img
                     src="/images/stratton-lg-cropped.jpg"
                     alt="A photo of Lieutenant Governor Juliana Stratton"
                     class="director-photo"
-                    format="webp"
-                    quality="85"
                     width="150"
                     loading="lazy"
                   />
@@ -86,7 +84,7 @@
 
 .director-photo {
   float: left;
-  width: 130px;
+  width: 150px;
   margin-right: 20px;
   margin-bottom: 10px;
   margin-top: 5px;
@@ -113,7 +111,7 @@
 
 @media (max-width: 768px) {
   .director-photo {
-    max-width: 130px;
+    max-width: 150px;
   }
 
   .message-content {

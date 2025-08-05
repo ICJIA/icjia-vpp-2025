@@ -18,8 +18,9 @@
                     alt="A photo of ICJIA Executive Director Delrice Adams"
                     class="director-photo"
                     format="webp"
-                    quality="85"
+                    quality="80"
                     width="150"
+                    height="150"
                     loading="lazy"
                   />
                   <p>
