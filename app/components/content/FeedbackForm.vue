@@ -185,10 +185,6 @@
                           : 'pointer',
                     }"
                     :aria-label="submitButtonAriaLabel"
-                    @mouseenter="showTooltip = true"
-                    @mouseleave="hideTooltip"
-                    @focus="showTooltip = true"
-                    @blur="hideTooltip"
                   >
                     <v-icon
                       start
@@ -204,14 +200,19 @@
                     }}
                   </v-btn>
 
-                  <v-tooltip
-                    :model-value="showTooltip"
-                    location="bottom"
-                    :text="submitTooltipText"
-                    activator="parent"
-                    :open-delay="200"
-                    :close-delay="0"
-                  />
+                  <!-- Form status feedback -->
+                  <div
+                    v-if="!isFormValid || isSubmitting"
+                    class="text-caption text-center mt-2"
+                    :class="{
+                      'text-warning': !isFormValid && !isSubmitting,
+                      'text-info': isSubmitting,
+                    }"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    {{ submitTooltipText }}
+                  </div>
                 </div>
               </div>
             </v-form>
@@ -255,9 +256,7 @@ const isFormValid = ref(false);
 const isSubmitting = ref(false);
 const isSubmitted = ref(false);
 
-// Tooltip state management
-const showTooltip = ref(false);
-let tooltipTimer = null;
+// Form status feedback (replaces tooltip functionality)
 
 // Form data
 const formData = reactive({
@@ -412,23 +411,6 @@ const formStatusMessage = computed(() => {
 
   return "";
 });
-
-/**
- * Hide tooltip with auto-dismiss timer (like navbar tooltips)
- */
-const hideTooltip = () => {
-  // Clear any existing timer
-  if (tooltipTimer) {
-    clearTimeout(tooltipTimer);
-    tooltipTimer = null;
-  }
-
-  // Set auto-dismiss timer for 2 seconds (matching navbar behavior)
-  tooltipTimer = setTimeout(() => {
-    showTooltip.value = false;
-    tooltipTimer = null;
-  }, 2000);
-};
 
 /**
  * Stub function to simulate email sending

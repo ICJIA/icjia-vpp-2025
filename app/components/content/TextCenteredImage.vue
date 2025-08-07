@@ -1,24 +1,18 @@
 <template>
   <div class="simple-centered-image">
-    <v-tooltip :text="props.alt" location="top">
-      <template v-slot:activator="{ props: tooltipProps }">
-        <div v-bind="tooltipProps">
-          <ImageWithSpinner
-            :src="props.src"
-            :alt="props.alt"
-            :width="props.width"
-            :height="props.height"
-            :spinner-color="props.spinnerColor"
-            :spinner-size="props.spinnerSize"
-            :eager="props.eager"
-            :cover="props.cover"
-            :aspect-ratio="props.aspectRatio"
-            @click="openModal"
-            style="cursor: pointer"
-          />
-        </div>
-      </template>
-    </v-tooltip>
+    <ImageWithSpinner
+      :src="props.src"
+      :alt="props.alt"
+      :width="props.width"
+      :height="props.height"
+      :spinner-color="props.spinnerColor"
+      :spinner-size="props.spinnerSize"
+      :eager="props.eager"
+      :cover="props.cover"
+      :aspect-ratio="props.aspectRatio"
+      @click="openModal"
+      style="cursor: pointer"
+    />
     <div v-if="props.caption" class="simple-caption">
       {{ props.caption }}
     </div>
@@ -73,7 +67,7 @@
  * Simple Centered Image Component
  *
  * Displays an image centered in the column with click-to-open modal functionality.
- * Includes tooltip showing alt text on hover.
+ * Uses native browser alt text for accessibility.
  */
 import { ref } from "vue";
 import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";

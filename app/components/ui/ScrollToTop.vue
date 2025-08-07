@@ -1,21 +1,16 @@
 <template>
   <div class="scroll-to-top-container">
-    <v-tooltip text="Scroll to top" location="left">
-      <template v-slot:activator="{ props }">
-        <v-btn
-          v-bind="props"
-          icon="mdi-chevron-up"
-          size="large"
-          color="primary"
-          variant="elevated"
-          class="scroll-to-top-btn"
-          aria-label="Scroll to top of page"
-          @click="handleScrollToTop"
-          @keydown.enter="handleScrollToTop"
-          @keydown.space.prevent="handleScrollToTop"
-        ></v-btn>
-      </template>
-    </v-tooltip>
+    <v-btn
+      icon="mdi-chevron-up"
+      size="large"
+      color="primary"
+      variant="elevated"
+      class="scroll-to-top-btn"
+      aria-label="Scroll to top of page"
+      @click="handleScrollToTop"
+      @keydown.enter="handleScrollToTop"
+      @keydown.space.prevent="handleScrollToTop"
+    ></v-btn>
   </div>
 </template>
 

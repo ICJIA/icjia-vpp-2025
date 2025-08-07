@@ -13,6 +13,26 @@ This document serves as a chronological record of all significant changes made t
 - ♿ **Accessibility Enhancements** - WCAG compliance improvements, screen reader support, and inclusive design
 - 🔧 **Bug Fixes & Minor Updates** - Issue resolution, small improvements, and maintenance tasks
 
+## ♿ 2025-08-07 (Comprehensive Tooltip Removal for Accessibility)
+
+**Summary**: Systematically removed all non-reference tooltip functionality while preserving critical AccessibleTooltip.vue and ReferenceTooltip.vue components to improve accessibility, reduce UI complexity, and eliminate hover-dependent interactions.
+
+**Files Modified/Created**:
+
+- `app/components/content/TextCenteredImage.vue`: Removed v-tooltip wrapper that displayed alt text on hover, now relies on native browser alt text behavior
+- `app/components/ui/ScrollToTop.vue`: Removed v-tooltip showing "Scroll to top" text, relies on existing aria-label for accessibility
+- `app/components/content/FeedbackForm.vue`: Replaced v-tooltip with inline status feedback using proper ARIA attributes (role="status", aria-live="polite") for better accessibility
+- `public/documentation/jsdoc/scripts/core.js`: Removed tippy.js tooltip initialization for JSDoc documentation UI elements
+
+**Technical Notes**:
+
+- **Preserved Critical Functionality**: AccessibleTooltip.vue and ReferenceTooltip.vue components remain completely intact and functional for academic reference citations
+- **Enhanced Form UX**: FeedbackForm now shows validation feedback inline with color coding (warning/info) instead of hover-only tooltips
+- **Accessibility Improvements**: Eliminated hover-dependent information disclosure, making all functionality accessible to keyboard and touch users
+- **Performance Benefits**: Reduced tooltip event listeners and DOM manipulation overhead
+- **Reference System Intact**: All reference tooltip CSS styling, plugins/references.client.js, and useReferences.js composable preserved
+- **No Breaking Changes**: Reference tooltip functionality continues to work exactly as before
+
 ## ⚡ 2025-08-05 (Homepage Letter Images Optimization)
 
 **Summary**: Optimized the two images in the homepage letter sections (Director Adams and Lieutenant Governor Stratton) by replacing standard `<img>` tags with Nuxt's `<NuxtImg>` component, enabling automatic WebP conversion with fallbacks and improved performance through lazy loading.

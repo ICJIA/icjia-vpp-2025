@@ -2,6 +2,31 @@
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
+## 2025-08-07 (Comprehensive Tooltip Removal for Accessibility)
+
+**Summary**: Removed all non-reference tooltip functionality while preserving critical AccessibleTooltip.vue and ReferenceTooltip.vue components to improve accessibility and reduce UI complexity.
+
+**Files Modified/Created**:
+
+- `app/components/content/TextCenteredImage.vue`: Removed v-tooltip wrapper, now relies on native browser alt text behavior for accessibility
+- `app/components/ui/ScrollToTop.vue`: Removed v-tooltip, relies on existing aria-label for screen reader accessibility
+- `app/components/content/FeedbackForm.vue`: Replaced v-tooltip with inline status feedback using role="status" and aria-live="polite" for better accessibility
+- `public/documentation/jsdoc/scripts/core.js`: Removed tippy.js tooltip initialization for JSDoc documentation
+
+**Accessibility Improvements**:
+
+- **Enhanced Form Feedback**: FeedbackForm now uses inline text with proper ARIA attributes (role="status", aria-live="polite") instead of hover-only tooltips, making feedback accessible to all users including keyboard and screen reader users
+- **Reduced Hover Dependencies**: Eliminated hover-only information disclosure, improving accessibility for touch device users and those who cannot use hover interactions
+- **Preserved Critical Functionality**: AccessibleTooltip.vue and ReferenceTooltip.vue components remain fully functional for academic reference citations, maintaining WCAG 2.1 AA compliance
+- **Simplified Interaction Model**: Reduced cognitive load by removing redundant tooltip information that was already available through aria-labels and context
+
+**Technical Notes**:
+
+- Reference tooltip system (AccessibleTooltip.vue, ReferenceTooltip.vue, plugins/references.client.js) completely preserved and functional
+- All reference tooltip CSS styling in main.scss maintained for academic citation functionality
+- FeedbackForm tooltip replaced with more accessible inline feedback mechanism with color coding and proper ARIA announcements
+- No breaking changes to reference tooltip functionality or styling
+
 ## 2025-08-03 (Comprehensive Accessibility & Performance Audit)
 
 **Summary**: Conducted comprehensive accessibility and code quality audit revealing excellent WCAG 2.1 AA compliance with critical performance issues affecting accessibility for users on slow connections.
