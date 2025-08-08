@@ -68,6 +68,13 @@ Cache-Control = "public, max-age=300"
 
 # Redirects
 [[redirects]]
+from = "https://vpp-2025.netlify.app/*"
+to = "https://vpp.icjia.illinois.gov/:splat"
+status = 301
+force = true
+
+
+[[redirects]]
 from = "/plan"
 to = "/plan/front-cover"
 status = 301

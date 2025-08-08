@@ -13,6 +13,20 @@ This document serves as a chronological record of all significant changes made t
 - ♿ **Accessibility Enhancements** - WCAG compliance improvements, screen reader support, and inclusive design
 - 🔧 **Bug Fixes & Minor Updates** - Issue resolution, small improvements, and maintenance tasks
 
+## 🔧 2025-08-08 (Permanent Redirect: Netlify Subdomain ➜ Primary Domain)
+
+**Summary**: Added a 301 permanent redirect so requests to the Netlify subdomain (vpp-2025.netlify.app) are redirected to the canonical domain (vpp.icjia.illinois.gov), preserving paths and queries.
+
+**Files Modified/Created**:
+
+- `netlify.toml`: Added host-based redirect rule before existing path/404 rules
+
+**Technical Notes**:
+
+- Uses a host-based `[[redirects]]` block with `from = "https://vpp-2025.netlify.app/*"`, `to = "https://vpp.icjia.illinois.gov/:splat"`, `status = 301`, and `force = true` so the redirect takes precedence and preserves path/query via `:splat`.
+- Rule order matters; the host redirect is placed at the top of the Redirects section to run before other redirects.
+- Ensure the custom domain is configured in Netlify and has valid DNS/SSL so the redirect target is live.
+
 ## ♿ 2025-08-07 (Comprehensive Tooltip Removal for Accessibility)
 
 **Summary**: Systematically removed all non-reference tooltip functionality while preserving critical AccessibleTooltip.vue and ReferenceTooltip.vue components to improve accessibility, reduce UI complexity, and eliminate hover-dependent interactions.
