@@ -46,7 +46,7 @@ Each entry in the search index contains the following fields:
   "title": "Page Title",
   "content": "Clean, plain text content",
   "path": "/normalized-path",
-  "fullPath": "https://vpp-2025.netlify.app/normalized-path",
+  "fullPath": "https://vpp.icjia.illinois.gov/normalized-path",
   "description": "Page description or excerpt",
   "frontmatter": {
     /* Original frontmatter data */
@@ -77,7 +77,7 @@ The system automatically normalizes homepage paths for consistency:
 
 - **Input**: `/index` (from `index.md`)
 - **Output**: `/` (standard homepage path)
-- **fullPath**: Exactly the baseURL without trailing path (`https://vpp-2025.netlify.app`)
+- **fullPath**: Exactly the baseURL without trailing path (`https://vpp.icjia.illinois.gov`)
 
 ### Other Pages
 
@@ -85,7 +85,7 @@ All other pages maintain their natural paths:
 
 - **Input**: `/about` (from `about.md`)
 - **Output**: `/about` (unchanged)
-- **fullPath**: baseURL + path (`https://vpp-2025.netlify.app/about`)
+- **fullPath**: baseURL + path (`https://vpp.icjia.illinois.gov/about`)
 
 ### BaseURL Integration
 
@@ -94,12 +94,12 @@ The system reads the baseURL from `config/site.config.json`:
 ```json
 {
   "urls": {
-    "baseUrl": "https://vpp-2025.netlify.app/"
+    "baseUrl": "https://vpp.icjia.illinois.gov/"
   }
 }
 ```
 
-If the site configuration is unavailable, it falls back to: `https://vpp-2025.netlify.app`
+If the site configuration is unavailable, it falls back to: `https://vpp.icjia.illinois.gov`
 
 ## Usage
 

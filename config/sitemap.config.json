@@ -1,7 +1,7 @@
 {
   "sitemap": {
     "outputPath": "public/sitemap.xml",
-    "baseUrl": "https://vpp-2025.netlify.app/",
+    "baseUrl": "https://vpp.icjia.illinois.gov/",
     "defaultChangeFreq": "monthly",
     "defaultPriority": 0.6,
     "priorities": {

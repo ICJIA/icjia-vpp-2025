@@ -40,7 +40,7 @@ This file contains all general site configuration settings:
     }
   },
   "urls": {
-    "baseUrl": "https://vpp-2025.netlify.app/",
+    "baseUrl": "https://vpp.icjia.illinois.gov/",
     "devUrl": "http://localhost:8000",
     "repository": "https://github.com/ICJIA/icjia-vpp-2025",
     "organization": "https://icjia.illinois.gov"
@@ -348,7 +348,7 @@ const { copyright, privacyPolicy, termsOfService } = siteConfig.legal;
 
 const fullAddress = computed(
   () =>
-    `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`,
+    `${address.street}, ${address.city}, ${address.state} ${address.zipCode}`
 );
 </script>
 ```

@@ -189,11 +189,11 @@ useHead({
 const homeTitle = "Violence Prevention Plan for Illinois: 2025-2029 - Home";
 const homeDescription =
   "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.";
-const homeCanonicalUrl = "https://vpp-2025.netlify.app/";
+const homeCanonicalUrl = "https://vpp.icjia.illinois.gov/";
 const homeSocialImage =
-  "https://vpp-2025.netlify.app/images/og-image-default.jpg";
+  "https://vpp.icjia.illinois.gov/images/og-image-default.jpg";
 const homeTwitterImage =
-  "https://vpp-2025.netlify.app/images/twitter-card-default.jpg";
+  "https://vpp.icjia.illinois.gov/images/twitter-card-default.jpg";
 
 useSeoMeta({
   title: homeTitle,

@@ -24,7 +24,7 @@ The sitemap configuration is stored in `/config/sitemap.config.json` and follows
 {
   "sitemap": {
     "outputPath": "public/sitemap.xml",
-    "baseUrl": "https://vpp-2025.netlify.app/",
+    "baseUrl": "https://vpp.icjia.illinois.gov/",
     "defaultChangeFreq": "monthly",
     "defaultPriority": 0.6,
     "priorities": { ... },
@@ -44,17 +44,14 @@ The sitemap configuration is stored in `/config/sitemap.config.json` and follows
 #### Basic Settings
 
 - **`outputPath`** (string): Where to write the generated sitemap.xml file
-
   - Default: `"public/sitemap.xml"`
   - Example: `"public/sitemap.xml"`
 
 - **`baseUrl`** (string): Base URL for all sitemap entries
-
-  - Default: `"https://vpp-2025.netlify.app/"`
+  - Default: `"https://vpp.icjia.illinois.gov/"`
   - Note: Should match your production domain
 
 - **`defaultChangeFreq`** (string): Default change frequency for pages not specifically configured
-
   - Default: `"monthly"`
   - Options: `"always"`, `"hourly"`, `"daily"`, `"weekly"`, `"monthly"`, `"yearly"`, `"never"`
 
@@ -138,7 +135,6 @@ Controls which pages are excluded from the sitemap:
    ```
 
 2. **Pattern Exclusions**: Pages matching specific patterns are automatically excluded:
-
    - `/sandbox` - Development sandbox pages
    - `/sandbox-*` - All sandbox variants (glob pattern)
    - `/404` - Error pages
@@ -259,13 +255,13 @@ The generated sitemap follows the standard XML format specified by sitemaps.org:
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vpp-2025.netlify.app/</loc>
+    <loc>https://vpp.icjia.illinois.gov/</loc>
     <lastmod>2025-05-25T12:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vpp-2025.netlify.app/about</loc>
+    <loc>https://vpp.icjia.illinois.gov/about</loc>
     <lastmod>2025-05-25T11:30:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

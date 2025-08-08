@@ -62,7 +62,7 @@ The generated search index follows this enhanced structure with both `path` and 
     "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Home",
     "content": "Rex adipiscing bis umbra sol gloria bis amet. Rex adipiscing bis umbra sol gloria bis amet ventus sit rex caelum est ideme...",
     "path": "/",
-    "fullPath": "https://vpp-2025.netlify.app",
+    "fullPath": "https://vpp.icjia.illinois.gov",
     "description": "The Statewide Violence Prevention Plan for Illinois: 2025-2029 provides resources and tools for violence prevention initiatives across Illinois.",
     "frontmatter": {
       "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - Home",
@@ -78,7 +78,7 @@ The generated search index follows this enhanced structure with both `path` and 
     "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - About Us",
     "content": "About Us Sed do eiusmod tempor incididunt. Anima Lumen Manus Carmen mare vita idem Lorem elit anima lumen manus...",
     "path": "/about",
-    "fullPath": "https://vpp-2025.netlify.app/about",
+    "fullPath": "https://vpp.icjia.illinois.gov/about",
     "description": "Learn about the Statewide Violence Prevention Plan for Illinois: 2025-2029, our mission, values, and approach to violence prevention across Illinois.",
     "frontmatter": {
       "title": "Statewide Violence Prevention Plan for Illinois: 2025-2029 - About Us",
@@ -111,7 +111,7 @@ The system automatically normalizes homepage paths for consistency with web stan
 
 - **Input**: `/index` (from `index.md`)
 - **Output**: `/` (standard homepage path)
-- **fullPath**: Exactly the baseURL without trailing path (`https://vpp-2025.netlify.app`)
+- **fullPath**: Exactly the baseURL without trailing path (`https://vpp.icjia.illinois.gov`)
 
 #### Other Pages
 
@@ -119,7 +119,7 @@ All other pages maintain their natural paths:
 
 - **Input**: `/about` (from `about.md`)
 - **Output**: `/about` (unchanged)
-- **fullPath**: baseURL + path (`https://vpp-2025.netlify.app/about`)
+- **fullPath**: baseURL + path (`https://vpp.icjia.illinois.gov/about`)
 
 #### BaseURL Integration
 
@@ -128,12 +128,12 @@ The system reads the baseURL from `config/site.config.json`:
 ```json
 {
   "urls": {
-    "baseUrl": "https://vpp-2025.netlify.app/"
+    "baseUrl": "https://vpp.icjia.illinois.gov/"
   }
 }
 ```
 
-If the site configuration is unavailable, it falls back to the default: `https://vpp-2025.netlify.app`
+If the site configuration is unavailable, it falls back to the default: `https://vpp.icjia.illinois.gov`
 
 ## Configuration
 
@@ -211,30 +211,25 @@ The Defuddle-enhanced system maintains all existing security features:
 ### Common Issues
 
 1. **URL Errors in Defuddle**:
-
    - These are internal Defuddle warnings and don't affect functionality
    - Content is still extracted successfully despite the error messages
 
 2. **Missing Content**:
-
    - Check if files are blacklisted in `config/fuse.config.json`
    - Verify markdown frontmatter is properly formatted
    - Ensure content has sufficient text (minimum 10 words)
 
 3. **Build Integration**:
-
    - The script runs automatically during build processes
    - Manual execution: `yarn create:search-index-defuddle`
    - Check output in `public/data/search-index.json`
 
 4. **Missing baseURL Configuration**:
-
    - If `config/site.config.json` is missing or malformed, the system uses fallback defaults
    - Verify the site configuration file exists and has proper structure
    - Check that `urls.baseUrl` is correctly set in the site configuration
 
 5. **Incorrect fullPath Values**:
-
    - Ensure the baseURL in site configuration doesn't have trailing slashes
    - Homepage should have fullPath equal to baseURL exactly
    - Other pages should have fullPath as baseURL + path

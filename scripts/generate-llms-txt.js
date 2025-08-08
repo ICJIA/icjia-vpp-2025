@@ -182,7 +182,7 @@ class LLMSTxtGenerator {
 
     for (const page of processedPages) {
       if (page && page.title && page.path) {
-        const baseUrl = "https://vpp-2025.netlify.app";
+        const baseUrl = "https://vpp.icjia.illinois.gov";
         const fullUrl = `${baseUrl}${page.path}`;
 
         // Create markdown link with description following llms.txt spec
@@ -199,7 +199,7 @@ class LLMSTxtGenerator {
     lines.push("## Optional");
     lines.push("");
     lines.push(
-      "- [Full PDF Report](https://vpp-2025.netlify.app/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf): Complete downloadable version of the violence prevention plan"
+      "- [Full PDF Report](https://vpp.icjia.illinois.gov/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf): Complete downloadable version of the violence prevention plan"
     );
     lines.push(
       "- [ICJIA Website](https://icjia.illinois.gov): Illinois Criminal Justice Information Authority main website"

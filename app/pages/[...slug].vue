@@ -1066,7 +1066,7 @@ useHead({
 
 // Computed properties for enhanced SEO
 const canonicalUrl = computed(() => {
-  const baseUrl = "https://vpp-2025.netlify.app";
+  const baseUrl = "https://vpp.icjia.illinois.gov";
   return content.value?.canonical || `${baseUrl}${route.path}`;
 });
 
@@ -1075,24 +1075,24 @@ const socialImage = computed(() => {
   if (content.value?.image) {
     // If it's a relative path, make it absolute
     if (content.value.image.startsWith("/")) {
-      return `https://vpp-2025.netlify.app${content.value.image}`;
+      return `https://vpp.icjia.illinois.gov${content.value.image}`;
     }
     // If it's already absolute (external URL), use as-is
     return content.value.image;
   }
   // Fallback to default OG image
-  return "https://vpp-2025.netlify.app/images/og-image-default.jpg";
+  return "https://vpp.icjia.illinois.gov/images/og-image-default.jpg";
 });
 
 const twitterImage = computed(() => {
   // Use content image if available, otherwise Twitter-specific default
   if (content.value?.image) {
     if (content.value.image.startsWith("/")) {
-      return `https://vpp-2025.netlify.app${content.value.image}`;
+      return `https://vpp.icjia.illinois.gov${content.value.image}`;
     }
     return content.value.image;
   }
-  return "https://vpp-2025.netlify.app/images/twitter-card-default.jpg";
+  return "https://vpp.icjia.illinois.gov/images/twitter-card-default.jpg";
 });
 
 useSeoMeta({

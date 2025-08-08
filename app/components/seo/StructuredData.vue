@@ -67,7 +67,7 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const baseUrl = "https://vpp-2025.netlify.app";
+const baseUrl = "https://vpp.icjia.illinois.gov";
 
 /**
  * Generate organization schema markup

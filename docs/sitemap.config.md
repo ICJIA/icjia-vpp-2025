@@ -24,7 +24,7 @@ The sitemap configuration is stored in `/config/sitemap.config.json` and follows
 {
   "sitemap": {
     "outputPath": "public/sitemap.xml",
-    "baseUrl": "https://vpp-2025.netlify.app/",
+    "baseUrl": "https://vpp.icjia.illinois.gov/",
     "defaultChangeFreq": "monthly",
     "defaultPriority": 0.6,
     "priorities": {
@@ -199,7 +199,7 @@ The generated sitemap follows the standard XML format:
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vpp-2025.netlify.app/</loc>
+    <loc>https://vpp.icjia.illinois.gov/</loc>
     <lastmod>2025-05-25T12:00:00.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>

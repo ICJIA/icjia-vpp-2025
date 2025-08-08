@@ -36,7 +36,7 @@ const defaultConfig = {
     version: "1.0.0",
   },
   urls: {
-    baseUrl: "https://vpp-2025.netlify.app/",
+    baseUrl: "https://vpp.icjia.illinois.gov/",
     devUrl: "http://localhost:8000",
   },
 };

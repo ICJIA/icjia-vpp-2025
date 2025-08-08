@@ -163,7 +163,7 @@ Each entry must include:
 Please update the audit log after each change.
 
 # Project Information
-- Project: 'Statewide Violence Prevention Plan for Illinois: 2025-2029' (https://vpp-2025.netlify.app, GitHub: https://github.com/ICJIA/icjia-vpp-2025)
+- Project: 'Statewide Violence Prevention Plan for Illinois: 2025-2029' (https://vpp.icjia.illinois.gov, GitHub: https://github.com/ICJIA/icjia-vpp-2025)
 - Licensed under MIT by Illinois Criminal Justice Information Authority
 - Uses yarn v1.22.22 (must use 'npx' instead of 'yarn dlx')
 - Uses YYYY-MM-DD format for audit logs, Month DD, YYYY for 'Last Updated' sections

@@ -199,22 +199,27 @@
                         : "Send Feedback"
                     }}
                   </v-btn>
-
-                  <!-- Form status feedback -->
-                  <div
-                    v-if="!isFormValid || isSubmitting"
-                    class="text-caption text-center mt-2"
-                    :class="{
-                      'text-warning': !isFormValid && !isSubmitting,
-                      'text-info': isSubmitting,
-                    }"
-                    role="status"
-                    aria-live="polite"
-                  >
-                    {{ submitTooltipText }}
-                  </div>
                 </div>
+
+                <!-- Form status feedback -->
+                <v-row class="mt-2">
+                  <v-col cols="12" class="text-center">
+                    <div
+                      class="form-status-message"
+                      :class="{
+                        'form-status-error': !isFormValid && !isSubmitting,
+                        'form-status-success': isFormValid && !isSubmitting,
+                        'form-status-info': isSubmitting,
+                      }"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {{ submitTooltipText }}
+                    </div>
+                  </v-col>
+                </v-row>
               </div>
+             
             </v-form>
           </v-card>
         </v-col>

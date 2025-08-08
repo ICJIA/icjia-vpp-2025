@@ -5,5 +5,5 @@ Disallow: /*sandbox*
 Disallow: /documentation/
 Disallow: /documentation/*
 
-Sitemap: https://vpp-2025.netlify.app/sitemap.xml
+Sitemap: https://vpp.icjia.illinois.gov/sitemap.xml
 

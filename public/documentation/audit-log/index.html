@@ -340,7 +340,7 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-08-07">August 07, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-08-08">August 08, 2025</time>
         </div>
       </header>
 
@@ -801,7 +801,7 @@
 <li><strong>Verification Process</strong>: Confirmed source file contains 197 May entries, sync script processes correctly, and generated HTML contains all 200 May entries</li>
 <li><strong>Build Process</strong>: The <code>yarn generate:quiet</code> command properly runs the sync script as part of the build pipeline</li>
 <li><strong>Deployment Ready</strong>: The <code>.output/public</code> directory now contains the complete audit log ready for deployment</li>
-<li><strong>Next Step</strong>: The updated build needs to be deployed to Netlify to make the complete audit log visible at <a href="https://vpp-2025.netlify.app/documentation/audit-log/">https://vpp-2025.netlify.app/documentation/audit-log/</a></li>
+<li><strong>Next Step</strong>: The updated build needs to be deployed to Netlify to make the complete audit log visible at <a href="https://vpp.icjia.illinois.gov/documentation/audit-log/">https://vpp.icjia.illinois.gov/documentation/audit-log/</a></li>
 </ul>
 <h2>🔧 2025-08-03 (Homepage Cleanup - Removed Outdated Sections)</h2>
 <p><strong>Summary</strong>: Corrected homepage implementation by removing outdated sections that were previously disabled. Cleaned up lazy loading implementation that mistakenly restored old components (HomeStatistics, HomeStakeholders, HomeNews, HomePrinciples, HomeApproach) that should remain disabled.</p>
@@ -2940,7 +2940,7 @@
 </ul>
 </li>
 <li>Link corrections made:<ul>
-<li><strong>Plausible Analytics Dashboard</strong>: Changed from <code>https://plausible.io/vpp-2025.netlify.app</code> to <code>https://plausible.icjia.cloud/vpp-2025.netlify.app</code> (correct external Plausible URL)</li>
+<li><strong>Plausible Analytics Dashboard</strong>: Changed from <code>https://plausible.io/vpp.icjia.illinois.gov</code> to <code>https://plausible.icjia.cloud/vpp.icjia.illinois.gov</code> (correct external Plausible URL)</li>
 <li><strong>Core Web Vitals Documentation</strong>: Changed from <code>/documentation/performance-monitoring/</code> (broken after Lighthouse removal) to <code>/documentation/jsdoc/plugins_web-vitals.client.js.html</code> (actual JSDoc documentation)</li>
 <li><strong>Bundle Size Reports</strong>: Verified existing links to <code>bundle-size-report.html</code> and <code>bundle-size-report.json</code> are correct and functional</li>
 </ul>
@@ -5600,7 +5600,7 @@
 </ul>
 </li>
 <li><strong>Issue Resolution</strong>:<ul>
-<li><strong>Problem</strong>: Sitemap.xml contained invalid entry <code>&lt;loc&gt;https://vpp-2025.netlify.app/[...slug]&lt;/loc&gt;</code></li>
+<li><strong>Problem</strong>: Sitemap.xml contained invalid entry <code>&lt;loc&gt;https://vpp.icjia.illinois.gov/[...slug]&lt;/loc&gt;</code></li>
 <li><strong>Root Cause</strong>: Dynamic route template was being processed as a regular page by site configuration generator</li>
 <li><strong>Solution</strong>: Added catch-all route pattern to blacklist in both site and sitemap configurations</li>
 <li><strong>Verification</strong>: Confirmed catch-all route no longer appears in sitemap.xml or routes.json files</li>
@@ -10708,7 +10708,7 @@ tocLabel: &quot;Jump To&quot;
 <ul>
 <li><strong>Added fullPath Field</strong>: Each search index entry now includes both <code>path</code> and <code>fullPath</code> properties for complete URL information</li>
 <li><strong>Homepage Path Normalization</strong>: Implemented proper normalization where <code>/index</code> becomes <code>/</code> following standard web conventions</li>
-<li><strong>Consistent URL Construction</strong>: Homepage fullPath is exactly the baseURL (<code>https://vpp-2025.netlify.app</code>), other pages use baseURL + path format</li>
+<li><strong>Consistent URL Construction</strong>: Homepage fullPath is exactly the baseURL (<code>https://vpp.icjia.illinois.gov</code>), other pages use baseURL + path format</li>
 <li><strong>Site Configuration Integration</strong>: Enhanced configuration loading to read baseURL from <code>config/site.config.json</code> with fallback defaults</li>
 <li><strong>Comprehensive Validation</strong>: All 7 entries verified with correct path/fullPath pairs, maintaining path uniqueness and proper URL structure</li>
 <li><strong>Future-Ready Architecture</strong>: Provides foundation for enhanced search features, SEO improvements, and potential API integrations requiring complete URLs</li>
@@ -12763,7 +12763,7 @@ tocLabel: &quot;Jump To&quot;
 </ul>
 </li>
 <li>Technical Notes:<ul>
-<li>Added the development site URL (<a href="https://vpp-2025.netlify.app">https://vpp-2025.netlify.app</a>) to the README</li>
+<li>Added the development site URL (<a href="https://vpp.icjia.illinois.gov">https://vpp.icjia.illinois.gov</a>) to the README</li>
 <li>Included information about the automatic updates from the main branch</li>
 <li>Positioned the section prominently after the Project Overview for visibility</li>
 <li>Maintained consistent formatting with the rest of the README</li>

@@ -483,7 +483,7 @@ This document serves as a chronological record of all significant changes made t
 - **Verification Process**: Confirmed source file contains 197 May entries, sync script processes correctly, and generated HTML contains all 200 May entries
 - **Build Process**: The `yarn generate:quiet` command properly runs the sync script as part of the build pipeline
 - **Deployment Ready**: The `.output/public` directory now contains the complete audit log ready for deployment
-- **Next Step**: The updated build needs to be deployed to Netlify to make the complete audit log visible at https://vpp-2025.netlify.app/documentation/audit-log/
+- **Next Step**: The updated build needs to be deployed to Netlify to make the complete audit log visible at https://vpp.icjia.illinois.gov/documentation/audit-log/
 
 ## 🔧 2025-08-03 (Homepage Cleanup - Removed Outdated Sections)
 
@@ -2436,7 +2436,7 @@ Fixed Content Security Policy blocking data URI fonts (base64 encoded fonts) use
 - Files modified:
   - `public/reports/index.html`: Updated Plausible Analytics dashboard link and Core Web Vitals documentation link
 - Link corrections made:
-  - **Plausible Analytics Dashboard**: Changed from `https://plausible.io/vpp-2025.netlify.app` to `https://plausible.icjia.cloud/vpp-2025.netlify.app` (correct external Plausible URL)
+  - **Plausible Analytics Dashboard**: Changed from `https://plausible.io/vpp.icjia.illinois.gov` to `https://plausible.icjia.cloud/vpp.icjia.illinois.gov` (correct external Plausible URL)
   - **Core Web Vitals Documentation**: Changed from `/documentation/performance-monitoring/` (broken after Lighthouse removal) to `/documentation/jsdoc/plugins_web-vitals.client.js.html` (actual JSDoc documentation)
   - **Bundle Size Reports**: Verified existing links to `bundle-size-report.html` and `bundle-size-report.json` are correct and functional
 - Technical Notes:
@@ -4432,7 +4432,7 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
   - **Content Preservation**: Individual content pages from `/content` directory remain properly included in sitemap
   - **Configuration Sync**: Both config and public config files updated consistently
 - **Issue Resolution**:
-  - **Problem**: Sitemap.xml contained invalid entry `<loc>https://vpp-2025.netlify.app/[...slug]</loc>`
+  - **Problem**: Sitemap.xml contained invalid entry `<loc>https://vpp.icjia.illinois.gov/[...slug]</loc>`
   - **Root Cause**: Dynamic route template was being processed as a regular page by site configuration generator
   - **Solution**: Added catch-all route pattern to blacklist in both site and sitemap configurations
   - **Verification**: Confirmed catch-all route no longer appears in sitemap.xml or routes.json files
@@ -8199,7 +8199,7 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - **fullPath Implementation Enhancement**:
   - **Added fullPath Field**: Each search index entry now includes both `path` and `fullPath` properties for complete URL information
   - **Homepage Path Normalization**: Implemented proper normalization where `/index` becomes `/` following standard web conventions
-  - **Consistent URL Construction**: Homepage fullPath is exactly the baseURL (`https://vpp-2025.netlify.app`), other pages use baseURL + path format
+  - **Consistent URL Construction**: Homepage fullPath is exactly the baseURL (`https://vpp.icjia.illinois.gov`), other pages use baseURL + path format
   - **Site Configuration Integration**: Enhanced configuration loading to read baseURL from `config/site.config.json` with fallback defaults
   - **Comprehensive Validation**: All 7 entries verified with correct path/fullPath pairs, maintaining path uniqueness and proper URL structure
   - **Future-Ready Architecture**: Provides foundation for enhanced search features, SEO improvements, and potential API integrations requiring complete URLs
@@ -9833,7 +9833,7 @@ Implemented comprehensive SEO improvements with focus on social media optimizati
 - Files modified:
   - `README.md`: Added a new 'Dev Site' section with the URL of the development site
 - Technical Notes:
-  - Added the development site URL (https://vpp-2025.netlify.app) to the README
+  - Added the development site URL (https://vpp.icjia.illinois.gov) to the README
   - Included information about the automatic updates from the main branch
   - Positioned the section prominently after the Project Overview for visibility
   - Maintained consistent formatting with the rest of the README

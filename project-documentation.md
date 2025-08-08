@@ -187,7 +187,7 @@ After completing the quick start:
 
 - **Project Name**: Statewide Violence Prevention Plan for Illinois: 2025-2029
 - **Repository**: [https://github.com/ICJIA/icjia-vpp-2025](https://github.com/ICJIA/icjia-vpp-2025)
-- **Live Site**: [https://vpp-2025.netlify.app](https://vpp-2025.netlify.app)
+- **Live Site**: [https://vpp.icjia.illinois.gov](https://vpp.icjia.illinois.gov)
 - **Organization**: Illinois Criminal Justice Information Authority (ICJIA)
 - **License**: MIT
 
@@ -1047,7 +1047,7 @@ The project is configured for automatic deployment on Netlify:
 
 **Production Environment:**
 
-- **URL**: https://vpp-2025.netlify.app
+- **URL**: https://vpp.icjia.illinois.gov
 - **Analytics**: Plausible (if configured)
 - **Logging**: Minimal
 - **Optimization**: Full

@@ -134,12 +134,12 @@ async function loadConfig() {
       // Add baseURL to config, removing trailing slash for consistency
       config.baseURL =
         siteConfig.urls?.baseUrl?.replace(/\/$/, "") ||
-        "https://vpp-2025.netlify.app";
+        "https://vpp.icjia.illinois.gov";
     } catch (siteError) {
       Logger.warning(
         "⚠️ Could not load site.config.json, using default baseURL"
       );
-      config.baseURL = "https://vpp-2025.netlify.app";
+      config.baseURL = "https://vpp.icjia.illinois.gov";
     }
 
     Logger.info("📋 Configuration loaded successfully");
@@ -147,7 +147,7 @@ async function loadConfig() {
   } catch (error) {
     Logger.warning("⚠️ Could not load fuse.config.json, using defaults");
     return {
-      baseURL: "https://vpp-2025.netlify.app",
+      baseURL: "https://vpp.icjia.illinois.gov",
       indexing: {
         blacklist: { vue: [], markdown: [] },
         paths: {
