@@ -160,18 +160,6 @@ const handleLearnMore = () => {
   color: rgb(var(--v-theme-on-surface));
 }
 
-/* Dark theme specific styling */
-.v-theme--dark .hero-section {
-  background: #1a2234; /* Dark navy background for dark theme */
-  color: white; /* White text for dark theme */
-}
-
-/* Light theme specific styling - softer background for reduced eye strain */
-.v-theme--light .hero-section {
-  background: #f6f7f8; /* Softer light background for light theme (was #f8f9fa) */
-  color: #2c3e50; /* Dark text for light theme */
-}
-
 /* Hero content container with staggered animation */
 .hero-content {
   opacity: 0; /* Start invisible */
@@ -190,20 +178,14 @@ const handleLearnMore = () => {
   letter-spacing: -0.02em; /* Slight negative letter spacing for modern look */
 }
 
-/* Dark theme H1 styling */
-.v-theme--dark .hero-content :deep(h1) {
-  color: white; /* Pure white text for dark theme */
+/* Use theme tokens for heading and accent */
+.hero-content :deep(h1) {
+  color: rgb(var(--v-theme-on-surface));
 }
 
-/* Light theme H1 styling */
-.v-theme--light .hero-content :deep(h1) {
-  color: #2c3e50; /* Dark text for light theme */
-}
-
-/* Style bold text within H1 to have blue accent color - consistent across themes */
 .hero-content :deep(h1 strong) {
-  color: #1976d2; /* Blue accent color for both themes */
-  font-weight: 600; /* Maintain consistent weight */
+  color: rgb(var(--v-theme-primary));
+  font-weight: 600;
 }
 
 /* Style the paragraph content from the slot - theme aware */
@@ -292,23 +274,23 @@ const handleLearnMore = () => {
 
 /* Primary button styling - consistent across themes */
 .hero-content :deep(.v-btn--variant-elevated) {
-  background: #1976d2 !important; /* Blue background for both themes */
-  color: white !important; /* White text for both themes */
-  font-weight: 500; /* Medium weight */
-  text-transform: none; /* Preserve original case */
-  letter-spacing: 0.02em; /* Slight letter spacing */
-  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3); /* Blue glow shadow */
-  border-radius: 8px; /* Rounded corners */
-  padding: 12px 24px; /* Comfortable padding */
-  font-size: 0.95rem; /* Slightly smaller than default */
-  transition: all 0.3s ease; /* Smooth transitions */
+  background: rgb(var(--v-theme-primary)) !important;
+  color: rgb(var(--v-theme-on-primary, 255, 255, 255)) !important;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
 }
 
 /* Primary button hover state */
 .hero-content :deep(.v-btn--variant-elevated:hover) {
-  background: #1565c0 !important; /* Darker blue on hover */
-  box-shadow: 0 6px 16px rgba(25, 118, 210, 0.4); /* Enhanced shadow */
-  transform: translateY(-2px); /* Subtle lift effect */
+  filter: brightness(0.9);
+  box-shadow: 0 6px 16px rgba(25, 118, 210, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Secondary button styling - theme aware */
@@ -324,31 +306,16 @@ const handleLearnMore = () => {
 }
 
 /* Dark theme secondary button */
-.v-theme--dark .hero-content :deep(.v-btn--variant-outlined) {
-  border: 2px solid rgba(255, 255, 255, 0.7) !important; /* White border */
-  color: rgba(255, 255, 255, 0.9) !important; /* White text */
+.hero-content :deep(.v-btn--variant-outlined) {
+  border: 2px solid rgba(var(--v-theme-on-surface), 0.6) !important;
+  color: rgba(var(--v-theme-on-surface), 0.9) !important;
 }
 
-/* Light theme secondary button */
-.v-theme--light .hero-content :deep(.v-btn--variant-outlined) {
-  border: 2px solid rgba(44, 62, 80, 0.7) !important; /* Dark border */
-  color: rgba(44, 62, 80, 0.9) !important; /* Dark text */
-}
-
-/* Dark theme secondary button hover */
-.v-theme--dark .hero-content :deep(.v-btn--variant-outlined:hover) {
-  background: rgba(255, 255, 255, 0.1) !important; /* Subtle white background */
-  border-color: white !important; /* Solid white border */
-  color: white !important; /* Pure white text */
-  transform: translateY(-2px); /* Subtle lift effect */
-}
-
-/* Light theme secondary button hover */
-.v-theme--light .hero-content :deep(.v-btn--variant-outlined:hover) {
-  background: rgba(44, 62, 80, 0.1) !important; /* Subtle dark background */
-  border-color: #2c3e50 !important; /* Solid dark border */
-  color: #2c3e50 !important; /* Pure dark text */
-  transform: translateY(-2px); /* Subtle lift effect */
+.hero-content :deep(.v-btn--variant-outlined:hover) {
+  background: rgba(var(--v-theme-on-surface), 0.08) !important;
+  border-color: rgb(var(--v-theme-on-surface)) !important;
+  color: rgb(var(--v-theme-on-surface)) !important;
+  transform: translateY(-2px);
 }
 
 /* Hero image container with floating animation */
@@ -379,7 +346,7 @@ const handleLearnMore = () => {
 .hero-image:hover {
   /* Flatten the perspective and add slight scale on hover */
   transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25); /* Enhanced shadow on hover, theme agnostic */
 }
 
 /* Common styles for decorative background elements */

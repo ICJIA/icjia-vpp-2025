@@ -1,5 +1,6 @@
 import { computed, watch, ref } from "vue";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
+import { useCookie } from "#imports";
 
 /**
  * Simplified Theme Management Composable
@@ -60,7 +61,9 @@ export function useTheme() {
    * Always defaults to dark mode, no persistence across sessions.
    * This eliminates SSR hydration issues while maintaining runtime functionality.
    */
-  const theme = ref("dark"); // Always start with dark mode
+  // Initialize from cookie so SSR and client match; default to dark
+  const themeCookie = useCookie("vpp-theme");
+  const theme = ref(themeCookie.value === "light" ? "light" : "dark");
 
   // Use useHead to set document attributes reactively for SSR compatibility
   useHead({
@@ -109,11 +112,13 @@ export function useTheme() {
       }
     }
 
-    // Log theme change (client-side only to prevent hydration mismatch)
+    // Persist to cookie and log (client-side only)
     if (typeof window !== "undefined") {
+      themeCookie.value = newTheme;
       logTheme("Theme changed via setTheme", {
         from: previousTheme,
         to: newTheme,
+        source: "cookie",
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
         viewportWidth: window.innerWidth,
@@ -177,10 +182,12 @@ export function useTheme() {
 
     // Log theme initialization (client-side only to prevent hydration mismatch)
     if (typeof window !== "undefined") {
+      // Ensure cookie is populated for future SSR
+      themeCookie.value = theme.value;
       logTheme("Theme system initialized", {
         theme: theme.value,
-        source: "session-only",
-        date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
+        source: "cookie",
+        date: new Date().toISOString().split("T")[0],
         userAgent: navigator.userAgent,
         viewportWidth: window.innerWidth,
       });

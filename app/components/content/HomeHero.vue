@@ -214,11 +214,6 @@ const handleLearnMore = () => {
   color: rgb(var(--v-theme-on-surface));
 }
 
-/* Dark mode: match hero section background to image background */
-.v-theme--dark .hero-section {
-  background-color: #2c3e50;
-}
-
 /* Typography */
 .hero-title {
   font-size: 36px;
@@ -327,8 +322,8 @@ const handleLearnMore = () => {
 .hero-image:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    0 10px 15px -3px rgba(0, 0, 0, 0.2),
+    0 4px 6px -2px rgba(0, 0, 0, 0.15);
 }
 
 /* Removed hover effects - keeping cursor pointer only */
@@ -339,7 +334,7 @@ const handleLearnMore = () => {
   margin-top: 1rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(var(--v-theme-on-surface), 0.7);
   transition: color 0.3s ease;
   cursor: pointer;
   user-select: none;
@@ -614,11 +609,6 @@ const handleLearnMore = () => {
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.6),
     0 4px 6px -2px rgba(0, 0, 0, 0.5);
-}
-
-/* Dark theme caption styling */
-:root[data-theme="dark"] .hero-image-caption {
-  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Reduced motion support - disable hover transforms for accessibility */
