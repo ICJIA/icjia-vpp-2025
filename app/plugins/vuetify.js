@@ -27,6 +27,17 @@ export default defineNuxtPlugin((nuxtApp) => {
   const themeCookie = useCookie("vpp-theme");
   const initialTheme = themeCookie.value === "light" ? "light" : "dark";
 
+  // Ensure the <html data-theme> attribute matches Vuetify on first paint (client only)
+  if (process.client) {
+    try {
+      if (document && document.documentElement) {
+        document.documentElement.setAttribute("data-theme", initialTheme);
+      }
+    } catch (e) {
+      // no-op: avoid crashing during very early hydration
+    }
+  }
+
   if (process.env.NODE_ENV === "development") {
     console.log(
       `[Vuetify Plugin] Initializing with theme from cookie: ${initialTheme}`

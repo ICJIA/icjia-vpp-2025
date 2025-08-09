@@ -2,6 +2,8 @@
 
 ### 2025-08-09 (Default dark theme + full hero theming)
 
+- Added client-side safeguard to set <html data-theme> during Vuetify init so first paint always matches cookie-driven theme.
+
 - Summary: Default the site to dark mode and make hero sections fully theme-aware so styles update consistently with Vuetify’s theme.
 - Files modified/created:
   - `app/plugins/vuetify.js`: Read `vpp-theme` cookie and default to dark when missing; set Vuetify `defaultTheme` accordingly.
