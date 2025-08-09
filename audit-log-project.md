@@ -1,3 +1,45 @@
+### 2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)
+
+### 2025-08-09 (Default dark theme + full hero theming)
+
+- Summary: Default the site to dark mode and make hero sections fully theme-aware so styles update consistently with Vuetify’s theme.
+- Files modified/created:
+  - `app/plugins/vuetify.js`: Read `vpp-theme` cookie and default to dark when missing; set Vuetify `defaultTheme` accordingly.
+  - `app/composables/useTheme.js`: Initialize from `vpp-theme`, default to dark, keep `data-theme` and Vuetify in sync; persist to cookie on change.
+  - `app/components/content/HomeHero.vue`: Removed hard-coded dark overrides; replaced colors with theme tokens (on-surface, primary); caption color now theme-based.
+  - `app/components/content/HeroSection.vue`: Removed light/dark CSS blocks; switched button/heading colors to theme tokens and token-based hover states.
+- Technical Notes:
+  - Eliminated mixed theming by relying on rgb(var(--v-theme-...)) tokens instead of literal hex values.
+  - Keeps SSR and client aligned by using a cookie-backed initial theme (dark by default). Avoids hydration mismatch and ensures everything responds to toggling.
+
+- Implemented cookie-backed theme initialization so SSR and client render the same initial theme.
+- Files modified/created:
+  - `app/plugins/vuetify.js`: Read `vpp-theme` cookie via `useCookie` on SSR to set `defaultTheme` to `light` or `dark` accordingly.
+  - `app/composables/useTheme.js`: Initialize theme from `vpp-theme` cookie, persist changes back to the cookie on toggle, and log source as `cookie`.
+  - `app/components/content/ReportNavigation.vue`: Wrapped `<v-progress-linear>` in `<ClientOnly>` to avoid reactive progress updates during hydration.
+- Technical Notes:
+  - The server and client now agree on the first paint theme using `vpp-theme`. If absent, we default to `light` and immediately persist on client initialization.
+  - When users toggle themes, we update Vuetify, `data-theme` attribute, and the cookie, ensuring subsequent SSR renders match.
+  - This approach addresses the remaining global source of hydration mismatches tied to theme flips during hydration.
+
+### 2025-08-09 (Navbar logo optimized with Nuxt Image)
+
+### 2025-08-09 (Fix hydration mismatch on report pages; unify theme handling and mobile nav class)
+
+- Removed per-card theme override and client-only theme watcher from ContentDisplay to avoid SSR/client rendering divergence. Adjusted ReportNavigation mobile class to prevent overflow issues.
+- Files modified/created:
+  - `app/components/ContentDisplay.vue`: Removed `:theme` prop on v-card and eliminated onMounted theme watch; rely on global Vuetify theme.
+  - `app/components/content/ReportNavigation.vue`: Dropped `d-md-none` from `navigation-card--mobile` class to ensure visibility for QA and reduce class conflicts.
+- Technical Notes:
+  - Hydration warnings persisted after build; this change addresses one common source (client-only theme calc). Remaining mismatches likely originate from dynamic DOM measurements in [...slug].vue (TOC) but are wrapped in process.client guards. Verified build and prerender via `yarn generate:quiet`; site serves correctly.
+
+- Replaced native <img> with <NuxtImg> for the Illinois State Seal in AppHeader to ensure correct small sizing in the navbar and automatic optimization.
+- Files modified/created:
+  - `app/components/content/AppHeader.vue`: Swapped <img> for <NuxtImg>, set fixed width/height (40), responsive sizes for mobile (32px) and desktop (40px), densities x1/x2, webp format, and added scoped CSS for `.logo-image` to enforce sizing.
+- Technical Notes:
+  - Uses Nuxt Image local IPX provider already configured in nuxt.config.ts. Prerender output confirms generated variants: 32x32, 40x40, 64x64, 80x80 webp.
+  - Ensures WCAG/IITAA compliance by keeping descriptive alt text and small touch target unaffected; logo remains decorative + brand with readable text beside it.
+
 # Audit Log for Violence Prevention Plan for Illinois: 2025-2029
 
 This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.
@@ -12,6 +54,18 @@ This document serves as a chronological record of all significant changes made t
 - 📊 **Analysis & Audits** - Code quality assessments, performance audits, and comprehensive reviews
 - ♿ **Accessibility Enhancements** - WCAG compliance improvements, screen reader support, and inclusive design
 - 🔧 **Bug Fixes & Minor Updates** - Issue resolution, small improvements, and maintenance tasks
+
+## 🔧 2025-08-09 (Fix: Navbar logo image sizing regression)
+
+- Summary: Resolved an issue where the app header disappeared and a very large Illinois seal image appeared at the top of the page. The cause was invalid nested CSS that prevented the logo image sizing rules from applying, allowing the logo to render at its full native resolution.
+- Files modified/created:
+  - `app/components/content/AppHeader.vue`: Moved `.logo-image` sizing rules out of an invalid nested block into top-level scoped CSS; set explicit height/width for mobile/desktop and consistent right margin.
+- Technical Notes:
+  - The previous rules for `.logo-image` were nested inside `.header-container` within a media query, with another nested media query inside it. In a Vue SFC with plain CSS (not SCSS), this nesting is invalid, so the rules were ignored by the browser.
+  - New top-level rules:
+    - Default: height: 40px; width: 40px; margin-right: 12px
+    - ≤960px: height: 32px; width: 32px; margin-right: 8px
+  - This restores the expected app bar layout and prevents the logo from overtaking the header area. No functional markup changes were required.
 
 ## 🔧 2025-08-08 (Permanent Redirect: Netlify Subdomain ➜ Primary Domain)
 
