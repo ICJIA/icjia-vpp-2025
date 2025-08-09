@@ -22,9 +22,7 @@
               <img
                 src="/images/illinois-seal.png"
                 alt="Illinois State Seal"
-                :height="$vuetify.display.smAndDown ? 32 : 40"
-                :width="$vuetify.display.smAndDown ? 32 : 40"
-                :class="$vuetify.display.smAndDown ? 'mr-2' : 'mr-3'"
+                class="logo-image"
                 style="object-fit: contain"
               />
               <!-- Responsive title display based on screen size -->
@@ -899,6 +897,19 @@ const handleHomeClick = () => {
 
 @media (min-width: 960px) {
   .header-container {
+    /* Responsive logo image sizes via CSS to avoid SSR/CSR mismatch */
+    .logo-image {
+      height: 40px;
+      width: 40px;
+    }
+
+    @media (max-width: 959.98px) {
+      .logo-image {
+        height: 32px;
+        width: 32px;
+      }
+    }
+
     padding: 0 32px;
   }
 }

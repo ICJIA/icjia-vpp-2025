@@ -5,10 +5,9 @@
     location="right"
     width="280"
     class="mobile-nav-drawer"
-    aria-modal="true"
     aria-label="Mobile Navigation Menu"
   >
-    <v-list aria-label="Mobile Navigation Menu">
+    <v-list role="none" aria-label="Mobile Navigation Menu">
       <!-- Theme toggle at top of mobile menu -->
       <v-list-item class="mb-4 d-flex justify-center">
         <ThemeSwitch :theme="theme" @toggle-theme="$emit('toggle-theme')" />
@@ -17,9 +16,8 @@
       <!-- Home (dynamic from menu config) -->
       <v-list-item
         v-if="homeItem"
-        value="mobile-nav-home"
+        role="link"
         :to="homeItem.to"
-        :active="route.path === homeItem.to"
         :class="homeItem.mobileClass || 'font-weight-bold py-2 nav-link-mobile'"
         :title="homeItem.tooltip"
         :aria-label="homeItem.ariaLabel"
@@ -37,13 +35,16 @@
         v-if="readThePlanItem"
         class="font-weight-bold py-2 nav-link-mobile dropdown-menu-heading"
         :aria-label="readThePlanItem.ariaLabel"
-        role="heading"
-        aria-level="2"
+        role="none"
       >
         <template #title>
-          <span class="font-weight-black text-uppercase">{{
-            readThePlanItem.text
-          }}</span>
+          <div
+            role="heading"
+            aria-level="2"
+            class="font-weight-black text-uppercase"
+          >
+            {{ readThePlanItem.text }}
+          </div>
         </template>
       </v-list-item>
 
@@ -61,15 +62,11 @@
         <!-- Plan menu item (indented) -->
         <v-list-item
           v-else
-          :value="`plan-item-${planIndex}`"
+          role="link"
           :to="planItem.to"
           :href="planItem.href"
           :target="planItem.isExternal ? planItem.target : undefined"
           :rel="planItem.isExternal ? planItem.rel : undefined"
-          :active="
-            planItem.to &&
-            (route.path === planItem.to || route.path === planItem.to + '/')
-          "
           :class="
             planItem.mobileClass ||
             'dropdown-item-mobile ml-4 dropdown-menu-item pl-8'
@@ -105,13 +102,16 @@
         v-if="moreMenuChildren.length > 0"
         class="font-weight-bold py-2 nav-link-mobile more-menu-heading"
         aria-label="More options section"
-        role="heading"
-        aria-level="2"
+        role="none"
       >
         <template #title>
-          <span class="font-weight-black text-uppercase">{{
-            siteConfig.ui?.navigation?.moreMenu?.mobileText || "More"
-          }}</span>
+          <div
+            role="heading"
+            aria-level="2"
+            class="font-weight-black text-uppercase"
+          >
+            {{ siteConfig.ui?.navigation?.moreMenu?.mobileText || "More" }}
+          </div>
         </template>
       </v-list-item>
 
@@ -122,15 +122,11 @@
       >
         <!-- More menu item (indented) -->
         <v-list-item
-          :value="`more-item-${moreIndex}`"
+          role="link"
           :to="moreItem.to"
           :href="moreItem.href"
           :target="moreItem.isExternal ? moreItem.target : undefined"
           :rel="moreItem.isExternal ? moreItem.rel : undefined"
-          :active="
-            moreItem.to &&
-            (route.path === moreItem.to || route.path === moreItem.to + '/')
-          "
           :class="
             moreItem.mobileClass ||
             'dropdown-item-mobile ml-4 more-menu-item pl-8'

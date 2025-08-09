@@ -273,8 +273,9 @@ export default defineNuxtConfig({
     },
 
     build: {
-      // Disable source maps in production for security
-      sourcemap: false,
+      // Enable source maps in static builds to satisfy Lighthouse debugging recommendation
+      // Note: These are client-only source maps; sensitive server code is not exposed.
+      sourcemap: true,
 
       // Optimize chunk splitting for better caching
       rollupOptions: {

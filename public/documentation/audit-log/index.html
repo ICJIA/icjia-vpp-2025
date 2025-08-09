@@ -340,7 +340,7 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-08-08">August 08, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-08-09">August 09, 2025</time>
         </div>
       </header>
 
@@ -357,6 +357,18 @@
 <li>📊 <strong>Analysis &amp; Audits</strong> - Code quality assessments, performance audits, and comprehensive reviews</li>
 <li>♿ <strong>Accessibility Enhancements</strong> - WCAG compliance improvements, screen reader support, and inclusive design</li>
 <li>🔧 <strong>Bug Fixes &amp; Minor Updates</strong> - Issue resolution, small improvements, and maintenance tasks</li>
+</ul>
+<h2>🔧 2025-08-08 (Permanent Redirect: Netlify Subdomain ➜ Primary Domain)</h2>
+<p><strong>Summary</strong>: Added a 301 permanent redirect so requests to the Netlify subdomain (vpp-2025.netlify.app) are redirected to the canonical domain (vpp.icjia.illinois.gov), preserving paths and queries.</p>
+<p><strong>Files Modified/Created</strong>:</p>
+<ul>
+<li><code>netlify.toml</code>: Added host-based redirect rule before existing path/404 rules</li>
+</ul>
+<p><strong>Technical Notes</strong>:</p>
+<ul>
+<li>Uses a host-based <code>[[redirects]]</code> block with <code>from = &quot;https://vpp-2025.netlify.app/*&quot;</code>, <code>to = &quot;https://vpp.icjia.illinois.gov/:splat&quot;</code>, <code>status = 301</code>, and <code>force = true</code> so the redirect takes precedence and preserves path/query via <code>:splat</code>.</li>
+<li>Rule order matters; the host redirect is placed at the top of the Redirects section to run before other redirects.</li>
+<li>Ensure the custom domain is configured in Netlify and has valid DNS/SSL so the redirect target is live.</li>
 </ul>
 <h2>♿ 2025-08-07 (Comprehensive Tooltip Removal for Accessibility)</h2>
 <p><strong>Summary</strong>: Systematically removed all non-reference tooltip functionality while preserving critical AccessibleTooltip.vue and ReferenceTooltip.vue components to improve accessibility, reduce UI complexity, and eliminate hover-dependent interactions.</p>

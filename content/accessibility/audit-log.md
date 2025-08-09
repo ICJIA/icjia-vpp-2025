@@ -1,11 +1,32 @@
 ---
 title: "Accessibility Audit Log"
-date: 2025-08-08
+date: 2025-08-09
 description: "This document contains a log of accessibility updates and audits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
 ---
 
-**Last Updated: August 08, 2025**
+**Last Updated: August 09, 2025**
 
+
+## 2025-08-09 (Mobile Navigation ARIA Compliance Fix)
+
+- Summary: Resolved Lighthouse “[aria-*] attributes do not match their roles” errors in the mobile navigation drawer by removing modal-specific ARIA from the nav landmark and eliminating selection semantics from link items.
+- Files modified/created:
+  - `app/components/content/AppSidebar.vue`: Removed `aria-modal` from the drawer, set the list’s role to `list`, and removed `value`/`active` props from mobile `v-list-item` links to prevent `aria-selected` on role=link elements
+- Technical Notes:
+  - Issue 1: `aria-modal="true"` was applied to `<nav>` (Vuetify v-navigation-drawer renders a nav). `aria-modal` is only valid on elements with role="dialog"/"alertdialog". Removed the attribute to fix the mismatch.
+  - Issue 2: Mobile `v-list-item` links had `value` and `active` props, causing Vuetify to apply selection semantics (`aria-selected`) that conflict with link role/anchor output. Removed `value` and `active` so items render as plain links without `aria-selected`.
+  - List Semantics: Explicitly set `<v-list role="list">` to ensure a non-selectable list is conveyed to AT and to avoid implicit listbox behavior.
+  - Testing: Project builds successfully. Please run Lighthouse on a mobile viewport against a local preview (`yarn generate:serve`) to confirm the specific audit passes; visually and via DevTools, the drawer items now render as anchors without `aria-selected`, and the drawer no longer has `aria-modal`.
+
+## 2025-08-09 (Follow-up: Remove list role to satisfy required-children rule)
+
+- Summary: Addressed Lighthouse “Elements with an ARIA [role] that require children to contain a specific [role]” by removing role="list" from the mobile v-list to avoid listitem child-role requirements.
+- Files modified/created:
+  - `app/components/content/AppSidebar.vue`: Removed role="list" from `<v-list>` to prevent required child-role (listitem) constraint on link and heading rows
+- Technical Notes:
+  - Cause: role="list" on the parent v-list requires children with role="listitem`, conflicting with our anchor links (role=link) and heading rows (role=heading)
+  - Fix: Remove the parent role; the nav landmark is sufficient for semantics and avoids required-children constraints
+  - Validation: Re-run Lighthouse Accessibility on mobile viewport; error should be cleared for div.v-list and its child items
 
 This document serves as a chronological record of all accessibility-related changes and improvements made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, ensuring WCAG 2.1 AA compliance and adherence to Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards.
 
