@@ -346,6 +346,20 @@
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
         <h3>2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)</h3>
+<h3>2025-08-10 (Fix: Hydration mismatch on mobile nav active state)</h3>
+<ul>
+<li>Ensured SSR and client compute identical active classes for mobile navigation items to eliminate &quot;Hydration class mismatch&quot; warnings reported on /plan/executive-summary reload.</li>
+<li>Files modified/created:<ul>
+<li><code>app/components/content/AppSidebar.vue</code>: Added trailing-slash-agnostic isActive() helper and bound :active on home, plan, and more items.</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>normalizePath() strips a single trailing slash (except root) so /plan/executive-summary and /plan/executive-summary/ match.</li>
+<li>Explicit :active ensures Vuetify&#39;s v-list-item adds v-list-item--active consistently on both SSR and client.</li>
+<li>This reduces class-diff hydration warnings without altering route definitions.</li>
+</ul>
+</li>
+</ul>
 <h3>2025-08-10 (Fix: Header logo overlaps navbar on mobile)</h3>
 <ul>
 <li><p>Replaced header logo <img> with <NuxtImg> and added explicit responsive sizing to prevent overlap in mobile view.</p>

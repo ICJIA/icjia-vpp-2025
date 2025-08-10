@@ -9,6 +9,16 @@ description: "This document contains a log of accessibility updates and audits c
 
 ### 2025-08-10 (Accessibility: Prevent logo overlapping navbar on mobile)
 
+### 2025-08-10 (Hydration Stability: Consistent active state on mobile navigation)
+
+- Summary: Eliminated SSR/client class discrepancies that caused hydration warnings by ensuring v-list-item active state is computed consistently for mobile nav links.
+- Files modified:
+  - `app/components/content/AppSidebar.vue`: Added `isActive()` helper (trailing-slash agnostic) and bound `:active` on relevant v-list-item entries.
+- Accessibility Notes:
+  - No visual or interaction behavior changes; links remain standard anchors with proper roles and labels.
+  - Prevents potential confusion for assistive tech caused by inconsistent active styles between first paint and hydrated state.
+  - Maintains WCAG 2.1 AA compliance (Name, Role, Value unchanged; focus management unaffected).
+
 - Ensured the header logo respects mobile target sizes and does not obscure the app bar content.
 - Files modified:
   - `app/components/content/AppHeader.vue`: Set explicit logo dimensions (32px on small screens, 40px on md+), retained descriptive alt, and kept 44x44 button target sizing; switched to Nuxt Image for optimized, properly sized assets.

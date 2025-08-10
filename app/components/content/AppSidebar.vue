@@ -21,6 +21,7 @@
         :class="homeItem.mobileClass || 'font-weight-bold py-2 nav-link-mobile'"
         :title="homeItem.tooltip"
         :aria-label="homeItem.ariaLabel"
+        :active="isActive(homeItem.to)"
         @click="handleNavigation(homeItem.to)"
       >
         <template #title>
@@ -73,6 +74,7 @@
           "
           :title="planItem.tooltip"
           :aria-label="planItem.ariaLabel"
+          :active="planItem.to ? isActive(planItem.to) : false"
           @click="handleNavigation(planItem.to || planItem.href)"
         >
           <template #title>
@@ -133,6 +135,7 @@
           "
           :title="moreItem.tooltip"
           :aria-label="moreItem.ariaLabel"
+          :active="moreItem.to ? isActive(moreItem.to) : false"
           @click="handleNavigation(moreItem.to || moreItem.href)"
         >
           <template #title>
@@ -185,6 +188,24 @@ const props = defineProps({
 
 // Emits
 const emit = defineEmits(["update:modelValue", "toggle-theme"]);
+
+// Normalize a path by removing a single trailing slash (except for root)
+const normalizePath = (p) => {
+  if (!p) return "";
+  const s = typeof p === "string" ? p : p.path || "";
+  return s !== "/" && s.endsWith("/") ? s.slice(0, -1) : s;
+};
+
+/**
+ * Determine if a given route path is active (exact match, trailing-slash agnostic)
+ * @param {string} to - Target path
+ * @returns {boolean}
+ */
+const isActive = (to) => {
+  const current = normalizePath(route.path);
+  const target = normalizePath(to);
+  return !!target && current === target;
+};
 
 // Composables
 const route = useRoute();
