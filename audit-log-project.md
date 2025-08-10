@@ -1,5 +1,15 @@
 ### 2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)
 
+### 2025-08-10 (Fix: Header logo overlaps navbar on mobile)
+
+- Replaced header logo <img> with <NuxtImg> and added explicit responsive sizing to prevent overlap in mobile view.
+- Tweaked logo-title spacing: added margin-inline-end on .logo-image for xs/sm (8px) and md+ (12px) to improve readability without shifting layout.
+
+- Files modified/created:
+  - `app/components/content/AppHeader.vue`: Swapped <img> to <NuxtImg> with sizes and preload; simplified/flattened CSS and added .logo-image 32px (xs-sm) and 40px (md+) to avoid app-bar overlap.
+- Technical Notes:
+  - Uses Nuxt Image (ipx provider) with webp; explicit dimensions prevent CLS and ensure the logo never obscures the navbar in small viewports. Accessibility preserved with alt text and target-size rules.
+
 ### 2025-08-09 (Default dark theme + full hero theming)
 
 - Added client-side safeguard to set <html data-theme> during Vuetify init so first paint always matches cookie-driven theme.

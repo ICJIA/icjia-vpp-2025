@@ -340,12 +340,97 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-08-09">August 09, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-08-10">August 10, 2025</time>
         </div>
       </header>
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
-        <h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
+        <h3>2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)</h3>
+<h3>2025-08-10 (Fix: Header logo overlaps navbar on mobile)</h3>
+<ul>
+<li><p>Replaced header logo <img> with <NuxtImg> and added explicit responsive sizing to prevent overlap in mobile view.</p>
+</li>
+<li><p>Tweaked logo-title spacing: added margin-inline-end on .logo-image for xs/sm (8px) and md+ (12px) to improve readability without shifting layout.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
+<li><code>app/components/content/AppHeader.vue</code>: Swapped <img> to <NuxtImg> with sizes and preload; simplified/flattened CSS and added .logo-image 32px (xs-sm) and 40px (md+) to avoid app-bar overlap.</li>
+</ul>
+</li>
+<li><p>Technical Notes:</p>
+<ul>
+<li>Uses Nuxt Image (ipx provider) with webp; explicit dimensions prevent CLS and ensure the logo never obscures the navbar in small viewports. Accessibility preserved with alt text and target-size rules.</li>
+</ul>
+</li>
+</ul>
+<h3>2025-08-09 (Default dark theme + full hero theming)</h3>
+<ul>
+<li><p>Added client-side safeguard to set <html data-theme> during Vuetify init so first paint always matches cookie-driven theme.</p>
+</li>
+<li><p>Summary: Default the site to dark mode and make hero sections fully theme-aware so styles update consistently with Vuetify’s theme.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
+<li><code>app/plugins/vuetify.js</code>: Read <code>vpp-theme</code> cookie and default to dark when missing; set Vuetify <code>defaultTheme</code> accordingly.</li>
+<li><code>app/composables/useTheme.js</code>: Initialize from <code>vpp-theme</code>, default to dark, keep <code>data-theme</code> and Vuetify in sync; persist to cookie on change.</li>
+<li><code>app/components/content/HomeHero.vue</code>: Removed hard-coded dark overrides; replaced colors with theme tokens (on-surface, primary); caption color now theme-based.</li>
+<li><code>app/components/content/HeroSection.vue</code>: Removed light/dark CSS blocks; switched button/heading colors to theme tokens and token-based hover states.</li>
+</ul>
+</li>
+<li><p>Technical Notes:</p>
+<ul>
+<li>Eliminated mixed theming by relying on rgb(var(--v-theme-...)) tokens instead of literal hex values.</li>
+<li>Keeps SSR and client aligned by using a cookie-backed initial theme (dark by default). Avoids hydration mismatch and ensures everything responds to toggling.</li>
+</ul>
+</li>
+<li><p>Implemented cookie-backed theme initialization so SSR and client render the same initial theme.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
+<li><code>app/plugins/vuetify.js</code>: Read <code>vpp-theme</code> cookie via <code>useCookie</code> on SSR to set <code>defaultTheme</code> to <code>light</code> or <code>dark</code> accordingly.</li>
+<li><code>app/composables/useTheme.js</code>: Initialize theme from <code>vpp-theme</code> cookie, persist changes back to the cookie on toggle, and log source as <code>cookie</code>.</li>
+<li><code>app/components/content/ReportNavigation.vue</code>: Wrapped <code>&lt;v-progress-linear&gt;</code> in <code>&lt;ClientOnly&gt;</code> to avoid reactive progress updates during hydration.</li>
+</ul>
+</li>
+<li><p>Technical Notes:</p>
+<ul>
+<li>The server and client now agree on the first paint theme using <code>vpp-theme</code>. If absent, we default to <code>light</code> and immediately persist on client initialization.</li>
+<li>When users toggle themes, we update Vuetify, <code>data-theme</code> attribute, and the cookie, ensuring subsequent SSR renders match.</li>
+<li>This approach addresses the remaining global source of hydration mismatches tied to theme flips during hydration.</li>
+</ul>
+</li>
+</ul>
+<h3>2025-08-09 (Navbar logo optimized with Nuxt Image)</h3>
+<h3>2025-08-09 (Fix hydration mismatch on report pages; unify theme handling and mobile nav class)</h3>
+<ul>
+<li><p>Removed per-card theme override and client-only theme watcher from ContentDisplay to avoid SSR/client rendering divergence. Adjusted ReportNavigation mobile class to prevent overflow issues.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
+<li><code>app/components/ContentDisplay.vue</code>: Removed <code>:theme</code> prop on v-card and eliminated onMounted theme watch; rely on global Vuetify theme.</li>
+<li><code>app/components/content/ReportNavigation.vue</code>: Dropped <code>d-md-none</code> from <code>navigation-card--mobile</code> class to ensure visibility for QA and reduce class conflicts.</li>
+</ul>
+</li>
+<li><p>Technical Notes:</p>
+<ul>
+<li>Hydration warnings persisted after build; this change addresses one common source (client-only theme calc). Remaining mismatches likely originate from dynamic DOM measurements in [...slug].vue (TOC) but are wrapped in process.client guards. Verified build and prerender via <code>yarn generate:quiet</code>; site serves correctly.</li>
+</ul>
+</li>
+<li><p>Replaced native <img> with <NuxtImg> for the Illinois State Seal in AppHeader to ensure correct small sizing in the navbar and automatic optimization.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
+<li><code>app/components/content/AppHeader.vue</code>: Swapped <img> for <NuxtImg>, set fixed width/height (40), responsive sizes for mobile (32px) and desktop (40px), densities x1/x2, webp format, and added scoped CSS for <code>.logo-image</code> to enforce sizing.</li>
+</ul>
+</li>
+<li><p>Technical Notes:</p>
+<ul>
+<li>Uses Nuxt Image local IPX provider already configured in nuxt.config.ts. Prerender output confirms generated variants: 32x32, 40x40, 64x64, 80x80 webp.</li>
+<li>Ensures WCAG/IITAA compliance by keeping descriptive alt text and small touch target unaffected; logo remains decorative + brand with readable text beside it.</li>
+</ul>
+</li>
+</ul>
+<h1>Audit Log for Violence Prevention Plan for Illinois: 2025-2029</h1>
 <p>This document serves as a chronological record of all significant changes made to the Statewide Violence Prevention Plan for Illinois: 2025-2029, providing transparency and accountability for external reviewers and future developers.</p>
 <h2>📋 Entry Types Legend</h2>
 <ul>
@@ -357,6 +442,24 @@
 <li>📊 <strong>Analysis &amp; Audits</strong> - Code quality assessments, performance audits, and comprehensive reviews</li>
 <li>♿ <strong>Accessibility Enhancements</strong> - WCAG compliance improvements, screen reader support, and inclusive design</li>
 <li>🔧 <strong>Bug Fixes &amp; Minor Updates</strong> - Issue resolution, small improvements, and maintenance tasks</li>
+</ul>
+<h2>🔧 2025-08-09 (Fix: Navbar logo image sizing regression)</h2>
+<ul>
+<li>Summary: Resolved an issue where the app header disappeared and a very large Illinois seal image appeared at the top of the page. The cause was invalid nested CSS that prevented the logo image sizing rules from applying, allowing the logo to render at its full native resolution.</li>
+<li>Files modified/created:<ul>
+<li><code>app/components/content/AppHeader.vue</code>: Moved <code>.logo-image</code> sizing rules out of an invalid nested block into top-level scoped CSS; set explicit height/width for mobile/desktop and consistent right margin.</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>The previous rules for <code>.logo-image</code> were nested inside <code>.header-container</code> within a media query, with another nested media query inside it. In a Vue SFC with plain CSS (not SCSS), this nesting is invalid, so the rules were ignored by the browser.</li>
+<li>New top-level rules:<ul>
+<li>Default: height: 40px; width: 40px; margin-right: 12px</li>
+<li>≤960px: height: 32px; width: 32px; margin-right: 8px</li>
+</ul>
+</li>
+<li>This restores the expected app bar layout and prevents the logo from overtaking the header area. No functional markup changes were required.</li>
+</ul>
+</li>
 </ul>
 <h2>🔧 2025-08-08 (Permanent Redirect: Netlify Subdomain ➜ Primary Domain)</h2>
 <p><strong>Summary</strong>: Added a 301 permanent redirect so requests to the Netlify subdomain (vpp-2025.netlify.app) are redirected to the canonical domain (vpp.icjia.illinois.gov), preserving paths and queries.</p>

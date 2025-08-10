@@ -19,11 +19,13 @@
         <v-row no-gutters align="center">
           <v-col cols="auto">
             <div class="logo d-flex align-center">
-              <img
+              <NuxtImg
                 src="/images/illinois-seal.png"
                 alt="Illinois State Seal"
                 class="logo-image"
-                style="object-fit: contain"
+                sizes="sm:32px md:40px"
+                format="webp"
+                preload
               />
               <!-- Responsive title display based on screen size -->
               <span
@@ -897,20 +899,25 @@ const handleHomeClick = () => {
 
 @media (min-width: 960px) {
   .header-container {
-    /* Responsive logo image sizes via CSS to avoid SSR/CSR mismatch */
-    .logo-image {
-      height: 40px;
-      width: 40px;
-    }
-
-    @media (max-width: 959.98px) {
-      .logo-image {
-        height: 32px;
-        width: 32px;
-      }
-    }
-
     padding: 0 32px;
+  }
+}
+
+/* Explicit logo image sizing to prevent overlap on small screens */
+.logo-image {
+  width: 32px;
+  height: 32px;
+  display: block;
+  object-fit: contain;
+  /* Add breathing room between logo and title */
+  margin-inline-end: 8px; /* ~8px on xs/sm */
+}
+
+@media (min-width: 960px) {
+  .logo-image {
+    width: 40px;
+    height: 40px;
+    margin-inline-end: 12px; /* a touch more spacing on md+ */
   }
 }
 

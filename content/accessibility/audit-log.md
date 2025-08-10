@@ -1,11 +1,19 @@
 ---
 title: "Accessibility Audit Log"
-date: 2025-08-09
+date: 2025-08-10
 description: "This document contains a log of accessibility updates and audits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
 ---
 
-**Last Updated: August 09, 2025**
+**Last Updated: August 10, 2025**
 
+
+### 2025-08-10 (Accessibility: Prevent logo overlapping navbar on mobile)
+
+- Ensured the header logo respects mobile target sizes and does not obscure the app bar content.
+- Files modified:
+  - `app/components/content/AppHeader.vue`: Set explicit logo dimensions (32px on small screens, 40px on md+), retained descriptive alt, and kept 44x44 button target sizing; switched to Nuxt Image for optimized, properly sized assets.
+- Notes: Addresses WCAG 2.4.4 (clear navigation), 1.4.10 (reflow), and 1.4.3 (contrast unaffected). Prevents visual obstruction that could impair navigation.
+- Minor spacing adjustment: added margin between logo and title to improve readability at small sizes; no impact on focusable target sizing.
 
 ## 2025-08-09 (Mobile Navigation ARIA Compliance Fix)
 
