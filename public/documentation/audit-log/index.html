@@ -345,7 +345,21 @@
       </header>
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
-        <h3>2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)</h3>
+        <h3>2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)</h3>
+<ul>
+<li>Summary: Configured Nuxt to emit client-side JavaScript source maps in production static builds to satisfy Lighthouse &quot;Missing source maps for large first-party JavaScript&quot; and aid debugging without exposing server code.</li>
+<li>Files modified/created:<ul>
+<li><code>nuxt.config.ts</code>: Added top-level <code>sourcemap: { client: true, server: false }</code> to ensure client maps are generated; kept <code>vite.build.sourcemap: true</code> for redundancy.</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Previously, some builds lacked <code>.map</code> files for large client chunks (e.g., <code>/_nuxt/8u3D2Yqd.js</code>), triggering Lighthouse warnings on /plan/* pages.</li>
+<li>After the change, <code>yarn generate</code> outputs corresponding <code>*.js.map</code> files under <code>./.output/public/_nuxt/</code> (e.g., <code>8u3D2Yqd.js.map</code>).</li>
+<li>Server sourcemaps remain disabled for safety; only client bundle maps are emitted.</li>
+</ul>
+</li>
+</ul>
+<h3>2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)</h3>
 <h3>2025-08-10 (Fix: Hydration mismatch on mobile nav active state)</h3>
 <h3>2025-08-10 (Fix: Hydration node mismatch on dynamic content header)</h3>
 <ul>

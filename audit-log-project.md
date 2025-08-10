@@ -1,3 +1,13 @@
+### 2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)
+
+- Summary: Configured Nuxt to emit client-side JavaScript source maps in production static builds to satisfy Lighthouse "Missing source maps for large first-party JavaScript" and aid debugging without exposing server code.
+- Files modified/created:
+  - `nuxt.config.ts`: Added top-level `sourcemap: { client: true, server: false }` to ensure client maps are generated; kept `vite.build.sourcemap: true` for redundancy.
+- Technical Notes:
+  - Previously, some builds lacked `.map` files for large client chunks (e.g., `/_nuxt/8u3D2Yqd.js`), triggering Lighthouse warnings on /plan/\* pages.
+  - After the change, `yarn generate` outputs corresponding `*.js.map` files under `./.output/public/_nuxt/` (e.g., `8u3D2Yqd.js.map`).
+  - Server sourcemaps remain disabled for safety; only client bundle maps are emitted.
+
 ### 2025-08-09 (Cookie-based theme synchronization to eliminate hydration mismatches)
 
 ### 2025-08-10 (Fix: Hydration mismatch on mobile nav active state)

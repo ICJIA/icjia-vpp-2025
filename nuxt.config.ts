@@ -25,6 +25,14 @@ export default defineNuxtConfig({
   // Enable Nuxt DevTools for development
   devtools: { enabled: true },
 
+
+  // Generate source maps for client bundle to satisfy Lighthouse
+  // Server sourcemaps remain disabled for safety
+  sourcemap: {
+    client: true,
+    server: false
+  },
+
   // Force static site generation
   ssr: true,
 
