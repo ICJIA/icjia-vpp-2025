@@ -2,6 +2,14 @@
 
 ### 2025-08-10 (Fix: Hydration mismatch on mobile nav active state)
 
+### 2025-08-10 (Fix: Hydration node mismatch on dynamic content header)
+
+- Standardized header detection in catch‑all page to eliminate Symbol(v-cmt) hydration warnings on pages like /plan/public-health-approach.
+- Files modified/created:
+  - `app/pages/[...slug].vue`: Made needsStandardHeader detection JSON-based to keep SSR/CSR decisions identical.
+- Technical Notes:
+  - Replaced toString() checks with JSON.stringify() fallback; this stabilizes the condition that decides whether PageTitleSection renders.
+
 - Ensured SSR and client compute identical active classes for mobile navigation items to eliminate "Hydration class mismatch" warnings reported on /plan/executive-summary reload.
 - Files modified/created:
   - `app/components/content/AppSidebar.vue`: Added trailing-slash-agnostic isActive() helper and bound :active on home, plan, and more items.

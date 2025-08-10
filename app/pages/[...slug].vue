@@ -389,17 +389,28 @@ const isNotFoundError = computed(() => {
  * @returns {boolean} True if content should get PageTitleSection header
  */
 const needsStandardHeader = computed(() => {
+  // Default to no standard header until content is available
   if (!content.value) return false;
 
-  // Check if content body contains layout components
-  const bodyContent = content.value.body || content.value._body || "";
-  const hasLayoutComponents =
-    bodyContent.toString().includes("::") ||
-    bodyContent.toString().includes("about-hero") ||
-    bodyContent.toString().includes("hero-section") ||
-    bodyContent.toString().includes("feature-section");
+  // Normalize body to a stable, JSON-safe string for SSR/CSR parity
+  const bodyRaw = content.value.body ?? content.value._body ?? "";
+  let bodyStr = "";
+  try {
+    // Many Nuxt Content structures are objects; JSON stringify makes detection stable
+    bodyStr = typeof bodyRaw === "string" ? bodyRaw : JSON.stringify(bodyRaw);
+  } catch (e) {
+    // Fallback to toString without causing reactive differences
+    bodyStr = "" + bodyRaw;
+  }
 
-  // If no layout components detected, provide standardized header
+  // Detect embedded layout components in a stable way
+  const hasLayoutComponents =
+    bodyStr.includes("::") ||
+    bodyStr.includes("about-hero") ||
+    bodyStr.includes("hero-section") ||
+    bodyStr.includes("feature-section");
+
+  // Provide standardized header only when plain markdown (no layout components)
   return !hasLayoutComponents;
 });
 

@@ -4,6 +4,15 @@
 
 ### 2025-08-10 (Hydration Stability: Consistent active state on mobile navigation)
 
+### 2025-08-10 (Hydration Stability: Deterministic header decision in dynamic content)
+
+- Summary: Ensures SSR and client make the same decision about rendering the standardized page header to avoid node/children mismatches.
+- Files modified:
+  - `app/pages/[...slug].vue`: Stable JSON-based check for embedded layout components before rendering PageTitleSection.
+- Accessibility Notes:
+  - Eliminates transient differences in visual structure between server paint and hydrated DOM, reducing cognitive flicker/uncertainty.
+  - No ARIA/role changes; semantics and focus order remain unchanged.
+
 - Summary: Eliminated SSR/client class discrepancies that caused hydration warnings by ensuring v-list-item active state is computed consistently for mobile nav links.
 - Files modified:
   - `app/components/content/AppSidebar.vue`: Added `isActive()` helper (trailing-slash agnostic) and bound `:active` on relevant v-list-item entries.
