@@ -132,6 +132,7 @@
                 >
                   <v-sheet class="toc-sheet" color="transparent">
                     <div
+                      :id="tocTitleId"
                       class="text-subtitle-1 pb-2 px-3 pt-3 toc-title-clickable"
                       @click="scrollToTop"
                       role="button"
@@ -152,6 +153,8 @@
                           density="compact"
                           class="toc-list"
                           bg-color="transparent"
+                          role="list"
+                          :aria-labelledby="tocTitleId"
                         >
                           <v-list-item
                             v-for="(item, index) in tocH2Items"
@@ -162,14 +165,11 @@
                               { 'toc-item--active': activeItemId === item.id },
                             ]"
                             :ripple="true"
-                            :tabindex="0"
-                            @keydown.enter="scrollToHeading(item.id)"
-                            @keydown.space.prevent="scrollToHeading(item.id)"
                             :aria-label="`Navigate to section: ${item.text}`"
                             :aria-current="
                               activeItemId === item.id ? 'true' : 'false'
                             "
-                            role="button"
+                            role="listitem"
                           >
                             <!-- Visual indicator dot positioned absolutely relative to container -->
                             <div
@@ -469,6 +469,12 @@ const tocLabel = computed(() => {
   // Note: This will be loaded asynchronously, so we provide a fallback
   return "Jump To..."; // Default fallback while config loads or if config unavailable
 });
+
+/**
+ * ID attribute for the TOC heading to reference via aria-labelledby.
+ * Ensures stable reference across renders.
+ */
+const tocTitleId = "toc-heading";
 
 /**
  * Computed styles for fixed positioning of the TOC
@@ -1143,7 +1149,7 @@ useSeoMeta({
     return content.value?.robots || "index, follow";
   }),
 
-  // Canonical URL for duplicate content prevention
+  // Canonical URL for duplicate content prevention (as meta fallback)
   canonical: canonicalUrl,
 
   // Additional meta tags for better SEO
@@ -1158,6 +1164,11 @@ useSeoMeta({
     () => content.value?.lastModified || content.value?.modifiedTime
   ),
 });
+
+// Also inject an explicit <link rel="canonical"> for Lighthouse compliance
+useHead(() => ({
+  link: [{ rel: "canonical", href: canonicalUrl.value }],
+}));
 </script>
 
 <style scoped>

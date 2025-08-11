@@ -1,5 +1,14 @@
 ### 2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)
 
+### 2025-08-11 (SEO: Fix canonical URL pointing to homepage)
+
+- Summary: Removed global <link rel="canonical"> from nuxt.config.ts that forced all pages to declare the homepage as canonical. Allows per-page canonical tags (from useSeoMeta in pages) to correctly reference their own URLs like /plan/executive-summary/.
+- Files modified/created:
+  - `nuxt.config.ts`: Deleted static canonical link in app.head.link
+- Technical Notes:
+  - The dynamic content pages already set canonical via useSeoMeta with a computed URL (content frontmatter canonical or baseUrl + route.path). The global canonical in nuxt.config.ts overrode these and caused Lighthouse to report "Points to the domain's root URL".
+  - Homepage retains its own canonical via app/pages/index.vue useSeoMeta. With the global tag removed, there will be exactly one canonical per page, matching the page URL (or frontmatter override).
+
 - Summary: Configured Nuxt to emit client-side JavaScript source maps in production static builds to satisfy Lighthouse "Missing source maps for large first-party JavaScript" and aid debugging without exposing server code.
 - Files modified/created:
   - `nuxt.config.ts`: Added top-level `sourcemap: { client: true, server: false }` to ensure client maps are generated; kept `vite.build.sourcemap: true` for redundancy.

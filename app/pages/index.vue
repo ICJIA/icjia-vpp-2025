@@ -223,6 +223,11 @@ useSeoMeta({
   keywords:
     "violence prevention, Illinois, public health, community safety, trauma-informed care, evidence-based practices, ICJIA",
 });
+
+// Also inject an explicit <link rel="canonical"> for Lighthouse compliance
+useHead({
+  link: [{ rel: "canonical", href: homeCanonicalUrl }],
+});
 </script>
 
 <style scoped>

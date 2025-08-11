@@ -187,7 +187,6 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", type: "image/png", href: "/favicon.png" },
         { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
-        { rel: "canonical", href: "https://vpp.icjia.illinois.gov" },
         // Material Design Icons CSS
         {
           rel: "stylesheet",

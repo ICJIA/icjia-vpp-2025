@@ -340,19 +340,36 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-08-10">August 10, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-08-11">August 11, 2025</time>
         </div>
       </header>
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
         <h3>2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)</h3>
+<h3>2025-08-11 (SEO: Fix canonical URL pointing to homepage)</h3>
 <ul>
-<li>Summary: Configured Nuxt to emit client-side JavaScript source maps in production static builds to satisfy Lighthouse &quot;Missing source maps for large first-party JavaScript&quot; and aid debugging without exposing server code.</li>
-<li>Files modified/created:<ul>
+<li><p>Summary: Removed global <link rel="canonical"> from nuxt.config.ts that forced all pages to declare the homepage as canonical. Allows per-page canonical tags (from useSeoMeta in pages) to correctly reference their own URLs like /plan/executive-summary/.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
+<li><code>nuxt.config.ts</code>: Deleted static canonical link in app.head.link</li>
+</ul>
+</li>
+<li><p>Technical Notes:</p>
+<ul>
+<li>The dynamic content pages already set canonical via useSeoMeta with a computed URL (content frontmatter canonical or baseUrl + route.path). The global canonical in nuxt.config.ts overrode these and caused Lighthouse to report &quot;Points to the domain&#39;s root URL&quot;.</li>
+<li>Homepage retains its own canonical via app/pages/index.vue useSeoMeta. With the global tag removed, there will be exactly one canonical per page, matching the page URL (or frontmatter override).</li>
+</ul>
+</li>
+<li><p>Summary: Configured Nuxt to emit client-side JavaScript source maps in production static builds to satisfy Lighthouse &quot;Missing source maps for large first-party JavaScript&quot; and aid debugging without exposing server code.</p>
+</li>
+<li><p>Files modified/created:</p>
+<ul>
 <li><code>nuxt.config.ts</code>: Added top-level <code>sourcemap: { client: true, server: false }</code> to ensure client maps are generated; kept <code>vite.build.sourcemap: true</code> for redundancy.</li>
 </ul>
 </li>
-<li>Technical Notes:<ul>
+<li><p>Technical Notes:</p>
+<ul>
 <li>Previously, some builds lacked <code>.map</code> files for large client chunks (e.g., <code>/_nuxt/8u3D2Yqd.js</code>), triggering Lighthouse warnings on /plan/* pages.</li>
 <li>After the change, <code>yarn generate</code> outputs corresponding <code>*.js.map</code> files under <code>./.output/public/_nuxt/</code> (e.g., <code>8u3D2Yqd.js.map</code>).</li>
 <li>Server sourcemaps remain disabled for safety; only client bundle maps are emitted.</li>

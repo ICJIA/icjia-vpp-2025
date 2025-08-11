@@ -1,11 +1,21 @@
 ---
 title: "Accessibility Audit Log"
-date: 2025-08-10
+date: 2025-08-11
 description: "This document contains a log of accessibility updates and audits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
 ---
 
-**Last Updated: August 10, 2025**
+**Last Updated: August 11, 2025**
 
+
+- Restructured TOC list semantics to comply with WCAG 2.1 AA and IITAA 2.1 by using role=list with listitem children and wrapping items in semantic anchors for proper names and focus.
+- Files modified/created:
+  - `app/pages/[...slug].vue`: Updated TOC container to use aria-labelledby, added stable heading id, set v-list role=list and v-list-item role=listitem, wrapped content in <a href="#...">, and removed faux button roles/handlers on list item.
+- Technical Notes:
+  - Added const tocTitleId = "toc-heading" for stable reference and used aria-labelledby on the list.
+  - Kept keyboard activation on the anchor; removed redundant tabindex/keydown handlers on non-interactive containers.
+  - This resolves Lighthouse/axe issue: "Elements with an ARIA [role] that require children to contain a specific [role]" and ensures all items have accessible names.
+
+# Accessibility Audit Log for Violence Prevention Plan for Illinois: 2025-2029
 
 ### 2025-08-10 (Accessibility: Prevent logo overlapping navbar on mobile)
 
@@ -36,7 +46,7 @@ description: "This document contains a log of accessibility updates and audits c
 
 ## 2025-08-09 (Mobile Navigation ARIA Compliance Fix)
 
-- Summary: Resolved Lighthouse “[aria-*] attributes do not match their roles” errors in the mobile navigation drawer by removing modal-specific ARIA from the nav landmark and eliminating selection semantics from link items.
+- Summary: Resolved Lighthouse “[aria-\*] attributes do not match their roles” errors in the mobile navigation drawer by removing modal-specific ARIA from the nav landmark and eliminating selection semantics from link items.
 - Files modified/created:
   - `app/components/content/AppSidebar.vue`: Removed `aria-modal` from the drawer, set the list’s role to `list`, and removed `value`/`active` props from mobile `v-list-item` links to prevent `aria-selected` on role=link elements
 - Technical Notes:
