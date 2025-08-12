@@ -1,10 +1,10 @@
 ---
 title: "Accessibility Audit Log"
-date: 2025-08-11
+date: 2025-08-12
 description: "This document contains a log of accessibility updates and audits conducted on the Violence Prevention Plan for Illinois: 2025-2029 website."
 ---
 
-**Last Updated: August 11, 2025**
+**Last Updated: August 12, 2025**
 
 
 - Restructured TOC list semantics to comply with WCAG 2.1 AA and IITAA 2.1 by using role=list with listitem children and wrapping items in semantic anchors for proper names and focus.
