@@ -1,3 +1,14 @@
+### 2025-08-15 (Temporary: Hide contact form; provide text-based ICJIA contact info)
+
+- Summary: Temporarily disabled the interactive contact form on the Contact page while preserving the code for easy restoration. Replaced the form with clear, accessible text-based contact information for ICJIA (address, phone, email, website).
+- Files modified/created:
+  - `content/contact.md`: Commented out FeedbackForm block; added mailing address and alternative contact methods using data consistent with site config.
+- Technical Notes:
+  - The FeedbackForm block is wrapped in an HTML comment with explicit instructions for restoration; remove the comment to re-enable.
+  - Contact details sourced from `config/site.config.json` and existing legal pages for consistency.
+  - Address updated to the current ICJIA address: 60 E Van Buren St, Suite 650, Chicago, IL 60605.
+  - Maintains page structure and styling; no component removals or deletions.
+
 ### 2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)
 
 ### 2025-08-11 (SEO: Fix canonical URL pointing to homepage)

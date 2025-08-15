@@ -340,12 +340,27 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-08-12">August 12, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-08-15">August 15, 2025</time>
         </div>
       </header>
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
-        <h3>2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)</h3>
+        <h3>2025-08-15 (Temporary: Hide contact form; provide text-based ICJIA contact info)</h3>
+<ul>
+<li>Summary: Temporarily disabled the interactive contact form on the Contact page while preserving the code for easy restoration. Replaced the form with clear, accessible text-based contact information for ICJIA (address, phone, email, website).</li>
+<li>Files modified/created:<ul>
+<li><code>content/contact.md</code>: Commented out FeedbackForm block; added mailing address and alternative contact methods using data consistent with site config.</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>The FeedbackForm block is wrapped in an HTML comment with explicit instructions for restoration; remove the comment to re-enable.</li>
+<li>Contact details sourced from <code>config/site.config.json</code> and existing legal pages for consistency.</li>
+<li>Address updated to the current ICJIA address: 60 E Van Buren St, Suite 650, Chicago, IL 60605.</li>
+<li>Maintains page structure and styling; no component removals or deletions.</li>
+</ul>
+</li>
+</ul>
+<h3>2025-08-10 (Performance: Enable client source maps for Lighthouse diagnostics)</h3>
 <h3>2025-08-11 (SEO: Fix canonical URL pointing to homepage)</h3>
 <ul>
 <li><p>Summary: Removed global <link rel="canonical"> from nuxt.config.ts that forced all pages to declare the homepage as canonical. Allows per-page canonical tags (from useSeoMeta in pages) to correctly reference their own URLs like /plan/executive-summary/.</p>
