@@ -131,6 +131,37 @@ const focusMainContent = () => {
 };
 
 /**
+ * Move focus to the primary navigation when skip link is activated
+ * - On desktop: focuses the <nav id="site-navigation"> element
+ * - On mobile (where desktop nav is hidden): focuses the mobile menu trigger button
+ */
+const focusSiteNavigation = () => {
+  try {
+    const getById = (id) =>
+      typeof document !== "undefined" ? document.getElementById(id) : null;
+
+    // Prefer desktop nav when visible
+    const navEl = getById("site-navigation");
+    if (navEl && navEl.offsetParent !== null) {
+      navEl.setAttribute("tabindex", "-1");
+      navEl.focus({ preventScroll: true });
+      navEl.scrollIntoView({ behavior: "instant", block: "start" });
+      return;
+    }
+
+    // Fallback to mobile menu trigger
+    const mobileBtn = getById("mobile-menu-trigger");
+    if (mobileBtn) {
+      mobileBtn.focus({ preventScroll: true });
+      mobileBtn.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+  } catch (e) {
+    if (typeof logError === "function")
+      logError("Error focusing navigation via skip link", e);
+  }
+};
+
+/**
  * Initialize theme system on client-side mount
  *
  * Only initializes the theme system without syncing with Vuetify to prevent hydration mismatches.

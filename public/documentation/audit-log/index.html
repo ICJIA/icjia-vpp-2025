@@ -346,6 +346,20 @@
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
         <h3>2025-09-15 (Security/DevX: Disable Nuxt DevTools globally)</h3>
+<h3>2025-09-15 (Accessibility: Add Skip to navigation + focus management)</h3>
+<ul>
+<li>Summary: Added a “Skip to navigation” link next to “Skip to main content,” ensuring both are visible on Tab and properly move focus to their targets on desktop and mobile.</li>
+<li>Files modified/created:<ul>
+<li><code>app/layouts/default.vue</code>: Added second skip link and <code>focusSiteNavigation()</code> which targets <code>#site-navigation</code> when visible, or the mobile hamburger button when desktop nav is hidden.</li>
+<li><code>app/components/content/AppHeader.vue</code>: Added <code>id=&quot;site-navigation&quot;</code> to desktop <nav> and <code>id=&quot;mobile-menu-trigger&quot;</code> to the hamburger button for reliable focus.</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>High-contrast skip link styling already in place; both links support click/Enter/Space activation.</li>
+<li>Verified in generated static output; both skip links render and are keyboard-focusable. No axe violations expected from this change.</li>
+</ul>
+</li>
+</ul>
 <h3>2025-09-15 (Footer bottom links restored and verified)</h3>
 <ul>
 <li><p>Summary: Restored and refactored the footer bottom section to ensure links render on all pages in the exact specified order with responsive behavior and accessibility labels. Regenerated the site and validated with the local axe audit (0 violations).</p>

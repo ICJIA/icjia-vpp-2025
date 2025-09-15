@@ -56,6 +56,7 @@
       <!-- Mobile hamburger menu button (visible on sm and down) -->
       <div class="d-md-none">
         <v-btn
+          id="mobile-menu-trigger"
           icon
           variant="text"
           color="primary"

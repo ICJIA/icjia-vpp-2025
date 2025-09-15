@@ -7,6 +7,18 @@ description: "This document contains a log of accessibility updates and audits c
 **Last Updated: September 15, 2025**
 
 
+### 2025-09-15 (Add Skip to navigation + focus management)
+
+- Added a second global skip link for keyboard users: “Skip to navigation,” modeled after R3 site behavior, alongside the existing “Skip to main content.” Both appear on Tab with high-contrast styling.
+- Files modified/created:
+  - `app/layouts/default.vue`: Added a second anchor with `.skip-link` pointing to `#site-navigation`; implemented `focusSiteNavigation()` to focus desktop nav or the mobile menu trigger when desktop nav is hidden.
+  - `app/components/content/AppHeader.vue`: Gave desktop `<nav>` an `id="site-navigation"` and added `id="mobile-menu-trigger"` to the hamburger button for mobile fallback focus.
+- Technical Notes:
+  - Skip links are fixed-position and revealed on focus (top: 0); they include aria-labels and operate via click/Enter/Space.
+  - Desktop: focuses `<nav id="site-navigation">` with tabindex="-1" applied before focus.
+  - Mobile: focuses the hamburger button (`#mobile-menu-trigger`) so users can open the menu immediately.
+  - Verified with static build and manual keyboard navigation: both skip links are announced and visible.
+
 ### 2025-09-15 (Footer bottom links restored + validation)
 
 - Refactored AppFooter.vue bottom link row to ensure it renders consistently across all pages with required order, semantics, and responsive behavior. Re-ran local static axe audit to confirm 0 violations.
