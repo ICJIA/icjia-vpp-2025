@@ -340,12 +340,25 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-08-15">August 15, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-09-15">September 15, 2025</time>
         </div>
       </header>
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
-        <h3>2025-08-15 (Temporary: Hide contact form; provide text-based ICJIA contact info)</h3>
+        <h3>2025-09-15 (Security/DevX: Disable Nuxt DevTools globally)</h3>
+<ul>
+<li>Summary: Disabled Nuxt DevTools project-wide to prevent accidental exposure of component tree/state and to streamline production parity during local runs.</li>
+<li>Files modified/created:<ul>
+<li><code>nuxt.config.ts</code>: Set <code>devtools: { enabled: false }</code> with a comment.</li>
+</ul>
+</li>
+<li>Technical Notes:<ul>
+<li>Nuxt 4 config is respected in both dev and generate; DevTools UI will not be injected.</li>
+<li>This does not affect Vue Devtools availability in the browser if the user has the extension; only Nuxt DevTools panel is disabled.</li>
+</ul>
+</li>
+</ul>
+<h3>2025-08-15 (Temporary: Hide contact form; provide text-based ICJIA contact info)</h3>
 <ul>
 <li>Summary: Temporarily disabled the interactive contact form on the Contact page while preserving the code for easy restoration. Replaced the form with clear, accessible text-based contact information for ICJIA (address, phone, email, website).</li>
 <li>Files modified/created:<ul>

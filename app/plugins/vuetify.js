@@ -11,7 +11,6 @@
 import { createVuetify } from "vuetify";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 
-import { useCookie } from "#imports";
 // Import all Vuetify components to avoid initialization order issues
 // This prevents the "Cannot access 'Ml' before initialization" error
 // caused by circular dependencies in selective imports
@@ -22,10 +21,8 @@ import * as directives from "vuetify/directives";
 // import { VDatePicker, VTimePicker } from "vuetify/labs/components";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // Read initial theme from cookie to keep SSR and client consistent
-  // Default to 'dark' if not set
-  const themeCookie = useCookie("vpp-theme");
-  const initialTheme = themeCookie.value === "light" ? "light" : "dark";
+  // Always default to 'dark' on first paint (no persistence across sessions)
+  const initialTheme = "dark";
 
   // Ensure the <html data-theme> attribute matches Vuetify on first paint (client only)
   if (process.client) {
@@ -40,7 +37,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   if (process.env.NODE_ENV === "development") {
     console.log(
-      `[Vuetify Plugin] Initializing with theme from cookie: ${initialTheme}`
+      `[Vuetify Plugin] Initializing with default theme: ${initialTheme}`
     );
   }
 

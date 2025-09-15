@@ -35,7 +35,10 @@ a {
   font-weight: 600;
 
   // Smooth transitions for all interactive states
-  transition: color 0.2s ease, text-decoration-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease,
+    background-color 0.2s ease;
 
   // Ensure links are always underlined for accessibility
   text-decoration: underline;
@@ -311,6 +314,61 @@ a {
   }
 }
 
+// Light theme mobile navigation drawer contrast fixes
+:root:not([data-theme="dark"]) {
+  .mobile-nav-drawer {
+    /* Force light surface to guarantee contrast for text/links */
+    background-color: #ffffff !important;
+    color: #000000 !important;
+
+    .v-navigation-drawer__content,
+    .v-list {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+    }
+
+    /* Ensure list items and titles use high-contrast text */
+    .v-list-item,
+    .v-list-item-title,
+    .v-list-item-subtitle {
+      color: #000000 !important;
+    }
+
+    /* Links inside the drawer use accessible palette on white */
+    a,
+    a:link,
+    a:visited {
+      color: #0747a6 !important; /* >= 8:1 on white */
+      text-decoration-color: #0747a6 !important;
+    }
+    a:hover,
+    a:focus,
+    a:focus-visible {
+      color: #0b3d91 !important; /* darker but still compliant */
+      text-decoration-color: #0b3d91 !important;
+      text-decoration-thickness: 2px;
+      outline: 2px solid #0b3d91;
+      outline-offset: 2px;
+    }
+    a:active {
+      color: #052c6b !important;
+      text-decoration-color: #052c6b !important;
+    }
+
+    /* Icons maintain sufficient contrast */
+    .v-icon {
+      color: #000000 !important;
+      opacity: 1 !important;
+    }
+
+    /* Section headings within the drawer */
+    .more-menu-heading .v-list-item-title,
+    .dropdown-menu-heading .v-list-item-title {
+      color: #000000 !important;
+    }
+  }
+}
+
 // High Contrast Mode - Maintain navigation consistency
 @media (prefers-contrast: high) {
   .nav-link,
@@ -391,8 +449,12 @@ $transition-slow: 0.5s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .scale-up {
@@ -404,7 +466,9 @@ $transition-slow: 0.5s ease;
 }
 
 .hover-lift {
-  transition: transform $transition-fast, box-shadow $transition-fast;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast;
 
   &:hover {
     transform: translateY(-4px);
@@ -417,20 +481,28 @@ $transition-slow: 0.5s ease;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(135deg, var(--v-primary-base), var(--v-accent-base));
+  background-image: linear-gradient(
+    135deg,
+    var(--v-primary-base),
+    var(--v-accent-base)
+  );
 }
 
 // Global card styles for dark mode
 :root[data-theme="dark"] {
   // Add subtle box shadow to all Vuetify cards in dark mode
   .v-card {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.5),
+      0 2px 4px -1px rgba(0, 0, 0, 0.4) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   // Hover state for cards
   .v-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.6) !important;
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.7),
+      0 4px 6px -2px rgba(0, 0, 0, 0.6) !important;
   }
 }
 
@@ -439,7 +511,7 @@ $transition-slow: 0.5s ease;
 
 // Base code styling for inline code
 code {
-  font-family: 'Fira Code', 'Monaco', 'Consolas', 'Ubuntu Mono', monospace;
+  font-family: "Fira Code", "Monaco", "Consolas", "Ubuntu Mono", monospace;
   font-size: 0.875rem;
   padding: 0.125rem 0.375rem;
   border-radius: $border-radius-sm;
@@ -454,7 +526,9 @@ pre {
   margin: 1.5rem 0;
   border-radius: $border-radius-md;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(var(--v-theme-outline), 0.12);
 
   // Code inside pre blocks (syntax highlighted)
@@ -483,9 +557,11 @@ pre {
 // Since Shiki is disabled, we'll style code blocks manually with maximum contrast
 
 // Base code block styling - works with both light and dark themes
-pre, code {
+pre,
+code {
   // Ensure proper font rendering
-  font-family: 'Fira Code', 'Monaco', 'Consolas', 'Ubuntu Mono', monospace !important;
+  font-family:
+    "Fira Code", "Monaco", "Consolas", "Ubuntu Mono", monospace !important;
   font-size: 0.875rem !important;
   line-height: 1.6 !important;
 }
@@ -500,7 +576,9 @@ pre {
   margin: 1rem 0;
 
   // Smooth transitions for theme changes
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 // Inline code
@@ -534,7 +612,9 @@ code:not(pre code) {
     border: 1px solid #30363d;
 
     // Add subtle shadow for depth
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 
   code:not(pre code) {
@@ -592,7 +672,10 @@ blockquote {
   position: relative;
 
   // Smooth transitions for theme changes
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 
   // Responsive indentation - reduce on smaller screens
   @media (max-width: 768px) {
@@ -657,8 +740,8 @@ h2 {
   border-bottom: 1px solid rgba(var(--v-theme-on-surface), 0.2);
 
   // Spacing for proper visual separation
-  padding-bottom: 0.75rem;  // Space between heading text and border
-  margin-bottom: 2rem;      // Increased space between border and following content
+  padding-bottom: 0.75rem; // Space between heading text and border
+  margin-bottom: 2rem; // Increased space between border and following content
 
   // Smooth transition for theme changes
   transition: border-color 0.3s ease;
@@ -721,25 +804,40 @@ h2.main-page-title {
 
 // Additional Vuetify text utility classes for enhanced contrast
 .text-disabled {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced from default for better visibility */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced from default for better visibility */
 }
 
 .text-caption {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 .text-overline {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 .text-subtitle-1,
 .text-subtitle-2 {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 .text-body-1,
 .text-body-2 {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 // Global Target Size Enhancement for WCAG 2.5.5 Target Size (Enhanced)
@@ -852,25 +950,87 @@ a[role="button"],
   color: rgba(255, 255, 255, 0.95) !important;
 }
 
+// Force-correct Vuetify CSS variables when data-theme="light" is set
+// This ensures components that still render with v-theme--dark (due to Vuetify
+// not being synced yet) still use proper, high-contrast light theme text colors.
+:root:not([data-theme="dark"]) {
+  /* Core palette overrides in rgb() triplets to match Vuetify usage */
+  --v-theme-primary: 7, 71, 166; /* #0747A6 */
+  --v-theme-secondary: 5, 122, 140; /* #057A8C */
+  --v-theme-accent: 91, 33, 182; /* #5B21B6 */
+  --v-theme-success: 4, 120, 87; /* #047857 */
+  --v-theme-warning: 180, 83, 9; /* #B45309 */
+  --v-theme-error: 185, 28, 28; /* #B91C1C */
+  --v-theme-info: 30, 64, 175; /* #1E40AF */
+
+  /* Surfaces: enforce black text for light backgrounds per project standard */
+  --v-theme-on-surface: 0, 0, 0; /* #000000 */
+  --v-theme-on-background: 0, 0, 0; /* #000000 */
+  --v-theme-on-app-bar: 0, 0, 0; /* #000000 */
+
+  /* Backgrounds (informational only; most backgrounds set explicitly) */
+  --v-theme-background: 250, 250, 250; /* #FAFAFA */
+  --v-theme-surface: 248, 248, 248; /* #F8F8F8 */
+}
+
 // Light theme - Primary sections (odd-numbered) - Warm off-white background
+// Light theme explicit text color enforcement for headings, paragraphs, and hero caption
+:root:not([data-theme="dark"]) {
+  /* Ensure pure black text on light backgrounds sitewide for content areas */
+  .dynamic-content-page h1,
+  .dynamic-content-page h2,
+  .dynamic-content-page h3,
+  .dynamic-content-page h4,
+  .dynamic-content-page h5,
+  .dynamic-content-page h6,
+  .dynamic-content-page p,
+  .dynamic-content-page li,
+  .dynamic-content-page .hero-image-caption {
+    color: #000000 !important;
+  }
+
+  /* Interactive states must remain >= 4.5:1 on light backgrounds */
+  .dynamic-content-page a:link,
+  .dynamic-content-page a:visited {
+    color: #0747a6 !important; /* chosen for >= 8:1 on #FAFAFA */
+  }
+  .dynamic-content-page a:hover,
+  .dynamic-content-page a:focus {
+    color: #0b3d91 !important; /* darker hover/focus maintains contrast */
+    text-decoration: underline; /* clear visual indicator */
+  }
+  .dynamic-content-page a:active {
+    color: #052c6b !important; /* darkest active state */
+  }
+
+  /* Hero caption on light surfaces must be pure black and maintain clear focus */
+  .hero-image-caption {
+    color: #000000 !important;
+  }
+  .hero-image-caption:hover,
+  .hero-image-caption:focus {
+    color: #0b3d91 !important;
+  }
+}
+
 :root:not([data-theme="dark"]) {
   section.section-primary,
   .section-primary {
     // Light mode: Warm off-white background (#FAFAFA - neutral warm tone)
-    background: #FAFAFA !important;
+    background: #fafafa !important;
     color: rgb(var(--v-theme-on-surface)) !important;
     // Subtle top border for clear section delineation
-    border-top: 1px solid #E0E0E0 !important;
+    border-top: 1px solid #e0e0e0 !important;
   }
 
   // Secondary sections (even-numbered) - Darker neutral grey background
   section.section-secondary,
   .section-secondary {
     // Light mode: Darker neutral grey background (#E5E5E5 - provides better distinction)
-    background: #E5E5E5 !important;
+    background: #e5e5e5 !important;
     color: rgb(var(--v-theme-on-surface)) !important;
     // Subtle top border for clear section delineation
-    border-top: 1px solid #E0E0E0 !important;
+    border-top: 1px solid #e0e0e0 !important;
   }
 }
 
@@ -880,7 +1040,7 @@ a[role="button"],
   section.section-primary,
   .section-primary {
     // Dark mode: Dark blue background (#1A2234 - dark navy blue)
-    background: #1A2234 !important;
+    background: #1a2234 !important;
     color: rgb(var(--v-theme-on-surface)) !important;
   }
 
@@ -888,17 +1048,15 @@ a[role="button"],
   section.section-secondary,
   .section-secondary {
     // Dark mode: Slightly lighter dark blue background (#1E2A3A - lighter navy blue)
-    background: #1E2A3A !important;
+    background: #1e2a3a !important;
     color: rgb(var(--v-theme-on-surface)) !important;
   }
 }
-
 
 .footnotes {
   font-size: small;
   color: #8b949e;
   border-top: 1px solid #30363d;
-
 }
 
 /* Hide the section label for visual users. */
@@ -915,12 +1073,11 @@ a[role="button"],
 
 /* Place `[` and `]` around footnote references. */
 [data-footnote-ref]::before {
-  content: '[';
-
+  content: "[";
 }
 
 [data-footnote-ref]::after {
-  content: ']';
+  content: "]";
 }
 
 // ============================================================================
@@ -1332,13 +1489,17 @@ a[role="button"],
 
   // Subtle gradient background
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(var(--v-theme-primary), 0.05), rgba(var(--v-theme-secondary), 0.05));
+    background: linear-gradient(
+      135deg,
+      rgba(var(--v-theme-primary), 0.05),
+      rgba(var(--v-theme-secondary), 0.05)
+    );
     z-index: 0;
   }
 
@@ -1426,7 +1587,10 @@ a[role="button"],
   gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(var(--v-theme-on-surface), 0.95); /* Enhanced from 0.9 to 0.95 for AAA contrast compliance (7:1) */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ); /* Enhanced from 0.9 to 0.95 for AAA contrast compliance (7:1) */
 }
 
 .detail-icon {
@@ -1702,8 +1866,6 @@ a.v-btn:visited *,
   text-decoration-skip-ink: none !important;
 }
 
-
-
 // Help Section
 .help-section {
   margin-top: 3rem;
@@ -1853,25 +2015,40 @@ a.v-btn:visited *,
 
 // Additional Vuetify text utility classes for enhanced contrast
 .text-disabled {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced from default for better visibility */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced from default for better visibility */
 }
 
 .text-caption {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 .text-overline {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 .text-subtitle-1,
 .text-subtitle-2 {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 .text-body-1,
 .text-body-2 {
-  color: rgba(var(--v-theme-on-surface), 0.95) !important; /* Enhanced for AAA contrast compliance */
+  color: rgba(
+    var(--v-theme-on-surface),
+    0.95
+  ) !important; /* Enhanced for AAA contrast compliance */
 }
 
 // Global Target Size Enhancement for WCAG 2.5.5 Target Size (Enhanced)
@@ -1983,4 +2160,3 @@ a[role="button"],
 :root[data-theme="dark"] .principle-description {
   color: rgba(255, 255, 255, 0.95) !important;
 }
-

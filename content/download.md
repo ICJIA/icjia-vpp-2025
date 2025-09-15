@@ -12,7 +12,7 @@ showTOC: false
 
 <div class="download-sections">
 
-### Download the Plan as PDF
+## Download the Plan as PDF
 
 <div class="primary-download-card">
   <div class="download-icon-container">
@@ -51,7 +51,7 @@ showTOC: false
   </div>
 </div>
 
-### Read the Plan Online
+## Read the Plan Online
 
 <div class="primary-download-card">
   <div class="download-icon-container">
@@ -88,7 +88,7 @@ showTOC: false
   </div>
 </div>
 
-### Downloads for Developers and AI
+## Downloads for Developers and AI
 
 <div class="primary-download-card">
   <div class="download-icon-container">
@@ -157,13 +157,13 @@ showTOC: false
 
 </div>
 
-### Need Help?
+## Need Help?
 
 <div class="help-section">
   <div class="help-content">
     <v-icon size="32" color="warning" class="help-icon">mdi-help-circle</v-icon>
     <div class="help-text">
-      <h4>Questions about these downloads?</h4>
+      <h3>Questions about these downloads?</h3>
       <p>
         If you need assistance with any of these file formats or have questions about how to use them,
         please visit our <nuxt-link to="/contact" class="internal-link">contact page</nuxt-link>.

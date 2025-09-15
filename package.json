@@ -39,7 +39,8 @@
     "debug:config": "node scripts/generate-site-config.js --verbose",
     "dev:tools": "yarn debug:search && yarn debug:config",
     "lint": "npx prettier --check \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
-    "lint:fix": "npx prettier --write \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore"
+    "lint:fix": "npx prettier --write \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
+    "audit:axe": "node scripts/axe-audit.js"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",

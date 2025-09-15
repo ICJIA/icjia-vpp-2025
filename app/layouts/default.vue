@@ -252,19 +252,36 @@ onMounted(() => {
 </template>
 
 <style>
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--v-primary-base);
-  color: white;
-  padding: 8px;
-  z-index: 100;
-  transition: top 0.2s ease;
+/* High-contrast, theme-agnostic skip link styling (WCAG 2.1 AA) */
+a.skip-link,
+a.skip-link:link,
+a.skip-link:visited {
+  position: fixed; /* ensure consistent visibility relative to viewport */
+  top: -100px; /* hidden off-screen until focused */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000 !important; /* force high-contrast background */
+  color: #fff !important; /* force high-contrast text */
+  padding: 12px 20px;
+  text-decoration: none;
+  z-index: 99999;
+  transition: top 0.3s ease;
+  border-radius: 4px;
 }
 
-.skip-link:focus {
+/* Reinforce in dark theme to override anchor color rules */
+:root[data-theme="dark"] a.skip-link,
+:root[data-theme="dark"] a.skip-link:link,
+:root[data-theme="dark"] a.skip-link:visited {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Visible on focus with strong outline */
+a.skip-link:focus {
   top: 0;
+  outline: 3px solid #fff !important;
+  outline-offset: 2px;
 }
 
 /* Screen reader only class */

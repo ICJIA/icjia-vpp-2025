@@ -1,6 +1,5 @@
-import { computed, watch, ref } from "vue";
+import { computed, watch, ref, onMounted } from "vue";
 import { useConsoleLogger } from "~/composables/useConsoleLogger";
-import { useCookie } from "#imports";
 
 /**
  * Simplified Theme Management Composable
@@ -61,9 +60,8 @@ export function useTheme() {
    * Always defaults to dark mode, no persistence across sessions.
    * This eliminates SSR hydration issues while maintaining runtime functionality.
    */
-  // Initialize from cookie so SSR and client match; default to dark
-  const themeCookie = useCookie("vpp-theme");
-  const theme = ref(themeCookie.value === "light" ? "light" : "dark");
+  // Initialize theme: always default to dark; do not read from storage
+  const theme = ref("dark");
 
   // Use useHead to set document attributes reactively for SSR compatibility
   useHead({
@@ -112,13 +110,17 @@ export function useTheme() {
       }
     }
 
-    // Persist to cookie and log (client-side only)
+    // Persist to sessionStorage for this session only and log (client-side only)
     if (typeof window !== "undefined") {
-      themeCookie.value = newTheme;
+      try {
+        sessionStorage.setItem("vpp-theme", newTheme);
+      } catch (e) {
+        // ignore storage errors (e.g., disabled storage)
+      }
       logTheme("Theme changed via setTheme", {
         from: previousTheme,
         to: newTheme,
-        source: "cookie",
+        source: "sessionStorage",
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
         viewportWidth: window.innerWidth,
@@ -167,6 +169,12 @@ export function useTheme() {
       logError("Error syncing theme with Vuetify", error);
     }
   };
+  // Initialize on client mount to read session theme (if present)
+  if (process.client) {
+    onMounted(() => {
+      initializeTheme();
+    });
+  }
 
   /**
    * Initialize theme system
@@ -182,15 +190,37 @@ export function useTheme() {
 
     // Log theme initialization (client-side only to prevent hydration mismatch)
     if (typeof window !== "undefined") {
-      // Ensure cookie is populated for future SSR
-      themeCookie.value = theme.value;
       logTheme("Theme system initialized", {
         theme: theme.value,
-        source: "cookie",
+        source: "default",
         date: new Date().toISOString().split("T")[0],
         userAgent: navigator.userAgent,
         viewportWidth: window.innerWidth,
       });
+    }
+
+    // Read session theme if set for this session only (never persisted across sessions)
+    if (typeof window !== "undefined") {
+      try {
+        const stored = sessionStorage.getItem("vpp-theme");
+        if (stored === "light" || stored === "dark") {
+          theme.value = stored;
+          document.documentElement.setAttribute("data-theme", theme.value);
+          try {
+            const { $vuetify } = useNuxtApp();
+            if ($vuetify && $vuetify.theme && $vuetify.theme.global) {
+              $vuetify.theme.global.name.value = theme.value;
+            }
+          } catch (error) {
+            logError(
+              "Error syncing Vuetify theme during initializeTheme",
+              error
+            );
+          }
+        }
+      } catch (e) {
+        // ignore storage read errors
+      }
     }
   };
 

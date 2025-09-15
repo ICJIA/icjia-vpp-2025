@@ -1,3 +1,12 @@
+### 2025-09-15 (Security/DevX: Disable Nuxt DevTools globally)
+
+- Summary: Disabled Nuxt DevTools project-wide to prevent accidental exposure of component tree/state and to streamline production parity during local runs.
+- Files modified/created:
+  - `nuxt.config.ts`: Set `devtools: { enabled: false }` with a comment.
+- Technical Notes:
+  - Nuxt 4 config is respected in both dev and generate; DevTools UI will not be injected.
+  - This does not affect Vue Devtools availability in the browser if the user has the extension; only Nuxt DevTools panel is disabled.
+
 ### 2025-08-15 (Temporary: Hide contact form; provide text-based ICJIA contact info)
 
 - Summary: Temporarily disabled the interactive contact form on the Contact page while preserving the code for easy restoration. Replaced the form with clear, accessible text-based contact information for ICJIA (address, phone, email, website).

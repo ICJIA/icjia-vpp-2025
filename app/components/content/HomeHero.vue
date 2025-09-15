@@ -334,7 +334,8 @@ const handleLearnMore = () => {
   margin-top: 1rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(var(--v-theme-on-surface), 0.7);
+  /* Use full on-surface text color to ensure >= 4.5:1 contrast in both themes */
+  color: rgb(var(--v-theme-on-surface));
   transition: color 0.3s ease;
   cursor: pointer;
   user-select: none;
@@ -347,6 +348,15 @@ const handleLearnMore = () => {
 
 .hero-image-caption:hover {
   color: rgb(var(--v-theme-primary));
+}
+
+/* Light theme: force black text for caption on light backgrounds */
+:root:not([data-theme="dark"]) .hero-image-caption {
+  color: #000000 !important;
+}
+:root:not([data-theme="dark"]) .hero-image-caption:hover,
+:root:not([data-theme="dark"]) .hero-image-caption:focus {
+  color: #0b3d91 !important;
 }
 
 /* Image sizing is now handled directly by .hero-image class */

@@ -22,15 +22,14 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
-  // Enable Nuxt DevTools for development
-  devtools: { enabled: true },
-
+  // Disable Nuxt DevTools globally
+  devtools: { enabled: false },
 
   // Generate source maps for client bundle to satisfy Lighthouse
   // Server sourcemaps remain disabled for safety
   sourcemap: {
     client: true,
-    server: false
+    server: false,
   },
 
   // Force static site generation
@@ -87,8 +86,6 @@ export default defineNuxtConfig({
         },
       },
     },
-
-
   },
 
   /**
@@ -192,7 +189,8 @@ export default defineNuxtConfig({
           rel: "stylesheet",
           href: "https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css",
           crossorigin: "anonymous",
-          integrity: "sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2"
+          integrity:
+            "sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2",
         },
       ],
     },
@@ -231,7 +229,7 @@ export default defineNuxtConfig({
    */
   nitro: {
     // Force static site generation preset
-    preset: 'static',
+    preset: "static",
 
     // Static site generation configuration
     prerender: {
@@ -274,9 +272,9 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           // Additional Sass options for modern Dart Sass
-          additionalData: `@use "sass:math";`
-        }
-      }
+          additionalData: `@use "sass:math";`,
+        },
+      },
     },
 
     build: {
@@ -314,19 +312,14 @@ export default defineNuxtConfig({
             if (id.includes('node_modules/')) return 'vendor';
           }
           */
-        }
-      }
+        },
+      },
     },
 
     // Optimize dependencies
     optimizeDeps: {
-      include: [
-        'vue',
-        'vuetify',
-        '@vueuse/core',
-        'fuse.js'
-      ]
-    }
+      include: ["vue", "vuetify", "@vueuse/core", "fuse.js"],
+    },
   },
 
   /**
@@ -334,7 +327,7 @@ export default defineNuxtConfig({
    */
   image: {
     // Default image format for optimization
-    format: ['webp', 'avif'],
+    format: ["webp", "avif"],
 
     // Screen sizes for responsive images
     screens: {
@@ -353,26 +346,26 @@ export default defineNuxtConfig({
     quality: 80,
 
     // Provider configuration (using default ipx)
-    provider: 'ipx',
+    provider: "ipx",
 
     // Presets for common image sizes
     presets: {
       avatar: {
         modifiers: {
-          format: 'webp',
+          format: "webp",
           width: 150,
           height: 150,
-          quality: 80
-        }
+          quality: 80,
+        },
       },
       hero: {
         modifiers: {
-          format: 'webp',
+          format: "webp",
           quality: 85,
-          width: 1200
-        }
-      }
-    }
+          width: 1200,
+        },
+      },
+    },
   },
 
   /**
@@ -384,7 +377,7 @@ export default defineNuxtConfig({
     // Public keys (exposed to client-side)
     public: {
       // Environment configuration for SSR consistency
-      NODE_ENV: process.env.NODE_ENV || 'production'
-    }
-  }
+      NODE_ENV: process.env.NODE_ENV || "production",
+    },
+  },
 });

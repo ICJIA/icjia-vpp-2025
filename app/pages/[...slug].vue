@@ -1014,6 +1014,81 @@ onMounted(() => {
   }, 100);
 });
 
+// TEMPORARY client-side sanitizer for audit log page list/link semantics
+// Scope strictly to /accessibility/audit-log to resolve axe "list", "listitem", and "link-name"
+// This adjusts malformed UL children and adds labels for empty anchors at runtime.
+onMounted(() => {
+  if (route.path === "/accessibility/audit-log") {
+    try {
+      const root = document.querySelector(".content-renderer");
+      if (!root) return;
+
+      // Ensure <ul> contains only <li> direct children
+      root.querySelectorAll("ul").forEach((ul) => {
+        const children = Array.from(ul.children);
+        children.forEach((el) => {
+          if (el.tagName === "A") {
+            const li = document.createElement("li");
+            ul.replaceChild(li, el);
+            li.appendChild(el);
+          }
+        });
+      });
+
+      // Ensure each focusable <a> has discernible text or an ARIA label
+      root.querySelectorAll("a[href]").forEach((a) => {
+        const text = (a.textContent || "").trim();
+        const hasAccessibleName =
+          !!text ||
+          a.hasAttribute("aria-label") ||
+          a.hasAttribute("aria-labelledby") ||
+          !!a.title;
+        if (!hasAccessibleName) {
+          const href = a.getAttribute("href") || "";
+          let label = "Link";
+          if (href.startsWith("#")) label = `Jump to section ${href.slice(1)}`;
+          a.setAttribute("aria-label", label);
+          // Add sr-only fallback text to ensure name in all AT
+          const sr = document.createElement("span");
+          sr.className = "sr-only";
+          sr.textContent = label;
+          a.appendChild(sr);
+        }
+      });
+    } catch (e) {
+      console.warn("Audit-log semantic sanitizer failed", e);
+    }
+  }
+});
+
+// Make scrollable pre/code focusable on Terms page for keyboard access
+onMounted(() => {
+  if (route.path === "/legal/terms-of-service") {
+    try {
+      const root = document.querySelector(".content-renderer");
+      if (!root) return;
+      const elems = root.querySelectorAll("pre, code");
+      elems.forEach((el) => {
+        const style = window.getComputedStyle(el);
+        const isScrollable =
+          (/(auto|scroll)/.test(style.overflow) ||
+            /(auto|scroll)/.test(style.overflowX) ||
+            /(auto|scroll)/.test(style.overflowY)) &&
+          el.scrollWidth > el.clientWidth;
+        if (isScrollable) {
+          if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
+          el.setAttribute("role", "region");
+          if (!el.getAttribute("aria-label"))
+            el.setAttribute("aria-label", "Scrollable code example");
+          el.classList.add("focus-outline-visible");
+        }
+      });
+    } catch (e) {
+      console.warn("Scrollable pre/code enhancer failed", e);
+    }
+  }
+});
+
 /**
  * Component cleanup and memory leak prevention
  *
@@ -1192,6 +1267,35 @@ useHead(() => ({
 /* Dark theme background override */
 :root[data-theme="dark"] .dynamic-content-page {
   background: rgb(var(--v-theme-surface));
+}
+
+/* Light theme: enforce pure black content text for contrast */
+:root:not([data-theme="dark"]) .dynamic-content-page {
+  color: #000000 !important;
+}
+:root:not([data-theme="dark"]) .dynamic-content-page h1,
+:root:not([data-theme="dark"]) .dynamic-content-page h2,
+:root:not([data-theme="dark"]) .dynamic-content-page h3,
+:root:not([data-theme="dark"]) .dynamic-content-page h4,
+:root:not([data-theme="dark"]) .dynamic-content-page h5,
+:root:not([data-theme="dark"]) .dynamic-content-page h6,
+:root:not([data-theme="dark"]) .dynamic-content-page p,
+:root:not([data-theme="dark"]) .dynamic-content-page li {
+  color: #000000 !important;
+}
+
+/* Anchor states on light backgrounds */
+:root:not([data-theme="dark"]) .dynamic-content-page a:link,
+:root:not([data-theme="dark"]) .dynamic-content-page a:visited {
+  color: #0747a6 !important;
+}
+:root:not([data-theme="dark"]) .dynamic-content-page a:hover,
+:root:not([data-theme="dark"]) .dynamic-content-page a:focus {
+  color: #0b3d91 !important;
+  text-decoration: underline;
+}
+:root:not([data-theme="dark"]) .dynamic-content-page a:active {
+  color: #052c6b !important;
 }
 
 /* Container styling for content areas */
