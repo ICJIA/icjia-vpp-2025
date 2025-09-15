@@ -108,6 +108,29 @@ provide("announce", announce);
 const isClient = typeof window !== "undefined";
 
 /**
+ * Move focus to the main content when skip link is activated
+ * Ensures keyboard and screen reader users land inside the primary content region
+ */
+const focusMainContent = () => {
+  try {
+    const el =
+      typeof document !== "undefined"
+        ? document.getElementById("main-content")
+        : null;
+    if (el) {
+      // Ensure the target is programmatically focusable and receive focus
+      el.setAttribute("tabindex", "-1");
+      el.focus({ preventScroll: true });
+      // Also scroll to the element to respect user expectation of "skip"
+      el.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+  } catch (e) {
+    if (typeof logError === "function")
+      logError("Error focusing main content via skip link", e);
+  }
+};
+
+/**
  * Initialize theme system on client-side mount
  *
  * Only initializes the theme system without syncing with Vuetify to prevent hydration mismatches.
@@ -216,8 +239,25 @@ onMounted(() => {
       class="skip-link"
       @focus="skipLinkVisible = true"
       @blur="skipLinkVisible = false"
+      @click.prevent="focusMainContent"
+      @keydown.enter.prevent="focusMainContent"
+      @keydown.space.prevent="focusMainContent"
+      aria-label="Skip to main content"
     >
       Skip to main content
+    </a>
+
+    <a
+      href="#site-navigation"
+      class="skip-link"
+      @focus="skipLinkVisible = true"
+      @blur="skipLinkVisible = false"
+      @click.prevent="focusSiteNavigation"
+      @keydown.enter.prevent="focusSiteNavigation"
+      @keydown.space.prevent="focusSiteNavigation"
+      aria-label="Skip to navigation"
+    >
+      Skip to navigation
     </a>
 
     <AppHeader @toggle-theme="toggleTheme" :theme="theme" role="banner" />

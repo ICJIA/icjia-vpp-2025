@@ -75,6 +75,7 @@
 
       <!-- Desktop navigation (visible on md and up) -->
       <nav
+        id="site-navigation"
         class="d-none d-md-flex align-center justify-end"
         aria-label="Main Navigation"
       >

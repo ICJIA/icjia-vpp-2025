@@ -71,9 +71,9 @@
       <!-- Footer bottom section -->
       <div class="footer-bottom">
         <div class="footer-bottom-content">
-          <!-- Copyright -->
+          <!-- Copyright / ICJIA link -->
           <span class="footer-item">
-            © {{ new Date().getFullYear() }}
+            © 2025
             <a
               href="https://icjia.illinois.gov"
               target="_blank"
@@ -89,18 +89,7 @@
             >|</span
           >
 
-          <nuxt-link
-            to="/accessibility/documentation"
-            class="footer-item"
-            aria-label="View accessibility documentation"
-          >
-            Accessibility
-          </nuxt-link>
-
-          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
-            >|</span
-          >
-
+          <!-- Privacy -->
           <nuxt-link
             to="/legal/privacy-policy"
             class="footer-item"
@@ -113,24 +102,26 @@
             >|</span
           >
 
+          <!-- Accessibility -->
           <nuxt-link
-            to="/legal/terms-of-service"
+            to="/accessibility/documentation"
             class="footer-item"
-            aria-label="View Terms of Service"
+            aria-label="View Accessibility Documentation"
           >
-            Terms of Service
+            Accessibility
           </nuxt-link>
 
           <span class="footer-divider d-none d-md-inline" aria-hidden="true"
             >|</span
           >
 
+          <!-- Terms of Service -->
           <nuxt-link
-            to="/contact"
+            to="/legal/terms-of-service"
             class="footer-item"
-            aria-label="Contact Illinois Criminal Justice Information Authority"
+            aria-label="View Terms of Service"
           >
-            Contact
+            Terms of Service
           </nuxt-link>
         </div>
       </div>
@@ -300,10 +291,16 @@ const handleHomeClick = () => {
   padding-top: 24px;
   border-top: 1px solid rgba(var(--v-theme-on-background), 0.06);
   text-align: center;
+  /* Force-visible safety overrides in case any global styles hide this section */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .footer-bottom-content {
-  display: flex;
+  display: flex !important;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -365,11 +362,17 @@ const handleHomeClick = () => {
 
   .footer-bottom {
     padding-top: 28px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    max-height: none !important;
   }
 
   .footer-bottom-content {
     gap: 8px;
     font-size: 0.8rem;
+    display: flex !important;
   }
 
   .nav-link-inline {

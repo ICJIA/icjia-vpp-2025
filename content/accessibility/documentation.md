@@ -6,7 +6,103 @@ description: "Documentation for accessibility features of the Statewide Violence
 
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: August 04, 2025**
+**Last Updated: September 15, 2025**
+
+## Recent Updates (September 15, 2025)
+
+### 1) Skip link verification and enhancement (2025-09-15)
+
+- Implemented programmatic focus management for the skip link in `app/layouts/default.vue`.
+- Added click/Enter/Space handlers to ensure consistent activation across input methods.
+- Verified the skip link is present site‑wide (single default layout) and moves focus into the main landmark (`#main-content`) with `tabindex="-1"` before focusing.
+- Retained high-contrast styling (black background, white text, visible focus outline) to exceed WCAG 2.1 AA requirements.
+
+Technical notes:
+
+- Focus is applied via `element.focus({ preventScroll: true })` followed by `scrollIntoView({ behavior: "instant", block: "start" })` to ensure visual alignment without erratic scroll jumps.
+- Main region structure: `<v-main role="main"><div id="main-content" tabindex="-1">...</div></v-main>`.
+
+Links:
+
+- Source (GitHub): https://github.com/ICJIA/icjia-vpp-2025/blob/main/app/layouts/default.vue
+- Accessibility Audit Log: /accessibility/audit-log
+
+### 2) Mobile navigation drawer accessibility fix (2025-09-15)
+
+- Resolved SiteImprove issue where hidden drawer content remained focusable.
+- Changed from `aria-hidden`/`inert` approach to conditional mount using `v-if` on `<v-navigation-drawer>`.
+- When closed, the drawer is fully unmounted, eliminating focusable descendants in the accessibility tree.
+
+Technical notes:
+
+- Drawer remains keyboard/focus-trap compliant when open (Vuetify handles focus trapping).
+- This approach avoids SSR/CSR style mismatches introduced by `v-show` and prevents hidden-but-focusable nodes.
+
+Links:
+
+- Source (GitHub): https://github.com/ICJIA/icjia-vpp-2025/blob/main/app/components/content/AppSidebar.vue
+- Accessibility Audit Log: /accessibility/audit-log
+
+### 3) Comprehensive axe-core audit results (2025-09-15)
+
+- Static site generated and served locally; executed automated axe-core audits.
+- Coverage: 15 routes × 3 viewports (mobile/tablet/desktop) × 2 themes (dark/light).
+- Result: 0 critical violations, 0 serious violations across all tested scenarios.
+- Only benign "incomplete" findings remain (typical axe heuristics, no actionable issues identified).
+
+Commands executed:
+
+- Build: `yarn generate`
+- Serve static: `npx serve .output/public` (auto-assigned port)
+- Audit: `BASE_URL=http://localhost:<port> yarn audit:axe`
+
+- Latest axe run: `reports/axe/2025-09-15T08-54-49/summary.txt` (0 violations across all test combinations)
+- Previous axe run: `reports/axe/2025-09-15T08-36-35/summary.txt`
+- Diff summary: No changes in violations, incomplete, or passes counts vs. previous run; only BASE_URL/port differed.
+
+> How to review “incomplete” findings
+>
+> Axe flags items as “incomplete” when automation can’t be fully certain. Quick manual checks to perform:
+>
+> - aria-valid-attr-value: confirm ARIA values (e.g., aria-level, aria-errormessage) are valid for the element
+> - aria-allowed-attr / aria-prohibited-attr: ensure attributes used are permitted for the element’s role
+> - aria-label / has-visible-text: interactive controls must have discernible names
+> - color-contrast (incomplete): verify dynamic states meet at least 4.5:1 (project aims higher)
+> - duplicate-id-aria: ensure rendered IDs are unique
+>
+> If an “incomplete” is consistently benign, document rationale in the Accessibility Audit Log and re‑check periodically.
+
+Useful links:
+
+- Accessibility Audit Log: /accessibility/audit-log
+- Project Audit Log: /documentation/audit-log/
+- Axe Audit Runner Script (GitHub): https://github.com/ICJIA/icjia-vpp-2025/blob/main/scripts/axe-audit.js
+- Tools Documentation: /documentation/tools/
+
+### 4) Previous critical fixes (2025-09-14)
+
+Note: This repository is private. For source code inquiries, please use the Contact page: /contact
+
+- How to run the automated axe audit: /accessibility/axe-audit
+
+- Light theme contrast hardening with CSS variable overrides ensuring pure black text on light surfaces and accessible link states.
+- Session-only theme management with default to dark on page reload/new session.
+- Skip link high-contrast styling improvements with explicit black/white and strong focus outline.
+- Accessibility audit log semantic HTML corrections (list structure and link-name hygiene for screened content).
+
+### 5) DevTools configuration (2025-09-15)
+
+- Disabled Nuxt DevTools globally to align with production readiness and security posture.
+
+Validation summary:
+
+- Manual keyboard checks (skip link, drawer open/close, TOC interactions, form flows).
+- Screen reader spot checks of skip link and drawer behavior.
+- Automated axe-core sweep confirming zero critical/serious violations post‑fix.
+
+Compliance:
+
+- WCAG 2.1 AA and Illinois IITAA 2.1 standards targeted and met for all changes above.
 
 **Latest Accessibility Update**: A comprehensive accessibility audit has been completed on July 10, 2025. The project demonstrates an accessibility implementation that exceeds WCAG 2.1 AA requirements in multiple areas. All components, navigation systems, and content maintain excellent accessibility compliance with contrast ratios exceeding 8:1, comprehensive keyboard navigation, robust screen reader support, and mobile-optimized touch accessibility.
 
@@ -63,7 +159,7 @@ The site is optimized for screen readers:
 Both light and dark themes accommodate different visual preferences:
 
 - Theme toggle located in the top navigation bar
-- The preference is remembered between visits
+- Session-only preference: defaults to dark on reload/new session; does not persist across sessions
 - The toggle is fully keyboard accessible and works with screen readers
 
 #### Responsive Design

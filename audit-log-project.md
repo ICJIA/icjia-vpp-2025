@@ -1,5 +1,15 @@
 ### 2025-09-15 (Security/DevX: Disable Nuxt DevTools globally)
 
+### 2025-09-15 (Footer bottom links restored and verified)
+
+- Summary: Restored and refactored the footer bottom section to ensure links render on all pages in the exact specified order with responsive behavior and accessibility labels. Regenerated the site and validated with the local axe audit (0 violations).
+- Files modified/created:
+  - `app/components/content/AppFooter.vue`: Reordered bottom links to: © 2025 ICJIA (external, new tab), Privacy (/legal/privacy-policy), Accessibility (/accessibility/documentation), Terms of Service (/legal/terms-of-service). Ensured centered inline layout with pipe dividers on desktop; stacked, centered list with dividers hidden on mobile. Added explicit ARIA labels and confirmed no CSS hides the bottom row.
+  - `content/accessibility/axe-audit.md`: Appended latest run entry `2025-09-15T11-45-53` with base URL.
+- Technical Notes:
+  - Verified output in generated HTML shows: "© 2025 Illinois Criminal Justice Information Authority | Privacy | Accessibility | Terms of Service" on the homepage.
+  - Ran `yarn generate`, served static output, and executed `BASE_URL=http://localhost:56055 yarn audit:axe` across routes/viewports/themes → 0 violations; standard "incomplete" checks remain.
+
 - Summary: Disabled Nuxt DevTools project-wide to prevent accidental exposure of component tree/state and to streamline production parity during local runs.
 - Files modified/created:
   - `nuxt.config.ts`: Set `devtools: { enabled: false }` with a comment.

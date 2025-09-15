@@ -1,3 +1,26 @@
+### 2025-09-15 (Skip link verification + full static axe audit)
+
+### 2025-09-15 (Footer bottom links restored + validation)
+
+- Refactored AppFooter.vue bottom link row to ensure it renders consistently across all pages with required order, semantics, and responsive behavior. Re-ran local static axe audit to confirm 0 violations.
+- Files modified/created:
+  - `app/components/content/AppFooter.vue`: Reordered and simplified bottom links; fixed exact order; added ARIA labels; ensured pipe dividers hidden on mobile with vertical stack and centered alignment; kept external ICJIA link new-tab with rel attributes. Verified no CSS hides the bottom row.
+  - `content/accessibility/axe-audit.md`: Appended latest run entry (`2025-09-15T11-45-53`) with base URL and summary.
+- Technical Notes:
+  - Links order: “© 2025 ICJIA” (external), “Privacy” (/legal/privacy-policy), “Accessibility” (/accessibility/documentation), “Terms of Service” (/legal/terms-of-service).
+  - Desktop: items centered inline with “|” dividers (`.footer-divider` is hidden on ≤md via `d-none d-md-inline`).
+  - Mobile: vertical stack using flex column; centered; dividers hidden.
+  - Axe results: 0 violations across all tested routes (mobile/tablet/desktop, light/dark). Only typical “incomplete” checks remain.
+
+- Verified skip-to-content functionality across all routes using the default layout and ensured compliant focus management. Performed a full axe-core audit against the generated static site across all major routes, 3 viewports (mobile/tablet/desktop), and both themes.
+- Files modified/created:
+  - `app/layouts/default.vue`: Added `focusMainContent()` handler to programmatically move focus to `#main-content` on skip link activation (click/Enter/Space); ensured target has `tabindex="-1"` and is scrolled into view. Kept high-contrast skip-link styles.
+- Technical Notes:
+  - Layout provides a single skip link anchored to `#main-content` which wraps the primary slot inside `<v-main role="main">`. The same layout is used site‑wide, so the skip link is consistently present on every page.
+  - Programmatic focus improves reliability across browsers/AT. Focus is moved without unexpected scroll jumps and then scrolled to the top of main content region.
+  - Validation: `yarn generate` → served static output on port 59474 → ran `BASE_URL=http://localhost:59474 yarn audit:axe`.
+  - Result: 0 critical, 0 serious violations on all tested routes/themes/viewports. Only "incomplete" findings remain (expected benign from axe heuristics).
+
 ### 2025-09-15 (Mobile drawer a11y: prevent focusable content when aria-hidden)
 
 - Resolved SiteImprove issue where inert/aria-hidden drawer still contained focusable children by deferring mount until open.

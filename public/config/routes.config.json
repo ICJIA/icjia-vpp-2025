@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp.icjia.illinois.gov",
-  "generatedAt": "2025-09-15T13:25:08.068Z",
+  "generatedAt": "2025-09-15T16:55:43.837Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 21,
-    "contentPages": 21,
+    "totalPages": 22,
+    "contentPages": 22,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1
@@ -35,6 +35,19 @@
           "type": "content",
           "source": "content/accessibility/audit-log.md",
           "title": "Accessibility Audit Log"
+        }
+      ]
+    },
+    {
+      "title": "How to run the axe-core accessibility audit",
+      "path": "/accessibility/axe-audit",
+      "fullUrl": "https://vpp.icjia.illinois.gov/accessibility/axe-audit",
+      "type": "content",
+      "sources": [
+        {
+          "type": "content",
+          "source": "content/accessibility/axe-audit.md",
+          "title": "How to run the axe-core accessibility audit"
         }
       ]
     },
@@ -287,12 +300,12 @@
     }
   ],
   "stats": {
-    "totalPages": 21,
-    "contentPages": 21,
+    "totalPages": 22,
+    "contentPages": 22,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1,
     "menuIntegratedPages": 1,
-    "orphanedPages": 20
+    "orphanedPages": 21
   }
 }
