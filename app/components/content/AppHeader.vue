@@ -12,8 +12,7 @@
       <!-- Site logo/branding -->
       <a
         :href="menuConfig.header.branding.href"
-        class="text-decoration-none"
-        :aria-label="menuConfig.header.branding.ariaLabel"
+        class="text-decoration-none brand-link"
         @click.prevent="handleHomeClick"
       >
         <v-row no-gutters align="center">
@@ -86,13 +85,14 @@
             <!-- Dropdown menu -->
             <v-menu
               v-if="item.hasDropdown"
-              :open-on-hover="!item.iconOnly"
+              :open-on-hover="false"
               :close-on-content-click="true"
               location="bottom start"
               offset="5"
               :model-value="openDropdowns[index]"
-              @update:model-value="openDropdowns[index] = $event"
-              @mouseleave="handleDropdownMouseLeave(index)"
+              @update:model-value="handleMenuModel(index, $event)"
+              @mouseenter="cancelClose(index)"
+              @mouseleave="scheduleClose(index)"
               :class="{
                 'more-menu-dropdown': item.isMoreMenu,
                 'read-the-plan-dropdown': item.isReadThePlanMenu,
@@ -115,8 +115,17 @@
                   :aria-label="item.ariaLabel"
                   :aria-haspopup="true"
                   :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
-                  @focus="openDropdowns[index] = true"
+                  @click.prevent.stop="
+                    openDropdowns[index] = !openDropdowns[index]
+                  "
+                  @mouseenter="
+                    openOnlyDropdown(index);
+                    cancelClose(index);
+                  "
+                  @focus="openOnlyDropdown(index)"
                   @blur="handleDropdownBlur(index)"
+                  @keydown.enter.prevent="toggleDropdown(index)"
+                  @keydown.space.prevent="toggleDropdown(index)"
                   @keydown.esc="openDropdowns[index] = false"
                   @keydown.down.prevent="focusNextDropdownItem(index, 0)"
                 >
@@ -136,11 +145,23 @@
                     },
                   ]"
                   :color="item.color"
-                  :aria-label="item.ariaLabel"
                   :aria-haspopup="true"
                   :aria-expanded="openDropdowns[index] ? 'true' : 'false'"
-                  @focus="openDropdowns[index] = true"
+                  @click.prevent.stop="
+                    openDropdowns[index] = !openDropdowns[index]
+                  "
+                  @mouseenter="
+                    openOnlyDropdown(index);
+                    cancelClose(index);
+                  "
+                  @focus="openOnlyDropdown(index)"
                   @blur="handleDropdownBlur(index)"
+                  @keydown.enter.prevent="
+                    openDropdowns[index] = !openDropdowns[index]
+                  "
+                  @keydown.space.prevent="
+                    openDropdowns[index] = !openDropdowns[index]
+                  "
                   @keydown.esc="openDropdowns[index] = false"
                   @keydown.down.prevent="focusNextDropdownItem(index, 0)"
                 >
@@ -181,7 +202,6 @@
                         (route.path === child.to ||
                           route.path === child.to + '/')
                       "
-                      :aria-label="child.ariaLabel"
                       :class="child.class"
                       :color="child.color"
                       @focus="openDropdowns[index] = true"
@@ -246,7 +266,6 @@
               :class="item.class"
               :to="item.to"
               :color="item.color"
-              :aria-label="item.ariaLabel"
               :aria-current="route.path === item.to ? 'page' : undefined"
             >
               {{ item.text }}
@@ -259,7 +278,6 @@
               :class="item.class"
               :href="item.href"
               :color="item.color"
-              :aria-label="item.ariaLabel"
               :aria-current="route.path === '/' ? 'page' : undefined"
               @click.prevent="handleHomeClick"
             >
@@ -273,7 +291,6 @@
               :class="item.class"
               :href="item.href"
               :color="item.color"
-              :aria-label="item.ariaLabel"
               :target="item.target"
               :rel="item.rel"
             >
@@ -294,7 +311,6 @@
               :class="item.class"
               :href="item.href"
               :color="item.color"
-              :aria-label="item.ariaLabel"
             >
               {{ item.text }}
             </v-btn>
@@ -389,6 +405,54 @@ const { mobile } = useDisplay();
  * Each index corresponds to a navigation item
  */
 const openDropdowns = ref({});
+/**
+ * Hover close timers per dropdown index
+ */
+const hoverTimers = ref({});
+
+const cancelClose = (index) => {
+  const t = hoverTimers.value[index];
+  if (t) {
+    clearTimeout(t);
+    delete hoverTimers.value[index];
+  }
+};
+
+const scheduleClose = (index, delay = 150) => {
+  cancelClose(index);
+  hoverTimers.value[index] = setTimeout(() => {
+    openDropdowns.value[index] = false;
+    delete hoverTimers.value[index];
+  }, delay);
+};
+
+/**
+ * Ensure only one dropdown is open at a time
+ */
+const closeAllDropdowns = () => {
+  Object.keys(openDropdowns.value).forEach((key) => {
+    openDropdowns.value[key] = false;
+  });
+};
+
+const openOnlyDropdown = (index) => {
+  closeAllDropdowns();
+  openDropdowns.value[index] = true;
+};
+
+const toggleDropdown = (index) => {
+  const isOpen = !!openDropdowns.value[index];
+  closeAllDropdowns();
+  openDropdowns.value[index] = !isOpen;
+};
+
+const handleMenuModel = (index, value) => {
+  if (value) {
+    openOnlyDropdown(index);
+  } else {
+    openDropdowns.value[index] = false;
+  }
+};
 
 /**
  * State for tracking mobile navigation drawer
@@ -956,8 +1020,7 @@ const handleHomeClick = () => {
 }
 
 /* Logo/branding link target size enhancement */
-.app-header a[aria-label*="homepage"],
-.app-header a[aria-label*="home"] {
+.brand-link {
   min-height: 44px !important;
   display: flex !important;
   align-items: center !important;

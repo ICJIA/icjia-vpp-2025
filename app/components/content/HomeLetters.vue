@@ -88,6 +88,17 @@
   overflow: hidden; /* Ensures proper text wrapping around floated image */
 }
 
+/* Ensure high-contrast body text inside the message card */
+.message-card-inner,
+.message-card-inner .v-card-text,
+.message-text {
+  color: rgb(var(--v-theme-on-surface)) !important;
+}
+
+.message-text p {
+  color: rgb(var(--v-theme-on-surface)) !important;
+}
+
 .director-photo {
   float: left;
   width: 150px;
@@ -102,6 +113,18 @@
 .signature {
   font-weight: 600;
   clear: left; /* Ensures signature always appears below the floated image */
+  /* Ensure high-contrast text in all themes */
+  color: rgb(var(--v-theme-on-surface));
+}
+
+/* Light theme: enforce pure black text for maximum contrast per project standards */
+:root:not([data-theme="dark"]) .signature {
+  color: #000000 !important;
+}
+
+/* Dark theme: use theme on-surface (light) text against dark surface background */
+:root[data-theme="dark"] .signature {
+  color: rgb(var(--v-theme-on-surface)) !important;
 }
 
 /* Dark theme card styling */

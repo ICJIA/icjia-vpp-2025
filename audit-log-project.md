@@ -1,3 +1,12 @@
+### 2025-09-16 (Security: CSP connect-src allow jsDelivr for MDI sourcemap)
+
+- Summary: Updated the Netlify Content Security Policy to include jsDelivr in connect-src so the browser can fetch the Material Design Icons stylesheet source map without CSP violations. This removes the benign console error seen in production builds.
+- Files modified/created:
+  - `netlify.toml`: Added `https://cdn.jsdelivr.net` to `connect-src` in the CSP header
+- Technical Notes:
+  - Scope is minimal: connect-src now allows 'self', plausible analytics, and jsDelivr. style-src/font-src already permitted jsDelivr and Google Fonts.
+  - No runtime behavior change; this only affects DevTools sourcemap fetches. If we later self-host MDI, jsDelivr can be removed from connect-src again.
+
 ### 2025-09-15 (Security/DevX: Disable Nuxt DevTools globally)
 
 ### 2025-09-15 (Accessibility: Add Skip to navigation + focus management)

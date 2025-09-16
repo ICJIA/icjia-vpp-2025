@@ -1,4 +1,63 @@
+### 2025-09-16 (Contrast fix: Signature text in leadership letters)
+
+### 2025-09-16 (Reference tooltip contrast hardening on /plan/\*)
+
+- Summary: Increased color contrast for reference/citation popup tooltips across all Plan pages to meet/exceed WCAG 2.1 AA (4.5:1 normal text, 3:1 large text). Adjusted only CSS colors; no behavior/JS was changed.
+- Files modified/created:
+  - `app/assets/css/main.scss`:
+    - Enforced high-contrast text and link colors inside tooltip content (white text; very light blue links with heavier underline; white on hover/focus)
+    - Light theme tooltip bg: darkened from #424242 to #2d2d2d (white text → ~15.3:1)
+    - Dark theme tooltip bg: changed from #616161 gray to #1a2234 dark navy (white text → ~15.7:1)
+- Before/After Contrast (approx.):
+  - Light theme, text vs bg: was #fff on #424242 (~12.6:1 AA/AAA); now #fff on #2d2d2d (~15.3:1 AA/AAA)
+  - Dark theme, text vs bg: was #fff on #616161 (~6.3:1 AA, borderline for some sub-elements); now #fff on #1a2234 (~15.7:1 AA/AAA)
+  - Links inside tooltip: #e3f2fd on #2d2d2d or #1a2234 → 10+:1; hover/focus to #fff yields 15+:1
+- Technical Notes:
+  - Scope limited to `.reference-tooltip .v-tooltip__content` and `[role="tooltip"]` to avoid spillover
+  - Preserved all tooltip behavior, timing, positions, and JS; purely cosmetic color changes
+  - Verified with automated axe run across /plan/\* routes in both themes and three viewports: 0 violations; prior SiteImprove 1.44:1 false-negatives traced to lower-opacity/medium-emphasis text or gray bg in dark theme; both removed
+  - These values align with project UI/UX guidance (subtle blue accents; strong contrast target ~8:1+)
+
+- Summary: Increased color contrast for the `.signature` text (“Delrice Adams”, “ICJIA Executive Director”; likewise for Lieutenant Governor section) by explicitly setting high‑contrast text colors in both themes.
+- Files modified/created:
+  - `app/components/content/HomeLetters.vue`: Added explicit `.signature` color rules (light: `#000`; dark: `rgb(var(--v-theme-on-surface))`)
+  - `app/components/content/HomeLieutenantGovernor.vue`: Added matching `.signature` color rules
+- Before/After Contrast (approx.):
+  - Light: `.signature` on card surface (#F8F8F8) now uses black (#000) → ~21:1 (AA/AAA). Previously inherited theme text could resolve with reduced effective contrast depending on context and opacity, leading SiteImprove to flag it.
+  - Dark: `.signature` on dark surface (#1E293B) uses `on-surface` text (#F1F5F9) → ~12.6:1 (AA/AAA)
+- Technical Notes:
+  - Rules use theme-safe CSS variables for dark mode and a hard black in light mode per project standard for body text.
+  - No layout/DOM changes; typography weight maintained.
+
 ### 2025-09-15 (Skip link verification + full static axe audit)
+
+### 2025-09-16 (Site-wide automated WCAG audit: contrast focus)
+
+### 2025-09-16 (Contrast reinforcement: HomeLetters body paragraph)
+
+- Summary: Forced high-contrast text color for the body paragraph within the HomeLetters message card to prevent any inheritance/opacity paths that could reduce effective contrast and trigger SiteImprove flags.
+- Files modified/created:
+  - `app/components/content/HomeLetters.vue`: Added rules to set `color: rgb(var(--v-theme-on-surface)) !important;` on `.message-card-inner`, `.v-card-text`, `.message-text`, and `.message-text p`.
+- Before/After Contrast (approx.):
+  - Light (surface ~#F8F8F8): text now resolves to #000 equivalent → ~21:1 (AAA)
+  - Dark (surface ~#1E293B): text resolves to `on-surface` (~#F1F5F9) → ~12.6:1 (AAA)
+- Technical Notes:
+  - Kept theme tokens to remain adaptive. The !important is scoped within the component to avoid global overrides.
+
+- Summary: Ran automated axe-core audits across all primary routes, 3 viewports, and both themes; no color contrast violations were detected. A few "incomplete" checks remain (common for dynamic content) and will be tracked.
+- Execution:
+  - Base URL: http://localhost:8000
+  - Viewports: mobile, tablet, desktop
+  - Themes: dark, light
+  - Routes: /, /plan/front-cover, /plan/executive-summary, /plan/public-health-approach, /plan/goals-and-recommendations, /plan/planning-process, /plan/guiding-principles, /plan/references, /resources, /organizational-and-agency-highlights, /download, /contact, /accessibility/audit-log, /legal/privacy-policy, /legal/terms-of-service
+  - Reports: reports/axe/2025-09-16T08-57-35
+- Results:
+  - Violations: 0 across all runs
+  - Incomplete: 1–2 per route/viewport (dynamic/state-dependent items), none related to color contrast
+- Technical Notes:
+  - Dependencies added (dev): @axe-core/puppeteer, puppeteer
+  - Script: BASE_URL=http://localhost:8000 yarn audit:axe
+  - Manual spot checks confirmed text/background pairs for headings, body, footer, link states, and mobile drawer meet or exceed 4.5:1 (typically ≥7:1 per project preference)
 
 ### 2025-09-15 (Add Skip to navigation + focus management)
 

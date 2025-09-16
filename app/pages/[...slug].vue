@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic-content-page">
+  <div class="dynamic-content-page" :class="{ 'is-plan-page': isPlanPage }">
     <!-- SEO Structured Data -->
     <StructuredData :content="content" page-type="article" :path="route.path" />
 
@@ -139,7 +139,7 @@
                       tabindex="0"
                       @keydown.enter="scrollToTop"
                       @keydown.space.prevent="scrollToTop"
-                      aria-label="Scroll to top of page"
+                      :aria-label="`${tocLabel} – Scroll to top of page`"
                     >
                       {{ tocLabel }}
                     </div>
@@ -271,6 +271,9 @@ const { log, logError } = useConsoleLogger();
 
 // Get current route
 const route = useRoute();
+
+// Plan page detection (used for dark-mode background hardening)
+const isPlanPage = computed(() => route.path.startsWith("/plan/"));
 
 // Initialize report navigation composable
 const { isReportPage } = useReportNavigation();
@@ -1262,6 +1265,12 @@ useHead(() => ({
   overflow-x: hidden;
   /* Soft light theme background to reduce eye strain */
   background: #fafafa;
+}
+
+/* Dark theme: further darken plan pages to maximize white text contrast */
+:root[data-theme="dark"] .dynamic-content-page.is-plan-page {
+  /* Darker than general surface to ensure robust contrast */
+  background: #0d1117 !important; /* GitHub dark base for strong readability */
 }
 
 /* Dark theme background override */

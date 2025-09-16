@@ -265,31 +265,33 @@ onMounted(() => {
 
 <template>
   <v-app :theme="theme" style="">
-    <a
-      href="#main-content"
-      class="skip-link"
-      @focus="skipLinkVisible = true"
-      @blur="skipLinkVisible = false"
-      @click.prevent="focusMainContent"
-      @keydown.enter.prevent="focusMainContent"
-      @keydown.space.prevent="focusMainContent"
-      aria-label="Skip to main content"
-    >
-      Skip to main content
-    </a>
+    <nav aria-label="Skip links" class="skip-links-nav">
+      <a
+        href="#main-content"
+        class="skip-link"
+        @focus="skipLinkVisible = true"
+        @blur="skipLinkVisible = false"
+        @click.prevent="focusMainContent"
+        @keydown.enter.prevent="focusMainContent"
+        @keydown.space.prevent="focusMainContent"
+        aria-label="Skip to main content"
+      >
+        Skip to main content
+      </a>
 
-    <a
-      href="#site-navigation"
-      class="skip-link"
-      @focus="skipLinkVisible = true"
-      @blur="skipLinkVisible = false"
-      @click.prevent="focusSiteNavigation"
-      @keydown.enter.prevent="focusSiteNavigation"
-      @keydown.space.prevent="focusSiteNavigation"
-      aria-label="Skip to navigation"
-    >
-      Skip to navigation
-    </a>
+      <a
+        href="#site-navigation"
+        class="skip-link"
+        @focus="skipLinkVisible = true"
+        @blur="skipLinkVisible = false"
+        @click.prevent="focusSiteNavigation"
+        @keydown.enter.prevent="focusSiteNavigation"
+        @keydown.space.prevent="focusSiteNavigation"
+        aria-label="Skip to navigation"
+      >
+        Skip to navigation
+      </a>
+    </nav>
 
     <AppHeader @toggle-theme="toggleTheme" :theme="theme" role="banner" />
 
@@ -365,6 +367,18 @@ a.skip-link:focus {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
+  .skip-links-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99998;
+    pointer-events: none;
+  }
+  .skip-links-nav .skip-link {
+    pointer-events: auto;
+  }
+
   border-width: 0;
 }
 </style>

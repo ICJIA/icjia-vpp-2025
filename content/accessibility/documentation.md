@@ -6,7 +6,64 @@ description: "Documentation for accessibility features of the Statewide Violence
 
 # Accessibility Documentation: Violence Prevention Plan for Illinois: 2025-2029
 
-**Last Updated: September 15, 2025**
+**Last Updated: September 16, 2025**
+
+## Recent Updates (September 16, 2025)
+
+### What changed recently
+
+- Reference tooltip contrast improved (light: #2d2d2d bg, dark: #1a2234; white text; high-contrast link styling)
+- Dark-mode background on Plan pages deepened to #0d1117 to strengthen white text contrast
+- Navbar dropdowns fixed for click/keyboard activation; only one menu opens at a time; auto-closes on mouse leave and click-away
+- Skip links verified and enhanced (programmatic focus, high-contrast styling)
+- Mobile drawer updated: unmounts when closed to prevent hidden focusable content
+- Site-wide light theme contrast: enforced pure black text on light surfaces; accessible link states
+
+### How we validate
+
+- Automated axe audits across 15 routes × 3 viewports × 2 themes with a local script
+  - Command: `BASE_URL=http://localhost:3000 yarn audit:axe`
+  - Latest: `reports/axe/2025-09-16T10-07-11/summary.txt` (0 violations)
+- Manual checks
+  - Keyboard-only navigation (skip links, menus, TOC, forms)
+  - Dark vs light contrast sampling (headings, body, links, popups)
+  - Screen reader spot checks (VoiceOver/NVDA)
+- Documentation
+  - Changes are recorded in /accessibility/audit-log with before/after ratios and technical notes
+
+### Highlights of the last few weeks
+
+- Navbar accessibility improvements (click/keyboard activation, single-open behavior, auto-close on leave/click-away)
+- Reference tooltip contrast hardening (light/dark themes with high-contrast link states)
+- Plan pages dark-mode background deepened for stronger white text contrast
+
+### 1) Reference tooltip contrast hardening (2025-09-16)
+
+#### Table of Contents (TOC) improvements (recap)
+
+- ARIA naming: list containers use appropriate list semantics; items provide clear accessible names
+- Keyboard navigation: anchors receive focus in logical order; activation via Enter/Space; arrow key support where applicable
+- Active indicators: clear visible state; improved contrast and state announcement alignment
+
+- Increased contrast for citation/reference popup tooltips in both themes.
+- Light theme tooltip background darkened (to #2d2d2d) with white text; dark theme background switched to #1a2234 with white text.
+- Link color in tooltip set to very light blue (#e3f2fd), with white on hover/focus for maximum clarity.
+- Purely cosmetic CSS changes; no behavior/JS altered.
+
+Links:
+
+- Source (GitHub): app/assets/css/main.scss
+- Accessibility Audit Log entry: /accessibility/audit-log (2025-09-16)
+
+### 2) Plan pages dark-mode background reinforcement (2025-09-16)
+
+- For /plan/\* routes in dark mode, applied a deeper content background (#0d1117) to strengthen white text contrast.
+- Scoped via a route-based class on the dynamic content container; light theme unaffected.
+
+Links:
+
+- Source (GitHub): app/pages/[...slug].vue (route-scoped class and dark-mode background rule)
+- Accessibility Audit Log entry: /accessibility/audit-log (2025-09-16)
 
 ## Recent Updates (September 15, 2025)
 
@@ -93,6 +150,35 @@ Note: This repository is private. For source code inquiries, please use the Cont
 ### 5) DevTools configuration (2025-09-15)
 
 - Disabled Nuxt DevTools globally to align with production readiness and security posture.
+
+### Navbar accessibility (desktop dropdowns)
+
+- Click/keyboard first: Menus open on click/tap and via Enter/Space; hover is an enhancement on desktop
+- Single-open behavior: Opening one closes the others automatically
+- Auto-close: Menus close on mouse leave (with a brief delay to avoid flicker) and click-away
+- State communicated: `aria-expanded` reflects open state; `aria-haspopup` on activators
+- Keyboard support: ESC to close, Tab/Shift+Tab traversal, Enter/Space activation
+
+Deep links to code
+
+- AppHeader.vue (navbar behavior handlers): see lines near `openDropdowns`, `scheduleClose`, `cancelClose`, and `handleMenuModel` for single-open enforcement and hover-close timing
+- AppHeader.vue (activator buttons): see markup where `aria-expanded`, `aria-haspopup`, and keyboard events are set on the dropdown buttons
+
+Direct links to latest axe JSON files
+
+- Plan Executive Summary (desktop, dark): reports/axe/2025-09-16T10-07-11/axe-plan_executive-summary-desktop-theme-dark.json
+- Plan Executive Summary (desktop, light): reports/axe/2025-09-16T10-07-11/axe-plan_executive-summary-desktop-theme-light.json
+- Accessibility Audit Log (mobile, dark): reports/axe/2025-09-16T10-07-11/axe-accessibility_audit-log-mobile-theme-dark.json
+- Summary: reports/axe/2025-09-16T10-07-11/summary.txt
+
+- Deep links to relevant code excerpts can be provided on request (e.g., AppHeader.vue for navbar behavior handlers)
+- A brief TOC improvements recap can be added if desired (ARIA naming, keyboard navigation, active section indicators)
+- We can expand “How we validate” with direct links to the latest axe JSON files for deeper review
+
+Technical notes:
+
+- Implemented via v-menu with model-value and @update:model-value handlers to enforce single-open
+- Hover leave/enter uses timers to prevent flicker and ensure predictable closing
 
 Validation summary:
 

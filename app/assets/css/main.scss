@@ -1398,11 +1398,43 @@ a[role="button"],
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
+/* Enforce high-contrast text and link colors inside reference tooltips */
+.reference-tooltip .v-tooltip__content,
+.v-tooltip__content[role="tooltip"] {
+  /* Ensure full-opacity text to avoid medium/low emphasis tokens */
+  color: #ffffff !important;
+}
+
+.reference-tooltip .v-tooltip__content a,
+.v-tooltip__content[role="tooltip"] a {
+  color: #e3f2fd !important; /* very light blue for readability on dark bg */
+  text-decoration-color: #e3f2fd !important;
+  font-weight: 600 !important;
+}
+.reference-tooltip .v-tooltip__content a:hover,
+.reference-tooltip .v-tooltip__content a:focus,
+.v-tooltip__content[role="tooltip"] a:hover,
+.v-tooltip__content[role="tooltip"] a:focus {
+  color: #ffffff !important;
+  text-decoration-color: #ffffff !important;
+  text-decoration-thickness: 2px !important;
+}
+
+/* Ensure emphasized text is not low-contrast */
+.reference-tooltip .v-tooltip__content strong,
+.reference-tooltip .v-tooltip__content em,
+.reference-tooltip .v-tooltip__content small,
+.v-tooltip__content[role="tooltip"] strong,
+.v-tooltip__content[role="tooltip"] em,
+.v-tooltip__content[role="tooltip"] small {
+  color: #ffffff !important;
+}
+
 // Light theme tooltip colors
 :root:not([data-theme="dark"]) .reference-tooltip-content,
 :root:not([data-theme="dark"]) .reference-tooltip .v-tooltip__content,
 :root:not([data-theme="dark"]) .v-tooltip__content[role="tooltip"] {
-  background-color: #424242 !important; // Dark gray background for light theme
+  background-color: #2d2d2d !important; // Darker gray for even higher contrast on light theme
   color: #ffffff !important; // White text for high contrast
 }
 
@@ -1410,7 +1442,7 @@ a[role="button"],
 :root[data-theme="dark"] .reference-tooltip-content,
 :root[data-theme="dark"] .reference-tooltip .v-tooltip__content,
 :root[data-theme="dark"] .v-tooltip__content[role="tooltip"] {
-  background-color: #616161 !important; // Medium gray background for dark theme
+  background-color: #1a2234 !important; // Dark navy background for dark theme (AA/AAA)
   color: #ffffff !important; // White text for high contrast
 }
 

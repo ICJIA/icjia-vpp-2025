@@ -6,7 +6,7 @@ description: "Step-by-step guide to run the automated axe-core audit across rout
 
 # How to run the axe-core accessibility audit
 
-Last Updated: September 15, 2025
+Last Updated: September 16, 2025
 
 This guide explains how to run the automated axe-core audit locally on the generated static site. It covers prerequisites, commands, and where to find the results.
 
@@ -67,6 +67,12 @@ Common paths:
 - Latest run: `reports/axe/2025-09-15T08-54-49/summary.txt`
 - Previous run: `reports/axe/2025-09-15T08-36-35/summary.txt`
 - Individual result samples: `axe-<route>-<viewport>-theme-<dark|light>.json`
+
+### Latest results (2025-09-16)
+
+- Summary file: `reports/axe/2025-09-16T10-07-11/summary.txt`
+- Headline: 0 violations across all routes/viewports/themes
+- Notes: Includes the reference tooltip contrast updates and dark-mode background reinforcement for /plan/\* pages
 
 ### Latest results (2025-09-15)
 
