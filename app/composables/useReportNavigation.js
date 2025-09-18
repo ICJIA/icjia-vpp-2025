@@ -36,6 +36,14 @@ import siteConfig from "../config/site.config.json";
 // Initialize console logger
 const { log, logError } = useConsoleLogger();
 
+// Normalize paths for SSR/CSR parity (collapse dup slashes, drop trailing slash except root)
+function normalizePath(p) {
+  if (!p || typeof p !== "string") return "/";
+  let out = p.replace(/\/+/, "/");
+  out = out.replace(/\/+$/g, "");
+  return out.length === 0 ? "/" : out;
+}
+
 /**
  * Cached report pages data to avoid repeated processing
  * @type {Object}
@@ -96,7 +104,7 @@ function extractReportPages() {
     Object.entries(readThePlanMenuConfig.items).forEach(([key, item]) => {
       if (item.enabled && item.to) {
         reportPages.push({
-          path: item.to,
+          path: normalizePath(item.to),
           title: item.text,
           summary: item.summary || "Navigate to this section of the report",
           ariaLabel: item.ariaLabel || item.text,
@@ -137,7 +145,8 @@ function extractReportPages() {
  */
 function isReportPage(path) {
   const reportPages = extractReportPages();
-  return reportPages.some((page) => page.path === path);
+  const p = normalizePath(path);
+  return reportPages.some((page) => page.path === p);
 }
 
 /**
@@ -148,7 +157,8 @@ function isReportPage(path) {
  * @returns {number} Index of current page, or -1 if not found
  */
 function findCurrentPageIndex(currentPath, reportPages) {
-  return reportPages.findIndex((page) => page.path === currentPath);
+  const p = normalizePath(currentPath);
+  return reportPages.findIndex((page) => page.path === p);
 }
 
 /**

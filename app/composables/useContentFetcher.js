@@ -139,8 +139,12 @@ import { useConsoleLogger } from "~/composables/useConsoleLogger";
  * </template>
  */
 export default function useContentFetcher(options) {
-  // Get the content path
-  const { path } = options;
+  // Get the content path and normalize for stable SSR/CSR keys
+  let { path } = options;
+  if (typeof path === "string") {
+    path = path.replace(/\/+$/g, "");
+    if (path.length === 0) path = "/";
+  }
 
   // Initialize state
   const contentSuccessfullyRendered = ref(false);

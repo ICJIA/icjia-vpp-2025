@@ -79,6 +79,13 @@ from = "/plan"
 to = "/plan/front-cover"
 status = 301
 
+
+# SPA fallback: rewrite all non-file requests to index.html so client router can handle routes
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
 # Error pages
 [[redirects]]
 from = "/*"

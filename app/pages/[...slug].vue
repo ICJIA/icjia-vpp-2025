@@ -99,11 +99,13 @@
                 <ContentRenderer :value="content" @rendered="markAsRendered" />
               </div>
 
-              <!-- Report Navigation - Only show for report pages -->
-              <ReportNavigation
-                v-if="showReportNavigation"
-                :current-path="route.path"
-              />
+              <!-- Report Navigation - Only show for report pages (client-only to avoid SSR/CSR mismatch) -->
+              <ClientOnly>
+                <ReportNavigation
+                  v-if="showReportNavigation"
+                  :current-path="canonicalPath"
+                />
+              </ClientOnly>
             </v-col>
 
             <!-- TOC Sidebar Column - Hidden on mobile, visible on md+ screens -->
@@ -272,29 +274,38 @@ const { log, logError } = useConsoleLogger();
 // Get current route
 const route = useRoute();
 
+// Canonical route path for parity (collapse duplicate slashes, drop trailing slash except root)
+const canonicalPath = computed(() => {
+  let p = route.path || "/";
+  p = p.replace(/\/+/g, "/");
+  if (p.length > 1) p = p.replace(/\/+$/, "");
+  return p;
+});
+
 // Plan page detection (used for dark-mode background hardening)
 const isPlanPage = computed(() => route.path.startsWith("/plan/"));
 
 // Initialize report navigation composable
 const { isReportPage } = useReportNavigation();
 
-// Build content path from route params
+// Build canonical content path from route.path (normalize trailing slashes for SSR/CSR parity)
 const contentPath = computed(() => {
-  const slugArray = route.params.slug || [];
-  const path = Array.isArray(slugArray)
-    ? `/${slugArray.join("/")}`
-    : `/${slugArray}`;
+  let p = route.path || "/";
+  // Collapse duplicate slashes
+  p = p.replace(/\/+/g, "/");
+  // Remove trailing slash except for root
+  if (p.length > 1) p = p.replace(/\/+$/, "");
 
   // Log only on client-side to prevent hydration mismatch
   if (typeof window !== "undefined") {
     log("content", "Dynamic route - resolving content path", {
       routePath: route.path,
-      contentPath: path,
+      contentPath: p,
       date: new Date().toISOString().split("T")[0], // Use date only to prevent hydration mismatch
     });
   }
 
-  return path;
+  return p;
 });
 
 // Use the project's content fetcher composable
