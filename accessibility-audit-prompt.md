@@ -1404,7 +1404,7 @@ describe("Nuxt Accessibility Tests", async () => {
     await browser.close();
   });
 });
-```
+```w
 
 ### **Framework-Specific Accessibility Checklist**
 

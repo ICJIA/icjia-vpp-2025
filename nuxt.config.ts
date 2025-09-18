@@ -238,8 +238,23 @@ export default defineNuxtConfig({
 
       // Explicitly include these routes in static generation
       routes: [
-        // Accessibility documentation is now handled by Nuxt Content
-        // via the dynamic catch-all page system at /pages/[...slug].vue
+        // Explicit prerender for key plan pages to ensure deep links work without fallback
+        "/plan/front-cover",
+        "/plan/executive-summary",
+        "/plan/public-health-approach",
+        "/plan/goals-and-recommendations",
+        "/plan/planning-process",
+        "/plan/guiding-principles",
+        "/plan/references",
+
+        // Other key internal pages
+        "/resources",
+        "/organizational-and-agency-highlights",
+        "/download",
+        "/contact",
+        "/accessibility/audit-log",
+        "/legal/privacy-policy",
+        "/legal/terms-of-service",
       ],
 
       // Exclude these routes from crawling/generation
