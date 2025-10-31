@@ -40,7 +40,9 @@
     "dev:tools": "yarn debug:search && yarn debug:config",
     "lint": "npx prettier --check \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
     "lint:fix": "npx prettier --write \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
-    "audit:axe": "node scripts/axe-audit.js"
+    "audit:lighthouse": "node scripts/lighthouse-audit.js",
+    "audit:axe": "node scripts/axe-audit.js",
+    "audit:accessibility": "yarn audit:lighthouse && yarn audit:axe"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -52,6 +54,7 @@
     "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^3.0.3",
     "@vueuse/router": "^13.9.0",
+    "better-sqlite3": "^12.4.1",
     "defuddle": "^0.6.6",
     "fuse.js": "^7.1.0",
     "glob": "^11.0.3",
@@ -75,7 +78,6 @@
     "@vitest/coverage-v8": "3.2.4",
     "@vue/compiler-sfc": "^3.5.21",
     "@vue/test-utils": "^2.4.6",
-    "better-sqlite3": "^12.2.0",
     "clean-jsdoc-theme": "^4.3.0",
     "happy-dom": "^18.0.1",
     "identity-obj-proxy": "^3.0.0",

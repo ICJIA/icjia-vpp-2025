@@ -1076,32 +1076,81 @@ onMounted(() => {
 });
 
 // Make scrollable pre/code focusable on Terms page for keyboard access
-onMounted(() => {
+const enhanceScrollableRegions = () => {
   if (route.path === "/legal/terms-of-service") {
     try {
       const root = document.querySelector(".content-renderer");
       if (!root) return;
-      const elems = root.querySelectorAll("pre, code");
-      elems.forEach((el) => {
-        const style = window.getComputedStyle(el);
-        const isScrollable =
-          (/(auto|scroll)/.test(style.overflow) ||
-            /(auto|scroll)/.test(style.overflowX) ||
-            /(auto|scroll)/.test(style.overflowY)) &&
-          el.scrollWidth > el.clientWidth;
-        if (isScrollable) {
-          if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
-          el.setAttribute("role", "region");
-          if (!el.getAttribute("aria-label"))
-            el.setAttribute("aria-label", "Scrollable code example");
-          el.classList.add("focus-outline-visible");
+
+      // Handle ALL pre elements - make them focusable regardless of scrollability
+      // This ensures keyboard access for code blocks
+      const preElems = root.querySelectorAll("pre");
+      preElems.forEach((pre) => {
+        // Always make pre elements focusable for keyboard access
+        if (!pre.hasAttribute("tabindex")) {
+          pre.setAttribute("tabindex", "0");
+          pre.setAttribute("role", "region");
+          pre.setAttribute("aria-label", "Code example");
+          pre.classList.add("focus-outline-visible");
+        }
+
+        // Also make any code children focusable
+        const codeChild = pre.querySelector("code");
+        if (codeChild && !codeChild.hasAttribute("tabindex")) {
+          codeChild.setAttribute("tabindex", "0");
+          codeChild.setAttribute("role", "region");
+          codeChild.setAttribute("aria-label", "Code example");
+        }
+      });
+
+      // Handle standalone code elements
+      const codeElems = root.querySelectorAll("code:not(pre code)");
+      codeElems.forEach((code) => {
+        if (!code.hasAttribute("tabindex")) {
+          code.setAttribute("tabindex", "0");
+          code.setAttribute("role", "region");
+          code.setAttribute("aria-label", "Code example");
+          code.classList.add("focus-outline-visible");
         }
       });
     } catch (e) {
       console.warn("Scrollable pre/code enhancer failed", e);
     }
   }
+};
+
+onMounted(() => {
+  // Run immediately
+  enhanceScrollableRegions();
+
+  // Run after next tick
+  nextTick(() => {
+    enhanceScrollableRegions();
+  });
+
+  // Run after a delay to catch any late-rendering content
+  setTimeout(() => {
+    enhanceScrollableRegions();
+  }, 100);
+
+  setTimeout(() => {
+    enhanceScrollableRegions();
+  }, 500);
 });
+
+// Also enhance on route changes
+watch(
+  () => route.path,
+  () => {
+    enhanceScrollableRegions();
+    nextTick(() => {
+      enhanceScrollableRegions();
+    });
+    setTimeout(() => {
+      enhanceScrollableRegions();
+    }, 100);
+  }
+);
 
 /**
  * Component cleanup and memory leak prevention

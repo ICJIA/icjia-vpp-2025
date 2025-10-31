@@ -340,12 +340,37 @@
         </div>
 
         <div class="last-updated" role="status" aria-live="polite">
-          <strong>Last Updated:</strong> <time datetime="2025-09-18">September 18, 2025</time>
+          <strong>Last Updated:</strong> <time datetime="2025-10-31">October 31, 2025</time>
         </div>
       </header>
 
       <main id="main-content" role="main" class="content" aria-label="Project audit log entries">
-        <h3>2025-09-16 (Security: CSP connect-src allow jsDelivr for MDI sourcemap)</h3>
+        <h3>2025-10-29 (Node.js Version Standardization and Native Module Compatibility)</h3>
+<ul>
+<li><strong>Summary</strong>: Standardized Node.js version across all environments and resolved <code>better-sqlite3</code> native module compilation issues. Updated <code>.nvmrc</code> to specify Node.js v20.19.0 (latest LTS in 20.x line) for consistency with Netlify deployment environment.</li>
+<li><strong>Files Modified/Created</strong>:<ul>
+<li><code>.nvmrc</code>: Updated from v20.18.1 to v20.19.0 (latest Node.js 20 LTS)</li>
+<li><code>audit-log-project.md</code>: Documented Node.js version standardization</li>
+</ul>
+</li>
+<li><strong>Technical Notes</strong>:<ul>
+<li><strong>Root Cause</strong>: User running Node.js v23.11.0 while project specified v20.18.1, causing native module compilation mismatch</li>
+<li><strong>Error</strong>: <code>better-sqlite3</code> compiled for NODE_MODULE_VERSION 115 but Node.js v23 requires NODE_MODULE_VERSION 131</li>
+<li><strong>Resolution</strong>: Complete reinstallation of <code>better-sqlite3</code> using <code>yarn remove better-sqlite3 &amp;&amp; yarn add better-sqlite3</code></li>
+<li><strong>Version Verification</strong>: Node.js v20.19.0 confirmed as valid official release (March 13, 2025)</li>
+<li><strong>Environment Consistency</strong>:<ul>
+<li>Local development: <code>.nvmrc</code> specifies v20.19.0</li>
+<li>Netlify deployment: <code>NODE_VERSION = &quot;20&quot;</code> (automatically uses latest 20.x)</li>
+<li>Documentation: Consistently states &quot;Node.js 18+&quot; requirement</li>
+</ul>
+</li>
+<li><strong>Testing Confirmed</strong>: Both <code>yarn dev</code> and <code>yarn generate</code> work successfully with current setup</li>
+<li><strong>No Breaking Changes</strong>: All existing functionality preserved, no configuration changes required</li>
+<li><strong>Future Compatibility</strong>: Native modules will compile correctly for Node.js 20.x across all environments</li>
+</ul>
+</li>
+</ul>
+<h3>2025-09-16 (Security: CSP connect-src allow jsDelivr for MDI sourcemap)</h3>
 <ul>
 <li>Summary: Updated the Netlify Content Security Policy to include jsDelivr in connect-src so the browser can fetch the Material Design Icons stylesheet source map without CSP violations. This removes the benign console error seen in production builds.</li>
 <li>Files modified/created:<ul>

@@ -1,3 +1,22 @@
+### 2025-10-29 (Node.js Version Standardization and Native Module Compatibility)
+
+- **Summary**: Standardized Node.js version across all environments and resolved `better-sqlite3` native module compilation issues. Updated `.nvmrc` to specify Node.js v20.19.0 (latest LTS in 20.x line) for consistency with Netlify deployment environment.
+- **Files Modified/Created**:
+  - `.nvmrc`: Updated from v20.18.1 to v20.19.0 (latest Node.js 20 LTS)
+  - `audit-log-project.md`: Documented Node.js version standardization
+- **Technical Notes**:
+  - **Root Cause**: User running Node.js v23.11.0 while project specified v20.18.1, causing native module compilation mismatch
+  - **Error**: `better-sqlite3` compiled for NODE_MODULE_VERSION 115 but Node.js v23 requires NODE_MODULE_VERSION 131
+  - **Resolution**: Complete reinstallation of `better-sqlite3` using `yarn remove better-sqlite3 && yarn add better-sqlite3`
+  - **Version Verification**: Node.js v20.19.0 confirmed as valid official release (March 13, 2025)
+  - **Environment Consistency**:
+    - Local development: `.nvmrc` specifies v20.19.0
+    - Netlify deployment: `NODE_VERSION = "20"` (automatically uses latest 20.x)
+    - Documentation: Consistently states "Node.js 18+" requirement
+  - **Testing Confirmed**: Both `yarn dev` and `yarn generate` work successfully with current setup
+  - **No Breaking Changes**: All existing functionality preserved, no configuration changes required
+  - **Future Compatibility**: Native modules will compile correctly for Node.js 20.x across all environments
+
 ### 2025-09-16 (Security: CSP connect-src allow jsDelivr for MDI sourcemap)
 
 - Summary: Updated the Netlify Content Security Policy to include jsDelivr in connect-src so the browser can fetch the Material Design Icons stylesheet source map without CSP violations. This removes the benign console error seen in production builds.
