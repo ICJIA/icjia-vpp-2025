@@ -54,9 +54,9 @@
               </div>
 
               <!-- Page title -->
-              <h3 class="navigation-title">
+              <h2 class="navigation-title">
                 {{ navigationData.previous.title }}
-              </h3>
+              </h2>
             </div>
           </v-card-text>
         </v-card>
@@ -92,9 +92,9 @@
               </div>
 
               <!-- Page title -->
-              <h3 class="navigation-title">
+              <h2 class="navigation-title">
                 {{ navigationData.next.title }}
-              </h3>
+              </h2>
             </div>
           </v-card-text>
         </v-card>

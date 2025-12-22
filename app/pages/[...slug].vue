@@ -1075,15 +1075,24 @@ onMounted(() => {
   }
 });
 
-// Make scrollable pre/code focusable on Terms page for keyboard access
+// Store MutationObserver reference for cleanup
+let scrollableRegionObserver = null;
+
+// Make all scrollable regions focusable for keyboard access
+// This ensures WCAG 2.1 A compliance (2.1.1 Keyboard, 2.1.3 Keyboard - No Exception)
 const enhanceScrollableRegions = () => {
-  if (route.path === "/legal/terms-of-service") {
-    try {
-      const root = document.querySelector(".content-renderer");
+  try {
+    // Check both content-renderer and the entire document for scrollable regions
+    const roots = [
+      document.querySelector(".content-renderer"),
+      document.body,
+    ].filter(Boolean);
+
+    roots.forEach((root) => {
       if (!root) return;
 
       // Handle ALL pre elements - make them focusable regardless of scrollability
-      // This ensures keyboard access for code blocks
+      // This ensures keyboard access for code blocks on all pages
       const preElems = root.querySelectorAll("pre");
       preElems.forEach((pre) => {
         // Always make pre elements focusable for keyboard access
@@ -1103,19 +1112,72 @@ const enhanceScrollableRegions = () => {
         }
       });
 
-      // Handle standalone code elements
+      // Handle standalone code elements (code blocks not inside pre)
       const codeElems = root.querySelectorAll("code:not(pre code)");
       codeElems.forEach((code) => {
-        if (!code.hasAttribute("tabindex")) {
+        // Only make standalone code elements focusable if they're likely to be scrollable
+        // Check if the code element or its parent might be scrollable
+        const parent = code.parentElement;
+        const isLikelyScrollable =
+          parent &&
+          (parent.scrollWidth > parent.clientWidth ||
+            parent.scrollHeight > parent.clientHeight ||
+            getComputedStyle(parent).overflow === "auto" ||
+            getComputedStyle(parent).overflow === "scroll" ||
+            getComputedStyle(parent).overflowX === "auto" ||
+            getComputedStyle(parent).overflowX === "scroll" ||
+            getComputedStyle(parent).overflowY === "auto" ||
+            getComputedStyle(parent).overflowY === "scroll");
+
+        if (isLikelyScrollable && !code.hasAttribute("tabindex")) {
           code.setAttribute("tabindex", "0");
           code.setAttribute("role", "region");
           code.setAttribute("aria-label", "Code example");
           code.classList.add("focus-outline-visible");
         }
       });
-    } catch (e) {
-      console.warn("Scrollable pre/code enhancer failed", e);
-    }
+
+      // Handle ALL scrollable divs and other elements with overflow
+      // This catches any scrollable region that might not be a code block
+      const allElements = root.querySelectorAll("*");
+      allElements.forEach((el) => {
+        const style = getComputedStyle(el);
+        const hasOverflow =
+          style.overflow === "auto" ||
+          style.overflow === "scroll" ||
+          style.overflowY === "auto" ||
+          style.overflowY === "scroll" ||
+          style.overflowX === "auto" ||
+          style.overflowX === "scroll";
+
+        // Check if element is actually scrollable
+        const isScrollable =
+          hasOverflow &&
+          (el.scrollHeight > el.clientHeight ||
+            el.scrollWidth > el.clientWidth);
+
+        // Skip if already has tabindex or is a form element
+        if (
+          isScrollable &&
+          !el.hasAttribute("tabindex") &&
+          el.tagName !== "INPUT" &&
+          el.tagName !== "TEXTAREA" &&
+          el.tagName !== "SELECT" &&
+          el.tagName !== "BUTTON" &&
+          el.tagName !== "A"
+        ) {
+          el.setAttribute("tabindex", "0");
+          el.setAttribute("role", "region");
+          el.setAttribute(
+            "aria-label",
+            el.getAttribute("aria-label") || "Scrollable region"
+          );
+          el.classList.add("focus-outline-visible");
+        }
+      });
+    });
+  } catch (e) {
+    console.warn("Scrollable region enhancer failed", e);
   }
 };
 
@@ -1128,14 +1190,36 @@ onMounted(() => {
     enhanceScrollableRegions();
   });
 
-  // Run after a delay to catch any late-rendering content
+  // Run after delays to catch any late-rendering content
+  // Multiple timeouts ensure we catch content that renders at different times
   setTimeout(() => {
     enhanceScrollableRegions();
   }, 100);
 
   setTimeout(() => {
     enhanceScrollableRegions();
+  }, 300);
+
+  setTimeout(() => {
+    enhanceScrollableRegions();
   }, 500);
+
+  setTimeout(() => {
+    enhanceScrollableRegions();
+  }, 1000);
+
+  // Use MutationObserver to catch dynamically added content
+  const contentRenderer = document.querySelector(".content-renderer");
+  if (contentRenderer && !scrollableRegionObserver) {
+    scrollableRegionObserver = new MutationObserver(() => {
+      enhanceScrollableRegions();
+    });
+
+    scrollableRegionObserver.observe(contentRenderer, {
+      childList: true,
+      subtree: true,
+    });
+  }
 });
 
 // Also enhance on route changes
@@ -1149,6 +1233,15 @@ watch(
     setTimeout(() => {
       enhanceScrollableRegions();
     }, 100);
+    setTimeout(() => {
+      enhanceScrollableRegions();
+    }, 300);
+    setTimeout(() => {
+      enhanceScrollableRegions();
+    }, 500);
+    setTimeout(() => {
+      enhanceScrollableRegions();
+    }, 1000);
   }
 );
 
@@ -1166,6 +1259,12 @@ watch(
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScroll);
   window.removeEventListener("resize", updateScroll);
+
+  // Clean up MutationObserver if it exists
+  if (scrollableRegionObserver) {
+    scrollableRegionObserver.disconnect();
+    scrollableRegionObserver = null;
+  }
 });
 
 // =============================================================================

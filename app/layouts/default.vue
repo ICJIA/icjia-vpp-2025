@@ -167,6 +167,94 @@ const focusSiteNavigation = () => {
  * Only initializes the theme system without syncing with Vuetify to prevent hydration mismatches.
  * Vuetify should already be initialized with the correct theme from the plugin.
  */
+// Make all scrollable regions focusable for keyboard access (WCAG 2.1 A compliance)
+const enhanceScrollableRegions = () => {
+  try {
+    // First, specifically target the problematic bg-gray-50/50 element
+    const problematicElements = document.querySelectorAll(
+      ".bg-gray-50\\/50, [class*='bg-gray-50'], [class*='overflow-y-auto']"
+    );
+    problematicElements.forEach((el) => {
+      const style = getComputedStyle(el);
+      const hasOverflow =
+        style.overflow === "auto" ||
+        style.overflow === "scroll" ||
+        style.overflowY === "auto" ||
+        style.overflowY === "scroll";
+      const isScrollable =
+        hasOverflow &&
+        (el.scrollHeight > el.clientHeight ||
+          el.scrollWidth > el.clientWidth);
+
+      if (
+        isScrollable &&
+        !el.hasAttribute("tabindex") &&
+        el.tagName !== "INPUT" &&
+        el.tagName !== "TEXTAREA" &&
+        el.tagName !== "SELECT" &&
+        el.tagName !== "BUTTON" &&
+        el.tagName !== "A"
+      ) {
+        el.setAttribute("tabindex", "0");
+        if (!el.getAttribute("role")) {
+          el.setAttribute("role", "region");
+        }
+        if (!el.getAttribute("aria-label")) {
+          el.setAttribute("aria-label", "Scrollable region");
+        }
+        el.classList.add("focus-outline-visible");
+      }
+    });
+
+    // Then check all other scrollable elements
+    const allElements = document.querySelectorAll("*");
+    allElements.forEach((el) => {
+      // Skip if already processed
+      if (el.hasAttribute("tabindex") && el.getAttribute("tabindex") === "0") {
+        return;
+      }
+
+      const style = getComputedStyle(el);
+      const hasOverflow =
+        style.overflow === "auto" ||
+        style.overflow === "scroll" ||
+        style.overflowY === "auto" ||
+        style.overflowY === "scroll" ||
+        style.overflowX === "auto" ||
+        style.overflowX === "scroll";
+
+      // Check if element is actually scrollable
+      const isScrollable =
+        hasOverflow &&
+        (el.scrollHeight > el.clientHeight ||
+          el.scrollWidth > el.clientWidth);
+
+      // Skip if already has tabindex or is a form/interactive element
+      if (
+        isScrollable &&
+        !el.hasAttribute("tabindex") &&
+        el.tagName !== "INPUT" &&
+        el.tagName !== "TEXTAREA" &&
+        el.tagName !== "SELECT" &&
+        el.tagName !== "BUTTON" &&
+        el.tagName !== "A" &&
+        el.getAttribute("role") !== "button"
+      ) {
+        el.setAttribute("tabindex", "0");
+        if (!el.getAttribute("role")) {
+          el.setAttribute("role", "region");
+        }
+        if (!el.getAttribute("aria-label")) {
+          el.setAttribute("aria-label", "Scrollable region");
+        }
+        el.classList.add("focus-outline-visible");
+      }
+    });
+  } catch (e) {
+    console.warn("Scrollable region enhancer failed", e);
+  }
+};
+
 onMounted(() => {
   if (isClient) {
     // Use nextTick to ensure DOM is fully hydrated before theme initialization
@@ -196,6 +284,29 @@ onMounted(() => {
           // Let the user manually toggle if needed
         }
       }
+
+      // Enhance scrollable regions for keyboard accessibility
+      enhanceScrollableRegions();
+      setTimeout(() => enhanceScrollableRegions(), 100);
+      setTimeout(() => enhanceScrollableRegions(), 500);
+      setTimeout(() => enhanceScrollableRegions(), 1000);
+
+      // Use MutationObserver to catch dynamically added scrollable elements
+      const observer = new MutationObserver(() => {
+        enhanceScrollableRegions();
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class", "style"],
+      });
+
+      // Clean up observer on unmount
+      onUnmounted(() => {
+        observer.disconnect();
+      });
     });
   }
 });
@@ -271,8 +382,8 @@ onMounted(() => {
         class="skip-link"
         @focus="skipLinkVisible = true"
         @blur="skipLinkVisible = false"
-        @click.prevent="focusMainContent"
-        @keydown.enter.prevent="focusMainContent"
+        @click="focusMainContent"
+        @keydown.enter="focusMainContent"
         @keydown.space.prevent="focusMainContent"
         aria-label="Skip to main content"
       >
@@ -284,8 +395,8 @@ onMounted(() => {
         class="skip-link"
         @focus="skipLinkVisible = true"
         @blur="skipLinkVisible = false"
-        @click.prevent="focusSiteNavigation"
-        @keydown.enter.prevent="focusSiteNavigation"
+        @click="focusSiteNavigation"
+        @keydown.enter="focusSiteNavigation"
         @keydown.space.prevent="focusSiteNavigation"
         aria-label="Skip to navigation"
       >
@@ -357,6 +468,20 @@ a.skip-link:focus {
   outline-offset: 2px;
 }
 
+/* Skip links navigation container */
+.skip-links-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  pointer-events: none;
+}
+
+.skip-links-nav .skip-link {
+  pointer-events: auto;
+}
+
 /* Screen reader only class */
 .sr-only {
   position: absolute;
@@ -367,18 +492,6 @@ a.skip-link:focus {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  .skip-links-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 99998;
-    pointer-events: none;
-  }
-  .skip-links-nav .skip-link {
-    pointer-events: auto;
-  }
-
   border-width: 0;
 }
 </style>

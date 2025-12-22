@@ -465,6 +465,16 @@ const mobileDrawerOpen = ref(false);
 const mobileExpandedDropdowns = ref({});
 
 /**
+ * State for tracking tooltip visibility for icon-only items
+ */
+const tooltipStates = ref({});
+
+/**
+ * Timers for tooltip auto-close functionality
+ */
+const tooltipTimers = ref({});
+
+/**
  * Computed property to generate dynamic "Read the Plan" menu children from site config
  */
 const readThePlanMenuChildren = computed(() => {
@@ -626,13 +636,15 @@ onMounted(() => {
     });
 
     // Close all tooltips and clear timers
-    Object.keys(tooltipStates.value).forEach((key) => {
-      tooltipStates.value[key] = false;
-      if (tooltipTimers.value[key]) {
-        clearTimeout(tooltipTimers.value[key]);
-        delete tooltipTimers.value[key];
-      }
-    });
+    if (tooltipStates.value) {
+      Object.keys(tooltipStates.value).forEach((key) => {
+        tooltipStates.value[key] = false;
+        if (tooltipTimers.value && tooltipTimers.value[key]) {
+          clearTimeout(tooltipTimers.value[key]);
+          delete tooltipTimers.value[key];
+        }
+      });
+    }
 
     // Close mobile drawer
     mobileDrawerOpen.value = false;

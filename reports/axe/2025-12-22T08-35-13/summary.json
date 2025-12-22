@@ -1,0 +1,2291 @@
+{
+  "summary": [
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/front-cover",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/front-cover",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/front-cover",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/front-cover",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/front-cover",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/front-cover",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/executive-summary",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/executive-summary",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/executive-summary",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/executive-summary",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/executive-summary",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/executive-summary",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/public-health-approach",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/public-health-approach",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/public-health-approach",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/public-health-approach",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/public-health-approach",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/public-health-approach",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/goals-and-recommendations",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/goals-and-recommendations",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/goals-and-recommendations",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/goals-and-recommendations",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/goals-and-recommendations",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/goals-and-recommendations",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/planning-process",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/planning-process",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/planning-process",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/planning-process",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/planning-process",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/planning-process",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/guiding-principles",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/guiding-principles",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/guiding-principles",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/guiding-principles",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/guiding-principles",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/guiding-principles",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/references",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/references",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/plan/references",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/references",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/references",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/plan/references",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/resources",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/organizational-and-agency-highlights",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/organizational-and-agency-highlights",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/organizational-and-agency-highlights",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/organizational-and-agency-highlights",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/organizational-and-agency-highlights",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/organizational-and-agency-highlights",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/download",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/download",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/download",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/download",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/download",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/download",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/contact",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/contact",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/contact",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/contact",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/contact",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/contact",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/audit-log",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/accessibility/audit-log",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/accessibility/audit-log",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/audit-log",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/audit-log",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/audit-log",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/axe-audit",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/accessibility/axe-audit",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/accessibility/axe-audit",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/axe-audit",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/axe-audit",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/axe-audit",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/documentation",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/accessibility/documentation",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/accessibility/documentation",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/documentation",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/documentation",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/accessibility/documentation",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/privacy-policy",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/legal/privacy-policy",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/legal/privacy-policy",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/privacy-policy",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/privacy-policy",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/privacy-policy",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/terms-of-service",
+      "viewport": "mobile",
+      "theme": "dark",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/legal/terms-of-service",
+      "viewport": "mobile",
+      "theme": "light",
+      "counts": {
+        "violations": 1,
+        "incomplete": 1,
+        "passes": 8,
+        "inapplicable": 50
+      }
+    },
+    {
+      "route": "/legal/terms-of-service",
+      "viewport": "tablet",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/terms-of-service",
+      "viewport": "tablet",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/terms-of-service",
+      "viewport": "desktop",
+      "theme": "dark",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    },
+    {
+      "route": "/legal/terms-of-service",
+      "viewport": "desktop",
+      "theme": "light",
+      "counts": {
+        "violations": 0,
+        "incomplete": 0,
+        "passes": 8,
+        "inapplicable": 51
+      }
+    }
+  ],
+  "aggregate": {
+    "totals": {
+      "violations": 34,
+      "incomplete": 34,
+      "passes": 816
+    },
+    "byRoute": {
+      "/": [
+        {
+          "route": "/",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/front-cover": [
+        {
+          "route": "/plan/front-cover",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/front-cover",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/front-cover",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/front-cover",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/front-cover",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/front-cover",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/executive-summary": [
+        {
+          "route": "/plan/executive-summary",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/executive-summary",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/executive-summary",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/executive-summary",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/executive-summary",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/executive-summary",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/public-health-approach": [
+        {
+          "route": "/plan/public-health-approach",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/public-health-approach",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/public-health-approach",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/public-health-approach",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/public-health-approach",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/public-health-approach",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/goals-and-recommendations": [
+        {
+          "route": "/plan/goals-and-recommendations",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/goals-and-recommendations",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/goals-and-recommendations",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/goals-and-recommendations",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/goals-and-recommendations",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/goals-and-recommendations",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/planning-process": [
+        {
+          "route": "/plan/planning-process",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/planning-process",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/planning-process",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/planning-process",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/planning-process",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/planning-process",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/guiding-principles": [
+        {
+          "route": "/plan/guiding-principles",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/guiding-principles",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/guiding-principles",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/guiding-principles",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/guiding-principles",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/guiding-principles",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/plan/references": [
+        {
+          "route": "/plan/references",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/references",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/plan/references",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/references",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/references",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/plan/references",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/resources": [
+        {
+          "route": "/resources",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/resources",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/resources",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/resources",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/resources",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/resources",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/organizational-and-agency-highlights": [
+        {
+          "route": "/organizational-and-agency-highlights",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/organizational-and-agency-highlights",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/organizational-and-agency-highlights",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/organizational-and-agency-highlights",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/organizational-and-agency-highlights",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/organizational-and-agency-highlights",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/download": [
+        {
+          "route": "/download",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/download",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/download",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/download",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/download",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/download",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/contact": [
+        {
+          "route": "/contact",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/contact",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/contact",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/contact",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/contact",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/contact",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/accessibility/audit-log": [
+        {
+          "route": "/accessibility/audit-log",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/accessibility/audit-log",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/accessibility/audit-log",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/audit-log",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/audit-log",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/audit-log",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/accessibility/axe-audit": [
+        {
+          "route": "/accessibility/axe-audit",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/accessibility/axe-audit",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/accessibility/axe-audit",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/axe-audit",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/axe-audit",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/axe-audit",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/accessibility/documentation": [
+        {
+          "route": "/accessibility/documentation",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/accessibility/documentation",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/accessibility/documentation",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/documentation",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/documentation",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/accessibility/documentation",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/legal/privacy-policy": [
+        {
+          "route": "/legal/privacy-policy",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/legal/privacy-policy",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/legal/privacy-policy",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/legal/privacy-policy",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/legal/privacy-policy",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/legal/privacy-policy",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ],
+      "/legal/terms-of-service": [
+        {
+          "route": "/legal/terms-of-service",
+          "viewport": "mobile",
+          "theme": "dark",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/legal/terms-of-service",
+          "viewport": "mobile",
+          "theme": "light",
+          "counts": {
+            "violations": 1,
+            "incomplete": 1,
+            "passes": 8,
+            "inapplicable": 50
+          }
+        },
+        {
+          "route": "/legal/terms-of-service",
+          "viewport": "tablet",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/legal/terms-of-service",
+          "viewport": "tablet",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/legal/terms-of-service",
+          "viewport": "desktop",
+          "theme": "dark",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        },
+        {
+          "route": "/legal/terms-of-service",
+          "viewport": "desktop",
+          "theme": "light",
+          "counts": {
+            "violations": 0,
+            "incomplete": 0,
+            "passes": 8,
+            "inapplicable": 51
+          }
+        }
+      ]
+    }
+  }
+}

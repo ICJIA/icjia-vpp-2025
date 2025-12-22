@@ -246,4 +246,4 @@ Accessibility isn't optional -- it's a legal requirement, moral obligation, and 
 
 ---
 
-_Last Updated: August 1, 2025_
+_Last Updated: October 31, 2025_
