@@ -40,9 +40,8 @@
     "dev:tools": "yarn debug:search && yarn debug:config",
     "lint": "npx prettier --check \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
     "lint:fix": "npx prettier --write \"**/*.{js,vue,ts,json,md}\" --ignore-path .gitignore",
-    "audit:lighthouse": "node scripts/lighthouse-audit.js",
     "audit:axe": "node scripts/axe-audit.js",
-    "audit:accessibility": "yarn audit:lighthouse && yarn audit:axe"
+    "audit:accessibility": "yarn audit:axe"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",

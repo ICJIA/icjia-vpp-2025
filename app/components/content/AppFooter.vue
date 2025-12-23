@@ -103,13 +103,13 @@
           >
 
           <!-- Accessibility -->
-          <nuxt-link
-            to="/accessibility/documentation"
+          <a
+            href="/documentation/accessibility"
             class="footer-item"
-            aria-label="View Accessibility Documentation"
+            aria-label="View Accessibility Audit Report"
           >
             Accessibility
-          </nuxt-link>
+          </a>
 
           <span class="footer-divider d-none d-md-inline" aria-hidden="true"
             >|</span

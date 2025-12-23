@@ -317,7 +317,7 @@ async function run() {
   fs.writeFileSync(path.join(outRoot, "summary.html"), htmlSummary);
 
   // Update main documentation file
-  updateMainDocumentation(aggregate, routes, VIEWPORTS, THEMES);
+  updateMainDocumentation(aggregate, summary, routes, VIEWPORTS, THEMES);
 
   console.log(`\nAxe audit complete. Reports in: ${outRoot}`);
 }
@@ -325,11 +325,13 @@ async function run() {
 /**
  * Update the main Axe audit documentation file
  */
-function updateMainDocumentation(aggregate, routes, viewports, themes) {
-  const docPath = path.join(
+function updateMainDocumentation(aggregate, summary, routes, viewports, themes) {
+  const accessibilityDir = path.join(
     process.cwd(),
-    "public/documentation/axe-audit.html"
+    "public/documentation/accessibility"
   );
+  ensureDir(accessibilityDir);
+  const docPath = path.join(accessibilityDir, "index.html");
   const now = new Date();
   const chicagoDate = formatChicagoDate(now);
 
@@ -339,6 +341,38 @@ function updateMainDocumentation(aggregate, routes, viewports, themes) {
   const totalTests = routes.length * viewports.length * themes.length;
   const violationFreeTests = totalTests - totalViolations;
   const passRate = Math.round((violationFreeTests / totalTests) * 100);
+
+  // Format viewport names for display
+  const viewportDisplayNames = {
+    mobile: "Mobile",
+    tablet: "Tablet",
+    desktop: "Desktop"
+  };
+
+  // Generate route table rows
+  const routeTableRows = summary
+    .sort((a, b) => {
+      // Sort by route, then viewport, then theme
+      if (a.route !== b.route) return a.route.localeCompare(b.route);
+      const viewportOrder = { mobile: 1, tablet: 2, desktop: 3 };
+      if (a.viewport !== b.viewport) return viewportOrder[a.viewport] - viewportOrder[b.viewport];
+      return a.theme.localeCompare(b.theme);
+    })
+    .map((item) => {
+      const status = item.counts.violations === 0 ? "✅ Pass" : "❌ Fail";
+      const routeDisplay = item.route === "/" ? "/" : item.route;
+      return `
+        <tr>
+          <td>${routeDisplay}</td>
+          <td>${viewportDisplayNames[item.viewport] || item.viewport}</td>
+          <td>${item.theme}</td>
+          <td>${item.counts.violations}</td>
+          <td>${item.counts.passes}</td>
+          <td>${item.counts.incomplete}</td>
+          <td>${status}</td>
+        </tr>`;
+    })
+    .join("");
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -350,6 +384,14 @@ function updateMainDocumentation(aggregate, routes, viewports, themes) {
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
     .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     h1 { color: #333; margin-top: 0; }
+    h2 { color: #444; margin-top: 30px; }
+    .intro { background: #f8f9fa; border-left: 4px solid #1976d2; padding: 20px; margin: 20px 0; border-radius: 4px; }
+    .intro h3 { margin-top: 0; color: #1976d2; }
+    .intro p { margin: 10px 0; line-height: 1.6; }
+    .info-box { background: #fffbf0; border-left: 4px solid #ffa400; padding: 20px; margin: 20px 0; border-radius: 4px; }
+    .info-box h3 { margin-top: 0; color: #ffa400; }
+    .info-box ul { margin: 10px 0; padding-left: 20px; }
+    .info-box li { margin: 5px 0; line-height: 1.6; }
     .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
     .metric { padding: 20px; border-radius: 8px; text-align: center; background: #f9f9f9; border: 1px solid #eee; }
     .metric-value { font-size: 36px; font-weight: bold; }
@@ -370,9 +412,32 @@ function updateMainDocumentation(aggregate, routes, viewports, themes) {
 </head>
 <body>
   <div class="container">
-    <h1>🔍 Axe Accessibility Audit Results</h1>
-    <p><strong>Last Updated:</strong> ${chicagoDate}</p>
-    <p><strong>Base URL:</strong> ${BASE_URL}</p>
+    <h1>🔍 Accessibility Audit Report</h1>
+    <p><strong>Audit Date:</strong> ${chicagoDate}</p>
+    <p><strong>Testing Tool:</strong> axe-core 4.10.2</p>
+    <p><strong>Compliance Standard:</strong> WCAG 2.1 Level AA</p>
+    <p><strong>Viewports Tested:</strong> ${viewports.map((v) => `${viewportDisplayNames[v.name] || v.name} (${v.size.width}x${v.size.height})`).join(", ")}</p>
+
+    <div class="intro">
+      <h3>What is Axe?</h3>
+      <p>
+        <strong>Axe</strong> (also known as axe-core) is an open-source accessibility testing engine developed by Deque Systems. 
+        It is the industry-standard tool for automated accessibility testing and is used by major organizations worldwide, 
+        including Google (which integrates it into Lighthouse), Microsoft, and many government agencies.
+      </p>
+      <p>
+        Axe tests websites against the <strong>Web Content Accessibility Guidelines (WCAG) 2.1</strong> at the AA level, 
+        which is the standard required by the Americans with Disabilities Act (ADA) and Section 508 of the Rehabilitation Act. 
+        It can detect over 80% of common accessibility issues automatically, including problems with ARIA attributes, 
+        color contrast, keyboard navigation, form labels, and semantic HTML structure.
+      </p>
+      <p>
+        <strong>Why Axe is Important:</strong> Accessibility is not optional—it's a legal requirement and a moral imperative. 
+        Websites that are not accessible exclude millions of users with disabilities, violate civil rights laws, and can result 
+        in costly lawsuits. Axe helps us catch accessibility issues early in development, ensuring our website is usable by everyone, 
+        including people who use screen readers, keyboard-only navigation, voice recognition software, and other assistive technologies.
+      </p>
+    </div>
 
     <div class="metrics">
       <div class="metric violations">
@@ -393,6 +458,25 @@ function updateMainDocumentation(aggregate, routes, viewports, themes) {
       </div>
     </div>
 
+    <div class="info-box">
+      <h3>Understanding Incomplete and Manual Checks</h3>
+      <p>
+        <strong>Incomplete checks</strong> are items that Axe cannot definitively determine as pass or fail through automated testing alone. 
+        These require manual review to confirm accessibility compliance. Common reasons for incomplete checks include:
+      </p>
+      <ul>
+        <li><strong>Dynamic content:</strong> Elements that are created or modified by JavaScript after the page loads (e.g., dropdown menus, modals)</li>
+        <li><strong>Complex layouts:</strong> Elements with overlapping backgrounds or complex CSS that make contrast calculations difficult</li>
+        <li><strong>Context-dependent issues:</strong> Accessibility problems that depend on user interaction or state that Axe cannot simulate</li>
+        <li><strong>ARIA relationships:</strong> When Axe cannot verify that ARIA attributes reference elements that exist in the DOM</li>
+      </ul>
+      <p>
+        <strong>Important:</strong> Incomplete checks are <em>not violations</em>—they are flags for manual review. 
+        Our development team reviews all incomplete checks to ensure they do not represent actual accessibility barriers. 
+        If an incomplete check consistently appears across multiple pages and viewports, we investigate and fix any underlying issues.
+      </p>
+    </div>
+
     <div class="compliance">
       <h3>✅ Compliance Standards</h3>
       <ul>
@@ -403,35 +487,21 @@ function updateMainDocumentation(aggregate, routes, viewports, themes) {
       </ul>
     </div>
 
-    <h2>Test Coverage</h2>
+    <h2>📋 All Tested Pages</h2>
     <table>
       <thead>
         <tr>
-          <th>Metric</th>
-          <th>Value</th>
+          <th>URL</th>
+          <th>Viewport</th>
+          <th>Theme</th>
+          <th>Violations</th>
+          <th>Passes</th>
+          <th>Incomplete</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Routes Tested</td>
-          <td>${routes.length}</td>
-        </tr>
-        <tr>
-          <td>Viewports</td>
-          <td>${viewports.map((v) => v.name).join(", ")}</td>
-        </tr>
-        <tr>
-          <td>Themes</td>
-          <td>${themes.join(", ")}</td>
-        </tr>
-        <tr>
-          <td>Total Test Runs</td>
-          <td>${totalTests}</td>
-        </tr>
-        <tr>
-          <td>Violation-Free Tests</td>
-          <td>${violationFreeTests} of ${totalTests} (${passRate}%)</td>
-        </tr>
+        ${routeTableRows}
       </tbody>
     </table>
 
@@ -447,7 +517,10 @@ function updateMainDocumentation(aggregate, routes, viewports, themes) {
       </ul>
     </div>
 
-    <div class="timestamp">Generated: ${chicagoDate}</div>
+    <div class="timestamp">
+      <p>Generated by axe-core 4.10.2 on ${chicagoDate}</p>
+      <p>For more information, visit <a href="https://www.deque.com/axe/" target="_blank" rel="noopener noreferrer">https://www.deque.com/axe/</a></p>
+    </div>
   </div>
 </body>
 </html>`;
