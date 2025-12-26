@@ -107,6 +107,7 @@
             href="/documentation/accessibility/index.html"
             class="footer-item"
             aria-label="View Accessibility Audit Report"
+            @click.prevent="handleAccessibilityClick"
           >
             Accessibility
           </a>
@@ -168,6 +169,14 @@ const handleHomeClick = () => {
     // Navigate to homepage
     router.push("/");
   }
+};
+
+/**
+ * Handle click on accessibility link
+ * Force full page navigation to bypass Nuxt router for static file
+ */
+const handleAccessibilityClick = () => {
+  window.location.href = "/documentation/accessibility/index.html";
 };
 </script>
 
