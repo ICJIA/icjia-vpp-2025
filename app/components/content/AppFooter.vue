@@ -104,7 +104,7 @@
 
           <!-- Accessibility -->
           <a
-            href="/documentation/accessibility"
+            href="/documentation/accessibility/index.html"
             class="footer-item"
             aria-label="View Accessibility Audit Report"
           >
