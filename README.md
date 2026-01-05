@@ -19,6 +19,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 - Subtle animations with reduced motion support
 - Dark/light theme with persistent user preferences
 - Full-text search functionality across all content with Defuddle-enhanced content extraction
+- **Comprehensive test coverage** with 300 automated tests (unit, composable, and E2E)
 
 ## Production Site
 
@@ -167,6 +168,7 @@ For detailed security analysis and audit logs, see:
 
 _Last Security Review: October 31, 2025_
 _Next Scheduled Review: January 31, 2026_
+_Last Test Coverage Update: January 5, 2026_
 
 ## Nuxt 4 Migration
 
@@ -200,6 +202,62 @@ This project has been successfully migrated to **Nuxt 4.0.0** with the new direc
 - **UI Framework**: Vuetify 3.8.5 (fully compatible)
 - **Bundle Size**: Consistent performance (8.42 MB total, 2.59 MB gzip)
 - **Build Commands**: All existing commands (`yarn dev`, `yarn build`, `yarn generate`) work without changes
+
+## Test Coverage
+
+### 🧪 Test Status: COMPREHENSIVE (300 Tests, 100% Pass Rate)
+
+This project maintains extensive test coverage with **300 automated tests** covering all major functionality:
+
+#### Test Summary
+
+- **Total Tests**: 300 (all passing)
+- **Composable Tests**: 166 tests covering 10 composables
+- **E2E Tests**: 93 tests covering navigation, accessibility, and content
+- **Utility Tests**: 41 tests covering sanitization, logging, and configuration
+
+#### Composable Test Coverage
+
+| Composable | Tests | Description |
+|------------|-------|-------------|
+| `useAnnouncer` | 23 | ARIA live region announcements for accessibility |
+| `useConsoleLogger` | 37 | Color-coded development logging with singleton pattern |
+| `useLazyComponent` | 26 | Intersection-based lazy loading with IntersectionObserver |
+| `useReferences` | 23 | Reference citation loading and formatting |
+| `useReportNavigation` | 25 | Previous/next navigation for plan sections |
+| `useSiteSettings` | 10 | Site configuration loading and management |
+| `useTheme` | 22 | Dark/light theme management with session persistence |
+
+#### E2E Test Coverage
+
+| Category | Tests | Description |
+|----------|-------|-------------|
+| Navigation | 19 | Route configuration, menu items, breadcrumbs, 404 handling |
+| Accessibility | 40 | ARIA landmarks, skip links, focus management, WCAG compliance |
+| Content | 34 | Markdown rendering, components, search, downloads |
+
+#### Utility Test Coverage
+
+| Utility | Tests | Description |
+|---------|-------|-------------|
+| `sanitize` | 25 | XSS prevention, input sanitization, dangerous content detection |
+| `logger` | 8 | Log level configuration and message formatting |
+| `config-loader` | 8 | Configuration file loading and validation |
+
+#### Running Tests
+
+```bash
+# Run all tests with report generation
+yarn test
+
+# Run tests with verbose output
+yarn vitest run --reporter=verbose
+
+# Run tests in watch mode during development
+yarn vitest
+```
+
+Test results are automatically published to the [Unit and E2E Tests Results Report](https://vpp.icjia.illinois.gov/docs/tests/) with expandable "What Does This Test Verify" descriptions for every test.
 
 ## Setup
 
@@ -331,7 +389,7 @@ As a state agency, ICJIA must comply with federal ADA requirements and Illinois 
 
 - **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/)**: Complete technical documentation including:
   - **[Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/)**: WCAG 2.1 AA compliance audit results with axe-core testing across mobile, tablet, and desktop viewports in light and dark themes
-  - **[Test Results](https://vpp.icjia.illinois.gov/docs/tests/)**: Unit test results with expandable descriptions explaining what each test verifies
+  - **[Unit and E2E Tests Results Report](https://vpp.icjia.illinois.gov/docs/tests/)**: Comprehensive test results with 300 tests covering composables, utilities, and E2E scenarios with expandable descriptions explaining what each test verifies
   - **[API Documentation](https://vpp.icjia.illinois.gov/docs/jsdoc/)**: TypeDoc-generated documentation for composables, utilities, and plugins
   - **[Architecture Guide](https://vpp.icjia.illinois.gov/docs/architecture/)**: Complete technical architecture and implementation guide
 

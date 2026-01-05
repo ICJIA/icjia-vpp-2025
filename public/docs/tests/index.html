@@ -351,22 +351,22 @@
   
   <div class="container">
     <main id="main-content" tabindex="-1">
-    <h1>🧪 Violence Prevention Plan - Test Results Report</h1>
-    <p class="meta" style="margin-top: 0.5rem; margin-bottom: 1rem;">Comprehensive test results for composables, utilities, and components</p>
+    <h1>🧪 Statewide Violence Prevention Plan for Illinois: 2025-2029 - Unit and E2E Tests Results Report</h1>
+    <p class="meta" style="margin-top: 0.5rem; margin-bottom: 1rem;">Comprehensive unit and E2E test results for composables, utilities, and components</p>
     <div class="meta">
-      <p><strong>Generated:</strong> 1/5/2026, 9:12:02 AM</p>
-      <p><strong>Total Tests:</strong> 51</p>
-      <p><strong>Duration:</strong> 0.87 seconds</p>
+      <p><strong>Generated:</strong> 1/5/2026, 10:23:05 AM</p>
+      <p><strong>Total Tests:</strong> 300</p>
+      <p><strong>Duration:</strong> 1.69 seconds</p>
     </div>
     
     <div class="stats-grid">
       <div class="stat-card success">
         <div class="label">Total Tests</div>
-        <div class="number">51</div>
+        <div class="number">300</div>
       </div>
       <div class="stat-card success">
         <div class="label">Passed</div>
-        <div class="number">51</div>
+        <div class="number">300</div>
       </div>
       <div class="stat-card success">
         <div class="label">Failed</div>
@@ -398,8 +398,15 @@
         
         <tr>
           <td><strong>composables</strong></td>
-          <td>10</td>
-          <td class="status-pass">10</td>
+          <td>166</td>
+          <td class="status-pass">166</td>
+          <td class="status-success">0</td>
+          <td class="status-pass">✅ Pass</td>
+        </tr>
+        <tr>
+          <td><strong>e2e</strong></td>
+          <td>93</td>
+          <td class="status-pass">93</td>
           <td class="status-success">0</td>
           <td class="status-pass">✅ Pass</td>
         </tr>
@@ -418,6 +425,1540 @@
     
     <div class="test-file">
       <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useAnnouncer.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            23 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return announcer interface</div>
+        <div class="test-case-duration">Duration: 0.74ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies useAnnouncer returns object with announce function. This interface provides ARIA live region announcements for accessibility.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announcePolite ref</div>
+        <div class="test-case-duration">Duration: 0.52ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms announcePolite reactive ref is available for polite (non-interrupting) screen reader announcements.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announceAssertive ref</div>
+        <div class="test-case-duration">Duration: 0.16ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies announceAssertive reactive ref is available for urgent, interrupting screen reader announcements.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announce function</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the announce function is callable for programmatic announcements during dynamic content changes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should default to polite priority</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies announcements use polite priority by default, which doesn't interrupt screen reader users.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should clear before announcing for screen reader detection</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms announcements are cleared before new announcement to ensure screen readers detect the change.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support assertive priority</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies assertive priority is available for urgent announcements that should interrupt the user.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should use assertive for interrupting announcements</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms assertive mode interrupts screen reader to announce critical information immediately.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announceLoading method</div>
+        <div class="test-case-duration">Duration: 1.50ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies dedicated loading announcement method is available for async operation feedback.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announceSuccess method</div>
+        <div class="test-case-duration">Duration: 0.20ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms success announcement method is available for positive feedback to users.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announceError method</div>
+        <div class="test-case-duration">Duration: 0.20ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies error announcement method is available for alerting users to problems.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide announceNavigation method</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms navigation announcement method notifies users of page changes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle loading announcements with context</div>
+        <div class="test-case-duration">Duration: 1.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies loading announcements can include context like 'Loading search results...'.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle success announcements with context</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms success announcements can include context like 'Form submitted successfully'.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle error announcements with context</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies error announcements can include descriptive context about what went wrong.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle navigation announcements with additional info</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms navigation announcements can include page title and other context.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty messages</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies empty string announcements are handled gracefully without errors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle long messages</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms long announcement messages are handled without truncation issues.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle special characters</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies announcements with special characters like quotes and ampersands work correctly.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support ARIA live region polite mode</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms polite mode works correctly with ARIA live region specifications.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support ARIA live region assertive mode</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies assertive mode works correctly with ARIA live region specifications.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should clear announcements to trigger screen reader detection</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the clear-before-announce pattern ensures screen readers detect all announcements.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return all expected properties</div>
+        <div class="test-case-duration">Duration: 0.89ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the composable returns all expected properties: announce, announcePolite, announceAssertive, etc.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useConsoleLogger.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            37 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return logger interface</div>
+        <div class="test-case-duration">Duration: 0.99ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies useConsoleLogger returns object with log function and controls.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide isEnabled ref</div>
+        <div class="test-case-duration">Duration: 0.15ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms isEnabled reactive ref controls global logging state.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide enable function</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies enable function turns on console logging globally.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide disable function</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms disable function turns off console logging globally.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide toggle function</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies toggle function switches logging state between enabled and disabled.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logUI function</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms logUI function logs UI events with blue color coding.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logRoute function</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies logRoute function logs navigation events with purple color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logTheme function</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms logTheme function logs theme changes with dark purple color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logLifecycle function</div>
+        <div class="test-case-duration">Duration: 0.28ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies logLifecycle function logs component lifecycle with green color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logSuccess function</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms logSuccess function logs successful operations with green color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logWarning function</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies logWarning function logs warnings with orange color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logError function</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms logError function logs errors with red color for visibility.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logAPI function</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies logAPI function logs API calls with teal color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide logPerf function</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms logPerf function logs performance metrics with yellow color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide COLORS object</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies COLORS constant exports all category color definitions.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have UI color defined</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms UI category has blue (#3498db) color for visual distinction.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have route color defined</div>
+        <div class="test-case-duration">Duration: 0.21ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies route category has purple (#9b59b6) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have theme color defined</div>
+        <div class="test-case-duration">Duration: 0.20ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms theme category has dark purple (#8e44ad) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have lifecycle color defined</div>
+        <div class="test-case-duration">Duration: 0.19ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies lifecycle category has green (#2ecc71) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have success color defined</div>
+        <div class="test-case-duration">Duration: 0.19ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms success category has dark green (#27ae60) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have warning color defined</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies warning category has orange (#f39c12) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have error color defined</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms error category has red (#e74c3c) color for visibility.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have API color defined</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies API category has teal (#1abc9c) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have perf color defined</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms performance category has yellow (#f1c40f) color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have default color defined</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies default category has gray (#7f8c8d) fallback color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should enable logging when enable is called</div>
+        <div class="test-case-duration">Duration: 0.31ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms enable() sets isEnabled.value to true.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should disable logging when disable is called</div>
+        <div class="test-case-duration">Duration: 0.20ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies disable() sets isEnabled.value to false.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should toggle logging state</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms toggle() switches between enabled and disabled states.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not log when disabled</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies log calls are suppressed when isEnabled is false.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should accept message parameter</div>
+        <div class="test-case-duration">Duration: 0.72ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms log function accepts message string parameter.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should accept optional data parameter</div>
+        <div class="test-case-duration">Duration: 0.22ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies additional data objects can be logged for debugging.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle undefined data</div>
+        <div class="test-case-duration">Duration: 0.25ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms undefined data parameter doesn't cause errors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle null data</div>
+        <div class="test-case-duration">Duration: 0.33ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies null data parameter is handled gracefully.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle array data</div>
+        <div class="test-case-duration">Duration: 0.18ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms array data is properly logged to console.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should share state across multiple calls</div>
+        <div class="test-case-duration">Duration: 0.19ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies singleton pattern maintains consistent state across imports.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should maintain consistent color constants</div>
+        <div class="test-case-duration">Duration: 0.48ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms COLORS object is identical across all composable instances.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should use default color for unknown categories</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies unknown categories fall back to default gray color.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useLazyComponent.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            26 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have default rootMargin of 100px</div>
+        <div class="test-case-duration">Duration: 0.84ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the default rootMargin is 100px for preloading content before it enters the viewport.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have default threshold of 0.1</div>
+        <div class="test-case-duration">Duration: 0.12ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the default intersection threshold is 0.1 for triggering lazy load.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should default to observe once</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies once is true by default, meaning components load only on first intersection.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should allow custom rootMargin</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms custom rootMargin values can be provided for different preload distances.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should allow custom threshold values</div>
+        <div class="test-case-duration">Duration: 0.14ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies custom threshold values are accepted for fine-tuned intersection detection.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should validate threshold is between 0 and 1</div>
+        <div class="test-case-duration">Duration: 0.20ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms threshold values must be valid intersection ratios between 0 and 1.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should accept custom component name for debugging</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies componentName option enables meaningful debug logging.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide isVisible ref</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms isVisible reactive ref is returned for controlling component visibility.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide targetRef for element binding</div>
+        <div class="test-case-duration">Duration: 0.22ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies targetRef is provided for template ref binding to observed element.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should initialize isVisible as false</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms isVisible starts as false before component enters viewport.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should initialize targetRef as null</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies targetRef is null before component is mounted.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should set isVisible to true when element intersects</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms IntersectionObserver correctly sets isVisible when element is visible.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not change isVisible when element is not intersecting</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies isVisible remains false when element is outside viewport.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should unobserve after first intersection when once is true</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms observer disconnects after first load when once is true.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should continue observing when once is false</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies continued observation for elements that may re-enter viewport.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle missing IntersectionObserver gracefully</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms fallback to immediate loading when IntersectionObserver is unsupported.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should setup observer on component mount</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies observer is created in onMounted lifecycle hook.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should disconnect observer on component unmount</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms cleanup in onUnmounted prevents memory leaks.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should skip setup if no target element</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies graceful handling when targetRef is not set.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should skip setup during SSR</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms observer is not created during server-side rendering.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should load immediately if observer setup fails</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies fallback behavior sets isVisible to true on error.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should log errors to console on setup failure</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms errors are logged for debugging when setup fails.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle null targetRef gracefully</div>
+        <div class="test-case-duration">Duration: 1.45ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies no errors thrown when targetRef is null.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should use rootMargin for early loading</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms rootMargin enables preloading before element fully enters viewport.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should only load visible components</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies deferred loading improves initial page performance.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should reduce initial bundle execution</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms lazy loading reduces JavaScript execution on page load.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useReferences.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            23 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide getReference function</div>
+        <div class="test-case-duration">Duration: 1.65ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies getReference function is available for fetching individual reference citations by ID.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide getMultipleReferences function</div>
+        <div class="test-case-duration">Duration: 0.38ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms batch reference retrieval is supported for efficiency when multiple citations are needed.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide formatMultipleReferences function</div>
+        <div class="test-case-duration">Duration: 0.16ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies formatter function exists for rendering multiple references with proper citation formatting.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should trim whitespace from reference IDs</div>
+        <div class="test-case-duration">Duration: 0.16ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms reference IDs are trimmed of leading/trailing whitespace before lookup.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty reference ID</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies empty string reference ID is handled gracefully without errors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle null reference ID</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms null reference ID is handled gracefully without throwing errors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should split multiple IDs by comma</div>
+        <div class="test-case-duration">Duration: 0.26ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies comma-separated reference IDs are correctly parsed into individual IDs.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle IDs with extra whitespace</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms extra whitespace around comma-separated IDs is properly trimmed.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle single ID</div>
+        <div class="test-case-duration">Duration: 0.16ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies single reference ID (not comma-separated) is handled correctly.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should filter out empty strings after splitting</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms empty strings from double commas are filtered from ID array.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should expect shortCitation property</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies reference objects have shortCitation for inline citations.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should expect fullCitation property</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms reference objects have fullCitation for complete references.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should expect url property when available</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies reference objects include URL for web-based references.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should expect type property for reference categorization</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms reference objects have type field for categorization.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return "References not found" for empty array</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies formatMultipleReferences returns appropriate message for empty input.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return single citation for single reference</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms single reference formatting returns just the citation without numbering.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should format multiple references with numbering</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies multiple references are formatted with sequential numbers.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should use shortCitation as fallback when fullCitation is missing</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms shortCitation is used when fullCitation is not available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle invalid reference data format</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies invalid data formats are handled gracefully with fallback.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return null for not found reference</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms null is returned when reference ID doesn't exist in data.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return empty array when loading multiple references fails</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies empty array fallback when batch loading fails.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should fetch fresh data on each call</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms references are fetched fresh without caching issues.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should fetch from /data/references.json endpoint</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies correct endpoint is used for reference data loading.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useReportNavigation.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            25 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should normalize paths with trailing slashes</div>
+        <div class="test-case-duration">Duration: 0.88ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies path normalization removes trailing slashes for consistent route matching in navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle root path</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms root path '/' is handled correctly without being normalized to empty string.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty path</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies empty path input is handled gracefully with appropriate fallback behavior.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle double slashes</div>
+        <div class="test-case-duration">Duration: 0.24ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms multiple consecutive slashes are normalized to single slashes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should include previous page data</div>
+        <div class="test-case-duration">Duration: 0.50ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies navigation data includes previous page title, path, and summary.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should include next page data</div>
+        <div class="test-case-duration">Duration: 0.16ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms navigation data includes next page title, path, and summary.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should include current index</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies navigation data includes current page index in the report sequence.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should include total pages count</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms navigation data includes total number of report pages.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return null for previous on first page</div>
+        <div class="test-case-duration">Duration: 0.17ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies first page correctly returns null for previous navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return null for next on last page</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms last page correctly returns null for next navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return both previous and next for middle pages</div>
+        <div class="test-case-duration">Duration: 0.15ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies middle pages have both previous and next navigation available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should identify report pages correctly</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms isReportPage correctly identifies pages that are part of the plan.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should identify non-report pages correctly</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies isReportPage returns false for non-plan pages like /contact.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should include summary for navigation context</div>
+        <div class="test-case-duration">Duration: 0.12ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms page summaries are included for navigation tooltips.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide default summary when none is specified</div>
+        <div class="test-case-duration">Duration: 0.21ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies default summary is provided when page has no explicit summary.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide aria labels for navigation</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms ARIA labels are provided for accessibility compliance.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide tooltips for navigation elements</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies tooltip content is available for navigation buttons.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide getNavigationData function</div>
+        <div class="test-case-duration">Duration: 0.29ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms composable exports getNavigationData function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide isReportPage function</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies composable exports isReportPage function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide extractReportPages function</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms composable exports extractReportPages function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide reportPages computed property</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies composable exports reportPages computed property.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide totalReportPages computed property</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms composable exports totalReportPages computed property.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should cache extracted report pages for performance</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies report pages are cached to avoid repeated extraction.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle isFirstPage flag correctly</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms isFirstPage flag is set correctly based on position.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle isLastPage flag correctly</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies isLastPage flag is set correctly based on position.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
         <div class="test-file-name">/test/composables/useSiteSettings.test.js</div>
         <div style="display: flex; align-items: center; gap: 1rem;">
           <span style="font-size: 0.85rem; color: #6c757d;">
@@ -429,7 +1970,7 @@
       
       <div class="test-case passed">
         <div class="test-case-title">✅ should return a composable object</div>
-        <div class="test-case-duration">Duration: 0.91ms</div>
+        <div class="test-case-duration">Duration: 0.86ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -462,7 +2003,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should be a function</div>
-        <div class="test-case-duration">Duration: 0.09ms</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -473,7 +2014,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should return default value when config is not loaded and fetch fails</div>
-        <div class="test-case-duration">Duration: 4.06ms</div>
+        <div class="test-case-duration">Duration: 6.01ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -484,7 +2025,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should be a function</div>
-        <div class="test-case-duration">Duration: 0.14ms</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -495,7 +2036,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should handle multiple settings</div>
-        <div class="test-case-duration">Duration: 0.64ms</div>
+        <div class="test-case-duration">Duration: 0.55ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -506,7 +2047,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should have isLoaded computed property</div>
-        <div class="test-case-duration">Duration: 0.14ms</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -517,7 +2058,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should have hasError computed property</div>
-        <div class="test-case-duration">Duration: 0.26ms</div>
+        <div class="test-case-duration">Duration: 0.24ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -528,11 +2069,1324 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should have isLoading computed property</div>
-        <div class="test-case-duration">Duration: 0.08ms</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
                     <p>Verifies isLoading computed ref tracks active loading state. This three-state system (loading/loaded/error) enables comprehensive UI state management.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useTheme.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            22 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should default to dark theme</div>
+        <div class="test-case-duration">Duration: 2.26ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the theme composable always defaults to dark mode on initialization. This ensures consistent behavior across sessions for the Statewide Violence Prevention Plan portal.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide theme reactive ref</div>
+        <div class="test-case-duration">Duration: 0.67ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the composable returns a reactive theme ref that UI components can watch for changes. Theme changes trigger immediate re-renders.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide isDark computed property</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the isDark computed returns boolean for conditional styling in templates without string comparison.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide toggleTheme function</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms toggleTheme function is available for switching between light and dark themes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should accept "light" as valid theme</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies 'light' is accepted as a valid theme value by the setTheme function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should accept "dark" as valid theme</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms 'dark' is accepted as a valid theme value by the setTheme function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should reject invalid theme values</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies invalid theme values like 'blue' or 'auto' are rejected by the setTheme function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should reject empty string as theme</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms empty string is not accepted as a valid theme value.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should reject null as theme</div>
+        <div class="test-case-duration">Duration: 0.17ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies null is not accepted as a valid theme value.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should toggle from dark to light</div>
+        <div class="test-case-duration">Duration: 0.22ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms toggle functionality correctly switches from dark to light theme.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should toggle from light to dark</div>
+        <div class="test-case-duration">Duration: 0.21ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies toggle functionality correctly switches from light to dark theme.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should maintain toggle consistency</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms multiple toggle calls maintain consistent alternating behavior.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should use sessionStorage for theme persistence</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies theme uses sessionStorage (not localStorage) for session-only persistence.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not persist across browser sessions</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms theme resets to dark on new browser session as per design decision.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should update data-theme attribute on document</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the composable updates the document's data-theme attribute for CSS theming.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support WCAG 2.1 AA compliant themes</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms both light and dark themes meet WCAG 2.1 AA contrast requirements.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return theme ref</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the composable returns the theme reactive ref.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return isDark computed</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the composable returns the isDark computed property.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return setTheme function</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the composable returns the setTheme function for direct theme setting.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return toggleTheme function</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the composable returns the toggleTheme function.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return syncWithVuetify function</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the composable returns syncWithVuetify for Vuetify theme integration.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return initializeTheme function</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the composable returns initializeTheme for initial theme setup.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/e2e/accessibility.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            40 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have main landmark</div>
+        <div class="test-case-duration">Duration: 0.76ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies main content has proper ARIA landmark role.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have header landmark</div>
+        <div class="test-case-duration">Duration: 0.12ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms header element has proper landmark role.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have footer landmark</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies footer element has proper ARIA role.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have navigation landmark</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms navigation elements have proper landmark roles.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have complementary landmark for sidebar</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies sidebar uses complementary landmark role.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have skip to main content link</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms skip link exists for keyboard navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have skip to navigation link</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies skip link to navigation is available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should be visible on focus</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms skip links become visible when focused.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have visible focus indicators</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies all interactive elements show focus outline.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should manage focus on route change</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms focus moves to main content on navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should trap focus in modal dialogs</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies modal focus trap prevents tabbing outside.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should restore focus on modal close</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms focus returns to trigger element after modal closes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support tab navigation</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies all interactive elements are tabbable.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support arrow key navigation in menus</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms arrow keys work for menu navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support escape to close overlays</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies Escape key closes modals and dropdowns.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support enter/space for activation</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms Enter and Space activate buttons and links.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have announcer for dynamic content</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies ARIA live region exists for announcements.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should announce page navigation</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms screen readers are notified of page changes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should announce search results</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies search result count is announced.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should announce form validation errors</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms form errors are announced to screen readers.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have alt text for informative images</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies images have descriptive alt attributes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have empty alt for decorative images</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms decorative images have empty alt text.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have captions for videos</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies video content includes captions.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should meet WCAG AA contrast ratio (4.5:1 for normal text)</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms text color contrast meets WCAG AA standard.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should meet WCAG AA contrast ratio (3:1 for large text)</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies large text meets minimum contrast ratio.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not rely solely on color to convey information</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms multiple cues are used beyond color.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should work in high contrast mode</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies site works with Windows High Contrast mode.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have labels for all form inputs</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms all form fields have associated labels.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have error messages associated with inputs</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies error messages are linked via aria-describedby.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have required field indicators</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms required fields are properly marked.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should group related form fields</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies fieldsets group related inputs.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have one h1 per page</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms each page has exactly one h1 heading.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have proper heading hierarchy</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies heading levels don't skip (h1 to h3).</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have descriptive heading text</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms headings clearly describe section content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have proper table headers</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies data tables have th elements with scope.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have captions for data tables</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms tables have descriptive captions.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have row headers where appropriate</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies row headers are used for complex tables.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support light and dark themes</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms both themes are available for user preference.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should respect user preference for color scheme</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies prefers-color-scheme is respected.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should maintain accessibility in both themes</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms accessibility is maintained across themes.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/e2e/content.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            34 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have executive summary section</div>
+        <div class="test-case-duration">Duration: 0.84ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies executive summary is part of plan structure.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have four priority sections</div>
+        <div class="test-case-duration">Duration: 0.14ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms all four priority areas are defined.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have conclusion section</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies conclusion section exists in plan.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have organizational highlights</div>
+        <div class="test-case-duration">Duration: 0.16ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms organizational highlights page is available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render markdown to HTML</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies markdown content is converted to HTML.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should process footnotes/references</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms reference citations are properly processed.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render tables correctly</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies markdown tables render as HTML tables.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render lists correctly</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms ordered and unordered lists render properly.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render blockquotes correctly</div>
+        <div class="test-case-duration">Duration: 0.18ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies blockquote styling is applied.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render PageTitleSection component</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms page title component displays correctly.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render TextWrapImage component</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies text wrap image component works.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render ReportNavigation component</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms report navigation buttons display.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should render ReferenceTooltip component</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies reference tooltips appear on hover.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have news items</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms news content is available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should display news items in chronological order</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies news is sorted by date.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should format news dates correctly</div>
+        <div class="test-case-duration">Duration: 9.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms dates display in readable format.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have plan PDF available</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies downloadable PDF is accessible.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have download button component</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms download button is displayed.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have proper file MIME types</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies correct content-type headers.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have external resources listed</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms resources page has external links.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have resource categories</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies resources are organized by category.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have external link indicators</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms external links show visual indicator.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have contact information</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies contact details are displayed.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have feedback form</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms feedback form is available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have privacy policy</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies privacy policy page exists.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have terms of use</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms terms of use page exists.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have accessibility statement</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies accessibility statement page exists.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should lazy load images</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms images use lazy loading for performance.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should show loading spinner for images</div>
+        <div class="test-case-duration">Duration: 0.18ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies loading state is shown for images.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have fallback for failed images</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms broken images show fallback content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have search interface</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies search functionality is available.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should search across plan content</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms search covers all plan sections.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should highlight search matches</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies matched text is highlighted.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide search suggestions</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms search provides helpful suggestions.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/e2e/navigation.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            19 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have home route defined</div>
+        <div class="test-case-duration">Duration: 1.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies home route '/' is configured with name 'index'.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have plan routes defined</div>
+        <div class="test-case-duration">Duration: 2.87ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms all plan section routes are properly defined.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have resources route defined</div>
+        <div class="test-case-duration">Duration: 0.17ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies '/resources' route is configured.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have contact route defined</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms '/contact' route is properly configured.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have accessibility routes defined</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies all three accessibility page routes exist.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have legal routes defined</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms privacy and terms routes are configured.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have main navigation items</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies main menu has Home, Plan, Resources, Contact items.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have sidebar navigation for plan sections</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms sidebar contains all plan section navigation links.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have footer navigation items</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies footer contains legal and accessibility links.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should provide next/previous navigation between sections</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms sequential navigation through plan sections.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not have previous on first section</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies first section correctly hides previous button.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not have next on last section</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms last section correctly hides next button.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have smooth scroll configured</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies smooth scroll behavior for page navigation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should scroll to top on route change</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms page scrolls to top when navigating between routes.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle hash navigation</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies anchor link navigation scrolls to correct section.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have error page configured</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms error.vue exists for 404 handling.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should redirect unknown routes to error page</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies unknown routes display error page.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should show breadcrumbs on nested pages</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms breadcrumb navigation appears on plan pages.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have correct hierarchy</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies breadcrumb levels increase progressively.</p>
                   </div>
                 </details>
         
@@ -551,7 +3405,7 @@
       
       <div class="test-case passed">
         <div class="test-case-title">✅ should load configuration from file</div>
-        <div class="test-case-duration">Duration: 1.53ms</div>
+        <div class="test-case-duration">Duration: 1.10ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -562,7 +3416,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should handle missing config files gracefully</div>
-        <div class="test-case-duration">Duration: 0.23ms</div>
+        <div class="test-case-duration">Duration: 0.12ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -573,7 +3427,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should parse JSON configuration</div>
-        <div class="test-case-duration">Duration: 0.07ms</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -584,7 +3438,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should retrieve nested configuration values</div>
-        <div class="test-case-duration">Duration: 0.12ms</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -595,7 +3449,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should return default value if key not found</div>
-        <div class="test-case-duration">Duration: 0.05ms</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -606,7 +3460,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should support dot notation for nested keys</div>
-        <div class="test-case-duration">Duration: 0.05ms</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -651,7 +3505,7 @@
       
       <div class="test-case passed">
         <div class="test-case-title">✅ should support DEBUG level</div>
-        <div class="test-case-duration">Duration: 0.97ms</div>
+        <div class="test-case-duration">Duration: 0.64ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -662,7 +3516,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should support INFO level</div>
-        <div class="test-case-duration">Duration: 0.12ms</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -673,7 +3527,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should support WARN level</div>
-        <div class="test-case-duration">Duration: 0.06ms</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -684,7 +3538,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should support ERROR level</div>
-        <div class="test-case-duration">Duration: 0.09ms</div>
+        <div class="test-case-duration">Duration: 0.10ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -695,7 +3549,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should format log messages with timestamps</div>
-        <div class="test-case-duration">Duration: 0.04ms</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -706,7 +3560,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should include log level in output</div>
-        <div class="test-case-duration">Duration: 0.20ms</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -717,7 +3571,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should respect log level configuration</div>
-        <div class="test-case-duration">Duration: 0.06ms</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -728,7 +3582,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should filter logs in production</div>
-        <div class="test-case-duration">Duration: 0.04ms</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -751,7 +3605,7 @@
       
       <div class="test-case passed">
         <div class="test-case-title">✅ should escape < character</div>
-        <div class="test-case-duration">Duration: 1.44ms</div>
+        <div class="test-case-duration">Duration: 0.73ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -762,7 +3616,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should escape > character</div>
-        <div class="test-case-duration">Duration: 0.08ms</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -773,7 +3627,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should escape & character</div>
-        <div class="test-case-duration">Duration: 0.05ms</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -784,7 +3638,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should escape " character</div>
-        <div class="test-case-duration">Duration: 0.12ms</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -795,7 +3649,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should escape ' character</div>
-        <div class="test-case-duration">Duration: 0.09ms</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -828,7 +3682,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should handle text without special characters</div>
-        <div class="test-case-duration">Duration: 0.09ms</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -839,7 +3693,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should remove dangerous patterns</div>
-        <div class="test-case-duration">Duration: 0.34ms</div>
+        <div class="test-case-duration">Duration: 0.29ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -850,7 +3704,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should limit query length</div>
-        <div class="test-case-duration">Duration: 0.20ms</div>
+        <div class="test-case-duration">Duration: 0.17ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -861,7 +3715,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should respect custom max length</div>
-        <div class="test-case-duration">Duration: 0.04ms</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -894,7 +3748,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should handle empty input</div>
-        <div class="test-case-duration">Duration: 0.03ms</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -905,7 +3759,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should remove script tags</div>
-        <div class="test-case-duration">Duration: 0.62ms</div>
+        <div class="test-case-duration">Duration: 0.58ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -916,7 +3770,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should remove style tags</div>
-        <div class="test-case-duration">Duration: 0.33ms</div>
+        <div class="test-case-duration">Duration: 0.32ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -938,7 +3792,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should remove Vue directives</div>
-        <div class="test-case-duration">Duration: 0.04ms</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -949,7 +3803,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should limit content length</div>
-        <div class="test-case-duration">Duration: 64.98ms</div>
+        <div class="test-case-duration">Duration: 154.78ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -960,7 +3814,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should handle empty input</div>
-        <div class="test-case-duration">Duration: 0.06ms</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -971,7 +3825,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should detect script tags</div>
-        <div class="test-case-duration">Duration: 0.28ms</div>
+        <div class="test-case-duration">Duration: 0.29ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -982,7 +3836,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should detect javascript: protocol</div>
-        <div class="test-case-duration">Duration: 0.22ms</div>
+        <div class="test-case-duration">Duration: 0.35ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -993,7 +3847,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should detect event handlers</div>
-        <div class="test-case-duration">Duration: 0.07ms</div>
+        <div class="test-case-duration">Duration: 0.24ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -1004,7 +3858,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should not flag safe Vue.js patterns</div>
-        <div class="test-case-duration">Duration: 0.07ms</div>
+        <div class="test-case-duration">Duration: 0.18ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -1015,7 +3869,7 @@
       </div>
       <div class="test-case passed">
         <div class="test-case-title">✅ should handle empty input</div>
-        <div class="test-case-duration">Duration: 0.02ms</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
         <details class="test-case-description">
                   <summary>What does this test verify?</summary>
                   <div class="description-content">
@@ -1027,8 +3881,8 @@
     </div>
     
     <footer>
-      <p>Generated on 1/5/2026, 9:12:02 AM</p>
-      <p>Total duration: 0.87 seconds</p>
+      <p>Generated on 1/5/2026, 10:23:05 AM</p>
+      <p>Total duration: 1.69 seconds</p>
     </footer>
     </main>
   </div>

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "totalTests": 51,
-    "passedTests": 51,
+    "totalTests": 300,
+    "passedTests": 300,
     "failedTests": 0,
     "skippedTests": 0,
-    "duration": 869,
-    "generatedAt": "2026-01-05T15:12:02.024Z"
+    "duration": 1685,
+    "generatedAt": "2026-01-05T16:23:05.821Z"
   },
   "testResults": []
 }
