@@ -210,13 +210,8 @@ Accessibility isn't optional -- it's a legal requirement, moral obligation, and 
 
 **VPP Accessibility Documentation** - This project's accessibility documentation and audit logs.
 
-- **Link**: [/accessibility/documentation](/accessibility/documentation)
-- **Purpose**: Project-specific accessibility features, testing, and compliance documentation
-
-**VPP Accessibility Audit Log** - Chronological record of all accessibility-related changes and updates.
-
-- **Link**: [/accessibility/audit-log](/accessibility/audit-log)
-- **Purpose**: Tracks all accessibility related changes and updates for this project, providing transparency and compliance history
+- **Link**: [/docs/accessibility/](/docs/accessibility/)
+- **Purpose**: Project-specific accessibility features, testing, and compliance documentation (static HTML reports)
 
 ---
 

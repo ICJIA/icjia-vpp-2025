@@ -26,7 +26,6 @@ const DEFAULT_ROUTES = [
   "/organizational-and-agency-highlights",
   "/download",
   "/contact",
-  "/accessibility/audit-log",
   "/legal/privacy-policy",
   "/legal/terms-of-service",
 ];

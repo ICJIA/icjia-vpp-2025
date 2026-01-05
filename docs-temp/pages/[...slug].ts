@@ -801,53 +801,6 @@ onMounted(() => {
   }, 100);
 });
 
-// TEMPORARY client-side sanitizer for audit log page list/link semantics
-// Scope strictly to /accessibility/audit-log to resolve axe "list", "listitem", and "link-name"
-// This adjusts malformed UL children and adds labels for empty anchors at runtime.
-onMounted(() => {
-  if (route.path === "/accessibility/audit-log") {
-    try {
-      const root = document.querySelector(".content-renderer");
-      if (!root) return;
-
-      // Ensure <ul> contains only <li> direct children
-      root.querySelectorAll("ul").forEach((ul) => {
-        const children = Array.from(ul.children);
-        children.forEach((el) => {
-          if (el.tagName === "A") {
-            const li = document.createElement("li");
-            ul.replaceChild(li, el);
-            li.appendChild(el);
-          }
-        });
-      });
-
-      // Ensure each focusable <a> has discernible text or an ARIA label
-      root.querySelectorAll("a[href]").forEach((a) => {
-        const text = (a.textContent || "").trim();
-        const hasAccessibleName =
-          !!text ||
-          a.hasAttribute("aria-label") ||
-          a.hasAttribute("aria-labelledby") ||
-          !!a.title;
-        if (!hasAccessibleName) {
-          const href = a.getAttribute("href") || "";
-          let label = "Link";
-          if (href.startsWith("#")) label = `Jump to section ${href.slice(1)}`;
-          a.setAttribute("aria-label", label);
-          // Add sr-only fallback text to ensure name in all AT
-          const sr = document.createElement("span");
-          sr.className = "sr-only";
-          sr.textContent = label;
-          a.appendChild(sr);
-        }
-      });
-    } catch (e) {
-      console.warn("Audit-log semantic sanitizer failed", e);
-    }
-  }
-});
-
 // Store MutationObserver reference for cleanup
 let scrollableRegionObserver = null;
 

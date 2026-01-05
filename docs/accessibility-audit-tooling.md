@@ -141,7 +141,6 @@ reports/axe/YYYY-MM-DDTHH-MM-SS/
   "/organizational-and-agency-highlights",
   "/download",
   "/contact",
-  "/accessibility/audit-log",
   "/legal/privacy-policy",
   "/legal/terms-of-service"
 ]
@@ -229,12 +228,11 @@ View audit results in the documentation portal:
 - [Illinois IITAA 2.1 Standards](https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html)
 - [Google Lighthouse](https://developers.google.com/web/tools/lighthouse)
 - [axe DevTools](https://www.deque.com/axe/devtools/)
-- [Accessibility Audit Log](/accessibility/audit-log)
 
 ## Support
 
 For questions or issues with the audit tooling:
-1. Check the audit log: `/accessibility/audit-log`
-2. Review documentation: `/documentation/`
+1. Review documentation: `/documentation/`
+2. Check accessibility reports: `/docs/accessibility/`
 3. Contact: accessibility@icjia.illinois.gov
 

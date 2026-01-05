@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp.icjia.illinois.gov",
-  "generatedAt": "2026-01-05T16:34:44.360Z",
+  "generatedAt": "2026-01-05T16:48:15.516Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 22,
-    "contentPages": 22,
+    "totalPages": 19,
+    "contentPages": 19,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1
@@ -22,45 +22,6 @@
           "type": "content",
           "source": "content/index.md",
           "title": "Violence Prevention Plan for Illinois: 2025-2029 - Home"
-        }
-      ]
-    },
-    {
-      "title": "Accessibility Audit Log",
-      "path": "/accessibility/audit-log",
-      "fullUrl": "https://vpp.icjia.illinois.gov/accessibility/audit-log",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/accessibility/audit-log.md",
-          "title": "Accessibility Audit Log"
-        }
-      ]
-    },
-    {
-      "title": "How to run the axe-core accessibility audit",
-      "path": "/accessibility/axe-audit",
-      "fullUrl": "https://vpp.icjia.illinois.gov/accessibility/axe-audit",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/accessibility/axe-audit.md",
-          "title": "How to run the axe-core accessibility audit"
-        }
-      ]
-    },
-    {
-      "title": "Accessibility Documentation",
-      "path": "/accessibility/documentation",
-      "fullUrl": "https://vpp.icjia.illinois.gov/accessibility/documentation",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/accessibility/documentation.md",
-          "title": "Accessibility Documentation"
         }
       ]
     },
@@ -300,12 +261,12 @@
     }
   ],
   "stats": {
-    "totalPages": 22,
-    "contentPages": 22,
+    "totalPages": 19,
+    "contentPages": 19,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1,
     "menuIntegratedPages": 1,
-    "orphanedPages": 21
+    "orphanedPages": 18
   }
 }

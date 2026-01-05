@@ -143,8 +143,6 @@ Controls site functionality and features:
 | `themes.default`              | String  | Default theme ("light" or "dark")   |
 | `themes.options`              | Array   | Available theme options             |
 | `accessibility.wcagLevel`     | String  | Target WCAG compliance level        |
-| `accessibility.auditLog`      | String  | Accessibility audit log path        |
-| `accessibility.documentation` | String  | Accessibility documentation path    |
 
 ### UI Section
 

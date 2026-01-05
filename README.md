@@ -108,8 +108,8 @@ This project demonstrates exceptional accessibility compliance with comprehensiv
 
 For detailed accessibility information, see:
 
-- **[Accessibility Documentation](https://vpp.icjia.illinois.gov/accessibility/documentation)**: Complete accessibility guide and features
-- **[Accessibility Audit Log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Chronological record of accessibility improvements
+- **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/)**: Complete accessibility reports and documentation
+- **[Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/)**: WCAG 2.1 AA compliance audit results
 - **[Lighthouse Audit Results](https://github.com/ICJIA/icjia-vpp-2025/tree/main/reports/lighthouse)**: Detailed accessibility test reports
 
 ## Security Analysis & Compliance
@@ -163,7 +163,6 @@ This project has undergone comprehensive security analysis and implements indust
 
 For detailed security analysis and audit logs, see:
 
-- **[Project Audit Log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Complete security implementation history
 - **[Search Security Audit](https://github.com/ICJIA/icjia-vpp-2025/blob/main/docs/search-security-audit.md)**: Detailed search functionality security assessment
 
 _Last Security Review: October 31, 2025_
@@ -359,9 +358,8 @@ This project maintains comprehensive accessibility resources and automated testi
 
 #### Accessibility Documentation
 
-- **[Project Accessibility Documentation](https://vpp.icjia.illinois.gov/accessibility/documentation)**: Complete accessibility guide with latest audit results (October 31, 2025)
-- **[Accessibility Audit Log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Chronological record of all accessibility improvements and compliance status
 - **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/)**: Complete developer documentation including:
+  - **Accessibility Report**: WCAG 2.1 AA compliance audit results at `/docs/accessibility/`
   - **Federal Guidelines**: WCAG 2.1, Section 508, and ADA Digital Accessibility Rule compliance
   - **Social Media Accessibility**: Platform-specific guidelines for YouTube, LinkedIn, Facebook, and X (Twitter)
   - **Email Marketing Accessibility**: Accessible email campaign creation with Constant Contact
@@ -398,8 +396,7 @@ As a state agency, ICJIA must comply with federal ADA requirements and Illinois 
 - **[WCAG 2.1 Guidelines](https://www.w3.org/TR/WCAG21/)**: Web Content Accessibility Guidelines 2.1
 - **[Illinois Information Technology Accessibility Act (IITAA) 2.1 Standards](https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html)**: State accessibility requirements
 
-These resources are available through the Nuxt Content v3 system and static documentation generation:
+These resources are available through the static documentation portal:
 
-- **[User-facing accessibility documentation](https://vpp.icjia.illinois.gov/accessibility/documentation)**: Complete accessibility guide and features
-- **[Technical accessibility audit log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Chronological record of accessibility improvements
 - **[Developer documentation portal](https://vpp.icjia.illinois.gov/docs/)**: Accessibility reports, test results, API documentation, and architecture guide
+- **[Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/)**: WCAG 2.1 AA compliance audit results

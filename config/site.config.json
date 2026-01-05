@@ -60,9 +60,7 @@
       ]
     },
     "accessibility": {
-      "wcagLevel": "AA",
-      "auditLog": "/accessibility/audit-log",
-      "documentation": "/accessibility/documentation"
+      "wcagLevel": "AA"
     },
     "analytics": {
       "enabled": false,

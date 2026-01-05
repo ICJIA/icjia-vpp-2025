@@ -52,13 +52,11 @@ describe('Navigation E2E Tests', () => {
 
     it('should have accessibility routes defined', () => {
       const accessibilityRoutes = [
-        '/accessibility',
-        '/accessibility/documentation',
-        '/accessibility/feedback'
+        '/docs/accessibility/'
       ];
       
-      expect(accessibilityRoutes).toContain('/accessibility');
-      expect(accessibilityRoutes.length).toBe(3);
+      expect(accessibilityRoutes).toContain('/docs/accessibility/');
+      expect(accessibilityRoutes.length).toBe(1);
     });
 
     it('should have legal routes defined', () => {
