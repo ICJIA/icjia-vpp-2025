@@ -514,7 +514,19 @@ This runs on the server side and attempts to create the same placeholder, even i
 
 ## 5. Unit & E2E Test Report
 
-Generate HTML reports from Vitest test results.
+Generate HTML reports from Vitest test results with **expandable descriptions** for each test.
+
+### Key Features
+
+- **Project Categorization**: Tests are grouped by directory (`utils`, `composables`, `components`, `e2e`, etc.)
+- **Expandable Test Descriptions**: Each test has a "What does this test verify?" dropdown explaining its purpose
+- **Pass/Fail Statistics**: Summary statistics with visual indicators
+- **Duration Tracking**: Individual test execution times
+- **Failure Details**: Stack traces for failed tests
+
+### Reference Implementation
+
+See the live example at: [https://accessibility.icjia.app/docs/tests/](https://accessibility.icjia.app/docs/tests/)
 
 ### Prerequisites
 
@@ -541,15 +553,120 @@ const CONFIG = {
   testProjects: ["unit", "nuxt"],
 };
 
-// Test descriptions for HTML report
+/**
+ * Test Descriptions
+ * Maps test name patterns to human-readable descriptions explaining what each test verifies.
+ * Used to generate expandable documentation in the HTML test report.
+ *
+ * IMPORTANT: Add a description for EVERY test in your project.
+ * The description appears in a <details> dropdown under each test result.
+ */
 const TEST_DESCRIPTIONS = {
-  "should calculate days remaining correctly":
-    "Verifies the countdown timer calculates days until deadline accurately " +
-    "using Chicago timezone (America/Chicago, CDT = UTC-5).",
-  "should render FAQ items":
-    "Confirms the FAQ accordion component renders all FAQ items correctly.",
-  // Add descriptions for each test...
+  // Sanitize Utility Tests
+  "should escape < character":
+    "Verifies the sanitizeString function converts '<' to '&lt;' HTML entity. This prevents XSS attacks by ensuring user input containing HTML tags cannot be interpreted as actual HTML when rendered in the browser.",
+  "should escape > character":
+    "Confirms the sanitizeString function converts '>' to '&gt;' HTML entity. Combined with '<' escaping, this neutralizes any HTML tag injection attempts in user-supplied content.",
+
+  // Config Loader Tests
+  "should load configuration from file":
+    "Verifies the config loader can read JSON configuration files from the config/ directory. Configuration is loaded synchronously at startup for immediate availability.",
+
+  // Composable Tests
+  "should return a composable object":
+    "Verifies the composable returns an object with expected properties. This confirms the composable's public API is correct.",
+
+  // Add descriptions for each test in your project...
+  // The key must match the test title exactly (from the `it()` or `test()` call)
 };
+```
+
+#### Project Categorization (Lines 470-485)
+
+The test runner categorizes tests by directory for organized reporting:
+
+```javascript
+// Track stats by project/category
+const fileName = testFile.name || "";
+let project = "other";
+if (fileName.includes("/test/utils/")) project = "utils";
+else if (fileName.includes("/test/composables/")) project = "composables";
+else if (fileName.includes("/test/components/")) project = "components";
+else if (fileName.includes("/test/plugins/")) project = "plugins";
+else if (fileName.includes("/test/unit/")) project = "unit";
+else if (fileName.includes("/test/nuxt/")) project = "nuxt";
+else if (fileName.includes("/test/e2e/")) project = "e2e";
+```
+
+#### Description Dropdown HTML (Lines 1057-1068)
+
+Each test case generates an expandable description:
+
+```javascript
+const statusIcon =
+  caseStatus === "passed" ? "✅" : caseStatus === "failed" ? "❌" : "⚠️";
+
+// Look up description for this test
+const description = TEST_DESCRIPTIONS[title] || null;
+const descriptionHTML = description
+  ? `<details class="test-case-description">
+      <summary>What does this test verify?</summary>
+      <div class="description-content">
+        <p>${description}</p>
+      </div>
+    </details>`
+  : "";
+
+return `
+  <div class="test-case ${caseClass}">
+    <div class="test-case-title">${statusIcon} ${title}</div>
+    <div class="test-case-duration">Duration: ${duration}</div>
+    ${descriptionHTML}
+    ${failureHTML}
+  </div>`;
+```
+
+#### Description Dropdown CSS
+
+```css
+.test-case-description {
+  margin-top: 0.5rem;
+}
+
+.test-case-description summary {
+  font-size: 0.8rem;
+  color: #0d6efd;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.test-case-description summary:hover {
+  text-decoration: underline;
+}
+
+.test-case-description summary::before {
+  content: "▶";
+  font-size: 0.6rem;
+  transition: transform 0.2s ease;
+}
+
+.test-case-description[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.test-case-description .description-content {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #e7f1ff;
+  border-left: 3px solid #0d6efd;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #0a58ca;
+  line-height: 1.5;
+}
 ```
 
 #### Test Execution (Lines 100-200)

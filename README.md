@@ -162,7 +162,7 @@ This project has undergone comprehensive security analysis and implements indust
 
 For detailed security analysis and audit logs, see:
 
-- **[Project Audit Log](https://vpp.icjia.illinois.gov/documentation/audit-log/)**: Complete security implementation history
+- **[Project Audit Log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Complete security implementation history
 - **[Search Security Audit](https://github.com/ICJIA/icjia-vpp-2025/blob/main/docs/search-security-audit.md)**: Detailed search functionality security assessment
 
 _Last Security Review: October 31, 2025_
@@ -303,7 +303,7 @@ This project maintains comprehensive accessibility resources and automated testi
 
 - **[Project Accessibility Documentation](https://vpp.icjia.illinois.gov/accessibility/documentation)**: Complete accessibility guide with latest audit results (October 31, 2025)
 - **[Accessibility Audit Log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Chronological record of all accessibility improvements and compliance status
-- **[Tooling and Accessibility Resources](https://vpp.icjia.illinois.gov/documentation/tools/)**: Comprehensive digital accessibility resources including:
+- **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/)**: Complete developer documentation including:
   - **Federal Guidelines**: WCAG 2.1, Section 508, and ADA Digital Accessibility Rule compliance
   - **Social Media Accessibility**: Platform-specific guidelines for YouTube, LinkedIn, Facebook, and X (Twitter)
   - **Email Marketing Accessibility**: Accessible email campaign creation with Constant Contact
@@ -329,11 +329,11 @@ As a state agency, ICJIA must comply with federal ADA requirements and Illinois 
 
 ### Documentation Portal
 
-- **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/documentation/)**: Complete technical documentation including:
-  - **[Tooling and Accessibility Resources](https://vpp.icjia.illinois.gov/documentation/tools/)**: Comprehensive digital accessibility resources for web, mobile, social media, and video accessibility, plus development tools and frameworks
-  - **[Component Documentation](https://vpp.icjia.illinois.gov/documentation/components/)**: Vue component API reference and usage examples
-  - **[JSDoc API Reference](https://vpp.icjia.illinois.gov/documentation/jsdoc/)**: Detailed API documentation for all functions and modules
-  - **[Project Documentation](https://vpp.icjia.illinois.gov/documentation/dev/)**: Development guidelines, build processes, and technical specifications
+- **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/)**: Complete technical documentation including:
+  - **[Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/)**: WCAG 2.1 AA compliance audit results with axe-core testing across mobile, tablet, and desktop viewports in light and dark themes
+  - **[Test Results](https://vpp.icjia.illinois.gov/docs/tests/)**: Unit test results with expandable descriptions explaining what each test verifies
+  - **[API Documentation](https://vpp.icjia.illinois.gov/docs/jsdoc/)**: TypeDoc-generated documentation for composables, utilities, and plugins
+  - **[Architecture Guide](https://vpp.icjia.illinois.gov/docs/architecture/)**: Complete technical architecture and implementation guide
 
 ### External Standards and Guidelines
 
@@ -344,4 +344,4 @@ These resources are available through the Nuxt Content v3 system and static docu
 
 - **[User-facing accessibility documentation](https://vpp.icjia.illinois.gov/accessibility/documentation)**: Complete accessibility guide and features
 - **[Technical accessibility audit log](https://vpp.icjia.illinois.gov/accessibility/audit-log)**: Chronological record of accessibility improvements
-- **[Developer documentation portal](https://vpp.icjia.illinois.gov/documentation/)**: Component and API references with technical specifications
+- **[Developer documentation portal](https://vpp.icjia.illinois.gov/docs/)**: Accessibility reports, test results, API documentation, and architecture guide

@@ -36,7 +36,7 @@
     "create:tools-docs": "node scripts/generate-tools-documentation.js",
     "ensure:accessibility-report": "node scripts/ensure-accessibility-report.js",
     "extract:vue-scripts": "node scripts/extract-vue-scripts.js",
-    "generate:jsdoc": "yarn extract:vue-scripts && typedoc",
+    "generate:jsdoc": "yarn extract:vue-scripts && npx typedoc",
     "generate:architecture": "node scripts/generate-architecture-docs.js",
     "generate:accessibility": "node audit-accessibility.js",
     "sync:accessibility-audit": "node scripts/sync-accessibility-audit-logs.js",

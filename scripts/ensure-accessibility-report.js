@@ -13,27 +13,27 @@
  * @module scripts/ensure-accessibility-report
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(__dirname, "..");
 
 /**
  * Format date in Chicago timezone
  */
 function formatChicagoDate() {
-  return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Chicago',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    timeZoneName: 'short',
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZoneName: "short",
   }).format(new Date());
 }
 
@@ -258,23 +258,25 @@ function generatePlaceholderHTML() {
  * Main function to ensure placeholder exists
  */
 function ensurePlaceholder() {
-  const reportDir = path.join(projectRoot, 'public', 'docs', 'accessibility');
-  const reportFile = path.join(reportDir, 'index.html');
+  const reportDir = path.join(projectRoot, "public", "docs", "accessibility");
+  const reportFile = path.join(reportDir, "index.html");
 
   // Create directory if it doesn't exist
   if (!fs.existsSync(reportDir)) {
     fs.mkdirSync(reportDir, { recursive: true });
-    console.log('✓ Created accessibility report directory');
+    console.log("✓ Created accessibility report directory");
   }
 
   // Only create placeholder if report doesn't exist
   if (!fs.existsSync(reportFile)) {
     const html = generatePlaceholderHTML();
     fs.writeFileSync(reportFile, html);
-    console.log('✓ Created accessibility report placeholder');
-    console.log('  Run "yarn generate:accessibility" to generate a real report');
+    console.log("✓ Created accessibility report placeholder");
+    console.log(
+      '  Run "yarn generate:accessibility" to generate a real report'
+    );
   } else {
-    console.log('✓ Accessibility report already exists');
+    console.log("✓ Accessibility report already exists");
   }
 }
 
@@ -283,10 +285,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   try {
     ensurePlaceholder();
   } catch (error) {
-    console.error('✗ Failed to ensure accessibility report:', error.message);
+    console.error("✗ Failed to ensure accessibility report:", error.message);
     process.exit(1);
   }
 }
 
 export { ensurePlaceholder, generatePlaceholderHTML };
-

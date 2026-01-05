@@ -2834,24 +2834,104 @@ yarn audit:a11y</code></pre>
 
 <p><strong>Problem</strong>: Tests serve as documentation, but often their purpose is unclear</p>
 
-<p><strong>Solution</strong>: Comprehensive test descriptions in HTML reports</p>
+<p><strong>Solution</strong>: Comprehensive test descriptions in HTML reports with expandable dropdowns</p>
+
+<p><strong>Reference Implementation</strong>: <a href="https://accessibility.icjia.app/docs/tests/" target="_blank" rel="noopener noreferrer">https://accessibility.icjia.app/docs/tests/</a></p>
 
 <p><strong>File</strong>: <a href="https://github.com/ICJIA/icjia-accessibility-portal/blob/main/test/run-all-tests.js" target="_blank" rel="noopener noreferrer"><code>test/run-all-tests.js</code></a></p>
 
-<p><strong>Implementation</strong>:</p>
+<h4 id="project-categorization">Project Categorization</h4>
 
-<pre><code class="language-javascript">// Test descriptions provide context for each test
-const TEST_DESCRIPTIONS = {
-  &quot;should calculate days remaining correctly&quot;: 
-    &quot;Verifies days until the April 24, 2026 deadline are calculated accurately &quot; +
-    &quot;using Chicago timezone (America/Chicago, CDT = UTC-5). The calculation &quot; +
-    &quot;divides milliseconds difference by (1000 * 60 * 60 * 24) and floors the result.&quot;,
+<p>Tests are automatically categorized by their directory structure for organized reporting:</p>
+
+<pre><code class="language-javascript">// Track stats by project/category
+const fileName = testFile.name || &quot;&quot;;
+let project = &quot;other&quot;;
+if (fileName.includes(&quot;/test/utils/&quot;)) project = &quot;utils&quot;;
+else if (fileName.includes(&quot;/test/composables/&quot;)) project = &quot;composables&quot;;
+else if (fileName.includes(&quot;/test/components/&quot;)) project = &quot;components&quot;;
+else if (fileName.includes(&quot;/test/plugins/&quot;)) project = &quot;plugins&quot;;
+else if (fileName.includes(&quot;/test/unit/&quot;)) project = &quot;unit&quot;;
+else if (fileName.includes(&quot;/test/nuxt/&quot;)) project = &quot;nuxt&quot;;
+else if (fileName.includes(&quot;/test/e2e/&quot;)) project = &quot;e2e&quot;;</code></pre>
+
+<h4 id="test-description-object">Test Description Object</h4>
+
+<pre><code class="language-javascript">const TEST_DESCRIPTIONS = {
+  // Sanitize Utility Tests
+  &quot;should escape &lt; character&quot;: &quot;Verifies the sanitizeString function converts &#039;&lt;&#039; to &#039;&amp;lt;&#039; HTML entity. This prevents XSS attacks by ensuring user input containing HTML tags cannot be interpreted as actual HTML when rendered in the browser.&quot;,
   
-  &quot;should have proper heading structure&quot;:
-    &quot;Ensures the generated Word document includes proper heading levels (H1-H4) &quot; +
-    &quot;for screen reader navigation. Screen reader users can jump between headings, &quot; +
-    &quot;so proper hierarchy is essential for accessibility.&quot;,
-  // ...
+  // Config Loader Tests
+  &quot;should load configuration from file&quot;: &quot;Verifies the config loader can read JSON configuration files from the config/ directory. Configuration is loaded synchronously at startup for immediate availability.&quot;,
+  
+  // Composable Tests
+  &quot;should return a composable object&quot;: &quot;Verifies the composable returns an object with expected properties. This confirms the composable&#039;s public API is correct.&quot;,
+  
+  // Add descriptions for each test in your project...
+  // The key must match the test title exactly (from the `it()` or `test()` call)
+};</code></pre>
+
+<h4 id="html-dropdown-generation">HTML Dropdown Generation</h4>
+
+<p>Each test case generates an expandable description using the <code><details></code> element:</p>
+
+<pre><code class="language-javascript">const statusIcon = caseStatus === &quot;passed&quot; ? &quot;✅&quot; : caseStatus === &quot;failed&quot; ? &quot;❌&quot; : &quot;⚠️&quot;;
+
+// Look up description for this test
+const description = TEST_DESCRIPTIONS[title] || null;
+const descriptionHTML = description
+  ? `&lt;details class=&quot;test-case-description&quot;&gt;
+      &lt;summary&gt;What does this test verify?&lt;/summary&gt;
+      &lt;div class=&quot;description-content&quot;&gt;
+        &lt;p&gt;${description}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/details&gt;`
+  : &quot;&quot;;
+
+return `
+  &lt;div class=&quot;test-case ${caseClass}&quot;&gt;
+    &lt;div class=&quot;test-case-title&quot;&gt;${statusIcon} ${title}&lt;/div&gt;
+    &lt;div class=&quot;test-case-duration&quot;&gt;Duration: ${duration}&lt;/div&gt;
+    ${descriptionHTML}
+    ${failureHTML}
+  &lt;/div&gt;`;</code></pre>
+
+<h4 id="dropdown-css-styling">Dropdown CSS Styling</h4>
+
+<pre><code class="language-css">.test-case-description {
+  margin-top: 0.5rem;
+}
+
+.test-case-description summary {
+  font-size: 0.8rem;
+  color: #0d6efd;
+  cursor: pointer;
+  user-select: none;
+}
+
+.test-case-description summary:hover {
+  text-decoration: underline;
+}
+
+.test-case-description summary::before {
+  content: &#039;▶&#039;;
+  font-size: 0.6rem;
+  transition: transform 0.2s ease;
+}
+
+.test-case-description[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.test-case-description .description-content {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #e7f1ff;
+  border-left: 3px solid #0d6efd;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #0a58ca;
+  line-height: 1.5;
 }</code></pre>
 
 <p><strong>Best Practices for Test Descriptions</strong>:</p>
@@ -2864,7 +2944,7 @@ const TEST_DESCRIPTIONS = {
 </ul>
 <p><strong>Example of a Good Description</strong>:</p>
 
-<blockquote>"Verifies the dialog uses Vuetify's useDisplay composable with smAndDown breakpoint to detect mobile devices. On screens smaller than 600px, the dialog renders in fullscreen mode for better touch interaction."</blockquote>
+<blockquote>"Verifies the sanitizeString function converts '<' to '&lt;' HTML entity. This prevents XSS attacks by ensuring user input containing HTML tags cannot be interpreted as actual HTML when rendered in the browser."</blockquote>
 
 <p><strong>Benefits</strong>:</p>
 
@@ -2872,6 +2952,7 @@ const TEST_DESCRIPTIONS = {
 <li>Tests serve as living documentation</li>
 <li>New developers understand test purpose</li>
 <li>AI/LLM can understand testing requirements</li>
+<li>Non-technical stakeholders can review test coverage</li>
 <li>HTML reports are self-explanatory</li>
 <li>Debugging is faster with context</li>
 </ul>

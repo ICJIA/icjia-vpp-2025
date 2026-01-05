@@ -2299,25 +2299,119 @@ yarn audit:a11y
 
 **Problem**: Tests serve as documentation, but often their purpose is unclear
 
-**Solution**: Comprehensive test descriptions in HTML reports
+**Solution**: Comprehensive test descriptions in HTML reports with expandable dropdowns
+
+**Reference Implementation**: [https://accessibility.icjia.app/docs/tests/](https://accessibility.icjia.app/docs/tests/)
 
 **File**: [`test/run-all-tests.js`](https://github.com/ICJIA/icjia-accessibility-portal/blob/main/test/run-all-tests.js)
 
-**Implementation**:
+#### Project Categorization
+
+Tests are automatically categorized by their directory structure for organized reporting:
 
 ```javascript
-// Test descriptions provide context for each test
+// Track stats by project/category
+const fileName = testFile.name || "";
+let project = "other";
+if (fileName.includes("/test/utils/")) project = "utils";
+else if (fileName.includes("/test/composables/")) project = "composables";
+else if (fileName.includes("/test/components/")) project = "components";
+else if (fileName.includes("/test/plugins/")) project = "plugins";
+else if (fileName.includes("/test/unit/")) project = "unit";
+else if (fileName.includes("/test/nuxt/")) project = "nuxt";
+else if (fileName.includes("/test/e2e/")) project = "e2e";
+```
+
+#### Test Description Object
+
+```javascript
+/**
+ * Test Descriptions
+ * Maps test name patterns to human-readable descriptions explaining what each test verifies.
+ * Used to generate expandable documentation in the HTML test report.
+ * 
+ * IMPORTANT: Add a description for EVERY test in your project.
+ * The description appears in a <details> dropdown under each test result.
+ */
 const TEST_DESCRIPTIONS = {
-  "should calculate days remaining correctly": 
-    "Verifies days until the April 24, 2026 deadline are calculated accurately " +
-    "using Chicago timezone (America/Chicago, CDT = UTC-5). The calculation " +
-    "divides milliseconds difference by (1000 * 60 * 60 * 24) and floors the result.",
+  // Sanitize Utility Tests
+  "should escape < character": "Verifies the sanitizeString function converts '<' to '&lt;' HTML entity. This prevents XSS attacks by ensuring user input containing HTML tags cannot be interpreted as actual HTML when rendered in the browser.",
   
-  "should have proper heading structure":
-    "Ensures the generated Word document includes proper heading levels (H1-H4) " +
-    "for screen reader navigation. Screen reader users can jump between headings, " +
-    "so proper hierarchy is essential for accessibility.",
-  // ...
+  // Config Loader Tests
+  "should load configuration from file": "Verifies the config loader can read JSON configuration files from the config/ directory. Configuration is loaded synchronously at startup for immediate availability.",
+  
+  // Composable Tests
+  "should return a composable object": "Verifies the composable returns an object with expected properties. This confirms the composable's public API is correct.",
+  
+  // Add descriptions for each test in your project...
+  // The key must match the test title exactly (from the `it()` or `test()` call)
+};
+```
+
+#### HTML Dropdown Generation
+
+Each test case generates an expandable description using the `<details>` element:
+
+```javascript
+const statusIcon = caseStatus === "passed" ? "✅" : caseStatus === "failed" ? "❌" : "⚠️";
+
+// Look up description for this test
+const description = TEST_DESCRIPTIONS[title] || null;
+const descriptionHTML = description
+  ? `<details class="test-case-description">
+      <summary>What does this test verify?</summary>
+      <div class="description-content">
+        <p>${description}</p>
+      </div>
+    </details>`
+  : "";
+
+return `
+  <div class="test-case ${caseClass}">
+    <div class="test-case-title">${statusIcon} ${title}</div>
+    <div class="test-case-duration">Duration: ${duration}</div>
+    ${descriptionHTML}
+    ${failureHTML}
+  </div>`;
+```
+
+#### Dropdown CSS Styling
+
+```css
+.test-case-description {
+  margin-top: 0.5rem;
+}
+
+.test-case-description summary {
+  font-size: 0.8rem;
+  color: #0d6efd;
+  cursor: pointer;
+  user-select: none;
+}
+
+.test-case-description summary:hover {
+  text-decoration: underline;
+}
+
+.test-case-description summary::before {
+  content: '▶';
+  font-size: 0.6rem;
+  transition: transform 0.2s ease;
+}
+
+.test-case-description[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.test-case-description .description-content {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #e7f1ff;
+  border-left: 3px solid #0d6efd;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #0a58ca;
+  line-height: 1.5;
 }
 ```
 
@@ -2330,13 +2424,14 @@ const TEST_DESCRIPTIONS = {
 
 **Example of a Good Description**:
 
-> "Verifies the dialog uses Vuetify's useDisplay composable with smAndDown breakpoint to detect mobile devices. On screens smaller than 600px, the dialog renders in fullscreen mode for better touch interaction."
+> "Verifies the sanitizeString function converts '<' to '&lt;' HTML entity. This prevents XSS attacks by ensuring user input containing HTML tags cannot be interpreted as actual HTML when rendered in the browser."
 
 **Benefits**:
 
 - Tests serve as living documentation
 - New developers understand test purpose
 - AI/LLM can understand testing requirements
+- Non-technical stakeholders can review test coverage
 - HTML reports are self-explanatory
 - Debugging is faster with context
 

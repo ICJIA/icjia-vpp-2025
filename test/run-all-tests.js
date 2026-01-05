@@ -976,8 +976,8 @@ function generateHTMLReport(testResults, outputPath, rootDir) {
   
   <div class="container">
     <main id="main-content" tabindex="-1">
-    <h1>🧪 ICJIA Accessibility Portal - Test Results Report</h1>
-    <p class="meta" style="margin-top: 0.5rem; margin-bottom: 1rem;">Comprehensive test results for unit, Nuxt, and E2E tests</p>
+    <h1>🧪 Violence Prevention Plan - Test Results Report</h1>
+    <p class="meta" style="margin-top: 0.5rem; margin-bottom: 1rem;">Comprehensive test results for composables, utilities, and components</p>
     <div class="meta">
       <p><strong>Generated:</strong> ${formattedDate}, ${formattedTime}</p>
       <p><strong>Total Tests:</strong> ${summary.totalTests}</p>
