@@ -27,8 +27,10 @@
         "/404",
         "/error",
         "/[...slug]",
-        "/documentation",
-        "/documentation/*",
+        "/docs",
+        "/docs/",
+        "/docs/*",
+        "/docs/**",
         "/news",
         "/news/*"
       ]

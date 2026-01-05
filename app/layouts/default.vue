@@ -189,6 +189,8 @@ const enhanceScrollableRegions = () => {
       if (
         isScrollable &&
         !el.hasAttribute("tabindex") &&
+        el.tagName !== "HTML" &&
+        el.tagName !== "BODY" &&
         el.tagName !== "INPUT" &&
         el.tagName !== "TEXTAREA" &&
         el.tagName !== "SELECT" &&
@@ -233,6 +235,8 @@ const enhanceScrollableRegions = () => {
       if (
         isScrollable &&
         !el.hasAttribute("tabindex") &&
+        el.tagName !== "HTML" &&
+        el.tagName !== "BODY" &&
         el.tagName !== "INPUT" &&
         el.tagName !== "TEXTAREA" &&
         el.tagName !== "SELECT" &&

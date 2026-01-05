@@ -187,9 +187,9 @@ Commands executed:
 Useful links:
 
 - Accessibility Audit Log: /accessibility/audit-log
-- Project Audit Log: /documentation/audit-log/
+- Developer Documentation Portal: /docs/
+- Accessibility Report: /docs/accessibility/
 - Axe Audit Runner Script (GitHub): https://github.com/ICJIA/icjia-vpp-2025/blob/main/scripts/axe-audit.js
-- Tools Documentation: /documentation/tools/
 
 ### 4) Previous critical fixes (2025-09-14)
 

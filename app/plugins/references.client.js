@@ -222,27 +222,35 @@ export default defineNuxtPlugin((nuxtApp) => {
 
         // Create tooltip if it doesn't exist
         if (!tooltipElement) {
+          // Ensure parent element has relative positioning for tooltip placement
+          const parentElement = element.parentElement;
+          if (parentElement) {
+            const parentPosition = getComputedStyle(parentElement).position;
+            if (parentPosition === 'static') {
+              parentElement.style.position = 'relative';
+            }
+          }
+
           tooltipElement = document.createElement("div");
-          tooltipElement.className =
-            "v-tooltip__content reference-tooltip-content";
+          tooltipElement.className = "reference-tooltip-inline";
           tooltipElement.setAttribute("role", "tooltip");
           tooltipElement.setAttribute("aria-hidden", "true");
           tooltipElement.textContent = tooltipText;
 
-          // Apply Vuetify-consistent styling with theme-aware colors
+          // Apply styling with theme-aware colors
           const isDarkTheme =
             document.documentElement.getAttribute("data-theme") === "dark";
-          const backgroundColor = isDarkTheme ? "#616161" : "#424242";
+          const backgroundColor = isDarkTheme ? "rgba(30, 40, 60, 0.98)" : "rgba(33, 33, 33, 0.95)";
           const textColor = "#ffffff";
 
           tooltipElement.style.cssText = `
             position: absolute;
-            z-index: 2000;
+            z-index: 9999;
             padding: 12px 16px;
             background-color: ${backgroundColor};
             color: ${textColor};
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
             font-size: 0.875rem;
             line-height: 1.5;
             max-width: 400px;
@@ -255,27 +263,38 @@ export default defineNuxtPlugin((nuxtApp) => {
             pointer-events: none;
           `;
 
-          document.body.appendChild(tooltipElement);
+          // Append to parent element instead of document.body to stay within landmarks
+          if (parentElement) {
+            parentElement.appendChild(tooltipElement);
+          } else {
+            element.appendChild(tooltipElement);
+          }
         }
 
-        // Position tooltip
-        const rect = element.getBoundingClientRect();
-        const tooltipRect = tooltipElement.getBoundingClientRect();
+        // Position tooltip relative to parent
+        const parentElement = element.parentElement;
+        const elementRect = element.getBoundingClientRect();
+        const parentRect = parentElement ? parentElement.getBoundingClientRect() : { left: 0, top: 0 };
+        
+        // Calculate position relative to parent
+        const relativeLeft = elementRect.left - parentRect.left;
+        const relativeTop = elementRect.top - parentRect.top;
+        
+        // Get tooltip dimensions after it's in DOM
+        const tooltipWidth = tooltipElement.offsetWidth || 200;
+        const tooltipHeight = tooltipElement.offsetHeight || 50;
+        
+        // Position above the element, centered
+        let left = relativeLeft + (elementRect.width / 2) - (tooltipWidth / 2);
+        let top = relativeTop - tooltipHeight - 8;
 
-        let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
-        let top = rect.top - tooltipRect.height - 8;
-
-        // Adjust for viewport boundaries
-        if (left < 8) left = 8;
-        if (left + tooltipRect.width > window.innerWidth - 8) {
-          left = window.innerWidth - tooltipRect.width - 8;
+        // Adjust for going off-screen (use viewport check)
+        if (elementRect.top - tooltipHeight - 8 < 0) {
+          top = relativeTop + elementRect.height + 8; // Show below if no room above
         }
-        if (top < 8) {
-          top = rect.bottom + 8; // Show below if no room above
-        }
 
-        tooltipElement.style.left = `${left + window.scrollX}px`;
-        tooltipElement.style.top = `${top + window.scrollY}px`;
+        tooltipElement.style.left = `${Math.max(0, left)}px`;
+        tooltipElement.style.top = `${top}px`;
 
         // Show tooltip with delay for instant popup
         showTimeout = setTimeout(() => {

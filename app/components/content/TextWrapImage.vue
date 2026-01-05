@@ -31,20 +31,18 @@
         :close-delay="500"
         :mobile-close-delay="4000"
       >
-        <template v-slot="{ props }">
-          <div class="image-content-wrapper" v-bind="props">
-            <ImageWithSpinner
-              :src="src"
-              :alt="alt"
-              :width="width"
-              :height="height"
-              :spinner-color="spinnerColor"
-              :spinner-size="24"
-              :eager="eager"
-              :cover="cover"
-            />
-          </div>
-        </template>
+        <div class="image-content-wrapper">
+          <ImageWithSpinner
+            :src="src"
+            :alt="alt"
+            :width="width"
+            :height="height"
+            :spinner-color="spinnerColor"
+            :spinner-size="24"
+            :eager="eager"
+            :cover="cover"
+          />
+        </div>
       </AccessibleTooltip>
       <figcaption
         v-if="caption"

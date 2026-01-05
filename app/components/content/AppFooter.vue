@@ -6,22 +6,19 @@
         <!-- ICJIA Logo section -->
         <div class="footer-icjia-logo d-none d-md-block">
           <AccessibleTooltip text="Go to ICJIA" location="top">
-            <template v-slot="{ props }">
-              <a
-                href="https://icjia.illinois.gov"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="icjia-logo-link"
-                v-bind="props"
-                aria-label="Visit Illinois Criminal Justice Information Authority website"
-              >
-                <img
-                  src="/images/icjia-logo.png"
-                  alt="Illinois Criminal Justice Information Authority Logo"
-                  class="icjia-logo"
-                />
-              </a>
-            </template>
+            <a
+              href="https://icjia.illinois.gov"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="icjia-logo-link"
+              aria-label="Visit Illinois Criminal Justice Information Authority website"
+            >
+              <img
+                src="/images/icjia-logo.png"
+                alt="Illinois Criminal Justice Information Authority Logo"
+                class="icjia-logo"
+              />
+            </a>
           </AccessibleTooltip>
         </div>
 
@@ -102,12 +99,26 @@
             >|</span
           >
 
+          <!-- Documentation Portal -->
+          <a
+            href="/docs/"
+            class="footer-item"
+            aria-label="View Developer Documentation Portal"
+            @click.prevent="navigateToStatic('/docs/')"
+          >
+            Documentation
+          </a>
+
+          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
+            >|</span
+          >
+
           <!-- Accessibility -->
           <a
-            href="/documentation/accessibility/index.html"
+            href="/docs/accessibility/"
             class="footer-item"
             aria-label="View Accessibility Audit Report"
-            @click.prevent="handleAccessibilityClick"
+            @click.prevent="navigateToStatic('/docs/accessibility/')"
           >
             Accessibility
           </a>
@@ -172,12 +183,14 @@ const handleHomeClick = () => {
 };
 
 /**
- * Handle click on accessibility link
- * Force full page navigation to bypass Nuxt router for static file
+ * Navigate to static files in /public/docs/
+ * Uses window.location.href to bypass Nuxt router since these are static HTML files
+ * @param {string} path - Path to navigate to (e.g., '/docs/' or '/docs/accessibility/')
  */
-const handleAccessibilityClick = () => {
-  window.location.href = "/documentation/accessibility/index.html";
+const navigateToStatic = (path) => {
+  window.location.href = path;
 };
+
 </script>
 
 <style scoped>

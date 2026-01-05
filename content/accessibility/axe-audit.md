@@ -144,8 +144,8 @@ A chronological record of recent automated axe runs. Paths are repository-relati
 ## Useful links
 
 - Accessibility Audit Log: /accessibility/audit-log
-- Project Audit Log: /documentation/audit-log/
-- Tools Documentation: /documentation/tools/
+- Developer Documentation Portal: /docs/
+- Accessibility Report: /docs/accessibility/
 - Axe Audit Runner Script (GitHub): https://github.com/ICJIA/icjia-vpp-2025/blob/main/scripts/axe-audit.js
 
 Note: This repository is private. For source code inquiries, please use the Contact page: /contact

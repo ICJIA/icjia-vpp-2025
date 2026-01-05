@@ -1,0 +1,45 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "tsconfig": "./tsconfig.typedoc.json",
+  "entryPoints": [
+    "app/composables/*.ts",
+    "app/composables/*.js",
+    "app/utils/*.ts",
+    "app/utils/*.js",
+    "app/plugins/*.ts",
+    "app/plugins/*.js",
+    "docs-temp/components/*.ts",
+    "docs-temp/pages/*.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "public/docs/jsdoc",
+  "name": "Violence Prevention Plan for Illinois: 2025-2029 - API Documentation",
+  "readme": "none",
+  "includeVersion": false,
+  "excludePrivate": false,
+  "excludeExternals": true,
+  "hideGenerator": true,
+  "searchInComments": true,
+  "sort": ["source-order"],
+  "categoryOrder": [
+    "Composables",
+    "Utilities",
+    "Plugins",
+    "Components",
+    "Pages",
+    "*"
+  ],
+  "theme": "default",
+  "sourceLinkTemplate": "https://github.com/ICJIA/icjia-vpp-2025/blob/main/{path}#L{line}",
+  "skipErrorChecking": true,
+  "exclude": [
+    "**/test/**",
+    "**/tests/**",
+    "**/node_modules/**",
+    "**/*.test.ts",
+    "**/*.test.js",
+    "**/*.spec.ts",
+    "**/*.spec.js"
+  ]
+}
+

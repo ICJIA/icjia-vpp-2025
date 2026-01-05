@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Results Report - 1/5/2026</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #fff;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .meta {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 2rem;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .stat-card {
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      transition: all 0.2s ease;
+    }
+    
+    .stat-card.success {
+      background: #d1e7dd;
+      border-color: #badbcc;
+      color: #0f5132;
+    }
+    
+    .stat-card.error {
+      background: #f8d7da;
+      border-color: #f5c2c7;
+      color: #842029;
+    }
+    
+    .stat-card.warning {
+      background: #fff3cd;
+      border-color: #ffecb5;
+      color: #856404;
+    }
+    
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    
+    .stat-card .label {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    thead {
+      background: #f8f9fa;
+    }
+    
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    th {
+      font-weight: 600;
+      color: #495057;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .status-pass {
+      color: #198754;
+      font-weight: 600;
+    }
+    
+    .status-fail {
+      color: #dc3545;
+      font-weight: 600;
+    }
+    
+    .status-warning {
+      color: #856404;
+      font-weight: 600;
+    }
+    
+    .test-file {
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .test-file-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .test-file-name {
+      font-weight: 600;
+      color: #212529;
+      font-size: 1.1rem;
+    }
+    
+    .test-file-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .test-file-status.passed {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+    
+    .test-file-status.failed {
+      background: #f8d7da;
+      color: #842029;
+    }
+    
+    .test-file-status.skipped {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .test-case {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+      background: #f8f9fa;
+    }
+    
+    .test-case.passed {
+      border-left: 3px solid #198754;
+    }
+    
+    .test-case.failed {
+      border-left: 3px solid #dc3545;
+    }
+    
+    .test-case.skipped {
+      border-left: 3px solid #ffc107;
+    }
+    
+    .test-case-title {
+      font-weight: 500;
+      color: #212529;
+      margin-bottom: 0.25rem;
+    }
+    
+    .test-case-duration {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    
+    .test-case-description {
+      margin-top: 0.5rem;
+    }
+    
+    .test-case-description summary {
+      font-size: 0.8rem;
+      color: #0d6efd;
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .test-case-description summary:hover {
+      text-decoration: underline;
+    }
+    
+    .test-case-description summary::marker {
+      content: '';
+    }
+    
+    .test-case-description summary::before {
+      content: '▶';
+      font-size: 0.6rem;
+      transition: transform 0.2s ease;
+    }
+    
+    .test-case-description[open] summary::before {
+      transform: rotate(90deg);
+    }
+    
+    .test-case-description .description-content {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: #e7f1ff;
+      border-left: 3px solid #0d6efd;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #0a58ca;
+      line-height: 1.5;
+    }
+    
+    .test-case-description .description-content p {
+      margin: 0;
+    }
+    
+    .failure-message {
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background: #f8d7da;
+      border-radius: 4px;
+      border-left: 3px solid #dc3545;
+    }
+    
+    .failure-message pre {
+      color: #842029;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      background: #0d6efd;
+      color: #fff;
+      padding: 12px 24px;
+      text-decoration: none;
+      z-index: 10000;
+      border-radius: 0 0 4px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.5;
+      clip: auto;
+      clip-path: none;
+      transition: top 0.2s ease-in-out;
+    }
+    
+    .skip-link:focus {
+      top: 0;
+      left: 0;
+      outline: 3px solid #0d6efd;
+      outline-offset: 2px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    .skip-link:focus-visible {
+      top: 0;
+      left: 0;
+      outline: 3px solid #0d6efd;
+      outline-offset: 2px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .skip-link {
+        transition: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      table {
+        font-size: 0.875rem;
+      }
+      
+      th, td {
+        padding: 0.5rem;
+      }
+    }
+    
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid #dee2e6;
+      text-align: center;
+      color: #6c757d;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link -->
+  <a
+    href="#main-content"
+    class="skip-link"
+    id="skip-link"
+  >
+    Skip to main content
+  </a>
+  
+  <div class="container">
+    <main id="main-content" tabindex="-1">
+    <h1>🧪 ICJIA Accessibility Portal - Test Results Report</h1>
+    <p class="meta" style="margin-top: 0.5rem; margin-bottom: 1rem;">Comprehensive test results for unit, Nuxt, and E2E tests</p>
+    <div class="meta">
+      <p><strong>Generated:</strong> 1/5/2026, 9:07:51 AM</p>
+      <p><strong>Total Tests:</strong> 51</p>
+      <p><strong>Duration:</strong> 0.83 seconds</p>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-card success">
+        <div class="label">Total Tests</div>
+        <div class="number">51</div>
+      </div>
+      <div class="stat-card success">
+        <div class="label">Passed</div>
+        <div class="number">51</div>
+      </div>
+      <div class="stat-card success">
+        <div class="label">Failed</div>
+        <div class="number">0</div>
+      </div>
+      <div class="stat-card success">
+        <div class="label">Skipped</div>
+        <div class="number">0</div>
+      </div>
+      <div class="stat-card success">
+        <div class="label">Pass Rate</div>
+        <div class="number">100.0%</div>
+      </div>
+    </div>
+    
+    
+    <h2>📋 Test Results by Project</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Total Tests</th>
+          <th>Passed</th>
+          <th>Failed</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>composables</strong></td>
+          <td>10</td>
+          <td class="status-pass">10</td>
+          <td class="status-success">0</td>
+          <td class="status-pass">✅ Pass</td>
+        </tr>
+        <tr>
+          <td><strong>utils</strong></td>
+          <td>41</td>
+          <td class="status-pass">41</td>
+          <td class="status-success">0</td>
+          <td class="status-pass">✅ Pass</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    
+    <h2>📋 All Test Files</h2>
+    
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/composables/useSiteSettings.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            10 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return a composable object</div>
+        <div class="test-case-duration">Duration: 1.25ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies useSiteSettings() returns an object with expected properties: getSetting, getSettings, loadConfig, config, and isLoaded. This confirms the composable's public API is correct.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have readonly config</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the config ref is readonly to prevent accidental mutation of shared configuration state. Vue's readonly() wrapper enforces immutability at runtime.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have loading state</div>
+        <div class="test-case-duration">Duration: 0.14ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies loading and isLoading reactive properties track async config fetching. UI components use this to show loading indicators during initial config load.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should be a function</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms getSetting is a callable function that retrieves individual configuration values. Type checking prevents runtime errors from incorrect usage.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return default value when config is not loaded and fetch fails</div>
+        <div class="test-case-duration">Duration: 3.28ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies getSetting returns the provided default value when configuration loading fails or the key doesn't exist. This provides resilient fallback behavior.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should be a function</div>
+        <div class="test-case-duration">Duration: 0.17ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms getSetting is a callable function that retrieves individual configuration values. Type checking prevents runtime errors from incorrect usage.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle multiple settings</div>
+        <div class="test-case-duration">Duration: 1.31ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms getSettings can retrieve multiple configuration values in a single call using an object mapping. Batch retrieval is more efficient than multiple getSetting calls.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have isLoaded computed property</div>
+        <div class="test-case-duration">Duration: 0.15ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies isLoaded is a Vue computed ref that returns boolean indicating whether config has been successfully loaded. Components use this to conditionally render content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have hasError computed property</div>
+        <div class="test-case-duration">Duration: 0.51ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms hasError computed ref indicates whether configuration loading failed. Error state enables display of appropriate error UI or fallback content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should have isLoading computed property</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies isLoading computed ref tracks active loading state. This three-state system (loading/loaded/error) enables comprehensive UI state management.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/utils/config-loader.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            8 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should load configuration from file</div>
+        <div class="test-case-duration">Duration: 1.18ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the config loader can read JSON configuration files from the config/ directory. Configuration is loaded synchronously at startup for immediate availability.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle missing config files gracefully</div>
+        <div class="test-case-duration">Duration: 0.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms missing configuration files don't crash the application. Default values or empty objects are returned when config files don't exist.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should parse JSON configuration</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies JSON syntax is correctly parsed and JavaScript objects are returned. Invalid JSON should throw a meaningful error during startup.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should retrieve nested configuration values</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms dot-notation paths like 'site.title' correctly traverse nested configuration objects. Deep property access is essential for organized configuration structures.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should return default value if key not found</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the getConfigValue function returns the provided default when a configuration key doesn't exist. This prevents undefined errors in consuming code.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support dot notation for nested keys</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms configuration paths like 'logging.level' or 'site.meta.description' correctly resolve to nested values. Dot notation provides intuitive access to hierarchical config.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should validate required configuration keys</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies essential configuration keys are present and have valid values. Missing required config should fail fast during startup rather than causing runtime errors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should throw error for invalid configuration</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms malformed configuration (wrong types, missing required fields) throws descriptive errors during validation. Early failure with clear messages speeds debugging.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/utils/logger.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            8 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support DEBUG level</div>
+        <div class="test-case-duration">Duration: 1.11ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the logger supports DEBUG log level for verbose development output. DEBUG logs are typically filtered out in production but available for troubleshooting.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support INFO level</div>
+        <div class="test-case-duration">Duration: 0.13ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms INFO log level is available for general application status messages. INFO is the standard level for normal operation logging.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support WARN level</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies WARN level is available for non-critical issues that should be investigated. Warnings indicate potential problems that don't prevent operation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should support ERROR level</div>
+        <div class="test-case-duration">Duration: 0.09ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms ERROR level is available for critical failures. Error logs indicate issues that need immediate attention or prevent normal operation.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should format log messages with timestamps</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies log output includes ISO 8601 timestamps for chronological tracking. Timestamps are essential for debugging and correlating events across distributed systems.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should include log level in output</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms each log message is prefixed with its level (DEBUG, INFO, WARN, ERROR). Level prefixes enable quick scanning and filtering of log output.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should respect log level configuration</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the logger filters messages below the configured threshold. Setting level to WARN should suppress DEBUG and INFO messages.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should filter logs in production</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms production environment uses a higher log level threshold (typically WARN or ERROR) to reduce log noise and improve performance.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    <div class="test-file">
+      <div class="test-file-header">
+        <div class="test-file-name">/test/utils/sanitize.test.js</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="font-size: 0.85rem; color: #6c757d;">
+            25 passed, 0 failed, 0 skipped
+          </span>
+          <span class="test-file-status passed">PASSED</span>
+        </div>
+      </div>
+      
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should escape < character</div>
+        <div class="test-case-duration">Duration: 0.66ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the sanitizeString function converts '<' to '&lt;' HTML entity. This prevents XSS attacks by ensuring user input containing HTML tags cannot be interpreted as actual HTML when rendered in the browser.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should escape > character</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the sanitizeString function converts '>' to '&gt;' HTML entity. Combined with '<' escaping, this neutralizes any HTML tag injection attempts in user-supplied content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should escape & character</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies ampersands are converted to '&amp;' entities. Raw ampersands can break HTML parsing and create unintended entity references, so proper escaping is essential for content safety.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should escape " character</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms double quotes are converted to '&quot;' entities. This prevents attribute injection attacks where malicious quotes could break out of HTML attribute values.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should escape ' character</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies single quotes (apostrophes) are converted to '&#039;' entities. This protects against JavaScript string injection and attribute escaping vulnerabilities in HTML contexts.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty input</div>
+        <div class="test-case-duration">Duration: 0.08ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the sanitization functions return empty string for empty input without throwing errors. Edge case handling prevents runtime crashes from undefined or empty user input.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle null input</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies null values are safely handled and return empty string. Defensive programming ensures the sanitization utilities work with any input type without throwing TypeErrors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle text without special characters</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms that normal text without HTML special characters passes through unchanged. The sanitization should only modify dangerous characters while preserving regular content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should remove dangerous patterns</div>
+        <div class="test-case-duration">Duration: 0.30ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies sanitizeSearchQuery strips potentially malicious patterns from search input. This includes script injection attempts, SQL keywords, and other attack vectors.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should limit query length</div>
+        <div class="test-case-duration">Duration: 0.18ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms search queries are truncated to a maximum length (default 50 characters) to prevent denial-of-service attacks using extremely long search strings that could slow the search algorithm.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should respect custom max length</div>
+        <div class="test-case-duration">Duration: 0.04ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the maxLength parameter allows customization of query length limits. Different contexts may require different maximum lengths for performance or UX reasons.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should normalize whitespace</div>
+        <div class="test-case-duration">Duration: 0.03ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms multiple consecutive spaces are collapsed to single spaces and leading/trailing whitespace is trimmed. This normalizes user input for consistent search behavior.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should remove javascript patterns</div>
+        <div class="test-case-duration">Duration: 0.05ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies the word 'javascript' is stripped from search queries to prevent javascript: protocol injection. This is a security measure against XSS via search parameter URLs.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty input</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the sanitization functions return empty string for empty input without throwing errors. Edge case handling prevents runtime crashes from undefined or empty user input.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should remove script tags</div>
+        <div class="test-case-duration">Duration: 1.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms <script> tags and their contents are completely removed from content before indexing. This prevents stored XSS where malicious scripts could be saved to the search index.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should remove style tags</div>
+        <div class="test-case-duration">Duration: 1.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies <style> tags are stripped from indexed content. Style tags don't provide searchable content and could contain CSS injection attacks in some contexts.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should remove HTML comments</div>
+        <div class="test-case-duration">Duration: 0.28ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms HTML comments (<!-- -->) are removed from indexed content. Comments may contain developer notes, debugging info, or hidden content that shouldn't be searchable.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should remove Vue directives</div>
+        <div class="test-case-duration">Duration: 0.26ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies Vue.js-specific attributes (v-if, v-for, @click, etc.) are stripped from indexed content. These framework directives aren't meaningful search content.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should limit content length</div>
+        <div class="test-case-duration">Duration: 64.72ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms content is truncated to maximum length (5000 characters) before indexing. This prevents memory issues and ensures reasonable index size for performance.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty input</div>
+        <div class="test-case-duration">Duration: 0.06ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the sanitization functions return empty string for empty input without throwing errors. Edge case handling prevents runtime crashes from undefined or empty user input.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should detect script tags</div>
+        <div class="test-case-duration">Duration: 0.29ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies containsDangerousContent() returns true when content contains <script> tags. This function is used to flag content that shouldn't be processed or displayed.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should detect javascript: protocol</div>
+        <div class="test-case-duration">Duration: 0.27ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms javascript: protocol URLs are detected as dangerous. These are a common XSS vector that should never appear in user-facing content or links.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should detect event handlers</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Verifies inline event handlers (onclick, onload, onerror, etc.) are detected as dangerous content. Event handlers can execute arbitrary JavaScript and are a security risk.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should not flag safe Vue.js patterns</div>
+        <div class="test-case-duration">Duration: 0.07ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms that legitimate Vue.js code patterns (imports, ref(), computed()) are not incorrectly flagged as dangerous. The detection should target actual threats, not framework code.</p>
+                  </div>
+                </details>
+        
+      </div>
+      <div class="test-case passed">
+        <div class="test-case-title">✅ should handle empty input</div>
+        <div class="test-case-duration">Duration: 0.02ms</div>
+        <details class="test-case-description">
+                  <summary>What does this test verify?</summary>
+                  <div class="description-content">
+                    <p>Confirms the sanitization functions return empty string for empty input without throwing errors. Edge case handling prevents runtime crashes from undefined or empty user input.</p>
+                  </div>
+                </details>
+        
+      </div>
+    </div>
+    
+    <footer>
+      <p>Generated on 1/5/2026, 9:07:51 AM</p>
+      <p>Total duration: 0.83 seconds</p>
+    </footer>
+    </main>
+  </div>
+  
+  <script>
+    // Skip Link Handler
+    (function() {
+      const skipLink = document.getElementById('skip-link');
+      if (skipLink) {
+        const handleSkipLink = function(e) {
+          e.preventDefault();
+          const target = document.getElementById('main-content');
+          if (target) {
+            target.focus();
+            const prefersReducedMotion = window.matchMedia(
+              '(prefers-reduced-motion: reduce)'
+            ).matches;
+            target.scrollIntoView({
+              behavior: prefersReducedMotion ? 'auto' : 'smooth',
+              block: 'start',
+            });
+          }
+        };
+        
+        skipLink.addEventListener('click', handleSkipLink);
+        skipLink.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            handleSkipLink(e);
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

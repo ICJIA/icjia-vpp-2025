@@ -1,0 +1,672 @@
+{
+  "summary": {
+    "totalTests": 51,
+    "passedTests": 51,
+    "failedTests": 0,
+    "skippedTests": 0,
+    "duration": 826,
+    "generatedAt": "2026-01-05T15:07:51.732Z"
+  },
+  "projectStats": {
+    "composables": {
+      "passed": 10,
+      "failed": 0,
+      "total": 10
+    },
+    "utils": {
+      "passed": 41,
+      "failed": 0,
+      "total": 41
+    }
+  },
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "basic usage"
+          ],
+          "fullName": "useSiteSettings basic usage should return a composable object",
+          "status": "passed",
+          "title": "should return a composable object",
+          "duration": 1.2537499999999682,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "basic usage"
+          ],
+          "fullName": "useSiteSettings basic usage should have readonly config",
+          "status": "passed",
+          "title": "should have readonly config",
+          "duration": 0.08058300000004692,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "basic usage"
+          ],
+          "fullName": "useSiteSettings basic usage should have loading state",
+          "status": "passed",
+          "title": "should have loading state",
+          "duration": 0.13558399999999438,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "getSetting"
+          ],
+          "fullName": "useSiteSettings getSetting should be a function",
+          "status": "passed",
+          "title": "should be a function",
+          "duration": 0.09291699999994307,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "getSetting"
+          ],
+          "fullName": "useSiteSettings getSetting should return default value when config is not loaded and fetch fails",
+          "status": "passed",
+          "title": "should return default value when config is not loaded and fetch fails",
+          "duration": 3.278874999999971,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "getSettings"
+          ],
+          "fullName": "useSiteSettings getSettings should be a function",
+          "status": "passed",
+          "title": "should be a function",
+          "duration": 0.16712500000005548,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "getSettings"
+          ],
+          "fullName": "useSiteSettings getSettings should handle multiple settings",
+          "status": "passed",
+          "title": "should handle multiple settings",
+          "duration": 1.3138340000000426,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "computed properties"
+          ],
+          "fullName": "useSiteSettings computed properties should have isLoaded computed property",
+          "status": "passed",
+          "title": "should have isLoaded computed property",
+          "duration": 0.1517910000000029,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "computed properties"
+          ],
+          "fullName": "useSiteSettings computed properties should have hasError computed property",
+          "status": "passed",
+          "title": "should have hasError computed property",
+          "duration": 0.5096660000000384,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "useSiteSettings",
+            "computed properties"
+          ],
+          "fullName": "useSiteSettings computed properties should have isLoading computed property",
+          "status": "passed",
+          "title": "should have isLoading computed property",
+          "duration": 0.07104199999992034,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1767625671639,
+      "endTime": 1767625671647.071,
+      "status": "passed",
+      "message": "",
+      "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useSiteSettings.test.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "loadConfig"
+          ],
+          "fullName": "config-loader utility loadConfig should load configuration from file",
+          "status": "passed",
+          "title": "should load configuration from file",
+          "duration": 1.1800829999999678,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "loadConfig"
+          ],
+          "fullName": "config-loader utility loadConfig should handle missing config files gracefully",
+          "status": "passed",
+          "title": "should handle missing config files gracefully",
+          "duration": 0.1069999999999709,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "loadConfig"
+          ],
+          "fullName": "config-loader utility loadConfig should parse JSON configuration",
+          "status": "passed",
+          "title": "should parse JSON configuration",
+          "duration": 0.056500000000028194,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "getConfigValue"
+          ],
+          "fullName": "config-loader utility getConfigValue should retrieve nested configuration values",
+          "status": "passed",
+          "title": "should retrieve nested configuration values",
+          "duration": 0.08129199999996217,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "getConfigValue"
+          ],
+          "fullName": "config-loader utility getConfigValue should return default value if key not found",
+          "status": "passed",
+          "title": "should return default value if key not found",
+          "duration": 0.04083300000002055,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "getConfigValue"
+          ],
+          "fullName": "config-loader utility getConfigValue should support dot notation for nested keys",
+          "status": "passed",
+          "title": "should support dot notation for nested keys",
+          "duration": 0.04108300000007148,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "validation"
+          ],
+          "fullName": "config-loader utility validation should validate required configuration keys",
+          "status": "passed",
+          "title": "should validate required configuration keys",
+          "duration": 0.02970899999991161,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "config-loader utility",
+            "validation"
+          ],
+          "fullName": "config-loader utility validation should throw error for invalid configuration",
+          "status": "passed",
+          "title": "should throw error for invalid configuration",
+          "duration": 0.027166999999963082,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1767625671549,
+      "endTime": 1767625671551.0813,
+      "status": "passed",
+      "message": "",
+      "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/utils/config-loader.test.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "log levels"
+          ],
+          "fullName": "logger utility log levels should support DEBUG level",
+          "status": "passed",
+          "title": "should support DEBUG level",
+          "duration": 1.1128330000000233,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "log levels"
+          ],
+          "fullName": "logger utility log levels should support INFO level",
+          "status": "passed",
+          "title": "should support INFO level",
+          "duration": 0.13245900000003985,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "log levels"
+          ],
+          "fullName": "logger utility log levels should support WARN level",
+          "status": "passed",
+          "title": "should support WARN level",
+          "duration": 0.06166699999994307,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "log levels"
+          ],
+          "fullName": "logger utility log levels should support ERROR level",
+          "status": "passed",
+          "title": "should support ERROR level",
+          "duration": 0.09141600000009475,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "formatting"
+          ],
+          "fullName": "logger utility formatting should format log messages with timestamps",
+          "status": "passed",
+          "title": "should format log messages with timestamps",
+          "duration": 0.04491700000005494,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "formatting"
+          ],
+          "fullName": "logger utility formatting should include log level in output",
+          "status": "passed",
+          "title": "should include log level in output",
+          "duration": 0.04349999999999454,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "environment handling"
+          ],
+          "fullName": "logger utility environment handling should respect log level configuration",
+          "status": "passed",
+          "title": "should respect log level configuration",
+          "duration": 0.031499999999937245,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "logger utility",
+            "environment handling"
+          ],
+          "fullName": "logger utility environment handling should filter logs in production",
+          "status": "passed",
+          "title": "should filter logs in production",
+          "duration": 0.02720800000008694,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1767625671550,
+      "endTime": 1767625671551.1326,
+      "status": "passed",
+      "message": "",
+      "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/utils/logger.test.js"
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should escape < character",
+          "status": "passed",
+          "title": "should escape < character",
+          "duration": 0.6592500000000427,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should escape > character",
+          "status": "passed",
+          "title": "should escape > character",
+          "duration": 0.06937499999992269,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should escape & character",
+          "status": "passed",
+          "title": "should escape & character",
+          "duration": 0.043042000000014013,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should escape \" character",
+          "status": "passed",
+          "title": "should escape \" character",
+          "duration": 0.048166999999921245,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should escape ' character",
+          "status": "passed",
+          "title": "should escape ' character",
+          "duration": 0.03600000000005821,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should handle empty input",
+          "status": "passed",
+          "title": "should handle empty input",
+          "duration": 0.07745799999997871,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should handle null input",
+          "status": "passed",
+          "title": "should handle null input",
+          "duration": 0.030250000000023647,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeString"
+          ],
+          "fullName": "sanitize utility sanitizeString should handle text without special characters",
+          "status": "passed",
+          "title": "should handle text without special characters",
+          "duration": 0.027582999999935964,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeSearchQuery"
+          ],
+          "fullName": "sanitize utility sanitizeSearchQuery should remove dangerous patterns",
+          "status": "passed",
+          "title": "should remove dangerous patterns",
+          "duration": 0.302332999999976,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeSearchQuery"
+          ],
+          "fullName": "sanitize utility sanitizeSearchQuery should limit query length",
+          "status": "passed",
+          "title": "should limit query length",
+          "duration": 0.17612500000007003,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeSearchQuery"
+          ],
+          "fullName": "sanitize utility sanitizeSearchQuery should respect custom max length",
+          "status": "passed",
+          "title": "should respect custom max length",
+          "duration": 0.035290999999915584,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeSearchQuery"
+          ],
+          "fullName": "sanitize utility sanitizeSearchQuery should normalize whitespace",
+          "status": "passed",
+          "title": "should normalize whitespace",
+          "duration": 0.029583000000002357,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeSearchQuery"
+          ],
+          "fullName": "sanitize utility sanitizeSearchQuery should remove javascript patterns",
+          "status": "passed",
+          "title": "should remove javascript patterns",
+          "duration": 0.04766699999993307,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeSearchQuery"
+          ],
+          "fullName": "sanitize utility sanitizeSearchQuery should handle empty input",
+          "status": "passed",
+          "title": "should handle empty input",
+          "duration": 0.021665999999981977,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeContentForIndexing"
+          ],
+          "fullName": "sanitize utility sanitizeContentForIndexing should remove script tags",
+          "status": "passed",
+          "title": "should remove script tags",
+          "duration": 1.018457999999896,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeContentForIndexing"
+          ],
+          "fullName": "sanitize utility sanitizeContentForIndexing should remove style tags",
+          "status": "passed",
+          "title": "should remove style tags",
+          "duration": 1.0195420000000013,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeContentForIndexing"
+          ],
+          "fullName": "sanitize utility sanitizeContentForIndexing should remove HTML comments",
+          "status": "passed",
+          "title": "should remove HTML comments",
+          "duration": 0.2820000000000391,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeContentForIndexing"
+          ],
+          "fullName": "sanitize utility sanitizeContentForIndexing should remove Vue directives",
+          "status": "passed",
+          "title": "should remove Vue directives",
+          "duration": 0.26216599999997925,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeContentForIndexing"
+          ],
+          "fullName": "sanitize utility sanitizeContentForIndexing should limit content length",
+          "status": "passed",
+          "title": "should limit content length",
+          "duration": 64.72458300000005,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "sanitizeContentForIndexing"
+          ],
+          "fullName": "sanitize utility sanitizeContentForIndexing should handle empty input",
+          "status": "passed",
+          "title": "should handle empty input",
+          "duration": 0.06279199999994489,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "containsDangerousContent"
+          ],
+          "fullName": "sanitize utility containsDangerousContent should detect script tags",
+          "status": "passed",
+          "title": "should detect script tags",
+          "duration": 0.28737499999999727,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "containsDangerousContent"
+          ],
+          "fullName": "sanitize utility containsDangerousContent should detect javascript: protocol",
+          "status": "passed",
+          "title": "should detect javascript: protocol",
+          "duration": 0.27129200000001674,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "containsDangerousContent"
+          ],
+          "fullName": "sanitize utility containsDangerousContent should detect event handlers",
+          "status": "passed",
+          "title": "should detect event handlers",
+          "duration": 0.06879200000003038,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "containsDangerousContent"
+          ],
+          "fullName": "sanitize utility containsDangerousContent should not flag safe Vue.js patterns",
+          "status": "passed",
+          "title": "should not flag safe Vue.js patterns",
+          "duration": 0.0711669999999458,
+          "failureMessages": [],
+          "meta": {}
+        },
+        {
+          "ancestorTitles": [
+            "sanitize utility",
+            "containsDangerousContent"
+          ],
+          "fullName": "sanitize utility containsDangerousContent should handle empty input",
+          "status": "passed",
+          "title": "should handle empty input",
+          "duration": 0.022375000000010914,
+          "failureMessages": [],
+          "meta": {}
+        }
+      ],
+      "startTime": 1767625671570,
+      "endTime": 1767625671640.0713,
+      "status": "passed",
+      "message": "",
+      "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/utils/sanitize.test.js"
+    }
+  ]
+}

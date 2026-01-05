@@ -1291,8 +1291,8 @@ a[role="button"],
 // REFERENCE TOOLTIP PADDING STYLING
 // ============================================================================
 // Adds comfortable padding around reference tooltip content to prevent text
-// from appearing too close to the tooltip container edges. Targets Vuetify's
-// v-tooltip component used by the AccessibleTooltip wrapper.
+// from appearing too close to the tooltip container edges. Targets the custom
+// CSS-based tooltip components for accessibility compliance.
 
 // Ensure reference tooltip wrappers don't interfere with layout
 .reference-tooltip-wrapper {
@@ -1372,10 +1372,11 @@ a[role="button"],
   }
 }
 
-// Target Vuetify tooltip content for reference tooltips
-.reference-tooltip .v-tooltip__content,
-.v-tooltip__content[role="tooltip"],
-.reference-tooltip-content {
+// Target CSS-based tooltip content for reference tooltips
+// Updated to use pure CSS tooltips instead of Vuetify v-tooltip for accessibility
+.reference-tooltip-content,
+.reference-tooltip-inline,
+.accessible-tooltip {
   // Add generous padding around all sides for better readability
   padding: 12px 16px !important;
 
@@ -1395,55 +1396,62 @@ a[role="button"],
 
   // Ensure consistent background and border styling with other tooltips
   border-radius: 4px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
 }
 
 /* Enforce high-contrast text and link colors inside reference tooltips */
-.reference-tooltip .v-tooltip__content,
-.v-tooltip__content[role="tooltip"] {
+.reference-tooltip-content,
+.reference-tooltip-inline,
+.accessible-tooltip {
   /* Ensure full-opacity text to avoid medium/low emphasis tokens */
   color: #ffffff !important;
 }
 
-.reference-tooltip .v-tooltip__content a,
-.v-tooltip__content[role="tooltip"] a {
+.reference-tooltip-content a,
+.reference-tooltip-inline a,
+.accessible-tooltip a {
   color: #e3f2fd !important; /* very light blue for readability on dark bg */
   text-decoration-color: #e3f2fd !important;
   font-weight: 600 !important;
 }
-.reference-tooltip .v-tooltip__content a:hover,
-.reference-tooltip .v-tooltip__content a:focus,
-.v-tooltip__content[role="tooltip"] a:hover,
-.v-tooltip__content[role="tooltip"] a:focus {
+.reference-tooltip-content a:hover,
+.reference-tooltip-content a:focus,
+.reference-tooltip-inline a:hover,
+.reference-tooltip-inline a:focus,
+.accessible-tooltip a:hover,
+.accessible-tooltip a:focus {
   color: #ffffff !important;
   text-decoration-color: #ffffff !important;
   text-decoration-thickness: 2px !important;
 }
 
 /* Ensure emphasized text is not low-contrast */
-.reference-tooltip .v-tooltip__content strong,
-.reference-tooltip .v-tooltip__content em,
-.reference-tooltip .v-tooltip__content small,
-.v-tooltip__content[role="tooltip"] strong,
-.v-tooltip__content[role="tooltip"] em,
-.v-tooltip__content[role="tooltip"] small {
+.reference-tooltip-content strong,
+.reference-tooltip-content em,
+.reference-tooltip-content small,
+.reference-tooltip-inline strong,
+.reference-tooltip-inline em,
+.reference-tooltip-inline small,
+.accessible-tooltip strong,
+.accessible-tooltip em,
+.accessible-tooltip small {
   color: #ffffff !important;
 }
 
 // Light theme tooltip colors
 :root:not([data-theme="dark"]) .reference-tooltip-content,
-:root:not([data-theme="dark"]) .reference-tooltip .v-tooltip__content,
-:root:not([data-theme="dark"]) .v-tooltip__content[role="tooltip"] {
-  background-color: #2d2d2d !important; // Darker gray for even higher contrast on light theme
-  color: #ffffff !important; // White text for high contrast
+:root:not([data-theme="dark"]) .reference-tooltip-inline,
+:root:not([data-theme="dark"]) .accessible-tooltip {
+  background-color: rgba(33, 33, 33, 0.95) !important;
+  color: #ffffff !important;
 }
 
 // Dark theme tooltip colors
 :root[data-theme="dark"] .reference-tooltip-content,
-:root[data-theme="dark"] .reference-tooltip .v-tooltip__content,
-:root[data-theme="dark"] .v-tooltip__content[role="tooltip"] {
-  background-color: #1a2234 !important; // Dark navy background for dark theme (AA/AAA)
-  color: #ffffff !important; // White text for high contrast
+:root[data-theme="dark"] .reference-tooltip-inline,
+:root[data-theme="dark"] .accessible-tooltip {
+  background-color: rgba(30, 40, 60, 0.98) !important;
+  color: #ffffff !important;
 }
 
 // Enhanced padding for mobile devices
@@ -1455,8 +1463,9 @@ a[role="button"],
     align-items: center !important;
   }
 
-  .reference-tooltip .v-tooltip__content,
-  .v-tooltip__content[role="tooltip"] {
+  .reference-tooltip-content,
+  .reference-tooltip-inline,
+  .accessible-tooltip {
     // Slightly larger padding on mobile for better touch experience
     padding: 16px 20px !important;
 
@@ -1464,14 +1473,15 @@ a[role="button"],
     max-width: 320px !important;
 
     // Slightly larger font size for mobile readability
-    font-size: 0.9rem !important; // 14.4px
+    font-size: 0.9rem !important;
   }
 }
 
 // High contrast mode support for tooltip padding
 @media (prefers-contrast: high) {
-  .reference-tooltip .v-tooltip__content,
-  .v-tooltip__content[role="tooltip"] {
+  .reference-tooltip-content,
+  .reference-tooltip-inline,
+  .accessible-tooltip {
     // Enhanced padding for high contrast mode
     padding: 16px 20px !important;
 

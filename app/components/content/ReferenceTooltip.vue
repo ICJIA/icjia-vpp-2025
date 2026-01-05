@@ -7,19 +7,16 @@
     :mobile-close-delay="mobileCloseDelay"
     class="reference-tooltip"
   >
-    <template v-slot="{ props }">
-      <span
-        v-bind="props"
-        class="reference-citation"
-        :class="{ 'reference-loading': isLoading, 'reference-error': hasError }"
-        :aria-label="ariaLabel"
-        tabindex="0"
-        @keydown.enter="handleKeyboardActivation"
-        @keydown.space.prevent="handleKeyboardActivation"
-      >
-        <slot />
-      </span>
-    </template>
+    <span
+      class="reference-citation"
+      :class="{ 'reference-loading': isLoading, 'reference-error': hasError }"
+      :aria-label="ariaLabel"
+      tabindex="0"
+      @keydown.enter="handleKeyboardActivation"
+      @keydown.space.prevent="handleKeyboardActivation"
+    >
+      <slot />
+    </span>
   </AccessibleTooltip>
 </template>
 

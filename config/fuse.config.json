@@ -52,10 +52,10 @@
         "news/*.md"
       ],
       "paths": [
-        "/documentation/*",
-        "/public/documentation/*",
-        "documentation/*",
-        "public/documentation/*",
+        "/docs/*",
+        "/public/docs/*",
+        "docs/*",
+        "public/docs/*",
         "/reports/*",
         "/public/reports/*",
         "reports/*",

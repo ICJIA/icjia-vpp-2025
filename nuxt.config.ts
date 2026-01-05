@@ -261,6 +261,13 @@ export default defineNuxtConfig({
       ignore: [
         // Development sandbox page
         //'/sandbox'
+        
+        // IMPORTANT: Ignore /docs/** during prerender crawling.
+        // `public/docs/*` are static assets, NOT Nuxt routes.
+        // If Nitro tries to prerender them as routes, it can fail the build.
+        "/docs",
+        "/docs/",
+        "/docs/**",
       ],
     },
   },
