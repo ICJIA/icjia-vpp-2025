@@ -4,8 +4,8 @@
     "passedTests": 300,
     "failedTests": 0,
     "skippedTests": 0,
-    "duration": 1685,
-    "generatedAt": "2026-01-05T16:23:05.821Z"
+    "duration": 1594,
+    "generatedAt": "2026-01-12T18:52:13.646Z"
   },
   "projectStats": {
     "composables": {
@@ -35,7 +35,7 @@
           "fullName": "useAnnouncer composable basic functionality should return announcer interface",
           "status": "passed",
           "title": "should return announcer interface",
-          "duration": 0.7425419999999576,
+          "duration": 3.2754999999999654,
           "failureMessages": [],
           "meta": {}
         },
@@ -47,7 +47,7 @@
           "fullName": "useAnnouncer composable basic functionality should provide announcePolite ref",
           "status": "passed",
           "title": "should provide announcePolite ref",
-          "duration": 0.5228329999999914,
+          "duration": 0.12608299999999417,
           "failureMessages": [],
           "meta": {}
         },
@@ -59,7 +59,7 @@
           "fullName": "useAnnouncer composable basic functionality should provide announceAssertive ref",
           "status": "passed",
           "title": "should provide announceAssertive ref",
-          "duration": 0.16141600000014478,
+          "duration": 0.0588750000000573,
           "failureMessages": [],
           "meta": {}
         },
@@ -71,7 +71,7 @@
           "fullName": "useAnnouncer composable basic functionality should provide announce function",
           "status": "passed",
           "title": "should provide announce function",
-          "duration": 0.0850839999998243,
+          "duration": 1.377375000000029,
           "failureMessages": [],
           "meta": {}
         },
@@ -83,7 +83,7 @@
           "fullName": "useAnnouncer composable polite announcements should default to polite priority",
           "status": "passed",
           "title": "should default to polite priority",
-          "duration": 0.10108299999978954,
+          "duration": 0.23004200000002584,
           "failureMessages": [],
           "meta": {}
         },
@@ -95,7 +95,7 @@
           "fullName": "useAnnouncer composable polite announcements should clear before announcing for screen reader detection",
           "status": "passed",
           "title": "should clear before announcing for screen reader detection",
-          "duration": 0.05600000000004002,
+          "duration": 0.06683400000008533,
           "failureMessages": [],
           "meta": {}
         },
@@ -107,7 +107,7 @@
           "fullName": "useAnnouncer composable assertive announcements should support assertive priority",
           "status": "passed",
           "title": "should support assertive priority",
-          "duration": 0.07654200000001765,
+          "duration": 0.08187500000008185,
           "failureMessages": [],
           "meta": {}
         },
@@ -119,7 +119,7 @@
           "fullName": "useAnnouncer composable assertive announcements should use assertive for interrupting announcements",
           "status": "passed",
           "title": "should use assertive for interrupting announcements",
-          "duration": 0.03258299999993142,
+          "duration": 0.03416700000002493,
           "failureMessages": [],
           "meta": {}
         },
@@ -131,7 +131,7 @@
           "fullName": "useAnnouncer composable enhanced announcement methods should provide announceLoading method",
           "status": "passed",
           "title": "should provide announceLoading method",
-          "duration": 1.4995830000000296,
+          "duration": 0.1544579999999769,
           "failureMessages": [],
           "meta": {}
         },
@@ -143,7 +143,7 @@
           "fullName": "useAnnouncer composable enhanced announcement methods should provide announceSuccess method",
           "status": "passed",
           "title": "should provide announceSuccess method",
-          "duration": 0.19933300000002419,
+          "duration": 0.04837500000007822,
           "failureMessages": [],
           "meta": {}
         },
@@ -155,7 +155,7 @@
           "fullName": "useAnnouncer composable enhanced announcement methods should provide announceError method",
           "status": "passed",
           "title": "should provide announceError method",
-          "duration": 0.2001669999999649,
+          "duration": 0.06508300000007239,
           "failureMessages": [],
           "meta": {}
         },
@@ -167,7 +167,7 @@
           "fullName": "useAnnouncer composable enhanced announcement methods should provide announceNavigation method",
           "status": "passed",
           "title": "should provide announceNavigation method",
-          "duration": 0.0571669999999358,
+          "duration": 0.026374999999916326,
           "failureMessages": [],
           "meta": {}
         },
@@ -179,7 +179,7 @@
           "fullName": "useAnnouncer composable context-aware announcements should handle loading announcements with context",
           "status": "passed",
           "title": "should handle loading announcements with context",
-          "duration": 1.0859170000001086,
+          "duration": 0.2964590000000271,
           "failureMessages": [],
           "meta": {}
         },
@@ -191,7 +191,7 @@
           "fullName": "useAnnouncer composable context-aware announcements should handle success announcements with context",
           "status": "passed",
           "title": "should handle success announcements with context",
-          "duration": 0.10616600000003018,
+          "duration": 0.4249999999999545,
           "failureMessages": [],
           "meta": {}
         },
@@ -203,7 +203,7 @@
           "fullName": "useAnnouncer composable context-aware announcements should handle error announcements with context",
           "status": "passed",
           "title": "should handle error announcements with context",
-          "duration": 0.06312500000012733,
+          "duration": 0.6513330000000224,
           "failureMessages": [],
           "meta": {}
         },
@@ -215,7 +215,7 @@
           "fullName": "useAnnouncer composable context-aware announcements should handle navigation announcements with additional info",
           "status": "passed",
           "title": "should handle navigation announcements with additional info",
-          "duration": 0.05350000000021282,
+          "duration": 0.06529199999999946,
           "failureMessages": [],
           "meta": {}
         },
@@ -227,7 +227,7 @@
           "fullName": "useAnnouncer composable message formatting should handle empty messages",
           "status": "passed",
           "title": "should handle empty messages",
-          "duration": 0.045415999999931955,
+          "duration": 0.045917000000031294,
           "failureMessages": [],
           "meta": {}
         },
@@ -239,7 +239,7 @@
           "fullName": "useAnnouncer composable message formatting should handle long messages",
           "status": "passed",
           "title": "should handle long messages",
-          "duration": 0.049042000000099506,
+          "duration": 0.044582999999988715,
           "failureMessages": [],
           "meta": {}
         },
@@ -251,7 +251,7 @@
           "fullName": "useAnnouncer composable message formatting should handle special characters",
           "status": "passed",
           "title": "should handle special characters",
-          "duration": 0.04145899999980429,
+          "duration": 0.041249999999990905,
           "failureMessages": [],
           "meta": {}
         },
@@ -263,7 +263,7 @@
           "fullName": "useAnnouncer composable WCAG compliance should support ARIA live region polite mode",
           "status": "passed",
           "title": "should support ARIA live region polite mode",
-          "duration": 0.03016699999989214,
+          "duration": 0.03845899999987523,
           "failureMessages": [],
           "meta": {}
         },
@@ -275,7 +275,7 @@
           "fullName": "useAnnouncer composable WCAG compliance should support ARIA live region assertive mode",
           "status": "passed",
           "title": "should support ARIA live region assertive mode",
-          "duration": 0.02245800000014242,
+          "duration": 0.02366699999993216,
           "failureMessages": [],
           "meta": {}
         },
@@ -287,7 +287,7 @@
           "fullName": "useAnnouncer composable WCAG compliance should clear announcements to trigger screen reader detection",
           "status": "passed",
           "title": "should clear announcements to trigger screen reader detection",
-          "duration": 0.03837500000008731,
+          "duration": 0.03774999999995998,
           "failureMessages": [],
           "meta": {}
         },
@@ -299,13 +299,13 @@
           "fullName": "useAnnouncer composable composable interface should return all expected properties",
           "status": "passed",
           "title": "should return all expected properties",
-          "duration": 0.8899170000001959,
+          "duration": 0.11808399999995345,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185261,
-      "endTime": 1767630185268.89,
+      "startTime": 1768243933086,
+      "endTime": 1768243933095.1182,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useAnnouncer.test.js"
@@ -320,7 +320,7 @@
           "fullName": "useConsoleLogger composable basic functionality should return logger interface",
           "status": "passed",
           "title": "should return logger interface",
-          "duration": 0.9872910000001411,
+          "duration": 1.370416999999975,
           "failureMessages": [],
           "meta": {}
         },
@@ -332,7 +332,7 @@
           "fullName": "useConsoleLogger composable basic functionality should provide isEnabled ref",
           "status": "passed",
           "title": "should provide isEnabled ref",
-          "duration": 0.15204100000005383,
+          "duration": 0.17154099999993377,
           "failureMessages": [],
           "meta": {}
         },
@@ -344,7 +344,7 @@
           "fullName": "useConsoleLogger composable basic functionality should provide enable function",
           "status": "passed",
           "title": "should provide enable function",
-          "duration": 0.11125000000015461,
+          "duration": 0.11783300000001873,
           "failureMessages": [],
           "meta": {}
         },
@@ -356,7 +356,7 @@
           "fullName": "useConsoleLogger composable basic functionality should provide disable function",
           "status": "passed",
           "title": "should provide disable function",
-          "duration": 0.10525000000006912,
+          "duration": 0.10887500000001182,
           "failureMessages": [],
           "meta": {}
         },
@@ -368,7 +368,7 @@
           "fullName": "useConsoleLogger composable basic functionality should provide toggle function",
           "status": "passed",
           "title": "should provide toggle function",
-          "duration": 0.10841699999991761,
+          "duration": 0.11104199999999764,
           "failureMessages": [],
           "meta": {}
         },
@@ -380,7 +380,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logUI function",
           "status": "passed",
           "title": "should provide logUI function",
-          "duration": 0.06958299999996598,
+          "duration": 0.07074999999997544,
           "failureMessages": [],
           "meta": {}
         },
@@ -392,7 +392,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logRoute function",
           "status": "passed",
           "title": "should provide logRoute function",
-          "duration": 0.08395900000004985,
+          "duration": 0.08841700000004948,
           "failureMessages": [],
           "meta": {}
         },
@@ -404,7 +404,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logTheme function",
           "status": "passed",
           "title": "should provide logTheme function",
-          "duration": 0.04591700000014498,
+          "duration": 0.04691700000000765,
           "failureMessages": [],
           "meta": {}
         },
@@ -416,7 +416,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logLifecycle function",
           "status": "passed",
           "title": "should provide logLifecycle function",
-          "duration": 0.2788749999999709,
+          "duration": 0.27387500000008913,
           "failureMessages": [],
           "meta": {}
         },
@@ -428,7 +428,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logSuccess function",
           "status": "passed",
           "title": "should provide logSuccess function",
-          "duration": 0.07429099999990285,
+          "duration": 0.0757499999999709,
           "failureMessages": [],
           "meta": {}
         },
@@ -440,7 +440,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logWarning function",
           "status": "passed",
           "title": "should provide logWarning function",
-          "duration": 0.04475000000002183,
+          "duration": 0.044666000000006534,
           "failureMessages": [],
           "meta": {}
         },
@@ -452,7 +452,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logError function",
           "status": "passed",
           "title": "should provide logError function",
-          "duration": 0.03533300000003692,
+          "duration": 0.03570799999999963,
           "failureMessages": [],
           "meta": {}
         },
@@ -464,7 +464,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logAPI function",
           "status": "passed",
           "title": "should provide logAPI function",
-          "duration": 0.03258299999993142,
+          "duration": 0.03304100000002563,
           "failureMessages": [],
           "meta": {}
         },
@@ -476,7 +476,7 @@
           "fullName": "useConsoleLogger composable category-specific loggers should provide logPerf function",
           "status": "passed",
           "title": "should provide logPerf function",
-          "duration": 0.08524999999985994,
+          "duration": 0.03154200000005858,
           "failureMessages": [],
           "meta": {}
         },
@@ -488,7 +488,7 @@
           "fullName": "useConsoleLogger composable color constants should provide COLORS object",
           "status": "passed",
           "title": "should provide COLORS object",
-          "duration": 0.06937500000003638,
+          "duration": 0.03858300000001691,
           "failureMessages": [],
           "meta": {}
         },
@@ -500,7 +500,7 @@
           "fullName": "useConsoleLogger composable color constants should have UI color defined",
           "status": "passed",
           "title": "should have UI color defined",
-          "duration": 0.04225000000019463,
+          "duration": 0.03099999999994907,
           "failureMessages": [],
           "meta": {}
         },
@@ -512,7 +512,7 @@
           "fullName": "useConsoleLogger composable color constants should have route color defined",
           "status": "passed",
           "title": "should have route color defined",
-          "duration": 0.20816599999989194,
+          "duration": 0.029917000000068583,
           "failureMessages": [],
           "meta": {}
         },
@@ -524,7 +524,7 @@
           "fullName": "useConsoleLogger composable color constants should have theme color defined",
           "status": "passed",
           "title": "should have theme color defined",
-          "duration": 0.1955840000000535,
+          "duration": 0.029792000000043117,
           "failureMessages": [],
           "meta": {}
         },
@@ -536,7 +536,7 @@
           "fullName": "useConsoleLogger composable color constants should have lifecycle color defined",
           "status": "passed",
           "title": "should have lifecycle color defined",
-          "duration": 0.19237500000008367,
+          "duration": 0.029415999999969245,
           "failureMessages": [],
           "meta": {}
         },
@@ -548,7 +548,7 @@
           "fullName": "useConsoleLogger composable color constants should have success color defined",
           "status": "passed",
           "title": "should have success color defined",
-          "duration": 0.19100000000003092,
+          "duration": 0.030292000000031294,
           "failureMessages": [],
           "meta": {}
         },
@@ -560,7 +560,7 @@
           "fullName": "useConsoleLogger composable color constants should have warning color defined",
           "status": "passed",
           "title": "should have warning color defined",
-          "duration": 0.09858299999996234,
+          "duration": 0.028791999999953077,
           "failureMessages": [],
           "meta": {}
         },
@@ -572,7 +572,7 @@
           "fullName": "useConsoleLogger composable color constants should have error color defined",
           "status": "passed",
           "title": "should have error color defined",
-          "duration": 0.08541600000012295,
+          "duration": 0.02858400000002348,
           "failureMessages": [],
           "meta": {}
         },
@@ -584,7 +584,7 @@
           "fullName": "useConsoleLogger composable color constants should have API color defined",
           "status": "passed",
           "title": "should have API color defined",
-          "duration": 0.08320800000001327,
+          "duration": 0.030166000000008353,
           "failureMessages": [],
           "meta": {}
         },
@@ -596,7 +596,7 @@
           "fullName": "useConsoleLogger composable color constants should have perf color defined",
           "status": "passed",
           "title": "should have perf color defined",
-          "duration": 0.08204200000000128,
+          "duration": 0.031334000000015294,
           "failureMessages": [],
           "meta": {}
         },
@@ -608,7 +608,7 @@
           "fullName": "useConsoleLogger composable color constants should have default color defined",
           "status": "passed",
           "title": "should have default color defined",
-          "duration": 0.08658300000001873,
+          "duration": 0.029875000000060936,
           "failureMessages": [],
           "meta": {}
         },
@@ -620,7 +620,7 @@
           "fullName": "useConsoleLogger composable enable/disable behavior should enable logging when enable is called",
           "status": "passed",
           "title": "should enable logging when enable is called",
-          "duration": 0.31466599999998834,
+          "duration": 0.12983300000007603,
           "failureMessages": [],
           "meta": {}
         },
@@ -632,7 +632,7 @@
           "fullName": "useConsoleLogger composable enable/disable behavior should disable logging when disable is called",
           "status": "passed",
           "title": "should disable logging when disable is called",
-          "duration": 0.20450000000005275,
+          "duration": 0.08650000000000091,
           "failureMessages": [],
           "meta": {}
         },
@@ -644,7 +644,7 @@
           "fullName": "useConsoleLogger composable enable/disable behavior should toggle logging state",
           "status": "passed",
           "title": "should toggle logging state",
-          "duration": 0.12983299999996234,
+          "duration": 0.047083000000043285,
           "failureMessages": [],
           "meta": {}
         },
@@ -656,7 +656,7 @@
           "fullName": "useConsoleLogger composable enable/disable behavior should not log when disabled",
           "status": "passed",
           "title": "should not log when disabled",
-          "duration": 0.07387500000004366,
+          "duration": 0.028541000000018357,
           "failureMessages": [],
           "meta": {}
         },
@@ -668,7 +668,7 @@
           "fullName": "useConsoleLogger composable logging with data should accept message parameter",
           "status": "passed",
           "title": "should accept message parameter",
-          "duration": 0.7176249999999982,
+          "duration": 0.28758399999992434,
           "failureMessages": [],
           "meta": {}
         },
@@ -680,7 +680,7 @@
           "fullName": "useConsoleLogger composable logging with data should accept optional data parameter",
           "status": "passed",
           "title": "should accept optional data parameter",
-          "duration": 0.21670900000003712,
+          "duration": 0.06624999999996817,
           "failureMessages": [],
           "meta": {}
         },
@@ -692,7 +692,7 @@
           "fullName": "useConsoleLogger composable logging with data should handle undefined data",
           "status": "passed",
           "title": "should handle undefined data",
-          "duration": 0.2513749999998254,
+          "duration": 0.09008399999993344,
           "failureMessages": [],
           "meta": {}
         },
@@ -704,7 +704,7 @@
           "fullName": "useConsoleLogger composable logging with data should handle null data",
           "status": "passed",
           "title": "should handle null data",
-          "duration": 0.33270900000002257,
+          "duration": 0.0978340000000344,
           "failureMessages": [],
           "meta": {}
         },
@@ -716,7 +716,7 @@
           "fullName": "useConsoleLogger composable logging with data should handle array data",
           "status": "passed",
           "title": "should handle array data",
-          "duration": 0.18458299999997507,
+          "duration": 0.058459000000084416,
           "failureMessages": [],
           "meta": {}
         },
@@ -728,7 +728,7 @@
           "fullName": "useConsoleLogger composable singleton behavior should share state across multiple calls",
           "status": "passed",
           "title": "should share state across multiple calls",
-          "duration": 0.18824999999992542,
+          "duration": 0.05925000000002001,
           "failureMessages": [],
           "meta": {}
         },
@@ -740,7 +740,7 @@
           "fullName": "useConsoleLogger composable singleton behavior should maintain consistent color constants",
           "status": "passed",
           "title": "should maintain consistent color constants",
-          "duration": 0.4817089999999098,
+          "duration": 0.200333999999998,
           "failureMessages": [],
           "meta": {}
         },
@@ -752,13 +752,13 @@
           "fullName": "useConsoleLogger composable category fallback should use default color for unknown categories",
           "status": "passed",
           "title": "should use default color for unknown categories",
-          "duration": 0.06750000000010914,
+          "duration": 0.03608299999996234,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185251,
-      "endTime": 1767630185259.0674,
+      "startTime": 1768243933090,
+      "endTime": 1768243933094.2004,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useConsoleLogger.test.js"
@@ -773,7 +773,7 @@
           "fullName": "useLazyComponent composable configuration options should have default rootMargin of 100px",
           "status": "passed",
           "title": "should have default rootMargin of 100px",
-          "duration": 0.839917000000014,
+          "duration": 0.5298330000000533,
           "failureMessages": [],
           "meta": {}
         },
@@ -785,7 +785,7 @@
           "fullName": "useLazyComponent composable configuration options should have default threshold of 0.1",
           "status": "passed",
           "title": "should have default threshold of 0.1",
-          "duration": 0.12379099999998289,
+          "duration": 0.11125000000004093,
           "failureMessages": [],
           "meta": {}
         },
@@ -797,7 +797,7 @@
           "fullName": "useLazyComponent composable configuration options should default to observe once",
           "status": "passed",
           "title": "should default to observe once",
-          "duration": 0.05987500000003365,
+          "duration": 0.05570799999998144,
           "failureMessages": [],
           "meta": {}
         },
@@ -809,7 +809,7 @@
           "fullName": "useLazyComponent composable configuration options should allow custom rootMargin",
           "status": "passed",
           "title": "should allow custom rootMargin",
-          "duration": 0.08654100000001108,
+          "duration": 0.08445899999992434,
           "failureMessages": [],
           "meta": {}
         },
@@ -821,7 +821,7 @@
           "fullName": "useLazyComponent composable configuration options should allow custom threshold values",
           "status": "passed",
           "title": "should allow custom threshold values",
-          "duration": 0.14141699999993307,
+          "duration": 0.04058400000008078,
           "failureMessages": [],
           "meta": {}
         },
@@ -833,7 +833,7 @@
           "fullName": "useLazyComponent composable configuration options should validate threshold is between 0 and 1",
           "status": "passed",
           "title": "should validate threshold is between 0 and 1",
-          "duration": 0.19704200000001038,
+          "duration": 0.08120800000006057,
           "failureMessages": [],
           "meta": {}
         },
@@ -845,7 +845,7 @@
           "fullName": "useLazyComponent composable configuration options should accept custom component name for debugging",
           "status": "passed",
           "title": "should accept custom component name for debugging",
-          "duration": 0.04187500000000455,
+          "duration": 0.03325000000006639,
           "failureMessages": [],
           "meta": {}
         },
@@ -857,7 +857,7 @@
           "fullName": "useLazyComponent composable return values should provide isVisible ref",
           "status": "passed",
           "title": "should provide isVisible ref",
-          "duration": 0.11349999999993088,
+          "duration": 0.10149999999998727,
           "failureMessages": [],
           "meta": {}
         },
@@ -869,7 +869,7 @@
           "fullName": "useLazyComponent composable return values should provide targetRef for element binding",
           "status": "passed",
           "title": "should provide targetRef for element binding",
-          "duration": 0.21508300000004965,
+          "duration": 0.12362499999994725,
           "failureMessages": [],
           "meta": {}
         },
@@ -881,7 +881,7 @@
           "fullName": "useLazyComponent composable return values should initialize isVisible as false",
           "status": "passed",
           "title": "should initialize isVisible as false",
-          "duration": 0.05095899999992071,
+          "duration": 0.04600000000004911,
           "failureMessages": [],
           "meta": {}
         },
@@ -893,7 +893,7 @@
           "fullName": "useLazyComponent composable return values should initialize targetRef as null",
           "status": "passed",
           "title": "should initialize targetRef as null",
-          "duration": 0.037624999999934516,
+          "duration": 0.03420799999992141,
           "failureMessages": [],
           "meta": {}
         },
@@ -905,7 +905,7 @@
           "fullName": "useLazyComponent composable IntersectionObserver behavior should set isVisible to true when element intersects",
           "status": "passed",
           "title": "should set isVisible to true when element intersects",
-          "duration": 0.02712500000006912,
+          "duration": 0.03116699999998218,
           "failureMessages": [],
           "meta": {}
         },
@@ -917,7 +917,7 @@
           "fullName": "useLazyComponent composable IntersectionObserver behavior should not change isVisible when element is not intersecting",
           "status": "passed",
           "title": "should not change isVisible when element is not intersecting",
-          "duration": 0.026000000000067303,
+          "duration": 0.022375000000010914,
           "failureMessages": [],
           "meta": {}
         },
@@ -929,7 +929,7 @@
           "fullName": "useLazyComponent composable IntersectionObserver behavior should unobserve after first intersection when once is true",
           "status": "passed",
           "title": "should unobserve after first intersection when once is true",
-          "duration": 0.02470800000003237,
+          "duration": 0.02329100000008566,
           "failureMessages": [],
           "meta": {}
         },
@@ -941,7 +941,7 @@
           "fullName": "useLazyComponent composable IntersectionObserver behavior should continue observing when once is false",
           "status": "passed",
           "title": "should continue observing when once is false",
-          "duration": 0.02095899999994799,
+          "duration": 0.020208000000025095,
           "failureMessages": [],
           "meta": {}
         },
@@ -953,7 +953,7 @@
           "fullName": "useLazyComponent composable IntersectionObserver behavior should handle missing IntersectionObserver gracefully",
           "status": "passed",
           "title": "should handle missing IntersectionObserver gracefully",
-          "duration": 0.022249999999985448,
+          "duration": 0.023583000000030552,
           "failureMessages": [],
           "meta": {}
         },
@@ -965,7 +965,7 @@
           "fullName": "useLazyComponent composable lifecycle management should setup observer on component mount",
           "status": "passed",
           "title": "should setup observer on component mount",
-          "duration": 0.021624999999971806,
+          "duration": 0.0206670000000031,
           "failureMessages": [],
           "meta": {}
         },
@@ -977,7 +977,7 @@
           "fullName": "useLazyComponent composable lifecycle management should disconnect observer on component unmount",
           "status": "passed",
           "title": "should disconnect observer on component unmount",
-          "duration": 0.019499999999993634,
+          "duration": 0.02183300000001509,
           "failureMessages": [],
           "meta": {}
         },
@@ -989,7 +989,7 @@
           "fullName": "useLazyComponent composable lifecycle management should skip setup if no target element",
           "status": "passed",
           "title": "should skip setup if no target element",
-          "duration": 0.019833000000062384,
+          "duration": 0.021292000000016742,
           "failureMessages": [],
           "meta": {}
         },
@@ -1001,7 +1001,7 @@
           "fullName": "useLazyComponent composable lifecycle management should skip setup during SSR",
           "status": "passed",
           "title": "should skip setup during SSR",
-          "duration": 0.022959000000014385,
+          "duration": 0.0251660000000129,
           "failureMessages": [],
           "meta": {}
         },
@@ -1013,7 +1013,7 @@
           "fullName": "useLazyComponent composable error handling should load immediately if observer setup fails",
           "status": "passed",
           "title": "should load immediately if observer setup fails",
-          "duration": 0.01920899999993253,
+          "duration": 0.023584000000028027,
           "failureMessages": [],
           "meta": {}
         },
@@ -1025,7 +1025,7 @@
           "fullName": "useLazyComponent composable error handling should log errors to console on setup failure",
           "status": "passed",
           "title": "should log errors to console on setup failure",
-          "duration": 0.01850000000001728,
+          "duration": 0.02183300000001509,
           "failureMessages": [],
           "meta": {}
         },
@@ -1037,7 +1037,7 @@
           "fullName": "useLazyComponent composable error handling should handle null targetRef gracefully",
           "status": "passed",
           "title": "should handle null targetRef gracefully",
-          "duration": 1.4547919999999976,
+          "duration": 0.27633300000002237,
           "failureMessages": [],
           "meta": {}
         },
@@ -1049,7 +1049,7 @@
           "fullName": "useLazyComponent composable performance optimization should use rootMargin for early loading",
           "status": "passed",
           "title": "should use rootMargin for early loading",
-          "duration": 0.05479200000002038,
+          "duration": 0.02308299999992869,
           "failureMessages": [],
           "meta": {}
         },
@@ -1061,7 +1061,7 @@
           "fullName": "useLazyComponent composable performance optimization should only load visible components",
           "status": "passed",
           "title": "should only load visible components",
-          "duration": 0.032290999999986525,
+          "duration": 0.01954200000000128,
           "failureMessages": [],
           "meta": {}
         },
@@ -1073,13 +1073,13 @@
           "fullName": "useLazyComponent composable performance optimization should reduce initial bundle execution",
           "status": "passed",
           "title": "should reduce initial bundle execution",
-          "duration": 0.056207999999969616,
+          "duration": 0.019667000000026746,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185112,
-      "endTime": 1767630185116.4548,
+      "startTime": 1768243932944,
+      "endTime": 1768243932946.2764,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useLazyComponent.test.js"
@@ -1094,7 +1094,7 @@
           "fullName": "useReferences composable reference loading should provide getReference function",
           "status": "passed",
           "title": "should provide getReference function",
-          "duration": 1.65462500000001,
+          "duration": 0.7607910000000402,
           "failureMessages": [],
           "meta": {}
         },
@@ -1106,7 +1106,7 @@
           "fullName": "useReferences composable reference loading should provide getMultipleReferences function",
           "status": "passed",
           "title": "should provide getMultipleReferences function",
-          "duration": 0.3780829999999469,
+          "duration": 0.11808299999995597,
           "failureMessages": [],
           "meta": {}
         },
@@ -1118,7 +1118,7 @@
           "fullName": "useReferences composable reference loading should provide formatMultipleReferences function",
           "status": "passed",
           "title": "should provide formatMultipleReferences function",
-          "duration": 0.1638749999999618,
+          "duration": 0.06545799999992141,
           "failureMessages": [],
           "meta": {}
         },
@@ -1130,7 +1130,7 @@
           "fullName": "useReferences composable reference ID handling should trim whitespace from reference IDs",
           "status": "passed",
           "title": "should trim whitespace from reference IDs",
-          "duration": 0.1623339999999871,
+          "duration": 0.11866699999995944,
           "failureMessages": [],
           "meta": {}
         },
@@ -1142,7 +1142,7 @@
           "fullName": "useReferences composable reference ID handling should handle empty reference ID",
           "status": "passed",
           "title": "should handle empty reference ID",
-          "duration": 0.05004200000007586,
+          "duration": 0.04254100000002836,
           "failureMessages": [],
           "meta": {}
         },
@@ -1154,7 +1154,7 @@
           "fullName": "useReferences composable reference ID handling should handle null reference ID",
           "status": "passed",
           "title": "should handle null reference ID",
-          "duration": 0.04750000000001364,
+          "duration": 0.04150000000004184,
           "failureMessages": [],
           "meta": {}
         },
@@ -1166,7 +1166,7 @@
           "fullName": "useReferences composable comma-separated IDs parsing should split multiple IDs by comma",
           "status": "passed",
           "title": "should split multiple IDs by comma",
-          "duration": 0.2599159999999756,
+          "duration": 0.22104200000001129,
           "failureMessages": [],
           "meta": {}
         },
@@ -1178,7 +1178,7 @@
           "fullName": "useReferences composable comma-separated IDs parsing should handle IDs with extra whitespace",
           "status": "passed",
           "title": "should handle IDs with extra whitespace",
-          "duration": 0.05341600000008384,
+          "duration": 0.04841600000008839,
           "failureMessages": [],
           "meta": {}
         },
@@ -1190,7 +1190,7 @@
           "fullName": "useReferences composable comma-separated IDs parsing should handle single ID",
           "status": "passed",
           "title": "should handle single ID",
-          "duration": 0.16154200000005403,
+          "duration": 0.14704200000005585,
           "failureMessages": [],
           "meta": {}
         },
@@ -1202,7 +1202,7 @@
           "fullName": "useReferences composable comma-separated IDs parsing should filter out empty strings after splitting",
           "status": "passed",
           "title": "should filter out empty strings after splitting",
-          "duration": 0.06312500000001364,
+          "duration": 0.05712499999992815,
           "failureMessages": [],
           "meta": {}
         },
@@ -1214,7 +1214,7 @@
           "fullName": "useReferences composable reference data structure should expect shortCitation property",
           "status": "passed",
           "title": "should expect shortCitation property",
-          "duration": 0.08395899999993617,
+          "duration": 0.07691599999998289,
           "failureMessages": [],
           "meta": {}
         },
@@ -1226,7 +1226,7 @@
           "fullName": "useReferences composable reference data structure should expect fullCitation property",
           "status": "passed",
           "title": "should expect fullCitation property",
-          "duration": 0.034457999999972344,
+          "duration": 0.03233299999999417,
           "failureMessages": [],
           "meta": {}
         },
@@ -1238,7 +1238,7 @@
           "fullName": "useReferences composable reference data structure should expect url property when available",
           "status": "passed",
           "title": "should expect url property when available",
-          "duration": 0.02495899999996709,
+          "duration": 0.02320800000006784,
           "failureMessages": [],
           "meta": {}
         },
@@ -1250,7 +1250,7 @@
           "fullName": "useReferences composable reference data structure should expect type property for reference categorization",
           "status": "passed",
           "title": "should expect type property for reference categorization",
-          "duration": 0.022375000000010914,
+          "duration": 0.020958000000064203,
           "failureMessages": [],
           "meta": {}
         },
@@ -1262,7 +1262,7 @@
           "fullName": "useReferences composable citation formatting should return \"References not found\" for empty array",
           "status": "passed",
           "title": "should return \"References not found\" for empty array",
-          "duration": 0.02975000000003547,
+          "duration": 0.02712500000006912,
           "failureMessages": [],
           "meta": {}
         },
@@ -1274,7 +1274,7 @@
           "fullName": "useReferences composable citation formatting should return single citation for single reference",
           "status": "passed",
           "title": "should return single citation for single reference",
-          "duration": 0.031375000000025466,
+          "duration": 0.030209000000013475,
           "failureMessages": [],
           "meta": {}
         },
@@ -1286,7 +1286,7 @@
           "fullName": "useReferences composable citation formatting should format multiple references with numbering",
           "status": "passed",
           "title": "should format multiple references with numbering",
-          "duration": 0.048334000000068045,
+          "duration": 0.04358400000000984,
           "failureMessages": [],
           "meta": {}
         },
@@ -1298,7 +1298,7 @@
           "fullName": "useReferences composable citation formatting should use shortCitation as fallback when fullCitation is missing",
           "status": "passed",
           "title": "should use shortCitation as fallback when fullCitation is missing",
-          "duration": 0.02500000000009095,
+          "duration": 0.022916000000009262,
           "failureMessages": [],
           "meta": {}
         },
@@ -1310,7 +1310,7 @@
           "fullName": "useReferences composable error handling should handle invalid reference data format",
           "status": "passed",
           "title": "should handle invalid reference data format",
-          "duration": 0.05358400000000074,
+          "duration": 0.05170799999996234,
           "failureMessages": [],
           "meta": {}
         },
@@ -1322,7 +1322,7 @@
           "fullName": "useReferences composable error handling should return null for not found reference",
           "status": "passed",
           "title": "should return null for not found reference",
-          "duration": 0.02904200000000401,
+          "duration": 0.02816599999994196,
           "failureMessages": [],
           "meta": {}
         },
@@ -1334,7 +1334,7 @@
           "fullName": "useReferences composable error handling should return empty array when loading multiple references fails",
           "status": "passed",
           "title": "should return empty array when loading multiple references fails",
-          "duration": 0.0234579999998914,
+          "duration": 0.022334000000000742,
           "failureMessages": [],
           "meta": {}
         },
@@ -1346,7 +1346,7 @@
           "fullName": "useReferences composable fetch behavior should fetch fresh data on each call",
           "status": "passed",
           "title": "should fetch fresh data on each call",
-          "duration": 0.025666999999998552,
+          "duration": 0.022707999999965978,
           "failureMessages": [],
           "meta": {}
         },
@@ -1358,13 +1358,13 @@
           "fullName": "useReferences composable fetch behavior should fetch from /data/references.json endpoint",
           "status": "passed",
           "title": "should fetch from /data/references.json endpoint",
-          "duration": 0.02075000000002092,
+          "duration": 0.019791000000054737,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185117,
-      "endTime": 1767630185121.1616,
+      "startTime": 1768243933536,
+      "endTime": 1768243933538.077,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useReferences.test.js"
@@ -1379,7 +1379,7 @@
           "fullName": "useReportNavigation composable path normalization should normalize paths with trailing slashes",
           "status": "passed",
           "title": "should normalize paths with trailing slashes",
-          "duration": 0.8840420000000222,
+          "duration": 0.5971250000000055,
           "failureMessages": [],
           "meta": {}
         },
@@ -1391,7 +1391,7 @@
           "fullName": "useReportNavigation composable path normalization should handle root path",
           "status": "passed",
           "title": "should handle root path",
-          "duration": 0.10149999999998727,
+          "duration": 0.0993750000000091,
           "failureMessages": [],
           "meta": {}
         },
@@ -1403,7 +1403,7 @@
           "fullName": "useReportNavigation composable path normalization should handle empty path",
           "status": "passed",
           "title": "should handle empty path",
-          "duration": 0.05333399999994981,
+          "duration": 0.05249999999989541,
           "failureMessages": [],
           "meta": {}
         },
@@ -1415,7 +1415,7 @@
           "fullName": "useReportNavigation composable path normalization should handle double slashes",
           "status": "passed",
           "title": "should handle double slashes",
-          "duration": 0.24154199999998127,
+          "duration": 0.10733400000003712,
           "failureMessages": [],
           "meta": {}
         },
@@ -1427,7 +1427,7 @@
           "fullName": "useReportNavigation composable navigation data structure should include previous page data",
           "status": "passed",
           "title": "should include previous page data",
-          "duration": 0.5020829999999705,
+          "duration": 0.06891700000005585,
           "failureMessages": [],
           "meta": {}
         },
@@ -1439,7 +1439,7 @@
           "fullName": "useReportNavigation composable navigation data structure should include next page data",
           "status": "passed",
           "title": "should include next page data",
-          "duration": 0.16241600000000744,
+          "duration": 0.0524159999999938,
           "failureMessages": [],
           "meta": {}
         },
@@ -1451,7 +1451,7 @@
           "fullName": "useReportNavigation composable navigation data structure should include current index",
           "status": "passed",
           "title": "should include current index",
-          "duration": 0.04491599999994378,
+          "duration": 0.03379199999994853,
           "failureMessages": [],
           "meta": {}
         },
@@ -1463,7 +1463,7 @@
           "fullName": "useReportNavigation composable navigation data structure should include total pages count",
           "status": "passed",
           "title": "should include total pages count",
-          "duration": 0.06862499999999727,
+          "duration": 0.05770899999993162,
           "failureMessages": [],
           "meta": {}
         },
@@ -1475,7 +1475,7 @@
           "fullName": "useReportNavigation composable linear navigation behavior should return null for previous on first page",
           "status": "passed",
           "title": "should return null for previous on first page",
-          "duration": 0.16687500000000455,
+          "duration": 0.15937499999995453,
           "failureMessages": [],
           "meta": {}
         },
@@ -1487,7 +1487,7 @@
           "fullName": "useReportNavigation composable linear navigation behavior should return null for next on last page",
           "status": "passed",
           "title": "should return null for next on last page",
-          "duration": 0.08641599999998562,
+          "duration": 0.043083000000024185,
           "failureMessages": [],
           "meta": {}
         },
@@ -1499,7 +1499,7 @@
           "fullName": "useReportNavigation composable linear navigation behavior should return both previous and next for middle pages",
           "status": "passed",
           "title": "should return both previous and next for middle pages",
-          "duration": 0.14762500000006185,
+          "duration": 0.03887500000007549,
           "failureMessages": [],
           "meta": {}
         },
@@ -1511,7 +1511,7 @@
           "fullName": "useReportNavigation composable page detection should identify report pages correctly",
           "status": "passed",
           "title": "should identify report pages correctly",
-          "duration": 0.12954200000001492,
+          "duration": 0.02616699999998673,
           "failureMessages": [],
           "meta": {}
         },
@@ -1523,7 +1523,7 @@
           "fullName": "useReportNavigation composable page detection should identify non-report pages correctly",
           "status": "passed",
           "title": "should identify non-report pages correctly",
-          "duration": 0.0977500000000191,
+          "duration": 0.021875000000022737,
           "failureMessages": [],
           "meta": {}
         },
@@ -1535,7 +1535,7 @@
           "fullName": "useReportNavigation composable page summaries should include summary for navigation context",
           "status": "passed",
           "title": "should include summary for navigation context",
-          "duration": 0.12437499999998636,
+          "duration": 0.03129100000001017,
           "failureMessages": [],
           "meta": {}
         },
@@ -1547,7 +1547,7 @@
           "fullName": "useReportNavigation composable page summaries should provide default summary when none is specified",
           "status": "passed",
           "title": "should provide default summary when none is specified",
-          "duration": 0.20650000000000546,
+          "duration": 0.05670899999995527,
           "failureMessages": [],
           "meta": {}
         },
@@ -1559,7 +1559,7 @@
           "fullName": "useReportNavigation composable accessibility features should provide aria labels for navigation",
           "status": "passed",
           "title": "should provide aria labels for navigation",
-          "duration": 0.04591699999991761,
+          "duration": 0.021665999999981977,
           "failureMessages": [],
           "meta": {}
         },
@@ -1571,7 +1571,7 @@
           "fullName": "useReportNavigation composable accessibility features should provide tooltips for navigation elements",
           "status": "passed",
           "title": "should provide tooltips for navigation elements",
-          "duration": 0.029958000000078755,
+          "duration": 0.02091700000005403,
           "failureMessages": [],
           "meta": {}
         },
@@ -1583,7 +1583,7 @@
           "fullName": "useReportNavigation composable composable interface should provide getNavigationData function",
           "status": "passed",
           "title": "should provide getNavigationData function",
-          "duration": 0.29224999999996726,
+          "duration": 0.26337499999999636,
           "failureMessages": [],
           "meta": {}
         },
@@ -1595,7 +1595,7 @@
           "fullName": "useReportNavigation composable composable interface should provide isReportPage function",
           "status": "passed",
           "title": "should provide isReportPage function",
-          "duration": 0.04820799999993142,
+          "duration": 0.04112499999996544,
           "failureMessages": [],
           "meta": {}
         },
@@ -1607,7 +1607,7 @@
           "fullName": "useReportNavigation composable composable interface should provide extractReportPages function",
           "status": "passed",
           "title": "should provide extractReportPages function",
-          "duration": 0.03837500000008731,
+          "duration": 0.034708000000023276,
           "failureMessages": [],
           "meta": {}
         },
@@ -1619,7 +1619,7 @@
           "fullName": "useReportNavigation composable composable interface should provide reportPages computed property",
           "status": "passed",
           "title": "should provide reportPages computed property",
-          "duration": 0.0376250000000482,
+          "duration": 0.035375000000044565,
           "failureMessages": [],
           "meta": {}
         },
@@ -1631,7 +1631,7 @@
           "fullName": "useReportNavigation composable composable interface should provide totalReportPages computed property",
           "status": "passed",
           "title": "should provide totalReportPages computed property",
-          "duration": 0.03999999999996362,
+          "duration": 0.03870900000003985,
           "failureMessages": [],
           "meta": {}
         },
@@ -1643,7 +1643,7 @@
           "fullName": "useReportNavigation composable caching behavior should cache extracted report pages for performance",
           "status": "passed",
           "title": "should cache extracted report pages for performance",
-          "duration": 0.026165999999989253,
+          "duration": 0.020875000000046384,
           "failureMessages": [],
           "meta": {}
         },
@@ -1655,7 +1655,7 @@
           "fullName": "useReportNavigation composable boundary conditions should handle isFirstPage flag correctly",
           "status": "passed",
           "title": "should handle isFirstPage flag correctly",
-          "duration": 0.022124999999959982,
+          "duration": 0.02041600000006838,
           "failureMessages": [],
           "meta": {}
         },
@@ -1667,13 +1667,13 @@
           "fullName": "useReportNavigation composable boundary conditions should handle isLastPage flag correctly",
           "status": "passed",
           "title": "should handle isLastPage flag correctly",
-          "duration": 0.02037499999994452,
+          "duration": 0.019541000000003805,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185721,
-      "endTime": 1767630185726.04,
+      "startTime": 1768243932934,
+      "endTime": 1768243932936.2634,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useReportNavigation.test.js"
@@ -1688,7 +1688,7 @@
           "fullName": "useSiteSettings basic usage should return a composable object",
           "status": "passed",
           "title": "should return a composable object",
-          "duration": 0.8609999999998763,
+          "duration": 1.8280000000000882,
           "failureMessages": [],
           "meta": {}
         },
@@ -1700,7 +1700,7 @@
           "fullName": "useSiteSettings basic usage should have readonly config",
           "status": "passed",
           "title": "should have readonly config",
-          "duration": 0.07666700000004312,
+          "duration": 0.34512500000005275,
           "failureMessages": [],
           "meta": {}
         },
@@ -1712,7 +1712,7 @@
           "fullName": "useSiteSettings basic usage should have loading state",
           "status": "passed",
           "title": "should have loading state",
-          "duration": 0.14362500000015643,
+          "duration": 1.2898340000000417,
           "failureMessages": [],
           "meta": {}
         },
@@ -1724,7 +1724,7 @@
           "fullName": "useSiteSettings getSetting should be a function",
           "status": "passed",
           "title": "should be a function",
-          "duration": 0.09870900000009897,
+          "duration": 0.12454200000001947,
           "failureMessages": [],
           "meta": {}
         },
@@ -1736,7 +1736,7 @@
           "fullName": "useSiteSettings getSetting should return default value when config is not loaded and fetch fails",
           "status": "passed",
           "title": "should return default value when config is not loaded and fetch fails",
-          "duration": 6.010541000000103,
+          "duration": 7.787083999999936,
           "failureMessages": [],
           "meta": {}
         },
@@ -1748,7 +1748,7 @@
           "fullName": "useSiteSettings getSettings should be a function",
           "status": "passed",
           "title": "should be a function",
-          "duration": 0.07758300000000418,
+          "duration": 0.07633400000008805,
           "failureMessages": [],
           "meta": {}
         },
@@ -1760,7 +1760,7 @@
           "fullName": "useSiteSettings getSettings should handle multiple settings",
           "status": "passed",
           "title": "should handle multiple settings",
-          "duration": 0.5532080000000406,
+          "duration": 0.5854579999997895,
           "failureMessages": [],
           "meta": {}
         },
@@ -1772,7 +1772,7 @@
           "fullName": "useSiteSettings computed properties should have isLoaded computed property",
           "status": "passed",
           "title": "should have isLoaded computed property",
-          "duration": 0.12920899999994617,
+          "duration": 0.1273750000000291,
           "failureMessages": [],
           "meta": {}
         },
@@ -1784,7 +1784,7 @@
           "fullName": "useSiteSettings computed properties should have hasError computed property",
           "status": "passed",
           "title": "should have hasError computed property",
-          "duration": 0.2364580000000842,
+          "duration": 0.16708300000004783,
           "failureMessages": [],
           "meta": {}
         },
@@ -1796,13 +1796,13 @@
           "fullName": "useSiteSettings computed properties should have isLoading computed property",
           "status": "passed",
           "title": "should have isLoading computed property",
-          "duration": 0.056665999999950145,
+          "duration": 0.05562499999996362,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185250,
-      "endTime": 1767630185259.0566,
+      "startTime": 1768243933084,
+      "endTime": 1768243933097.167,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useSiteSettings.test.js"
@@ -1817,7 +1817,7 @@
           "fullName": "useTheme composable basic functionality should default to dark theme",
           "status": "passed",
           "title": "should default to dark theme",
-          "duration": 2.26133399999992,
+          "duration": 0.7781249999999318,
           "failureMessages": [],
           "meta": {}
         },
@@ -1829,7 +1829,7 @@
           "fullName": "useTheme composable basic functionality should provide theme reactive ref",
           "status": "passed",
           "title": "should provide theme reactive ref",
-          "duration": 0.670415999999932,
+          "duration": 0.3736669999999549,
           "failureMessages": [],
           "meta": {}
         },
@@ -1841,7 +1841,7 @@
           "fullName": "useTheme composable basic functionality should provide isDark computed property",
           "status": "passed",
           "title": "should provide isDark computed property",
-          "duration": 0.06845899999996163,
+          "duration": 0.056417000000010376,
           "failureMessages": [],
           "meta": {}
         },
@@ -1853,7 +1853,7 @@
           "fullName": "useTheme composable basic functionality should provide toggleTheme function",
           "status": "passed",
           "title": "should provide toggleTheme function",
-          "duration": 0.09624999999994088,
+          "duration": 0.08762500000000273,
           "failureMessages": [],
           "meta": {}
         },
@@ -1865,7 +1865,7 @@
           "fullName": "useTheme composable setTheme validation should accept \"light\" as valid theme",
           "status": "passed",
           "title": "should accept \"light\" as valid theme",
-          "duration": 0.06733399999995981,
+          "duration": 0.06454199999996035,
           "failureMessages": [],
           "meta": {}
         },
@@ -1877,7 +1877,7 @@
           "fullName": "useTheme composable setTheme validation should accept \"dark\" as valid theme",
           "status": "passed",
           "title": "should accept \"dark\" as valid theme",
-          "duration": 0.0605839999999489,
+          "duration": 0.06045800000003965,
           "failureMessages": [],
           "meta": {}
         },
@@ -1889,7 +1889,7 @@
           "fullName": "useTheme composable setTheme validation should reject invalid theme values",
           "status": "passed",
           "title": "should reject invalid theme values",
-          "duration": 0.07258300000000872,
+          "duration": 0.06862499999999727,
           "failureMessages": [],
           "meta": {}
         },
@@ -1901,7 +1901,7 @@
           "fullName": "useTheme composable setTheme validation should reject empty string as theme",
           "status": "passed",
           "title": "should reject empty string as theme",
-          "duration": 0.08904200000006313,
+          "duration": 0.09208300000000236,
           "failureMessages": [],
           "meta": {}
         },
@@ -1913,7 +1913,7 @@
           "fullName": "useTheme composable setTheme validation should reject null as theme",
           "status": "passed",
           "title": "should reject null as theme",
-          "duration": 0.16600000000005366,
+          "duration": 0.16570899999999256,
           "failureMessages": [],
           "meta": {}
         },
@@ -1925,7 +1925,7 @@
           "fullName": "useTheme composable theme toggle behavior should toggle from dark to light",
           "status": "passed",
           "title": "should toggle from dark to light",
-          "duration": 0.22045800000000781,
+          "duration": 0.04724999999996271,
           "failureMessages": [],
           "meta": {}
         },
@@ -1937,7 +1937,7 @@
           "fullName": "useTheme composable theme toggle behavior should toggle from light to dark",
           "status": "passed",
           "title": "should toggle from light to dark",
-          "duration": 0.21270799999990686,
+          "duration": 0.028249999999957254,
           "failureMessages": [],
           "meta": {}
         },
@@ -1949,7 +1949,7 @@
           "fullName": "useTheme composable theme toggle behavior should maintain toggle consistency",
           "status": "passed",
           "title": "should maintain toggle consistency",
-          "duration": 0.09683399999994435,
+          "duration": 0.05541700000003402,
           "failureMessages": [],
           "meta": {}
         },
@@ -1961,7 +1961,7 @@
           "fullName": "useTheme composable session storage behavior should use sessionStorage for theme persistence",
           "status": "passed",
           "title": "should use sessionStorage for theme persistence",
-          "duration": 0.029082999999900494,
+          "duration": 0.02241700000001856,
           "failureMessages": [],
           "meta": {}
         },
@@ -1973,7 +1973,7 @@
           "fullName": "useTheme composable session storage behavior should not persist across browser sessions",
           "status": "passed",
           "title": "should not persist across browser sessions",
-          "duration": 0.05245899999999892,
+          "duration": 0.020458999999959815,
           "failureMessages": [],
           "meta": {}
         },
@@ -1985,7 +1985,7 @@
           "fullName": "useTheme composable accessibility features should update data-theme attribute on document",
           "status": "passed",
           "title": "should update data-theme attribute on document",
-          "duration": 0.06687499999998181,
+          "duration": 0.03012499999999818,
           "failureMessages": [],
           "meta": {}
         },
@@ -1997,7 +1997,7 @@
           "fullName": "useTheme composable accessibility features should support WCAG 2.1 AA compliant themes",
           "status": "passed",
           "title": "should support WCAG 2.1 AA compliant themes",
-          "duration": 0.021917000000030384,
+          "duration": 0.02054099999998016,
           "failureMessages": [],
           "meta": {}
         },
@@ -2009,7 +2009,7 @@
           "fullName": "useTheme composable composable interface should return theme ref",
           "status": "passed",
           "title": "should return theme ref",
-          "duration": 0.030750000000011823,
+          "duration": 0.029250000000047294,
           "failureMessages": [],
           "meta": {}
         },
@@ -2021,7 +2021,7 @@
           "fullName": "useTheme composable composable interface should return isDark computed",
           "status": "passed",
           "title": "should return isDark computed",
-          "duration": 0.09887500000002092,
+          "duration": 0.09674999999992906,
           "failureMessages": [],
           "meta": {}
         },
@@ -2033,7 +2033,7 @@
           "fullName": "useTheme composable composable interface should return setTheme function",
           "status": "passed",
           "title": "should return setTheme function",
-          "duration": 0.03745800000001509,
+          "duration": 0.035082999999985987,
           "failureMessages": [],
           "meta": {}
         },
@@ -2045,7 +2045,7 @@
           "fullName": "useTheme composable composable interface should return toggleTheme function",
           "status": "passed",
           "title": "should return toggleTheme function",
-          "duration": 0.029500000000098225,
+          "duration": 0.028333999999972548,
           "failureMessages": [],
           "meta": {}
         },
@@ -2057,7 +2057,7 @@
           "fullName": "useTheme composable composable interface should return syncWithVuetify function",
           "status": "passed",
           "title": "should return syncWithVuetify function",
-          "duration": 0.061583000000041466,
+          "duration": 0.0588750000000573,
           "failureMessages": [],
           "meta": {}
         },
@@ -2069,13 +2069,13 @@
           "fullName": "useTheme composable composable interface should return initializeTheme function",
           "status": "passed",
           "title": "should return initializeTheme function",
-          "duration": 0.02841599999999289,
+          "duration": 0.02804199999991397,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185114,
-      "endTime": 1767630185119.2126,
+      "startTime": 1768243932942,
+      "endTime": 1768243932945.0588,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/composables/useTheme.test.js"
@@ -2090,7 +2090,7 @@
           "fullName": "Accessibility E2E Tests ARIA landmarks should have main landmark",
           "status": "passed",
           "title": "should have main landmark",
-          "duration": 0.7569580000000542,
+          "duration": 0.8197089999999889,
           "failureMessages": [],
           "meta": {}
         },
@@ -2102,7 +2102,7 @@
           "fullName": "Accessibility E2E Tests ARIA landmarks should have header landmark",
           "status": "passed",
           "title": "should have header landmark",
-          "duration": 0.12387499999999818,
+          "duration": 0.12533299999995506,
           "failureMessages": [],
           "meta": {}
         },
@@ -2114,7 +2114,7 @@
           "fullName": "Accessibility E2E Tests ARIA landmarks should have footer landmark",
           "status": "passed",
           "title": "should have footer landmark",
-          "duration": 0.06741699999997763,
+          "duration": 0.06675000000007003,
           "failureMessages": [],
           "meta": {}
         },
@@ -2126,7 +2126,7 @@
           "fullName": "Accessibility E2E Tests ARIA landmarks should have navigation landmark",
           "status": "passed",
           "title": "should have navigation landmark",
-          "duration": 0.09699999999997999,
+          "duration": 0.16170899999997346,
           "failureMessages": [],
           "meta": {}
         },
@@ -2138,7 +2138,7 @@
           "fullName": "Accessibility E2E Tests ARIA landmarks should have complementary landmark for sidebar",
           "status": "passed",
           "title": "should have complementary landmark for sidebar",
-          "duration": 0.09741699999995035,
+          "duration": 0.19537500000001273,
           "failureMessages": [],
           "meta": {}
         },
@@ -2150,7 +2150,7 @@
           "fullName": "Accessibility E2E Tests skip links should have skip to main content link",
           "status": "passed",
           "title": "should have skip to main content link",
-          "duration": 0.08779200000003584,
+          "duration": 0.1235829999999396,
           "failureMessages": [],
           "meta": {}
         },
@@ -2162,7 +2162,7 @@
           "fullName": "Accessibility E2E Tests skip links should have skip to navigation link",
           "status": "passed",
           "title": "should have skip to navigation link",
-          "duration": 0.03133300000001782,
+          "duration": 0.03983399999992798,
           "failureMessages": [],
           "meta": {}
         },
@@ -2174,7 +2174,7 @@
           "fullName": "Accessibility E2E Tests skip links should be visible on focus",
           "status": "passed",
           "title": "should be visible on focus",
-          "duration": 0.05925000000002001,
+          "duration": 0.06600000000003092,
           "failureMessages": [],
           "meta": {}
         },
@@ -2186,7 +2186,7 @@
           "fullName": "Accessibility E2E Tests focus management should have visible focus indicators",
           "status": "passed",
           "title": "should have visible focus indicators",
-          "duration": 0.12979200000006585,
+          "duration": 0.13574999999991633,
           "failureMessages": [],
           "meta": {}
         },
@@ -2198,7 +2198,7 @@
           "fullName": "Accessibility E2E Tests focus management should manage focus on route change",
           "status": "passed",
           "title": "should manage focus on route change",
-          "duration": 0.047000000000025466,
+          "duration": 0.04970800000000963,
           "failureMessages": [],
           "meta": {}
         },
@@ -2210,7 +2210,7 @@
           "fullName": "Accessibility E2E Tests focus management should trap focus in modal dialogs",
           "status": "passed",
           "title": "should trap focus in modal dialogs",
-          "duration": 0.0262079999999969,
+          "duration": 0.026874999999904503,
           "failureMessages": [],
           "meta": {}
         },
@@ -2222,7 +2222,7 @@
           "fullName": "Accessibility E2E Tests focus management should restore focus on modal close",
           "status": "passed",
           "title": "should restore focus on modal close",
-          "duration": 0.022374999999897227,
+          "duration": 0.022165999999970154,
           "failureMessages": [],
           "meta": {}
         },
@@ -2234,7 +2234,7 @@
           "fullName": "Accessibility E2E Tests keyboard navigation should support tab navigation",
           "status": "passed",
           "title": "should support tab navigation",
-          "duration": 0.03683300000000145,
+          "duration": 0.04291599999999107,
           "failureMessages": [],
           "meta": {}
         },
@@ -2246,7 +2246,7 @@
           "fullName": "Accessibility E2E Tests keyboard navigation should support arrow key navigation in menus",
           "status": "passed",
           "title": "should support arrow key navigation in menus",
-          "duration": 0.024125000000026375,
+          "duration": 0.024208000000044194,
           "failureMessages": [],
           "meta": {}
         },
@@ -2258,7 +2258,7 @@
           "fullName": "Accessibility E2E Tests keyboard navigation should support escape to close overlays",
           "status": "passed",
           "title": "should support escape to close overlays",
-          "duration": 0.022499999999922693,
+          "duration": 0.022375000000010914,
           "failureMessages": [],
           "meta": {}
         },
@@ -2270,7 +2270,7 @@
           "fullName": "Accessibility E2E Tests keyboard navigation should support enter/space for activation",
           "status": "passed",
           "title": "should support enter/space for activation",
-          "duration": 0.04308400000002166,
+          "duration": 0.045166999999992186,
           "failureMessages": [],
           "meta": {}
         },
@@ -2282,7 +2282,7 @@
           "fullName": "Accessibility E2E Tests ARIA live regions should have announcer for dynamic content",
           "status": "passed",
           "title": "should have announcer for dynamic content",
-          "duration": 0.02612499999997908,
+          "duration": 0.025249999999914507,
           "failureMessages": [],
           "meta": {}
         },
@@ -2294,7 +2294,7 @@
           "fullName": "Accessibility E2E Tests ARIA live regions should announce page navigation",
           "status": "passed",
           "title": "should announce page navigation",
-          "duration": 0.04070799999999508,
+          "duration": 0.04341599999997925,
           "failureMessages": [],
           "meta": {}
         },
@@ -2306,7 +2306,7 @@
           "fullName": "Accessibility E2E Tests ARIA live regions should announce search results",
           "status": "passed",
           "title": "should announce search results",
-          "duration": 0.06416699999999764,
+          "duration": 0.06299999999998818,
           "failureMessages": [],
           "meta": {}
         },
@@ -2318,7 +2318,7 @@
           "fullName": "Accessibility E2E Tests ARIA live regions should announce form validation errors",
           "status": "passed",
           "title": "should announce form validation errors",
-          "duration": 0.02275000000008731,
+          "duration": 0.022540999999932865,
           "failureMessages": [],
           "meta": {}
         },
@@ -2330,7 +2330,7 @@
           "fullName": "Accessibility E2E Tests images and media should have alt text for informative images",
           "status": "passed",
           "title": "should have alt text for informative images",
-          "duration": 0.03720799999996416,
+          "duration": 0.03708299999993869,
           "failureMessages": [],
           "meta": {}
         },
@@ -2342,7 +2342,7 @@
           "fullName": "Accessibility E2E Tests images and media should have empty alt for decorative images",
           "status": "passed",
           "title": "should have empty alt for decorative images",
-          "duration": 0.022584000000051674,
+          "duration": 0.040458999999941625,
           "failureMessages": [],
           "meta": {}
         },
@@ -2354,7 +2354,7 @@
           "fullName": "Accessibility E2E Tests images and media should have captions for videos",
           "status": "passed",
           "title": "should have captions for videos",
-          "duration": 0.021208999999998923,
+          "duration": 0.04304199999990033,
           "failureMessages": [],
           "meta": {}
         },
@@ -2366,7 +2366,7 @@
           "fullName": "Accessibility E2E Tests color and contrast should meet WCAG AA contrast ratio (4.5:1 for normal text)",
           "status": "passed",
           "title": "should meet WCAG AA contrast ratio (4.5:1 for normal text)",
-          "duration": 0.03191599999991013,
+          "duration": 0.04475000000002183,
           "failureMessages": [],
           "meta": {}
         },
@@ -2378,7 +2378,7 @@
           "fullName": "Accessibility E2E Tests color and contrast should meet WCAG AA contrast ratio (3:1 for large text)",
           "status": "passed",
           "title": "should meet WCAG AA contrast ratio (3:1 for large text)",
-          "duration": 0.020709000000010747,
+          "duration": 0.023958999999990738,
           "failureMessages": [],
           "meta": {}
         },
@@ -2390,7 +2390,7 @@
           "fullName": "Accessibility E2E Tests color and contrast should not rely solely on color to convey information",
           "status": "passed",
           "title": "should not rely solely on color to convey information",
-          "duration": 0.01887499999997999,
+          "duration": 0.021166999999991276,
           "failureMessages": [],
           "meta": {}
         },
@@ -2402,7 +2402,7 @@
           "fullName": "Accessibility E2E Tests color and contrast should work in high contrast mode",
           "status": "passed",
           "title": "should work in high contrast mode",
-          "duration": 0.01920800000004874,
+          "duration": 0.02045799999996234,
           "failureMessages": [],
           "meta": {}
         },
@@ -2414,7 +2414,7 @@
           "fullName": "Accessibility E2E Tests forms and inputs should have labels for all form inputs",
           "status": "passed",
           "title": "should have labels for all form inputs",
-          "duration": 0.022208000000091488,
+          "duration": 0.023832999999967797,
           "failureMessages": [],
           "meta": {}
         },
@@ -2426,7 +2426,7 @@
           "fullName": "Accessibility E2E Tests forms and inputs should have error messages associated with inputs",
           "status": "passed",
           "title": "should have error messages associated with inputs",
-          "duration": 0.020416999999952168,
+          "duration": 0.021166999999991276,
           "failureMessages": [],
           "meta": {}
         },
@@ -2438,7 +2438,7 @@
           "fullName": "Accessibility E2E Tests forms and inputs should have required field indicators",
           "status": "passed",
           "title": "should have required field indicators",
-          "duration": 0.025541999999973086,
+          "duration": 0.023750000000063665,
           "failureMessages": [],
           "meta": {}
         },
@@ -2450,7 +2450,7 @@
           "fullName": "Accessibility E2E Tests forms and inputs should group related form fields",
           "status": "passed",
           "title": "should group related form fields",
-          "duration": 0.022167000000081316,
+          "duration": 0.022540999999932865,
           "failureMessages": [],
           "meta": {}
         },
@@ -2462,7 +2462,7 @@
           "fullName": "Accessibility E2E Tests heading structure should have one h1 per page",
           "status": "passed",
           "title": "should have one h1 per page",
-          "duration": 0.01925000000005639,
+          "duration": 0.020582999999987805,
           "failureMessages": [],
           "meta": {}
         },
@@ -2474,7 +2474,7 @@
           "fullName": "Accessibility E2E Tests heading structure should have proper heading hierarchy",
           "status": "passed",
           "title": "should have proper heading hierarchy",
-          "duration": 0.031334000000015294,
+          "duration": 0.03245800000001964,
           "failureMessages": [],
           "meta": {}
         },
@@ -2486,7 +2486,7 @@
           "fullName": "Accessibility E2E Tests heading structure should have descriptive heading text",
           "status": "passed",
           "title": "should have descriptive heading text",
-          "duration": 0.06533300000000963,
+          "duration": 0.06900000000007367,
           "failureMessages": [],
           "meta": {}
         },
@@ -2498,7 +2498,7 @@
           "fullName": "Accessibility E2E Tests tables should have proper table headers",
           "status": "passed",
           "title": "should have proper table headers",
-          "duration": 0.023500000000012733,
+          "duration": 0.023791999999957625,
           "failureMessages": [],
           "meta": {}
         },
@@ -2510,7 +2510,7 @@
           "fullName": "Accessibility E2E Tests tables should have captions for data tables",
           "status": "passed",
           "title": "should have captions for data tables",
-          "duration": 0.021958000000040556,
+          "duration": 0.02283399999998892,
           "failureMessages": [],
           "meta": {}
         },
@@ -2522,7 +2522,7 @@
           "fullName": "Accessibility E2E Tests tables should have row headers where appropriate",
           "status": "passed",
           "title": "should have row headers where appropriate",
-          "duration": 0.02095899999994799,
+          "duration": 0.020334000000048036,
           "failureMessages": [],
           "meta": {}
         },
@@ -2534,7 +2534,7 @@
           "fullName": "Accessibility E2E Tests theme switching should support light and dark themes",
           "status": "passed",
           "title": "should support light and dark themes",
-          "duration": 0.01999999999998181,
+          "duration": 0.027000000000043656,
           "failureMessages": [],
           "meta": {}
         },
@@ -2546,7 +2546,7 @@
           "fullName": "Accessibility E2E Tests theme switching should respect user preference for color scheme",
           "status": "passed",
           "title": "should respect user preference for color scheme",
-          "duration": 0.01908400000002075,
+          "duration": 0.019000000000005457,
           "failureMessages": [],
           "meta": {}
         },
@@ -2558,13 +2558,13 @@
           "fullName": "Accessibility E2E Tests theme switching should maintain accessibility in both themes",
           "status": "passed",
           "title": "should maintain accessibility in both themes",
-          "duration": 0.018790999999964697,
+          "duration": 0.01845900000000711,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185719,
-      "endTime": 1767630185722.0654,
+      "startTime": 1768243933541,
+      "endTime": 1768243933544.069,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/e2e/accessibility.test.js"
@@ -2579,7 +2579,7 @@
           "fullName": "Content E2E Tests plan document structure should have executive summary section",
           "status": "passed",
           "title": "should have executive summary section",
-          "duration": 0.8362910000000738,
+          "duration": 0.8134159999999611,
           "failureMessages": [],
           "meta": {}
         },
@@ -2591,7 +2591,7 @@
           "fullName": "Content E2E Tests plan document structure should have four priority sections",
           "status": "passed",
           "title": "should have four priority sections",
-          "duration": 0.14112499999998818,
+          "duration": 0.17449999999996635,
           "failureMessages": [],
           "meta": {}
         },
@@ -2603,7 +2603,7 @@
           "fullName": "Content E2E Tests plan document structure should have conclusion section",
           "status": "passed",
           "title": "should have conclusion section",
-          "duration": 0.1340420000000222,
+          "duration": 0.0728750000000673,
           "failureMessages": [],
           "meta": {}
         },
@@ -2615,7 +2615,7 @@
           "fullName": "Content E2E Tests plan document structure should have organizational highlights",
           "status": "passed",
           "title": "should have organizational highlights",
-          "duration": 0.16174999999998363,
+          "duration": 0.10458300000004783,
           "failureMessages": [],
           "meta": {}
         },
@@ -2627,7 +2627,7 @@
           "fullName": "Content E2E Tests markdown content processing should render markdown to HTML",
           "status": "passed",
           "title": "should render markdown to HTML",
-          "duration": 0.05416600000000926,
+          "duration": 0.0444159999999556,
           "failureMessages": [],
           "meta": {}
         },
@@ -2639,7 +2639,7 @@
           "fullName": "Content E2E Tests markdown content processing should process footnotes/references",
           "status": "passed",
           "title": "should process footnotes/references",
-          "duration": 0.04466599999989285,
+          "duration": 0.043124999999918145,
           "failureMessages": [],
           "meta": {}
         },
@@ -2651,7 +2651,7 @@
           "fullName": "Content E2E Tests markdown content processing should render tables correctly",
           "status": "passed",
           "title": "should render tables correctly",
-          "duration": 0.056958000000008724,
+          "duration": 0.031082999999966887,
           "failureMessages": [],
           "meta": {}
         },
@@ -2663,7 +2663,7 @@
           "fullName": "Content E2E Tests markdown content processing should render lists correctly",
           "status": "passed",
           "title": "should render lists correctly",
-          "duration": 0.03045800000006693,
+          "duration": 0.028458999999998014,
           "failureMessages": [],
           "meta": {}
         },
@@ -2675,7 +2675,7 @@
           "fullName": "Content E2E Tests markdown content processing should render blockquotes correctly",
           "status": "passed",
           "title": "should render blockquotes correctly",
-          "duration": 0.1828329999999596,
+          "duration": 0.1697919999999158,
           "failureMessages": [],
           "meta": {}
         },
@@ -2687,7 +2687,7 @@
           "fullName": "Content E2E Tests content components should render PageTitleSection component",
           "status": "passed",
           "title": "should render PageTitleSection component",
-          "duration": 0.05229199999996581,
+          "duration": 0.04745900000000347,
           "failureMessages": [],
           "meta": {}
         },
@@ -2699,7 +2699,7 @@
           "fullName": "Content E2E Tests content components should render TextWrapImage component",
           "status": "passed",
           "title": "should render TextWrapImage component",
-          "duration": 0.05779199999994944,
+          "duration": 0.049250000000029104,
           "failureMessages": [],
           "meta": {}
         },
@@ -2711,7 +2711,7 @@
           "fullName": "Content E2E Tests content components should render ReportNavigation component",
           "status": "passed",
           "title": "should render ReportNavigation component",
-          "duration": 0.02575000000001637,
+          "duration": 0.024084000000016204,
           "failureMessages": [],
           "meta": {}
         },
@@ -2723,7 +2723,7 @@
           "fullName": "Content E2E Tests content components should render ReferenceTooltip component",
           "status": "passed",
           "title": "should render ReferenceTooltip component",
-          "duration": 0.041583000000059656,
+          "duration": 0.03829200000006949,
           "failureMessages": [],
           "meta": {}
         },
@@ -2735,7 +2735,7 @@
           "fullName": "Content E2E Tests news content should have news items",
           "status": "passed",
           "title": "should have news items",
-          "duration": 0.03087500000003729,
+          "duration": 0.026457999999934145,
           "failureMessages": [],
           "meta": {}
         },
@@ -2747,7 +2747,7 @@
           "fullName": "Content E2E Tests news content should display news items in chronological order",
           "status": "passed",
           "title": "should display news items in chronological order",
-          "duration": 0.03562499999998181,
+          "duration": 0.03233299999999417,
           "failureMessages": [],
           "meta": {}
         },
@@ -2759,7 +2759,7 @@
           "fullName": "Content E2E Tests news content should format news dates correctly",
           "status": "passed",
           "title": "should format news dates correctly",
-          "duration": 9.102416000000062,
+          "duration": 12.26608299999998,
           "failureMessages": [],
           "meta": {}
         },
@@ -2771,7 +2771,7 @@
           "fullName": "Content E2E Tests download functionality should have plan PDF available",
           "status": "passed",
           "title": "should have plan PDF available",
-          "duration": 0.09779100000002927,
+          "duration": 0.06049999999993361,
           "failureMessages": [],
           "meta": {}
         },
@@ -2783,7 +2783,7 @@
           "fullName": "Content E2E Tests download functionality should have download button component",
           "status": "passed",
           "title": "should have download button component",
-          "duration": 0.04504199999996672,
+          "duration": 0.03612499999996999,
           "failureMessages": [],
           "meta": {}
         },
@@ -2795,7 +2795,7 @@
           "fullName": "Content E2E Tests download functionality should have proper file MIME types",
           "status": "passed",
           "title": "should have proper file MIME types",
-          "duration": 0.031083000000080574,
+          "duration": 0.02479100000005019,
           "failureMessages": [],
           "meta": {}
         },
@@ -2807,7 +2807,7 @@
           "fullName": "Content E2E Tests resources page should have external resources listed",
           "status": "passed",
           "title": "should have external resources listed",
-          "duration": 0.029374999999959073,
+          "duration": 0.027041999999937616,
           "failureMessages": [],
           "meta": {}
         },
@@ -2819,7 +2819,7 @@
           "fullName": "Content E2E Tests resources page should have resource categories",
           "status": "passed",
           "title": "should have resource categories",
-          "duration": 0.0420409999999265,
+          "duration": 0.0404999999999518,
           "failureMessages": [],
           "meta": {}
         },
@@ -2831,7 +2831,7 @@
           "fullName": "Content E2E Tests resources page should have external link indicators",
           "status": "passed",
           "title": "should have external link indicators",
-          "duration": 0.09083299999997507,
+          "duration": 0.0812909999999647,
           "failureMessages": [],
           "meta": {}
         },
@@ -2843,7 +2843,7 @@
           "fullName": "Content E2E Tests contact page should have contact information",
           "status": "passed",
           "title": "should have contact information",
-          "duration": 0.038415999999983796,
+          "duration": 0.04033300000003237,
           "failureMessages": [],
           "meta": {}
         },
@@ -2855,7 +2855,7 @@
           "fullName": "Content E2E Tests contact page should have feedback form",
           "status": "passed",
           "title": "should have feedback form",
-          "duration": 0.02470800000003237,
+          "duration": 0.025666999999998552,
           "failureMessages": [],
           "meta": {}
         },
@@ -2867,7 +2867,7 @@
           "fullName": "Content E2E Tests legal pages should have privacy policy",
           "status": "passed",
           "title": "should have privacy policy",
-          "duration": 0.025165999999899213,
+          "duration": 0.0236250000000382,
           "failureMessages": [],
           "meta": {}
         },
@@ -2879,7 +2879,7 @@
           "fullName": "Content E2E Tests legal pages should have terms of use",
           "status": "passed",
           "title": "should have terms of use",
-          "duration": 0.036916999999903055,
+          "duration": 0.020083999999997104,
           "failureMessages": [],
           "meta": {}
         },
@@ -2891,7 +2891,7 @@
           "fullName": "Content E2E Tests legal pages should have accessibility statement",
           "status": "passed",
           "title": "should have accessibility statement",
-          "duration": 0.020250000000032742,
+          "duration": 0.018791999999962172,
           "failureMessages": [],
           "meta": {}
         },
@@ -2903,7 +2903,7 @@
           "fullName": "Content E2E Tests image handling should lazy load images",
           "status": "passed",
           "title": "should lazy load images",
-          "duration": 0.10966700000005858,
+          "duration": 0.02029200000004039,
           "failureMessages": [],
           "meta": {}
         },
@@ -2915,7 +2915,7 @@
           "fullName": "Content E2E Tests image handling should show loading spinner for images",
           "status": "passed",
           "title": "should show loading spinner for images",
-          "duration": 0.17650000000003274,
+          "duration": 0.01887499999997999,
           "failureMessages": [],
           "meta": {}
         },
@@ -2927,7 +2927,7 @@
           "fullName": "Content E2E Tests image handling should have fallback for failed images",
           "status": "passed",
           "title": "should have fallback for failed images",
-          "duration": 0.023375000000100954,
+          "duration": 0.018209000000069864,
           "failureMessages": [],
           "meta": {}
         },
@@ -2939,7 +2939,7 @@
           "fullName": "Content E2E Tests search functionality should have search interface",
           "status": "passed",
           "title": "should have search interface",
-          "duration": 0.024874999999951797,
+          "duration": 0.02149999999994634,
           "failureMessages": [],
           "meta": {}
         },
@@ -2951,7 +2951,7 @@
           "fullName": "Content E2E Tests search functionality should search across plan content",
           "status": "passed",
           "title": "should search across plan content",
-          "duration": 0.10458400000004531,
+          "duration": 0.020458000000076026,
           "failureMessages": [],
           "meta": {}
         },
@@ -2963,7 +2963,7 @@
           "fullName": "Content E2E Tests search functionality should highlight search matches",
           "status": "passed",
           "title": "should highlight search matches",
-          "duration": 0.07024999999998727,
+          "duration": 0.020167000000014923,
           "failureMessages": [],
           "meta": {}
         },
@@ -2975,13 +2975,13 @@
           "fullName": "Content E2E Tests search functionality should provide search suggestions",
           "status": "passed",
           "title": "should provide search suggestions",
-          "duration": 0.02908300000001418,
+          "duration": 0.018791999999962172,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185132,
-      "endTime": 1767630185144.1765,
+      "startTime": 1768243932954,
+      "endTime": 1768243932969.0188,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/e2e/content.test.js"
@@ -2996,7 +2996,7 @@
           "fullName": "Navigation E2E Tests route configuration should have home route defined",
           "status": "passed",
           "title": "should have home route defined",
-          "duration": 1.0349169999999503,
+          "duration": 0.5678329999999505,
           "failureMessages": [],
           "meta": {}
         },
@@ -3008,7 +3008,7 @@
           "fullName": "Navigation E2E Tests route configuration should have plan routes defined",
           "status": "passed",
           "title": "should have plan routes defined",
-          "duration": 2.872916999999916,
+          "duration": 0.7220829999999978,
           "failureMessages": [],
           "meta": {}
         },
@@ -3020,7 +3020,7 @@
           "fullName": "Navigation E2E Tests route configuration should have resources route defined",
           "status": "passed",
           "title": "should have resources route defined",
-          "duration": 0.1732080000000451,
+          "duration": 0.14983299999994415,
           "failureMessages": [],
           "meta": {}
         },
@@ -3032,7 +3032,7 @@
           "fullName": "Navigation E2E Tests route configuration should have contact route defined",
           "status": "passed",
           "title": "should have contact route defined",
-          "duration": 0.07841699999994489,
+          "duration": 0.07016700000008314,
           "failureMessages": [],
           "meta": {}
         },
@@ -3044,7 +3044,7 @@
           "fullName": "Navigation E2E Tests route configuration should have accessibility routes defined",
           "status": "passed",
           "title": "should have accessibility routes defined",
-          "duration": 0.0709590000000162,
+          "duration": 0.06733399999995981,
           "failureMessages": [],
           "meta": {}
         },
@@ -3056,7 +3056,7 @@
           "fullName": "Navigation E2E Tests route configuration should have legal routes defined",
           "status": "passed",
           "title": "should have legal routes defined",
-          "duration": 0.04612499999996089,
+          "duration": 0.044208000000026004,
           "failureMessages": [],
           "meta": {}
         },
@@ -3068,7 +3068,7 @@
           "fullName": "Navigation E2E Tests menu configuration should have main navigation items",
           "status": "passed",
           "title": "should have main navigation items",
-          "duration": 0.06845799999996416,
+          "duration": 0.06304199999999582,
           "failureMessages": [],
           "meta": {}
         },
@@ -3080,7 +3080,7 @@
           "fullName": "Navigation E2E Tests menu configuration should have sidebar navigation for plan sections",
           "status": "passed",
           "title": "should have sidebar navigation for plan sections",
-          "duration": 0.07799999999997453,
+          "duration": 0.07495799999992414,
           "failureMessages": [],
           "meta": {}
         },
@@ -3092,7 +3092,7 @@
           "fullName": "Navigation E2E Tests menu configuration should have footer navigation items",
           "status": "passed",
           "title": "should have footer navigation items",
-          "duration": 0.1307090000000244,
+          "duration": 0.11483299999997598,
           "failureMessages": [],
           "meta": {}
         },
@@ -3104,7 +3104,7 @@
           "fullName": "Navigation E2E Tests report navigation should provide next/previous navigation between sections",
           "status": "passed",
           "title": "should provide next/previous navigation between sections",
-          "duration": 0.05787499999996726,
+          "duration": 0.05308300000001509,
           "failureMessages": [],
           "meta": {}
         },
@@ -3116,7 +3116,7 @@
           "fullName": "Navigation E2E Tests report navigation should not have previous on first section",
           "status": "passed",
           "title": "should not have previous on first section",
-          "duration": 0.028125000000045475,
+          "duration": 0.02779200000009041,
           "failureMessages": [],
           "meta": {}
         },
@@ -3128,7 +3128,7 @@
           "fullName": "Navigation E2E Tests report navigation should not have next on last section",
           "status": "passed",
           "title": "should not have next on last section",
-          "duration": 0.024292000000059488,
+          "duration": 0.02308299999992869,
           "failureMessages": [],
           "meta": {}
         },
@@ -3140,7 +3140,7 @@
           "fullName": "Navigation E2E Tests scroll behavior should have smooth scroll configured",
           "status": "passed",
           "title": "should have smooth scroll configured",
-          "duration": 0.025083999999992557,
+          "duration": 0.021666999999979453,
           "failureMessages": [],
           "meta": {}
         },
@@ -3152,7 +3152,7 @@
           "fullName": "Navigation E2E Tests scroll behavior should scroll to top on route change",
           "status": "passed",
           "title": "should scroll to top on route change",
-          "duration": 0.07941700000003493,
+          "duration": 0.03620800000010149,
           "failureMessages": [],
           "meta": {}
         },
@@ -3164,7 +3164,7 @@
           "fullName": "Navigation E2E Tests scroll behavior should handle hash navigation",
           "status": "passed",
           "title": "should handle hash navigation",
-          "duration": 0.02320899999995163,
+          "duration": 0.020833000000038737,
           "failureMessages": [],
           "meta": {}
         },
@@ -3176,7 +3176,7 @@
           "fullName": "Navigation E2E Tests 404 handling should have error page configured",
           "status": "passed",
           "title": "should have error page configured",
-          "duration": 0.07491600000003018,
+          "duration": 0.019957999999974163,
           "failureMessages": [],
           "meta": {}
         },
@@ -3188,7 +3188,7 @@
           "fullName": "Navigation E2E Tests 404 handling should redirect unknown routes to error page",
           "status": "passed",
           "title": "should redirect unknown routes to error page",
-          "duration": 0.04612500000007458,
+          "duration": 0.021042000000079497,
           "failureMessages": [],
           "meta": {}
         },
@@ -3200,7 +3200,7 @@
           "fullName": "Navigation E2E Tests breadcrumb navigation should show breadcrumbs on nested pages",
           "status": "passed",
           "title": "should show breadcrumbs on nested pages",
-          "duration": 0.09962499999994634,
+          "duration": 0.028666000000043823,
           "failureMessages": [],
           "meta": {}
         },
@@ -3212,13 +3212,13 @@
           "fullName": "Navigation E2E Tests breadcrumb navigation should have correct hierarchy",
           "status": "passed",
           "title": "should have correct hierarchy",
-          "duration": 0.039874999999938154,
+          "duration": 0.03408300000000963,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185113,
-      "endTime": 1767630185118.1306,
+      "startTime": 1768243932941,
+      "endTime": 1768243932943.1147,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/e2e/navigation.test.js"
@@ -3233,7 +3233,7 @@
           "fullName": "config-loader utility loadConfig should load configuration from file",
           "status": "passed",
           "title": "should load configuration from file",
-          "duration": 1.1029170000000477,
+          "duration": 0.5267910000000029,
           "failureMessages": [],
           "meta": {}
         },
@@ -3245,7 +3245,7 @@
           "fullName": "config-loader utility loadConfig should handle missing config files gracefully",
           "status": "passed",
           "title": "should handle missing config files gracefully",
-          "duration": 0.12416700000005676,
+          "duration": 0.09595799999999599,
           "failureMessages": [],
           "meta": {}
         },
@@ -3257,7 +3257,7 @@
           "fullName": "config-loader utility loadConfig should parse JSON configuration",
           "status": "passed",
           "title": "should parse JSON configuration",
-          "duration": 0.05670800000007148,
+          "duration": 0.05062499999996817,
           "failureMessages": [],
           "meta": {}
         },
@@ -3269,7 +3269,7 @@
           "fullName": "config-loader utility getConfigValue should retrieve nested configuration values",
           "status": "passed",
           "title": "should retrieve nested configuration values",
-          "duration": 0.08704199999999673,
+          "duration": 0.08016599999996288,
           "failureMessages": [],
           "meta": {}
         },
@@ -3281,7 +3281,7 @@
           "fullName": "config-loader utility getConfigValue should return default value if key not found",
           "status": "passed",
           "title": "should return default value if key not found",
-          "duration": 0.04037500000004002,
+          "duration": 0.03999999999996362,
           "failureMessages": [],
           "meta": {}
         },
@@ -3293,7 +3293,7 @@
           "fullName": "config-loader utility getConfigValue should support dot notation for nested keys",
           "status": "passed",
           "title": "should support dot notation for nested keys",
-          "duration": 0.03920900000002803,
+          "duration": 0.039667000000008557,
           "failureMessages": [],
           "meta": {}
         },
@@ -3305,7 +3305,7 @@
           "fullName": "config-loader utility validation should validate required configuration keys",
           "status": "passed",
           "title": "should validate required configuration keys",
-          "duration": 0.030583999999976186,
+          "duration": 0.029625000000010004,
           "failureMessages": [],
           "meta": {}
         },
@@ -3317,13 +3317,13 @@
           "fullName": "config-loader utility validation should throw error for invalid configuration",
           "status": "passed",
           "title": "should throw error for invalid configuration",
-          "duration": 0.026707999999985077,
+          "duration": 0.025374999999939973,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185724,
-      "endTime": 1767630185726.0872,
+      "startTime": 1768243933535,
+      "endTime": 1768243933536.08,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/utils/config-loader.test.js"
@@ -3338,7 +3338,7 @@
           "fullName": "logger utility log levels should support DEBUG level",
           "status": "passed",
           "title": "should support DEBUG level",
-          "duration": 0.6366659999999911,
+          "duration": 0.5212080000000014,
           "failureMessages": [],
           "meta": {}
         },
@@ -3350,7 +3350,7 @@
           "fullName": "logger utility log levels should support INFO level",
           "status": "passed",
           "title": "should support INFO level",
-          "duration": 0.10391699999991033,
+          "duration": 0.09554200000002311,
           "failureMessages": [],
           "meta": {}
         },
@@ -3362,7 +3362,7 @@
           "fullName": "logger utility log levels should support WARN level",
           "status": "passed",
           "title": "should support WARN level",
-          "duration": 0.07762500000001182,
+          "duration": 0.051000000000044565,
           "failureMessages": [],
           "meta": {}
         },
@@ -3374,7 +3374,7 @@
           "fullName": "logger utility log levels should support ERROR level",
           "status": "passed",
           "title": "should support ERROR level",
-          "duration": 0.10200000000008913,
+          "duration": 0.0858339999999771,
           "failureMessages": [],
           "meta": {}
         },
@@ -3386,7 +3386,7 @@
           "fullName": "logger utility formatting should format log messages with timestamps",
           "status": "passed",
           "title": "should format log messages with timestamps",
-          "duration": 0.04679200000009587,
+          "duration": 0.04316700000003948,
           "failureMessages": [],
           "meta": {}
         },
@@ -3398,7 +3398,7 @@
           "fullName": "logger utility formatting should include log level in output",
           "status": "passed",
           "title": "should include log level in output",
-          "duration": 0.04229200000008859,
+          "duration": 0.03970800000001873,
           "failureMessages": [],
           "meta": {}
         },
@@ -3410,7 +3410,7 @@
           "fullName": "logger utility environment handling should respect log level configuration",
           "status": "passed",
           "title": "should respect log level configuration",
-          "duration": 0.030375000000049113,
+          "duration": 0.028874999999970896,
           "failureMessages": [],
           "meta": {}
         },
@@ -3422,13 +3422,13 @@
           "fullName": "logger utility environment handling should filter logs in production",
           "status": "passed",
           "title": "should filter logs in production",
-          "duration": 0.026499999999941792,
+          "duration": 0.02529200000003584,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185715,
-      "endTime": 1767630185717.0422,
+      "startTime": 1768243933535,
+      "endTime": 1768243933536.0398,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/utils/logger.test.js"
@@ -3443,7 +3443,7 @@
           "fullName": "sanitize utility sanitizeString should escape < character",
           "status": "passed",
           "title": "should escape < character",
-          "duration": 0.7283750000000282,
+          "duration": 1.5149579999999787,
           "failureMessages": [],
           "meta": {}
         },
@@ -3455,7 +3455,7 @@
           "fullName": "sanitize utility sanitizeString should escape > character",
           "status": "passed",
           "title": "should escape > character",
-          "duration": 0.07141599999999926,
+          "duration": 0.17279199999995853,
           "failureMessages": [],
           "meta": {}
         },
@@ -3467,7 +3467,7 @@
           "fullName": "sanitize utility sanitizeString should escape & character",
           "status": "passed",
           "title": "should escape & character",
-          "duration": 0.04187500000000455,
+          "duration": 0.09462499999995089,
           "failureMessages": [],
           "meta": {}
         },
@@ -3479,7 +3479,7 @@
           "fullName": "sanitize utility sanitizeString should escape \" character",
           "status": "passed",
           "title": "should escape \" character",
-          "duration": 0.04654199999993125,
+          "duration": 0.3099170000000413,
           "failureMessages": [],
           "meta": {}
         },
@@ -3491,7 +3491,7 @@
           "fullName": "sanitize utility sanitizeString should escape ' character",
           "status": "passed",
           "title": "should escape ' character",
-          "duration": 0.0350420000000895,
+          "duration": 0.0969590000000835,
           "failureMessages": [],
           "meta": {}
         },
@@ -3503,7 +3503,7 @@
           "fullName": "sanitize utility sanitizeString should handle empty input",
           "status": "passed",
           "title": "should handle empty input",
-          "duration": 0.0779170000000704,
+          "duration": 0.10083399999996345,
           "failureMessages": [],
           "meta": {}
         },
@@ -3515,7 +3515,7 @@
           "fullName": "sanitize utility sanitizeString should handle null input",
           "status": "passed",
           "title": "should handle null input",
-          "duration": 0.02966700000001765,
+          "duration": 0.037208999999961634,
           "failureMessages": [],
           "meta": {}
         },
@@ -3527,7 +3527,7 @@
           "fullName": "sanitize utility sanitizeString should handle text without special characters",
           "status": "passed",
           "title": "should handle text without special characters",
-          "duration": 0.02758300000004965,
+          "duration": 0.032207999999968706,
           "failureMessages": [],
           "meta": {}
         },
@@ -3539,7 +3539,7 @@
           "fullName": "sanitize utility sanitizeSearchQuery should remove dangerous patterns",
           "status": "passed",
           "title": "should remove dangerous patterns",
-          "duration": 0.28854199999989305,
+          "duration": 0.31675000000007003,
           "failureMessages": [],
           "meta": {}
         },
@@ -3551,7 +3551,7 @@
           "fullName": "sanitize utility sanitizeSearchQuery should limit query length",
           "status": "passed",
           "title": "should limit query length",
-          "duration": 0.16649999999992815,
+          "duration": 0.1806250000000773,
           "failureMessages": [],
           "meta": {}
         },
@@ -3563,7 +3563,7 @@
           "fullName": "sanitize utility sanitizeSearchQuery should respect custom max length",
           "status": "passed",
           "title": "should respect custom max length",
-          "duration": 0.03320799999994506,
+          "duration": 0.03412500000001728,
           "failureMessages": [],
           "meta": {}
         },
@@ -3575,7 +3575,7 @@
           "fullName": "sanitize utility sanitizeSearchQuery should normalize whitespace",
           "status": "passed",
           "title": "should normalize whitespace",
-          "duration": 0.02895899999998619,
+          "duration": 0.029333000000065113,
           "failureMessages": [],
           "meta": {}
         },
@@ -3587,7 +3587,7 @@
           "fullName": "sanitize utility sanitizeSearchQuery should remove javascript patterns",
           "status": "passed",
           "title": "should remove javascript patterns",
-          "duration": 0.045166999999992186,
+          "duration": 0.04679199999998218,
           "failureMessages": [],
           "meta": {}
         },
@@ -3599,7 +3599,7 @@
           "fullName": "sanitize utility sanitizeSearchQuery should handle empty input",
           "status": "passed",
           "title": "should handle empty input",
-          "duration": 0.02075000000002092,
+          "duration": 0.02133400000002439,
           "failureMessages": [],
           "meta": {}
         },
@@ -3611,7 +3611,7 @@
           "fullName": "sanitize utility sanitizeContentForIndexing should remove script tags",
           "status": "passed",
           "title": "should remove script tags",
-          "duration": 0.5829589999999598,
+          "duration": 0.9880829999999605,
           "failureMessages": [],
           "meta": {}
         },
@@ -3623,7 +3623,7 @@
           "fullName": "sanitize utility sanitizeContentForIndexing should remove style tags",
           "status": "passed",
           "title": "should remove style tags",
-          "duration": 0.31504099999995105,
+          "duration": 1.0566250000000537,
           "failureMessages": [],
           "meta": {}
         },
@@ -3635,7 +3635,7 @@
           "fullName": "sanitize utility sanitizeContentForIndexing should remove HTML comments",
           "status": "passed",
           "title": "should remove HTML comments",
-          "duration": 0.03637500000002092,
+          "duration": 0.24216699999999491,
           "failureMessages": [],
           "meta": {}
         },
@@ -3647,7 +3647,7 @@
           "fullName": "sanitize utility sanitizeContentForIndexing should remove Vue directives",
           "status": "passed",
           "title": "should remove Vue directives",
-          "duration": 0.034915999999952874,
+          "duration": 0.06866700000000492,
           "failureMessages": [],
           "meta": {}
         },
@@ -3659,7 +3659,7 @@
           "fullName": "sanitize utility sanitizeContentForIndexing should limit content length",
           "status": "passed",
           "title": "should limit content length",
-          "duration": 154.77775000000008,
+          "duration": 83.69124999999997,
           "failureMessages": [],
           "meta": {}
         },
@@ -3671,7 +3671,7 @@
           "fullName": "sanitize utility sanitizeContentForIndexing should handle empty input",
           "status": "passed",
           "title": "should handle empty input",
-          "duration": 0.08162500000003092,
+          "duration": 0.07795799999996689,
           "failureMessages": [],
           "meta": {}
         },
@@ -3683,7 +3683,7 @@
           "fullName": "sanitize utility containsDangerousContent should detect script tags",
           "status": "passed",
           "title": "should detect script tags",
-          "duration": 0.292667000000165,
+          "duration": 0.3031670000000304,
           "failureMessages": [],
           "meta": {}
         },
@@ -3695,7 +3695,7 @@
           "fullName": "sanitize utility containsDangerousContent should detect javascript: protocol",
           "status": "passed",
           "title": "should detect javascript: protocol",
-          "duration": 0.3515830000001188,
+          "duration": 1.1678750000000946,
           "failureMessages": [],
           "meta": {}
         },
@@ -3707,7 +3707,7 @@
           "fullName": "sanitize utility containsDangerousContent should detect event handlers",
           "status": "passed",
           "title": "should detect event handlers",
-          "duration": 0.23833400000012261,
+          "duration": 0.5864579999999933,
           "failureMessages": [],
           "meta": {}
         },
@@ -3719,7 +3719,7 @@
           "fullName": "sanitize utility containsDangerousContent should not flag safe Vue.js patterns",
           "status": "passed",
           "title": "should not flag safe Vue.js patterns",
-          "duration": 0.18195799999989504,
+          "duration": 1.0483749999999645,
           "failureMessages": [],
           "meta": {}
         },
@@ -3731,13 +3731,13 @@
           "fullName": "sanitize utility containsDangerousContent should handle empty input",
           "status": "passed",
           "title": "should handle empty input",
-          "duration": 0.03129100000001017,
+          "duration": 0.0903329999999869,
           "failureMessages": [],
           "meta": {}
         }
       ],
-      "startTime": 1767630185147,
-      "endTime": 1767630185306.3516,
+      "startTime": 1768243932969,
+      "endTime": 1768243933062.0903,
       "status": "passed",
       "message": "",
       "name": "/Volumes/satechi/webdev/icjia-vpp-2025/test/utils/sanitize.test.js"
