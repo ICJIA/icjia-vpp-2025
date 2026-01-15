@@ -1047,12 +1047,13 @@ const enhanceScrollableRegions = () => {
       // Handle ALL pre elements - make them focusable regardless of scrollability
       // This ensures keyboard access for code blocks on all pages
       const preElems = root.querySelectorAll("pre");
-      preElems.forEach((pre) => {
+      preElems.forEach((pre, index) => {
         // Always make pre elements focusable for keyboard access
         if (!pre.hasAttribute("tabindex")) {
           pre.setAttribute("tabindex", "0");
           pre.setAttribute("role", "region");
-          pre.setAttribute("aria-label", "Code example");
+          // Make each code block's label unique to satisfy landmark-unique rule
+          pre.setAttribute("aria-label", `Code example ${index + 1}`);
           pre.classList.add("focus-outline-visible");
         }
 
@@ -1061,7 +1062,8 @@ const enhanceScrollableRegions = () => {
         if (codeChild && !codeChild.hasAttribute("tabindex")) {
           codeChild.setAttribute("tabindex", "0");
           codeChild.setAttribute("role", "region");
-          codeChild.setAttribute("aria-label", "Code example");
+          // Make each code block's label unique to satisfy landmark-unique rule
+          codeChild.setAttribute("aria-label", `Code example ${index + 1}`);
         }
       });
 

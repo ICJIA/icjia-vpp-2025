@@ -122,19 +122,6 @@
           >
             Accessibility
           </a>
-
-          <span class="footer-divider d-none d-md-inline" aria-hidden="true"
-            >|</span
-          >
-
-          <!-- Terms of Service -->
-          <nuxt-link
-            to="/legal/terms-of-service"
-            class="footer-item"
-            aria-label="View Terms of Service"
-          >
-            Terms of Service
-          </nuxt-link>
         </div>
       </div>
     </div>
@@ -190,7 +177,6 @@ const handleHomeClick = () => {
 const navigateToStatic = (path) => {
   window.location.href = path;
 };
-
 </script>
 
 <style scoped>

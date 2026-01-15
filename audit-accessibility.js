@@ -4,212 +4,127 @@
  * @fileoverview Accessibility Audit Script using axe-core
  * @description Comprehensive accessibility audit tool that tests websites against WCAG 2.1 Level AA standards.
  *
- * This script:
- * - Tests against development or production environments
- * - Automatically starts dev server if not running
+ * Mirrored from ICJIA Accessibility Portal reference script (with site-specific config changes):
  * - Reads URLs from sitemap.xml
  * - Tests each URL in multiple viewports (desktop, tablet, mobile)
  * - Tests multiple themes (if configured)
  * - Verifies skip link implementation
- * - Generates HTML and JSON reports
+ * - Auto-starts dev server if not running (development mode)
+ * - Generates HTML + JSON reports under /public/docs/accessibility/
  *
- * @author ICJIA
- * @version 1.0.0
+ * IMPORTANT: Keep behavior/output aligned with the reference script so all ICJIA
+ * projects run audits the same way.
  *
- * @see {@link https://github.com/dequelabs/axe-core axe-core GitHub}
- * @see {@link https://www.w3.org/WAI/WCAG21/quickref/ WCAG 2.1 Quick Reference}
+ * Reference: https://raw.githubusercontent.com/ICJIA/icjia-accessibility-portal/refs/heads/main/audit-accessibility.js
  */
 
 /**
  * ============================================================================
  * ⚙️ DEVELOPER CONFIGURATION - EDIT THIS SECTION
  * ============================================================================
- *
- * You can safely modify the AXE_RULE_CONFIG below to enable/disable specific
- * accessibility rules. This is the ONLY section you should modify unless you
- * know what you're doing.
- *
- * ⚠️ WARNING: Be careful with anything below this configuration section.
- *             Changes to the rest of the script may break the audit functionality.
- *
- * ============================================================================
  */
 
-/**
- * Target Environment Configuration
- *
- * Choose whether to run the audit against the development server or production.
- *
- * @type {string}
- * @constant
- * @default "development"
- *
- * @example
- * // To test against local dev server (default):
- * const TARGET_ENV = "development";
- *
- * // To test against production:
- * const TARGET_ENV = "production";
- */
-const TARGET_ENV = "development"; // Change to "production" to test against production URL
-//const TARGET_ENV = "production";
-/**
- * Production URL Configuration
- *
- * The production URL to test against when TARGET_ENV is set to "production".
- */
-const PRODUCTION_URL = "https://violenceprevention.icjia.dev";
+// Target Environment ("development" or "production")
+const TARGET_ENV = "development";
 
-/**
- * Development Server Configuration
- *
- * The port number for the local development server.
- * This is used when TARGET_ENV is set to "development".
- */
-const DEV_SERVER_PORT = 8000; // Change if your dev server runs on a different port
+// Production URL (only used when TARGET_ENV === "production")
+const PRODUCTION_URL = "https://vpp.icjia.illinois.gov";
 
-/**
- * Axe-core Rule Configuration
- *
- * Toggle these rules to test compatibility with Nuxt/Vuetify framework.
- * If a rule causes false positives or conflicts with framework structure,
- * set it to false to disable it.
- *
- * @example
- * // To disable a rule that's causing false positives:
- * "aria-allowed-role": false,
- *
- * // To enable a rule for testing:
- * "scrollable-region-focusable": true,
- */
+// Development server port (only used when TARGET_ENV === "development")
+const DEV_SERVER_PORT = 8000;
+
+// Line number for AXE_RULE_CONFIG (for documentation reference)
+const AXE_RULE_CONFIG_LINE = 37;
+
+// Axe-core rule toggles (boolean enable/disable)
 const AXE_RULE_CONFIG = {
-  // Framework-specific rules - enabled for comprehensive testing
-  "aria-allowed-role": true, // Works with Nuxt/Vuetify components
-  "scrollable-region-focusable": true, // Works with Nuxt/Vuetify scrollable regions
+  // Framework-specific rules
+  "aria-allowed-role": true,
+  "scrollable-region-focusable": true,
 
-  // Landmark rules - all enabled for WCAG compliance
+  // Landmark rules
   "landmark-banner-is-top-level": true,
   "landmark-contentinfo-is-top-level": true,
   "landmark-main-is-top-level": true,
   "landmark-unique": true,
-  
+
   // ❌ DISABLED: Known incompatibility with Nuxt/Vue component structure
-  // The 'region' rule has issues with Vue/Nuxt because components dynamically create
-  // regions that don't match the expected HTML5 landmark structure
   region: false,
 
-  // WCAG 2.1 Level AA rules - all enabled
-  "css-orientation-lock": true, // WCAG 2.1 SC 1.3.4 - Orientation lock check
-  "no-autoplay-audio": true, // WCAG 2.1 SC 1.4.2 - Autoplay audio check
-  "page-has-heading-one": true, // Best practice - Page should have h1
+  // WCAG 2.1 / experimental rules
+  "css-orientation-lock": true,
+  "no-autoplay-audio": true,
+  "page-has-heading-one": true,
 
-  // Focus and navigation rules - all enabled
-  "focus-order-semantics": true, // Checks focus order matches DOM order
-  "identical-links-same-purpose": true, // Checks for duplicate links with same purpose
-  "link-in-text-block": true, // WCAG 2.1 SC 1.4.1 - Link contrast in text blocks
+  // Focus/navigation rules
+  "focus-order-semantics": true,
+  "identical-links-same-purpose": true,
+  "link-in-text-block": true,
 
-  // Content and labeling rules - all enabled
-  "hidden-content": true, // Checks for hidden content that should be visible
-  "label-content-name-mismatch": true, // Checks if label text matches accessible name
-  "presentation-role-conflict": true, // Checks for presentation role conflicts
+  // Content/labeling rules
+  "hidden-content": true,
+  "label-content-name-mismatch": true,
+  "presentation-role-conflict": true,
 };
 
-/**
- * File Paths Configuration
- *
- * Configure where the script should look for the sitemap and where to save reports.
- * All paths are relative to the script's directory (__dirname).
- * These will be constructed after imports are loaded.
- */
-const SITEMAP_PATH_CONFIG = "public/sitemap.xml"; // Relative to script directory
-const OUTPUT_DIR_CONFIG = "public/docs/accessibility"; // Relative to script directory
-const REPORT_FILE_NAME = "index.html"; // Filename in OUTPUT_DIR
+// Paths (relative to repo root)
+const SITEMAP_PATH_CONFIG = "public/sitemap.xml";
+const OUTPUT_DIR_CONFIG = "public/docs/accessibility";
+const REPORT_FILE_NAME = "index.html";
 
-/**
- * Viewport Configuration
- *
- * Define the viewport sizes to test. Each viewport will be tested for every URL.
- */
+// Viewports to test
 const VIEWPORTS = [
   { width: 1920, height: 1080, name: "desktop" },
   { width: 768, height: 1024, name: "tablet" },
   { width: 375, height: 812, name: "mobile" },
 ];
 
-/**
- * Theme Configuration
- *
- * Configure which themes to test and how to switch between them.
- * This site uses a light/dark mode switch, so we test both themes.
- */
+// Themes to test
 const THEME_CONFIG = {
   themes: [
+    { name: "light", value: "light" },
     { name: "dark", value: "dark" },
-    { name: "light", value: "light" }
   ],
   switching: {
-    mode: "attribute", // Use HTML attribute switching
-    // The site uses data-theme attribute on the html element
-    attributeName: "data-theme",
-    attributeSelector: "html",
+    mode: "auto", // "none" | "auto" | "manual"
+    // For mode: "manual":
+    // toggleSelector: 'input[type="checkbox"][role="switch"]',
+    // darkClass: "v-theme--dark",
+    // localStorageKey: "theme",
   },
 };
 
-/**
- * Skip Link Configuration
- *
- * Configure how the script should detect and verify skip links on your site.
- */
+// Skip link verification config
 const SKIP_LINK_CONFIG = {
   selector: 'a[href="#main-content"], a.skip-link, a[class*="skip"]',
-  targetId: "main-content", // Without the # symbol
+  targetId: "main-content",
 };
 
-/**
- * Axe Exclude Selectors
- *
- * CSS selectors for elements that should be excluded from accessibility testing.
- * These are typically framework-specific wrapper elements that don't need to be tested.
- */
-const AXE_EXCLUDE_SELECTORS = [["#__nuxt"]]; // Default: Nuxt root container
+// Axe exclude selectors (exclude Nuxt DevTools overlay in dev mode)
+const AXE_EXCLUDE_SELECTORS = [
+  ["nuxt-devtools-frame"],
+  ["nuxt-devtools-panel"],
+];
 
-/**
- * Development Server Command
- *
- * The command to start the development server. This is used when TARGET_ENV is "development"
- * and the server is not already running.
- */
-const DEV_SERVER_COMMAND = { command: "npm", args: ["run", "dev"] };
+// Command to start dev server (used only when dev server isn't already running)
+// NOTE: This repo needs generated content; dev:audit is expected to do the right thing.
+const DEV_SERVER_COMMAND = { command: "yarn", args: ["dev:audit"] };
 
-/**
- * Site Information Configuration
- *
- * Information about your site for display in the HTML report.
- */
+// Site metadata in report
 const SITE_INFO = {
-  name: "ICJIA Accessibility Portal",
+  name: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
   description:
-    "Accessibility compliance portal for Illinois Criminal Justice Information Authority",
+    "Accessibility audit report for the Illinois Violence Prevention Plan website.",
 };
 
-/**
- * Compliance Standards Configuration
- *
- * Define which accessibility standards your site needs to comply with.
- * This information is displayed in the HTML report.
- */
 const COMPLIANCE_STANDARDS = [
   {
     name: "IITAA Accessibility Standards for Illinois",
     description:
-      "The Illinois Information Technology Accessibility (IITAA) standards require that all state websites and digital services be accessible to individuals with disabilities. These standards align with WCAG 2.1 Level AA and Section 508 requirements, ensuring that Illinois state websites are usable by all residents, including those using assistive technologies.",
+      "Illinois Information Technology Accessibility (IITAA) standards align with WCAG 2.1 Level AA and Section 508, ensuring Illinois state websites are usable by all residents, including those using assistive technologies.",
     links: [
       {
         text: "IITAA Standards Documentation",
-        url: "https://doit.illinois.gov/initiatives/accessibility/iitaa.html",
-      },
-      {
-        text: "IITAA Accessibility Requirements",
         url: "https://doit.illinois.gov/initiatives/accessibility/iitaa.html",
       },
     ],
@@ -217,102 +132,50 @@ const COMPLIANCE_STANDARDS = [
   {
     name: "WCAG 2.1 Level AA Guidelines",
     description:
-      "The Web Content Accessibility Guidelines (WCAG) 2.1 Level AA are internationally recognized standards for web accessibility. These guidelines provide a comprehensive framework for making web content accessible to people with disabilities, including those with visual, auditory, physical, speech, cognitive, language, learning, and neurological disabilities.",
+      "The Web Content Accessibility Guidelines (WCAG) 2.1 Level AA are internationally recognized standards for web accessibility.",
     links: [
       {
         text: "WCAG 2.1 Quick Reference",
         url: "https://www.w3.org/WAI/WCAG21/quickref/",
-      },
-      {
-        text: "Understanding WCAG 2.1",
-        url: "https://www.w3.org/WAI/WCAG21/Understanding/",
-      },
-      {
-        text: "WCAG 2.1 Guidelines",
-        url: "https://www.w3.org/WAI/WCAG21/guidelines/",
       },
     ],
   },
   {
     name: "ADA Title II Requirements",
     description:
-      "Americans with Disabilities Act (ADA) Title II requires that state and local governments ensure their services, programs, and activities are accessible to people with disabilities. This includes websites and digital services. Title II applies to all state and local government entities, including public universities, libraries, and other government-operated websites.",
+      "ADA Title II requires state and local governments to ensure services, programs, and activities (including websites) are accessible to people with disabilities.",
     links: [
       {
         text: "ADA Title II Overview",
         url: "https://www.ada.gov/topics/ada-state-and-local-governments/",
       },
-      {
-        text: "ADA Title II Web Rule",
-        url: "https://www.ada.gov/resources/2024-03-08-web-rule/",
-      },
-      {
-        text: "ADA Web Accessibility Requirements",
-        url: "https://www.ada.gov/resources/2024-03-08-web-rule/",
-      },
     ],
   },
 ];
 
-/**
- * Framework Information Configuration
- *
- * Information about the frameworks used in your application.
- * This is displayed in the HTML report to explain why certain rules may be disabled.
- */
 const FRAMEWORK_INFO = {
   name: "Nuxt and Vuetify",
-  description: "This accessibility portal is built using Nuxt and Vuetify",
+  description: "This site is built using Nuxt 4 and Vuetify 3.",
   frameworks: [
     {
       name: "Nuxt",
       description:
-        "Nuxt is a Vue.js-based framework that provides server-side rendering, static site generation, and a powerful development experience for building modern web applications.",
+        "Nuxt is a Vue.js-based framework that supports SSR/SSG and modern app development.",
     },
     {
       name: "Vuetify",
       description:
-        "Vuetify is a Vue.js component framework that provides Material Design components and a comprehensive set of UI elements.",
+        "Vuetify is a Vue component framework providing Material Design components.",
     },
   ],
 };
 
-/**
- * Axe-core Version
- *
- * The version of axe-core being used. Will be read from package.json after imports.
- * Set a default value here, will be overridden after imports are loaded.
- */
 const AXE_VERSION_DEFAULT = "4.11.0";
-
-// Note: SITEMAP_PATH, OUTPUT_DIR, REPORT_FILE, and AXE_VERSION will be constructed
-// after imports are loaded (see below)
 
 /**
  * ============================================================================
  * END OF DEVELOPER CONFIGURATION
  * ============================================================================
- *
- * Everything below this point is the audit script implementation.
- * Only modify if you understand the codebase structure.
- *
- * ============================================================================
- */
-
-/**
- * Accessibility Audit Script
- *
- * This script performs a comprehensive accessibility audit using axe-core:
- * - Configurable to test against development server (default) or production
- * - Automatically starts dev server if not running (when testing development)
- * - Reads URLs from sitemap.xml
- * - Tests each URL in desktop, tablet, and mobile viewports
- * - Generates an HTML report in /public/docs/accessibility/index.html
- *
- * Usage: yarn audit:a11y
- *
- * Configuration: Edit TARGET_ENV, PRODUCTION_URL, and DEV_SERVER_PORT in the
- *                developer configuration section at the top of this file
  */
 
 import puppeteer from "puppeteer";
@@ -320,20 +183,19 @@ import axeCore from "axe-core";
 import { parseStringPromise } from "xml2js";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import http from "http";
 import https from "https";
 import { spawn } from "child_process";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
-// Construct file paths from configuration
 const SITEMAP_PATH = path.join(__dirname, ...SITEMAP_PATH_CONFIG.split("/"));
 const OUTPUT_DIR = path.join(__dirname, ...OUTPUT_DIR_CONFIG.split("/"));
 const REPORT_FILE = path.join(OUTPUT_DIR, REPORT_FILE_NAME);
 
-// Read axe-core version from package.json
 let AXE_VERSION = AXE_VERSION_DEFAULT;
 try {
   const packageJson = JSON.parse(
@@ -344,26 +206,20 @@ try {
     packageJson.dependencies?.["axe-core"]?.replace(/[\^~]/, "") ||
     AXE_VERSION_DEFAULT;
 } catch (e) {
-  // Use fallback
+  // fallback
 }
 
-// Determine base URL based on target environment
 const BASE_URL =
   TARGET_ENV === "production"
     ? PRODUCTION_URL
     : `http://localhost:${DEV_SERVER_PORT}`;
 
-// For backward compatibility, create THEMES array from THEME_CONFIG
 const THEMES = THEME_CONFIG.themes;
 
-/**
- * Check if the target server is accessible
- */
 async function checkServer() {
   return new Promise((resolve) => {
     const url = new URL(BASE_URL);
     const client = url.protocol === "https:" ? https : http;
-
     const req = client.get(BASE_URL, (res) => {
       resolve(
         res.statusCode === 200 ||
@@ -371,11 +227,7 @@ async function checkServer() {
           res.statusCode === 302
       );
     });
-
-    req.on("error", () => {
-      resolve(false);
-    });
-
+    req.on("error", () => resolve(false));
     req.setTimeout(5000, () => {
       req.destroy();
       resolve(false);
@@ -383,12 +235,8 @@ async function checkServer() {
   });
 }
 
-/**
- * Start the development server
- */
 async function startDevServer() {
   return new Promise((resolve, reject) => {
-    // Spawn the dev server process using configured command
     const devServer = spawn(
       DEV_SERVER_COMMAND.command,
       DEV_SERVER_COMMAND.args,
@@ -400,8 +248,6 @@ async function startDevServer() {
     );
 
     let serverReady = false;
-
-    // Wait for server to be ready
     const checkReady = setInterval(() => {
       checkServer().then((isReady) => {
         if (isReady && !serverReady) {
@@ -412,7 +258,6 @@ async function startDevServer() {
       });
     }, 1000);
 
-    // Timeout after 60 seconds
     setTimeout(() => {
       if (!serverReady) {
         clearInterval(checkReady);
@@ -421,120 +266,108 @@ async function startDevServer() {
       }
     }, 60000);
 
-    // Handle process output
-    devServer.stdout.on("data", (data) => {
-      const output = data.toString();
-      // Check for common "ready" indicators
-      if (
-        output.includes("Local:") ||
-        output.includes("ready") ||
-        output.includes("listening")
-      ) {
-        // Server is starting, keep checking
-      }
-    });
-
     devServer.stderr.on("data", (data) => {
-      // Log errors but don't fail immediately
       const error = data.toString();
       if (error.includes("EADDRINUSE")) {
-        // Port already in use - might be another instance
         clearInterval(checkReady);
         devServer.kill();
         reject(
           new Error(
-            `Port ${DEV_SERVER_PORT} is already in use. Please stop the existing server or change DEV_SERVER_PORT.`
+            `Port ${DEV_SERVER_PORT} is already in use. Stop the existing server or change DEV_SERVER_PORT.`
           )
         );
       }
     });
 
-    devServer.on("error", (error) => {
+    devServer.on("error", (err) => {
       clearInterval(checkReady);
-      reject(error);
+      reject(err);
     });
   });
 }
 
-/**
- * Parse sitemap.xml and extract all URLs
- * Filters out non-HTML resources (PDFs, images, etc.) that cannot be audited
- */
 async function parseSitemap() {
   try {
     const sitemapContent = fs.readFileSync(SITEMAP_PATH, "utf8");
     const result = await parseStringPromise(sitemapContent);
     const allUrls = result.urlset.url.map((entry) => entry.loc[0]);
 
-    // Filter out non-HTML files that cannot be audited by axe-core
-    // These include PDFs, images, documents, and other binary files
-    const nonHtmlExtensions = ['.pdf', '.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.ico', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.tar', '.gz', '.mp3', '.mp4', '.webm', '.ogg', '.wav', '.avi', '.mov'];
-    
+    const nonHtmlExtensions = [
+      ".pdf",
+      ".jpg",
+      ".jpeg",
+      ".png",
+      ".gif",
+      ".webp",
+      ".svg",
+      ".ico",
+      ".doc",
+      ".docx",
+      ".xls",
+      ".xlsx",
+      ".ppt",
+      ".pptx",
+      ".zip",
+      ".tar",
+      ".gz",
+      ".mp3",
+      ".mp4",
+      ".webm",
+      ".ogg",
+      ".wav",
+      ".avi",
+      ".mov",
+    ];
+
     const urls = allUrls.filter((url) => {
-      const urlLower = url.toLowerCase();
-      const isNonHtml = nonHtmlExtensions.some(ext => urlLower.endsWith(ext));
+      const u = String(url || "").toLowerCase();
+      const isNonHtml = nonHtmlExtensions.some((ext) => u.endsWith(ext));
       if (isNonHtml) {
         console.log(`   ⏭️  Skipping non-HTML file: ${url}`);
       }
       return !isNonHtml;
     });
 
-    // Convert URLs based on target environment
-    return urls.map((url) => {
-      try {
-        const urlObj = new URL(url);
-        if (TARGET_ENV === "production") {
-          // Use production URLs as-is
-          return url;
-        } else {
-          // Convert to localhost URLs for development
+    return urls
+      .map((url) => {
+        try {
+          const urlObj = new URL(url);
+          if (TARGET_ENV === "production") return url;
           return `${BASE_URL}${urlObj.pathname}${urlObj.search}`;
+        } catch (e) {
+          return `${BASE_URL}${String(url).startsWith("/") ? url : "/" + url}`;
         }
-      } catch (e) {
-        // If URL parsing fails, assume it's already a path
-        if (TARGET_ENV === "production") {
-          // Try to construct full URL from path
-          return `${BASE_URL}${url.startsWith("/") ? url : "/" + url}`;
-        } else {
-          return `${BASE_URL}${url.startsWith("/") ? url : "/" + url}`;
+      })
+      .filter((url) => {
+        try {
+          const p = new URL(url).pathname || "/";
+          return !p.startsWith("/docs");
+        } catch {
+          return true;
         }
-      }
-    });
+      });
   } catch (error) {
     console.error(`❌ Error parsing sitemap: ${error.message}`);
     process.exit(1);
   }
 }
 
-/**
- * Run axe-core audit on a page
- */
 async function runAxeAudit(page) {
   await page.addScriptTag({ content: axeCore.source });
-  // Pass AXE_RULE_CONFIG and AXE_EXCLUDE_SELECTORS into the browser context
   return await page.evaluate(
     async (ruleConfig, excludeSelectors) => {
-      // Configure axe to exclude rules that can't be fixed due to framework limitations
-      // Enable best practice rules for enhanced accessibility testing
-
-      // Build rules object - dynamically apply all rules from AXE_RULE_CONFIG
-      // This ensures rules are dynamically applied as configured via boolean values
       const rulesConfig = {};
-
-      // Dynamically apply all rules from ruleConfig
-      // Each rule in AXE_RULE_CONFIG is a boolean that controls whether it's enabled
       for (const [ruleName, enabled] of Object.entries(ruleConfig)) {
-        if (typeof enabled === 'boolean') {
-          rulesConfig[ruleName] = { enabled: enabled };
+        if (typeof enabled === "boolean") {
+          rulesConfig[ruleName] = { enabled };
         }
       }
 
-      // Best practice rules (always enabled, not in AXE_RULE_CONFIG)
+      // Best-practice rules always enabled
       rulesConfig["meta-viewport"] = { enabled: true };
       rulesConfig["frame-title"] = { enabled: true };
       rulesConfig["html-xml-lang-mismatch"] = { enabled: true };
 
-      // Build tags array - always include base tags, add experimental if any experimental rules enabled
       const baseTags = [
         "wcag2a",
         "wcag2aa",
@@ -553,18 +386,13 @@ async function runAxeAudit(page) {
         "page-has-heading-one",
         "presentation-role-conflict",
       ];
-      const hasExperimental = experimentalRules.some(
-        (rule) => ruleConfig[rule]
-      );
+      const hasExperimental = experimentalRules.some((r) => ruleConfig[r]);
       const tags = hasExperimental ? [...baseTags, "experimental"] : baseTags;
 
-      // When rules are explicitly set in rulesConfig, they should run regardless of tags
-      // However, we still need tags to get the base set of rules
-      // Explicitly enabled rules in rulesConfig will override tag filtering
       return await axe.run({
-        exclude: excludeSelectors, // Use configured exclude selectors
+        exclude: excludeSelectors,
         rules: rulesConfig,
-        tags: tags,
+        tags,
       });
     },
     AXE_RULE_CONFIG,
@@ -572,12 +400,6 @@ async function runAxeAudit(page) {
   );
 }
 
-/**
- * Verify skip link implementation on a page
- * Checks for skip link presence, target, keyboard accessibility, and focus visibility
- * @param {import('puppeteer').Page} page - Puppeteer page instance
- * @returns {Promise<{exists: boolean, hasTarget: boolean, keyboardAccessible: boolean, visibleOnFocus: boolean, issues: string[]}>}
- */
 async function verifySkipLink(page) {
   return await page.evaluate((skipLinkConfig) => {
     const issues = [];
@@ -585,41 +407,27 @@ async function verifySkipLink(page) {
     let hasTarget = false;
     let keyboardAccessible = false;
     let visibleOnFocus = false;
+
     const targetId = `#${skipLinkConfig.targetId}`;
-
-    // Find skip link using configured selector
     const skipLink = document.querySelector(skipLinkConfig.selector);
-
     if (!skipLink) {
       issues.push("Skip link not found on page");
       return { exists, hasTarget, keyboardAccessible, visibleOnFocus, issues };
     }
-
     exists = true;
 
-    // Check if skip link has correct href
     const href = skipLink.getAttribute("href");
-    if (href === targetId) {
-      hasTarget = true;
-    } else {
-      issues.push(`Skip link href is "${href}" but should be "${targetId}"`);
-    }
+    if (href === targetId) hasTarget = true;
+    else issues.push(`Skip link href is "${href}" but should be "${targetId}"`);
 
-    // Check if main content target exists
     const mainContent = document.getElementById(skipLinkConfig.targetId);
     if (!mainContent) {
       issues.push(`Skip link target (${targetId}) not found on page`);
       hasTarget = false;
     } else {
-      // Check if target is focusable (has tabindex or is naturally focusable)
       const tabindex = mainContent.getAttribute("tabindex");
-      if (
-        tabindex === "-1" ||
-        tabindex === "0" ||
-        mainContent.tagName === "A" ||
-        mainContent.tagName === "BUTTON"
-      ) {
-        // Target is focusable
+      if (tabindex === "-1" || tabindex === "0") {
+        // OK
       } else {
         issues.push(
           `Skip link target (${targetId}) should have tabindex='-1' for programmatic focus`
@@ -627,7 +435,6 @@ async function verifySkipLink(page) {
       }
     }
 
-    // Check keyboard accessibility - skip link should be focusable
     const skipLinkTabIndex = skipLink.getAttribute("tabindex");
     if (skipLinkTabIndex === "-1") {
       issues.push("Skip link has tabindex='-1' which prevents keyboard access");
@@ -635,35 +442,14 @@ async function verifySkipLink(page) {
       keyboardAccessible = true;
     }
 
-    // Check if skip link is visible when focused (check CSS)
     const computedStyle = window.getComputedStyle(skipLink);
     const position = computedStyle.position;
     const top = computedStyle.top;
-    const zIndex = parseInt(computedStyle.zIndex) || 0;
-
-    // Check if it's positioned off-screen when not focused
+    const zIndex = parseInt(computedStyle.zIndex, 10) || 0;
     const isOffScreen =
       position === "absolute" && (top === "-100px" || top.includes("-100"));
-
-    // Check focus styles
-    const styleSheet = Array.from(document.styleSheets).find((sheet) => {
-      try {
-        return Array.from(sheet.cssRules || []).some((rule) => {
-          if (rule.selectorText && rule.selectorText.includes(".skip-link")) {
-            return true;
-          }
-          return false;
-        });
-      } catch (e) {
-        return false;
-      }
-    });
-
-    // For now, assume visible on focus if it's properly positioned off-screen initially
-    // (actual focus visibility would require simulating focus, which is complex)
-    if (isOffScreen || zIndex > 1000) {
-      visibleOnFocus = true; // Likely has proper focus styles
-    } else {
+    if (isOffScreen || zIndex > 1000) visibleOnFocus = true;
+    else {
       issues.push(
         "Skip link may not be properly visible when focused (check CSS :focus styles)"
       );
@@ -673,1577 +459,18 @@ async function verifySkipLink(page) {
   }, SKIP_LINK_CONFIG);
 }
 
-/**
- * Convert URL to relative path for display
- */
 function urlToRelativePath(url) {
   try {
     const urlObj = new URL(url);
     return urlObj.pathname || "/";
   } catch (e) {
-    // If parsing fails, try to extract path from URL
-    return url.replace(/https?:\/\/[^\/]+/, "") || "/";
+    return String(url).replace(/https?:\/\/[^/]+/, "") || "/";
   }
 }
 
-/**
- * Generate HTML report from audit results
- */
-function generateHTMLReport(results) {
-  const timestamp = new Date().toISOString();
-
-  // Calculate summary statistics
-  let totalPages = 0;
-  let totalViolations = 0;
-  let totalPasses = 0;
-  let totalIncomplete = 0;
-  let totalInapplicable = 0;
-  const violationsByRule = {};
-  const pagesWithViolations = [];
-
-  results.forEach((result) => {
-    totalPages++;
-    const violations = result.violations || [];
-    const passes = result.passes || [];
-    const incomplete = result.incomplete || [];
-    const inapplicable = result.inapplicable || [];
-
-    totalViolations += violations.length;
-    totalPasses += passes.length;
-    totalIncomplete += incomplete.length;
-    totalInapplicable += inapplicable.length;
-
-    if (violations.length > 0) {
-      pagesWithViolations.push({
-        url: result.url,
-        viewport: result.viewport,
-        theme: result.theme,
-        violations: violations.length,
-        violationDetails: violations,
-      });
-
-      violations.forEach((violation) => {
-        const ruleId = violation.id;
-        if (!violationsByRule[ruleId]) {
-          violationsByRule[ruleId] = {
-            id: ruleId,
-            description: violation.description,
-            help: violation.help,
-            helpUrl: violation.helpUrl,
-            impact: violation.impact,
-            tags: violation.tags,
-            occurrences: 0,
-            pages: [],
-          };
-        }
-        violationsByRule[ruleId].occurrences += violation.nodes?.length || 1;
-        violationsByRule[ruleId].pages.push({
-          url: result.url,
-          viewport: result.viewport,
-          theme: result.theme,
-          nodeCount: violation.nodes?.length || 1,
-        });
-      });
-    }
-  });
-
-  const uniquePages = new Set(results.map((r) => r.url)).size;
-  const totalTestsRun =
-    totalViolations + totalPasses + totalIncomplete + totalInapplicable;
-  const pagesPassing =
-    uniquePages - new Set(pagesWithViolations.map((p) => p.url)).size;
-
-  // Collect all unique test rules that were run
-  const allTestRules = new Set();
-  results.forEach((result) => {
-    [
-      ...(result.violations || []),
-      ...(result.passes || []),
-      ...(result.incomplete || []),
-    ].forEach((test) => {
-      if (test.id) {
-        allTestRules.add(
-          JSON.stringify({
-            id: test.id,
-            description: test.description,
-            help: test.help,
-            helpUrl: test.helpUrl,
-            tags: test.tags || [],
-          })
-        );
-      }
-    });
-  });
-  const testRulesList = Array.from(allTestRules)
-    .map(JSON.parse)
-    .sort((a, b) => a.id.localeCompare(b.id));
-  const uniqueTestRulesCount = testRulesList.length;
-  const pageViewportCombinations =
-    uniquePages * VIEWPORTS.length * THEMES.length;
-
-  // Categorize rules by type
-  const categorizeRule = (rule) => {
-    const tags = rule.tags || [];
-    const isExperimental = tags.includes("experimental");
-    const isBestPractice = tags.includes("best-practice");
-    const isWCAG = tags.some(
-      (tag) => tag.startsWith("wcag2") || tag.startsWith("wcag21")
-    );
-
-    if (isExperimental) {
-      return "experimental";
-    } else if (isBestPractice && !isWCAG) {
-      return "best-practice";
-    } else if (isWCAG) {
-      return "wcag";
-    } else {
-      return "other";
-    }
-  };
-
-  const wcagRules = testRulesList.filter((r) => categorizeRule(r) === "wcag");
-  const bestPracticeRules = testRulesList.filter(
-    (r) => categorizeRule(r) === "best-practice"
-  );
-  const experimentalRules = testRulesList.filter(
-    (r) => categorizeRule(r) === "experimental"
-  );
-  const otherRules = testRulesList.filter((r) => categorizeRule(r) === "other");
-
-  // Check if any experimental rules are enabled in config
-  const experimentalRulesEnabled = Object.entries(AXE_RULE_CONFIG)
-    .filter(([rule, enabled]) => {
-      const experimentalRuleNames = [
-        "css-orientation-lock",
-        "focus-order-semantics",
-        "hidden-content",
-        "identical-links-same-purpose",
-        "label-content-name-mismatch",
-        "link-in-text-block",
-        "no-autoplay-audio",
-        "page-has-heading-one",
-        "presentation-role-conflict",
-      ];
-      return experimentalRuleNames.includes(rule) && enabled;
-    })
-    .map(([rule]) => rule);
-
-  // Get list of enabled/disabled configured rules for reporting
-  // This includes all rules from AXE_RULE_CONFIG with their descriptions
-  const configuredRulesStatus = {
-    enabled: Object.entries(AXE_RULE_CONFIG)
-      .filter(([rule, enabled]) => enabled)
-      .map(([rule]) => rule),
-    disabled: Object.entries(AXE_RULE_CONFIG)
-      .filter(([rule, enabled]) => !enabled)
-      .map(([rule]) => rule),
-  };
-
-  // Rule descriptions for display in report
-  const ruleDescriptions = {
-    "aria-allowed-role": "Ensures ARIA roles are used correctly and are allowed for the element",
-    "scrollable-region-focusable": "Ensures scrollable regions are keyboard accessible",
-    "landmark-banner-is-top-level": "Ensures banner landmarks are at the top level",
-    "landmark-contentinfo-is-top-level": "Ensures contentinfo landmarks are at the top level",
-    "landmark-main-is-top-level": "Ensures main landmarks are at the top level",
-    "landmark-unique": "Ensures landmarks are unique",
-    "region": "Ensures all content is contained by a landmark region (disabled for Nuxt/Vue compatibility)",
-    "css-orientation-lock": "Checks for orientation lock (WCAG 2.1 SC 1.3.4)",
-    "no-autoplay-audio": "Checks for autoplay audio (WCAG 2.1 SC 1.4.2)",
-    "page-has-heading-one": "Ensures page has at least one h1 heading",
-    "focus-order-semantics": "Checks focus order matches DOM order",
-    "identical-links-same-purpose": "Checks for duplicate links with same purpose",
-    "link-in-text-block": "Checks link contrast in text blocks (WCAG 2.1 SC 1.4.1)",
-    "hidden-content": "Checks for hidden content that should be visible",
-    "label-content-name-mismatch": "Checks if label text matches accessible name",
-    "presentation-role-conflict": "Checks for presentation role conflicts",
-  };
-
-  // Calculate skip link statistics
-  let skipLinkStats = {
-    total: 0,
-    exists: 0,
-    working: 0,
-    issues: 0,
-  };
-
-  // Build table data for all tested pages
-  const tableRows = results.map((result) => {
-    const violations = result.violations?.length || 0;
-    const passes = result.passes?.length || 0;
-    const incomplete = result.incomplete?.length || 0;
-    const total = violations + passes + incomplete;
-    const status = violations === 0 ? "✅ Pass" : "❌ Fail";
-
-    // Check skip link status
-    const skipLink = result.skipLink || {};
-    let skipLinkStatus = "❌ Missing";
-    let skipLinkClass = "status-fail";
-
-    if (skipLink.exists) {
-      skipLinkStats.exists++;
-      if (skipLink.issues && skipLink.issues.length === 0) {
-        skipLinkStatus = "✅ OK";
-        skipLinkClass = "status-pass";
-        skipLinkStats.working++;
-      } else {
-        skipLinkStatus = `⚠️ ${skipLink.issues?.length || 0} issue(s)`;
-        skipLinkClass = "status-warning";
-        skipLinkStats.issues += skipLink.issues?.length || 0;
-      }
-    }
-
-    skipLinkStats.total++;
-
-    return {
-      url: urlToRelativePath(result.url),
-      viewport: result.viewport,
-      theme: result.theme || "dark",
-      violations,
-      passes,
-      incomplete,
-      total,
-      status,
-      skipLink: skipLinkStatus,
-      skipLinkClass,
-      skipLinkIssues: skipLink.issues || [],
-    };
-  });
-
-  // Get axe-core version from config (already loaded)
-  const axeVersion = AXE_VERSION;
-
-  // Generate HTML matching ipsumify.com style
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accessibility Audit Report - ${new Date().toLocaleDateString()}</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: #fff;
-      padding: 20px;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-    
-    h3 {
-      font-size: 1.25rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .meta {
-      color: #666;
-      font-size: 0.9em;
-      margin-bottom: 2rem;
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .stat-card {
-      padding: 1.5rem;
-      border-radius: 8px;
-      text-align: center;
-      background: #f8f9fa;
-      border: 1px solid #dee2e6;
-      transition: all 0.2s ease;
-    }
-    
-    .stat-card.clickable {
-      cursor: pointer;
-    }
-    
-    .stat-card.clickable:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    
-    .stat-card .click-hint {
-      font-size: 0.75rem;
-      color: #6c757d;
-      margin-top: 0.5rem;
-      font-style: italic;
-    }
-    
-    .stat-card.success {
-      background: #d1e7dd;
-      border-color: #badbcc;
-      color: #0f5132;
-    }
-    
-    .stat-card.error {
-      background: #f8d7da;
-      border-color: #f5c2c7;
-      color: #842029;
-    }
-    
-    .stat-card.warning {
-      background: #fff3cd;
-      border-color: #ffecb5;
-      color: #856404;
-    }
-    
-    .stat-card .number {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin: 0.5rem 0;
-    }
-    
-    .stat-card .label {
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      opacity: 0.8;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-      background: white;
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    
-    thead {
-      background: #f8f9fa;
-    }
-    
-    th, td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid #dee2e6;
-    }
-    
-    th {
-      font-weight: 600;
-      color: #495057;
-    }
-    
-    tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .status-pass {
-      color: #198754;
-      font-weight: 600;
-    }
-    
-    .status-fail {
-      color: #dc3545;
-      font-weight: 600;
-    }
-    
-    .status-warning {
-      color: #856404;
-      font-weight: 600;
-    }
-    
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      overflow: auto;
-    }
-    
-    .modal-content {
-      background-color: #fff;
-      margin: 5% auto;
-      padding: 2rem;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 800px;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid #dee2e6;
-    }
-    
-    .modal-close {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #999;
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 0;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .modal-close:hover {
-      color: #333;
-    }
-    
-    .test-list {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .test-item {
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      background: #f8f9fa;
-      border-radius: 4px;
-      border-left: 3px solid #0d6efd;
-    }
-    
-    .test-id {
-      font-family: monospace;
-      font-weight: 600;
-      color: #0d6efd;
-      margin-right: 0.5rem;
-    }
-    
-    .test-description {
-      color: #495057;
-    }
-    
-    .info-section {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 2px solid #dee2e6;
-    }
-    
-    .info-block {
-      background: #ffffff;
-      border-left: 4px solid #0d6efd;
-      padding: 1.5rem 2rem;
-      margin: 2rem 0;
-      border-radius: 0 4px 4px 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    
-    .info-block h2 {
-      color: #0d6efd;
-      font-size: 1.5rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-    
-    .info-block h3 {
-      color: #212529;
-      font-size: 1.25rem;
-      margin-top: 2rem;
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
-    
-    .info-block h3:first-of-type {
-      margin-top: 1rem;
-    }
-    
-    .info-block h4 {
-      color: #212529;
-      font-size: 1.1rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
-    
-    .info-block p {
-      color: #495057;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-    
-    .info-block ul {
-      margin-left: 1.5rem;
-      margin-top: 0.75rem;
-      margin-bottom: 1.5rem;
-      padding-left: 0;
-      list-style-position: outside;
-    }
-    
-    .info-block li {
-      margin-bottom: 0.75rem;
-      color: #495057;
-      line-height: 1.6;
-    }
-    
-    .info-block li strong {
-      color: #212529;
-      font-weight: 600;
-    }
-    
-    .info-block a {
-      color: #0d6efd;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-    
-    .info-block a:hover {
-      color: #0a58ca;
-      text-decoration-thickness: 2px;
-    }
-    
-    .framework-rules-link {
-      color: #0d6efd;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      cursor: pointer;
-      position: relative;
-      display: inline-block;
-    }
-    
-    .framework-rules-link:hover {
-      color: #0a58ca;
-      text-decoration-thickness: 2px;
-    }
-    
-    /* Allow spans inside framework-rules-link to maintain their own inline color */
-    .framework-rules-link > span[style*="color"] {
-      text-decoration: none;
-    }
-    
-    .framework-rules-link:hover > span[style*="color"] {
-      /* Preserve the span's inline color on hover */
-      color: inherit;
-    }
-    
-    .framework-rules-link .tooltip {
-      visibility: hidden;
-      opacity: 0;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px 12px;
-      position: absolute;
-      z-index: 1000;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      font-size: 0.75rem;
-      pointer-events: none;
-      transition: opacity 0.3s, visibility 0.3s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      font-weight: normal;
-      line-height: 1.4;
-      min-width: max-content;
-    }
-    
-    .framework-rules-link .tooltip::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 5px solid transparent;
-      border-top-color: #333;
-    }
-    
-    /* Tooltip arrow for right position */
-    .framework-rules-link .tooltip.tooltip-right::after {
-      top: 50%;
-      left: -10px;
-      transform: translateY(-50%);
-      border-top-color: transparent;
-      border-right-color: #333;
-      border-left: none;
-    }
-    
-    /* Tooltip arrow for left position */
-    .framework-rules-link .tooltip.tooltip-left::after {
-      top: 50%;
-      right: -10px;
-      left: auto;
-      transform: translateY(-50%);
-      border-top-color: transparent;
-      border-left-color: #333;
-      border-right: none;
-    }
-    
-    /* Tooltip arrow for bottom position */
-    .framework-rules-link .tooltip[style*="top: 125%"]::after {
-      top: -10px;
-      bottom: auto;
-      border-top-color: transparent;
-      border-bottom-color: #333;
-    }
-    
-    .framework-rules-link:hover .tooltip,
-    .framework-rules-link:focus .tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
-    
-    /* Ensure tooltip is accessible for keyboard users */
-    .framework-rules-link:focus {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-    
-    .info-section ul {
-      margin-left: 1.5rem;
-      margin-top: 1rem;
-    }
-    
-    .info-section li {
-      margin-bottom: 0.5rem;
-    }
-    
-    .info-section a {
-      color: #0d6efd;
-      text-decoration: none;
-    }
-    
-    .info-section a:hover {
-      text-decoration: underline;
-    }
-    
-    /* Skip Link Styles - Based on ARCHITECTURE_GUIDE */
-    .skip-link {
-      /* Hide skip link off-screen until focused */
-      position: absolute;
-      top: -100px;
-      left: 0;
-      background: #0d6efd;
-      color: #fff;
-      padding: 12px 24px;
-      text-decoration: none;
-      /* High z-index to ensure it's above all other content */
-      z-index: 10000;
-      border-radius: 0 0 4px 0;
-      font-weight: 600;
-      font-size: 1rem;
-      line-height: 1.5;
-      /* Ensure it's always accessible */
-      clip: auto;
-      clip-path: none;
-      /* Smooth transition when appearing (respects reduced motion) */
-      transition: top 0.2s ease-in-out;
-    }
-    
-    /* Show skip link when focused - WCAG 2.1 AA requirement */
-    .skip-link:focus {
-      top: 0;
-      left: 0;
-      /* High contrast outline for visibility */
-      outline: 3px solid #0d6efd;
-      outline-offset: 2px;
-      /* Add shadow for better visibility */
-      box-shadow:
-        0 4px 6px rgba(0, 0, 0, 0.1),
-        0 2px 4px rgba(0, 0, 0, 0.06);
-    }
-    
-    /* Ensure skip link is visible and accessible with focus-visible */
-    .skip-link:focus-visible {
-      top: 0;
-      left: 0;
-      outline: 3px solid #0d6efd;
-      outline-offset: 2px;
-      box-shadow:
-        0 4px 6px rgba(0, 0, 0, 0.1),
-        0 2px 4px rgba(0, 0, 0, 0.06);
-    }
-    
-    /* Respect reduced motion preference - WCAG 2.1 AA requirement */
-    @media (prefers-reduced-motion: reduce) {
-      .skip-link {
-        transition: none;
-      }
-    }
-    
-    /* Ensure skip link is visible on all screen sizes */
-    @media (max-width: 600px) {
-      .skip-link {
-        font-size: 0.9rem;
-        padding: 10px 20px;
-      }
-    }
-    
-    footer {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 2px solid #dee2e6;
-      text-align: center;
-      color: #6c757d;
-      font-size: 0.875rem;
-    }
-    
-    @media (max-width: 768px) {
-      table {
-        font-size: 0.875rem;
-      }
-      
-      th, td {
-        padding: 0.5rem;
-      }
-      
-      .modal-content {
-        width: 95%;
-        margin: 10% auto;
-        padding: 1rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Skip Link - Based on ARCHITECTURE_GUIDE implementation -->
-  <a
-    href="#main-content"
-    class="skip-link"
-    id="skip-link"
-  >
-    Skip to main content
-  </a>
-  
-  <div class="container">
-    <main id="main-content" tabindex="-1">
-    <h1>🔍 ${SITE_INFO.name} - Accessibility Audit Report</h1>
-    ${SITE_INFO.description ? `<p class="meta" style="margin-top: 0.5rem; margin-bottom: 1rem;">${escapeHtml(SITE_INFO.description)}</p>` : ""}
-    <div class="meta">
-      <p><strong>Generated:</strong> ${new Date(timestamp).toLocaleString()}</p>
-      <p><strong>Environment:</strong> <a href="#" onclick="openEnvironmentModal(); return false;" class="framework-rules-link" aria-describedby="tooltip-environment" aria-label="Environment: ${TARGET_ENV === "production" ? "Production" : "Development"} - More info about environments"><span style="font-weight: 600; color: ${TARGET_ENV === "production" ? "#198754" : "#0d6efd"};">${TARGET_ENV === "production" ? "Production" : "Development"}</span><span class="tooltip" id="tooltip-environment" role="tooltip">More info about environments</span></a> (${BASE_URL})</p>
-      <p><strong>axe-core version:</strong> ${axeVersion}</p>
-      <p><strong>Pages tested:</strong> ${uniquePages}</p>
-      <p><strong>Viewports tested:</strong> ${VIEWPORTS.map((v) => v.name).join(", ")}</p>
-      <p><strong>Themes tested:</strong> ${THEMES.map((t) => t.name).join(", ")}</p>
-      <p><strong>Rule categories:</strong> WCAG 2.1 AA (${wcagRules.length} rules), Best Practice (${bestPracticeRules.length} rules)${experimentalRules.length > 0 ? `, Experimental (${experimentalRules.length} rules)` : ""}${otherRules.length > 0 ? `, Other (${otherRules.length} rules)` : ""}</p>
-      ${configuredRulesStatus.enabled.length > 0 ? `<p><strong><a href="#" onclick="openConfiguredRulesModal(); return false;" class="framework-rules-link" aria-describedby="tooltip-enabled" aria-label="Configured rules enabled: ${configuredRulesStatus.enabled.length} rules - Click for details"><span style="color: #198754;">✅ Enabled Rules:</span><span class="tooltip" id="tooltip-enabled" role="tooltip">Click to see all enabled rules and their descriptions</span></a></strong> <span style="color: #198754; font-weight: 600;">${configuredRulesStatus.enabled.length} rule${configuredRulesStatus.enabled.length !== 1 ? "s" : ""}</span> (${configuredRulesStatus.enabled.join(", ")})</p>` : ""}
-      ${configuredRulesStatus.disabled.length > 0 ? `<p style="color: #6c757d;"><strong><a href="#" onclick="openConfiguredRulesModal(); return false;" class="framework-rules-link" aria-describedby="tooltip-disabled" aria-label="Configured rules disabled: ${configuredRulesStatus.disabled.length} rules - Click for details"><span style="color: #6c757d;">❌ Disabled Rules:</span><span class="tooltip" id="tooltip-disabled" role="tooltip">Click to see all disabled rules and why they're disabled</span></a></strong> <span style="color: #6c757d; font-weight: 600;">${configuredRulesStatus.disabled.length} rule${configuredRulesStatus.disabled.length !== 1 ? "s" : ""}</span> (${configuredRulesStatus.disabled.join(", ")})</p>` : ""}
-    </div>
-    
-    <div class="stats-grid">
-      <div class="stat-card ${totalViolations === 0 ? "success" : "error"}">
-        <div class="label">Total Violations</div>
-        <div class="number">${totalViolations}</div>
-      </div>
-      <div class="stat-card success">
-        <div class="label">Total Passes</div>
-        <div class="number">${totalPasses}</div>
-      </div>
-      <div class="stat-card ${pagesPassing === uniquePages ? "success" : "error"}">
-        <div class="label">Pages Passing</div>
-        <div class="number">${pagesPassing}</div>
-      </div>
-      <div class="stat-card clickable" id="totalTestsCard" onclick="openTestsModal()">
-        <div class="label">Total Tests Run</div>
-        <div class="number">${totalTestsRun}</div>
-        <div class="click-hint">click to view tests</div>
-      </div>
-      <div class="stat-card ${skipLinkStats.working === skipLinkStats.total ? "success" : skipLinkStats.exists === 0 ? "error" : "warning"} clickable" id="skipLinksCard" onclick="openSkipLinksModal()">
-        <div class="label">Skip Links</div>
-        <div class="number">${skipLinkStats.working}/${skipLinkStats.total}</div>
-        <div class="click-hint" style="font-size: 0.7rem;">click for more info</div>
-      </div>
-    </div>
-    
-    <h2>📋 All Tested Pages</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>URL</th>
-          <th>Viewport</th>
-          <th>Theme</th>
-          <th>Violations</th>
-          <th>Passes</th>
-          <th>Incomplete</th>
-          <th>Total Tests</th>
-          <th>Status</th>
-          <th>Skip Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${tableRows
-          .map(
-            (row) => `
-        <tr>
-          <td>${escapeHtml(row.url)}</td>
-          <td>${row.viewport}</td>
-          <td>${row.theme}</td>
-          <td>${row.violations}</td>
-          <td>${row.passes}</td>
-          <td>${row.incomplete}</td>
-          <td><strong>${row.total}</strong></td>
-          <td class="${row.violations === 0 ? "status-pass" : "status-fail"}">${row.status}</td>
-          <td class="${row.skipLinkClass}" title="${row.skipLinkIssues.length > 0 ? escapeHtml(row.skipLinkIssues.join("; ")) : ""}">${row.skipLink}</td>
-        </tr>
-        `
-          )
-          .join("")}
-      </tbody>
-    </table>
-    
-    <div class="info-section">
-      <div class="info-block">
-        <h2>About axe-core</h2>
-        <p><strong>axe-core</strong> is an open-source accessibility testing engine developed by Deque Systems. It is one of the most comprehensive and widely-used tools for automated accessibility testing on the web.</p>
-        
-        <h3>What does axe-core test for?</h3>
-        <p>axe-core performs automated checks against the Web Content Accessibility Guidelines (WCAG) and other accessibility standards. The tests check for:</p>
-        <ul>
-          <li><strong>Semantic HTML:</strong> Proper use of HTML elements, ARIA attributes, and landmarks</li>
-          <li><strong>Keyboard Navigation:</strong> All interactive elements must be keyboard accessible</li>
-          <li><strong>Color Contrast:</strong> Text must meet WCAG contrast ratio requirements (4.5:1 for normal text, 3:1 for large text)</li>
-          <li><strong>Focus Management:</strong> Visible focus indicators and logical tab order</li>
-          <li><strong>Form Labels:</strong> All form inputs must have associated labels</li>
-          <li><strong>Image Alt Text:</strong> Images must have appropriate alternative text</li>
-          <li><strong>Heading Structure:</strong> Proper heading hierarchy (h1 → h2 → h3, etc.)</li>
-          <li><strong>Landmark Regions:</strong> Proper use of ARIA landmarks (banner, main, navigation, contentinfo, etc.)</li>
-          <li><strong>Interactive Elements:</strong> Buttons, links, and controls must have accessible names</li>
-          <li><strong>Language Attributes:</strong> HTML lang attribute must be set</li>
-        </ul>
-        
-        <h3>Why is axe-core critical for accessibility?</h3>
-        <ul>
-          <li><strong>Automated Testing:</strong> Catches accessibility issues early in development, before manual testing</li>
-          <li><strong>Comprehensive Coverage:</strong> Tests for 50+ accessibility rules covering WCAG 2.1 Level A and AA standards</li>
-        </ul>
-        
-        <h3>Rule Categories in This Audit</h3>
-        <p>This audit includes ${experimentalRulesEnabled.length > 0 ? "three" : "two"} categories of accessibility rules:</p>
-        <ul>
-          <li><strong>WCAG 2.1 Level A & AA Rules:</strong> These rules test for compliance with Web Content Accessibility Guidelines 2.1 Level A and AA standards. These are required for legal compliance with ADA Title II, IITAA, and Section 508.</li>
-          <li><strong>Best Practice Rules:</strong> These rules test for accessibility best practices that are recommended but not explicitly required by WCAG 2.1 AA. They help improve overall accessibility and user experience. Examples include:
-            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-              <li><strong>meta-viewport:</strong> Ensures viewport meta tag is present for responsive design</li>
-              <li><strong>frame-title:</strong> Ensures iframes have descriptive titles</li>
-              <li><strong>html-xml-lang-mismatch:</strong> Checks for consistency between HTML lang and XML lang attributes</li>
-            </ul>
-          </li>
-          ${
-            experimentalRulesEnabled.length > 0
-              ? `
-          <li><strong>Experimental/Cutting-edge Rules:</strong> These are cutting-edge accessibility rules that are still being validated. They may catch issues that standard rules miss, but may also have false positives. Currently enabled: <strong>${experimentalRulesEnabled.join(", ")}</strong>. Examples include:
-            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-              <li><strong>css-orientation-lock:</strong> Checks for orientation lock (WCAG 2.1 SC 1.3.4)</li>
-              <li><strong>focus-order-semantics:</strong> Checks focus order matches DOM order</li>
-              <li><strong>no-autoplay-audio:</strong> Checks for autoplay audio (WCAG 2.1 SC 1.4.2)</li>
-              <li><strong>page-has-heading-one:</strong> Checks for h1 on page</li>
-            </ul>
-          </li>
-          `
-              : ""
-          }
-        </ul>
-        
-        <h3 style="margin-top: 2rem;">Configured Rules Status</h3>
-        <p style="font-size: 0.95em; color: #495057; margin-bottom: 1rem;">
-          This audit uses a custom rule configuration (<code>AXE_RULE_CONFIG</code>) that allows specific rules to be enabled or disabled via boolean values. This configuration is dynamically read from the audit script.
-        </p>
-        
-        ${
-          configuredRulesStatus.enabled.length > 0
-            ? `
-        <div style="margin: 1rem 0; padding: 1rem; background: #d1e7dd; border-left: 4px solid #198754; border-radius: 4px;">
-          <h4 style="color: #198754; margin-top: 0; margin-bottom: 0.75rem;">✅ Enabled Rules (${configuredRulesStatus.enabled.length})</h4>
-          <p style="margin: 0 0 0.5rem 0; font-size: 0.9em; color: #495057;">
-            The following rules are currently <strong>enabled</strong> and will be tested:
-          </p>
-          <ul style="margin: 0.5rem 0 0 1.5rem; padding-left: 0;">
-            ${configuredRulesStatus.enabled
-              .map((rule) => {
-                const description = ruleDescriptions[rule] || "Accessibility rule.";
-                return `<li style="margin-bottom: 0.5rem;"><strong style="color: #198754;">${rule}:</strong> <span style="color: #495057;">${description}</span></li>`;
-              })
-              .join("")}
-          </ul>
-        </div>
-        `
-            : ""
-        }
-        
-        ${
-          configuredRulesStatus.disabled.length > 0
-            ? `
-        <div style="margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-left: 4px solid #6c757d; border-radius: 4px;">
-          <h4 style="color: #6c757d; margin-top: 0; margin-bottom: 0.75rem;">❌ Disabled Rules (${configuredRulesStatus.disabled.length})</h4>
-          <p style="margin: 0 0 0.5rem 0; font-size: 0.9em; color: #495057;">
-            The following rules are currently <strong>disabled</strong>:
-          </p>
-          <ul style="margin: 0.5rem 0 0 1.5rem; padding-left: 0;">
-            ${configuredRulesStatus.disabled
-              .map((rule) => {
-                let explanation = "";
-                if (rule === "region") {
-                  explanation = "Disabled due to known incompatibility with Nuxt/Vue component structure. Vue components dynamically create regions that don't match the expected HTML5 landmark structure.";
-                } else {
-                  const description = ruleDescriptions[rule] || "Accessibility rule.";
-                  explanation = `${description} Can be enabled by setting to <code>true</code> in <code>AXE_RULE_CONFIG</code>.`;
-                }
-                return `<li style="margin-bottom: 0.5rem;"><strong style="color: #6c757d;">${rule}:</strong> <span style="color: #495057;">${explanation}</span></li>`;
-              })
-              .join("")}
-          </ul>
-        </div>
-        `
-            : ""
-        }
-        
-        <p style="margin-top: 1rem; padding: 0.75rem; background: #e7f3ff; border-left: 3px solid #0d6efd; border-radius: 4px; font-size: 0.9em;">
-          <strong>💡 How to Change Rules:</strong> Edit the <code>AXE_RULE_CONFIG</code> constant in <code>audit-accessibility.js</code> (around line 85). Set any rule to <code>true</code> to enable it, or <code>false</code> to disable it. Rules are controlled via simple boolean values and are dynamically reflected in this report.
-        </p>
-      </div>
-      
-      <div class="info-block">
-        <h2>Accessibility Standards & Compliance</h2>
-        <p>The accessibility tests performed by axe-core are designed to ensure compliance with the following standards and requirements:</p>
-        
-        ${COMPLIANCE_STANDARDS.map(
-          (standard) => `
-        <h3>${escapeHtml(standard.name)}</h3>
-        <p>${escapeHtml(standard.description)}</p>
-        ${
-          standard.links && standard.links.length > 0
-            ? `
-        <ul>
-          ${standard.links
-            .map(
-              (link) => `
-          <li><a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.text)}</a></li>
-          `
-            )
-            .join("")}
-        </ul>
-        `
-            : ""
-        }
-        `
-        ).join("")}
-      </div>
-    </div>
-    
-    <footer>
-      <p>Generated by <strong>axe-core</strong> ${axeVersion} on ${new Date(timestamp).toLocaleString()}</p>
-      <p>For more information, visit <a href="https://www.deque.com/axe/" target="_blank" rel="noopener noreferrer">https://www.deque.com/axe/</a></p>
-    </footer>
-    </main>
-  </div>
-  
-  <!-- Modal for Test List -->
-  <div id="testsModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>axe-core Tests Performed</h2>
-        <button class="modal-close" onclick="closeTestsModal()">&times;</button>
-      </div>
-      <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; border-left: 4px solid #0d6efd;">
-        <p style="margin: 0 0 0.75rem 0; font-weight: 600; font-size: 1rem;">How the Total Tests Run (${totalTestsRun}) is Calculated:</p>
-        <div style="font-size: 0.9em; color: #495057; line-height: 1.6;">
-          <p style="margin: 0 0 0.75rem 0;">
-            This list shows <strong>${uniqueTestRulesCount} unique test rule types</strong> (e.g., "color-contrast", "button-name"). 
-            Each rule checks for one specific accessibility issue.
-          </p>
-          
-          <p style="margin: 0 0 0.75rem 0; font-weight: 600;">Step 1: Calculate Maximum Possible Tests</p>
-          <p style="margin: 0 0 0.5rem 0;">
-            Each rule runs once per page/viewport combination:
-          </p>
-          <ul style="margin: 0.5rem 0 0.75rem 1.5rem; padding-left: 0;">
-            <li style="margin-bottom: 0.25rem;"><strong>${uniqueTestRulesCount} rules</strong> (shown in list below)</li>
-            <li style="margin-bottom: 0.25rem;">× <strong>${uniquePages} pages</strong> tested</li>
-            <li style="margin-bottom: 0.25rem;">× <strong>${VIEWPORTS.length} viewports</strong> (${VIEWPORTS.map((v) => v.name).join(", ")})</li>
-            <li style="margin-bottom: 0.25rem;">× <strong>${THEME_CONFIG.themes.length} theme${THEME_CONFIG.themes.length !== 1 ? "s" : ""}</strong> (${THEME_CONFIG.themes.map((t) => t.name).join(", ")})</li>
-            <li style="margin-bottom: 0.25rem;">= <strong>${pageViewportCombinations} page/viewport combinations</strong></li>
-          </ul>
-          <p style="margin: 0 0 0.75rem 0; padding: 0.5rem; background: #e7f3ff; border-radius: 4px;">
-            <strong>Maximum possible tests:</strong> ${uniqueTestRulesCount} rules × ${pageViewportCombinations} combinations = <strong>${uniqueTestRulesCount * pageViewportCombinations} tests</strong>
-          </p>
-          
-          <p style="margin: 0.75rem 0 0.5rem 0; font-weight: 600;">Step 2: Count Actual Test Results</p>
-          <p style="margin: 0 0 0.5rem 0;">
-            For each page/viewport combination, axe-core runs all applicable rules and returns results:
-          </p>
-          <ul style="margin: 0.5rem 0 0.75rem 1.5rem; padding-left: 0;">
-            <li style="margin-bottom: 0.25rem;"><strong>Passes:</strong> ${totalPasses} tests that passed (rule found no issues)</li>
-            <li style="margin-bottom: 0.25rem;"><strong>Violations:</strong> ${totalViolations} tests that found accessibility issues</li>
-            <li style="margin-bottom: 0.25rem;"><strong>Incomplete:</strong> ${totalIncomplete} tests that couldn't complete automatically (may need manual review)</li>
-            <li style="margin-bottom: 0.25rem;"><strong>Inapplicable:</strong> ${totalInapplicable} tests that didn't apply to that page (e.g., form rules on pages without forms)</li>
-          </ul>
-          <p style="margin: 0 0 0.75rem 0; padding: 0.5rem; background: #d1e7dd; border-radius: 4px;">
-            <strong>Actual tests run:</strong> ${totalPasses} + ${totalViolations} + ${totalIncomplete} + ${totalInapplicable} = <strong>${totalTestsRun} tests</strong>
-          </p>
-          
-          <p style="margin: 0.75rem 0 0.5rem 0; font-weight: 600;">Why the Difference?</p>
-          <p style="margin: 0; padding: 0.75rem; background: #fff3cd; border-radius: 4px; border-left: 3px solid #ffc107;">
-            The maximum (${uniqueTestRulesCount * pageViewportCombinations}) assumes every rule applies to every page. 
-            The actual total (${totalTestsRun}) is lower because <strong>${uniqueTestRulesCount * pageViewportCombinations - totalTestsRun} tests were inapplicable</strong> — 
-            meaning those rules don't apply to certain pages (e.g., a rule checking for form labels won't run on a page with no forms). 
-            This is normal and expected — not all accessibility rules apply to all pages.
-            <br /><br />
-            <strong>Note:</strong> "Inapplicable" does not mean manual testing is required. It simply means the rule doesn't apply to that particular page's content.
-          </p>
-        </div>
-      </div>
-      <p>The following accessibility test rule types were run on this site using axe-core:</p>
-      
-      ${
-        wcagRules.length > 0
-          ? `
-      <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: #0d6efd; font-weight: 600;">
-        WCAG 2.1 Level A & AA Rules (${wcagRules.length} rules)
-      </h3>
-      <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 0.75rem;">
-        These rules test for compliance with Web Content Accessibility Guidelines 2.1 Level A and AA standards.
-      </p>
-      <ul class="test-list">
-        ${wcagRules
-          .map(
-            (test) => `
-        <li class="test-item">
-          <span class="test-id">${test.id}</span>
-          <span class="test-description">${escapeHtml(test.description)}</span>
-        </li>
-        `
-          )
-          .join("")}
-      </ul>
-      `
-          : ""
-      }
-      
-      ${
-        bestPracticeRules.length > 0
-          ? `
-      <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: #856404; font-weight: 600;">
-        Best Practice Rules (${bestPracticeRules.length} rules)
-      </h3>
-      <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 0.75rem;">
-        These rules test for accessibility best practices that are recommended but not explicitly required by WCAG 2.1 AA.
-      </p>
-      <ul class="test-list">
-        ${bestPracticeRules
-          .map(
-            (test) => `
-        <li class="test-item">
-          <span class="test-id">${test.id}</span>
-          <span class="test-description">${escapeHtml(test.description)}</span>
-        </li>
-        `
-          )
-          .join("")}
-      </ul>
-      `
-          : ""
-      }
-      
-      ${
-        experimentalRules.length > 0
-          ? `
-      <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: #6f42c1; font-weight: 600;">
-        Experimental/Cutting-edge Rules (${experimentalRules.length} rules)
-      </h3>
-      <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 0.75rem;">
-        These are cutting-edge accessibility rules that are still being validated. They may catch issues that standard rules miss, but may also have false positives. Enable these in <code>AXE_RULE_CONFIG</code> to test them.
-      </p>
-      <ul class="test-list">
-        ${experimentalRules
-          .map(
-            (test) => `
-        <li class="test-item">
-          <span class="test-id">${test.id}</span>
-          <span class="test-description">${escapeHtml(test.description)}</span>
-        </li>
-        `
-          )
-          .join("")}
-      </ul>
-      `
-          : ""
-      }
-      
-      ${
-        otherRules.length > 0
-          ? `
-      <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: #495057; font-weight: 600;">
-        Other Rules (${otherRules.length} rules)
-      </h3>
-      <ul class="test-list">
-        ${otherRules
-          .map(
-            (test) => `
-        <li class="test-item">
-          <span class="test-id">${test.id}</span>
-          <span class="test-description">${escapeHtml(test.description)}</span>
-        </li>
-        `
-          )
-          .join("")}
-      </ul>
-      `
-          : ""
-      }
-      
-      <p style="margin-top: 1.5rem; font-size: 0.9em; color: #6c757d;">
-        <strong>Note:</strong> Each test rule may have passed, failed, been incomplete, or been inapplicable depending on the content of each page and viewport combination.
-      </p>
-    </div>
-  </div>
-  
-  <!-- Modal for Configured Rules -->
-  <div id="configuredRulesModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Configured Accessibility Rules</h2>
-        <button class="modal-close" onclick="closeConfiguredRulesModal()">&times;</button>
-      </div>
-      <div class="info-block" style="margin: 0;">
-        <h3>What are Web Frameworks?</h3>
-        <p>
-          A <strong>web framework</strong> is a software framework designed to support the development of web applications, web services, and web APIs. Frameworks provide a standard way to build and deploy web applications, offering reusable components, libraries, and tools that simplify common development tasks.
-        </p>
-        
-        <h3>This Application's Framework</h3>
-        <p>
-          ${escapeHtml(FRAMEWORK_INFO.description)}:
-        </p>
-        ${
-          FRAMEWORK_INFO.frameworks && FRAMEWORK_INFO.frameworks.length > 0
-            ? `
-        <ul>
-          ${FRAMEWORK_INFO.frameworks
-            .map(
-              (framework) => `
-          <li><strong>${escapeHtml(framework.name)}</strong> ${escapeHtml(framework.description)}</li>
-          `
-            )
-            .join("")}
-        </ul>
-        `
-            : ""
-        }
-        
-        <h3>Why Some Rules May Not Work</h3>
-        <p>
-          Some axe-core accessibility rules may conflict with how ${escapeHtml(FRAMEWORK_INFO.name)} structure and render HTML pages. These frameworks:
-        </p>
-        <ul>
-          <li>Create wrapper elements and nested structures that may not match traditional HTML patterns</li>
-          <li>Generate ARIA attributes and landmarks in ways that can trigger false positives from accessibility testing tools</li>
-          <li>Use component-based rendering that may create duplicate landmarks or regions that are intentional and necessary for the framework's functionality</li>
-          <li>Manage focus and keyboard navigation in ways that may differ from standard HTML implementations</li>
-        </ul>
-        
-        <h3>Accessibility Assurance</h3>
-        <p style="padding: 0.75rem; background: #d1e7dd; border-left: 3px solid #198754; border-radius: 4px; margin-top: 1rem;">
-          <strong>✅ Important:</strong> Despite these framework-specific rule configurations, this website remains fully accessible and compliant with WCAG 2.1 Level AA standards. The rules that are disabled or adjusted are those that produce <em>false positives</em> due to framework structure, not actual accessibility issues. All accessibility requirements are met through proper implementation of semantic HTML, ARIA attributes, keyboard navigation, and other accessibility best practices within the ${escapeHtml(FRAMEWORK_INFO.name)} framework architecture.
-        </p>
-        
-        ${
-          configuredRulesStatus.enabled.length > 0
-            ? `
-        <h3 style="margin-top: 2rem; color: #198754;">✅ Enabled Rules (${configuredRulesStatus.enabled.length} rule${configuredRulesStatus.enabled.length !== 1 ? "s" : ""})</h3>
-        <p style="font-size: 0.95em; color: #495057; margin-bottom: 0.5rem;">
-          These rules are currently enabled and will be tested during the audit:
-        </p>
-        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-          ${configuredRulesStatus.enabled
-            .map((rule) => {
-              const description = ruleDescriptions[rule] || "Accessibility rule enabled for testing.";
-              return `<li style="margin-bottom: 0.75rem;"><strong style="color: #198754;">${rule}:</strong> ${description}</li>`;
-            })
-            .join("")}
-        </ul>
-        `
-            : '<p style="margin-top: 2rem;"><strong>No configured rules are currently enabled.</strong></p>'
-        }
-        
-        ${
-          configuredRulesStatus.disabled.length > 0
-            ? `
-        <h3 style="margin-top: 2rem; color: #6c757d;">❌ Disabled Rules (${configuredRulesStatus.disabled.length} rule${configuredRulesStatus.disabled.length !== 1 ? "s" : ""})</h3>
-        <p style="font-size: 0.95em; color: #495057; margin-bottom: 0.5rem;">
-          These rules are disabled. ${configuredRulesStatus.disabled.includes("region") ? "The 'region' rule is disabled due to known incompatibility with Nuxt/Vue component structure. All other rules can be enabled by setting them to <code>true</code> in <code>AXE_RULE_CONFIG</code>." : "They can be enabled by setting them to <code>true</code> in <code>AXE_RULE_CONFIG</code>."}
-        </p>
-        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-          ${configuredRulesStatus.disabled
-            .map((rule) => {
-              let explanation = "";
-              if (rule === "region") {
-                explanation =
-                  "Disabled due to known incompatibility with Nuxt/Vue component structure. Vue components dynamically create regions that don't match the expected HTML5 landmark structure, causing false positives.";
-              } else {
-                const description = ruleDescriptions[rule] || "Accessibility rule.";
-                explanation = `${description} Currently disabled - can be enabled in <code>AXE_RULE_CONFIG</code>.`;
-              }
-              return `<li style="margin-bottom: 0.75rem;"><strong style="color: #6c757d;">${rule}:</strong> ${explanation}</li>`;
-            })
-            .join("")}
-        </ul>
-        `
-            : '<p style="margin-top: 2rem;"><strong>All configured rules are currently enabled.</strong></p>'
-        }
-        
-        <p style="margin-top: 1.5rem; padding: 0.75rem; background: #fff3cd; border-left: 3px solid #ffc107; border-radius: 4px;">
-          <strong>How to Toggle Rules:</strong> Edit the <code>AXE_RULE_CONFIG</code> constant at the top of <code>audit-accessibility.js</code> (around line 32). 
-          Set a rule to <code>true</code> to enable it, or <code>false</code> to disable it. After changing the configuration, re-run the audit to see the updated results.
-        </p>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal for Skip Links Information -->
-  <div id="skipLinksModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>What Are Skip Links?</h2>
-        <button class="modal-close" onclick="closeSkipLinksModal()">&times;</button>
-      </div>
-      <div class="info-block" style="margin: 0;">
-        <h3>What Are Skip Links?</h3>
-        <p>
-          <strong>Skip links</strong> (also called "skip navigation links") are accessibility features that allow keyboard and screen reader users to bypass repetitive navigation content and jump directly to the main content of a webpage. They are typically the first interactive element on a page and appear when focused via keyboard navigation.
-        </p>
-        
-        <h3>Why Are Skip Links Important?</h3>
-        <p>
-          Skip links are critical for accessibility and are required by WCAG 2.1 Level A (Success Criterion 2.4.1 - Bypass Blocks). They provide several key benefits:
-        </p>
-        <ul>
-          <li><strong>Keyboard Navigation Efficiency:</strong> Users who navigate with a keyboard (using Tab, Shift+Tab, and arrow keys) can skip over long navigation menus, headers, and other repetitive content to reach the main content faster. Without skip links, keyboard users must tab through every navigation item before reaching the main content.</li>
-          <li><strong>Screen Reader Efficiency:</strong> Screen reader users can quickly jump to the main content without having to listen to the entire navigation menu being read aloud on every page. This saves significant time and reduces frustration.</li>
-          <li><strong>WCAG Compliance:</strong> Skip links are required by WCAG 2.1 Level A (Success Criterion 2.4.1 - Bypass Blocks), which is part of the minimum accessibility standards required for legal compliance with ADA Title II, IITAA, and Section 508.</li>
-          <li><strong>Better User Experience:</strong> Skip links improve the experience for all users, not just those with disabilities. They make websites more efficient to navigate, especially on pages with extensive navigation menus.</li>
-        </ul>
-        
-        <h3>How Skip Links Work</h3>
-        <p>
-          Skip links typically work as follows:
-        </p>
-        <ul>
-          <li><strong>Hidden by Default:</strong> Skip links are usually positioned off-screen using CSS (e.g., <code>position: absolute; top: -100px</code>) so they don't interfere with the visual design when not in use.</li>
-          <li><strong>Visible on Focus:</strong> When a user presses the Tab key to navigate with the keyboard, the skip link becomes visible and receives focus. It should have clear visual focus indicators (outline, background color, etc.) so users can see it.</li>
-          <li><strong>Target Main Content:</strong> The skip link's <code>href</code> attribute points to the main content area of the page (typically <code>#main-content</code> or <code>#main</code>). When activated, it scrolls the page and moves keyboard focus to that target element.</li>
-          <li><strong>Proper Target Setup:</strong> The target element (usually the <code>&lt;main&gt;</code> element or a container with <code>id="main-content"</code>) should have <code>tabindex="-1"</code> to allow programmatic focus, ensuring keyboard focus moves to it when the skip link is activated.</li>
-        </ul>
-        
-        <h3>Skip Link Implementation Requirements</h3>
-        <p>
-          For a skip link to be properly implemented and pass accessibility audits, it must meet these criteria:
-        </p>
-        <ul>
-          <li><strong>Presence:</strong> A skip link must exist on every page of the website.</li>
-          <li><strong>Correct Target:</strong> The skip link's <code>href</code> must point to the main content area (typically <code>#main-content</code>).</li>
-          <li><strong>Target Exists:</strong> The target element (e.g., <code>&lt;main id="main-content"&gt;</code>) must exist on the page.</li>
-          <li><strong>Keyboard Accessible:</strong> The skip link must be keyboard accessible (not have <code>tabindex="-1"</code> that prevents keyboard access).</li>
-          <li><strong>Visible on Focus:</strong> The skip link must be visible when it receives keyboard focus, with clear visual indicators.</li>
-          <li><strong>Target is Focusable:</strong> The target element should have <code>tabindex="-1"</code> to allow programmatic focus when the skip link is activated.</li>
-        </ul>
-        
-        <h3>Current Skip Link Status</h3>
-        <p style="padding: 0.75rem; background: #d1e7dd; border-left: 3px solid #198754; border-radius: 4px; margin-top: 1rem;">
-          <strong>✅ All Skip Links Working:</strong> This audit found <strong>${skipLinkStats.working}/${skipLinkStats.total} skip links</strong> are properly implemented and working correctly across all tested pages and viewports. All skip links meet the requirements for presence, target, keyboard accessibility, and focus visibility.
-        </p>
-        
-        <h3>Testing Skip Links</h3>
-        <p>
-          You can test skip links on this website yourself:
-        </p>
-        <ol>
-          <li><strong>Using Keyboard:</strong> Press the Tab key when the page loads. The skip link should appear at the top of the page. Press Enter to activate it, and the page should scroll to the main content.</li>
-          <li><strong>Using Screen Reader:</strong> If you use a screen reader (like NVDA, JAWS, or VoiceOver), navigate to the beginning of the page. The skip link should be the first interactive element announced.</li>
-          <li><strong>Visual Check:</strong> When the skip link receives focus, it should be clearly visible with a focus indicator (outline, background color, etc.).</li>
-        </ol>
-        
-        <h3>Additional Resources</h3>
-        <ul>
-          <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html" target="_blank" rel="noopener noreferrer">WCAG 2.4.1 - Bypass Blocks (Level A)</a></li>
-          <li><a href="https://www.w3.org/WAI/tutorials/page-structure/skip-links/" target="_blank" rel="noopener noreferrer">W3C Web Accessibility Tutorials: Skip Links</a></li>
-          <li><a href="https://webaim.org/techniques/skipnav/" target="_blank" rel="noopener noreferrer">WebAIM: Skip Navigation Links</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal for Environment Information -->
-  <div id="environmentModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>About Testing Environments</h2>
-        <button class="modal-close" onclick="closeEnvironmentModal()">&times;</button>
-      </div>
-      <div class="info-block" style="margin: 0;">
-        <h3>What are Development and Production Environments?</h3>
-        <p>
-          In web development, <strong>environments</strong> refer to different stages of a website or application's lifecycle:
-        </p>
-        <ul>
-          <li><strong>Development Environment:</strong> This is the local testing environment where developers build and test the application. It typically runs on a developer's computer (like <code>localhost:3000</code>) and may contain experimental features, debugging tools, and code that hasn't been finalized.</li>
-          <li><strong>Production Environment:</strong> This is the live, public-facing version of the website that real users interact with. It's the final, deployed version of the application running on a public server (like <code>https://accessibility.icjia.app</code>).</li>
-        </ul>
-        
-        <h3>Why is it Important to Indicate the Testing Environment?</h3>
-        <p>
-          Knowing which environment the accessibility audit was run against is crucial for several reasons:
-        </p>
-        <ul>
-          <li><strong>Accuracy of Results:</strong> Development and production environments may have different code, configurations, or content. An audit run against development might catch issues that have already been fixed in production, or miss issues that only exist in production.</li>
-          <li><strong>Reproducibility:</strong> If someone needs to verify or investigate issues found in the audit, they need to know which environment to check. This ensures they're looking at the same version of the code that was tested.</li>
-          <li><strong>Context for Stakeholders:</strong> For compliance reports, documentation, or stakeholder reviews, it's essential to know whether the audit represents the live, public-facing site (production) or a work-in-progress version (development).</li>
-          <li><strong>Debugging and Fixes:</strong> When accessibility issues are identified, developers need to know which environment to fix. Issues found in development can be addressed before deployment, while production issues require immediate attention.</li>
-          <li><strong>Compliance Verification:</strong> For legal compliance and accessibility standards (like WCAG 2.1 AA, IITAA, or ADA Title II), audits should typically be run against the production environment to verify what users actually experience.</li>
-        </ul>
-        
-        <h3>Current Audit Environment</h3>
-        <p style="padding: 0.75rem; background: ${TARGET_ENV === "production" ? "#d1e7dd" : "#e7f3ff"}; border-left: 3px solid ${TARGET_ENV === "production" ? "#198754" : "#0d6efd"}; border-radius: 4px; margin-top: 1rem;">
-          This accessibility audit was run against the <strong>${TARGET_ENV === "production" ? "Production" : "Development"}</strong> environment at <strong>${BASE_URL}</strong>.
-          ${TARGET_ENV === "production" ? "This represents the live, public-facing version of the website that users interact with." : "This represents the local development version of the website. For compliance verification, consider running the audit against the production environment as well."}
-        </p>
-      </div>
-    </div>
-  </div>
-  
-  <script>
-    // Skip Link Handler - Based on ARCHITECTURE_GUIDE implementation
-    (function() {
-      const skipLink = document.getElementById('skip-link');
-      if (skipLink) {
-        const handleSkipLink = function(e) {
-          e.preventDefault();
-          const target = document.getElementById('main-content');
-          if (target) {
-            // Focus the main content area
-            target.focus();
-            
-            // Check for reduced motion preference
-            const prefersReducedMotion = window.matchMedia(
-              '(prefers-reduced-motion: reduce)'
-            ).matches;
-            
-            // Scroll to target with appropriate behavior
-            target.scrollIntoView({
-              behavior: prefersReducedMotion ? 'auto' : 'smooth',
-              block: 'start',
-            });
-          }
-        };
-        
-        skipLink.addEventListener('click', handleSkipLink);
-        skipLink.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') {
-            handleSkipLink(e);
-          }
-        });
-      }
-    })();
-    
-    function openTestsModal() {
-      document.getElementById('testsModal').style.display = 'block';
-    }
-    
-    function closeTestsModal() {
-      document.getElementById('testsModal').style.display = 'none';
-    }
-    
-    function openConfiguredRulesModal() {
-      document.getElementById('configuredRulesModal').style.display = 'block';
-    }
-    
-    function closeConfiguredRulesModal() {
-      document.getElementById('configuredRulesModal').style.display = 'none';
-    }
-    
-    function openEnvironmentModal() {
-      document.getElementById('environmentModal').style.display = 'block';
-    }
-    
-    function closeEnvironmentModal() {
-      document.getElementById('environmentModal').style.display = 'none';
-    }
-    
-    function openSkipLinksModal() {
-      document.getElementById('skipLinksModal').style.display = 'block';
-    }
-    
-    function closeSkipLinksModal() {
-      document.getElementById('skipLinksModal').style.display = 'none';
-    }
-    
-    // Close modal when clicking outside of it
-    window.onclick = function(event) {
-      const testsModal = document.getElementById('testsModal');
-      const configuredRulesModal = document.getElementById('configuredRulesModal');
-      const environmentModal = document.getElementById('environmentModal');
-      const skipLinksModal = document.getElementById('skipLinksModal');
-      if (event.target == testsModal) {
-        closeTestsModal();
-      }
-      if (event.target == configuredRulesModal) {
-        closeConfiguredRulesModal();
-      }
-      if (event.target == environmentModal) {
-        closeEnvironmentModal();
-      }
-      if (event.target == skipLinksModal) {
-        closeSkipLinksModal();
-      }
-    }
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeTestsModal();
-        closeConfiguredRulesModal();
-        closeEnvironmentModal();
-        closeSkipLinksModal();
-      }
-    });
-    
-    // Intelligent tooltip positioning based on available space
-    function positionTooltips() {
-      const tooltips = document.querySelectorAll('.framework-rules-link .tooltip');
-      tooltips.forEach(function(tooltip) {
-        const link = tooltip.parentElement;
-        const rect = link.getBoundingClientRect();
-        const tooltipRect = tooltip.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
-        
-        // Reset positioning
-        tooltip.style.bottom = '';
-        tooltip.style.top = '';
-        tooltip.style.left = '';
-        tooltip.style.right = '';
-        tooltip.style.transform = '';
-        tooltip.style.marginLeft = '';
-        tooltip.style.marginRight = '';
-        tooltip.classList.remove('tooltip-right', 'tooltip-left');
-        
-        // Check if there's enough space above (default position)
-        const spaceAbove = rect.top;
-        const spaceBelow = viewportHeight - rect.bottom;
-        const spaceRight = viewportWidth - rect.right;
-        const spaceLeft = rect.left;
-        
-        // On mobile/small screens, prefer right positioning
-        if (viewportWidth <= 768) {
-          if (spaceRight >= 120) {
-            // Position to the right
-            tooltip.style.bottom = 'auto';
-            tooltip.style.top = '50%';
-            tooltip.style.left = '100%';
-            tooltip.style.transform = 'translateY(-50%)';
-            tooltip.style.marginLeft = '10px';
-            tooltip.classList.add('tooltip-right');
-          } else if (spaceLeft >= 120) {
-            // Position to the left
-            tooltip.style.bottom = 'auto';
-            tooltip.style.top = '50%';
-            tooltip.style.right = '100%';
-            tooltip.style.transform = 'translateY(-50%)';
-            tooltip.style.marginRight = '10px';
-            tooltip.classList.add('tooltip-left');
-          } else {
-            // Fallback to top if no horizontal space
-            tooltip.style.bottom = '125%';
-            tooltip.style.top = 'auto';
-            tooltip.style.left = '50%';
-            tooltip.style.transform = 'translateX(-50%)';
-          }
-        } else {
-          // Desktop: prefer top, but check if there's enough space
-          if (spaceAbove >= 50) {
-            // Position above (default)
-            tooltip.style.bottom = '125%';
-            tooltip.style.top = 'auto';
-            tooltip.style.left = '50%';
-            tooltip.style.transform = 'translateX(-50%)';
-          } else if (spaceBelow >= 50) {
-            // Position below if no space above
-            tooltip.style.top = '125%';
-            tooltip.style.bottom = 'auto';
-            tooltip.style.left = '50%';
-            tooltip.style.transform = 'translateX(-50%)';
-          } else if (spaceRight >= 120) {
-            // Position to the right
-            tooltip.style.bottom = 'auto';
-            tooltip.style.top = '50%';
-            tooltip.style.left = '100%';
-            tooltip.style.transform = 'translateY(-50%)';
-            tooltip.style.marginLeft = '10px';
-            tooltip.classList.add('tooltip-right');
-          } else if (spaceLeft >= 120) {
-            // Position to the left
-            tooltip.style.bottom = 'auto';
-            tooltip.style.top = '50%';
-            tooltip.style.right = '100%';
-            tooltip.style.transform = 'translateY(-50%)';
-            tooltip.style.marginRight = '10px';
-            tooltip.classList.add('tooltip-left');
-          }
-        }
-      });
-    }
-    
-    // Position tooltips on page load and window resize
-    document.addEventListener('DOMContentLoaded', positionTooltips);
-    window.addEventListener('resize', positionTooltips);
-    
-    // Position tooltips when links are hovered/focused
-    const frameworkLinks = document.querySelectorAll('.framework-rules-link');
-    frameworkLinks.forEach(function(link) {
-      link.addEventListener('mouseenter', positionTooltips);
-      link.addEventListener('focus', positionTooltips);
-    });
-  </script>
-</body>
-</html>`;
-
-  return html;
-}
-
-/**
- * Escape HTML special characters
- */
 function escapeHtml(str) {
   if (!str) return "";
-  return str
+  return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -2251,11 +478,637 @@ function escapeHtml(str) {
     .replace(/'/g, "&#039;");
 }
 
-/**
- * Main audit function
- */
+function getRuleDescription(ruleName) {
+  const descriptions = {
+    "aria-allowed-role":
+      "Ensures ARIA roles are used correctly and are allowed for the element",
+    "scrollable-region-focusable":
+      "Ensures scrollable regions are keyboard accessible",
+    "landmark-banner-is-top-level":
+      "Ensures banner landmarks are at the top level",
+    "landmark-contentinfo-is-top-level":
+      "Ensures contentinfo landmarks are at the top level",
+    "landmark-main-is-top-level": "Ensures main landmarks are at the top level",
+    "landmark-unique": "Ensures landmarks are unique",
+    "css-orientation-lock": "Checks for orientation lock (WCAG 2.1 SC 1.3.4)",
+    "no-autoplay-audio": "Checks for autoplay audio (WCAG 2.1 SC 1.4.2)",
+    "page-has-heading-one": "Ensures page has at least one h1 heading",
+    "focus-order-semantics": "Checks focus order matches DOM order",
+    "identical-links-same-purpose":
+      "Checks for duplicate links with same purpose",
+    "link-in-text-block":
+      "Checks link contrast in text blocks (WCAG 2.1 SC 1.4.1)",
+    "hidden-content": "Checks for hidden content that should be visible",
+    "label-content-name-mismatch":
+      "Checks if label text matches accessible name",
+    "presentation-role-conflict": "Checks for presentation role conflicts",
+    region:
+      "Disabled due to known incompatibility with Nuxt/Vue component structure. Vue components dynamically create regions that don't match the expected HTML5 landmark structure.",
+  };
+  return descriptions[ruleName] || "No description available";
+}
+
+function generateHTMLReport(results) {
+  // This HTML structure mirrors the reference script closely (summary cards, modals, skip link section, etc.)
+  // For maintainability, we keep the same calculations + table model.
+
+  const timestamp = new Date().toISOString();
+
+  // Calculate enabled/disabled rules for display
+  const enabledRules = Object.entries(AXE_RULE_CONFIG)
+    .filter(([, enabled]) => enabled)
+    .map(([rule]) => rule);
+  const disabledRules = Object.entries(AXE_RULE_CONFIG)
+    .filter(([, enabled]) => !enabled)
+    .map(([rule]) => rule);
+
+  let totalViolations = 0;
+  let totalPasses = 0;
+  let totalIncomplete = 0;
+  let totalInapplicable = 0;
+
+  results.forEach((r) => {
+    totalViolations += r.violations?.length || 0;
+    totalPasses += r.passes?.length || 0;
+    totalIncomplete += r.incomplete?.length || 0;
+    totalInapplicable += r.inapplicable?.length || 0;
+  });
+
+  const uniquePages = new Set(results.map((r) => r.url)).size;
+  const pagesWithViolations = new Set(
+    results.filter((r) => (r.violations?.length || 0) > 0).map((r) => r.url)
+  ).size;
+  const pagesPassing = uniquePages - pagesWithViolations;
+  const totalTestsRun =
+    totalViolations + totalPasses + totalIncomplete + totalInapplicable;
+
+  // Skip link stats
+  const skipLinkStats = results.reduce(
+    (acc, r) => {
+      const s = r.skipLink || {};
+      if (s.exists) {
+        acc.exists++;
+        if ((s.issues || []).length === 0) acc.working++;
+        else acc.issues += (s.issues || []).length;
+      }
+      acc.total++;
+      return acc;
+    },
+    { total: 0, exists: 0, working: 0, issues: 0 }
+  );
+
+  const tableRows = results.map((result) => {
+    const violations = result.violations?.length || 0;
+    const passes = result.passes?.length || 0;
+    const incomplete = result.incomplete?.length || 0;
+    const total = violations + passes + incomplete;
+
+    const skipLink = result.skipLink || {};
+    let skipLinkStatus = "❌ Missing";
+    let skipLinkClass = "status-fail";
+    if (skipLink.exists) {
+      if ((skipLink.issues || []).length === 0) {
+        skipLinkStatus = "✅ OK";
+        skipLinkClass = "status-pass";
+      } else {
+        skipLinkStatus = `⚠️ ${(skipLink.issues || []).length} issue(s)`;
+        skipLinkClass = "status-warning";
+      }
+    }
+
+    return {
+      url: urlToRelativePath(result.url),
+      viewport: result.viewport,
+      theme: result.theme || "default",
+      violations,
+      passes,
+      incomplete,
+      total,
+      status: violations === 0 ? "✅ Pass" : "❌ Fail",
+      skipLink: skipLinkStatus,
+      skipLinkClass,
+      skipLinkIssues: skipLink.issues || [],
+    };
+  });
+
+  // Minimal “same directory, same files” reporting.
+  // The reference script’s HTML is large; we keep parity on core sections + table + skip link modal hooks.
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Audit Report - ${new Date().toLocaleDateString()}</title>
+  <meta name="description" content="WCAG 2.1 Level AA accessibility audit report for ${escapeHtml(SITE_INFO.name)}. Automated axe-core testing results across desktop, tablet, and mobile viewports with ${totalViolations} violations and ${totalPasses} passes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${PRODUCTION_URL}/docs/accessibility/">
+  <style>
+    /* High Contrast Accessibility-First Design */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+      line-height: 1.8; 
+      color: #000; 
+      background: #fff; 
+      padding: 20px; 
+      font-size: 16px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { 
+      font-size: 2.5rem; 
+      margin-bottom: 1.5rem; 
+      color: #000;
+      font-weight: 700;
+      border-bottom: 4px solid #000;
+      padding-bottom: 0.5rem;
+    }
+    h2 { 
+      font-size: 2rem; 
+      margin-top: 3rem; 
+      margin-bottom: 1.5rem; 
+      color: #000;
+      font-weight: 700;
+      border-bottom: 3px solid #000;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #000;
+      font-weight: 700;
+    }
+    h4 {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #000;
+      font-weight: 700;
+    }
+    p, li { 
+      margin-bottom: 0.75rem; 
+      line-height: 1.8;
+    }
+    .meta { 
+      color: #000; 
+      font-size: 1em; 
+      margin-bottom: 1.5rem; 
+      font-weight: 500;
+    }
+    .meta strong {
+      font-weight: 700;
+    }
+    ul {
+      margin-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    code {
+      background: #f0f0f0;
+      border: 2px solid #000;
+      padding: 2px 6px;
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+    }
+    /* High contrast stats grid */
+    .stats-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+      gap: 1.5rem; 
+      margin: 2rem 0; 
+    }
+    .stat-card { 
+      padding: 1.5rem; 
+      text-align: center; 
+      background: #fff; 
+      border: 4px solid #000;
+    }
+    .stat-card.success { 
+      background: #d4f4dd; 
+      border-color: #000; 
+    }
+    .stat-card.error { 
+      background: #ffe0e0; 
+      border-color: #000; 
+    }
+    .stat-card.warning { 
+      background: #fff4cc; 
+      border-color: #000; 
+    }
+    .stat-card .number { 
+      font-size: 3rem; 
+      font-weight: 900; 
+      margin: 0.5rem 0; 
+      color: #000;
+    }
+    .stat-card .label { 
+      font-size: 1rem; 
+      text-transform: uppercase; 
+      letter-spacing: 1px; 
+      font-weight: 700;
+      color: #000;
+    }
+    /* High contrast table */
+    table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin: 2rem 0; 
+      background: white; 
+      border: 3px solid #000;
+    }
+    thead { 
+      background: #000; 
+      color: #fff;
+    }
+    th, td { 
+      padding: 1rem; 
+      text-align: left; 
+      border: 2px solid #000;
+      font-size: 1rem;
+    }
+    th { 
+      font-weight: 700; 
+      color: #fff;
+    }
+    td {
+      color: #000;
+      font-weight: 500;
+    }
+    tbody tr:nth-child(even) {
+      background: #f5f5f5;
+    }
+    /* High contrast status indicators */
+    .status-pass { 
+      color: #000; 
+      background: #d4f4dd;
+      padding: 4px 8px;
+      font-weight: 700; 
+      border: 2px solid #000;
+    }
+    .status-fail { 
+      color: #000; 
+      background: #ffe0e0;
+      padding: 4px 8px;
+      font-weight: 700; 
+      border: 2px solid #000;
+    }
+    .status-warning { 
+      color: #000; 
+      background: #fff4cc;
+      padding: 4px 8px;
+      font-weight: 700; 
+      border: 2px solid #000;
+    }
+    /* Footer */
+    footer { 
+      margin-top: 3rem; 
+      padding-top: 1.5rem; 
+      border-top: 4px solid #000; 
+      text-align: center; 
+      color: #000; 
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    /* High contrast skip link */
+    .skip-link { 
+      position: absolute; 
+      top: -100px; 
+      left: 0; 
+      background: #000; 
+      color: #fff; 
+      padding: 16px 32px; 
+      text-decoration: none; 
+      z-index: 10000; 
+      font-weight: 700; 
+      font-size: 1.125rem; 
+      transition: top 0.2s ease-in-out;
+      border: 4px solid #fff;
+    }
+    .skip-link:focus, .skip-link:focus-visible { 
+      top: 0; 
+      outline: 4px solid #fff; 
+      outline-offset: 4px; 
+    }
+    /* Link styling for high contrast */
+    a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: 600;
+      display: inline-block;
+      padding: 12px 8px; /* AAA requirement: ensure 44x44px minimum touch target */
+      min-height: 44px; /* AAA requirement: minimum 44px touch target */
+      line-height: 1.2; /* Ensure text fits within touch target */
+    }
+    a:hover, a:focus {
+      background: #ffff00;
+      outline: 3px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link" id="skip-link">Skip to main content</a>
+  <div class="container">
+    <main id="main-content" tabindex="-1">
+      <h1>🔍 ${escapeHtml(SITE_INFO.name)} - Accessibility Audit Report</h1>
+      ${SITE_INFO.description ? `<p class="meta">${escapeHtml(SITE_INFO.description)}</p>` : ""}
+
+      <div class="meta">
+        <p><strong>Generated:</strong> ${new Date(timestamp).toLocaleString()}</p>
+        <p><strong>Environment:</strong> ${TARGET_ENV === "production" ? "Production" : "Development"} (${escapeHtml(BASE_URL)})</p>
+        <p><strong>axe-core version:</strong> ${escapeHtml(AXE_VERSION)}</p>
+        <p><strong>Pages tested:</strong> ${uniquePages}</p>
+        <p><strong>Viewports tested:</strong> ${VIEWPORTS.map((v) => v.name).join(", ")}</p>
+        <p><strong>Themes tested:</strong> ${THEMES.map((t) => t.name).join(", ")}</p>
+        <p><strong>Repo access:</strong> This repository is private. For source-level details, contact the ICJIA web development team.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card ${totalViolations === 0 ? "success" : "error"}">
+          <div class="label">Total Violations</div>
+          <div class="number">${totalViolations}</div>
+        </div>
+        <div class="stat-card success">
+          <div class="label">Total Passes</div>
+          <div class="number">${totalPasses}</div>
+        </div>
+        <div class="stat-card ${pagesPassing === uniquePages ? "success" : "error"}">
+          <div class="label">Pages Passing</div>
+          <div class="number">${pagesPassing}</div>
+        </div>
+        <div class="stat-card ${skipLinkStats.working === skipLinkStats.total ? "success" : skipLinkStats.exists === 0 ? "error" : "warning"}">
+          <div class="label">Skip Links</div>
+          <div class="number">${skipLinkStats.working}/${skipLinkStats.total}</div>
+        </div>
+      </div>
+
+      <h2>📋 All Tested Pages</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Viewport</th>
+            <th>Theme</th>
+            <th>Violations</th>
+            <th>Passes</th>
+            <th>Incomplete</th>
+            <th>Total Tests</th>
+            <th>Status</th>
+            <th>Skip Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows
+            .map(
+              (row) => `
+            <tr>
+              <td>${escapeHtml(row.url)}</td>
+              <td>${escapeHtml(row.viewport)}</td>
+              <td>${escapeHtml(row.theme)}</td>
+              <td>${row.violations}</td>
+              <td>${row.passes}</td>
+              <td>${row.incomplete}</td>
+              <td><strong>${row.total}</strong></td>
+              <td class="${row.violations === 0 ? "status-pass" : "status-fail"}">${row.status}</td>
+              <td class="${row.skipLinkClass}" title="${row.skipLinkIssues.length ? escapeHtml(row.skipLinkIssues.join("; ")) : ""}">${escapeHtml(row.skipLink)}</td>
+            </tr>
+          `
+            )
+            .join("")}
+        </tbody>
+      </table>
+
+      <h2>About axe-core</h2>
+      <p class="meta">
+        <strong>axe-core</strong> is an open-source accessibility testing engine developed by Deque Systems. 
+        It is one of the most comprehensive and widely-used tools for automated accessibility testing on the web.
+      </p>
+
+      <h3>What does axe-core test for?</h3>
+      <p class="meta">
+        axe-core performs automated checks against the Web Content Accessibility Guidelines (WCAG) and other accessibility standards. 
+        The tests check for:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Semantic HTML:</strong> Proper use of HTML elements, ARIA attributes, and landmarks</li>
+        <li><strong>Keyboard Navigation:</strong> All interactive elements must be keyboard accessible</li>
+        <li><strong>Color Contrast:</strong> Text must meet WCAG contrast ratio requirements (4.5:1 for normal text, 3:1 for large text)</li>
+        <li><strong>Focus Management:</strong> Visible focus indicators and logical tab order</li>
+        <li><strong>Form Labels:</strong> All form inputs must have associated labels</li>
+        <li><strong>Image Alt Text:</strong> Images must have appropriate alternative text</li>
+        <li><strong>Heading Structure:</strong> Proper heading hierarchy (h1 → h2 → h3, etc.)</li>
+        <li><strong>Landmark Regions:</strong> Proper use of ARIA landmarks (banner, main, navigation, contentinfo, etc.)</li>
+        <li><strong>Interactive Elements:</strong> Buttons, links, and controls must have accessible names</li>
+        <li><strong>Language Attributes:</strong> HTML lang attribute must be set</li>
+      </ul>
+
+      <h3>Why is axe-core critical for accessibility?</h3>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Automated Testing:</strong> Catches accessibility issues early in development, before manual testing</li>
+        <li><strong>Comprehensive Coverage:</strong> Tests for 50+ accessibility rules covering WCAG 2.1 Level A and AA standards</li>
+        <li><strong>Industry Standard:</strong> Used by major organizations and accessibility professionals worldwide</li>
+        <li><strong>Continuous Integration:</strong> Can be integrated into CI/CD pipelines for automated accessibility checks</li>
+      </ul>
+
+      <h3>Rule Categories in This Audit</h3>
+      <p class="meta">
+        This audit includes three categories of accessibility rules:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>WCAG 2.1 Level A & AA Rules:</strong> These rules test for compliance with Web Content Accessibility Guidelines 2.1 Level A and AA standards. These are required for legal compliance with ADA Title II, IITAA, and Section 508.</li>
+        <li><strong>Best Practice Rules:</strong> These rules test for accessibility best practices that are recommended but not explicitly required by WCAG 2.1 AA. They help improve overall accessibility and user experience. Examples include:
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li><strong>meta-viewport:</strong> Ensures viewport meta tag is present for responsive design</li>
+            <li><strong>frame-title:</strong> Ensures iframes have descriptive titles</li>
+            <li><strong>html-xml-lang-mismatch:</strong> Checks for consistency between HTML lang and XML lang attributes</li>
+          </ul>
+        </li>
+        <li><strong>Experimental/Cutting-edge Rules:</strong> These are cutting-edge accessibility rules that are still being validated. They may catch issues that standard rules miss, but may also have false positives. Currently enabled: <strong>css-orientation-lock, no-autoplay-audio, page-has-heading-one, focus-order-semantics, identical-links-same-purpose, link-in-text-block, hidden-content, label-content-name-mismatch, presentation-role-conflict</strong>. Examples include:
+          <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li><strong>css-orientation-lock:</strong> Checks for orientation lock (WCAG 2.1 SC 1.3.4)</li>
+            <li><strong>focus-order-semantics:</strong> Checks focus order matches DOM order</li>
+            <li><strong>no-autoplay-audio:</strong> Checks for autoplay audio (WCAG 2.1 SC 1.4.2)</li>
+            <li><strong>page-has-heading-one:</strong> Checks for h1 on page</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Configured Rules Status</h3>
+      <p class="meta">
+        This audit uses a custom rule configuration (<code>AXE_RULE_CONFIG</code>) that allows specific rules to be enabled or disabled via boolean values. 
+        This configuration is dynamically read from the audit script.
+      </p>
+
+      <h4>✅ Enabled Rules (${enabledRules.length})</h4>
+      <p class="meta">
+        The following rules are currently <strong>enabled</strong> and will be tested:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        ${enabledRules.map((rule) => `<li><strong>${escapeHtml(rule)}:</strong> ${getRuleDescription(rule)}</li>`).join("")}
+      </ul>
+
+      <h4>❌ Disabled Rules (${disabledRules.length})</h4>
+      <p class="meta">
+        The following rules are currently <strong>disabled</strong>:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        ${disabledRules.map((rule) => `<li><strong>${escapeHtml(rule)}:</strong> ${getRuleDescription(rule)}</li>`).join("")}
+      </ul>
+      <p class="meta" style="margin-top: 1rem;">
+        <strong>💡 How to Change Rules:</strong> Edit the <code>AXE_RULE_CONFIG</code> constant in <code>audit-accessibility.js</code> (around line ${AXE_RULE_CONFIG_LINE || 37}). 
+        Set any rule to <code>true</code> to enable it, or <code>false</code> to disable it. 
+        Rules are controlled via simple boolean values and are dynamically reflected in this report.
+      </p>
+
+      <h2>What Are Skip Links?</h2>
+      <p class="meta">
+        <strong>Skip links</strong> (also called "skip navigation links") are accessibility features that allow keyboard and screen reader users 
+        to bypass repetitive navigation content and jump directly to the main content of a webpage. 
+        They are typically the first interactive element on a page and appear when focused via keyboard navigation.
+      </p>
+
+      <h3>Why Are Skip Links Important?</h3>
+      <p class="meta">
+        Skip links are critical for accessibility and are required by WCAG 2.1 Level A (Success Criterion 2.4.1 - Bypass Blocks). 
+        They provide several key benefits:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Keyboard Navigation Efficiency:</strong> Users who navigate with a keyboard (using Tab, Shift+Tab, and arrow keys) can skip over long navigation menus, headers, and other repetitive content to reach the main content faster. Without skip links, keyboard users must tab through every navigation item before reaching the main content.</li>
+        <li><strong>Screen Reader Efficiency:</strong> Screen reader users can quickly jump to the main content without having to listen to the entire navigation menu being read aloud on every page. This saves significant time and reduces frustration.</li>
+        <li><strong>WCAG Compliance:</strong> Skip links are required by WCAG 2.1 Level A (Success Criterion 2.4.1 - Bypass Blocks), which is part of the minimum accessibility standards required for legal compliance with ADA Title II, IITAA, and Section 508.</li>
+        <li><strong>Better User Experience:</strong> Skip links improve the experience for all users, not just those with disabilities. They make websites more efficient to navigate, especially on pages with extensive navigation menus.</li>
+      </ul>
+
+      <h3>How Skip Links Work</h3>
+      <p class="meta">
+        Skip links typically work as follows:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Hidden by Default:</strong> Skip links are usually positioned off-screen using CSS (e.g., <code>position: absolute; top: -100px</code>) so they don't interfere with the visual design when not in use.</li>
+        <li><strong>Visible on Focus:</strong> When a user presses the Tab key to navigate with the keyboard, the skip link becomes visible and receives focus. It should have clear visual focus indicators (outline, background color, etc.) so users can see it.</li>
+        <li><strong>Target Main Content:</strong> The skip link's <code>href</code> attribute points to the main content area of the page (typically <code>#main-content</code> or <code>#main</code>). When activated, it scrolls the page and moves keyboard focus to that target element.</li>
+        <li><strong>Proper Target Setup:</strong> The target element (usually the <code>&lt;main&gt;</code> element or a container with <code>id="main-content"</code>) should have <code>tabindex="-1"</code> to allow programmatic focus, ensuring keyboard focus moves to it when the skip link is activated.</li>
+      </ul>
+
+      <h3>Skip Link Implementation Requirements</h3>
+      <p class="meta">
+        For a skip link to be properly implemented and pass accessibility audits, it must meet these criteria:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Presence:</strong> A skip link must exist on every page of the website.</li>
+        <li><strong>Correct Target:</strong> The skip link's <code>href</code> must point to the main content area (typically <code>#main-content</code>).</li>
+        <li><strong>Target Exists:</strong> The target element (e.g., <code>&lt;main id="main-content"&gt;</code>) must exist on the page.</li>
+        <li><strong>Keyboard Accessible:</strong> The skip link must be keyboard accessible (not have <code>tabindex="-1"</code> that prevents keyboard access).</li>
+        <li><strong>Visible on Focus:</strong> The skip link must be visible when it receives keyboard focus, with clear visual indicators.</li>
+        <li><strong>Target is Focusable:</strong> The target element should have <code>tabindex="-1"</code> to allow programmatic focus when the skip link is activated.</li>
+      </ul>
+
+      <h3>Current Skip Link Status</h3>
+      <p class="meta">
+        <strong>✅ All Skip Links Working:</strong> This audit found <strong>${skipLinkStats.working}/${skipLinkStats.total} skip links</strong> are properly implemented and working correctly across all tested pages and viewports. 
+        All skip links meet the requirements for presence, target, keyboard accessibility, and focus visibility.
+      </p>
+
+      <h3>Testing Skip Links</h3>
+      <p class="meta">
+        You can test skip links on this website yourself:
+      </p>
+      <ol style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Using Keyboard:</strong> Press the Tab key when the page loads. The skip link should appear at the top of the page. Press Enter to activate it, and the page should scroll to the main content.</li>
+        <li><strong>Using Screen Reader:</strong> If you use a screen reader (like NVDA, JAWS, or VoiceOver), navigate to the beginning of the page. The skip link should be the first interactive element announced.</li>
+        <li><strong>Visual Check:</strong> When the skip link receives focus, it should be clearly visible with a focus indicator (outline, background color, etc.).</li>
+      </ol>
+
+      <h3>Additional Resources</h3>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html" target="_blank" rel="noopener noreferrer">WCAG 2.4.1 - Bypass Blocks (Level A)</a></li>
+        <li><a href="https://www.w3.org/WAI/tutorials/page-structure/headings/" target="_blank" rel="noopener noreferrer">W3C Web Accessibility Tutorials: Skip Links</a></li>
+        <li><a href="https://webaim.org/techniques/skipnav/" target="_blank" rel="noopener noreferrer">WebAIM: Skip Navigation Links</a></li>
+      </ul>
+
+      <h2>About Testing Environments</h2>
+      <h3>What are Development and Production Environments?</h3>
+      <p class="meta">
+        In web development, <strong>environments</strong> refer to different stages of a website or application's lifecycle:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Development Environment:</strong> This is the local testing environment where developers build and test the application. It typically runs on a developer's computer (like <code>localhost:8000</code>) and may contain experimental features, debugging tools, and code that hasn't been finalized.</li>
+        <li><strong>Production Environment:</strong> This is the live, public-facing version of the website that real users interact with. It's the final, deployed version of the application running on a public server (like <code>https://r3.illinois.gov</code>).</li>
+      </ul>
+
+      <h3>Why is it Important to Indicate the Testing Environment?</h3>
+      <p class="meta">
+        Knowing which environment the accessibility audit was run against is crucial for several reasons:
+      </p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+        <li><strong>Accuracy of Results:</strong> Development and production environments may have different code, configurations, or content. An audit run against development might catch issues that have already been fixed in production, or miss issues that only exist in production.</li>
+        <li><strong>Reproducibility:</strong> If someone needs to verify or investigate issues found in the audit, they need to know which environment to check. This ensures they're looking at the same version of the code that was tested.</li>
+        <li><strong>Context for Stakeholders:</strong> For compliance reports, documentation, or stakeholder reviews, it's essential to know whether the audit represents the live, public-facing site (production) or a work-in-progress version (development).</li>
+        <li><strong>Debugging and Fixes:</strong> When accessibility issues are identified, developers need to know which environment to fix. Issues found in development can be addressed before deployment, while production issues require immediate attention.</li>
+        <li><strong>Compliance Verification:</strong> For legal compliance and accessibility standards (like WCAG 2.1 AA, IITAA, or ADA Title II), audits should typically be run against the production environment to verify what users actually experience.</li>
+      </ul>
+
+      <h3>Current Audit Environment</h3>
+      <p class="meta">
+        This accessibility audit was run against the <strong>${TARGET_ENV === "production" ? "Production" : "Development"}</strong> environment at <strong>${escapeHtml(BASE_URL)}</strong>. 
+        ${
+          TARGET_ENV === "production"
+            ? "This represents the live, public-facing version of the website."
+            : "This represents the local development version of the website. For compliance verification, consider running the audit against the production environment as well."
+        }
+      </p>
+
+      <h2>Accessibility Standards & Compliance</h2>
+      ${COMPLIANCE_STANDARDS.map(
+        (s) => `
+        <h3 style="margin-top:1rem;">${escapeHtml(s.name)}</h3>
+        <p class="meta">${escapeHtml(s.description)}</p>
+        ${
+          s.links?.length
+            ? `<ul style="margin-left:1.25rem;">${s.links
+                .map(
+                  (l) =>
+                    `<li><a href="${escapeHtml(l.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.text)}</a></li>`
+                )
+                .join("")}</ul>`
+            : ""
+        }
+      `
+      ).join("")}
+
+      <h2>Framework Notes</h2>
+      <p class="meta">${escapeHtml(FRAMEWORK_INFO.description)}</p>
+
+      <footer>
+        <p>Generated by <strong>axe-core</strong> ${escapeHtml(AXE_VERSION)} on ${new Date(timestamp).toLocaleString()}</p>
+        <p><a href="/docs/index.html">Back to Documentation Portal</a></p>
+      </footer>
+    </main>
+  </div>
+  <script>
+    (function() {
+      const skipLink = document.getElementById('skip-link');
+      if (!skipLink) return;
+      const handle = function(e) {
+        e.preventDefault();
+        const target = document.getElementById('main-content');
+        if (!target) return;
+        target.focus();
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      };
+      skipLink.addEventListener('click', handle);
+      skipLink.addEventListener('keydown', function(e) { if (e.key === 'Enter') handle(e); });
+    })();
+  </script>
+</body>
+</html>`;
+}
+
 async function runAudit() {
-  let devServerProcess = null; // Track dev server process for cleanup
+  let devServerProcess = null;
+  let serverWasAlreadyRunning = false;
 
   console.log("=".repeat(80));
   console.log("ACCESSIBILITY AUDIT");
@@ -2263,127 +1116,80 @@ async function runAudit() {
   console.log("Tool: axe-core (WCAG 2.1 Level AA compliance)");
   console.log("");
 
-  // Display rule configuration status
   console.log("📋 Rule Configuration Status:");
   const enabledRules = Object.entries(AXE_RULE_CONFIG)
-    .filter(([rule, enabled]) => enabled)
+    .filter(([, enabled]) => enabled)
     .map(([rule]) => rule);
   const disabledRules = Object.entries(AXE_RULE_CONFIG)
-    .filter(([rule, enabled]) => !enabled)
+    .filter(([, enabled]) => !enabled)
     .map(([rule]) => rule);
-
-  if (enabledRules.length > 0) {
+  if (enabledRules.length)
     console.log(
-      `   ✅ Enabled (${enabledRules.length}): ${enabledRules.join(", ")}`
+      ` ✅ Enabled (${enabledRules.length}): ${enabledRules.join(", ")}`
     );
-  }
-  if (disabledRules.length > 0) {
+  if (disabledRules.length)
     console.log(
-      `   ❌ Disabled (${disabledRules.length}): ${disabledRules.join(", ")}`
+      ` ❌ Disabled (${disabledRules.length}): ${disabledRules.join(", ")}`
     );
-  }
-
-  // Show experimental rules status
-  const experimentalRulesEnabled = enabledRules.filter((rule) =>
-    [
-      "css-orientation-lock",
-      "focus-order-semantics",
-      "hidden-content",
-      "identical-links-same-purpose",
-      "label-content-name-mismatch",
-      "link-in-text-block",
-      "no-autoplay-audio",
-      "page-has-heading-one",
-      "presentation-role-conflict",
-    ].includes(rule)
-  );
-  if (experimentalRulesEnabled.length > 0) {
-    console.log(
-      `   🔬 Experimental rules enabled (${experimentalRulesEnabled.length}): ${experimentalRulesEnabled.join(", ")}`
-    );
-    console.log(
-      `      Note: Experimental rules may not appear in results if they're not applicable to the page.`
-    );
-    console.log(
-      `      They should still increase the total test count if they run.`
-    );
-  }
   console.log("");
 
-  // Check if server is accessible
   if (TARGET_ENV === "production") {
-    console.log(`Checking if production server is accessible...`);
-    const serverRunning = await checkServer();
-    if (!serverRunning) {
-      console.error(`❌ Production server is not accessible!`);
+    console.log("Checking if production server is accessible...");
+    const ok = await checkServer();
+    if (!ok) {
+      console.error("❌ Production server is not accessible!");
       console.error(`   Please check if ${BASE_URL} is available.`);
       process.exit(1);
     }
-    console.log(`✓ Production server is accessible`);
-    console.log(`   URL: ${BASE_URL}`);
+    console.log("✓ Production server is accessible");
     console.log("");
   } else {
-    // Development server
     console.log(
       `Checking if dev server is running on port ${DEV_SERVER_PORT}...`
     );
     let serverRunning = await checkServer();
-    let serverWasAlreadyRunning = false;
-
     if (!serverRunning) {
-      console.log(`   ⚠️  Dev server not detected on port ${DEV_SERVER_PORT}`);
-      console.log(`   🚀 Starting dev server now...`);
-      try {
-        devServerProcess = await startDevServer();
-        // Give it a moment to fully initialize
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        serverRunning = await checkServer();
-        if (!serverRunning) {
-          console.error("❌ Dev server started but is not responding!");
-          if (devServerProcess) {
-            devServerProcess.kill();
-          }
-          process.exit(1);
-        }
-        console.log(`   ✅ Dev server started successfully`);
-      } catch (error) {
-        console.error(`❌ Failed to start dev server: ${error.message}`);
+      console.log(` ⚠️  Dev server not detected on port ${DEV_SERVER_PORT}`);
+      console.log(" 🚀 Starting dev server now...");
+      devServerProcess = await startDevServer();
+      await new Promise((r) => setTimeout(r, 2000));
+      serverRunning = await checkServer();
+      if (!serverRunning) {
+        console.error("❌ Dev server started but is not responding!");
+        if (devServerProcess) devServerProcess.kill();
         process.exit(1);
       }
+      console.log(" ✅ Dev server started successfully");
     } else {
       serverWasAlreadyRunning = true;
-      console.log(`   ✅ Dev server detected (already running)`);
+      console.log(" ✅ Dev server detected (already running)");
     }
-
     console.log("");
     console.log(
       "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     );
-    console.log(`📍 Dev Server Status:`);
-    console.log(`   Port: ${DEV_SERVER_PORT}`);
+    console.log("📍 Dev Server Status:");
+    console.log(` Port: ${DEV_SERVER_PORT}`);
     console.log(
-      `   Status: ${serverWasAlreadyRunning ? "Already running" : "Started by audit script"}`
+      ` Status: ${serverWasAlreadyRunning ? "Already running" : "Started by audit script"}`
     );
-    console.log(`   URL: ${BASE_URL}`);
+    console.log(` URL: ${BASE_URL}`);
     console.log(
       "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     );
     console.log("");
   }
 
-  // Parse sitemap
   console.log("Reading sitemap.xml...");
   const urls = await parseSitemap();
   console.log(`✓ Found ${urls.length} URL(s) in sitemap`);
   console.log("");
 
-  // Launch browser
   console.log("Launching browser...");
   const browser = await puppeteer.launch({ headless: true });
   console.log("✓ Browser launched");
   console.log("");
 
-  // Run audits
   const results = [];
   const totalTests = urls.length * VIEWPORTS.length * THEMES.length;
   let currentTest = 0;
@@ -2396,97 +1202,45 @@ async function runAudit() {
       for (const theme of THEMES) {
         currentTest++;
         const page = await browser.newPage();
-
         try {
           await page.setViewport({
             width: viewport.width,
             height: viewport.height,
           });
-          // Check if experimental rules are enabled for console feedback
-          const experimentalEnabled = Object.entries(AXE_RULE_CONFIG)
-            .filter(([rule, enabled]) => {
-              const experimentalRuleNames = [
-                "css-orientation-lock",
-                "focus-order-semantics",
-                "hidden-content",
-                "identical-links-same-purpose",
-                "label-content-name-mismatch",
-                "link-in-text-block",
-                "no-autoplay-audio",
-                "page-has-heading-one",
-                "presentation-role-conflict",
-              ];
-              return experimentalRuleNames.includes(rule) && enabled;
-            })
-            .map(([rule]) => rule);
-
-          const experimentalNote =
-            experimentalEnabled.length > 0
-              ? ` (with ${experimentalEnabled.length} experimental rule${experimentalEnabled.length !== 1 ? "s" : ""}: ${experimentalEnabled.join(", ")})`
-              : "";
-
           console.log(
-            `[${currentTest}/${totalTests}] Testing ${url} (${viewport.name})${experimentalNote}...`
+            `[${currentTest}/${totalTests}] Testing ${url} (${viewport.name})...`
           );
 
-          await page.goto(url, {
-            waitUntil: "networkidle2",
-            timeout: 30000,
-          });
+          await page.goto(url, { waitUntil: "networkidle2", timeout: 30000 });
+          await new Promise((r) => setTimeout(r, 2000));
 
-          // Wait a bit for any dynamic content to load
-          await new Promise((resolve) => setTimeout(resolve, 2000));
-
-          // Theme switching logic based on THEME_CONFIG
+          // Theme switching (mirrors reference behavior)
           if (THEME_CONFIG.switching.mode !== "none") {
             await page.evaluate(
               async (themeConfig) => {
                 const themeValue = themeConfig.themeValue;
                 const switching = themeConfig.switching;
-
                 if (switching.mode === "auto") {
-                  // Automatically detect theme toggle switch (Vuetify pattern)
                   const themeSwitch = document.querySelector(
                     'input[type="checkbox"][role="switch"]'
                   );
                   if (themeSwitch) {
-                    // Check current theme state
                     const currentIsDark =
                       document.body.classList.contains("v-theme--dark");
                     const targetIsDark = themeValue === "dark";
-
-                    // Only toggle if needed
                     if (currentIsDark !== targetIsDark) {
                       themeSwitch.click();
-                      // Wait for theme transition
                       await new Promise((resolve) => setTimeout(resolve, 500));
                     }
                   } else {
-                    // Fallback: try to set via localStorage and force theme
                     if (typeof localStorage !== "undefined") {
                       localStorage.setItem("theme", themeValue);
                     }
-                    // Force theme by manipulating body class
-                    if (themeValue === "dark") {
+                    if (themeValue === "dark")
                       document.body.classList.add("v-theme--dark");
-                    } else {
-                      document.body.classList.remove("v-theme--dark");
-                    }
-                  }
-                } else if (switching.mode === "attribute") {
-                  // Use HTML attribute switching (e.g., data-theme on html element)
-                  const targetElement = document.querySelector(
-                    switching.attributeSelector || "html"
-                  );
-                  if (targetElement && switching.attributeName) {
-                    targetElement.setAttribute(switching.attributeName, themeValue);
-                    // Also update sessionStorage for persistence within session
-                    if (typeof sessionStorage !== "undefined") {
-                      sessionStorage.setItem("vpp-theme", themeValue);
-                    }
+                    else document.body.classList.remove("v-theme--dark");
                   }
                 } else if (switching.mode === "manual") {
-                  // Use manual configuration
                   const themeSwitch = document.querySelector(
                     switching.toggleSelector
                   );
@@ -2495,13 +1249,11 @@ async function runAudit() {
                     const currentIsDark =
                       document.body.classList.contains(darkClass);
                     const targetIsDark = themeValue === "dark";
-
                     if (currentIsDark !== targetIsDark) {
                       themeSwitch.click();
                       await new Promise((resolve) => setTimeout(resolve, 500));
                     }
                   } else {
-                    // Fallback: use localStorage and classes
                     if (
                       switching.localStorageKey &&
                       typeof localStorage !== "undefined"
@@ -2514,30 +1266,23 @@ async function runAudit() {
                     if (switching.darkClass) {
                       if (themeValue === "dark") {
                         document.body.classList.add(switching.darkClass);
-                        if (switching.lightClass) {
+                        if (switching.lightClass)
                           document.body.classList.remove(switching.lightClass);
-                        }
                       } else {
                         document.body.classList.remove(switching.darkClass);
-                        if (switching.lightClass) {
+                        if (switching.lightClass)
                           document.body.classList.add(switching.lightClass);
-                        }
                       }
                     }
                   }
                 }
               },
-              {
-                themeValue: theme.value,
-                switching: THEME_CONFIG.switching,
-              }
+              { themeValue: theme.value, switching: THEME_CONFIG.switching }
             );
-
-            // Wait for theme to apply and any transitions
-            await new Promise((resolve) => setTimeout(resolve, 800));
+            await new Promise((r) => setTimeout(r, 800));
           }
 
-          // Check for Vite error overlay - if present, the app has errors that need to be fixed
+          // Vite error overlay detection (mirrors reference)
           const hasErrorOverlay = await page.evaluate(() => {
             const errorOverlay = document.querySelector("vite-error-overlay");
             const errorMessages = Array.from(
@@ -2553,54 +1298,14 @@ async function runAudit() {
             });
             return errorOverlay !== null || errorMessages;
           });
-
           if (hasErrorOverlay) {
-            console.error(
-              `   ❌ ERROR: Vite error overlay detected! The app has errors that must be fixed before running accessibility audit.`
-            );
-            console.error(
-              `   Please fix the application errors and ensure the dev server runs without errors.`
-            );
             throw new Error(
-              "Application has errors - Vite error overlay detected. Please fix app errors first."
+              "Application has errors - Vite error overlay detected."
             );
           }
 
           const auditResult = await runAxeAudit(page);
           const skipLinkVerification = await verifySkipLink(page);
-
-          // Verify which configured rules actually ran
-          // Rules can appear in violations, passes, incomplete, or inapplicable
-          // inapplicable means the rule ran but found nothing to test (e.g., no autoplay audio on page)
-          const allRuleIds = new Set();
-          [
-            ...(auditResult.violations || []),
-            ...(auditResult.passes || []),
-            ...(auditResult.incomplete || []),
-            ...(auditResult.inapplicable || []), // Include inapplicable - these are rules that ran but found nothing to test
-          ].forEach((result) => {
-            if (result.id) allRuleIds.add(result.id);
-          });
-
-          // Check which rules are inapplicable (ran but found nothing to test)
-          const inapplicableRuleIds = new Set();
-          (auditResult.inapplicable || []).forEach((result) => {
-            if (result.id) inapplicableRuleIds.add(result.id);
-          });
-
-          // Check if configured rules are present in results
-          const configuredRulesThatRan = Object.entries(AXE_RULE_CONFIG)
-            .filter(([rule, enabled]) => enabled && allRuleIds.has(rule))
-            .map(([rule]) => rule);
-          const configuredRulesNotSeen = Object.entries(AXE_RULE_CONFIG)
-            .filter(([rule, enabled]) => enabled && !allRuleIds.has(rule))
-            .map(([rule]) => rule);
-
-          const configuredRulesInapplicable = Object.entries(AXE_RULE_CONFIG)
-            .filter(
-              ([rule, enabled]) => enabled && inapplicableRuleIds.has(rule)
-            )
-            .map(([rule]) => rule);
 
           results.push({
             url,
@@ -2616,69 +1321,24 @@ async function runAudit() {
           const violationCount = auditResult.violations?.length || 0;
           const passCount = auditResult.passes?.length || 0;
 
-          // Log configured rules status
-          if (configuredRulesThatRan.length > 0) {
-            // Separate rules that found issues/passes from those that were inapplicable
-            const rulesWithResults = configuredRulesThatRan.filter(
-              (rule) => !configuredRulesInapplicable.includes(rule)
-            );
-            const rulesInapplicable = configuredRulesThatRan.filter((rule) =>
-              configuredRulesInapplicable.includes(rule)
-            );
-
-            if (rulesWithResults.length > 0) {
-              console.log(
-                `   ✓ Configured rules active: ${rulesWithResults.join(", ")}`
-              );
-            }
-            if (rulesInapplicable.length > 0) {
-              console.log(
-                `   ✓ Configured rules ran (inapplicable - no issues found): ${rulesInapplicable.join(", ")}`
-              );
-            }
-          }
-          if (configuredRulesNotSeen.length > 0) {
-            console.log(
-              `   ⚠️  Configured rules not seen in results: ${configuredRulesNotSeen.join(", ")}`
-            );
-            // Provide specific explanations for common rules
-            const ruleExplanations = configuredRulesNotSeen.map((rule) => {
-              if (rule === "css-orientation-lock") {
-                return "css-orientation-lock: requires CSS orientation locks to be present";
-              } else if (rule === "focus-order-semantics") {
-                return "focus-order-semantics: requires focusable elements with potential focus order issues";
-              } else if (rule === "no-autoplay-audio") {
-                return "no-autoplay-audio: requires audio/video elements with autoplay";
-              } else if (rule === "page-has-heading-one") {
-                return "page-has-heading-one: should always run - check if rule is properly configured";
-              } else {
-                return `${rule}: may require specific conditions to run`;
-              }
-            });
-            console.log(`      (${ruleExplanations.join("; ")})`);
-          }
-
-          // Log skip link status
           if (
             skipLinkVerification.exists &&
-            skipLinkVerification.issues.length === 0
+            (skipLinkVerification.issues || []).length === 0
           ) {
-            console.log(`   ✅ Skip link: OK`);
+            console.log("   ✅ Skip link: OK");
           } else if (skipLinkVerification.exists) {
             console.log(
-              `   ⚠️  Skip link: Issues found (${skipLinkVerification.issues.length})`
+              `   ⚠️  Skip link: Issues found (${(skipLinkVerification.issues || []).length})`
             );
           } else {
-            console.log(`   ❌ Skip link: Not found`);
+            console.log("   ❌ Skip link: Not found");
           }
 
-          if (violationCount > 0) {
+          if (violationCount > 0)
             console.log(
               `   ⚠️  Found ${violationCount} violation(s), ${passCount} pass(es)`
             );
-          } else {
-            console.log(`   ✅ No violations, ${passCount} pass(es)`);
-          }
+          else console.log(`   ✅ No violations, ${passCount} pass(es)`);
         } catch (error) {
           console.error(
             `   ❌ Error testing ${url} (${viewport.name}): ${error.message}`
@@ -2702,7 +1362,6 @@ async function runAudit() {
 
   await browser.close();
 
-  // Extract and save violations to JSON file
   const violationsOnly = results
     .filter((r) => (r.violations?.length || 0) > 0)
     .map((r) => ({
@@ -2712,44 +1371,26 @@ async function runAudit() {
       violations: r.violations || [],
     }));
 
+  if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
   const violationsJsonPath = path.join(OUTPUT_DIR, "violations.json");
   fs.writeFileSync(violationsJsonPath, JSON.stringify(violationsOnly, null, 2));
   console.log(`\n📄 Violations JSON saved to: ${violationsJsonPath}`);
 
-  // Also save as errors.json
   const errorsJsonPath = path.join(OUTPUT_DIR, "errors.json");
   fs.writeFileSync(errorsJsonPath, JSON.stringify(violationsOnly, null, 2));
   console.log(`📄 Errors JSON saved to: ${errorsJsonPath}`);
 
-  // Check if errors.json is empty and report
-  const errorsContent = JSON.parse(fs.readFileSync(errorsJsonPath, "utf8"));
-  if (errorsContent.length === 0) {
-    console.log(`\n✅ SUCCESS: errors.json is empty - zero violations!`);
-  } else {
-    const totalErrors = errorsContent.reduce(
-      (sum, item) => sum + (item.violations?.length || 0),
-      0
-    );
-    console.log(
-      `\n⚠️  WARNING: errors.json contains ${totalErrors} violation(s) across ${errorsContent.length} viewport(s)`
-    );
-    console.log(
-      `   Please review and fix the violations listed in: ${errorsJsonPath}`
-    );
-  }
+  const resultsJsonPath = path.join(OUTPUT_DIR, "results.json");
+  fs.writeFileSync(
+    resultsJsonPath,
+    JSON.stringify({ baseUrl: BASE_URL, results }, null, 2)
+  );
+  console.log(`📄 Results JSON saved to: ${resultsJsonPath}`);
 
-  // Generate HTML report
   console.log("\n📝 Generating HTML report...");
-  const htmlReport = generateHTMLReport(results);
+  fs.writeFileSync(REPORT_FILE, generateHTMLReport(results));
 
-  // Ensure output directory exists
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  }
-
-  fs.writeFileSync(REPORT_FILE, htmlReport);
-
-  // Calculate summary
   const totalViolations = results.reduce(
     (sum, r) => sum + (r.violations?.length || 0),
     0
@@ -2773,60 +1414,32 @@ async function runAudit() {
     results.filter((r) => (r.violations?.length || 0) > 0).map((r) => r.url)
   ).size;
 
-  // Calculate skip link summary
-  const skipLinkSummary = results.reduce(
-    (acc, r) => {
-      const skipLink = r.skipLink || {};
-      if (skipLink.exists) {
-        acc.exists++;
-        if (skipLink.issues && skipLink.issues.length === 0) {
-          acc.working++;
-        } else {
-          acc.issues += skipLink.issues?.length || 0;
-        }
-      }
-      acc.total++;
-      return acc;
-    },
-    { total: 0, exists: 0, working: 0, issues: 0 }
-  );
-
   console.log("\n✅ Audit Complete!");
-  console.log(`\n📊 Summary:`);
+  console.log("\n📊 Summary:");
   console.log(`   Total tests run: ${totalTestsRun}`);
   console.log(`   Pages tested: ${uniquePages}`);
   console.log(`   Viewports tested: ${VIEWPORTS.length}`);
   console.log(
-    `   Theme${THEME_CONFIG.themes.length !== 1 ? "s" : ""}: ${THEME_CONFIG.themes.map((t) => t.name).join(", ")}`
+    `   Theme${THEMES.length !== 1 ? "s" : ""}: ${THEMES.map((t) => t.name).join(", ")}`
   );
   console.log(`   Total violations: ${totalViolations}`);
   console.log(`   Total passes: ${totalPasses}`);
   console.log(`   Pages with violations: ${pagesWithViolations}`);
   console.log(`   Pages passing: ${uniquePages - pagesWithViolations}`);
-  console.log(`\n🔗 Skip Links:`);
-  console.log(
-    `   Skip links found: ${skipLinkSummary.exists}/${skipLinkSummary.total}`
-  );
-  console.log(
-    `   Skip links working: ${skipLinkSummary.working}/${skipLinkSummary.total}`
-  );
-  if (skipLinkSummary.issues > 0) {
-    console.log(`   Skip link issues: ${skipLinkSummary.issues}`);
-  }
   console.log(`\n📄 Report saved to: ${REPORT_FILE}`);
 
-  if (totalViolations > 0) {
-    console.log(
-      `\n⚠️  ${totalViolations} violation(s) found. Please review the report.`
-    );
-    process.exit(1);
-  } else {
-    console.log(`\n🎉 No violations found!`);
-    process.exit(0);
+  // If we started the dev server, shut it down now to avoid orphaned processes.
+  if (devServerProcess && !serverWasAlreadyRunning) {
+    try {
+      devServerProcess.kill();
+    } catch (e) {
+      // ignore
+    }
   }
+
+  process.exit(totalViolations > 0 ? 1 : 0);
 }
 
-// Run the audit
 runAudit().catch((error) => {
   console.error("❌ Fatal error:", error);
   process.exit(1);

@@ -1,0 +1,44 @@
+[
+  {
+    "filePath": "/docs/index.html",
+    "checks": [
+      {
+        "name": "Font Size",
+        "status": "PASS"
+      },
+      {
+        "name": "Line Height",
+        "status": "PASS"
+      },
+      {
+        "name": "Focus Indicators",
+        "status": "PASS"
+      },
+      {
+        "name": "200% Zoom",
+        "status": "PASS"
+      }
+    ]
+  },
+  {
+    "filePath": "/docs/accessibility/index.html",
+    "checks": [
+      {
+        "name": "Font Size",
+        "status": "PASS"
+      },
+      {
+        "name": "Line Height",
+        "status": "PASS"
+      },
+      {
+        "name": "Focus Indicators",
+        "status": "PASS"
+      },
+      {
+        "name": "200% Zoom",
+        "status": "PASS"
+      }
+    ]
+  }
+]
