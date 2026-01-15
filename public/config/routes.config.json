@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp.icjia.illinois.gov",
-  "generatedAt": "2026-01-15T13:59:59.258Z",
+  "generatedAt": "2026-01-15T15:33:39.067Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 19,
-    "contentPages": 19,
+    "totalPages": 18,
+    "contentPages": 18,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1
@@ -61,19 +61,6 @@
           "type": "content",
           "source": "content/legal/privacy-policy.md",
           "title": "Privacy Policy"
-        }
-      ]
-    },
-    {
-      "title": "Terms of Service",
-      "path": "/legal/terms-of-service",
-      "fullUrl": "https://vpp.icjia.illinois.gov/legal/terms-of-service",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/legal/terms-of-service.md",
-          "title": "Terms of Service"
         }
       ]
     },
@@ -261,12 +248,12 @@
     }
   ],
   "stats": {
-    "totalPages": 19,
-    "contentPages": 19,
+    "totalPages": 18,
+    "contentPages": 18,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1,
     "menuIntegratedPages": 1,
-    "orphanedPages": 18
+    "orphanedPages": 17
   }
 }
