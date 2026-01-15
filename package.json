@@ -17,7 +17,7 @@
     "generate": "yarn create:search-index-defuddle && yarn create:site-config && yarn create:sitemap && yarn create:llms-txt && yarn create:plan-json && nuxt generate",
     "generate:verbose": "yarn create:search-index-defuddle --log-level Detailed && yarn create:site-config --verbose && yarn create:sitemap --verbose && yarn create:llms-txt --verbose && yarn create:plan-json --verbose && nuxt generate",
     "generate:quiet": "yarn create:search-index-defuddle --log-level Concise && yarn create:site-config --quiet && yarn create:sitemap --quiet && yarn create:llms-txt --quiet && yarn create:plan-json --quiet && nuxt generate",
-    "generate:serve": "yarn create:search-index-defuddle && yarn create:site-config && yarn create:sitemap && yarn create:llms-txt && yarn create:plan-json && nuxt generate && npx serve .output/public",
+    "generate:serve": "yarn generate && npx serve .output/public",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "rebuild-sqlite": "npm rebuild better-sqlite3",
