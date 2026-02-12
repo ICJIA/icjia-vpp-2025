@@ -291,7 +291,6 @@ export default defineNuxtConfig({
         "/download",
         "/contact",
         "/legal/privacy-policy",
-        "/legal/terms-of-service",
       ],
 
       // Exclude these routes from crawling/generation

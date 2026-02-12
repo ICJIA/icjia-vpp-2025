@@ -1,11 +1,30 @@
 {
   "summary": {
-    "totalTests": 300,
-    "passedTests": 300,
+    "totalTests": 332,
+    "passedTests": 332,
     "failedTests": 0,
     "skippedTests": 0,
-    "duration": 1594,
-    "generatedAt": "2026-01-12T18:52:13.646Z"
+    "duration": 3087,
+    "generatedAt": "2026-02-12T17:31:04.573Z"
   },
-  "testResults": []
+  "testResults": [
+    {
+      "file": "/Volumes/satechi/webdev/icjia-vpp-2025/test/e2e-playwright/accessibility.spec.js",
+      "status": "failed",
+      "message": "Playwright Test did not expect test.describe() to be called here.\nMost common reasons include:\n- You are calling test.describe() in a configuration file.\n- You are calling test.describe() in a file that is imported by the configuration file.\n- You have two different versions of @playwright/test. This usually happens\n  when one of the dependencies in your package.json depends on @playwright/test.",
+      "failedCases": []
+    },
+    {
+      "file": "/Volumes/satechi/webdev/icjia-vpp-2025/test/e2e-playwright/navigation.spec.js",
+      "status": "failed",
+      "message": "Playwright Test did not expect test.describe() to be called here.\nMost common reasons include:\n- You are calling test.describe() in a configuration file.\n- You are calling test.describe() in a file that is imported by the configuration file.\n- You have two different versions of @playwright/test. This usually happens\n  when one of the dependencies in your package.json depends on @playwright/test.",
+      "failedCases": []
+    },
+    {
+      "file": "/Volumes/satechi/webdev/icjia-vpp-2025/test/e2e-playwright/search.spec.js",
+      "status": "failed",
+      "message": "Playwright Test did not expect test.describe() to be called here.\nMost common reasons include:\n- You are calling test.describe() in a configuration file.\n- You are calling test.describe() in a file that is imported by the configuration file.\n- You have two different versions of @playwright/test. This usually happens\n  when one of the dependencies in your package.json depends on @playwright/test.",
+      "failedCases": []
+    }
+  ]
 }

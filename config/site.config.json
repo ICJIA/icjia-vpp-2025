@@ -42,8 +42,7 @@
   "legal": {
     "license": "MIT",
     "copyright": "© {year} Illinois Criminal Justice Information Authority",
-    "privacyPolicy": "/legal/privacy-policy",
-    "termsOfService": "/legal/terms-of-service"
+    "privacyPolicy": "/legal/privacy-policy"
   },
   "features": {
     "search": {
