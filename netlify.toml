@@ -10,7 +10,7 @@ publish = ".output/public"
 
 [build.environment]
 # Node.js version for build environment
-NODE_VERSION = "20"
+NODE_VERSION = "22"
 
 # Ensure native modules can be built properly
 NPM_FLAGS = "--production=false"
@@ -81,10 +81,10 @@ status = 301
 
 
 # SPA fallback: rewrite all non-file requests to index.html so client router can handle routes
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+# [[redirects]]
+# from = "/*"
+# to = "/index.html"
+# status = 200
 
 # Error pages (only match when the file truly does not exist and SPA fallback didn't apply)
 # Keep this block after the 200 rewrite so that existing deep links do not bounce to home

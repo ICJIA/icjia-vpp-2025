@@ -33,7 +33,7 @@
  * @requires ~/components/content/AppFooter
  */
 // Vue core imports
-import { ref, watch, onMounted, provide, nextTick } from "vue";
+import { ref, watch, onMounted, onUnmounted, provide, nextTick } from "vue";
 
 // Composables and components
 import { useAnnouncer } from "~/composables/useAnnouncer";
@@ -106,6 +106,28 @@ provide("announce", announce);
  * @type {boolean}
  */
 const isClient = typeof window !== "undefined";
+
+/**
+ * MutationObserver reference for cleanup
+ *
+ * Stored at component level to allow proper cleanup via onUnmounted hook
+ *
+ * @type {Ref<MutationObserver|null>}
+ */
+const scrollableRegionsObserver = ref(null);
+
+/**
+ * Clean up MutationObserver when component is unmounted
+ *
+ * This lifecycle hook must be registered at the top level of setup,
+ * not inside async callbacks like nextTick or after await statements.
+ */
+onUnmounted(() => {
+  if (scrollableRegionsObserver.value) {
+    scrollableRegionsObserver.value.disconnect();
+    scrollableRegionsObserver.value = null;
+  }
+});
 
 /**
  * Move focus to the main content when skip link is activated
@@ -296,20 +318,15 @@ onMounted(() => {
       setTimeout(() => enhanceScrollableRegions(), 1000);
 
       // Use MutationObserver to catch dynamically added scrollable elements
-      const observer = new MutationObserver(() => {
+      scrollableRegionsObserver.value = new MutationObserver(() => {
         enhanceScrollableRegions();
       });
 
-      observer.observe(document.body, {
+      scrollableRegionsObserver.value.observe(document.body, {
         childList: true,
         subtree: true,
         attributes: true,
         attributeFilter: ["class", "style"],
-      });
-
-      // Clean up observer on unmount
-      onUnmounted(() => {
-        observer.disconnect();
       });
     });
   }
