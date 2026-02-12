@@ -19,7 +19,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 - Subtle animations with reduced motion support
 - Dark/light theme with persistent user preferences
 - Full-text search functionality across all content with Defuddle-enhanced content extraction
-- **Comprehensive test coverage** with 300 automated tests (unit, composable, and E2E)
+- **Comprehensive test coverage** with 332 automated tests (unit, integration, and Playwright E2E)
 
 ## Production Site
 
@@ -204,59 +204,69 @@ This project has been successfully migrated to **Nuxt 4.0.0** with the new direc
 
 ## Test Coverage
 
-### 🧪 Test Status: COMPREHENSIVE (300 Tests, 100% Pass Rate)
+### 🧪 Test Status: COMPREHENSIVE (332 Tests, 100% Pass Rate)
 
-This project maintains extensive test coverage with **300 automated tests** covering all major functionality:
+This project maintains extensive test coverage with **332 automated tests** covering all major functionality:
 
 #### Test Summary
 
-- **Total Tests**: 300 (all passing)
-- **Composable Tests**: 166 tests covering 10 composables
-- **E2E Tests**: 93 tests covering navigation, accessibility, and content
-- **Utility Tests**: 41 tests covering sanitization, logging, and configuration
+- **Total Tests**: 332 (all passing ✅)
+- **Test Files**: 14 test files
+- **Composable Tests**: ~150 tests covering 7 core composables
+- **Integration Tests**: 32 tests for build script validation
+- **E2E Mock Tests**: ~100 tests for navigation, accessibility, and content
+- **Utility Tests**: ~50 tests for sanitization, logging, and configuration
+- **Playwright E2E**: 3 spec files for real browser testing
 
-#### Composable Test Coverage
+#### Test Types
 
-| Composable            | Tests | Description                                               |
-| --------------------- | ----- | --------------------------------------------------------- |
-| `useAnnouncer`        | 23    | ARIA live region announcements for accessibility          |
-| `useConsoleLogger`    | 37    | Color-coded development logging with singleton pattern    |
-| `useLazyComponent`    | 26    | Intersection-based lazy loading with IntersectionObserver |
-| `useReferences`       | 23    | Reference citation loading and formatting                 |
-| `useReportNavigation` | 25    | Previous/next navigation for plan sections                |
-| `useSiteSettings`     | 10    | Site configuration loading and management                 |
-| `useTheme`            | 22    | Dark/light theme management with session persistence      |
+**Unit & Integration Tests** (332 tests)
+- Composable unit tests (useTheme, useAnnouncer, useConsoleLogger, etc.)
+- Utility function tests (sanitization, logging, config loading)
+- Mock E2E tests (navigation, accessibility, content rendering)
+- Build script integration tests (site config, sitemap, plan JSON generation)
 
-#### E2E Test Coverage
-
-| Category      | Tests | Description                                                   |
-| ------------- | ----- | ------------------------------------------------------------- |
-| Navigation    | 19    | Route configuration, menu items, breadcrumbs, 404 handling    |
-| Accessibility | 40    | ARIA landmarks, skip links, focus management, WCAG compliance |
-| Content       | 34    | Markdown rendering, components, search, downloads             |
-
-#### Utility Test Coverage
-
-| Utility         | Tests | Description                                                     |
-| --------------- | ----- | --------------------------------------------------------------- |
-| `sanitize`      | 25    | XSS prevention, input sanitization, dangerous content detection |
-| `logger`        | 8     | Log level configuration and message formatting                  |
-| `config-loader` | 8     | Configuration file loading and validation                       |
+**Playwright E2E Tests** (Real Browser Testing)
+- **Accessibility**: Keyboard navigation, skip links, ARIA, focus management
+- **Navigation**: Page routing, mobile/desktop menus, breadcrumbs, scroll behavior
+- **Search**: Input interactions, results display, filtering, highlighting
+- Tests run in Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari, and iPad
 
 #### Running Tests
 
 ```bash
-# Run all tests with report generation
+# Run all unit & integration tests (332 tests)
 yarn test
+# or
+yarn test:unit
 
-# Run tests with verbose output
-yarn vitest run --reporter=verbose
+# Run integration tests only (32 tests)
+yarn test:integration
 
-# Run tests in watch mode during development
-yarn vitest
+# Run Playwright E2E tests (interactive UI mode - recommended)
+yarn test:e2e:ui
+
+# Run Playwright E2E tests (headless)
+yarn test:e2e
+
+# Run with coverage report
+yarn test:coverage
 ```
 
-Test results are automatically published to the [Unit and E2E Tests Results Report](https://vpp.icjia.illinois.gov/docs/tests/) with expandable "What Does This Test Verify" descriptions for every test.
+#### Test Results
+
+```
+✅ Test Files: 14 passed
+✅ Tests: 332 passed
+⚡ Duration: ~1.5s
+```
+
+For detailed testing documentation, see **[TEST_GUIDE.md](TEST_GUIDE.md)** which includes:
+- Complete test structure and organization
+- Running tests in different modes
+- Playwright E2E testing guide
+- Troubleshooting tips
+- Test coverage summary
 
 ## Setup
 

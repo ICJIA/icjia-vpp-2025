@@ -10,21 +10,33 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    include: ["test/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    exclude: ["node_modules", "dist", ".nuxt", ".output", "tests/**"],
-    deps: {
-      inline: [/vuetify/],
-    },
+    include: ["test/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    exclude: [
+      "node_modules/**",
+      "dist/**",
+      ".nuxt/**",
+      ".output/**",
+      "tests/**",
+      "test/e2e-playwright/**",
+      "test/templates/**",
+      "**/*.spec.{js,ts}" // Playwright uses .spec.js, vitest uses .test.js
+    ],
     coverage: {
       provider: "v8",
-      reporter: ["text", "json"],
+      reporter: ["text", "json", "html"],
+      exclude: [
+        "node_modules/**",
+        "test/**",
+        "**/*.config.{js,ts}",
+        "**/*.spec.{js,ts}",
+        "**/*.test.{js,ts}"
+      ]
     },
   },
   resolve: {
     alias: {
       "~": resolve(__dirname),
       "@": resolve(__dirname),
-      "#app": resolve(__dirname, ".nuxt/app"),
       vue: "vue/dist/vue.esm-bundler.js",
     },
   },

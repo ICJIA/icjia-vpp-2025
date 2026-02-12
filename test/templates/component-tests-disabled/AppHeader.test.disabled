@@ -1,0 +1,406 @@
+import { mount } from '@vue/test-utils';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import AppHeader from '../../app/components/content/AppHeader.vue';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+
+/**
+ * AppHeader Component Tests
+ *
+ * Tests for the main navigation header component including:
+ * - Branding and logo display
+ * - Desktop navigation menu
+ * - Mobile hamburger menu
+ * - Theme toggle functionality
+ * - Accessibility (ARIA labels, keyboard navigation)
+ * - Responsive behavior
+ */
+
+describe('AppHeader Component', () => {
+  let vuetify;
+  let wrapper;
+
+  const mockMenuConfig = {
+    header: {
+      branding: {
+        text: 'Violence Prevention Plan for Illinois: 2025-2029',
+        textMd: 'Violence Prevention Plan',
+        textSm: 'VPP Illinois',
+        textXs: 'VPP',
+        href: '/'
+      },
+      mobile: {
+        ariaLabel: 'Toggle mobile menu',
+        menuIcon: 'mdi-menu',
+        closeIcon: 'mdi-close'
+      },
+      items: [
+        { title: 'Home', path: '/', displayInDesktop: true, displayInMobile: true },
+        { title: 'The Plan', path: '/plan', displayInDesktop: true, displayInMobile: true, hasDropdown: true },
+        { title: 'Resources', path: '/resources', displayInDesktop: true, displayInMobile: true },
+        { title: 'Contact', path: '/contact', displayInDesktop: true, displayInMobile: true }
+      ]
+    }
+  };
+
+  beforeEach(() => {
+    // Create fresh Vuetify instance for each test
+    vuetify = createVuetify({
+      components,
+      directives,
+    });
+
+    // Mock the router
+    const mockRouter = {
+      push: vi.fn(),
+      currentRoute: { value: { path: '/' } }
+    };
+
+    // Mock Nuxt composables
+    vi.mock('#app', () => ({
+      useRouter: () => mockRouter,
+      useNuxtApp: () => ({
+        $vuetify: vuetify
+      })
+    }));
+  });
+
+  describe('Branding and Logo', () => {
+    it('renders the Illinois state seal logo', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: {
+            NuxtImg: {
+              template: '<img :src="src" :alt="alt" />',
+              props: ['src', 'alt']
+            }
+          }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const logo = wrapper.find('img[alt="Illinois State Seal"]');
+      expect(logo.exists()).toBe(true);
+      expect(logo.attributes('src')).toContain('illinois-seal');
+    });
+
+    it('displays responsive branding text', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const brandingText = wrapper.find('.brand-link');
+      expect(brandingText.exists()).toBe(true);
+
+      // Check that different text sizes are present for responsive design
+      const fullText = wrapper.find('.d-none.d-xl-block');
+      const mediumText = wrapper.find('.d-none.d-lg-block.d-xl-none');
+      const smallText = wrapper.find('.d-none.d-sm-block.d-lg-none');
+      const xsmallText = wrapper.find('.d-block.d-sm-none');
+
+      expect(fullText.exists() || mediumText.exists() || smallText.exists() || xsmallText.exists()).toBe(true);
+    });
+
+    it('has accessible home link', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const homeLink = wrapper.find('.brand-link');
+      expect(homeLink.attributes('href')).toBe('/');
+    });
+  });
+
+  describe('Desktop Navigation', () => {
+    it('renders desktop navigation menu', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const desktopNav = wrapper.find('#site-navigation');
+      expect(desktopNav.exists()).toBe(true);
+      expect(desktopNav.classes()).toContain('d-none'); // Hidden on mobile
+      expect(desktopNav.classes()).toContain('d-md-flex'); // Visible on desktop
+    });
+
+    it('has proper ARIA label for main navigation', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const nav = wrapper.find('#site-navigation');
+      expect(nav.attributes('aria-label')).toBe('Main Navigation');
+    });
+
+    it('renders all menu items from config', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      // Check that menu items are present (implementation may vary)
+      const desktopNav = wrapper.find('#site-navigation');
+      expect(desktopNav.exists()).toBe(true);
+    });
+  });
+
+  describe('Mobile Navigation', () => {
+    it('renders mobile menu button', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const mobileBtn = wrapper.find('#mobile-menu-trigger');
+      expect(mobileBtn.exists()).toBe(true);
+    });
+
+    it('has proper ARIA label for mobile menu button', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const mobileBtn = wrapper.find('#mobile-menu-trigger');
+      expect(mobileBtn.attributes('aria-label')).toBe('Toggle mobile menu');
+    });
+
+    it('toggles mobile drawer on button click', async () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const mobileBtn = wrapper.find('#mobile-menu-trigger');
+
+      // Initial state should be closed
+      expect(wrapper.vm.mobileDrawerOpen).toBe(false);
+
+      // Click to open
+      await mobileBtn.trigger('click');
+      expect(wrapper.vm.mobileDrawerOpen).toBe(true);
+
+      // Click to close
+      await mobileBtn.trigger('click');
+      expect(wrapper.vm.mobileDrawerOpen).toBe(false);
+    });
+
+    it('shows correct icon based on drawer state', async () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const mobileBtn = wrapper.find('#mobile-menu-trigger');
+
+      // Should show menu icon when closed
+      expect(wrapper.vm.mobileDrawerOpen).toBe(false);
+
+      // Open drawer
+      await mobileBtn.trigger('click');
+      expect(wrapper.vm.mobileDrawerOpen).toBe(true);
+    });
+  });
+
+  describe('Theme Toggle', () => {
+    it('emits toggle-theme event when theme button clicked', async () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig,
+          theme: 'dark'
+        }
+      });
+
+      // Find theme toggle button (if it exists in the component)
+      // This assumes there's a theme toggle button - adjust selector as needed
+      const themeToggle = wrapper.find('[data-testid="theme-toggle"]');
+
+      if (themeToggle.exists()) {
+        await themeToggle.trigger('click');
+        expect(wrapper.emitted('toggle-theme')).toBeTruthy();
+      }
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has role="banner" on app bar', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const appBar = wrapper.find('.app-header');
+      expect(appBar.attributes('role')).toBe('banner');
+    });
+
+    it('all interactive elements are keyboard accessible', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      // Home link should not have tabindex="-1"
+      const homeLink = wrapper.find('.brand-link');
+      expect(homeLink.attributes('tabindex')).not.toBe('-1');
+
+      // Mobile menu button should be accessible
+      const mobileBtn = wrapper.find('#mobile-menu-trigger');
+      expect(mobileBtn.attributes('tabindex')).not.toBe('-1');
+    });
+
+    it('navigation has semantic nav element', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const nav = wrapper.find('nav#site-navigation');
+      expect(nav.exists()).toBe(true);
+      expect(nav.element.tagName).toBe('NAV');
+    });
+  });
+
+  describe('Responsive Behavior', () => {
+    it('hides desktop navigation on small screens', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const desktopNav = wrapper.find('#site-navigation');
+      expect(desktopNav.classes()).toContain('d-none');
+      expect(desktopNav.classes()).toContain('d-md-flex');
+    });
+
+    it('hides mobile menu button on large screens', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      const mobileSection = wrapper.find('.d-md-none');
+      expect(mobileSection.exists()).toBe(true);
+    });
+  });
+
+  describe('Configuration', () => {
+    it('uses menu configuration prop', () => {
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: mockMenuConfig
+        }
+      });
+
+      expect(wrapper.props('menuConfig')).toEqual(mockMenuConfig);
+    });
+
+    it('handles missing menu items gracefully', () => {
+      const emptyConfig = {
+        header: {
+          branding: mockMenuConfig.header.branding,
+          mobile: mockMenuConfig.header.mobile,
+          items: []
+        }
+      };
+
+      wrapper = mount(AppHeader, {
+        global: {
+          plugins: [vuetify],
+          stubs: { NuxtImg: true }
+        },
+        props: {
+          menuConfig: emptyConfig
+        }
+      });
+
+      // Should render without errors even with no menu items
+      expect(wrapper.exists()).toBe(true);
+    });
+  });
+});

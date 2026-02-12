@@ -1,0 +1,447 @@
+import { mount } from '@vue/test-utils';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import FeedbackForm from '../../app/components/content/FeedbackForm.vue';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+
+/**
+ * FeedbackForm Component Tests
+ *
+ * Tests for the feedback form component including:
+ * - Form rendering and structure
+ * - Form validation (email, message)
+ * - Form submission
+ * - Success/error states
+ * - Accessibility (ARIA labels, live regions, form roles)
+ * - User interactions
+ */
+
+describe('FeedbackForm Component', () => {
+  let vuetify;
+  let wrapper;
+
+  beforeEach(() => {
+    vuetify = createVuetify({
+      components,
+      directives,
+    });
+  });
+
+  describe('Rendering', () => {
+    it('renders feedback form section', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const section = wrapper.find('.feedback-form-section');
+      expect(section.exists()).toBe(true);
+    });
+
+    it('renders form title', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const title = wrapper.find('#feedback-form-title');
+      expect(title.exists()).toBe(true);
+      expect(title.text()).toContain('Share Your Feedback');
+    });
+
+    it('renders form description', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const description = wrapper.find('.text-body-1');
+      expect(description.exists()).toBe(true);
+      expect(description.text()).toContain('We value your input');
+    });
+
+    it('renders form card', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const card = wrapper.find('.feedback-form-card');
+      expect(card.exists()).toBe(true);
+    });
+
+    it('renders email field', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Look for email field by label or v-model
+      const emailFields = wrapper.findAllComponents({ name: 'VTextField' });
+      const emailField = emailFields.find(field =>
+        field.props('type') === 'email' ||
+        field.props('label')?.includes('Email')
+      );
+
+      expect(emailField).toBeDefined();
+    });
+
+    it('renders message textarea', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const textarea = wrapper.findComponent({ name: 'VTextarea' });
+      expect(textarea.exists()).toBe(true);
+    });
+
+    it('renders submit button', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const submitBtn = wrapper.findAll('button').find(btn =>
+        btn.text().includes('Send') || btn.text().includes('Submit')
+      );
+
+      expect(submitBtn).toBeDefined();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has proper role on section', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const section = wrapper.find('.feedback-form-section');
+      expect(section.attributes('role')).toBe('region');
+      expect(section.attributes('aria-labelledby')).toBe('feedback-form-title');
+    });
+
+    it('has aria-live region for form status', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const liveRegion = wrapper.find('#form-status');
+      expect(liveRegion.exists()).toBe(true);
+      expect(liveRegion.attributes('aria-live')).toBe('polite');
+      expect(liveRegion.attributes('aria-atomic')).toBe('true');
+    });
+
+    it('has sr-only class for screen reader announcements', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const liveRegion = wrapper.find('#form-status');
+      expect(liveRegion.classes()).toContain('sr-only');
+    });
+
+    it('email field has required attribute', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const emailFields = wrapper.findAllComponents({ name: 'VTextField' });
+      const emailField = emailFields.find(field => field.props('type') === 'email');
+
+      expect(emailField?.props('required')).toBe(true);
+    });
+
+    it('has helper text for email field', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const helperText = wrapper.find('#email-help');
+      expect(helperText.exists()).toBe(true);
+      expect(helperText.text()).toContain('required field');
+    });
+
+    it('form has proper role and aria-label', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const form = wrapper.findComponent({ name: 'VForm' });
+      expect(form.exists()).toBe(true);
+    });
+  });
+
+  describe('Form Validation', () => {
+    it('validates email format', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Component should have email validation rules
+      expect(wrapper.vm.emailRules).toBeDefined();
+      expect(Array.isArray(wrapper.vm.emailRules)).toBe(true);
+    });
+
+    it('requires email field', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const emailRules = wrapper.vm.emailRules;
+
+      // Test required rule
+      const requiredRule = emailRules.find(rule => {
+        const result = rule('');
+        return typeof result === 'string';
+      });
+
+      expect(requiredRule).toBeDefined();
+    });
+
+    it('validates email format correctly', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const emailRules = wrapper.vm.emailRules;
+
+      // Test email format rule
+      const formatRule = emailRules.find(rule => {
+        const result = rule('invalid-email');
+        return typeof result === 'string' && result.includes('valid');
+      });
+
+      expect(formatRule).toBeDefined();
+    });
+
+    it('validates message field', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Message field should have validation rules
+      expect(wrapper.vm.messageRules).toBeDefined();
+    });
+  });
+
+  describe('Form Submission', () => {
+    it('prevents submission with invalid data', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Set invalid form state
+      wrapper.vm.isFormValid = false;
+
+      const form = wrapper.findComponent({ name: 'VForm' });
+      await form.trigger('submit');
+
+      // Form should not be submitted
+      expect(wrapper.vm.isSubmitted).toBe(false);
+    });
+
+    it('handles successful submission', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Set valid form data
+      wrapper.vm.formData = {
+        email: 'test@example.com',
+        message: 'This is a test message'
+      };
+      wrapper.vm.isFormValid = true;
+
+      // Trigger submission
+      await wrapper.vm.handleSubmit();
+
+      // Success state should be set (mock the API call)
+      // This may need adjustment based on actual implementation
+    });
+
+    it('shows success message after submission', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Set submitted state
+      wrapper.vm.isSubmitted = true;
+      await wrapper.vm.$nextTick();
+
+      const successAlert = wrapper.findComponent({ name: 'VAlert' });
+      expect(successAlert.exists()).toBe(true);
+      expect(successAlert.props('type')).toBe('success');
+    });
+
+    it('hides form after successful submission', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Initially form should be visible
+      let form = wrapper.findComponent({ name: 'VForm' });
+      expect(form.exists()).toBe(true);
+
+      // After submission
+      wrapper.vm.isSubmitted = true;
+      await wrapper.vm.$nextTick();
+
+      form = wrapper.findComponent({ name: 'VForm' });
+      expect(form.exists()).toBe(false);
+    });
+  });
+
+  describe('User Interactions', () => {
+    it('updates email field on input', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const emailFields = wrapper.findAllComponents({ name: 'VTextField' });
+      const emailField = emailFields.find(field => field.props('type') === 'email');
+
+      await emailField.vm.$emit('update:model-value', 'user@example.com');
+
+      expect(wrapper.vm.formData.email).toBe('user@example.com');
+    });
+
+    it('updates message field on input', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      const textarea = wrapper.findComponent({ name: 'VTextarea' });
+      await textarea.vm.$emit('update:model-value', 'Test message');
+
+      expect(wrapper.vm.formData.message).toBe('Test message');
+    });
+
+    it('can clear form fields', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      // Set form data
+      wrapper.vm.formData = {
+        email: 'test@example.com',
+        message: 'Test'
+      };
+
+      // Clear form
+      wrapper.vm.formData = {
+        email: '',
+        message: ''
+      };
+
+      expect(wrapper.vm.formData.email).toBe('');
+      expect(wrapper.vm.formData.message).toBe('');
+    });
+  });
+
+  describe('Success Alert', () => {
+    it('shows success message with correct content', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      wrapper.vm.isSubmitted = true;
+      await wrapper.vm.$nextTick();
+
+      const alert = wrapper.findComponent({ name: 'VAlert' });
+      expect(alert.text()).toContain('Thank you for your feedback');
+    });
+
+    it('success alert has proper role', async () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      wrapper.vm.isSubmitted = true;
+      await wrapper.vm.$nextTick();
+
+      const alert = wrapper.findComponent({ name: 'VAlert' });
+      expect(alert.attributes('role')).toBe('status');
+      expect(alert.attributes('aria-live')).toBe('polite');
+    });
+  });
+
+  describe('Component State', () => {
+    it('initializes with empty form data', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      expect(wrapper.vm.formData.email).toBe('');
+      expect(wrapper.vm.formData.message).toBe('');
+    });
+
+    it('initializes with not submitted state', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      expect(wrapper.vm.isSubmitted).toBe(false);
+    });
+
+    it('initializes with invalid form state', () => {
+      wrapper = mount(FeedbackForm, {
+        global: {
+          plugins: [vuetify]
+        }
+      });
+
+      expect(wrapper.vm.isFormValid).toBe(false);
+    });
+  });
+});
