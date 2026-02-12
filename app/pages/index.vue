@@ -235,6 +235,17 @@ useHead({
   overflow-x: hidden;
 }
 
+/* WCAG 2.4.7: Visible focus indicator for home page container */
+.home-page:focus {
+  outline: 3px solid #1976d2;
+  outline-offset: 2px;
+}
+
+.home-page:focus-visible {
+  outline: 3px solid #1976d2;
+  outline-offset: 2px;
+}
+
 /* Add focus styles for accessibility */
 :deep(*:focus-visible) {
   outline: 2px solid var(--v-primary-base);

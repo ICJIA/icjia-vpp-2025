@@ -326,6 +326,25 @@ const handleLearnMore = () => {
     0 4px 6px -2px rgba(0, 0, 0, 0.15);
 }
 
+/* WCAG 2.4.7: Visible focus indicator for hero image */
+.hero-image:focus {
+  outline: 3px solid #1976d2;
+  outline-offset: 4px;
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.2),
+    0 4px 6px -2px rgba(0, 0, 0, 0.15);
+}
+
+.hero-image:focus-visible {
+  outline: 3px solid #1976d2;
+  outline-offset: 4px;
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.2),
+    0 4px 6px -2px rgba(0, 0, 0, 0.15);
+}
+
 /* Removed hover effects - keeping cursor pointer only */
 
 /* Hero image caption styling */
@@ -347,6 +366,19 @@ const handleLearnMore = () => {
 }
 
 .hero-image-caption:hover {
+  color: rgb(var(--v-theme-primary));
+}
+
+/* WCAG 2.4.7: Visible focus indicator for hero image caption */
+.hero-image-caption:focus {
+  outline: 3px solid #1976d2;
+  outline-offset: 2px;
+  color: rgb(var(--v-theme-primary));
+}
+
+.hero-image-caption:focus-visible {
+  outline: 3px solid #1976d2;
+  outline-offset: 2px;
   color: rgb(var(--v-theme-primary));
 }
 
