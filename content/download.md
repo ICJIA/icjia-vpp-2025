@@ -3,7 +3,7 @@ title: "Download the Plan"
 description: "Download the complete Violence Prevention Plan for Illinois: 2025-2029 in multiple formats including PDF, JSON, and LLM-friendly text."
 ogTitle: "Download - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Download the complete Violence Prevention Plan for Illinois: 2025-2029 in multiple formats including PDF, JSON, and LLM-friendly text."
-ogImage: "/images/og-image-download.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: false
 ---

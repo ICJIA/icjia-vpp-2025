@@ -160,7 +160,27 @@ export default defineNuxtConfig({
         },
         { name: "robots", content: "index, follow" },
 
-        // Open Graph meta tags for social media sharing
+        // Open Graph meta tags for social media sharing (global fallbacks)
+        {
+          property: "og:title",
+          content: "Violence Prevention Plan for Illinois: 2025-2029",
+        },
+        {
+          property: "og:description",
+          content:
+            "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
+        },
+        {
+          property: "og:image",
+          content:
+            "https://vpp.icjia.illinois.gov/images/og-image-vpp-2025.png",
+        },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        {
+          property: "og:image:alt",
+          content: "Violence Prevention Plan for Illinois: 2025-2029",
+        },
         {
           property: "og:site_name",
           content: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
@@ -168,8 +188,26 @@ export default defineNuxtConfig({
         { property: "og:type", content: "website" },
         { property: "og:locale", content: "en_US" },
 
-        // Twitter Card meta tags
+        // Twitter Card meta tags (global fallbacks)
         { name: "twitter:card", content: "summary_large_image" },
+        {
+          name: "twitter:title",
+          content: "Violence Prevention Plan for Illinois: 2025-2029",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
+        },
+        {
+          name: "twitter:image",
+          content:
+            "https://vpp.icjia.illinois.gov/images/og-image-vpp-2025.png",
+        },
+        {
+          name: "twitter:image:alt",
+          content: "Violence Prevention Plan for Illinois: 2025-2029",
+        },
         { name: "twitter:site", content: "@ICJIA_Illinois" },
         { name: "twitter:creator", content: "@ICJIA_Illinois" },
 

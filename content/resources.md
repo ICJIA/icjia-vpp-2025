@@ -3,7 +3,7 @@ title: "Resources"
 description: "Comprehensive collection of violence prevention resources, tools, research, and training materials to support initiatives across Illinois communities and organizations."
 ogTitle: "Resources - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Access comprehensive violence prevention resources, tools, research, and training materials for Illinois communities."
-ogImage: "/images/og-image-resources.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: false
 ---

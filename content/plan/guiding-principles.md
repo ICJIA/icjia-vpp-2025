@@ -3,7 +3,7 @@ title: "Guiding Principles"
 description: "Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration."
 ogTitle: "Guiding Principles - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Five foundational principles that guide all violence prevention efforts in Illinois."
-ogImage: "/images/og-image-principles.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: true
 ---

@@ -1290,7 +1290,7 @@ const socialImage = computed(() => {
     return content.value.image;
   }
   // Fallback to default OG image
-  return "https://vpp.icjia.illinois.gov/images/og-image-default.jpg";
+  return "https://vpp.icjia.illinois.gov/images/og-image-vpp-2025.png";
 });
 
 const twitterImage = computed(() => {
@@ -1301,8 +1301,16 @@ const twitterImage = computed(() => {
     }
     return content.value.image;
   }
-  return "https://vpp.icjia.illinois.gov/images/twitter-card-default.jpg";
+  return "https://vpp.icjia.illinois.gov/images/og-image-vpp-2025.png";
 });
+
+const imageAlt = computed(
+  () =>
+    content.value?.imageAlt ||
+    content.value?.ogTitle ||
+    content.value?.title ||
+    "Violence Prevention Plan for Illinois: 2025-2029"
+);
 
 useSeoMeta({
   title: pageTitle,
@@ -1314,6 +1322,9 @@ useSeoMeta({
     () => content.value?.ogDescription || pageDescription.value
   ),
   ogImage: socialImage,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: imageAlt,
   ogUrl: canonicalUrl,
   ogType: computed(() => content.value?.ogType || "article"),
   ogSiteName: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
@@ -1328,6 +1339,7 @@ useSeoMeta({
     () => content.value?.twitterDescription || pageDescription.value
   ),
   twitterImage: twitterImage,
+  twitterImageAlt: imageAlt,
   twitterSite: "@ICJIA_Illinois",
   twitterCreator: "@ICJIA_Illinois",
 
@@ -1349,11 +1361,19 @@ useSeoMeta({
     () =>
       content.value?.author || "Illinois Criminal Justice Information Authority"
   ),
-  publishedTime: computed(
+  keywords: computed(() => content.value?.keywords || undefined),
+  articlePublishedTime: computed(
     () => content.value?.date || content.value?.publishedTime
   ),
-  modifiedTime: computed(
+  articleModifiedTime: computed(
     () => content.value?.lastModified || content.value?.modifiedTime
+  ),
+  articleAuthor: computed(
+    () =>
+      content.value?.author || "Illinois Criminal Justice Information Authority"
+  ),
+  articleSection: computed(
+    () => content.value?.category || "Violence Prevention"
   ),
 });
 

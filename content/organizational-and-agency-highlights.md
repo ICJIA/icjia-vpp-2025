@@ -3,7 +3,7 @@ title: "Organizational and Agency Highlights"
 description: "Highlighting key organizations and agencies contributing to violence prevention efforts across Illinois."
 ogTitle: "Organizational and Agency Highlights - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Key organizations and agencies contributing to violence prevention efforts across Illinois."
-ogImage: "/images/og-image-highlights.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: false
 ---

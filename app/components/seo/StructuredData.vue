@@ -186,7 +186,7 @@ const articleSchema = computed(() => {
       ? props.content.image.startsWith("/")
         ? `${baseUrl}${props.content.image}`
         : props.content.image
-      : `${baseUrl}/images/og-image-default.jpg`,
+      : `${baseUrl}/images/og-image-vpp-2025.png`,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${baseUrl}${props.path}`,
@@ -220,7 +220,7 @@ const collectionSchema = computed(() => {
         ? item.image.startsWith("/")
           ? `${baseUrl}${item.image}`
           : item.image
-        : `${baseUrl}/images/og-image-default.jpg`,
+        : `${baseUrl}/images/og-image-vpp-2025.png`,
       author: {
         "@type": "Organization",
         name: "Illinois Criminal Justice Information Authority",
@@ -316,7 +316,7 @@ const searchPageSchema = computed(() => {
     },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: `${baseUrl}/images/og-image-default.jpg`,
+      url: `${baseUrl}/images/og-image-vpp-2025.png`,
       width: 1200,
       height: 630,
     },

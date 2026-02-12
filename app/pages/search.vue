@@ -241,18 +241,56 @@ const LazySearchInterface = defineAsyncComponent(
 // Initialize logger
 const { log } = useConsoleLogger();
 
+/**
+ * SEO Configuration
+ */
+const searchTitle = "Search - Violence Prevention Plan for Illinois: 2025-2029";
+const searchDescription =
+  "Search through all content in the Violence Prevention Plan for Illinois: 2025-2029";
+const searchCanonicalUrl = "https://vpp.icjia.illinois.gov/search";
+const searchOgImage =
+  "https://vpp.icjia.illinois.gov/images/og-image-vpp-2025.png";
+
 // Set page title and meta
 useHead({
-  title: "Search - Violence Prevention Plan for Illinois: 2025-2029",
+  title: searchTitle,
   htmlAttrs: {
     lang: "en",
   },
+  link: [{ rel: "canonical", href: searchCanonicalUrl }],
 });
 
 useSeoMeta({
-  title: "Search - Violence Prevention Plan for Illinois: 2025-2029",
-  description:
-    "Search through all content in the Violence Prevention Plan for Illinois: 2025-2029",
+  title: searchTitle,
+  description: searchDescription,
+
+  // Open Graph meta tags
+  ogTitle: searchTitle,
+  ogDescription: searchDescription,
+  ogImage: searchOgImage,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: "Search - Violence Prevention Plan for Illinois: 2025-2029",
+  ogUrl: searchCanonicalUrl,
+  ogType: "website",
+  ogSiteName: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+  ogLocale: "en_US",
+
+  // Twitter Card meta tags
+  twitterCard: "summary_large_image",
+  twitterTitle: searchTitle,
+  twitterDescription: searchDescription,
+  twitterImage: searchOgImage,
+  twitterImageAlt: "Search - Violence Prevention Plan for Illinois: 2025-2029",
+  twitterSite: "@ICJIA_Illinois",
+  twitterCreator: "@ICJIA_Illinois",
+
+  // Additional SEO meta tags
+  canonical: searchCanonicalUrl,
+  robots: "noindex, follow",
+  author: "Illinois Criminal Justice Information Authority",
+  keywords:
+    "search, violence prevention, Illinois, plan content, site search",
 });
 
 // State

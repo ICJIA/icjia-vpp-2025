@@ -25,6 +25,25 @@ import PageTitleSection from "~/components/content/PageTitleSection.vue";
 import StructuredData from "~/components/seo/StructuredData.vue";
 
 /**
+ * SEO Configuration
+ */
+const newsTitle =
+  "News & Updates - Violence Prevention Plan for Illinois: 2025-2029";
+const newsDescription =
+  "Stay updated with the latest news, announcements, and developments in Illinois violence prevention initiatives, community programs, and policy updates.";
+const newsCanonicalUrl = "https://vpp.icjia.illinois.gov/news";
+const newsOgImage =
+  "https://vpp.icjia.illinois.gov/images/og-image-vpp-2025.png";
+
+useHead({
+  title: newsTitle,
+  htmlAttrs: {
+    lang: "en",
+  },
+  link: [{ rel: "canonical", href: newsCanonicalUrl }],
+});
+
+/**
  * Fetch all news items using the existing working implementation
  * Keep the current queryCollection logic unchanged as requested
  */
@@ -62,9 +81,38 @@ const newsItems = computed(() => {
  * SEO meta configuration
  */
 useSeoMeta({
-  title: "News & Updates - Violence Prevention Plan for Illinois: 2025-2029",
-  description:
-    "Stay updated with the latest news, announcements, and developments in Illinois violence prevention initiatives, community programs, and policy updates.",
+  title: newsTitle,
+  description: newsDescription,
+
+  // Open Graph meta tags
+  ogTitle: newsTitle,
+  ogDescription: newsDescription,
+  ogImage: newsOgImage,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt:
+    "News & Updates - Violence Prevention Plan for Illinois: 2025-2029",
+  ogUrl: newsCanonicalUrl,
+  ogType: "website",
+  ogSiteName: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+  ogLocale: "en_US",
+
+  // Twitter Card meta tags
+  twitterCard: "summary_large_image",
+  twitterTitle: newsTitle,
+  twitterDescription: newsDescription,
+  twitterImage: newsOgImage,
+  twitterImageAlt:
+    "News & Updates - Violence Prevention Plan for Illinois: 2025-2029",
+  twitterSite: "@ICJIA_Illinois",
+  twitterCreator: "@ICJIA_Illinois",
+
+  // Additional SEO meta tags
+  canonical: newsCanonicalUrl,
+  robots: "index, follow",
+  author: "Illinois Criminal Justice Information Authority",
+  keywords:
+    "violence prevention news, Illinois, updates, announcements, community programs, policy updates",
 });
 </script>
 

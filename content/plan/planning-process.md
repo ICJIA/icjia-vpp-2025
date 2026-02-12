@@ -3,7 +3,7 @@ title: "Planning Process"
 description: "In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback."
 ogTitle: "Planning Process - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Planning Process."
-ogImage: "/images/og-image-planning.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: true
 ---

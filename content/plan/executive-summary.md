@@ -3,7 +3,7 @@ title: "Executive Summary"
 description: "Learn about our mission, values, and approach to violence prevention across Illinois."
 ogTitle: "Executive Summary - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Learn about our mission, values, and approach to violence prevention across Illinois."
-ogImage: "/images/og-image-executive-summary.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: true
 ---

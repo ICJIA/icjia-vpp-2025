@@ -3,7 +3,7 @@ title: "Violence Prevention from a Public Health Approach"
 description: "Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities."
 ogTitle: "Violence Prevention from a Public Health Approach - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework."
-ogImage: "/images/og-image-public-health.jpg"
+ogImage: "/images/og-image-vpp-2025.png"
 twitterCard: "summary_large_image"
 showTOC: true
 ---
