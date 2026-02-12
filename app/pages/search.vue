@@ -291,6 +291,9 @@ useSeoMeta({
   author: "Illinois Criminal Justice Information Authority",
   keywords:
     "search, violence prevention, Illinois, plan content, site search",
+
+  // Informational: helps dev tools show when page content was last updated
+  ogUpdatedTime: new Date().toISOString(),
 });
 
 // State

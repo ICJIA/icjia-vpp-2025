@@ -113,6 +113,9 @@ useSeoMeta({
   author: "Illinois Criminal Justice Information Authority",
   keywords:
     "violence prevention news, Illinois, updates, announcements, community programs, policy updates",
+
+  // Informational: helps dev tools show when page content was last updated
+  ogUpdatedTime: new Date().toISOString(),
 });
 </script>
 

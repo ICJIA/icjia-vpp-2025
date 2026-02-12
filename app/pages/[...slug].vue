@@ -1375,6 +1375,13 @@ useSeoMeta({
   articleSection: computed(
     () => content.value?.category || "Violence Prevention"
   ),
+  articleTag: computed(() => content.value?.keywords || undefined),
+
+  // Informational: og:updated_time mirrors article:modified_time for platforms
+  // that check the generic OG property instead of the article-specific one
+  ogUpdatedTime: computed(
+    () => content.value?.lastModified || content.value?.modifiedTime
+  ),
 });
 
 // Also inject an explicit <link rel="canonical"> for Lighthouse compliance

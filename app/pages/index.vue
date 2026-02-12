@@ -226,6 +226,9 @@ useSeoMeta({
   author: "Illinois Criminal Justice Information Authority",
   keywords:
     "violence prevention, Illinois, public health, community safety, trauma-informed care, evidence-based practices, ICJIA",
+
+  // Informational: helps dev tools show when page content was last updated
+  ogUpdatedTime: new Date().toISOString(),
 });
 
 // Also inject an explicit <link rel="canonical"> for Lighthouse compliance

@@ -216,6 +216,17 @@ export default defineNuxtConfig({
         { name: "msapplication-TileColor", content: "#1976d2" },
         { name: "mobile-web-app-capable", content: "yes" },
         { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+
+        // Informational meta tags for developer tooling and diagnostics
+        { name: "generator", content: "Nuxt 4.0.0" },
+        {
+          name: "application-name",
+          content: "Violence Prevention Plan for Illinois: 2025-2029",
+        },
+        {
+          name: "format-detection",
+          content: "telephone=no, email=no, address=no",
+        },
       ],
 
       // Favicon and icon configuration
