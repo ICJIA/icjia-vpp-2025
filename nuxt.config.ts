@@ -25,10 +25,10 @@ export default defineNuxtConfig({
   // Disable Nuxt DevTools globally
   devtools: { enabled: false },
 
-  // Generate source maps for client bundle to satisfy Lighthouse
-  // Server sourcemaps remain disabled for safety
+  // Disable source maps in production to prevent code disclosure
+  // Enable only in development for debugging
   sourcemap: {
-    client: true,
+    client: process.env.NODE_ENV !== "production",
     server: false,
   },
 
