@@ -1,137 +1,126 @@
 /**
- * References Composable - Simplified Version
+ * References Composable
  *
- * Simple reference loader with no caching - fetches fresh data every time.
- * This avoids race conditions and complex state management.
+ * Reference loader with in-memory caching to avoid redundant fetches.
+ * Caches references.json after first load for the lifetime of the page.
  *
  * @author Violence Prevention Plan for Illinois: 2025-2029
- * @version 2.0.0
+ * @version 3.0.0
  * @since 2025-06-04
  */
 
+// Module-level cache — shared across all composable instances, lives for the page session
+let _referencesCache = null;
+let _referencesFetchPromise = null;
+
 /**
- * Simple reference loader - no caching, just fetch every time
+ * Fetch and cache references data. Returns cached data on subsequent calls.
+ * Uses a shared promise to prevent duplicate concurrent fetches.
  *
- * Loads a single reference from the references.json file. This function
- * fetches fresh data on every call to avoid caching issues and race conditions.
- * The reference ID is trimmed of whitespace before lookup.
+ * @returns {Promise<Object|null>} The references map or null on failure
+ */
+const fetchReferencesData = async () => {
+  // Return cached data immediately if available
+  if (_referencesCache) {
+    return _referencesCache;
+  }
+
+  // If a fetch is already in progress, reuse it to avoid duplicate requests
+  if (_referencesFetchPromise) {
+    return _referencesFetchPromise;
+  }
+
+  _referencesFetchPromise = (async () => {
+    try {
+      const response = await fetch("/data/references.json");
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to load references: ${response.status} ${response.statusText}`,
+        );
+      }
+
+      const data = await response.json();
+
+      if (!data || !data.references) {
+        throw new Error("Invalid reference data format");
+      }
+
+      _referencesCache = data.references;
+      return _referencesCache;
+    } catch (error) {
+      console.error("Error fetching references data:", error);
+      return null;
+    } finally {
+      _referencesFetchPromise = null;
+    }
+  })();
+
+  return _referencesFetchPromise;
+};
+
+/**
+ * Load a single reference by ID, using cached data.
  *
  * @param {string} referenceId - The reference ID to lookup (will be trimmed)
- * @returns {Promise<Object|null>} Reference object with citation data or null if not found
- * @returns {Promise<Object>} returns.id - The reference ID
- * @returns {Promise<Object>} returns.shortCitation - Short form citation
- * @returns {Promise<Object>} returns.fullCitation - Full form citation
- * @returns {Promise<Object>} returns.url - URL if available
- * @returns {Promise<Object>} returns.type - Reference type (e.g., 'report', 'article')
- *
- * @throws {Error} If fetch fails or response format is invalid
- *
- * @example
- * const ref = await loadReference('cdc-2023-violence-prevention');
- * if (ref) {
- *   console.log(ref.shortCitation); // "CDC (2023)"
- *   console.log(ref.fullCitation); // "Centers for Disease Control..."
- * }
+ * @returns {Promise<Object|null>} Reference object or null if not found
  */
 const loadReference = async (referenceId) => {
   try {
-    console.log(`🔍 Loading reference: "${referenceId}"`);
+    const references = await fetchReferencesData();
 
-    // Fetch the data fresh every time
-    const response = await fetch("/data/references.json");
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to load references: ${response.status} ${response.statusText}`,
-      );
-    }
-
-    const data = await response.json();
-
-    if (!data || !data.references) {
-      throw new Error("Invalid reference data format");
-    }
-
-    console.log(
-      `📄 Loaded ${Object.keys(data.references).length} total references`,
-    );
-
-    const trimmedId = referenceId.trim();
-    const reference = data.references[trimmedId];
-
-    if (!reference) {
-      console.warn(`❌ Reference not found: ${referenceId}`);
+    if (!references) {
       return null;
     }
 
-    console.log(`✅ Found reference: ${reference.shortCitation}`);
+    const trimmedId = referenceId.trim();
+    const reference = references[trimmedId];
+
+    if (!reference) {
+      console.warn(`Reference not found: ${referenceId}`);
+      return null;
+    }
+
     return reference;
   } catch (error) {
-    console.error(`❌ Error loading reference ${referenceId}:`, error);
+    console.error(`Error loading reference ${referenceId}:`, error);
     return null;
   }
 };
 
 /**
- * Load multiple references from comma-separated IDs
+ * Load multiple references from comma-separated IDs, using cached data.
  *
- * Parses a comma-separated string of reference IDs and loads each reference.
- * Missing references are logged as warnings but don't cause the function to fail.
- * Each ID is trimmed of whitespace before lookup.
- *
- * @param {string} referenceIds - Comma-separated reference IDs (e.g., "ref1, ref2, ref3")
- * @returns {Promise<Array<Object>>} Array of reference objects (excludes not found references)
- * @returns {Promise<Array<Object>>} returns[].id - The reference ID
- * @returns {Promise<Array<Object>>} returns[].shortCitation - Short form citation
- * @returns {Promise<Array<Object>>} returns[].fullCitation - Full form citation
- *
- * @throws {Error} If fetch fails or response format is invalid
- *
- * @example
- * const refs = await loadMultipleReferences('cdc-2023, who-2024, local-study');
- * console.log(`Found ${refs.length} references`);
- * refs.forEach(ref => console.log(ref.shortCitation));
+ * @param {string} referenceIds - Comma-separated reference IDs
+ * @returns {Promise<Array<Object>>} Array of found reference objects
  */
 const loadMultipleReferences = async (referenceIds) => {
   try {
-    console.log(`🔍 Loading multiple references: "${referenceIds}"`);
+    const references = await fetchReferencesData();
 
-    // Fetch the data fresh every time
-    const response = await fetch("/data/references.json");
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to load references: ${response.status} ${response.statusText}`,
-      );
+    if (!references) {
+      return [];
     }
 
-    const data = await response.json();
-
-    if (!data || !data.references) {
-      throw new Error("Invalid reference data format");
-    }
-
-    // Split by comma and clean up whitespace
     const ids = referenceIds
       .split(",")
       .map((id) => id.trim())
       .filter(Boolean);
 
-    const references = [];
+    const results = [];
     for (const id of ids) {
-      const reference = data.references[id];
+      const reference = references[id];
       if (reference) {
-        references.push(reference);
+        results.push(reference);
       } else {
-        console.warn(`❌ Reference not found: ${id}`);
+        console.warn(`Reference not found: ${id}`);
       }
     }
 
-    console.log(`✅ Found ${references.length} of ${ids.length} references`);
-    return references;
+    return results;
   } catch (error) {
     console.error(
-      `❌ Error loading multiple references ${referenceIds}:`,
+      `Error loading multiple references ${referenceIds}:`,
       error,
     );
     return [];

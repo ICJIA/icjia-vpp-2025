@@ -9,17 +9,20 @@
  * @module plugins/content-links
  */
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
   if (import.meta.client) {
-    // Wait for DOM to be ready
+    let observer: MutationObserver | null = null;
+
     const handleLinks = () => {
-      // Find all links on the page
       const links = document.querySelectorAll('a[href^="/docs/"]');
 
       links.forEach((link) => {
+        // Skip links already processed
+        if (link.hasAttribute('data-docs-handled')) return;
+        link.setAttribute('data-docs-handled', 'true');
+
         const href = link.getAttribute('href');
 
-        // Handle /docs/ links - force full page navigation to bypass Nuxt router
         if (href && href.startsWith('/docs/')) {
           link.addEventListener(
             'click',
@@ -42,7 +45,7 @@ export default defineNuxtPlugin(() => {
     }
 
     // Re-run after route changes (for content rendered by Nuxt Content)
-    const observer = new MutationObserver(() => {
+    observer = new MutationObserver(() => {
       handleLinks();
     });
 
@@ -50,6 +53,13 @@ export default defineNuxtPlugin(() => {
       childList: true,
       subtree: true,
     });
+
+    // Clean up observer when app unmounts to prevent memory leaks
+    nuxtApp.hook('app:error', () => {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+    });
   }
 });
-

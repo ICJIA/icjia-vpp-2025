@@ -277,8 +277,13 @@ const navigateToStatic = (path) => {
 .footer-description p {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: rgba(var(--v-theme-on-background), 0.8);
+  color: rgba(var(--v-theme-on-background), 0.9);
   margin: 0;
+}
+
+/* Ensure sufficient contrast in light theme (WCAG 2.1 AA 4.5:1 minimum) */
+:root:not([data-theme="dark"]) .footer-description p {
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .org-link {
@@ -326,7 +331,7 @@ const navigateToStatic = (path) => {
 }
 
 .footer-item {
-  color: rgba(var(--v-theme-on-background), 0.8);
+  color: rgba(var(--v-theme-on-background), 0.9);
   text-decoration: none;
   padding: 2px 0;
   margin: 0 4px;
@@ -334,6 +339,11 @@ const navigateToStatic = (path) => {
   transition: all 0.2s ease;
   font-weight: 500;
   white-space: nowrap;
+}
+
+/* Ensure sufficient contrast in light theme (WCAG 2.1 AA 4.5:1 minimum) */
+:root:not([data-theme="dark"]) .footer-item {
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .footer-item:hover {

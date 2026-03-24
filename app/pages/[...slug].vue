@@ -1028,8 +1028,8 @@ onMounted(() => {
   }, 100);
 });
 
-// Store MutationObserver reference for cleanup
-let scrollableRegionObserver = null;
+// Store MutationObserver reference for cleanup (component-scoped via ref)
+const scrollableRegionObserver = ref(null);
 
 // Make all scrollable regions focusable for keyboard access
 // This ensures WCAG 2.1 A compliance (2.1.1 Keyboard, 2.1.3 Keyboard - No Exception)
@@ -1165,12 +1165,12 @@ onMounted(() => {
 
   // Use MutationObserver to catch dynamically added content
   const contentRenderer = document.querySelector(".content-renderer");
-  if (contentRenderer && !scrollableRegionObserver) {
-    scrollableRegionObserver = new MutationObserver(() => {
+  if (contentRenderer && !scrollableRegionObserver.value) {
+    scrollableRegionObserver.value = new MutationObserver(() => {
       enhanceScrollableRegions();
     });
 
-    scrollableRegionObserver.observe(contentRenderer, {
+    scrollableRegionObserver.value.observe(contentRenderer, {
       childList: true,
       subtree: true,
     });
@@ -1216,9 +1216,9 @@ onUnmounted(() => {
   window.removeEventListener("resize", updateScroll);
 
   // Clean up MutationObserver if it exists
-  if (scrollableRegionObserver) {
-    scrollableRegionObserver.disconnect();
-    scrollableRegionObserver = null;
+  if (scrollableRegionObserver.value) {
+    scrollableRegionObserver.value.disconnect();
+    scrollableRegionObserver.value = null;
   }
 });
 

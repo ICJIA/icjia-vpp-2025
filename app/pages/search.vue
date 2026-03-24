@@ -794,6 +794,14 @@ function clearSearch() {
   searchResults.value = [];
 }
 
+// Clean up debounce timer on unmount to prevent stale searches after navigation
+onUnmounted(() => {
+  if (debounceTimeout) {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = null;
+  }
+});
+
 // Search is now initialized lazily when user starts typing
 // No need for onMounted initialization
 </script>

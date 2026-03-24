@@ -405,6 +405,20 @@ $transition-slow: 0.5s ease;
   transform: translateY(10px);
 }
 
+// Disable blur/transform for users who prefer reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-active,
+  .page-leave-active {
+    transition: none;
+  }
+
+  .page-enter-from,
+  .page-leave-to {
+    filter: none;
+    transform: none;
+  }
+}
+
 .section {
   padding: $spacing-unit * 8 0;
 

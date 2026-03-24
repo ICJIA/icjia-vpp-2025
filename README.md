@@ -25,6 +25,10 @@ This project serves as the official web presence for the Statewide Violence Prev
 - Full-text search functionality across all content with Defuddle-enhanced content extraction
 - **Comprehensive test coverage** with 332 automated tests (unit, integration, and Playwright E2E)
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a complete history of changes, including security fixes, accessibility improvements, and feature additions.
+
 ## Production Site
 
 The official production site is available at:

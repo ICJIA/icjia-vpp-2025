@@ -45,9 +45,9 @@
 
           <!-- Title -->
           <div :id="`news-title-${uniqueId}`" class="news-title-section">
-            <h3 class="news-title">
+            <h2 class="news-title">
               {{ newsItem.title }}
-            </h3>
+            </h2>
           </div>
 
           <!-- Summary -->

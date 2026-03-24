@@ -33,13 +33,27 @@ X-Frame-Options = "DENY"
 X-Content-Type-Options = "nosniff"
 X-XSS-Protection = "1; mode=block"
 Referrer-Policy = "strict-origin-when-cross-origin"
-Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.icjia.cloud https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self';"
+Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.icjia.cloud https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
 Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+Cross-Origin-Opener-Policy = "same-origin"
 
-# Performance headers
+# Default cache: short-lived for general assets
+Cache-Control = "public, max-age=3600"
+
+# Immutable hashed assets (JS/CSS bundles with content hash in filename)
+[[headers]]
+for = "/_nuxt/*"
+[headers.values]
 Cache-Control = "public, max-age=31536000, immutable"
 
-# Special headers for HTML files
+# Static images and fonts — long cache
+[[headers]]
+for = "/images/*"
+[headers.values]
+Cache-Control = "public, max-age=2592000"
+
+# HTML files — always revalidate
 [[headers]]
 for = "/*.html"
 [headers.values]
