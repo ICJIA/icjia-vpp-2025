@@ -63,119 +63,75 @@ These machine-readable formats enable:
 
 This multi-format approach ensures the Violence Prevention Plan is accessible to both human readers and automated systems, supporting transparency and enabling innovative uses of public policy data.
 
-## Accessibility Excellence
+## Accessibility
 
-### 🌟 Accessibility Status: INDUSTRY-LEADING (99.6/100 Lighthouse Score)
+This application targets **WCAG 2.1 AA compliance** and meets **Illinois IITAA 2.1 Standards**. An automated accessibility audit using axe-core 4.10.2 on March 24, 2026 found **zero violations across all 23 pages** (20 application pages + 3 documentation pages).
 
-This project demonstrates exceptional accessibility compliance with comprehensive testing and documentation. **The application exceeds WCAG 2.1 AA standards and meets Illinois IITAA 2.1 requirements.**
+### What This Means
 
-#### Latest Accessibility Audit Results (October 31, 2025)
+Every page on this site has been verified to meet the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standard. This ensures the site is usable by people with a wide range of disabilities, including those who use screen readers, keyboard-only navigation, or require high-contrast visuals.
 
-**Lighthouse Accessibility Audit (Production Site):**
-✅ **Average Score**: 99.6/100 across 15 primary routes (improved from 99.3/100)
-✅ **Perfect Scores (100)**: 12 routes (80% of tested routes)
-✅ **Excellent Scores (98)**: 3 routes (20% with minor heading order violations)
-✅ **WCAG 2.1 AA Compliance**: All routes meet or exceed standards
+### Key Accessibility Features
 
-**Axe-Core Accessibility Audit (Production Site):**
-✅ **Total Violations**: 4 violations (only on /legal/terms-of-service mobile/tablet views)
-✅ **Routes with Zero Violations**: 14 of 15 routes (93.3% violation-free)
-✅ **Test Coverage**: 90 total tests (15 routes × 3 viewports × 2 themes)
-✅ **Violation-Free Tests**: 86 of 90 tests (95.6% pass rate)
+- **High contrast colors**: All text exceeds the required 4.5:1 contrast ratio, with most elements reaching 8:1 or higher -- well above the minimum standard
+- **Keyboard navigation**: Every feature on the site can be accessed without a mouse, with visible focus indicators showing where you are on the page
+- **Screen reader support**: The site works with assistive technologies like NVDA, JAWS, VoiceOver, and TalkBack, with proper announcements for dynamic content changes
+- **Mobile-friendly touch targets**: All buttons and links meet the 44px minimum size for comfortable touch interaction
+- **Reduced motion support**: Animations are automatically disabled for users who have set a preference for reduced motion in their operating system
+- **Dark and light themes**: Users can switch between themes, with both maintaining full accessibility compliance
+- **Skip links**: Keyboard users can skip directly to main content without tabbing through navigation
+- **Proper document structure**: Headings, landmarks, and semantic HTML ensure content is logically organized for assistive technologies
+- **Image descriptions**: All content images include descriptive alt text; decorative images are properly hidden from screen readers
 
-**🎉 Local Development Achievement:**
-✅ **Perfect Score**: 100.0/100 Lighthouse accessibility score achieved
-✅ **All Routes**: 15 of 15 routes scoring perfect 100/100
-✅ **Fixes Implemented**: Heading hierarchy violations resolved
-✅ **Ready for Deployment**: Production will achieve 100/100 when fixes are deployed
-
-**Comprehensive Testing Coverage:**
-
-- **15 Primary Routes**: Complete site coverage including plan sections, resources, and legal pages
-- **Multi-Device Testing**: Mobile, tablet, and desktop viewports
-- **Theme Testing**: Both light and dark themes validated
-- **Automated + Manual Testing**: Lighthouse, axe-core, and manual accessibility verification
-
-#### Accessibility Features
-
-✅ **Keyboard Navigation**: Complete keyboard accessibility with logical tab order
-✅ **Screen Reader Support**: Full compatibility with NVDA, JAWS, VoiceOver, and TalkBack
-✅ **High Contrast**: 8:1+ color ratios exceeding WCAG requirements
-✅ **Responsive Design**: Touch-friendly with 44px+ target sizes
-✅ **Skip Links**: Direct navigation to main content
-✅ **Semantic HTML**: Proper heading hierarchy and landmark regions
-✅ **Alternative Text**: Comprehensive image descriptions
-✅ **Focus Management**: Visible focus indicators and logical flow
-
-#### Compliance Standards
+### Compliance Standards
 
 - **WCAG 2.1 AA**: Fully compliant across all four principles (Perceivable, Operable, Understandable, Robust)
-- **Illinois IITAA 2.1**: Meets all Illinois Information Technology Accessibility Act requirements
+- **Illinois IITAA 2.1**: Meets all [Illinois Information Technology Accessibility Act](https://doit.illinois.gov/initiatives/accessibility/iitaa/iitaa-2-1-standards.html) requirements
 - **Section 508**: Federal accessibility standards compliance
 - **ADA Digital Rule**: Americans with Disabilities Act web accessibility compliance
 
-For detailed accessibility information, see:
+### Audit History
 
-- **[Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/)**: Complete accessibility reports and documentation
-- **[Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/)**: WCAG 2.1 AA compliance audit results
-- **[Lighthouse Audit Results](https://github.com/ICJIA/icjia-vpp-2025/tree/main/reports/lighthouse)**: Detailed accessibility test reports
+| Date | Tool | Result |
+|------|------|--------|
+| March 24, 2026 | axe-core 4.10.2 | 0 violations across 23 pages |
+| December 22, 2025 | axe-core | 98.8% compliance (all issues subsequently fixed) |
+| October 29, 2025 | Google Lighthouse + axe-core | Full audit, all issues resolved |
+| September 15, 2025 | Lighthouse | Skip link, footer, and dark mode fixes |
+| August 11, 2025 | Lighthouse | Accessibility and performance optimization |
 
-## Security Analysis & Compliance
+For detailed accessibility reports, see the [Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/) and the [Developer Documentation Portal](https://vpp.icjia.illinois.gov/docs/).
 
-### 🔒 Security Status: EXCELLENT (Grade A+)
+## Security
 
-This project has undergone comprehensive security analysis and implements industry-standard security practices. **The application is certified secure and ready for production deployment.**
+This application is deployed as a **static site on Netlify** with no server-side code. This architecture eliminates entire categories of security vulnerabilities (such as SQL injection, server-side request forgery, and authentication bypass) because there is no server to attack -- the site consists entirely of pre-built HTML, CSS, and JavaScript files.
 
-#### Security Achievements
+### What This Means
 
-✅ **Zero Critical Vulnerabilities**: All high and medium severity security issues resolved
-✅ **Comprehensive Content Security Policy**: Multi-layered protection against XSS and injection attacks
-✅ **Robust Input Validation**: Advanced sanitization and dangerous content detection
-✅ **Secure Headers**: Complete implementation of security headers (HSTS, X-Frame-Options, etc.)
-✅ **Supply Chain Security**: CDN integrity verification and dependency vulnerability management
-✅ **Privacy Protection**: Secure cookie configuration and data handling practices
+The site collects no user data, stores no passwords, and processes no payments. There are no databases, no login systems, and no APIs that could be compromised. The only user preference stored is the theme choice (dark or light), which is kept in the browser's session memory and cleared when the tab is closed.
 
-#### Recent Security Improvements (July 2025)
+### Security Measures in Place
 
-**Critical XSS Vulnerability Resolved**:
+- **Content Security Policy (CSP)**: A strict policy controls what resources the browser is allowed to load. Only content from the site itself and a small number of trusted sources (Plausible analytics, Google Fonts, and the jsDelivr CDN) are permitted. The site cannot be embedded in frames on other websites, preventing clickjacking attacks.
+- **HTTP Security Headers**: The full recommended suite of security headers is deployed, including HSTS (forces HTTPS), X-Frame-Options (prevents framing), X-Content-Type-Options (prevents MIME sniffing), and Permissions-Policy (denies access to camera, microphone, geolocation, and payment APIs).
+- **Input Sanitization**: All user input (search queries) goes through multi-layer sanitization to prevent cross-site scripting (XSS) attacks. Search queries are limited to 50 characters and stripped of potentially dangerous patterns.
+- **Subresource Integrity (SRI)**: External stylesheets are loaded with cryptographic integrity hashes, ensuring they haven't been tampered with.
+- **Source Map Protection**: Source maps (which reveal application code structure) are disabled in production builds to prevent information disclosure.
+- **Domain Redirect**: The legacy Netlify domain redirects to the official `vpp.icjia.illinois.gov` domain with a permanent 301 redirect.
+- **Smart Caching**: HTML pages always check for updates on each visit, while static assets (JavaScript, CSS, images) are cached efficiently to balance performance with freshness.
+- **No Persistent Storage**: No cookies are set. The only browser storage used is sessionStorage for the theme preference, which is automatically cleared when the browser tab closes.
 
-- Fixed CVE-2025-54075 in @nuxtjs/mdc (upgraded from v0.17.0 to v0.17.2)
-- Eliminated remote script inclusion vulnerability in markdown processing
+### Security Standards
 
-**Content Security Policy Implementation**:
-
-- Comprehensive CSP with frame-ancestors protection and base-uri restrictions
-- WebAssembly support for @nuxt/content SQLite functionality
-- Proper allowlisting for Google Fonts, CDN resources, and analytics
-
-**Enhanced Security Controls**:
-
-- Secure cookie configuration with CSRF protection (sameSite: "lax")
-- CDN integrity verification with SHA384 hashes
-- Source map protection in production builds
-- Advanced search input sanitization and XSS prevention
-
-#### Security Standards Compliance
-
-- **OWASP Top 10**: Protected against all major vulnerability categories
-- **WCAG 2.1 AA**: Security measures maintain full accessibility compliance
-- **IITAA Standards**: Meets Illinois Information Technology Accessibility Act requirements
+- **OWASP Top 10**: Protected against all major web vulnerability categories
 - **CSP Level 3**: Modern Content Security Policy implementation
+- **HSTS Preload**: Included in browser preload lists for mandatory HTTPS
 
-#### Ongoing Security Monitoring
+### Red Team Review (March 2026)
 
-- **Dependency Scanning**: Regular vulnerability assessments with yarn audit
-- **Security Headers**: Verified deployment of all recommended security headers
-- **Input Validation**: Comprehensive sanitization across all user inputs
-- **Build Security**: Static site generation eliminates server-side attack vectors
+A red team security review was conducted on March 24, 2026, examining the application from an attacker's perspective. The review covered XSS vectors, open redirects, DOM clobbering, prototype pollution, CSP bypass potential, dependency supply chain, information disclosure, path traversal, clickjacking, and client-side storage. All identified issues were addressed. See [CHANGELOG.md](CHANGELOG.md) for details.
 
-For detailed security analysis and audit logs, see:
-
-- **[Search Security Audit](https://github.com/ICJIA/icjia-vpp-2025/blob/main/docs/search-security-audit.md)**: Detailed search functionality security assessment
-
-_Last Security Review: October 31, 2025_
-_Next Scheduled Review: January 31, 2026_
-_Last Test Coverage Update: January 5, 2026_
+_Last Security Review: March 24, 2026_
 
 ## Nuxt 4 Migration
 
