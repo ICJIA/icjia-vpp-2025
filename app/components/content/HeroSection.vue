@@ -262,7 +262,7 @@ const handleLearnMore = () => {
 
 /* Enhanced focus indicator for accessibility */
 .hero-button:focus-visible {
-  outline: 3px solid var(--v-primary-base); /* High contrast outline */
+  outline: 3px solid rgb(var(--v-theme-primary)); /* High contrast outline */
   outline-offset: 2px; /* Space between button and outline */
 }
 

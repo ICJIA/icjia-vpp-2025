@@ -12,7 +12,7 @@
 
 // Global focus styles for keyboard navigation
 :focus {
-  outline: 3px solid var(--v-primary-base);
+  outline: 3px solid rgb(var(--v-theme-primary));
   outline-offset: 2px;
 }
 
@@ -21,8 +21,22 @@
 }
 
 :focus-visible {
-  outline: 3px solid var(--v-primary-base);
+  outline: 3px solid rgb(var(--v-theme-primary));
   outline-offset: 2px;
+}
+
+// Focus outline for programmatically focusable scrollable regions and code blocks
+.focus-outline-visible {
+  &:focus,
+  &:focus-visible {
+    outline: 3px solid rgb(var(--v-theme-primary));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
 }
 
 // Global Anchor Link Styling for WCAG 2.1 AA Compliance
@@ -58,7 +72,7 @@ a {
   // Focus state styling (enhanced from global focus styles)
   &:focus,
   &:focus-visible {
-    outline: 3px solid var(--v-primary-base);
+    outline: 3px solid rgb(var(--v-theme-primary));
     outline-offset: 2px;
     border-radius: 2px;
     // Add subtle background highlight on focus
@@ -260,14 +274,14 @@ a {
 
   // Ensure hover state works consistently
   &:hover {
-    color: var(--v-primary-base) !important;
-    text-decoration-color: var(--v-primary-base) !important;
+    color: rgb(var(--v-theme-primary)) !important;
+    text-decoration-color: rgb(var(--v-theme-primary)) !important;
   }
 
   // Ensure focus state works consistently
   &:focus {
-    color: var(--v-primary-base) !important;
-    text-decoration-color: var(--v-primary-base) !important;
+    color: rgb(var(--v-theme-primary)) !important;
+    text-decoration-color: rgb(var(--v-theme-primary)) !important;
   }
 }
 
@@ -497,8 +511,8 @@ $transition-slow: 0.5s ease;
   color: transparent;
   background-image: linear-gradient(
     135deg,
-    var(--v-primary-base),
-    var(--v-accent-base)
+    rgb(var(--v-theme-primary)),
+    rgb(var(--v-theme-accent))
   );
 }
 
@@ -705,7 +719,7 @@ blockquote {
 :root:not([data-theme="dark"]) blockquote {
   background-color: #f1f3f4; // Slightly darker grey background for better distinction
   color: #000000 !important; // Pure black text for maximum contrast
-  border-left-color: var(--v-primary-base);
+  border-left-color: rgb(var(--v-theme-primary));
 
   // Add subtle shadow for depth
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -1210,9 +1224,9 @@ a[role="button"],
 // Error state styling for references that fail to load
 [data-ref].reference-error,
 [data-ref][style*="error"] {
-  color: var(--v-error-base, #e74c3c) !important;
-  text-decoration-color: var(--v-error-base, #e74c3c) !important;
-  border-bottom-color: var(--v-error-base, #e74c3c) !important;
+  color: rgb(var(--v-theme-error, 231, 76, 60)) !important;
+  text-decoration-color: rgb(var(--v-theme-error, 231, 76, 60)) !important;
+  border-bottom-color: rgb(var(--v-theme-error, 231, 76, 60)) !important;
 }
 
 // Loading state styling

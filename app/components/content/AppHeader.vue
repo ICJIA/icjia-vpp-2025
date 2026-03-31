@@ -799,7 +799,7 @@ const handleHomeClick = () => {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: var(--v-primary-base);
+  background-color: rgb(var(--v-theme-primary));
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }

@@ -270,7 +270,7 @@ watch(
   /* Enhanced focus state for keyboard navigation */
   border-bottom-style: solid;
   border-bottom-width: 2px;
-  outline: 2px solid var(--v-primary-base);
+  outline: 2px solid rgb(var(--v-theme-primary));
 }
 
 /* Loading state */
@@ -282,8 +282,8 @@ watch(
 
 /* Error state */
 .reference-error {
-  color: var(--v-error-base, #e74c3c);
-  border-bottom-color: var(--v-error-base, #e74c3c);
+  color: rgb(var(--v-theme-error, 231, 76, 60));
+  border-bottom-color: rgb(var(--v-theme-error, 231, 76, 60));
   cursor: help;
 }
 

@@ -545,7 +545,7 @@ const onContentRendered = () => {
   }
 
   :deep(a) {
-    color: var(--v-primary-base);
+    color: rgb(var(--v-theme-primary));
     text-decoration: underline;
 
     &:hover {
@@ -553,7 +553,7 @@ const onContentRendered = () => {
     }
 
     &:focus-visible {
-      outline: 2px solid var(--v-primary-base);
+      outline: 2px solid rgb(var(--v-theme-primary));
       outline-offset: 2px;
     }
   }

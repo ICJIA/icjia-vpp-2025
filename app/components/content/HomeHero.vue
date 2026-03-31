@@ -580,8 +580,8 @@ const handleLearnMore = () => {
   height: 200px;
   background: linear-gradient(
     135deg,
-    var(--v-primary-base),
-    var(--v-accent-base)
+    rgb(var(--v-theme-primary)),
+    rgb(var(--v-theme-accent))
   );
   top: -50px;
   right: -50px;
@@ -593,8 +593,8 @@ const handleLearnMore = () => {
   height: 150px;
   background: linear-gradient(
     135deg,
-    var(--v-secondary-base),
-    var(--v-primary-base)
+    rgb(var(--v-theme-secondary)),
+    rgb(var(--v-theme-primary))
   );
   bottom: -30px;
   left: -30px;

@@ -255,7 +255,7 @@ useHead({
 
 /* Add focus styles for accessibility */
 :deep(*:focus-visible) {
-  outline: 2px solid var(--v-primary-base);
+  outline: 2px solid rgb(var(--v-theme-primary));
   outline-offset: 2px;
 }
 

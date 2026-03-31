@@ -147,8 +147,8 @@ const handleReturn = () => {
   line-height: 1;
   background: linear-gradient(
     135deg,
-    var(--v-primary-base),
-    var(--v-secondary-base)
+    rgb(var(--v-theme-primary)),
+    rgb(var(--v-theme-secondary))
   );
   -webkit-background-clip: text;
   background-clip: text;

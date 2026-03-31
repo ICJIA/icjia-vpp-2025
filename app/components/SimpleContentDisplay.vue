@@ -186,7 +186,7 @@ const { content, pending, error } = useContentFetcher({
 
     // Link styles
     :deep(a) {
-      color: var(--v-primary-base);
+      color: rgb(var(--v-theme-primary));
       text-decoration: underline;
 
       &:hover {
@@ -194,7 +194,7 @@ const { content, pending, error } = useContentFetcher({
       }
 
       &:focus-visible {
-        outline: 2px solid var(--v-primary-base);
+        outline: 2px solid rgb(var(--v-theme-primary));
         outline-offset: 2px;
       }
     }

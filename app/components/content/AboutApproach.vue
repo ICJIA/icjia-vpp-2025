@@ -100,7 +100,7 @@ import ImageWithSpinner from "~/components/content/ImageWithSpinner.vue";
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--v-primary-base);
+  background-color: rgb(var(--v-theme-primary));
   color: white;
   font-weight: bold;
   font-size: 1.25rem;

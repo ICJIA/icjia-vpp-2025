@@ -131,7 +131,7 @@ const handleCardActivation = () => {
 }
 
 .feature-card-inner:focus-visible {
-  outline: 3px solid var(--v-primary-base);
+  outline: 3px solid rgb(var(--v-theme-primary));
   outline-offset: 2px;
 }
 
