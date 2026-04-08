@@ -68,6 +68,7 @@
               class="hero-image"
               width="612"
               height="792"
+              style="height: auto"
               loading="lazy"
               @click="handleDownloadPlan"
               @keydown.enter="handleDownloadPlan"
