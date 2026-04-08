@@ -48,6 +48,15 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2026-04-08] - Fix: Netlify App Manifest 404 and Hero Image Layout
+
+### Fixes
+- Fix "Page Not Found" error on Netlify — root cause was Nuxt app manifest (`/_nuxt/builds/meta/*.json`) returning 404 due to CDN cache mismatch between stale HTML and new build hashes; disabled `experimental.appManifest` since static sites don't need it
+- Fix hero image stacking below text instead of side-by-side — replaced `width="612" height="792"` HTML attributes with CSS `aspect-ratio: 612 / 792` to prevent the image from forcing 612px minimum column width in Vuetify grid
+- Homepage JSON-LD injected via `useHead()` in script setup (avoids StructuredData component hydration issues)
+
+---
+
 ## [2026-04-08] - Fix: Homepage Hydration Error from StructuredData Component
 
 ### Fixes

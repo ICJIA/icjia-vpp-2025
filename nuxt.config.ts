@@ -35,6 +35,13 @@ export default defineNuxtConfig({
   // Force static site generation
   ssr: true,
 
+  // Disable app manifest to prevent 404 errors on CDN cache mismatches
+  // The manifest file changes hash on every build, causing stale HTML to
+  // reference a non-existent manifest, crashing the client-side app
+  experimental: {
+    appManifest: false,
+  },
+
   // Global CSS files
   css: [
     "vuetify/lib/styles/main.sass", // Vuetify styles
