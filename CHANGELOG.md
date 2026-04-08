@@ -39,11 +39,58 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 ### Audit History
 | Date | Tool | Result |
 |------|------|--------|
+| 2026-04-08 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
 | 2026-03-24 | axe-core 4.10.2 | 0 violations / 20 pages |
 | 2025-12-22 | axe-core | 98.8% compliance (all issues fixed) |
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [2026-04-08] - AI Readiness & SEO Structured Data
+
+### Features
+- Re-enable JSON-LD structured data on homepage (GovernmentOrganization + WebSite schemas)
+- Add `article:published_time` and `article:modified_time` meta tags to all content pages
+- Add hreflang tags (`en` + `x-default`) for search engine language clarity
+- Add preconnect and dns-prefetch hints for jsdelivr CDN, Google Fonts, and Google Fonts static domains
+
+### Fixes
+- Fix Nuxt Content v3 custom frontmatter access — `lastModified` field stored in `content.meta`, not top-level
+- Add `date` (2025-07-24) and `lastModified` (2026-04-08) frontmatter to all 13 content markdown files
+- Replace dynamic `new Date().toISOString()` fallbacks in StructuredData.vue with static dates for consistent SSR output
+
+---
+
+## [2026-04-08] - Performance: CLS Elimination & Lighthouse Optimization
+
+### Fixes
+- Eliminate Cumulative Layout Shift (CLS) on all 13 pages — was 0.29–1.42, now 0 across the board
+- Fix Vuetify `v-main` SSR hydration mismatch — pre-set `--v-layout-top: 64px` CSS variable so content renders at correct position from first paint
+- Stabilize footer during hydration — add `flex-shrink: 0` and `contain: layout style` to prevent collapse
+- Stabilize `.v-application__wrap` with `min-height: 100vh` to prevent flex redistribution during hydration
+- Replace `fadeSlideUp` animation (transform-based, caused CLS) with `fadeIn` (opacity-only) in PageTitleSection
+- Remove `margin-top: -60px` layout hack from PageTitleSection
+- Add explicit `width`/`height` attributes to cover image and hero image to reserve space before load
+- Change MDI icon stylesheet to async preload with `onload` swap + `<noscript>` fallback + font file preload
+- Silence verbose `console.log()` output in references, footnotes, and WASM monitor plugins
+
+### Accessibility
+- Fix WCAG 2.5.3 (Label in Name) — hero image caption `aria-label` now starts with visible text "Click image to download"
+
+### Performance Results
+- Average Lighthouse performance score: **77 → 93**
+- Pages scoring 90+: **1 → 12** (of 13)
+- CLS passing (< 0.1): **2 → 13** (of 13)
+
+---
+
+## [2026-03-31] - Keyboard Focus Visibility Fix
+
+### Fixes
+- Fix keyboard focus indicators invisible across entire site — Vuetify 2 CSS variables (`--v-primary-base`) replaced with Vuetify 3 equivalents (`rgb(var(--v-theme-primary))`)
+- Add missing `.focus-outline-visible` CSS class for scrollable regions
 
 ---
 
