@@ -1,12 +1,12 @@
 {
   "baseUrl": "https://vpp.icjia.illinois.gov",
-  "generatedAt": "2026-02-12T18:41:01.634Z",
+  "generatedAt": "2026-04-08T15:16:15.944Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
     "version": "1.0.0",
-    "totalPages": 18,
-    "contentPages": 18,
+    "totalPages": 13,
+    "contentPages": 13,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1
@@ -61,71 +61,6 @@
           "type": "content",
           "source": "content/legal/privacy-policy.md",
           "title": "Privacy Policy"
-        }
-      ]
-    },
-    {
-      "title": "Orbus tempus mare orbus caelum bis tempus umbra stella rex lumen",
-      "path": "/news/community-violence-prevention-grant-2024",
-      "fullUrl": "https://vpp.icjia.illinois.gov/news/community-violence-prevention-grant-2024",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/news/community-violence-prevention-grant-2024.md",
-          "title": "Orbus tempus mare orbus caelum bis tempus umbra stella rex lumen"
-        }
-      ]
-    },
-    {
-      "title": "Deus anima jugum sit elit caligine ipsum opus vita bis",
-      "path": "/news/data-sharing-initiative-launch",
-      "fullUrl": "https://vpp.icjia.illinois.gov/news/data-sharing-initiative-launch",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/news/data-sharing-initiative-launch.md",
-          "title": "Deus anima jugum sit elit caligine ipsum opus vita bis"
-        }
-      ]
-    },
-    {
-      "title": "Sanguine mendaci in supplex vertitur moenia",
-      "path": "/news/hospital-violence-intervention-expansion",
-      "fullUrl": "https://vpp.icjia.illinois.gov/news/hospital-violence-intervention-expansion",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/news/hospital-violence-intervention-expansion.md",
-          "title": "Sanguine mendaci in supplex vertitur moenia"
-        }
-      ]
-    },
-    {
-      "title": "Vox carmen bellum idem jugum ipsum gloria gloria tempus",
-      "path": "/news/rural-violence-prevention-network",
-      "fullUrl": "https://vpp.icjia.illinois.gov/news/rural-violence-prevention-network",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/news/rural-violence-prevention-network.md",
-          "title": "Vox carmen bellum idem jugum ipsum gloria gloria tempus"
-        }
-      ]
-    },
-    {
-      "title": "Terra umbra idem portitor bellum opus ipsum sanctum Lorem deus amet bellum aether",
-      "path": "/news/youth-violence-prevention-summit-2024",
-      "fullUrl": "https://vpp.icjia.illinois.gov/news/youth-violence-prevention-summit-2024",
-      "type": "content",
-      "sources": [
-        {
-          "type": "content",
-          "source": "content/news/youth-violence-prevention-summit-2024.md",
-          "title": "Terra umbra idem portitor bellum opus ipsum sanctum Lorem deus amet bellum aether"
         }
       ]
     },
@@ -248,12 +183,12 @@
     }
   ],
   "stats": {
-    "totalPages": 18,
-    "contentPages": 18,
+    "totalPages": 13,
+    "contentPages": 13,
     "vuePages": 0,
     "combinedPages": 0,
     "blacklistedFiles": 1,
     "menuIntegratedPages": 1,
-    "orphanedPages": 17
+    "orphanedPages": 12
   }
 }
