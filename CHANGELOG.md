@@ -48,6 +48,13 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2026-04-08] - Fix: Hero Image Layout Regression
+
+### Fixes
+- Fix homepage hero image stacking below content instead of side-by-side — add inline `height: auto` to override the explicit `height="792"` HTML attribute that was forcing vertical stacking in the Vuetify grid
+
+---
+
 ## [2026-04-08] - Performance: Footer CLS Elimination via Viewport Threshold
 
 ### Fixes
