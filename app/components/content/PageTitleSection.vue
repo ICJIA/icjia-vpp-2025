@@ -188,13 +188,11 @@ const formattedDate = computed(() => {
   padding: 0; /* Remove default padding, will be handled by flexbox centering */
   /* Darker background for better distinction from content */
   background: #eeeeee; /* Darker than previous #F5F5F5 for better contrast */
-  /* Extend background to reach navigation */
-  margin-top: -60px; /* Account for header height */
   /* Center content vertically and horizontally */
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(25vh + 60px); /* Reduced height for tighter layout */
+  min-height: 25vh; /* Reduced height for tighter layout */
 }
 
 /* Dark theme background override */
@@ -227,9 +225,9 @@ const formattedDate = computed(() => {
   color: rgba(var(--v-theme-on-surface), 0.95);
   font-family: "Roboto", sans-serif;
   letter-spacing: -0.03em;
-  /* Professional entrance animation */
+  /* Professional entrance animation - opacity only to avoid CLS */
   opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
+  animation: fadeIn 0.8s forwards;
   animation-delay: 0.2s;
 }
 
@@ -239,7 +237,7 @@ const formattedDate = computed(() => {
   margin-bottom: 1.5rem;
   /* Staggered animation between title and description */
   opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
+  animation: fadeIn 0.8s forwards;
   animation-delay: 0.3s;
 }
 
@@ -295,7 +293,7 @@ const formattedDate = computed(() => {
 .page-description {
   /* Staggered animation for professional appearance */
   opacity: 0;
-  animation: fadeSlideUp 0.8s forwards;
+  animation: fadeIn 0.8s forwards;
   animation-delay: 0.4s;
 }
 
@@ -317,7 +315,7 @@ const formattedDate = computed(() => {
 
 @media (max-width: 768px) {
   .page-title-section {
-    min-height: calc(20vh + 60px); /* Smaller height on mobile */
+    min-height: 20vh; /* Smaller height on mobile */
   }
 
   .main-page-title {
@@ -339,15 +337,13 @@ const formattedDate = computed(() => {
   }
 }
 
-/* Animation keyframes */
-@keyframes fadeSlideUp {
+/* Animation keyframes - opacity only, no transform to prevent CLS */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -358,7 +354,6 @@ const formattedDate = computed(() => {
   .page-description {
     animation: none !important;
     opacity: 1;
-    transform: none;
   }
 }
 
@@ -374,7 +369,6 @@ const formattedDate = computed(() => {
   .page-description {
     animation: none !important;
     opacity: 1;
-    transform: none;
   }
 
   .page-date-chip {

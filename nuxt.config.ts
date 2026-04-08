@@ -233,13 +233,29 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", type: "image/png", href: "/favicon.png" },
         { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
-        // Material Design Icons CSS
+        // Material Design Icons CSS - preloaded to avoid render-blocking
         {
-          rel: "stylesheet",
+          rel: "preload",
+          as: "style",
           href: "https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css",
           crossorigin: "anonymous",
           integrity:
             "sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2",
+          onload: "this.onload=null;this.rel='stylesheet'",
+        },
+        // Preload the MDI font file for faster icon rendering
+        {
+          rel: "preload",
+          as: "font",
+          type: "font/woff2",
+          href: "https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/fonts/materialdesignicons-webfont.woff2?v=7.4.47",
+          crossorigin: "anonymous",
+        },
+      ],
+      // Fallback for preloaded MDI stylesheet when JS is disabled
+      noscript: [
+        {
+          innerHTML: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" crossorigin="anonymous" integrity="sha384-HphS8cQyN+eYiJ5PMbzShG6qZdRtvHPVLPkYb8JwMkmNgaIxrFVDhQe3jIbq3EZ2">`,
         },
       ],
     },

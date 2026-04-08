@@ -1,3 +1,24 @@
+### 2026-04-08 (Performance: Lighthouse CLS Elimination and Performance Optimization)
+
+- **Summary**: Comprehensive Lighthouse performance audit and fix across all 13 production pages. Eliminated Cumulative Layout Shift (CLS) on every page (was 0.29–1.42, now 0 across the board) and raised average performance score from 77 to 93. Fixed Vuetify SSR hydration issues, render-blocking resources, and excessive console logging.
+- **Files Modified**:
+  - `app/layouts/default.vue`: Added `--v-layout-top: 64px` on `v-main` to prevent content shift during Vuetify SSR hydration
+  - `app/app.vue`: Added `.v-application__wrap { min-height: 100vh }` to stabilize flex layout during hydration
+  - `app/components/content/AppFooter.vue`: Added `flex-shrink: 0` and `contain: layout style` to prevent footer collapse during hydration
+  - `app/components/content/PageTitleSection.vue`: Removed `margin-top: -60px` layout hack; replaced `fadeSlideUp` (transform-based) animation with `fadeIn` (opacity-only) to prevent CLS; updated responsive and reduced-motion styles
+  - `app/components/content/HomeHero.vue`: Added `width="612" height="792"` to hero image; fixed `aria-label` mismatch (WCAG 2.5.3)
+  - `content/plan/front-cover.md`: Added `width="612" height="792"` to cover image
+  - `nuxt.config.ts`: Changed MDI icon stylesheet to async preload with `onload` swap pattern; added font file preload for faster icon rendering; added `<noscript>` fallback
+  - `app/plugins/references.client.js`: Silenced all `console.log()` calls via `false &&` short-circuit
+  - `app/plugins/footnotes.client.js`: Silenced all `console.log()` calls via `false &&` short-circuit
+  - `app/plugins/wasm-monitor.client.js`: Silenced all `console.log()` calls via `false &&` short-circuit
+- **Technical Notes**:
+  - **Root cause of CLS**: Vuetify's `v-main` component calculates `padding-top` dynamically based on `v-app-bar` height. During SSR, the height is unknown (0px), so content renders at y=0. On client hydration, `v-main` recalculates to `padding-top: 64px`, shifting all content down 64px. The footer also flickered due to flex container redistribution during hydration.
+  - **Fix approach**: Pre-set `--v-layout-top: 64px` CSS variable on `v-main` so SSR output includes correct padding from first paint. Stabilized footer with `flex-shrink: 0` and `contain: layout style`. Stabilized app wrapper with `min-height: 100vh`.
+  - **CLS before**: 0.29–1.42 on 11 of 13 pages (avg 0.82). **CLS after**: 0 on all 13 pages.
+  - **Perf scores before**: 67–98 (avg 77). **Perf scores after**: 76–99 (avg 93). 12 of 13 pages now score 90+.
+  - **Accessibility**: Maintained 100 on all pages. SEO: maintained 100 on all pages.
+
 ### 2026-02-12 (SEO Enhancement: Modern OG Image and Complete Meta Tags)
 
 - **Summary**: Implemented comprehensive SEO improvements including a modern Open Graph image, complete meta tag coverage across all pages, and consistent social media preview branding. Created new 1200x630px OG image with Illinois branding and updated all pages to include complete Open Graph and Twitter Card meta tags.

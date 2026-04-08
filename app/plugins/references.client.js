@@ -39,7 +39,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Only run on client side
   if (import.meta.server) return;
 
-  console.log("REFERENCE PLUGIN: Starting up");
+  false && console.log("REFERENCE PLUGIN: Starting up");
 
   // Track enhanced elements to avoid duplicate processing
   const enhancedElements = new WeakSet();
@@ -60,7 +60,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         return;
       }
 
-      console.log(
+      false && console.log(
         "REFERENCE PLUGIN: Creating enhanced tooltip for element with ref:",
         referenceId
       );
@@ -68,7 +68,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       // Import and use the references composable
       import("~/composables/useReferences.js")
         .then(({ useReferences }) => {
-          console.log(
+          false && console.log(
             "REFERENCE PLUGIN: Successfully imported useReferences for:",
             referenceId
           );
@@ -81,7 +81,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           // Load reference data
           const loadReferenceData = async () => {
             try {
-              console.log(
+              false && console.log(
                 "REFERENCE PLUGIN: Loading reference data for:",
                 referenceId
               );
@@ -90,13 +90,13 @@ export default defineNuxtPlugin((nuxtApp) => {
               let hasError = false;
 
               if (referenceId.includes(",")) {
-                console.log(
+                false && console.log(
                   "REFERENCE PLUGIN: Loading multiple references:",
                   referenceId
                 );
                 references = await getMultipleReferences(referenceId);
               } else {
-                console.log(
+                false && console.log(
                   "REFERENCE PLUGIN: Loading single reference:",
                   referenceId
                 );
@@ -104,7 +104,7 @@ export default defineNuxtPlugin((nuxtApp) => {
                 references = ref ? [ref] : [];
               }
 
-              console.log("REFERENCE PLUGIN: Loaded references:", references);
+              false && console.log("REFERENCE PLUGIN: Loaded references:", references);
 
               if (references.length === 0) {
                 console.warn(
@@ -124,7 +124,7 @@ export default defineNuxtPlugin((nuxtApp) => {
                 } else {
                   tooltipText = formatMultipleReferences(references);
                 }
-                console.log(
+                false && console.log(
                   "REFERENCE PLUGIN: Reference loaded for:",
                   referenceId
                 );
@@ -161,7 +161,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       // Mark as enhanced
       enhancedElements.add(element);
 
-      console.log(
+      false && console.log(
         "REFERENCE PLUGIN: Successfully initiated enhancement for ref:",
         referenceId
       );
@@ -194,7 +194,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     referenceId
   ) => {
     try {
-      console.log(
+      false && console.log(
         "REFERENCE PLUGIN: Creating Vuetify-styled tooltip for:",
         referenceId
       );
@@ -357,7 +357,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       });
 
-      console.log(
+      false && console.log(
         "REFERENCE PLUGIN: Successfully created Vuetify-styled tooltip for:",
         referenceId
       );
@@ -376,11 +376,11 @@ export default defineNuxtPlugin((nuxtApp) => {
    * Find and enhance all elements with data-ref attributes
    */
   const enhanceReferenceElements = () => {
-    console.log("REFERENCE PLUGIN: Scanning for reference elements...");
+    false && console.log("REFERENCE PLUGIN: Scanning for reference elements...");
 
     // Find all elements with data-ref attributes
     const referenceElements = document.querySelectorAll("[data-ref]");
-    console.log(
+    false && console.log(
       "REFERENCE PLUGIN: Found",
       referenceElements.length,
       "reference elements"
@@ -399,21 +399,21 @@ export default defineNuxtPlugin((nuxtApp) => {
 
       // Skip if already enhanced
       if (enhancedElements.has(element)) {
-        console.log(
+        false && console.log(
           "REFERENCE PLUGIN: Element already enhanced, skipping:",
           referenceId
         );
         return;
       }
 
-      console.log(
+      false && console.log(
         "REFERENCE PLUGIN: Processing reference element:",
         referenceId
       );
       createReferenceTooltip(element, referenceId);
     });
 
-    console.log("REFERENCE PLUGIN: Enhancement complete");
+    false && console.log("REFERENCE PLUGIN: Enhancement complete");
   };
 
   /**
@@ -433,7 +433,7 @@ export default defineNuxtPlugin((nuxtApp) => {
    * Set up MutationObserver to watch for content changes
    */
   const setupContentObserver = () => {
-    console.log("REFERENCE PLUGIN: Setting up content observer...");
+    false && console.log("REFERENCE PLUGIN: Setting up content observer...");
 
     const observer = new MutationObserver((mutations) => {
       let shouldEnhance = false;
@@ -458,7 +458,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       });
 
       if (shouldEnhance) {
-        console.log(
+        false && console.log(
           "REFERENCE PLUGIN: Content change detected, re-enhancing..."
         );
         debouncedEnhance();
@@ -471,14 +471,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       subtree: true,
     });
 
-    console.log("REFERENCE PLUGIN: Content observer active");
+    false && console.log("REFERENCE PLUGIN: Content observer active");
   };
 
   /**
    * Initialize the plugin
    */
   const initialize = () => {
-    console.log("REFERENCE PLUGIN: Initializing...");
+    false && console.log("REFERENCE PLUGIN: Initializing...");
 
     // Initial enhancement
     enhanceReferenceElements();
@@ -486,7 +486,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     // Set up content observer for SPA navigation and dynamic content
     setupContentObserver();
 
-    console.log("REFERENCE PLUGIN: Initialization complete");
+    false && console.log("REFERENCE PLUGIN: Initialization complete");
   };
 
   // Initialize when DOM is ready - delay to prevent hydration mismatches
@@ -502,7 +502,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   // Also run on route changes for SPA navigation
   nuxtApp.hook("page:finish", () => {
-    console.log("REFERENCE PLUGIN: Page navigation detected, re-enhancing...");
+    false && console.log("REFERENCE PLUGIN: Page navigation detected, re-enhancing...");
     setTimeout(debouncedEnhance, 100); // Small delay to ensure content is rendered
   });
 });

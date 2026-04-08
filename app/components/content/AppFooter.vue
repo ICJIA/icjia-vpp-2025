@@ -184,6 +184,8 @@ const navigateToStatic = (path) => {
 .modern-footer {
   border-top: 1px solid rgba(var(--v-theme-on-background), 0.08);
   padding: 48px 0 32px;
+  flex-shrink: 0; /* Prevent footer from collapsing to 0 during hydration */
+  contain: layout style; /* Isolate footer from ancestor layout recalculations */
 }
 
 /* Light mode footer - darker background for better visual separation */

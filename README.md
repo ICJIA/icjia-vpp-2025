@@ -94,6 +94,7 @@ Every page on this site has been verified to meet the Web Content Accessibility 
 
 | Date | Tool | Result |
 |------|------|--------|
+| April 8, 2026 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
 | March 24, 2026 | axe-core 4.10.2 | 0 violations across 23 pages |
 | December 22, 2025 | axe-core | 98.8% compliance (all issues subsequently fixed) |
 | October 29, 2025 | Google Lighthouse + axe-core | Full audit, all issues resolved |

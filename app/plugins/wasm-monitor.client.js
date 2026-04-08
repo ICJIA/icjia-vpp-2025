@@ -43,7 +43,7 @@ export default defineNuxtPlugin(() => {
             const loadTime = entry.duration || (entry.responseEnd - entry.startTime);
             
             // Log WASM loading event
-            console.log(
+            false && console.log(
               `🔧 WASM LOADED: ${entry.name.split('/').pop()}`,
               `\n📦 Size: ${formatBytes(fileSize)}`,
               `\n⏱️ Load Time: ${loadTime.toFixed(2)}ms`,
@@ -61,7 +61,7 @@ export default defineNuxtPlugin(() => {
 
             // Special handling for SQLite WASM files
             if (entry.name.includes('sqlite')) {
-              console.log(
+              false && console.log(
                 `🗄️ SQLite WASM detected - this is from Nuxt Content v3`,
                 `\n📊 Impact: ${formatBytes(fileSize)} added to bundle`,
                 `\n💡 Note: Your search uses Fuse.js, not SQLite`
@@ -80,7 +80,7 @@ export default defineNuxtPlugin(() => {
       // Start observing resource loading
       observer.observe({ entryTypes: ['resource'] });
       
-      console.log('🔍 WASM monitoring active - will log when WASM files are loaded');
+      false && console.log('🔍 WASM monitoring active - will log when WASM files are loaded');
       log('perf', 'WASM monitoring initialized');
 
     } catch (error) {
@@ -100,13 +100,13 @@ export default defineNuxtPlugin(() => {
       );
 
       if (wasmEntries.length > 0) {
-        console.log(`🔧 Found ${wasmEntries.length} WASM file(s) already loaded:`);
+        false && console.log(`🔧 Found ${wasmEntries.length} WASM file(s) already loaded:`);
         
         wasmEntries.forEach((entry) => {
           const fileSize = entry.transferSize || entry.encodedBodySize || 'unknown';
           const loadTime = entry.duration || (entry.responseEnd - entry.startTime);
           
-          console.log(
+          false && console.log(
             `📦 ${entry.name.split('/').pop()}: ${formatBytes(fileSize)} (${loadTime.toFixed(2)}ms)`
           );
         });
@@ -136,7 +136,7 @@ export default defineNuxtPlugin(() => {
    * Initialize monitoring when DOM is ready
    */
   function initialize() {
-    console.log('🔧 WASM Monitor: Initializing...');
+    false && console.log('🔧 WASM Monitor: Initializing...');
     
     // Check for already loaded WASM files
     checkExistingWASM();
@@ -144,7 +144,7 @@ export default defineNuxtPlugin(() => {
     // Setup monitoring for future WASM loads
     setupWASMMonitoring();
     
-    console.log('🔧 WASM Monitor: Ready');
+    false && console.log('🔧 WASM Monitor: Ready');
   }
 
   // Initialize when DOM is ready

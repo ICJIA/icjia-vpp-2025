@@ -66,4 +66,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Stabilize Vuetify layout during SSR hydration to prevent CLS */
+.v-application__wrap {
+  min-height: 100vh;
+}
 </style>

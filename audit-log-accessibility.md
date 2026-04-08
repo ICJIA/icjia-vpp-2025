@@ -6,6 +6,21 @@ Entries are in reverse chronological order (newest first).
 
 ---
 
+## 2026-04-08: Fix WCAG 2.5.3 Label in Name — HomeHero Aria-Label Mismatch
+
+**Summary**
+Fixed `label-content-name-mismatch` accessibility violation on the home page hero image caption. The visible text "Click image to download" did not match the `aria-label` "Download the Violence Prevention Plan PDF", violating WCAG 2.5.3 (Label in Name).
+
+**Files Modified**
+- `app/components/content/HomeHero.vue` — Changed caption `aria-label` to "Click image to download the Violence Prevention Plan PDF" so it starts with the visible text
+
+**Technical Notes**
+- **WCAG Criterion**: 2.5.3 Label in Name (Level A)
+- The accessible name must contain the visible text to ensure speech-input users can activate the control by speaking the visible label
+- Three `goal-card-container` elements still flagged by Lighthouse but are false positives (the interactive NuxtLink inside correctly uses `aria-labelledby`)
+
+---
+
 ## 2026-03-31: Fix Keyboard Focus Visibility — Vuetify 3 CSS Variable Migration
 
 **Summary**

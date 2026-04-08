@@ -427,7 +427,7 @@ onMounted(() => {
 
     <AppHeader @toggle-theme="toggleTheme" :theme="theme" role="banner" />
 
-    <v-main role="main">
+    <v-main role="main" style="--v-layout-top: 64px">
       <div id="main-content" tabindex="-1">
         <slot />
       </div>

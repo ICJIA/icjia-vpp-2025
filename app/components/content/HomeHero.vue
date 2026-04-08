@@ -66,6 +66,8 @@
               src="/images/vpp-cover.png"
               alt="Youth violence prevention summit participants collaborating on community safety initiatives"
               class="hero-image"
+              width="612"
+              height="792"
               loading="lazy"
               @click="handleDownloadPlan"
               @keydown.enter="handleDownloadPlan"
@@ -82,7 +84,7 @@
               @keydown.space.prevent="handleDownloadPlan"
               tabindex="0"
               role="button"
-              aria-label="Download the Violence Prevention Plan PDF"
+              aria-label="Click image to download the Violence Prevention Plan PDF"
             >
               Click image to download
             </div>

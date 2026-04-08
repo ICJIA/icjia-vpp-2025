@@ -35,7 +35,7 @@ export default defineNuxtPlugin(() => {
   // Only run on client side
   if (import.meta.server) return;
 
-  console.log("FOOTNOTE PLUGIN: Starting up");
+  false && console.log("FOOTNOTE PLUGIN: Starting up");
 
   // Track the last clicked footnote reference for return navigation
   let lastClickedFootnoteRef = null;
@@ -56,13 +56,13 @@ export default defineNuxtPlugin(() => {
    * // <a href="#user-content-fnref-1" class="footnote-backref">↩</a>
    */
   function setupFootnoteScrolling() {
-    console.log("FOOTNOTE PLUGIN: Setting up scrolling");
+    false && console.log("FOOTNOTE PLUGIN: Setting up scrolling");
 
     // Find ALL links on the page and intercept footnote ones
     document.addEventListener(
       "click",
       (e) => {
-        console.log(
+        false && console.log(
           "FOOTNOTE PLUGIN: Click detected on:",
           e.target.tagName,
           e.target.className,
@@ -71,7 +71,7 @@ export default defineNuxtPlugin(() => {
         // Check if it's a footnote link
         if (e.target.tagName === "A" && e.target.getAttribute("href")) {
           const href = e.target.getAttribute("href");
-          console.log("FOOTNOTE PLUGIN: Link clicked with href:", href);
+          false && console.log("FOOTNOTE PLUGIN: Link clicked with href:", href);
 
           // Check if it's a footnote reference (going to footnote definition)
           const isFootnoteRef =
@@ -95,12 +95,12 @@ export default defineNuxtPlugin(() => {
             e.target.getAttribute("aria-label")?.includes("Back to");
 
           if (isFootnoteRef) {
-            console.log(
+            false && console.log(
               "FOOTNOTE PLUGIN: FOOTNOTE REFERENCE CLICKED - PREVENTING DEFAULT!",
             );
             e.preventDefault();
             e.stopPropagation();
-            console.log("FOOTNOTE PLUGIN: preventDefault() called");
+            false && console.log("FOOTNOTE PLUGIN: preventDefault() called");
 
             // Store the clicked footnote reference for return navigation
             // Find the parent <sup> element if we clicked on the <a> inside it
@@ -109,7 +109,7 @@ export default defineNuxtPlugin(() => {
               referenceElement = e.target.closest("sup");
             }
             lastClickedFootnoteRef = referenceElement;
-            console.log(
+            false && console.log(
               "FOOTNOTE PLUGIN: Stored reference for return:",
               referenceElement.id || referenceElement.textContent,
             );
@@ -119,7 +119,7 @@ export default defineNuxtPlugin(() => {
               '.footnotes, section[role="doc-endnotes"], #footnotes',
             );
             if (footnotesSection) {
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: Found footnotes section, scrolling with offset...",
               );
 
@@ -129,7 +129,7 @@ export default defineNuxtPlugin(() => {
                 footnotesSection.getBoundingClientRect().top + window.scrollY;
               const offsetPosition = elementPosition - headerOffset;
 
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: Element position:",
                 elementPosition,
                 "Offset position:",
@@ -141,34 +141,34 @@ export default defineNuxtPlugin(() => {
                 behavior: "smooth",
               });
 
-              console.log("FOOTNOTE PLUGIN: Scrolling executed with offset");
+              false && console.log("FOOTNOTE PLUGIN: Scrolling executed with offset");
             } else {
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: No footnotes section found, trying to scroll to bottom",
               );
               window.scrollTo({
                 top: document.body.scrollHeight - 80,
                 behavior: "smooth",
               });
-              console.log("FOOTNOTE PLUGIN: Scrolled to bottom with offset");
+              false && console.log("FOOTNOTE PLUGIN: Scrolled to bottom with offset");
             }
 
             return false;
           }
 
           if (isFootnoteBackref) {
-            console.log(
+            false && console.log(
               "FOOTNOTE PLUGIN: FOOTNOTE BACK-REFERENCE CLICKED - PREVENTING DEFAULT!",
             );
             e.preventDefault();
             e.stopPropagation();
-            console.log(
+            false && console.log(
               "FOOTNOTE PLUGIN: preventDefault() called for back-reference",
             );
 
             // Try to scroll back to the stored reference first
             if (lastClickedFootnoteRef) {
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: Scrolling back to stored reference:",
                 lastClickedFootnoteRef.id || lastClickedFootnoteRef.textContent,
               );
@@ -179,7 +179,7 @@ export default defineNuxtPlugin(() => {
                 window.scrollY;
               const offsetPosition = elementPosition - headerOffset;
 
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: Reference position:",
                 elementPosition,
                 "Offset position:",
@@ -191,7 +191,7 @@ export default defineNuxtPlugin(() => {
                 behavior: "smooth",
               });
 
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: Return scroll executed with offset",
               );
             } else {
@@ -216,7 +216,7 @@ export default defineNuxtPlugin(() => {
                 for (const altId of alternativeIds) {
                   targetElement = document.getElementById(altId);
                   if (targetElement) {
-                    console.log(
+                    false && console.log(
                       "FOOTNOTE PLUGIN: Found target with alternative ID:",
                       altId,
                     );
@@ -225,7 +225,7 @@ export default defineNuxtPlugin(() => {
                 }
               }
 
-              console.log(
+              false && console.log(
                 "FOOTNOTE PLUGIN: No stored reference, looking for target:",
                 targetId,
                 "Found:",
@@ -238,7 +238,7 @@ export default defineNuxtPlugin(() => {
                   targetElement.getBoundingClientRect().top + window.scrollY;
                 const offsetPosition = elementPosition - headerOffset;
 
-                console.log(
+                false && console.log(
                   "FOOTNOTE PLUGIN: Target position:",
                   elementPosition,
                   "Offset position:",
@@ -250,11 +250,11 @@ export default defineNuxtPlugin(() => {
                   behavior: "smooth",
                 });
 
-                console.log(
+                false && console.log(
                   "FOOTNOTE PLUGIN: Fallback return scroll executed with offset",
                 );
               } else {
-                console.log(
+                false && console.log(
                   "FOOTNOTE PLUGIN: No target found for return scroll, trying to find any footnote reference",
                 );
 
@@ -273,11 +273,11 @@ export default defineNuxtPlugin(() => {
                     behavior: "smooth",
                   });
 
-                  console.log(
+                  false && console.log(
                     "FOOTNOTE PLUGIN: Last resort scroll to first footnote reference",
                   );
                 } else {
-                  console.log(
+                  false && console.log(
                     "FOOTNOTE PLUGIN: No footnote references found at all",
                   );
                 }
@@ -291,7 +291,7 @@ export default defineNuxtPlugin(() => {
       true,
     ); // Use capture phase to intercept before other handlers
 
-    console.log("FOOTNOTE PLUGIN: Click handler installed");
+    false && console.log("FOOTNOTE PLUGIN: Click handler installed");
   }
 
   /**
@@ -310,14 +310,14 @@ export default defineNuxtPlugin(() => {
    * // <sup><a href="#fn-1">1</a></sup>
    */
   function styleExistingFootnotes() {
-    console.log("FOOTNOTE PLUGIN: Styling existing footnote <sup> elements");
+    false && console.log("FOOTNOTE PLUGIN: Styling existing footnote <sup> elements");
 
     // Find all existing <sup> elements that contain footnote references
     const footnoteSupElements = document.querySelectorAll(
       'sup:has(a[data-footnote-ref]), sup[data-footnote-ref], sup:has(a[href*="fn-"]), sup:has(a[href*="footnote"])',
     );
 
-    console.log(
+    false && console.log(
       "FOOTNOTE PLUGIN: Found",
       footnoteSupElements.length,
       "footnote <sup> elements",
@@ -326,7 +326,7 @@ export default defineNuxtPlugin(() => {
     if (footnoteSupElements.length === 0) {
       // Fallback: look for any <sup> elements containing links
       const allSupElements = document.querySelectorAll("sup");
-      console.log(
+      false && console.log(
         "FOOTNOTE PLUGIN: Fallback - found",
         allSupElements.length,
         "total <sup> elements",
@@ -340,13 +340,13 @@ export default defineNuxtPlugin(() => {
             link.href.includes("footnote") ||
             link.getAttribute("data-footnote-ref") !== null)
         ) {
-          console.log("FOOTNOTE PLUGIN: Styling fallback <sup> element:", sup);
+          false && console.log("FOOTNOTE PLUGIN: Styling fallback <sup> element:", sup);
           applyFootnoteStyles(sup);
         }
       });
     } else {
       footnoteSupElements.forEach((sup) => {
-        console.log("FOOTNOTE PLUGIN: Styling <sup> element:", sup);
+        false && console.log("FOOTNOTE PLUGIN: Styling <sup> element:", sup);
         applyFootnoteStyles(sup);
       });
     }
@@ -443,7 +443,7 @@ export default defineNuxtPlugin(() => {
       this.style.boxShadow = "0 1px 2px rgba(0, 0, 0, 0.1)"; // Return to original shadow
     };
 
-    console.log("FOOTNOTE PLUGIN: Applied styles to <sup> element");
+    false && console.log("FOOTNOTE PLUGIN: Applied styles to <sup> element");
   }
 
   /**
@@ -461,7 +461,7 @@ export default defineNuxtPlugin(() => {
    * // Updates from light theme colors to dark theme colors or vice versa
    */
   function updateFootnoteThemeColors() {
-    console.log("FOOTNOTE PLUGIN: Updating theme colors");
+    false && console.log("FOOTNOTE PLUGIN: Updating theme colors");
 
     const isDarkTheme =
       document.documentElement.getAttribute("data-theme") === "dark";
@@ -519,7 +519,7 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function handleContentChange() {
-    console.log("FOOTNOTE PLUGIN: Content changed, re-styling footnotes");
+    false && console.log("FOOTNOTE PLUGIN: Content changed, re-styling footnotes");
     // Small delay to ensure new content is fully rendered
     setTimeout(() => {
       styleExistingFootnotes();
@@ -536,7 +536,7 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function setupThemeWatcher() {
-    console.log("FOOTNOTE PLUGIN: Setting up theme watcher");
+    false && console.log("FOOTNOTE PLUGIN: Setting up theme watcher");
 
     // Create a MutationObserver to watch for theme changes
     const observer = new MutationObserver((mutations) => {
@@ -545,7 +545,7 @@ export default defineNuxtPlugin(() => {
           mutation.type === "attributes" &&
           mutation.attributeName === "data-theme"
         ) {
-          console.log("FOOTNOTE PLUGIN: Theme change detected");
+          false && console.log("FOOTNOTE PLUGIN: Theme change detected");
           updateFootnoteThemeColors();
         }
       });
@@ -568,7 +568,7 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function setupContentWatcher() {
-    console.log("FOOTNOTE PLUGIN: Setting up content watcher");
+    false && console.log("FOOTNOTE PLUGIN: Setting up content watcher");
 
     // Create a MutationObserver to watch for new footnotes
     const contentObserver = new MutationObserver((mutations) => {
@@ -590,7 +590,7 @@ export default defineNuxtPlugin(() => {
       });
 
       if (shouldRestyle) {
-        console.log("FOOTNOTE PLUGIN: New footnotes detected, re-styling");
+        false && console.log("FOOTNOTE PLUGIN: New footnotes detected, re-styling");
         handleContentChange();
       }
     });
@@ -612,7 +612,7 @@ export default defineNuxtPlugin(() => {
    * @returns {void}
    */
   function init() {
-    console.log("FOOTNOTE PLUGIN: Initializing");
+    false && console.log("FOOTNOTE PLUGIN: Initializing");
 
     // Style existing footnote <sup> elements
     styleExistingFootnotes();
@@ -626,7 +626,7 @@ export default defineNuxtPlugin(() => {
     // Setup content watching for SPA navigation
     setupContentWatcher();
 
-    console.log("FOOTNOTE PLUGIN: Ready");
+    false && console.log("FOOTNOTE PLUGIN: Ready");
   }
 
   // Start when DOM is ready - delay to prevent hydration mismatches
