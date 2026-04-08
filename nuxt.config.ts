@@ -251,13 +251,9 @@ export default defineNuxtConfig({
           hreflang: "x-default",
           href: "https://vpp.icjia.illinois.gov",
         },
-        // Preconnect hints for third-party domains
+        // Preconnect for jsdelivr CDN (MDI icons) — Google Fonts are built locally, no preconnect needed
         { rel: "preconnect", href: "https://cdn.jsdelivr.net", crossorigin: "anonymous" },
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
         { rel: "dns-prefetch", href: "https://cdn.jsdelivr.net" },
-        { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
-        { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
         // Material Design Icons CSS - preloaded to avoid render-blocking
         {
           rel: "preload",

@@ -48,6 +48,14 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2026-04-08] - Perf: Remove Unused Preconnect Hints
+
+### Fixes
+- Remove unused preconnect/dns-prefetch for `fonts.googleapis.com` and `fonts.gstatic.com` — Google Fonts are downloaded locally at build time via `@nuxtjs/google-fonts` module, so these hints waste browser connection resources
+- Keep preconnect for `cdn.jsdelivr.net` (MDI icons loaded from CDN)
+
+---
+
 ## [2026-04-08] - Fix: Netlify App Manifest 404 and Hero Image Layout
 
 ### Fixes
