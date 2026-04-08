@@ -48,93 +48,40 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
-## [2026-04-08] - Perf: Remove Unused Preconnect Hints
+## [2026-04-08] - Performance, Security, AI Readiness & Deployment Fixes
 
-### Fixes
-- Remove unused preconnect/dns-prefetch for `fonts.googleapis.com` and `fonts.gstatic.com` — Google Fonts are downloaded locally at build time via `@nuxtjs/google-fonts` module, so these hints waste browser connection resources
-- Keep preconnect for `cdn.jsdelivr.net` (MDI icons loaded from CDN)
-
----
-
-## [2026-04-08] - Fix: Netlify App Manifest 404 and Hero Image Layout
-
-### Fixes
-- Fix "Page Not Found" error on Netlify — root cause was Nuxt app manifest (`/_nuxt/builds/meta/*.json`) returning 404 due to CDN cache mismatch between stale HTML and new build hashes; disabled `experimental.appManifest` since static sites don't need it
-- Fix hero image stacking below text instead of side-by-side — replaced `width="612" height="792"` HTML attributes with CSS `aspect-ratio: 612 / 792` to prevent the image from forcing 612px minimum column width in Vuetify grid
-- Homepage JSON-LD injected via `useHead()` in script setup (avoids StructuredData component hydration issues)
-
----
-
-## [2026-04-08] - Fix: Homepage Hydration Error from StructuredData Component
-
-### Fixes
-- Fix homepage "Page Not Found" error on Netlify caused by StructuredData component hydration mismatch
-- Replace StructuredData component with direct `useHead()` JSON-LD injection in `index.vue` script setup — avoids SSR/client rendering divergence while preserving GovernmentOrganization + WebSite schemas for AI crawlers
-- JSON-LD now includes `datePublished` and `dateModified` for content freshness signals
-
----
-
-## [2026-04-08] - Security: Red Team Audit Remediation
-
-### Security
-- Disable source maps in production Vite build — `sourcemap: true` in `nuxt.config.ts` was overriding the top-level Nuxt config and exposing internal code structure
-- Remove framework version from generator meta tag — was disclosing "Nuxt 4.0.0", now just "Nuxt"
-- Silence all console logging in `search.vue` — 34 `console.log/error/warn` calls were exposing file paths, config, and internal structure in production
-
-### Fixes
-- Fix memory leaks in `footnotes.client.js` — add `app:unmounted` cleanup for 2 MutationObservers, global click listener, and init timeout
-- Fix memory leaks in `references.client.js` — add `app:unmounted` cleanup for MutationObserver, debounce timer, and init timeout
-
----
-
-## [2026-04-08] - Fix: Hero Image Layout Regression
-
-### Fixes
-- Fix homepage hero image stacking below content instead of side-by-side — add inline `height: auto` to override the explicit `height="792"` HTML attribute that was forcing vertical stacking in the Vuetify grid
-
----
-
-## [2026-04-08] - Performance: Footer CLS Elimination via Viewport Threshold
-
-### Fixes
-- Increase NuxtPage `min-height` from `70vh` to `100vh` — pushes footer below viewport fold during SSR so Vuetify hydration footer flicker no longer registers as CLS
-- Eliminates remaining CLS (0.4–0.6) on pages where footer was visible during initial paint: `/download`, `/plan/front-cover`, `/plan/references`, `/legal/privacy-policy`
-
-### Performance Results
-- CLS: **0 on all 13 pages** (was 0.14–0.57 on 8 pages)
-- Pages scoring 90+: **12 of 13** (Lighthouse variance on 1 page)
-- Accessibility: **100 on all pages** (maintained)
-- SEO: **100 on all pages** (maintained)
-
----
-
-## [2026-04-08] - AI Readiness & SEO Structured Data
-
-### Features
-- Re-enable JSON-LD structured data on homepage (GovernmentOrganization + WebSite schemas)
-- Add `article:published_time` and `article:modified_time` meta tags to all content pages
-- Add hreflang tags (`en` + `x-default`) for search engine language clarity
-- Add preconnect and dns-prefetch hints for jsdelivr CDN, Google Fonts, and Google Fonts static domains
-
-### Fixes
-- Fix Nuxt Content v3 custom frontmatter access — `lastModified` field stored in `content.meta`, not top-level
-- Add `date` (2025-07-24) and `lastModified` (2026-04-08) frontmatter to all 13 content markdown files
-- Replace dynamic `new Date().toISOString()` fallbacks in StructuredData.vue with static dates for consistent SSR output
-
----
-
-## [2026-04-08] - Performance: CLS Elimination & Lighthouse Optimization
-
-### Fixes
+### Performance
 - Eliminate Cumulative Layout Shift (CLS) on all 13 pages — was 0.29–1.42, now 0 across the board
 - Fix Vuetify `v-main` SSR hydration mismatch — pre-set `--v-layout-top: 64px` CSS variable so content renders at correct position from first paint
 - Stabilize footer during hydration — add `flex-shrink: 0` and `contain: layout style` to prevent collapse
 - Stabilize `.v-application__wrap` with `min-height: 100vh` to prevent flex redistribution during hydration
+- Increase NuxtPage `min-height` from `70vh` to `100vh` — pushes footer below viewport fold so hydration flicker no longer registers as CLS
 - Replace `fadeSlideUp` animation (transform-based, caused CLS) with `fadeIn` (opacity-only) in PageTitleSection
 - Remove `margin-top: -60px` layout hack from PageTitleSection
-- Add explicit `width`/`height` attributes to cover image and hero image to reserve space before load
 - Change MDI icon stylesheet to async preload with `onload` swap + `<noscript>` fallback + font file preload
+- Remove unused preconnect/dns-prefetch for `fonts.googleapis.com` and `fonts.gstatic.com` — fonts are built locally
 - Silence verbose `console.log()` output in references, footnotes, and WASM monitor plugins
+
+### Security
+- Disable source maps in production Vite build — `sourcemap: true` was overriding the top-level Nuxt config, exposing internal code structure
+- Remove framework version from generator meta tag — was disclosing "Nuxt 4.0.0", now just "Nuxt"
+- Silence all console logging in `search.vue` — 34 `console.log/error/warn` calls were exposing file paths, config, and internal structure in production
+- Fix memory leaks in `footnotes.client.js` — add `app:unmounted` cleanup for 2 MutationObservers, global click listener, and init timeout
+- Fix memory leaks in `references.client.js` — add `app:unmounted` cleanup for MutationObserver, debounce timer, and init timeout
+
+### Features
+- Add JSON-LD structured data on homepage (GovernmentOrganization + WebSite schemas) via `useHead()` in script setup
+- Add `article:published_time` and `article:modified_time` meta tags to all content pages
+- Add hreflang tags (`en` + `x-default`) for search engine language clarity
+- Add preconnect for jsdelivr CDN (MDI icons)
+- Add `date` (2025-07-24) and `lastModified` (2026-04-08) frontmatter to all 13 content markdown files
+
+### Fixes
+- Fix "Page Not Found" on Netlify — Nuxt app manifest (`/_nuxt/builds/meta/*.json`) 404'd due to CDN cache mismatch; disabled `experimental.appManifest` since static sites don't need it
+- Fix homepage hero image stacking below text — replaced `width/height` HTML attributes with CSS `aspect-ratio: 612 / 792` to prevent forcing 612px minimum column width in Vuetify grid
+- Fix homepage StructuredData component hydration mismatch — replaced component with direct `useHead()` JSON-LD injection
+- Fix Nuxt Content v3 custom frontmatter access — `lastModified` stored in `content.meta`, not top-level
+- Replace dynamic `new Date().toISOString()` fallbacks in StructuredData.vue with static dates for consistent SSR output
 
 ### Accessibility
 - Fix WCAG 2.5.3 (Label in Name) — hero image caption `aria-label` now starts with visible text "Click image to download"
@@ -143,6 +90,8 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 - Average Lighthouse performance score: **77 → 93**
 - Pages scoring 90+: **1 → 12** (of 13)
 - CLS passing (< 0.1): **2 → 13** (of 13)
+- Accessibility: **100 on all pages** (maintained)
+- SEO: **100 on all pages** (maintained)
 
 ---
 
