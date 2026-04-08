@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <StructuredData :content="homeContent" page-type="homepage" path="/" />
+    <!-- JSON-LD injected via useHead in script setup to avoid hydration issues -->
 
     <HomeHero />
     <HomeLetters />
@@ -144,19 +144,8 @@ const LazyHomeAction = defineAsyncComponent(
   () => import("~/components/content/HomeAction.vue")
 );
 
-import StructuredData from "~/components/seo/StructuredData.vue";
-
 // Initialize console logger
 const { log } = useConsoleLogger();
-
-// Content object for StructuredData component
-const homeContent = {
-  title: "Violence Prevention Plan for Illinois: 2025-2029",
-  description:
-    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
-  date: "2025-07-24",
-  lastModified: "2026-04-08",
-};
 
 // Log page initialization
 log("content", "Home page initialized", {
@@ -222,8 +211,63 @@ useSeoMeta({
 });
 
 // Also inject an explicit <link rel="canonical"> for Lighthouse compliance
+// and JSON-LD structured data (injected here instead of StructuredData component to avoid hydration issues)
 useHead({
   link: [{ rel: "canonical", href: homeCanonicalUrl }],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "GovernmentOrganization",
+        name: "Illinois Criminal Justice Information Authority",
+        alternateName: "ICJIA",
+        url: "https://icjia.illinois.gov",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://vpp.icjia.illinois.gov/images/illinois-seal.png",
+          width: 1200,
+          height: 1198,
+        },
+        description:
+          "The Illinois Criminal Justice Information Authority (ICJIA) aims to continue funding and supporting violence prevention efforts across Illinois.",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "60 E Van Buren St, Suite 650",
+          addressLocality: "Chicago",
+          addressRegion: "IL",
+          postalCode: "60605",
+          addressCountry: "US",
+        },
+      }),
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Statewide Violence Prevention Plan for Illinois: 2025-2029",
+        url: "https://vpp.icjia.illinois.gov",
+        description:
+          "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029.",
+        publisher: {
+          "@type": "GovernmentOrganization",
+          name: "Illinois Criminal Justice Information Authority",
+        },
+        datePublished: "2025-07-24",
+        dateModified: "2026-04-08",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate:
+              "https://vpp.icjia.illinois.gov/search?q={search_term_string}",
+          },
+          "query-input": "required name=search_term_string",
+        },
+      }),
+    },
+  ],
 });
 </script>
 

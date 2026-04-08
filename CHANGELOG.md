@@ -48,6 +48,15 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2026-04-08] - Fix: Homepage Hydration Error from StructuredData Component
+
+### Fixes
+- Fix homepage "Page Not Found" error on Netlify caused by StructuredData component hydration mismatch
+- Replace StructuredData component with direct `useHead()` JSON-LD injection in `index.vue` script setup — avoids SSR/client rendering divergence while preserving GovernmentOrganization + WebSite schemas for AI crawlers
+- JSON-LD now includes `datePublished` and `dateModified` for content freshness signals
+
+---
+
 ## [2026-04-08] - Security: Red Team Audit Remediation
 
 ### Security
