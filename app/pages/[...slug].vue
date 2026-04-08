@@ -1363,10 +1363,15 @@ useSeoMeta({
   ),
   keywords: computed(() => content.value?.keywords || undefined),
   articlePublishedTime: computed(
-    () => content.value?.date || content.value?.publishedTime
+    () => content.value?.date || content.value?.publishedTime || "2025-07-24"
   ),
   articleModifiedTime: computed(
-    () => content.value?.lastModified || content.value?.modifiedTime
+    () =>
+      content.value?.meta?.lastModified ||
+      content.value?.lastModified ||
+      content.value?.modifiedTime ||
+      content.value?.date ||
+      "2025-07-24"
   ),
   articleAuthor: computed(
     () =>

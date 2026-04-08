@@ -1,6 +1,8 @@
 ---
 title: "Goals and Recommendations"
 description: "Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029, focusing on evidence-based practices, equity, and collaboration."
+date: 2025-07-24
+lastModified: 2026-04-08
 ogTitle: "Goals and Recommendations - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029."
 ogImage: "/images/og-image-vpp-2025.png"

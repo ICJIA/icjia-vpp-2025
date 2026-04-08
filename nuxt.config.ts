@@ -233,6 +233,24 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", type: "image/png", href: "/favicon.png" },
         { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
+        // Language declaration for AI and search engine clarity
+        {
+          rel: "alternate",
+          hreflang: "en",
+          href: "https://vpp.icjia.illinois.gov",
+        },
+        {
+          rel: "alternate",
+          hreflang: "x-default",
+          href: "https://vpp.icjia.illinois.gov",
+        },
+        // Preconnect hints for third-party domains
+        { rel: "preconnect", href: "https://cdn.jsdelivr.net", crossorigin: "anonymous" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "anonymous" },
+        { rel: "dns-prefetch", href: "https://cdn.jsdelivr.net" },
+        { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
+        { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
         // Material Design Icons CSS - preloaded to avoid render-blocking
         {
           rel: "preload",

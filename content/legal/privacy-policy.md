@@ -1,6 +1,7 @@
 ---
 title: "Privacy Policy"
 date: 2025-07-24
+lastModified: 2026-04-08
 description: "This Privacy Policy describes how the Statewide Violence Prevention Plan for Illinois: 2025-2029 website collects, uses, and shares information about you when you visit our website."
 ---
 

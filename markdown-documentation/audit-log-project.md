@@ -1,3 +1,18 @@
+### 2026-04-08 (SEO/AI Readiness: JSON-LD, Content Freshness, Hreflang, and Resource Hints)
+
+- **Summary**: Improved AI readiness and SEO by re-enabling JSON-LD structured data on the homepage, adding content freshness dates to all pages, adding hreflang tags for language declaration, and adding preconnect/dns-prefetch hints for third-party domains.
+- **Files Modified**:
+  - `app/pages/index.vue`: Re-enabled StructuredData component (was commented out), restored homeContent object with dates
+  - `app/pages/[...slug].vue`: Updated `articleModifiedTime` to check `content.meta.lastModified` (Nuxt Content v3 stores custom frontmatter in `meta`); added fallback date `2025-07-24`
+  - `app/components/seo/StructuredData.vue`: Updated `dateModified` to check `content.meta?.lastModified`; replaced `new Date().toISOString()` fallbacks with static `2025-07-24`
+  - `nuxt.config.ts`: Added hreflang tags (`en`, `x-default`), preconnect hints (jsdelivr CDN, Google Fonts), and dns-prefetch hints
+  - All 13 content markdown files: Added `date: 2025-07-24` and `lastModified: 2026-04-08` to frontmatter
+- **Technical Notes**:
+  - **JSON-LD**: Homepage now emits GovernmentOrganization + WebSite schemas; inner pages emit BreadcrumbList + Article schemas with proper datePublished/dateModified
+  - **Nuxt Content v3**: Custom frontmatter fields (like `lastModified`) are stored in `content.meta`, not at the top level — code must access `content.meta.lastModified`
+  - **Hreflang**: Single-language site (en) with x-default for completeness
+  - **Preconnect**: cdn.jsdelivr.net (MDI icons), fonts.googleapis.com, fonts.gstatic.com
+
 ### 2026-04-08 (Performance: Lighthouse CLS Elimination and Performance Optimization)
 
 - **Summary**: Comprehensive Lighthouse performance audit and fix across all 13 production pages. Eliminated Cumulative Layout Shift (CLS) on every page (was 0.29–1.42, now 0 across the board) and raised average performance score from 77 to 93. Fixed Vuetify SSR hydration issues, render-blocking resources, and excessive console logging.

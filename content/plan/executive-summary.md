@@ -1,6 +1,8 @@
 ---
 title: "Executive Summary"
 description: "Learn about our mission, values, and approach to violence prevention across Illinois."
+date: 2025-07-24
+lastModified: 2026-04-08
 ogTitle: "Executive Summary - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Learn about our mission, values, and approach to violence prevention across Illinois."
 ogImage: "/images/og-image-vpp-2025.png"

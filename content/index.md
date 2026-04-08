@@ -1,6 +1,8 @@
 ---
 title: "Violence Prevention Plan for Illinois: 2025-2029 - Home"
 description: "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities."
+date: 2025-07-24
+lastModified: 2026-04-08
 ogTitle: "Violence Prevention Plan for Illinois: 2025-2029 - Home"
 ogDescription: "Comprehensive resources and tools for violence prevention initiatives across Illinois communities."
 ogImage: "/images/og-image-vpp-2025.png"

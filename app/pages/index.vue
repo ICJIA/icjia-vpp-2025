@@ -1,7 +1,6 @@
 <template>
   <div class="home-page">
-    <!-- SEO Structured Data - temporarily disabled to fix hydration issues -->
-    <!-- <StructuredData :content="homeContent" page-type="homepage" path="/" /> -->
+    <StructuredData :content="homeContent" page-type="homepage" path="/" />
 
     <HomeHero />
     <HomeLetters />
@@ -145,28 +144,19 @@ const LazyHomeAction = defineAsyncComponent(
   () => import("~/components/content/HomeAction.vue")
 );
 
-// import StructuredData from "~/components/seo/StructuredData.vue";
+import StructuredData from "~/components/seo/StructuredData.vue";
 
 // Initialize console logger
 const { log } = useConsoleLogger();
 
-// Create content object for StructuredData component - temporarily disabled
-// const homeContent = {
-//   title: "Violence Prevention Plan for Illinois: 2025-2029",
-//   description:
-//     "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
-//   _path: "/",
-//   _dir: "",
-//   _draft: false,
-//   _partial: false,
-//   _locale: "",
-//   _empty: false,
-//   _type: "markdown",
-//   _id: "content:index.md",
-//   _source: "content",
-//   _file: "index.md",
-//   _extension: "md",
-// };
+// Content object for StructuredData component
+const homeContent = {
+  title: "Violence Prevention Plan for Illinois: 2025-2029",
+  description:
+    "The Violence Prevention Plan for Illinois: 2025-2029 provides comprehensive resources and tools for violence prevention initiatives across Illinois communities.",
+  date: "2025-07-24",
+  lastModified: "2026-04-08",
+};
 
 // Log page initialization
 log("content", "Home page initialized", {

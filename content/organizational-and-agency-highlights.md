@@ -1,6 +1,8 @@
 ---
 title: "Organizational and Agency Highlights"
 description: "Highlighting key organizations and agencies contributing to violence prevention efforts across Illinois."
+date: 2025-07-24
+lastModified: 2026-04-08
 ogTitle: "Organizational and Agency Highlights - Violence Prevention Plan for Illinois: 2025-2029"
 ogDescription: "Key organizations and agencies contributing to violence prevention efforts across Illinois."
 ogImage: "/images/og-image-vpp-2025.png"

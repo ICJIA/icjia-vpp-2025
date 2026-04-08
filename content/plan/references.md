@@ -1,6 +1,8 @@
 ---
 title: References
 description: Complete bibliography and references for the Illinois Statewide Violence Prevention Plan 2025-2029
+date: 2025-07-24
+lastModified: 2026-04-08
 ---
 
 <style scoped>

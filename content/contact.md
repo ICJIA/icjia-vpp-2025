@@ -1,6 +1,8 @@
 ---
 title: "Contact Us"
 description: "Get in touch with the Illinois Criminal Justice Information Authority regarding the Statewide Violence Prevention Plan for Illinois: 2025-2029."
+date: 2025-07-24
+lastModified: 2026-04-08
 keywords:
   [
     "contact",

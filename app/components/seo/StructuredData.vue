@@ -175,12 +175,13 @@ const articleSchema = computed(() => {
     datePublished:
       props.content.date ||
       props.content.publishedTime ||
-      new Date().toISOString(),
+      "2025-07-24",
     dateModified:
+      props.content.meta?.lastModified ||
       props.content.lastModified ||
       props.content.modifiedTime ||
       props.content.date ||
-      new Date().toISOString(),
+      "2025-07-24",
     url: `${baseUrl}${props.path}`,
     image: props.content.image
       ? props.content.image.startsWith("/")
