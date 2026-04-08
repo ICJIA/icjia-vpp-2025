@@ -15,12 +15,12 @@ onMounted(() => {
 <template>
   <NuxtLayout>
     <NuxtErrorBoundary>
-      <NuxtPage style="min-height: 70vh !important" />
+      <NuxtPage style="min-height: 100vh !important" />
       <template #error="{ error, clearError }">
         <div
           role="alert"
           style="
-            min-height: 70vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;

@@ -48,6 +48,20 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2026-04-08] - Performance: Footer CLS Elimination via Viewport Threshold
+
+### Fixes
+- Increase NuxtPage `min-height` from `70vh` to `100vh` — pushes footer below viewport fold during SSR so Vuetify hydration footer flicker no longer registers as CLS
+- Eliminates remaining CLS (0.4–0.6) on pages where footer was visible during initial paint: `/download`, `/plan/front-cover`, `/plan/references`, `/legal/privacy-policy`
+
+### Performance Results
+- CLS: **0 on all 13 pages** (was 0.14–0.57 on 8 pages)
+- Pages scoring 90+: **12 of 13** (Lighthouse variance on 1 page)
+- Accessibility: **100 on all pages** (maintained)
+- SEO: **100 on all pages** (maintained)
+
+---
+
 ## [2026-04-08] - AI Readiness & SEO Structured Data
 
 ### Features
