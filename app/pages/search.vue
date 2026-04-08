@@ -325,7 +325,7 @@ async function loadFuseConfig() {
     // Add cache-busting parameter to force fresh load (client-side only to prevent hydration mismatch)
     const cacheBuster = typeof window !== "undefined" ? `?t=${Date.now()}` : "";
 
-    console.log("🔧 Loading Fuse config...");
+    false && console.log("🔧 Loading Fuse config...");
 
     // Try to load from public directory first with cache busting
     let response = await fetch(`/config/fuse.config.json${cacheBuster}`, {
@@ -338,7 +338,7 @@ async function loadFuseConfig() {
 
     // If that fails, try the fallback path
     if (!response.ok) {
-      console.log("⚠️ Config not found in /config, trying fallback path");
+      false && console.log("⚠️ Config not found in /config, trying fallback path");
       log("search", "Config not found in /config, trying fallback path");
       response = await fetch(`/data/fuse.config.json${cacheBuster}`, {
         cache: "no-cache",
@@ -356,7 +356,7 @@ async function loadFuseConfig() {
     }
 
     fuseConfig.value = await response.json();
-    console.log("✅ Loaded Fuse.js configuration:", fuseConfig.value);
+    false && console.log("✅ Loaded Fuse.js configuration:", fuseConfig.value);
     log("search", "Loaded Fuse.js configuration from config file");
 
     // Extract Fuse options from config
@@ -366,7 +366,7 @@ async function loadFuseConfig() {
       fuseConfig.value.search.fuseOptions
     ) {
       fuseOptions.value = fuseConfig.value.search.fuseOptions;
-      console.log(
+      false && console.log(
         "✅ Using Fuse.js options from config file:",
         fuseOptions.value
       );
@@ -377,7 +377,7 @@ async function loadFuseConfig() {
       );
     }
   } catch (error) {
-    console.error("❌ Error loading Fuse config:", error);
+    false && console.error("❌ Error loading Fuse config:", error);
     log(
       "search",
       "Failed to load Fuse.js configuration - search will not work"
@@ -395,20 +395,20 @@ async function initializeSearch() {
 
   try {
     isInitializing.value = true;
-    console.log("🔍 Lazy loading search functionality...");
+    false && console.log("🔍 Lazy loading search functionality...");
     log("search", "Initializing search on demand");
 
     // Dynamically import Fuse.js only when needed
     const { default: Fuse } = await import("fuse.js");
-    console.log("✅ Fuse.js loaded dynamically");
+    false && console.log("✅ Fuse.js loaded dynamically");
 
     // Load search index and configuration
     await loadSearchIndex(Fuse);
 
     searchInitialized.value = true;
-    console.log("✅ Search functionality fully initialized");
+    false && console.log("✅ Search functionality fully initialized");
   } catch (error) {
-    console.error("❌ Error initializing search:", error);
+    false && console.error("❌ Error initializing search:", error);
     log("search", "Failed to initialize search functionality");
     isInitializing.value = false;
   }
@@ -418,7 +418,7 @@ async function initializeSearch() {
 async function loadSearchIndex(Fuse) {
   try {
     isInitializing.value = true;
-    console.log("🔍 Starting search index loading...");
+    false && console.log("🔍 Starting search index loading...");
     log("search", "Loading search index");
 
     // First load the configuration
@@ -427,14 +427,14 @@ async function loadSearchIndex(Fuse) {
     // Determine the index path from config or use default
     const indexPath =
       fuseConfig.value?.search?.indexPath || "/data/search-index.json";
-    console.log(`📊 Using search index path: ${indexPath}`);
+    false && console.log(`📊 Using search index path: ${indexPath}`);
     log("search", `Using search index path: ${indexPath}`);
 
     // Add cache-busting parameter to force fresh load (client-side only to prevent hydration mismatch)
     const cacheBuster = typeof window !== "undefined" ? `?t=${Date.now()}` : "";
     const fullIndexPath = `${indexPath}${cacheBuster}`;
 
-    console.log(`📥 Fetching search index from: ${fullIndexPath}`);
+    false && console.log(`📥 Fetching search index from: ${fullIndexPath}`);
 
     const response = await fetch(fullIndexPath, {
       cache: "no-cache",
@@ -451,11 +451,11 @@ async function loadSearchIndex(Fuse) {
     }
 
     const rawIndex = await response.json();
-    console.log(`✅ Search index loaded successfully:`, rawIndex);
+    false && console.log(`✅ Search index loaded successfully:`, rawIndex);
 
     // Validate and sanitize the search index for security
     searchIndex.value = validateSearchResults(rawIndex);
-    console.log(`🔒 Search index validated: ${searchIndex.value.length} items`);
+    false && console.log(`🔒 Search index validated: ${searchIndex.value.length} items`);
 
     // Check for any dangerous content in the index
     const dangerousItems = searchIndex.value.filter(
@@ -466,7 +466,7 @@ async function loadSearchIndex(Fuse) {
     );
 
     if (dangerousItems.length > 0) {
-      console.warn(
+      false && console.warn(
         `⚠️ Found ${dangerousItems.length} potentially dangerous items in search index`
       );
       log(
@@ -479,12 +479,12 @@ async function loadSearchIndex(Fuse) {
     const homepage = searchIndex.value.find(
       (item) => item.path === "/" || item.path === "/index"
     );
-    console.log(`🏠 Homepage found:`, homepage);
+    false && console.log(`🏠 Homepage found:`, homepage);
 
     if (homepage) {
-      console.log(`🏠 Homepage title: "${homepage.title}"`);
-      console.log(`🏠 Homepage content type: ${typeof homepage.content}`);
-      console.log(
+      false && console.log(`🏠 Homepage title: "${homepage.title}"`);
+      false && console.log(`🏠 Homepage content type: ${typeof homepage.content}`);
+      false && console.log(
         `🏠 Homepage content length: ${
           homepage.content ? homepage.content.length : "undefined"
         }`
@@ -493,17 +493,17 @@ async function loadSearchIndex(Fuse) {
       const hasRexAdipiscing = homepage.content
         ? homepage.content.includes("Rex adipiscing")
         : false;
-      console.log(`🏠 Contains "Rex adipiscing": ${hasRexAdipiscing}`);
+      false && console.log(`🏠 Contains "Rex adipiscing": ${hasRexAdipiscing}`);
 
       if (homepage.content) {
-        console.log(
+        false && console.log(
           `🏠 Homepage content preview: "${homepage.content.substring(0, 100)}..."`
         );
       } else {
-        console.log(`🏠 Homepage content is undefined or null`);
+        false && console.log(`🏠 Homepage content is undefined or null`);
       }
     } else {
-      console.log(`🏠 No homepage found in search index`);
+      false && console.log(`🏠 No homepage found in search index`);
     }
 
     log(
@@ -518,17 +518,17 @@ async function loadSearchIndex(Fuse) {
       fuseOptions.value
     ) {
       fuseInstance.value = new Fuse(searchIndex.value, fuseOptions.value);
-      console.log(`🔍 Fuse.js initialized with options:`, fuseOptions.value);
-      console.log("✅ Search index loading completed successfully!");
+      false && console.log(`🔍 Fuse.js initialized with options:`, fuseOptions.value);
+      false && console.log("✅ Search index loading completed successfully!");
     } else {
-      console.error(
+      false && console.error(
         "❌ Cannot initialize Fuse.js - search index is empty, invalid, or config not loaded"
       );
     }
 
     isInitializing.value = false;
   } catch (error) {
-    console.error("❌ Error loading search index:", error);
+    false && console.error("❌ Error loading search index:", error);
     isInitializing.value = false;
   }
 }
@@ -563,7 +563,7 @@ async function performSearch() {
 
     // Additional security checks
     if (containsDangerousContent(searchQuery.value)) {
-      console.warn(
+      false && console.warn(
         "⚠️ Potentially dangerous search query blocked:",
         searchQuery.value
       );
@@ -580,18 +580,18 @@ async function performSearch() {
 
     // Limit query length to prevent DoS attacks
     if (safeQuery.length > 100) {
-      console.warn("⚠️ Search query too long, truncating");
+      false && console.warn("⚠️ Search query too long, truncating");
       log("search", "Query truncated for security");
     }
 
     isSearching.value = true;
-    console.log(`🔍 Performing search for: "${safeQuery}"`);
+    false && console.log(`🔍 Performing search for: "${safeQuery}"`);
     log("search", `Searching for: "${safeQuery}"`);
 
     try {
       // Check if Fuse instance is available
       if (!fuseInstance.value) {
-        console.error(
+        false && console.error(
           "❌ Fuse instance is null - search index may not have loaded properly"
         );
         searchResults.value = [];
@@ -600,7 +600,7 @@ async function performSearch() {
 
       // Perform search using Fuse.js with sanitized query
       const results = fuseInstance.value.search(safeQuery);
-      console.log(`📊 Search results:`, results);
+      false && console.log(`📊 Search results:`, results);
 
       // Process results to add excerpts with context using enhanced highlighting
       const processedResults = results
@@ -768,14 +768,14 @@ async function performSearch() {
 
       // Validate the processed results for security
       searchResults.value = validateSearchResults(processedResults);
-      console.log(
+      false && console.log(
         `✅ Final search results (${searchResults.value.length}):`,
         searchResults.value
       );
 
       log("search", `Found ${searchResults.value.length} results`);
     } catch (error) {
-      console.error("❌ Error performing search:", error);
+      false && console.error("❌ Error performing search:", error);
       searchResults.value = [];
     } finally {
       isSearching.value = false;

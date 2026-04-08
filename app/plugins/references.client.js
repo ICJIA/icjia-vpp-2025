@@ -41,6 +41,10 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   false && console.log("REFERENCE PLUGIN: Starting up");
 
+  // Track cleanup references for memory leak prevention
+  let contentObserver = null;
+  let initTimeout = null;
+
   // Track enhanced elements to avoid duplicate processing
   const enhancedElements = new WeakSet();
 
@@ -435,7 +439,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const setupContentObserver = () => {
     false && console.log("REFERENCE PLUGIN: Setting up content observer...");
 
-    const observer = new MutationObserver((mutations) => {
+    contentObserver = new MutationObserver((mutations) => {
       let shouldEnhance = false;
 
       mutations.forEach((mutation) => {
@@ -466,7 +470,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     });
 
     // Observe the entire document for changes
-    observer.observe(document.body, {
+    contentObserver.observe(document.body, {
       childList: true,
       subtree: true,
     });
@@ -492,17 +496,22 @@ export default defineNuxtPlugin((nuxtApp) => {
   // Initialize when DOM is ready - delay to prevent hydration mismatches
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      // Delay initialization to ensure hydration is complete
-      setTimeout(initialize, 500);
+      initTimeout = setTimeout(initialize, 500);
     });
   } else {
-    // DOM is already ready - delay to ensure hydration is complete
-    setTimeout(initialize, 500);
+    initTimeout = setTimeout(initialize, 500);
   }
 
   // Also run on route changes for SPA navigation
   nuxtApp.hook("page:finish", () => {
     false && console.log("REFERENCE PLUGIN: Page navigation detected, re-enhancing...");
-    setTimeout(debouncedEnhance, 100); // Small delay to ensure content is rendered
+    setTimeout(debouncedEnhance, 100);
+  });
+
+  // Cleanup on app unmount to prevent memory leaks
+  nuxtApp.hook("app:unmounted", () => {
+    if (initTimeout) clearTimeout(initTimeout);
+    if (debounceTimer) clearTimeout(debounceTimer);
+    if (contentObserver) contentObserver.disconnect();
   });
 });

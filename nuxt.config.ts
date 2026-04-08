@@ -218,7 +218,7 @@ export default defineNuxtConfig({
         { name: "apple-mobile-web-app-status-bar-style", content: "default" },
 
         // Informational meta tags for developer tooling and diagnostics
-        { name: "generator", content: "Nuxt 4.0.0" },
+        { name: "generator", content: "Nuxt" },
         {
           name: "application-name",
           content: "Violence Prevention Plan for Illinois: 2025-2029",
@@ -381,9 +381,8 @@ export default defineNuxtConfig({
     },
 
     build: {
-      // Enable source maps in static builds to satisfy Lighthouse debugging recommendation
-      // Note: These are client-only source maps; sensitive server code is not exposed.
-      sourcemap: true,
+      // Disable source maps in production to prevent information disclosure
+      sourcemap: false,
 
       // Optimize chunk splitting for better caching
       rollupOptions: {

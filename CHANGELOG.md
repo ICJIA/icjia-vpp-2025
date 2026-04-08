@@ -48,6 +48,19 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2026-04-08] - Security: Red Team Audit Remediation
+
+### Security
+- Disable source maps in production Vite build — `sourcemap: true` in `nuxt.config.ts` was overriding the top-level Nuxt config and exposing internal code structure
+- Remove framework version from generator meta tag — was disclosing "Nuxt 4.0.0", now just "Nuxt"
+- Silence all console logging in `search.vue` — 34 `console.log/error/warn` calls were exposing file paths, config, and internal structure in production
+
+### Fixes
+- Fix memory leaks in `footnotes.client.js` — add `app:unmounted` cleanup for 2 MutationObservers, global click listener, and init timeout
+- Fix memory leaks in `references.client.js` — add `app:unmounted` cleanup for MutationObserver, debounce timer, and init timeout
+
+---
+
 ## [2026-04-08] - Fix: Hero Image Layout Regression
 
 ### Fixes

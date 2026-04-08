@@ -31,11 +31,17 @@
  * // Footnotes are automatically enhanced on page load and SPA navigation
  */
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
   // Only run on client side
   if (import.meta.server) return;
 
   false && console.log("FOOTNOTE PLUGIN: Starting up");
+
+  // Track cleanup references for memory leak prevention
+  let themeObserver = null;
+  let contentObserver = null;
+  let clickHandler = null;
+  let initTimeout = null;
 
   // Track the last clicked footnote reference for return navigation
   let lastClickedFootnoteRef = null;
@@ -59,9 +65,7 @@ export default defineNuxtPlugin(() => {
     false && console.log("FOOTNOTE PLUGIN: Setting up scrolling");
 
     // Find ALL links on the page and intercept footnote ones
-    document.addEventListener(
-      "click",
-      (e) => {
+    clickHandler = (e) => {
         false && console.log(
           "FOOTNOTE PLUGIN: Click detected on:",
           e.target.tagName,
@@ -287,9 +291,8 @@ export default defineNuxtPlugin(() => {
             return false;
           }
         }
-      },
-      true,
-    ); // Use capture phase to intercept before other handlers
+    };
+    document.addEventListener("click", clickHandler, true);
 
     false && console.log("FOOTNOTE PLUGIN: Click handler installed");
   }
@@ -539,7 +542,7 @@ export default defineNuxtPlugin(() => {
     false && console.log("FOOTNOTE PLUGIN: Setting up theme watcher");
 
     // Create a MutationObserver to watch for theme changes
-    const observer = new MutationObserver((mutations) => {
+    themeObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
           mutation.type === "attributes" &&
@@ -552,7 +555,7 @@ export default defineNuxtPlugin(() => {
     });
 
     // Start observing the document element for attribute changes
-    observer.observe(document.documentElement, {
+    themeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
@@ -571,7 +574,7 @@ export default defineNuxtPlugin(() => {
     false && console.log("FOOTNOTE PLUGIN: Setting up content watcher");
 
     // Create a MutationObserver to watch for new footnotes
-    const contentObserver = new MutationObserver((mutations) => {
+    contentObserver = new MutationObserver((mutations) => {
       let shouldRestyle = false;
 
       mutations.forEach((mutation) => {
@@ -632,11 +635,17 @@ export default defineNuxtPlugin(() => {
   // Start when DOM is ready - delay to prevent hydration mismatches
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      // Delay initialization to ensure hydration is complete
-      setTimeout(init, 500);
+      initTimeout = setTimeout(init, 500);
     });
   } else {
-    // Delay initialization to ensure hydration is complete
-    setTimeout(init, 500);
+    initTimeout = setTimeout(init, 500);
   }
+
+  // Cleanup on app unmount to prevent memory leaks
+  nuxtApp.hook("app:unmounted", () => {
+    if (initTimeout) clearTimeout(initTimeout);
+    if (themeObserver) themeObserver.disconnect();
+    if (contentObserver) contentObserver.disconnect();
+    if (clickHandler) document.removeEventListener("click", clickHandler, true);
+  });
 });
