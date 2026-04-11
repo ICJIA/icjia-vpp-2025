@@ -22,7 +22,7 @@ This application is deployed as a **static site on Netlify** with no server-side
 
 ## Accessibility Summary
 
-This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-03-24, **axe-core 4.10.2 reports 0 violations across all 20 pages**.
+This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-04-11, **axe-core 4.11.2 reports 0 violations across all 13 pages** (desktop AA, mobile AA, and best practices audits).
 
 ### Accessibility Features
 - **Color contrast**: 8:1+ ratios in both light and dark themes (exceeds AA 4.5:1 requirement)
@@ -39,12 +39,25 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 ### Audit History
 | Date | Tool | Result |
 |------|------|--------|
+| 2026-04-11 | axe-core 4.11.2 | 0 violations / 13 pages (desktop AA, mobile AA, best practices — 39 audits total) |
 | 2026-04-08 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
 | 2026-03-24 | axe-core 4.10.2 | 0 violations / 20 pages |
 | 2025-12-22 | axe-core | 98.8% compliance (all issues fixed) |
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [2026-04-11] - Accessibility Audit & Site Configuration Update
+
+### Accessibility
+- Run full axe-core accessibility audit across all 13 pages with 3 audit types (desktop AA, mobile AA, best practices) — 39 total audits
+- Confirm 0 violations across all audits; only "needs review" items for color-contrast (background images/gradients prevent automated contrast computation) and aria-valid-attr-value (Vuetify menu activator patterns)
+- Update accessibility summary to reflect current axe-core 4.11.2 results
+
+### Configuration
+- Regenerate routes.config.json, sitemap.xml, vpp-plan-2025-2029.json, and vpp-plan-2025-2029.yaml with current build timestamps
 
 ---
 
