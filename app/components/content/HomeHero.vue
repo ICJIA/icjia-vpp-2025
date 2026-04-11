@@ -63,7 +63,7 @@
         <v-col cols="12" md="6" class="mt-8 mt-md-0">
           <div class="">
             <img
-              src="/images/vpp-cover.png"
+              src="/images/vpp-cover.webp"
               alt="Youth violence prevention summit participants collaborating on community safety initiatives"
               class="hero-image"
               style="aspect-ratio: 612 / 792"

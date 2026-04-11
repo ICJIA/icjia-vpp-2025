@@ -15,7 +15,7 @@ showBorder: true
 
 -->
 
-<img src="/images/vpp-cover.png" width="612" height="792" style="max-height: 80vh; width: auto;" alt="Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029">
+<img src="/images/vpp-cover.webp" width="612" height="792" style="max-height: 80vh; width: auto;" alt="Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029">
 
 </div>
 
