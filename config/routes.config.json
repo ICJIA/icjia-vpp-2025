@@ -1,10 +1,10 @@
 {
   "baseUrl": "https://vpp.icjia.illinois.gov",
-  "generatedAt": "2026-04-11T11:23:26.436Z",
+  "generatedAt": "2026-04-11T16:45:22.103Z",
   "summary": {
     "projectName": "Statewide Violence Prevention Plan for Illinois: 2025-2029",
     "description": "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "totalPages": 13,
     "contentPages": 13,
     "vuePages": 0,

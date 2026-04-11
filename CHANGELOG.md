@@ -49,7 +49,7 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
-## [2026-04-11] - Accessibility Audit & Site Configuration Update
+## [1.1.0] - 2026-04-11 — Accessibility Audit, Broken Link Fixes & Image Optimization
 
 ### Accessibility
 - Run full axe-core accessibility audit across all 13 pages with 3 audit types (desktop AA, mobile AA, best practices) — 39 total audits
