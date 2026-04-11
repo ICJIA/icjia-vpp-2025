@@ -14,7 +14,7 @@
               aria-label="Visit Illinois Criminal Justice Information Authority website"
             >
               <img
-                src="/images/icjia-logo.png"
+                src="/images/icjia-logo.webp"
                 alt="Illinois Criminal Justice Information Authority Logo"
                 class="icjia-logo"
               />

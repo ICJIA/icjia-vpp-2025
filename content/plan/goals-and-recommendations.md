@@ -48,7 +48,7 @@ In social services, evidence-based practices integrate the best research or eval
 
 Comprehensive practices mean addressing risk and protective factors across the social-ecological model <span data-ref="wilkins-2014">(Wilkins et al., 2014)</span>. The social-ecological model is a useful framework for understanding where to target violence prevention efforts. As shown in Figure 1, violence prevention efforts may address factors at the individual, relational, community, or society level. These efforts may also target factors at multiple levels. Comprehensive efforts that address prevention across multiple levels of the social-ecological model are more sustainable and can have more of a long-term impact. Thus, violence prevention efforts should aim to address factors across the social-ecological model whenever possible.
 
-::text-centered-image{src="/images/PPT_circles.png" alt="Image: Where Violence Prevention Efforts Occur" spacing="medium" caption="Figure 1. Social-ecological model" }
+::text-centered-image{src="/images/PPT_circles.webp" alt="Image: Where Violence Prevention Efforts Occur" spacing="medium" caption="Figure 1. Social-ecological model" }
 ::
 
 For additional resources regarding the socio-ecological model and coordinated and comprehensive violence prevention efforts, please see:
@@ -60,7 +60,7 @@ For additional resources regarding the socio-ecological model and coordinated an
 
 "Primary, Secondary, and Tertiary Prevention Efforts" organize violence prevention approaches to specify when programming or services takes place, and who violence prevention efforts occur with. Primary prevention is considered universal, occurring for an entire population; secondary prevention is considered selected or focused on those with one or more risk factors for violence; tertiary prevention is considered indicated, or efforts for those who have already experienced or perpetrated violence (Figure 2).
 
-::text-centered-image{src="/images/PPT_pyramid.png" alt="Image: When Violence Prevention Efforts Occur" spacing="medium" caption="Figure 2. Primary, secondary, and tertiary prevention efforts" }
+::text-centered-image{src="/images/PPT_pyramid.webp" alt="Image: When Violence Prevention Efforts Occur" spacing="medium" caption="Figure 2. Primary, secondary, and tertiary prevention efforts" }
 ::
 
 **Primary Prevention (Universal)**

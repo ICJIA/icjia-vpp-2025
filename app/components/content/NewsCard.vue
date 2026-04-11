@@ -16,7 +16,7 @@
         <!-- Image section -->
         <div class="news-image-section">
           <ImageWithSpinner
-            :src="newsItem.image || '/images/illinois-seal.png'"
+            :src="newsItem.image || '/images/illinois-seal.webp'"
             :alt="
               newsItem.image
                 ? `Image for ${newsItem.title}`

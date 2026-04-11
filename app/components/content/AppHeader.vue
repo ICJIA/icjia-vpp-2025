@@ -19,7 +19,7 @@
           <v-col cols="auto">
             <div class="logo d-flex align-center">
               <NuxtImg
-                src="/images/illinois-seal.png"
+                src="/images/illinois-seal.webp"
                 alt="Illinois State Seal"
                 class="logo-image"
                 sizes="sm:32px md:40px"

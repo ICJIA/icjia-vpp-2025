@@ -11,7 +11,7 @@ showBorder: true
 
 <!--
 
-![Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](/images/vpp-cover_small.png)
+![Front Cover: Statewide Violence Prevention Plan for Illinois: 2025-2029](/images/vpp-cover_small.webp)
 
 -->
 

@@ -57,7 +57,14 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 - Update accessibility summary to reflect current axe-core 4.11.2 results
 
 ### Performance
-- Convert vpp-cover.png (1.21 MB) to WebP (146 KB) — 88% reduction, resolves Siteimprove large media file flag
+- Convert site images to WebP where beneficial — total savings ~3.7 MB:
+  - vpp-cover_small.png: 2,394 KB → 244 KB (90% reduction)
+  - PPT_circles.png: 998 KB → 714 KB (29% reduction)
+  - PPT_pyramid.png: 926 KB → 583 KB (37% reduction)
+  - illinois-seal.png: 660 KB → 198 KB (70% reduction) — visual display only; PNG retained for apple-touch-icon and structured data
+  - icjia-logo.png: 6 KB → 2 KB (62% reduction)
+  - vpp-cover.png: 1,210 KB → 146 KB (88% reduction)
+- Skipped DirectorAdamsResized.jpg (85 KB) and stratton-lg-cropped.jpg (19 KB) — WebP was larger than originals
 
 ### Broken Links (Siteimprove)
 - Remove 6 broken external links flagged by Siteimprove across 4 files — link labels preserved, anchor tags removed pending updated URLs from original authors
