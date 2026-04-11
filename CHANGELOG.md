@@ -56,6 +56,10 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 - Confirm 0 violations across all audits; only "needs review" items for color-contrast (background images/gradients prevent automated contrast computation) and aria-valid-attr-value (Vuetify menu activator patterns)
 - Update accessibility summary to reflect current axe-core 4.11.2 results
 
+### Broken Links (Siteimprove)
+- Remove 6 broken external links flagged by Siteimprove across 4 files — link labels preserved, anchor tags removed pending updated URLs from original authors
+- Affected links: CDC trauma-informed care (410 Gone), Healthy People 2030 evidence-based resources (404), SAMHSA trauma-informed approach (301→403), ILGA 20 ILCS 3930 statute (404), ISP human trafficking (404), ADA Title II overview (404)
+
 ### Configuration
 - Regenerate routes.config.json, sitemap.xml, vpp-plan-2025-2029.json, and vpp-plan-2025-2029.yaml with current build timestamps
 

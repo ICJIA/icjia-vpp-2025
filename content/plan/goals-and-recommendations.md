@@ -34,15 +34,15 @@ The Substance Abuse and Mental Health Services Administration <span data-ref="su
 
 Trauma-informed practices realize the impact of trauma, recognize the signs and impacts of trauma among clients/patients and staff, respond by integrating knowledge of trauma into policies and practices, and resist re-traumatization (i.e., stemming from a triggering event, you are reminded of an earlier trauma; <span data-ref="samhsa-2017">SAMHSA, 2017</span>). For a list of key references and resources, please see:
 
-- [SAMHSA's Concept of Trauma and Guidance for Trauma-Informed Approach](https://store.samhsa.gov/product/samhsas-concept-trauma-and-guidance-trauma-informed-approach/sma14-4884)
+- SAMHSA's Concept of Trauma and Guidance for Trauma-Informed Approach
 - [What is Trauma-Informed Care?](https://www.traumainformedcare.chcs.org/what-is-trauma-informed-care/)
-- [CDC: Trauma-Informed Care](https://blogs.cdc.gov/publichealthmatters/2022/05/trauma-informed/)
+- CDC: Trauma-Informed Care
 
 While trauma-informed practices are important, they are incomplete. They focus on the harm and injury resulting from trauma, individual experiences (rather than collective), and they lack a strengths-based perspective. An approach to address these limitations is called healing-centered practice, which involves "culture, spirituality, civic action and collective healing... highlighting the ways in which trauma and healing are experienced collectively." Thus, healing-centered moves away from a risk reduction model, and instead provides an asset driven and restorative approach that focuses on well-being as the goal (rather than focusing on what we want to reduce or suppress; <span data-ref="ginwright-2018">Ginwright, 2018</span>).
 
 #### Evidence-based practices
 
-In social services, evidence-based practices integrate the best research or evaluation evidence, clinical expertise, and participant or community values to meet the needs of a participant or community <span data-ref="bentgoodley-2019">(Bent-Goodley et al., 2019)</span>. For evidence-based resources across types of violence prevention, please see: [Healthy People 2030 Evidence-Based Resources](https://health.gov/healthypeople/objectives-and-data/browse-objectives/violence-prevention/evidence-based-resources)
+In social services, evidence-based practices integrate the best research or evaluation evidence, clinical expertise, and participant or community values to meet the needs of a participant or community <span data-ref="bentgoodley-2019">(Bent-Goodley et al., 2019)</span>. For evidence-based resources across types of violence prevention, please see: Healthy People 2030 Evidence-Based Resources
 
 #### Comprehensive practices
 
