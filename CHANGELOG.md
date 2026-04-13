@@ -22,7 +22,7 @@ This application is deployed as a **static site on Netlify** with no server-side
 
 ## Accessibility Summary
 
-This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-04-11, **axe-core 4.11.2 reports 0 violations across all 13 pages** (desktop AA, mobile AA, and best practices audits).
+This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-04-13, **axe-core reports 0 violations across all 13 pages (AA)** and **Lighthouse reports A11y:100, Best Practices:100, SEO:100 on all 13 pages**.
 
 ### Accessibility Features
 - **Color contrast**: 8:1+ ratios in both light and dark themes (exceeds AA 4.5:1 requirement)
@@ -39,6 +39,7 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 ### Audit History
 | Date | Tool | Result |
 |------|------|--------|
+| 2026-04-13 | axecap + lightcap | axe AA: 0 violations / 13 pages; Lighthouse: A11y:100, BP:100, SEO:100 on all 13 pages |
 | 2026-04-11 | axe-core 4.11.2 | 0 violations / 13 pages (desktop AA, mobile AA, best practices — 39 audits total) |
 | 2026-04-08 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
 | 2026-03-24 | axe-core 4.10.2 | 0 violations / 20 pages |
@@ -46,6 +47,21 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [1.1.1] - 2026-04-13 — Full Audit Pass & Broken Link Follow-up
+
+### Accessibility
+- Run full axecap (axe-core) AA audit across all 13 pages — 0 violations
+- Run full lightcap (Lighthouse) audit across all 13 pages — Accessibility 100, Best Practices 100, SEO 100 on every page
+- Verify skip-to-content and skip-to-navigation links render on every page (both targets `#main-content` and `#site-navigation` present)
+
+### Fixes
+- Strip auto-linked anchor on the `https://isp.illinois.gov/Home/Human Trafficking` reference in `plan/references.md` (Siteimprove broken-link follow-up); zero-width space inserted between protocol colon and `//` to prevent Nuxt Content auto-linkification while preserving visible text
+
+### Notes
+- `https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=397` was already stripped to plain text in 1.1.0 (commit ba6fa4f); the 4/13 Siteimprove report predates that fix — no code change required
 
 ---
 

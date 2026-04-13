@@ -97,7 +97,7 @@ Illinois Department of Public Health. (2022). Leading causes of death by age gro
 
 <div class="reference-item">
 
-Illinois State Police. (2024). Human trafficking. https://isp.illinois.gov/Home/Human Trafficking
+Illinois State Police. (2024). Human trafficking. https:&#8203;//isp.illinois.gov/Home/Human Trafficking
 
 </div>
 
