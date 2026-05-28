@@ -3,9 +3,11 @@
  * Catch-all page template — renders top-level `pages` and `legal` collections.
  *
  * Pages collection exclusions:
- *   - index   → home page (later phase)
+ *   - index   → home page (separate template)
  *   - sandbox → dev-only page
- *   - contact → contains ::FeedbackForm component (Phase 5)
+ *
+ * `contact` renders here as a static page — its ::FeedbackForm is commented
+ * out in the markdown (disabled on prod), so the catch-all handles it fine.
  *
  * Legal pages map to /legal/<id>/ routes.
  */
@@ -15,7 +17,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageTitleSection from "../components/content/PageTitleSection.astro";
 
 export async function getStaticPaths() {
-  const EXCLUDED_PAGE_IDS = new Set(["index", "sandbox", "contact"]);
+  const EXCLUDED_PAGE_IDS = new Set(["index", "sandbox"]);
   const [pageEntries, legalEntries] = await Promise.all([
     getCollection("pages"),
     getCollection("legal"),
