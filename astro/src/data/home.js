@@ -65,6 +65,7 @@ export const letters = {
       src: "/images/stratton-lg-cropped.jpg",
       alt: "A photo of Lieutenant Governor Juliana Stratton",
       width: 150,
+      height: 182, // natural 600×728 → 150w preserves aspect at 182h (prevents CLS)
     },
     body: "Since we first stepped into office, the Pritzker-Stratton administration has been committed to healing communities in partnership with the people we serve. For decades, too many voices have gone unheard, and too much pain has gone without relief. We are proud to uplift this statewide plan in service of those who need it most; by continuing to focus on equity, restoration, and effective violence prevention, Illinois is illuminating a path toward safer communities and healthier residents. Thank you to the members of the Violence Prevention Committee for dedicating your time and insight to empower change. Governor Pritzker and I look forward to working with Illinoisans across the state to implement this powerful plan of action.",
     signature: ["Juliana Stratton", "Illinois Lieutenant Governor"],

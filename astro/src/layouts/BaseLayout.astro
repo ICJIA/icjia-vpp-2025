@@ -149,6 +149,12 @@ const ld = webPageJsonLd({
       }}
     />
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <!-- Plausible analytics (self-hosted). No preconnect (checklist §9); deferred. -->
+    <script
+      is:inline
+      defer
+      data-domain="vpp.icjia.illinois.gov"
+      src="https://plausible.icjia.cloud/js/script.js"></script>
   </head>
   <body class="flex min-h-dvh flex-col">
     <nav aria-label="Skip links" class="skip-links-nav">
