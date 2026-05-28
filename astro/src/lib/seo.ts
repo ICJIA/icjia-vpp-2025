@@ -23,7 +23,7 @@ export const SITE_SHORT = "Illinois VPP";
  * The brief's "151 chars" note was a counting error in the brief.
  */
 export const DEFAULT_DESCRIPTION =
-  "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and";
+  "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029 — violence prevention strategies and community resources.";
 
 export const DEFAULT_KEYWORDS =
   "violence prevention, Illinois, public health, community safety, trauma-informed care, evidence-based practices";
