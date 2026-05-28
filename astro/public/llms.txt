@@ -1,0 +1,26 @@
+# Statewide Violence Prevention Plan for Illinois: 2025-2029
+
+> This comprehensive violence prevention plan outlines Illinois's strategic approach to preventing violence through evidence-based practices, equity advancement, and collaborative efforts across state, municipal, and community-based agencies for 2025-2029.
+
+This plan presents three primary violence prevention goals:
+1. **Prevent violence and promote health and safety** through trauma-informed, evidence-based prevention efforts
+2. **Advance equity** by increasing access to grants and economic opportunities
+3. **Promote collaboration** across agencies, informed by research, data sharing, and best practices
+
+The plan was developed by the Illinois Criminal Justice Information Authority (ICJIA) in collaboration with the Ad Hoc Violence Prevention Committee and various workgroups, building upon the previous 2020-2024 plan with updated research, implementation findings, and community feedback.
+
+## Plan Content
+
+- [Statewide Violence Prevention Plan for Illinois: 2025-2029](https://vpp.icjia.illinois.gov/plan/front-cover): The Statewide Violence Prevention Plan for Illinois: 2025-2029.
+- [Executive Summary](https://vpp.icjia.illinois.gov/plan/executive-summary): Learn about our mission, values, and approach to violence prevention across Illinois.
+- [Violence Prevention from a Public Health Approach](https://vpp.icjia.illinois.gov/plan/public-health-approach): Understanding violence as a public health concern and utilizing evidence-informed strategies through the four-step public health framework to prevent violence across Illinois communities.
+- [Guiding Principles](https://vpp.icjia.illinois.gov/plan/guiding-principles): Five foundational principles that guide all violence prevention efforts in Illinois, ensuring our work is grounded in equity, safety, health, belonging, and collaboration.
+- [Planning Process](https://vpp.icjia.illinois.gov/plan/planning-process): In preparation for the 2025-2029 Violence Prevention Plan, several groups were convened to review data and research, hear updates on violence prevention efforts across the state, review previous recommendations, and contribute feedback.
+- [Goals and Recommendations](https://vpp.icjia.illinois.gov/plan/goals-and-recommendations): Three comprehensive goals and detailed recommendations for violence prevention in Illinois from 2025-2029, focusing on evidence-based practices, equity, and collaboration.
+- [References](https://vpp.icjia.illinois.gov/plan/references): Complete bibliography and references for the Illinois Statewide Violence Prevention Plan 2025-2029
+
+## Optional
+
+- [Full PDF Report](https://vpp.icjia.illinois.gov/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf): Complete downloadable version of the violence prevention plan
+- [ICJIA Website](https://icjia.illinois.gov): Illinois Criminal Justice Information Authority main website
+- [Project Repository](https://github.com/ICJIA/icjia-vpp-2025): Source code and development information
