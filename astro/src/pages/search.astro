@@ -37,7 +37,8 @@ import { Icon } from "astro-icon/components";
     <div class="container mx-auto px-4 py-12 max-w-[900px]">
 
       <!--
-        Alpine component.
+        Alpine component registered via Alpine.data('search') in the bundled
+        module script below — so Vite resolves import('fuse.js') at build time.
         State vars:
           query         {string}   current input value
           results       {Array}    processed search results
@@ -48,91 +49,7 @@ import { Icon } from "astro-icon/components";
           debounceTimer {number}   setTimeout handle
       -->
       <div
-        x-data="{
-          query: '',
-          results: [],
-          initializing: false,
-          initialized: false,
-          fuse: null,
-          config: null,
-          debounceTimer: null,
-
-          // ---- lazy init: called on first focus or keystroke ----------------
-          async initSearch() {
-            if (this.initialized || this.initializing) return;
-            this.initializing = true;
-            try {
-              const [{ default: Fuse }, indexRes, configRes] = await Promise.all([
-                import('fuse.js'),
-                fetch('/data/search-index.json'),
-                fetch('/config/fuse.config.json'),
-              ]);
-              if (!indexRes.ok)   throw new Error('search-index fetch failed: ' + indexRes.status);
-              if (!configRes.ok)  throw new Error('fuse.config fetch failed: ' + configRes.status);
-              const [index, cfg] = await Promise.all([indexRes.json(), configRes.json()]);
-              this.config = cfg.search;
-              this.fuse = new Fuse(index, cfg.search.fuseOptions);
-              this.initialized = true;
-              // If the user typed something while we were initialising, run it now
-              if (this.query.trim().length >= (this.config.minTermLength ?? 2)) {
-                this.runSearch();
-              }
-            } catch (err) {
-              console.error('[search] init error:', err);
-            } finally {
-              this.initializing = false;
-            }
-          },
-
-          // ---- debounced search trigger ------------------------------------
-          handleInput() {
-            if (!this.initialized && !this.initializing) {
-              this.initSearch();
-              return;
-            }
-            clearTimeout(this.debounceTimer);
-            const ms = this.config?.debounceMs ?? 300;
-            this.debounceTimer = setTimeout(() => this.runSearch(), ms);
-          },
-
-          // ---- core search -------------------------------------------------
-          runSearch() {
-            if (!this.fuse || !this.initialized) return;
-            const minLen = this.config?.minTermLength ?? 2;
-            const ctxChars = this.config?.excerptContextChars ?? 50;
-            const safeQuery = window.__searchSanitize(this.query);
-            if (!safeQuery || safeQuery.length < minLen) {
-              this.results = [];
-              return;
-            }
-            const raw = this.fuse.search(safeQuery);
-            this.results = raw.map((r) => window.__buildResult(r, safeQuery, ctxChars));
-            // Sort: exact matches first (tier 1), partial (tier 2), fuzzy (tier 3)
-            this.results.sort((a, b) => a._score - b._score);
-            // Announce result count to screen readers
-            const el = document.getElementById('announcer-polite');
-            if (el) {
-              el.textContent = '';
-              requestAnimationFrame(() => {
-                el.textContent = this.results.length + ' ' +
-                  (this.results.length === 1 ? 'result' : 'results') + ' found';
-              });
-            }
-          },
-
-          // ---- clear -------------------------------------------------------
-          clearSearch() {
-            this.query = '';
-            this.results = [];
-          },
-
-          // ---- derived state predicates ------------------------------------
-          get isIdle()          { return !this.initialized && !this.initializing && !this.query; },
-          get isInitializing()  { return this.initializing; },
-          get isNoQuery()       { return this.initialized && !this.query.trim(); },
-          get isNoResults()     { return this.initialized && !!this.query.trim() && this.results.length === 0; },
-          get hasResults()      { return this.initialized && this.results.length > 0; },
-        }"
+        x-data="search"
         @keydown.escape.window="clearSearch()"
       >
 
@@ -229,7 +146,7 @@ import { Icon } from "astro-icon/components";
           <h2 class="text-xl font-semibold text-on-surface/80 mb-2">No results found</h2>
           <p class="text-sm text-on-surface/55">
             No content matches your search for
-            "<span class="font-medium" x-text="window.__escapeHtml ? window.__escapeHtml(query) : query"></span>".
+            "<span class="font-medium" x-text="query"></span>".
             Try different keywords or check your spelling.
           </p>
         </div>
@@ -296,7 +213,7 @@ import { Icon } from "astro-icon/components";
         </div>
 
       </div>
-      <!-- /x-data -->
+      <!-- /x-data="search" -->
 
     </div>
   </div>
@@ -304,14 +221,15 @@ import { Icon } from "astro-icon/components";
 
 <!--
   Search support scripts.
-  Loaded as type=module so they can use ES module imports.
-  Exposes two globals used by the Alpine x-data inline string (which cannot
-  import modules directly):
-    window.__searchSanitize(query)                   → safe query string
-    window.__buildResult(fuseResult, query, ctxChars) → {title, path, excerpt, _score}
-    window.__escapeHtml(str)                          → HTML-escaped string
+  Plain <script> (no type="module" attribute) so Astro hoists and processes
+  this through Vite — which resolves the bare 'fuse.js' specifier and the
+  relative search-highlight.js import, bundling/code-splitting them.
+  Astro adds type="module" automatically to hoisted scripts.
+  The Alpine component is registered via Alpine.data() so the x-data="search"
+  attribute above works — and so import('fuse.js') is Vite-resolved rather
+  than evaluated at runtime inside a new Function() string.
 -->
-<script type="module">
+<script>
 import {
   escapeHtml,
   sanitizeSearchQuery,
@@ -320,11 +238,10 @@ import {
   createFallbackExcerpt,
 } from '../scripts/search-highlight.js';
 
-window.__escapeHtml = escapeHtml;
-
-window.__searchSanitize = (query) => sanitizeSearchQuery(query, 50);
-
-window.__buildResult = (fuseResult, safeQuery, ctxChars) => {
+// ---------------------------------------------------------------------------
+// buildResult — formerly window.__buildResult; now a local module function
+// ---------------------------------------------------------------------------
+function buildResult(fuseResult, safeQuery, ctxChars) {
   const item = fuseResult.item;
 
   // Build excerpt: try content matches first, then title, then description
@@ -372,7 +289,99 @@ window.__buildResult = (fuseResult, safeQuery, ctxChars) => {
     excerpt,   // already sanitised by search-highlight.js — only <mark> tags present
     _score,
   };
-};
+}
+
+// ---------------------------------------------------------------------------
+// Register Alpine component — runs before Alpine initialises the DOM
+// ---------------------------------------------------------------------------
+document.addEventListener('alpine:init', () => {
+  window.Alpine.data('search', () => ({
+    query: '',
+    results: [],
+    initializing: false,
+    initialized: false,
+    fuse: null,
+    config: null,
+    debounceTimer: null,
+
+    // ---- lazy init: called on first focus or keystroke --------------------
+    async initSearch() {
+      if (this.initialized || this.initializing) return;
+      this.initializing = true;
+      try {
+        const [{ default: Fuse }, indexRes, configRes] = await Promise.all([
+          import('fuse.js'),                        // Vite resolves + code-splits this
+          fetch('/data/search-index.json'),
+          fetch('/config/fuse.config.json'),
+        ]);
+        if (!indexRes.ok)  throw new Error('search-index fetch failed: ' + indexRes.status);
+        if (!configRes.ok) throw new Error('fuse.config fetch failed: ' + configRes.status);
+        const [index, cfg] = await Promise.all([indexRes.json(), configRes.json()]);
+        this.config = cfg.search;
+        this.fuse = new Fuse(index, cfg.search.fuseOptions);
+        this.initialized = true;
+        // If the user typed something while we were initialising, run it now
+        if (this.query.trim().length >= (this.config.minTermLength ?? 2)) {
+          this.runSearch();
+        }
+      } catch (err) {
+        console.error('[search] init error:', err);
+      } finally {
+        this.initializing = false;
+      }
+    },
+
+    // ---- debounced search trigger -----------------------------------------
+    handleInput() {
+      if (!this.initialized && !this.initializing) {
+        this.initSearch();
+        return;
+      }
+      clearTimeout(this.debounceTimer);
+      const ms = this.config?.debounceMs ?? 300;
+      this.debounceTimer = setTimeout(() => this.runSearch(), ms);
+    },
+
+    // ---- core search -------------------------------------------------------
+    runSearch() {
+      if (!this.fuse || !this.initialized) return;
+      const minLen  = this.config?.minTermLength ?? 2;
+      const ctxChars = this.config?.excerptContextChars ?? 50;
+      const safeQuery = sanitizeSearchQuery(this.query, 50);
+      if (!safeQuery || safeQuery.length < minLen) {
+        this.results = [];
+        return;
+      }
+      const raw = this.fuse.search(safeQuery);
+      this.results = raw.map((r) => buildResult(r, safeQuery, ctxChars));
+      // Sort: exact matches first (tier 1), partial (tier 2), fuzzy (tier 3)
+      this.results.sort((a, b) => a._score - b._score);
+      // Announce result count to screen readers
+      const el = document.getElementById('announcer-polite');
+      if (el) {
+        el.textContent = '';
+        requestAnimationFrame(() => {
+          el.textContent =
+            this.results.length + ' ' +
+            (this.results.length === 1 ? 'result' : 'results') + ' found';
+        });
+      }
+    },
+
+    // ---- clear -------------------------------------------------------------
+    clearSearch() {
+      this.query = '';
+      this.results = [];
+    },
+
+    // ---- derived state predicates ------------------------------------------
+    get isIdle()         { return !this.initialized && !this.initializing && !this.query; },
+    get isInitializing() { return this.initializing; },
+    get isNoQuery()      { return this.initialized && !this.query.trim(); },
+    get isNoResults()    { return this.initialized && !!this.query.trim() && this.results.length === 0; },
+    get hasResults()     { return this.initialized && this.results.length > 0; },
+  }));
+});
 </script>
 
 <style>
