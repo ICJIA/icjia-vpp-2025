@@ -122,6 +122,8 @@ icjia-vpp-2025/                  # feat/astro-migration branch
 
 Tag `v1-final` (the last legacy commit — this is the rollback point); flip `netlify.toml` `base="astro/"` + publish `astro/dist`; run `check:links`; mobile Lighthouse on the deploy; verify Plausible registers a real request; **visual skip-link Tab test** on the homepage; smoke-test search / menu / references / forms.
 
+**CUTOVER STEP (headers/CSP):** REMOVE the global `[[headers]]` block from `netlify.toml` (it targets Nuxt and, by Netlify precedence, currently overrides the Astro `astro/public/_headers` on the branch deploy). Once removed, the tighter Astro `_headers` CSP (drops jsdelivr/google-fonts, adds `object-src 'none'`, immutable `/_astro/*` cache) becomes the active policy. Verify post-cutover: `curl -sI <prod>/ | grep -i content-security-policy` shows the tighter CSP (no jsdelivr/googleapis); `/_astro/*` assets return `cache-control: ...immutable`. (Phase 7 staged `_headers` but left the Nuxt `[[headers]]` in place to avoid changing the live production site's security headers pre-approval.)
+
 **Teardown (Phase 8) — the merged branch must be Astro/Tailwind/Alpine ONLY.** After verification passes, the root Nuxt app and Vue/Vuetify footprint are deleted, stray non-`/docs` markdown + logs are removed, and `README.md` is rewritten for the new stack. **Keep:** `README.md` (updated), `LICENSE`, everything under `/docs` (the checklist + migration spec/plans/audits), and the `astro/` app (promoted to root or kept as the deploy base — decide at teardown). Because the Nuxt app is removed rather than kept alongside, **rollback is via the `v1-final` tag / pre-merge `main`**, not a coexisting legacy app.
 
 **Merge to `main` only on the user's explicit thumbs-up.**

@@ -25,6 +25,13 @@ SASS_IMPLEMENTATION = "sass"
 DEBUG = "nuxt:*"
 
 # Headers for security and performance
+# CUTOVER NOTE (Phase 8): this global [[headers]] block targets the legacy Nuxt
+# build and, per Netlify precedence, OVERRIDES astro/public/_headers on the
+# branch deploy. The Astro app ships a TIGHTER CSP in astro/public/_headers
+# (drops jsdelivr/google-fonts, adds object-src 'none', immutable _astro cache).
+# At cutover, REMOVE this block (and the Nuxt build config) so the Astro
+# _headers file becomes the active policy. Left untouched now to avoid changing
+# the live production site's security headers pre-approval.
 [[headers]]
 for = "/*"
 [headers.values]
