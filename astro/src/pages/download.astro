@@ -1,0 +1,260 @@
+---
+/**
+ * /download/ — dedicated page for the VPP download hub.
+ *
+ * The legacy content/download.md embeds raw Vuetify components (<v-btn>,
+ * <v-icon>, <nuxt-link>) that Astro treats as inert unknown elements —
+ * no working links or icons rendered. This page rebuilds the UI with
+ * plain HTML/Tailwind + astro-icon so everything works in the static build.
+ *
+ * Frontmatter values come from getEntry("pages","download") so they stay
+ * in sync with the markdown source (which is kept for the SEO/content schema).
+ */
+
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageTitleSection from "../components/content/PageTitleSection.astro";
+import { Icon } from "astro-icon/components";
+import { articleJsonLd, breadcrumbJsonLd, SITE_ORIGIN } from "../lib/seo.ts";
+
+// Pull frontmatter from the markdown so changes propagate automatically.
+const entry = await getEntry("pages", "download");
+const fm = entry?.data ?? {};
+
+const title       = (fm.title as string)       ?? "Download the Plan";
+const description = (fm.description as string) ?? "Download the complete Violence Prevention Plan for Illinois: 2025-2029 in multiple formats including PDF, JSON, and LLM-friendly text.";
+const ogImage     = (fm.ogImage as string)      ?? "/images/og-image-vpp-2025.png";
+
+const datePublished = fm.date instanceof Date
+  ? fm.date.toISOString().split("T")[0]
+  : "2025-07-24";
+const dateModified = fm.lastModified instanceof Date
+  ? fm.lastModified.toISOString().split("T")[0]
+  : datePublished;
+
+const pageUrl    = SITE_ORIGIN + "/download/";
+const articleLd  = articleJsonLd({ title, description, url: pageUrl, datePublished, dateModified });
+const breadcrumbLd = breadcrumbJsonLd("/download/");
+
+const PDF_HREF = "/files/Full_Report_Statewide_Violence_Prevention_Plan_2025-2029_2025_Update.pdf";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  ogType="article"
+  publishedAt={datePublished}
+  updatedAt={dateModified}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+
+  <PageTitleSection
+    title="Download the Plan"
+    description={description}
+    showBorder={true}
+  />
+
+  <div class="content-page">
+    <div class="container mx-auto px-4 py-8 max-w-[1000px]">
+
+      <!-- ================================================================
+           SECTION 1 — Download as PDF
+           ================================================================ -->
+      <h2 class="text-2xl font-bold border-b border-on-surface/20 pb-3 mb-8 mt-12 first:mt-0">
+        Download the Plan as PDF
+      </h2>
+
+      <div class="flex flex-col min-[960px]:flex-row items-start gap-6 rounded-xl bg-surface border border-on-surface/10 shadow p-6 min-[960px]:p-8">
+        <!-- Icon badge — primary / blue -->
+        <div class="shrink-0 grid place-items-center w-24 h-24 rounded-full border-2 border-primary/30 bg-primary/10">
+          <Icon name="mdi:file-pdf-box" class="w-12 h-12 text-primary" aria-hidden="true" />
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1">
+          <h3 class="text-xl font-bold mb-2">
+            Statewide Violence Prevention Plan for Illinois: 2025-2029
+          </h3>
+          <p class="text-on-surface/80 mb-4">
+            The official, comprehensive Statewide Violence Prevention Plan for Illinois: 2025-2029.
+            This complete document includes all sections, research, recommendations, and references in a PDF.
+          </p>
+
+          <!-- Detail chips -->
+          <div class="flex flex-wrap gap-4 mb-5">
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:file-document" class="w-4 h-4" aria-hidden="true" />Full Report
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:printer" class="w-4 h-4" aria-hidden="true" />Print-Ready
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:share-variant" class="w-4 h-4" aria-hidden="true" />Shareable
+            </span>
+          </div>
+
+          <!-- Primary filled button -->
+          <a
+            href={PDF_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-full font-bold uppercase tracking-[0.0892857143em] px-5 py-2.5 bg-primary text-white dark:text-[#0f172a] shadow hover:-translate-y-0.5 transition no-underline"
+          >
+            <Icon name="mdi:download" class="w-5 h-5" aria-hidden="true" />
+            Download PDF
+          </a>
+        </div>
+      </div>
+
+
+      <!-- ================================================================
+           SECTION 2 — Read Online
+           ================================================================ -->
+      <h2 class="text-2xl font-bold border-b border-on-surface/20 pb-3 mb-8 mt-12">
+        Read the Plan Online
+      </h2>
+
+      <div class="flex flex-col min-[960px]:flex-row items-start gap-6 rounded-xl bg-surface border border-on-surface/10 shadow p-6 min-[960px]:p-8">
+        <!-- Icon badge — success / green -->
+        <div class="shrink-0 grid place-items-center w-24 h-24 rounded-full border-2 border-[#047857]/30 dark:border-[#6ee7b7]/30 bg-[#047857]/10 dark:bg-[#6ee7b7]/10">
+          <Icon name="mdi:book-open-page-variant" class="w-12 h-12 text-[#047857] dark:text-[#6ee7b7]" aria-hidden="true" />
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1">
+          <h3 class="text-xl font-bold mb-2">Browse the Plan Online</h3>
+          <p class="text-on-surface/80 mb-4">
+            Read the complete Violence Prevention Plan directly in your browser with interactive navigation,
+            searchable content, and responsive design optimized for all devices.
+          </p>
+
+          <!-- Detail chips -->
+          <div class="flex flex-wrap gap-4 mb-5">
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:web" class="w-4 h-4" aria-hidden="true" />Interactive
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:magnify" class="w-4 h-4" aria-hidden="true" />Searchable
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:devices" class="w-4 h-4" aria-hidden="true" />Responsive
+            </span>
+          </div>
+
+          <!-- Green outlined button -->
+          <a
+            href="/plan/front-cover/"
+            class="inline-flex items-center gap-2 rounded-full font-bold uppercase tracking-[0.0892857143em] px-5 py-2.5 border-2 border-[#047857] dark:border-[#6ee7b7] text-[#047857] dark:text-[#6ee7b7] hover:bg-[#047857]/10 dark:hover:bg-[#6ee7b7]/10 transition no-underline"
+          >
+            <Icon name="mdi:book-open-page-variant" class="w-5 h-5" aria-hidden="true" />
+            Read Online
+          </a>
+        </div>
+      </div>
+
+
+      <!-- ================================================================
+           SECTION 3 — Downloads for Developers and AI
+           ================================================================ -->
+      <h2 class="text-2xl font-bold border-b border-on-surface/20 pb-3 mb-8 mt-12">
+        Downloads for Developers and AI
+      </h2>
+
+      <div class="flex flex-col min-[960px]:flex-row items-start gap-6 rounded-xl bg-surface border border-on-surface/10 shadow p-6 min-[960px]:p-8">
+        <!-- Icon badge — info / blue -->
+        <div class="shrink-0 grid place-items-center w-24 h-24 rounded-full border-2 border-primary/30 bg-primary/10">
+          <Icon name="mdi:code-braces" class="w-12 h-12 text-primary" aria-hidden="true" />
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1">
+          <h3 class="text-xl font-bold mb-2">Downloads for Developers and AI</h3>
+          <p class="text-on-surface/80 mb-4">
+            Access the plan data in machine-readable formats for development, analysis, and integration
+            with other systems. The llms.txt format follows the guidelines from{" "}
+            <a
+              href="https://llmstxt.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="underline text-primary hover:opacity-80"
+            >llms.org</a>{" "}
+            (external link) and is especially created for Large Language Models (LLMs) to easily
+            process and understand the content.
+          </p>
+
+          <!-- Detail chips -->
+          <div class="flex flex-wrap gap-4 mb-5">
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:robot" class="w-4 h-4" aria-hidden="true" />LLM-Friendly
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:code-json" class="w-4 h-4" aria-hidden="true" />JSON Format
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sm text-on-surface/70">
+              <Icon name="mdi:api" class="w-4 h-4" aria-hidden="true" />API Ready
+            </span>
+          </div>
+
+          <!-- Three primary outlined buttons -->
+          <div class="flex flex-wrap gap-3">
+            <a
+              href="/llms.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full font-bold uppercase tracking-[0.0892857143em] px-5 py-2.5 border-2 border-primary text-primary hover:bg-primary/10 transition no-underline"
+            >
+              <Icon name="mdi:download" class="w-5 h-5" aria-hidden="true" />
+              LLMS.TXT
+            </a>
+            <a
+              href="/vpp-plan-2025-2029.json"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full font-bold uppercase tracking-[0.0892857143em] px-5 py-2.5 border-2 border-primary text-primary hover:bg-primary/10 transition no-underline"
+            >
+              <Icon name="mdi:download" class="w-5 h-5" aria-hidden="true" />
+              JSON
+            </a>
+            <a
+              href="/vpp-plan-2025-2029.yaml"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full font-bold uppercase tracking-[0.0892857143em] px-5 py-2.5 border-2 border-primary text-primary hover:bg-primary/10 transition no-underline"
+            >
+              <Icon name="mdi:download" class="w-5 h-5" aria-hidden="true" />
+              YAML
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ================================================================
+           SECTION 4 — Need Help?
+           ================================================================ -->
+      <h2 class="text-2xl font-bold border-b border-on-surface/20 pb-3 mb-8 mt-12">
+        Need Help?
+      </h2>
+
+      <div class="flex flex-col min-[960px]:flex-row items-start gap-6 rounded-xl bg-[#b45309]/5 dark:bg-[#fcd34d]/5 border border-[#b45309]/20 dark:border-[#fcd34d]/20 shadow p-6 min-[960px]:p-8">
+        <!-- Icon badge — warning / amber -->
+        <div class="shrink-0 grid place-items-center w-16 h-16 rounded-full border-2 border-[#b45309]/30 dark:border-[#fcd34d]/30 bg-[#b45309]/10 dark:bg-[#fcd34d]/10">
+          <Icon name="mdi:help-circle" class="w-8 h-8 text-[#b45309] dark:text-[#fcd34d]" aria-hidden="true" />
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1">
+          <h3 class="text-xl font-bold mb-2">Questions about these downloads?</h3>
+          <p class="text-on-surface/80">
+            If you need assistance with any of these file formats or have questions about how to use them,
+            please visit our{" "}
+            <a href="/contact/" class="underline text-primary hover:opacity-80">contact page</a>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

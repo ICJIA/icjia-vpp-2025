@@ -3,8 +3,11 @@
  * Catch-all page template — renders top-level `pages` and `legal` collections.
  *
  * Pages collection exclusions:
- *   - index   → home page (separate template)
- *   - sandbox → dev-only page
+ *   - index    → home page (separate template)
+ *   - sandbox  → dev-only page
+ *   - download → dedicated download.astro (custom UI; the .md's Vuetify markup
+ *                didn't render in Astro — <v-btn>/<v-icon>/<nuxt-link> are
+ *                treated as inert unknown elements)
  *
  * `contact` renders here as a static page — its ::FeedbackForm is commented
  * out in the markdown (disabled on prod), so the catch-all handles it fine.
@@ -18,7 +21,7 @@ import PageTitleSection from "../components/content/PageTitleSection.astro";
 import { articleJsonLd, breadcrumbJsonLd, SITE_ORIGIN } from "../lib/seo.ts";
 
 export async function getStaticPaths() {
-  const EXCLUDED_PAGE_IDS = new Set(["index", "sandbox"]);
+  const EXCLUDED_PAGE_IDS = new Set(["index", "sandbox", "download"]);
   const [pageEntries, legalEntries] = await Promise.all([
     getCollection("pages"),
     getCollection("legal"),
