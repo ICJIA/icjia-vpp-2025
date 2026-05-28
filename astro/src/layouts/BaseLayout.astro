@@ -7,15 +7,62 @@ import "../styles/global.css";
 import Header from "../components/chrome/Header.astro";
 import Footer from "../components/chrome/Footer.astro";
 import ScrollToTop from "../components/chrome/ScrollToTop.astro";
+import { SEO } from "astro-seo";
+import {
+  SITE_ORIGIN,
+  SITE_NAME,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_KEYWORDS,
+  truncateTitle,
+  truncateDescription,
+  webPageJsonLd,
+} from "../lib/seo.ts";
 
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  publishedAt?: string;
+  updatedAt?: string;
+  keywords?: string;
 }
+
 const {
   title,
-  description = "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029.",
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogType = "website",
+  noindex = false,
+  publishedAt,
+  updatedAt,
+  keywords,
 } = Astro.props;
+
+const pageTitle = truncateTitle(title);
+const metaDesc = truncateDescription(description);
+const canonicalUrl = canonical ??
+  new URL(
+    Astro.url.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, ""),
+    SITE_ORIGIN
+  ).toString();
+const socialImage = ogImage ?? DEFAULT_OG_IMAGE;
+
+const ld = webPageJsonLd({
+  title: pageTitle,
+  description: metaDesc,
+  url: canonicalUrl,
+  image: socialImage,
+  publishedAt,
+  updatedAt,
+});
 ---
 
 <!doctype html>
@@ -23,9 +70,6 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <!-- No-flash theme: default dark, session-only (matches current behavior). -->
     <script is:inline>
       (function () {
@@ -39,6 +83,72 @@ const {
         }
       })();
     </script>
+    <SEO
+      title={pageTitle}
+      description={metaDesc}
+      canonical={canonicalUrl}
+      noindex={noindex}
+      openGraph={{
+        basic: {
+          title: ogTitle ?? pageTitle,
+          type: ogType,
+          image: socialImage,
+          url: canonicalUrl,
+        },
+        image: {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: SITE_NAME,
+        },
+        optional: {
+          description: ogDescription ?? metaDesc,
+          locale: "en_US",
+          siteName: SITE_NAME,
+        },
+        article: publishedAt
+          ? {
+              publishedTime: publishedAt,
+              modifiedTime: updatedAt ?? publishedAt,
+            }
+          : undefined,
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@ICJIA_Illinois",
+        creator: "@ICJIA_Illinois",
+        title: ogTitle ?? pageTitle,
+        description: ogDescription ?? metaDesc,
+        image: socialImage,
+        imageAlt: SITE_NAME,
+      }}
+      extend={{
+        meta: [
+          { name: "author", content: "Illinois Criminal Justice Information Authority" },
+          { name: "keywords", content: keywords ?? DEFAULT_KEYWORDS },
+          { name: "theme-color", content: "#1976d2" },
+          { name: "application-name", content: SITE_NAME },
+          { name: "format-detection", content: "telephone=no, email=no, address=no" },
+          { name: "generator", content: "Astro" },
+          { name: "mobile-web-app-capable", content: "yes" },
+          { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+          { name: "msapplication-TileColor", content: "#1976d2" },
+          ...(publishedAt
+            ? [
+                { property: "article:published_time", content: publishedAt },
+                { property: "article:modified_time", content: updatedAt ?? publishedAt },
+              ]
+            : []),
+        ],
+        link: [
+          { rel: "icon", type: "image/png", href: "/favicon.png" },
+          { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
+          { rel: "alternate", hreflang: "en", href: SITE_ORIGIN + "/" },
+          { rel: "alternate", hreflang: "x-default", href: SITE_ORIGIN + "/" },
+        ],
+      }}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
   <body class="flex min-h-dvh flex-col">
     <nav aria-label="Skip links" class="skip-links-nav">
