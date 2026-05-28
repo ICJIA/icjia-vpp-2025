@@ -562,7 +562,10 @@ Append this block to the END of the existing `netlify.toml` (do NOT edit the exi
 [context."feat/astro-migration"]
   base = "astro/"
   command = "pnpm install && pnpm build"
-  publish = "astro/dist"
+  # publish is resolved RELATIVE TO base ("astro/"), so this is astro/dist.
+  # Do NOT write "astro/dist" — base doubles it to astro/astro/dist and the
+  # deploy fails with "Deploy directory 'astro/astro/dist' does not exist".
+  publish = "dist"
 
 [context."feat/astro-migration".environment]
   NODE_VERSION = "22"

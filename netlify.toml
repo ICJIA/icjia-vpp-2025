@@ -112,7 +112,9 @@ status = 200
 [context."feat/astro-migration"]
   base = "astro/"
   command = "pnpm install && pnpm build"
-  publish = "astro/dist"
+  # publish is resolved RELATIVE TO base ("astro/"), so this is astro/dist.
+  # Do NOT write "astro/dist" here — base would double it to astro/astro/dist.
+  publish = "dist"
 
 [context."feat/astro-migration".environment]
   NODE_VERSION = "22"
