@@ -1,24 +1,19 @@
 ---
-import { Icon } from "astro-icon/components";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HomeHero from "../components/home/HomeHero.astro";
+import HomeLetter from "../components/home/HomeLetter.astro";
+import HomeGoals from "../components/home/HomeGoals.astro";
+import HomeAction from "../components/home/HomeAction.astro";
+import { hero, letters, goals, action } from "../data/home.js";
 ---
 
-<BaseLayout title="VPP — Astro Foundation Smoke Test">
-  <section class="container mx-auto grid grid-cols-1 gap-6 px-4 py-12 md:grid-cols-3">
-    <article class="rounded-md bg-surface p-6 text-on-surface shadow">
-      <Icon name="mdi:magnify" class="h-8 w-8 text-primary" />
-      <h2 class="font-display text-xl font-bold">Tailwind grid</h2>
-      <p>This card uses <code>grid grid-cols-1 md:grid-cols-3</code>.</p>
-    </article>
-    <article class="rounded-md bg-surface p-6 text-on-surface shadow">
-      <Icon name="mdi:theme-light-dark" class="h-8 w-8 text-secondary" />
-      <h2 class="font-display text-xl font-bold">Theme tokens</h2>
-      <p class="text-primary">Primary-colored text via <code>text-primary</code>.</p>
-    </article>
-    <article class="rounded-md bg-surface p-6 text-on-surface shadow">
-      <Icon name="mdi:download" class="h-8 w-8 text-accent" />
-      <h2 class="font-display text-xl font-bold">MDI icon</h2>
-      <p>Inline SVG from <code>@iconify-json/mdi</code>.</p>
-    </article>
-  </section>
+<BaseLayout
+  title="Violence Prevention Plan for Illinois: 2025-2029"
+  description="The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources."
+>
+  <HomeHero hero={hero} />
+  <HomeLetter letter={letters.adams} band="secondary" sectionId="letters-section" />
+  <HomeLetter letter={letters.stratton} band="primary" />
+  <HomeGoals goals={goals} />
+  <HomeAction action={action} />
 </BaseLayout>
