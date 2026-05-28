@@ -22,6 +22,18 @@ const pathname = Astro.url.pathname;
 /** Normalize a path to always have a trailing slash for aria-current comparison */
 const normalize = (p: string) => (p.endsWith("/") ? p : p + "/");
 const currentPath = normalize(pathname);
+
+/** Middle-truncate a string to at most n characters, inserting "…" in the middle. */
+function truncateMiddle(s: string, n: number): string {
+  if (s.length <= n) return s;
+  const keep = n - 1;
+  const front = Math.ceil(keep / 2);
+  const back = Math.floor(keep / 2);
+  return s.slice(0, front) + "…" + s.slice(s.length - back);
+}
+
+/** more items without the divider sentinel */
+const moreLinks = more.filter((i) => !i.divider);
 ---
 
 <header
@@ -219,6 +231,80 @@ const currentPath = normalize(pathname);
         aria-hidden="true"
       />
     </button>
+  </div>
+
+  <!-- ── Mobile drawer backdrop ──────────────────────────────────── -->
+  <div
+    x-show="drawer"
+    x-cloak
+    x-transition.opacity
+    @click="drawer=false"
+    class="fixed inset-0 z-[9998] bg-black/40 min-[960px]:hidden"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ── Mobile drawer panel (right-side off-canvas) ─────────────── -->
+  <div
+    id="mobile-drawer"
+    x-show="drawer"
+    x-cloak
+    @keydown.escape.window="drawer=false"
+    class="fixed inset-y-0 right-0 z-[9999] w-[280px] overflow-y-auto bg-white dark:bg-surface shadow-xl min-[960px]:hidden"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="translate-x-full"
+    x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="translate-x-full"
+    role="dialog"
+    aria-label="Mobile Navigation Menu"
+    aria-modal="true"
+  >
+    <!-- Theme toggle centered at top -->
+    <div class="flex justify-center py-4 mb-4">
+      <ThemeToggle />
+    </div>
+
+    <!-- Section: READ THE PLAN -->
+    <div
+      role="heading"
+      aria-level="2"
+      class="border-l-4 border-primary text-primary uppercase font-black text-[0.9rem] tracking-wide pl-3 py-2 pointer-events-none"
+    >
+      READ THE PLAN
+    </div>
+    {
+      readThePlan.map((item) => (
+        <a
+          href={item.to + "/"}
+          @click="drawer=false"
+          class="block border-l-2 border-primary/20 ml-4 pl-8 pr-2 py-2 min-h-[44px] hover:bg-primary/10 hover:border-l-primary/40 text-on-surface"
+        >
+          {truncateMiddle(item.text, 35)}
+        </a>
+      ))
+    }
+
+    <!-- Section: MORE -->
+    <div
+      role="heading"
+      aria-level="2"
+      class="border-l-4 border-primary text-primary uppercase font-black text-[0.9rem] tracking-wide pl-3 py-2 pointer-events-none mt-2"
+    >
+      MORE
+    </div>
+    {
+      moreLinks.map((item) => (
+        <a
+          href={item.to + "/"}
+          @click="drawer=false"
+          class="flex items-center gap-2 border-l-2 border-primary/20 ml-4 pl-8 pr-2 py-2 min-h-[44px] hover:bg-primary/10 text-on-surface"
+        >
+          <Icon name={item.icon} class="shrink-0" aria-hidden="true" />
+          {truncateMiddle(item.text, 30)}
+        </a>
+      ))
+    }
   </div>
 </header>
 
