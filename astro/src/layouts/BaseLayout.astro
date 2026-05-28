@@ -4,8 +4,9 @@ import "@fontsource/roboto/700.css";
 import "@fontsource/raleway/400.css";
 import "@fontsource/raleway/700.css";
 import "../styles/global.css";
-import HeaderPlaceholder from "../components/chrome/HeaderPlaceholder.astro";
-import FooterPlaceholder from "../components/chrome/FooterPlaceholder.astro";
+import Header from "../components/chrome/Header.astro";
+import Footer from "../components/chrome/Footer.astro";
+import ScrollToTop from "../components/chrome/ScrollToTop.astro";
 
 interface Props {
   title: string;
@@ -45,7 +46,7 @@ const {
       <a href="#site-navigation" class="skip-link">Skip to navigation</a>
     </nav>
 
-    <HeaderPlaceholder />
+    <Header />
 
     <main role="main" class="flex-1">
       <div id="main-content" tabindex="-1">
@@ -53,9 +54,10 @@ const {
       </div>
     </main>
 
-    <FooterPlaceholder />
+    <Footer />
 
     <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcer-polite"></div>
     <div aria-live="assertive" aria-atomic="true" class="sr-only" id="announcer-assertive"></div>
+    <ScrollToTop />
   </body>
 </html>
