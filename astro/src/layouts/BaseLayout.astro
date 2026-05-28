@@ -59,5 +59,14 @@ const {
     <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcer-polite"></div>
     <div aria-live="assertive" aria-atomic="true" class="sr-only" id="announcer-assertive"></div>
     <ScrollToTop />
+
+    <script>
+      import { initReferences } from "../scripts/references.js";
+      if (document.readyState !== "loading") {
+        initReferences();
+      } else {
+        document.addEventListener("DOMContentLoaded", initReferences);
+      }
+    </script>
   </body>
 </html>
