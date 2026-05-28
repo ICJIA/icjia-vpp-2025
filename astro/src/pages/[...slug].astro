@@ -1,0 +1,60 @@
+---
+/**
+ * Catch-all page template — renders top-level `pages` and `legal` collections.
+ *
+ * Pages collection exclusions:
+ *   - index   → home page (later phase)
+ *   - sandbox → dev-only page
+ *   - contact → contains ::FeedbackForm component (Phase 5)
+ *
+ * Legal pages map to /legal/<id>/ routes.
+ */
+
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageTitleSection from "../components/content/PageTitleSection.astro";
+
+export async function getStaticPaths() {
+  const EXCLUDED_PAGE_IDS = new Set(["index", "sandbox", "contact"]);
+  const [pageEntries, legalEntries] = await Promise.all([
+    getCollection("pages"),
+    getCollection("legal"),
+  ]);
+
+  const pageRoutes = pageEntries
+    .filter((entry) => !EXCLUDED_PAGE_IDS.has(entry.id))
+    .map((entry) => ({
+      params: { slug: entry.id },   // e.g. "resources" → /resources/
+      props: { entry },
+    }));
+
+  const legalRoutes = legalEntries.map((entry) => ({
+    params: { slug: `legal/${entry.id}` },  // e.g. "privacy-policy" → /legal/privacy-policy/
+    props: { entry },
+  }));
+
+  return [...pageRoutes, ...legalRoutes];
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={entry.data.title ?? ""}
+  description={entry.data.description}
+>
+  <PageTitleSection
+    title={entry.data.title ?? ""}
+    description={entry.data.description}
+    showBorder={true}
+  />
+
+  <div class="content-page">
+    <div class="container mx-auto px-4 py-8 max-w-[900px]">
+      <div class="markdown-body">
+        <Content />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
