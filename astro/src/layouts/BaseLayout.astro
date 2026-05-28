@@ -39,7 +39,7 @@ const {
       })();
     </script>
   </head>
-  <body>
+  <body class="flex min-h-dvh flex-col">
     <nav aria-label="Skip links" class="skip-links-nav">
       <a href="#main-content" class="skip-link">Skip to main content</a>
       <a href="#site-navigation" class="skip-link">Skip to navigation</a>
@@ -47,7 +47,7 @@ const {
 
     <HeaderPlaceholder />
 
-    <main role="main">
+    <main role="main" class="flex-1">
       <div id="main-content" tabindex="-1">
         <slot />
       </div>
