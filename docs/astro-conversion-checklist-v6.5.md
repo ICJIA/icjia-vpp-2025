@@ -365,6 +365,17 @@ v6.5 is a **VPP-authored increment** (Violence Prevention Plan, `vpp.icjia.illin
 6. **A no-op `backdrop-filter` is still worth keeping or dropping deliberately.** If the header background is fully opaque, `backdrop-blur` is visually a no-op but still triggers gotcha #1 — so either drop it or use the sibling-drawer pattern; don't leave a fixed drawer nested under it.
 7. **Verify Alpine interactions in a real browser, not just markup greps.** Screenshot-diff catches static visuals; it does NOT catch broken dropdown/drawer/toggle behavior. Use Chrome DevTools MCP to actually click + assert state (e.g. `Alpine.$data(nav).open`, drawer `getBoundingClientRect().height`). Two real bugs on VPP (gotchas #1, #3) passed every markup check and only surfaced under interaction testing.
 
+### VPP Phase 3 (content pipeline) — portable gotchas (local-markdown sites)
+
+1. **Decouple Astro content from the legacy reference.** COPY `/content` → `astro/src/content` and do all Astro-specific transforms (`.mdx` conversion, attr-stripping, content bug-fixes) on the COPY. Leaves the Nuxt app building as the screenshot-diff reference; root `/content` is deleted only at teardown.
+2. **`{target="_blank" rel="..."}` remark-attr syntax renders as LITERAL TEXT in Astro.** Nuxt Content silently handled it; Astro's default pipeline doesn't. Strip the `{...}` suffixes from links and add `rehype-external-links` (`target:'_blank', rel:['noopener','noreferrer']`) to re-apply them. (Installing `remark-attr` is the alternative, but external-links is cleaner.)
+3. **`<style scoped>` blocks in markdown ship as a GLOBAL `<style>` in Astro** (Vue-only feature, meaningless in Astro). Strip them; port the rules into the `.markdown-body` section of `global.css`.
+4. **MDC `::component`/`:component{...}` → `.mdx` + `<Component .../>`.** Rename the file to `.mdx`, `import` the Astro component, replace the token. Requires the **`@astrojs/mdx`** integration (add it — `astro sync` warns "No entry type found" without it). Reserve compose-in-page (discard body) for whole-body MDC pages (the home page); use `.mdx` for interleaved cases.
+5. **TOC fidelity is easy to miss — only screenshot-diff catches it.** Match the legacy TOC title text + style (VPP/ICJIA: **"Jump To..."**, bold) and the **item truncation** (legacy `truncateText`, 70-char word-boundary + "…"). A TOC that renders full untruncated h2 text looks "right" in isolation but diverges from prod.
+6. **Don't port dead Nuxt content heuristics.** The catch-all route's `needsStandardHeader` string-checks (`about-hero`/`feature-section`/`hero-section`) are home-only dead code in static Astro (each page is explicit). `content-links.client.ts` (SPA `/docs/` interceptor) and `footnotes.client.js` are unneeded — replace the footnote scroll-offset with `scroll-margin-top: <navbar-height>` on `.markdown-body` headings, and theme-styling with the existing CSS-variable tokens.
+7. **Astro 6.4 deprecates `markdown.remarkPlugins`/`rehypePlugins`** (build warns; still works). Migrating to `markdown.processor: unified({...})` (from `@astrojs/markdown-remark`) silences it — defer unless doing a config pass.
+8. **Netlify marks docs-only commits (outside the build `base`) as `error: "Canceled build due to no content change"`** — benign, NOT a failure; the previous deploy is reused. Don't chase it.
+
 ---
 
 ## Portfolio status + attack order
