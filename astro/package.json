@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/generate-references.js && node scripts/generate-search-index-defuddle.js",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -26,6 +27,10 @@
     "astro-icon": "^1.1.5",
     "rehype-external-links": "^3.0.0",
     "remark-gfm": "^4.0.1",
+    "defuddle": "^0.6.6",
+    "fuse.js": "^7.1.0",
+    "glob": "^11.1.0",
+    "jsdom": "^28.0.0",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
