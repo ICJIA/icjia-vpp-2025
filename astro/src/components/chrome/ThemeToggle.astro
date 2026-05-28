@@ -1,0 +1,95 @@
+---
+/**
+ * ThemeToggle — Alpine-driven pill-shaped theme switch.
+ *
+ * Syncs with the no-flash script in BaseLayout via sessionStorage key "theme".
+ * Reads the already-applied .dark class on mount (x-init) so initial state is
+ * always correct regardless of SSR default.
+ *
+ * Gotchas:
+ *  - sessionStorage ONLY — no localStorage, no cookies (#11)
+ *  - No ripple/Material effects (#7)
+ *  - Thumb transition respects prefers-reduced-motion
+ */
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<button
+  type="button"
+  role="switch"
+  aria-label="Toggle dark mode"
+  x-data="{ dark: true }"
+  x-init="dark = document.documentElement.classList.contains('dark')"
+  :aria-checked="dark.toString()"
+  @click="
+    dark = !dark;
+    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    sessionStorage.setItem('theme', dark ? 'dark' : 'light');
+  "
+  class:list={[
+    // pill wrapper — matches legacy .theme-switch-wrapper rounded-[1.5rem] py-1 px-2
+    "inline-flex items-center gap-2 rounded-[1.5rem] px-2 py-1",
+    "bg-on-surface/5 hover:bg-on-surface/10",
+    "dark:bg-white/5 dark:hover:bg-white/10",
+    // focus ring — 3px primary outline (legacy focus style)
+    "focus-visible:outline-3 focus-visible:outline-primary focus-visible:outline-offset-2",
+    // remove default button chrome
+    "cursor-pointer select-none border-0 bg-transparent p-0",
+    // transition
+    "transition-colors duration-200",
+    className,
+  ]}
+>
+  <!-- Sun/moon icon (aria-hidden) -->
+  <!-- Moon: shown when dark -->
+  <Icon
+    name="mdi:weather-night"
+    class="h-4 w-4 shrink-0 text-yellow-300 transition-colors duration-200"
+    aria-hidden="true"
+    x-show="dark"
+  />
+  <!-- Sun: shown when light -->
+  <Icon
+    name="mdi:white-balance-sunny"
+    class="h-4 w-4 shrink-0 text-orange-500 transition-colors duration-200"
+    aria-hidden="true"
+    x-show="!dark"
+  />
+
+  <!-- CSS pill track + thumb (legacy: 2rem × 1rem track, 0.75rem thumb) -->
+  <!--
+    Track uses bg-primary when dark (on), muted (on-surface/20) when light (off).
+    Thumb is white; translates right when dark/on.
+  -->
+  <span
+    :class="dark
+      ? 'bg-primary'
+      : 'bg-on-surface/20 dark:bg-on-surface/30'"
+    class="relative inline-flex h-4 w-8 shrink-0 items-center rounded-full transition-colors duration-200 motion-reduce:transition-none"
+    aria-hidden="true"
+  >
+    <span
+      :class="dark ? 'translate-x-[18px]' : 'translate-x-[2px]'"
+      class="inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform duration-200 motion-reduce:transition-none"
+    ></span>
+  </span>
+
+  <!-- Visible label: "Dark" or "Light" — hidden below 480px -->
+  <span
+    class="max-[480px]:hidden text-sm font-medium text-on-surface dark:text-on-surface whitespace-nowrap"
+    x-text="dark ? 'Dark' : 'Light'"
+  ></span>
+
+  <!-- Screen reader live region: announces theme change -->
+  <span
+    class="sr-only"
+    aria-live="polite"
+    x-text="dark ? 'Switched to dark mode' : 'Switched to light mode'"
+  ></span>
+</button>
