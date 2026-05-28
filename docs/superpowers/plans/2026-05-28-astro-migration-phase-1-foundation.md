@@ -80,7 +80,9 @@
 - [ ] **Step 2: Install with pnpm (this also verifies the manifest resolves)**
 
 Run: `cd astro && pnpm install`
-Expected: completes without error; creates `astro/node_modules` and `astro/pnpm-lock.yaml`. If pnpm warns that a newer patch exists for `astro`, that is fine.
+Expected: completes without error; creates `astro/node_modules` and `astro/pnpm-lock.yaml`.
+
+> **Version note:** the versions above are floor estimates from the checklist's v5 stack snapshot plus current best-known minors for the non-snapshot packages (`astro-icon`, `@iconify-json/mdi`, `@fontsource/*`, `@astrojs/alpinejs`, `@types/alpinejs`). They use caret ranges, so `pnpm install` resolves to the latest compatible release. If any package fails to resolve (a floor higher than the latest published version), install that one with `pnpm add <pkg>@latest` and let the lockfile pin it. Goal: latest stable per the checklist's "stay current" policy.
 
 - [ ] **Step 3: Verify the pinned package manager + native-build allowlist**
 
