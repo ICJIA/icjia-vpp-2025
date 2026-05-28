@@ -1,0 +1,61 @@
+---
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/raleway/400.css";
+import "@fontsource/raleway/700.css";
+import "../styles/global.css";
+import HeaderPlaceholder from "../components/chrome/HeaderPlaceholder.astro";
+import FooterPlaceholder from "../components/chrome/FooterPlaceholder.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = "The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- No-flash theme: default dark, session-only (matches current behavior). -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = sessionStorage.getItem("theme") || "dark";
+          if (t === "dark") document.documentElement.classList.add("dark");
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <nav aria-label="Skip links" class="skip-links-nav">
+      <a href="#main-content" class="skip-link">Skip to main content</a>
+      <a href="#site-navigation" class="skip-link">Skip to navigation</a>
+    </nav>
+
+    <HeaderPlaceholder />
+
+    <main role="main">
+      <div id="main-content" tabindex="-1">
+        <slot />
+      </div>
+    </main>
+
+    <FooterPlaceholder />
+
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcer-polite"></div>
+    <div aria-live="assertive" aria-atomic="true" class="sr-only" id="announcer-assertive"></div>
+  </body>
+</html>
