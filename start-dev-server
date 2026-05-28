@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Launch the Astro dev server from the repo root (ICJIA checklist §19).
+set -euo pipefail
+
+PORT=4321
+ARGS=()
+for a in "$@"; do
+  case "$a" in
+    --port) shift; PORT="${1:-4321}"; shift || true ;;
+    --port=*) PORT="${a#*=}" ;;
+    *) ARGS+=("$a") ;;
+  esac
+done
+
+# Free the port if something is already listening (macOS + Linux via lsof).
+if command -v lsof >/dev/null 2>&1; then
+  PID="$(lsof -ti tcp:"$PORT" || true)"
+  if [ -n "${PID:-}" ]; then
+    kill "$PID" 2>/dev/null || true
+    for _ in 1 2 3; do sleep 1; lsof -ti tcp:"$PORT" >/dev/null 2>&1 || break; done
+    lsof -ti tcp:"$PORT" >/dev/null 2>&1 && kill -9 "$PID" 2>/dev/null || true
+  fi
+fi
+
+cd "$(dirname "$0")/astro"
+rm -rf .astro 2>/dev/null || true
+[ -d node_modules ] || pnpm install
+exec pnpm exec astro dev --port "$PORT" "${ARGS[@]}"

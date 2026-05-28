@@ -106,3 +106,14 @@ status = 301
 from = "/404"
 to = "/404.html"
 status = 200
+
+# --- Astro migration branch preview (feat/astro-migration only) ---
+# Production (main) is unaffected and keeps building the Nuxt app.
+[context."feat/astro-migration"]
+  base = "astro/"
+  command = "pnpm install && pnpm build"
+  publish = "astro/dist"
+
+[context."feat/astro-migration".environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "10.33.0"
