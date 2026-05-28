@@ -3,7 +3,7 @@
 - **Date:** 2026-05-28
 - **Branch:** `feat/astro-migration` (must NOT merge to `main` until explicit thumbs-up)
 - **Status:** Approved design; next step is the implementation plan
-- **Canonical playbook:** `docs/astro-conversion-checklist-v6.4.md` (the ICJIA Astro migration checklist; `vpp` is a named target in its lineage)
+- **Canonical playbook:** `docs/astro-conversion-checklist-v6.5.md` (the ICJIA Astro migration checklist; `vpp` is a named target in its lineage)
 
 ## 1. Context & motivation
 
