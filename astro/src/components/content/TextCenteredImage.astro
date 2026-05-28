@@ -9,7 +9,16 @@
  * Each instance gets a unique dialogId derived from the src path so multiple
  * instances on one page are independently wired.
  * A tiny inline <script> scopes open/close/backdrop-click to each instance.
+ *
+ * Image optimization: when src basename matches a file in src/assets/images,
+ * astro:assets <Image> is used so Sharp resizes/reformats at build time.
+ * The thumbnail is rendered at 1600px wide (capped to display size by CSS
+ * max-width). The modal's <img> reuses the same Sharp-generated URL via
+ * Astro.slots / a rendered src attribute — we pass the resolved src string
+ * to the dialog so it shows the same optimized file.
  */
+import { Image, getImage } from "astro:assets";
+
 interface Props {
   src: string;
   alt: string;
@@ -28,21 +37,60 @@ const dialogId =
     .replace(/\.[^.]+$/, "") // strip extension
     .replace(/[^a-z0-9]/gi, "-") // non-alphanum → dash
     .toLowerCase();
+
+// Glob-resolve: try to find a src/assets/images match for the public-path src.
+// If found, use Sharp-optimized <Image>; otherwise fall back to plain <img>.
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/images/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+const srcBasename = src.replace(/^.*\//, "");
+const resolvedKey = Object.keys(allImages).find((k) =>
+  k.endsWith("/" + srcBasename)
+);
+const resolvedAsset: ImageMetadata | null = resolvedKey
+  ? allImages[resolvedKey].default
+  : null;
+
+// Pre-generate the optimized image URL for the modal (same asset, same quality).
+// getImage() runs at build time and returns the final hashed URL.
+const optimizedModal = resolvedAsset
+  ? await getImage({ src: resolvedAsset, width: 1600, format: "webp" })
+  : null;
+const modalSrc = optimizedModal ? optimizedModal.src : src;
 ---
 
 <figure class="text-centered-image my-8 text-center">
   <!-- Thumbnail — acts as the modal trigger -->
-  <img
-    src={src}
-    alt={alt}
-    style={`max-width: ${maxWidth};`}
-    class="mx-auto block w-full h-auto rounded shadow-md cursor-pointer"
-    loading="lazy"
-    role="button"
-    tabindex="0"
-    aria-label={`Enlarge image: ${alt}`}
-    data-dialog-id={dialogId}
-  />
+  <!-- Use astro:assets <Image> (Sharp-optimized, hashed) when src resolved in src/assets;
+       fall back to plain <img> for any other path. -->
+  {resolvedAsset ? (
+    <Image
+      src={resolvedAsset}
+      alt={alt}
+      width={1600}
+      format="webp"
+      loading="lazy"
+      style={`max-width: ${maxWidth};`}
+      class="mx-auto block w-full h-auto rounded shadow-md cursor-pointer"
+      role="button"
+      tabindex="0"
+      aria-label={`Enlarge image: ${alt}`}
+      data-dialog-id={dialogId}
+    />
+  ) : (
+    <img
+      src={src}
+      alt={alt}
+      style={`max-width: ${maxWidth};`}
+      class="mx-auto block w-full h-auto rounded shadow-md cursor-pointer"
+      loading="lazy"
+      role="button"
+      tabindex="0"
+      aria-label={`Enlarge image: ${alt}`}
+      data-dialog-id={dialogId}
+    />
+  )}
 
   {caption && (
     <figcaption class="mt-3 text-sm font-bold text-center text-on-surface/70 italic">
@@ -87,9 +135,9 @@ const dialogId =
     </button>
   </div>
 
-  <!-- Full-size image -->
+  <!-- Full-size image (optimized Sharp src when available, else original public path) -->
   <img
-    src={src}
+    src={modalSrc}
     alt={alt}
     class="block mx-auto w-auto max-w-full max-h-[75vh] object-contain"
   />

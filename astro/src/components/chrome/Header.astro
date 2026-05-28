@@ -14,8 +14,10 @@
  * hover-open + click-toggle + ESC + outside-click.
  */
 import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
 import ThemeToggle from "./ThemeToggle.astro";
 import { branding, readThePlan, more } from "../../data/nav.js";
+import sealImg from "../../assets/images/illinois-seal.webp";
 
 const pathname = Astro.url.pathname;
 
@@ -49,10 +51,10 @@ const moreLinks = more.filter((i) => !i.divider);
     >
     <!-- ── Branding ─────────────────────────────────────────────────── -->
     <a href={branding.href} class="flex items-center group">
-      <img
-        src={branding.seal}
-        width="40"
-        height="40"
+      <Image
+        src={sealImg}
+        width={40}
+        height={40}
         alt=""
         class="object-contain mr-2 min-[960px]:mr-3 h-8 w-8 min-[960px]:h-10 min-[960px]:w-10 transition-transform group-hover:scale-105"
       />

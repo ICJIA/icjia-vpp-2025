@@ -13,8 +13,29 @@
  *
  * Source: app/components/content/HomeLetters.vue
  *         app/components/content/HomeLieutenantGovernor.vue
+ *
+ * Image optimization: photo.src is a public-path string (e.g. "/images/DirectorAdamsResized.jpg").
+ * We glob-resolve the basename to an imported asset in src/assets/images/ so
+ * Astro's built-in Sharp pipeline can resize/reformat + content-hash the file.
  */
+import { Image } from "astro:assets";
+
 const { letter, band, sectionId } = Astro.props;
+
+// Eagerly import all optimizable portrait images from src/assets/images.
+const portraits = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/images/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+
+// Resolve the photo.src basename to the imported ImageMetadata module, if found.
+const photoBasename = letter.photo.src.replace(/^.*\//, ""); // "DirectorAdamsResized.jpg"
+const resolvedKey = Object.keys(portraits).find((k) =>
+  k.endsWith("/" + photoBasename)
+);
+const resolvedPhoto: ImageMetadata | null = resolvedKey
+  ? portraits[resolvedKey].default
+  : null;
 ---
 
 <section
@@ -37,14 +58,27 @@ const { letter, band, sectionId } = Astro.props;
       -->
       <div class="overflow-hidden">
         <!-- Photo: floated left, text wraps around it -->
-        <img
-          src={letter.photo.src}
-          alt={letter.photo.alt}
-          width={letter.photo.width}
-          height={letter.photo.height}
-          loading="lazy"
-          class="float-left w-[150px] h-auto mr-5 mb-2 mt-1 rounded-lg [shape-outside:margin-box]"
-        />
+        <!-- Use astro:assets <Image> when the portrait was resolved via glob (Sharp-optimized).
+             Fall back to plain <img> for any src not found in src/assets/images. -->
+        {resolvedPhoto ? (
+          <Image
+            src={resolvedPhoto}
+            alt={letter.photo.alt}
+            width={letter.photo.width}
+            height={letter.photo.height ?? letter.photo.width}
+            loading="lazy"
+            class="float-left w-[150px] h-auto mr-5 mb-2 mt-1 rounded-lg [shape-outside:margin-box]"
+          />
+        ) : (
+          <img
+            src={letter.photo.src}
+            alt={letter.photo.alt}
+            width={letter.photo.width}
+            height={letter.photo.height}
+            loading="lazy"
+            class="float-left w-[150px] h-auto mr-5 mb-2 mt-1 rounded-lg [shape-outside:margin-box]"
+          />
+        )}
 
         <!-- Body copy -->
         <p class="text-[1.1rem] leading-[1.7]">{letter.body}</p>
