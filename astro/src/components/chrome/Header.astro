@@ -36,20 +36,19 @@ function truncateMiddle(s: string, n: number): string {
 const moreLinks = more.filter((i) => !i.divider);
 ---
 
-<header
-  role="banner"
-  x-data="{ drawer: false }"
-  class="sticky top-0 z-50 bg-app-bar text-on-app-bar border-b border-on-surface/10 backdrop-blur-[10px]"
->
-  <div
-    class="max-w-[1600px] mx-auto h-16 flex items-center px-4 min-[600px]:px-6 min-[960px]:px-8"
+<!-- Wrapper holds the Alpine drawer state so the drawer can live OUTSIDE the
+     <header> (the header's backdrop-filter would otherwise trap fixed children
+     and its z-50 stacking context would sit below the z-1000 scroll-top FAB). -->
+<div x-data="{ drawer: false }">
+  <header
+    role="banner"
+    class="sticky top-0 z-50 bg-app-bar text-on-app-bar border-b border-on-surface/10 backdrop-blur-[10px]"
   >
-    <!-- ── Branding ─────────────────────────────────────────────────── -->
-    <a
-      href={branding.href}
-      class="flex items-center group"
-      aria-label="Illinois Violence Prevention Plan — homepage"
+    <div
+      class="max-w-[1600px] mx-auto h-16 flex items-center px-4 min-[600px]:px-6 min-[960px]:px-8"
     >
+    <!-- ── Branding ─────────────────────────────────────────────────── -->
+    <a href={branding.href} class="flex items-center group">
       <img
         src={branding.seal}
         width="40"
@@ -90,12 +89,14 @@ const moreLinks = more.filter((i) => !i.divider);
         show(k) { clearTimeout(this.timer); this.open = k; },
         hide()  { this.timer = setTimeout(() => this.open = null, 150); }
       }"
+      @click.outside="open = null"
+      @keydown.escape.window="open = null"
     >
       <!-- "Read the Plan" dropdown -->
       <div class="relative">
         <button
           type="button"
-          class="font-bold mx-2 px-2 py-1 inline-flex items-center nav-link"
+          class="font-bold uppercase tracking-[0.0892857143em] mx-2 px-2 py-1 inline-flex items-center nav-link"
           aria-haspopup="true"
           :aria-expanded="(open === 'plan').toString()"
           @mouseenter="show('plan')"
@@ -116,7 +117,6 @@ const moreLinks = more.filter((i) => !i.divider);
           x-cloak
           @mouseenter="show('plan')"
           @mouseleave="hide()"
-          @click.outside="open = null"
           class="absolute right-0 mt-1 min-w-[200px] w-max overflow-hidden rounded bg-surface shadow-lg border border-on-surface/10 z-50"
         >
           {
@@ -140,7 +140,7 @@ const moreLinks = more.filter((i) => !i.divider);
       <!-- Download pill -->
       <a
         href="/download/"
-        class="hidden min-[960px]:inline-flex items-center rounded-full font-bold px-4 py-2 ml-4 bg-white text-[#0747a6] border border-black/5 shadow-md transition hover:bg-[#f8f8f8] hover:text-[#053285] hover:-translate-y-px dark:bg-[#2a3441] dark:text-[#93c5fd] dark:border-white/5 dark:hover:bg-[#334155] dark:hover:text-[#bfdbfe]"
+        class="hidden min-[960px]:inline-flex items-center rounded-full font-bold uppercase tracking-[0.0892857143em] px-4 py-2 ml-4 bg-white text-[#0747a6] border border-black/5 shadow-md transition hover:bg-[#f8f8f8] hover:text-[#053285] hover:-translate-y-px dark:bg-[#2a3441] dark:text-[#93c5fd] dark:border-white/5 dark:hover:bg-[#334155] dark:hover:text-[#bfdbfe]"
       >
         Download
       </a>
@@ -149,7 +149,7 @@ const moreLinks = more.filter((i) => !i.divider);
       <div class="relative">
         <button
           type="button"
-          class="font-bold mx-2 px-2 py-1 inline-flex items-center nav-link"
+          class="font-bold uppercase tracking-[0.0892857143em] mx-2 px-2 py-1 inline-flex items-center nav-link"
           aria-haspopup="true"
           :aria-expanded="(open === 'more').toString()"
           @mouseenter="show('more')"
@@ -170,7 +170,6 @@ const moreLinks = more.filter((i) => !i.divider);
           x-cloak
           @mouseenter="show('more')"
           @mouseleave="hide()"
-          @click.outside="open = null"
           class="absolute right-0 mt-1 min-w-[200px] w-max overflow-hidden rounded bg-surface shadow-lg border border-on-surface/10 z-50"
         >
           {
@@ -232,7 +231,11 @@ const moreLinks = more.filter((i) => !i.divider);
       />
     </button>
   </div>
+  </header>
 
+  <!-- Mobile drawer + backdrop: siblings of <header> inside the Alpine wrapper.
+       position:fixed now resolves to the viewport, and z-[9999] sits above the
+       z-1000 scroll-top FAB. -->
   <!-- ── Mobile drawer backdrop ──────────────────────────────────── -->
   <div
     x-show="drawer"
@@ -306,7 +309,7 @@ const moreLinks = more.filter((i) => !i.divider);
       ))
     }
   </div>
-</header>
+</div>
 
 <style>
   /* x-cloak: hide Alpine-managed elements before Alpine loads to prevent FOUC */
