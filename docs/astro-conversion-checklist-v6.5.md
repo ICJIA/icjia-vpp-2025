@@ -376,6 +376,15 @@ v6.5 is a **VPP-authored increment** (Violence Prevention Plan, `vpp.icjia.illin
 7. **Astro 6.4 deprecates `markdown.remarkPlugins`/`rehypePlugins`** (build warns; still works). Migrating to `markdown.processor: unified({...})` (from `@astrojs/markdown-remark`) silences it — defer unless doing a config pass.
 8. **Netlify marks docs-only commits (outside the build `base`) as `error: "Canceled build due to no content change"`** — benign, NOT a failure; the previous deploy is reused. Don't chase it.
 
+### VPP Phase 4 (home page) — portable gotchas
+
+1. **Dark-mode filled-primary buttons fail WCAG 1.4.3.** `bg-primary text-white` is fine in light (primary = dark blue) but FAILS in dark mode (ICJIA dark primary is LIGHT, `#93C5FD`) — white-on-light-blue ≈ 1.8 contrast. Fix: `text-white dark:text-[#0f172a]` (dark text in dark mode). Same trap as the scroll-top FAB — applies to EVERY filled-primary control (hero CTA, etc.). lightcap a11y catches it; eyeballing dark mode does not.
+2. **The legacy global `h2 { border-bottom }` applies to HOME SECTION headings too**, not just markdown. Prod shows a full-width rule under each section heading. If you scoped the h2 border to `.markdown-body` (Phase 3), the home section headings will be missing it — add `border-b border-on-surface/20 pb-3` to the section `<h2>`s.
+3. **Vuetify typography mapping:** `text-h3` = 3rem/48px, `text-h2` = 3.75rem/60px → section headings (`text-h3 text-md-h2`) = `text-5xl min-[960px]:text-6xl font-bold`. Easy to undersize (a `text-3xl/4xl` port looked plausible in isolation but was visibly smaller than sibling sections — only the cross-section screenshot-diff caught it).
+4. **Port only ACTIVE sections.** Check `pages/index.vue` for commented-out components — VPP's home composes 5 sections (Hero, 2 letters, Goals, Action); 5 others (Statistics/Approach/Principles/Stakeholders/News) were disabled and must NOT be rendered (prod doesn't show them). Keep their data for future re-enable, but match prod.
+5. **LCP hero image:** the source often has `loading="lazy"` on the above-the-fold hero — flip to `loading="eager" fetchpriority="high"` (Astro).
+6. **Animations are CSS `@keyframes` (no @vueuse/motion)** on these sites — port as scoped `<style>` `fadeSlideUp` staggers gated behind `@media (prefers-reduced-motion: no-preference)`; the global reduced-motion guard is belt-and-suspenders.
+
 ---
 
 ## Portfolio status + attack order
