@@ -30,7 +30,11 @@ export default defineConfig({
     alpinejs(),
     icon(),
     sitemap({
-      filter: (page) => !page.includes('/sandbox') && !page.includes('/404'),
+      filter: (page) =>
+        !page.includes('/sandbox') &&
+        !page.includes('/404') &&
+        !page.includes('/docs') &&
+        !page.endsWith('/search/'),
       changefreq: 'weekly',
       priority: 0.5,
     }),

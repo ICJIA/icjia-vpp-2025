@@ -119,3 +119,13 @@ status = 200
 [context."feat/astro-migration".environment]
   NODE_VERSION = "22"
   PNPM_VERSION = "10.33.0"
+
+[[context."feat/astro-migration".redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-0.xml"
+  status = 200
+
+[[context."feat/astro-migration".redirects]]
+  from = "/sitemap.xml/"
+  to = "/sitemap-0.xml"
+  status = 200
