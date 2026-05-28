@@ -32,4 +32,18 @@ const pages = defineCollection({
   schema: sharedSchema,
 });
 
-export const collections = { plan, legal, pages };
+const news = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/news" }),
+  schema: z
+    .object({
+      title: z.string().optional(),
+      summary: z.string().optional(),
+      date: z.coerce.date().optional(),
+      image: z.string().optional(),
+      description: z.string().optional(),
+      lastModified: z.coerce.date().optional(),
+    })
+    .passthrough(),
+});
+
+export const collections = { plan, legal, pages, news };

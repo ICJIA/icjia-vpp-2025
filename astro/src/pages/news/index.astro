@@ -1,0 +1,69 @@
+---
+/**
+ * /news/ — News listing page.
+ * Ported from app/pages/news.vue + app/components/content/NewsCard.vue.
+ *
+ * Shows an empty state when no news items exist (current state).
+ * When content is added to src/content/news/, renders NewsCard items sorted
+ * date DESC in a single-column list (max-w-[900px]).
+ *
+ * Note: No nav link added (News is disabled in prod chrome — matches legacy).
+ */
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageTitleSection from "../../components/content/PageTitleSection.astro";
+import NewsCard from "../../components/content/NewsCard.astro";
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+const allItems = await getCollection("news");
+
+const items = allItems.sort((a, b) => {
+  const da = a.data.date ? new Date(a.data.date).getTime() : 0;
+  const db = b.data.date ? new Date(b.data.date).getTime() : 0;
+  return db - da;
+});
+---
+
+<BaseLayout
+  title="News — Violence Prevention Plan for Illinois: 2025-2029"
+  description="News and updates on Illinois violence prevention initiatives, community programs, and policy updates."
+>
+  <PageTitleSection title="News" />
+
+  <div class="content-page">
+    <div class="container mx-auto px-4 py-8 max-w-[900px]">
+
+      {items.length === 0 ? (
+        <!-- Empty state -->
+        <div class="empty-state flex flex-col items-center justify-center py-16 text-center max-w-[600px] mx-auto">
+          <Icon
+            name="mdi:newspaper-variant-outline"
+            class="text-primary mb-4"
+            style="width: 64px; height: 64px;"
+            aria-hidden="true"
+          />
+          <h2 class="text-xl font-semibold mb-2 text-on-surface/90">No News Available</h2>
+          <p class="text-sm text-on-surface/60">
+            Check back soon for the latest updates and announcements.
+          </p>
+        </div>
+      ) : (
+        <!-- News list -->
+        <div class="news-list flex flex-col gap-8">
+          {items.map((item) => (
+            <NewsCard
+              id={item.id}
+              title={item.data.title}
+              summary={item.data.summary || item.data.description}
+              date={item.data.date}
+              image={item.data.image}
+              href={`/news/${item.id}/`}
+            />
+          ))}
+        </div>
+      )}
+
+    </div>
+  </div>
+</BaseLayout>
