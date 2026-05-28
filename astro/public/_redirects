@@ -1,0 +1,6 @@
+# @astrojs/sitemap emits sitemap-index.xml + sitemap-0.xml (never sitemap.xml).
+# Serve the conventional /sitemap.xml as a 200-rewrite to the single shard.
+# This file ships in astro/dist (the Astro publish dir), so it only affects the
+# Astro deploy — the legacy Nuxt production build is unaffected.
+/sitemap.xml    /sitemap-0.xml    200
+/sitemap.xml/   /sitemap-0.xml    200
