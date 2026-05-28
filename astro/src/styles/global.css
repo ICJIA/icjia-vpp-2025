@@ -396,3 +396,18 @@ a.skip-link:focus {
 :root:not(.dark) .content-page {
   color: #000;
 }
+
+/* ---- Home section bands (alternating) ---- */
+.section-primary { background: #fafafa; border-top: 1px solid #e0e0e0; }
+.section-secondary { background: #e5e5e5; border-top: 1px solid #e0e0e0; }
+:root.dark .section-primary { background: #1a2234; border-top: none; }
+:root.dark .section-secondary { background: #1e2a3a; border-top: none; }
+
+/* ---- Reduced-motion guard ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
