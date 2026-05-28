@@ -15,6 +15,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageTitleSection from "../../components/content/PageTitleSection.astro";
 import ReportNavigation from "../../components/content/ReportNavigation.astro";
+import { articleJsonLd, breadcrumbJsonLd, SITE_ORIGIN } from "../../lib/seo.ts";
 
 export async function getStaticPaths() {
   const entries = await getCollection("plan");
@@ -32,6 +33,28 @@ const showTOC = entry.data.showTOC ?? false;
 const tocHeadings = showTOC ? headings.filter((h) => h.depth === 2) : [];
 const hasTOC = tocHeadings.length > 0;
 
+// Dates: z.coerce.date() gives Date objects; convert to ISO strings for SEO.
+const datePublished = entry.data.date instanceof Date
+  ? entry.data.date.toISOString().split("T")[0]
+  : (entry.data.date as string | undefined);
+const dateModified = entry.data.lastModified instanceof Date
+  ? entry.data.lastModified.toISOString().split("T")[0]
+  : (entry.data.lastModified as string | undefined) ?? datePublished;
+const keywordsStr = Array.isArray(entry.data.keywords)
+  ? entry.data.keywords.join(", ")
+  : entry.data.keywords;
+
+const pageUrl = SITE_ORIGIN + Astro.url.pathname;
+const articleLd = articleJsonLd({
+  title: entry.data.title ?? "",
+  description: entry.data.description ?? "",
+  url: pageUrl,
+  datePublished,
+  dateModified,
+  keywords: keywordsStr,
+});
+const breadcrumbLd = breadcrumbJsonLd(Astro.url.pathname);
+
 // Match the legacy TOC truncation (app/pages/[...slug].vue truncateText, maxLength 70).
 const truncateText = (text: string, maxLength = 70): string => {
   if (!text || text.length <= maxLength) return text;
@@ -45,7 +68,14 @@ const truncateText = (text: string, maxLength = 70): string => {
 <BaseLayout
   title={entry.data.title ?? ""}
   description={entry.data.description}
+  ogImage={entry.data.ogImage}
+  ogType="article"
+  publishedAt={datePublished}
+  updatedAt={dateModified}
+  keywords={keywordsStr}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   <PageTitleSection
     title={entry.data.title ?? ""}
     description={entry.data.description}
