@@ -109,6 +109,7 @@ icjia-vpp-2025/                  # feat/astro-migration branch
 | **5 — Interactivity** | Pop-up references/citations island (must-preserve), footnotes, tooltips, Fuse `/search`, `/news` listing, `/download` + DownloadPlanButton, `/contact`, FeedbackForm stub | Functional-parity checklist + screenshot-diff |
 | **6 — SEO/discovery** | astro-seo per-page meta/OG/Twitter, JSON-LD (StructuredData→layout), sitemap, robots.txt, llms.txt, canonical + trailing-slash | Meta/OG parity vs current |
 | **7 — Headers/perf/a11y** | Strict CSP w/ hashed inline scripts (keep `unsafe-eval` per §11), `_headers` defense-in-depth, safe CSS lazy-load, font-weight trim, full-route a11y sweep | lightcap 100/100/100/100 all routes; clean CSP console |
+| **8 — Teardown & cleanup** | Once all phases verify: delete the root Nuxt/Vue/Vuetify app (`app/`, `nuxt.config.ts`, `content.config.ts`, `server/`, Nuxt build scripts, vuetify/vue deps, yarn lockfile, `.nuxt`/`.output`), remove stray non-`/docs` markdown + log files, promote `astro/` to the deploy base, and rewrite `README.md` for the Astro/Tailwind/Alpine stack | Repo is Astro-only: `grep -rIl -e vuetify -e "from \"vue\"" --exclude-dir=node_modules` is clean; `pnpm build` from the promoted base succeeds; `README.md` reflects the new stack; `LICENSE` + `/docs` (checklist + migration docs) intact |
 
 ## 9. Verification harness (the pixel-perfect gate)
 
@@ -117,9 +118,15 @@ icjia-vpp-2025/                  # feat/astro-migration branch
 - **Lighthouse/a11y:** lightcap `run_audit` (mobile) + `run_a11y` per route → 100/100/100/100.
 - **Functional-parity checklist** per interactive feature: search ranking/results, theme persistence + no-flash, mobile menu, **pop-up references (trigger, positioning, content, dismiss, keyboard/focus)**, footnotes, scroll-to-top, form stub.
 
-## 10. Cutover (§17)
+## 10. Cutover (§17) + teardown (Phase 8)
 
-Tag `v1-final`; flip `netlify.toml` `base="astro/"` + publish `astro/dist`; run `check:links`; mobile Lighthouse on the deploy; verify Plausible registers a real request; **visual skip-link Tab test** on the homepage; smoke-test search / menu / references / forms. **Merge to `main` only on the user's explicit thumbs-up.** Keep the Nuxt app ~1 week for rollback.
+Tag `v1-final` (the last legacy commit — this is the rollback point); flip `netlify.toml` `base="astro/"` + publish `astro/dist`; run `check:links`; mobile Lighthouse on the deploy; verify Plausible registers a real request; **visual skip-link Tab test** on the homepage; smoke-test search / menu / references / forms.
+
+**Teardown (Phase 8) — the merged branch must be Astro/Tailwind/Alpine ONLY.** After verification passes, the root Nuxt app and Vue/Vuetify footprint are deleted, stray non-`/docs` markdown + logs are removed, and `README.md` is rewritten for the new stack. **Keep:** `README.md` (updated), `LICENSE`, everything under `/docs` (the checklist + migration spec/plans/audits), and the `astro/` app (promoted to root or kept as the deploy base — decide at teardown). Because the Nuxt app is removed rather than kept alongside, **rollback is via the `v1-final` tag / pre-merge `main`**, not a coexisting legacy app.
+
+**Merge to `main` only on the user's explicit thumbs-up.**
+
+**Teardown ambiguity to resolve with the user before deleting:** whether `CHANGELOG.md` is kept at root (it conflicts with the user's standing "always keep + update CHANGELOG" preference, so default to KEEP unless told otherwise), and the exact list of non-`/docs` markdown/log files to remove (e.g., `markdown-documentation/`, `audit-log-*.md`, `*-audit-*.log`, root analysis docs).
 
 ## 11. Risks / watch-items
 
