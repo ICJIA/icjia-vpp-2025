@@ -1,132 +1,34 @@
-# Netlify Configuration for Violence Prevention Plan for Illinois: 2025-2029
-# This file configures build settings and deployment options for Netlify
+# Netlify configuration — Astro build
+# Violence Prevention Plan for Illinois: 2025-2029
+#
+# The app lives in astro/. Security headers, cache policy, and the
+# /sitemap.xml 200-rewrite ship WITH the build in astro/public/_headers
+# and astro/public/_redirects (they end up in astro/dist and are read from
+# the publish dir). Keeping them in-app — rather than in this file — avoids
+# the netlify.toml-overrides-_headers precedence trap and keeps the policy
+# colocated with the code it secures.
 
 [build]
-# Build command with native module rebuild
-command = "yarn install && yarn check-sass && yarn rebuild-sqlite && yarn run generate"
-
-# Directory to publish (Nuxt 3 static generation outputs to .output/public)
-publish = ".output/public"
-
-[build.environment]
-# Node.js version for build environment
-NODE_VERSION = "22"
-
-# Ensure native modules can be built properly
-NPM_FLAGS = "--production=false"
-
-# Set build environment variables
-NODE_ENV = "production"
-
-# Force use of modern Sass instead of node-sass
-SASS_IMPLEMENTATION = "sass"
-
-# Enable verbose logging for debugging
-DEBUG = "nuxt:*"
-
-# Headers for security and performance
-# CUTOVER NOTE (Phase 8): this global [[headers]] block targets the legacy Nuxt
-# build and, per Netlify precedence, OVERRIDES astro/public/_headers on the
-# branch deploy. The Astro app ships a TIGHTER CSP in astro/public/_headers
-# (drops jsdelivr/google-fonts, adds object-src 'none', immutable _astro cache).
-# At cutover, REMOVE this block (and the Nuxt build config) so the Astro
-# _headers file becomes the active policy. Left untouched now to avoid changing
-# the live production site's security headers pre-approval.
-[[headers]]
-for = "/*"
-[headers.values]
-# Security headers
-X-Frame-Options = "DENY"
-X-Content-Type-Options = "nosniff"
-X-XSS-Protection = "1; mode=block"
-Referrer-Policy = "strict-origin-when-cross-origin"
-Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.icjia.cloud; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.icjia.cloud https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
-Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
-Cross-Origin-Opener-Policy = "same-origin"
-
-# Default cache: short-lived for general assets
-Cache-Control = "public, max-age=3600"
-
-# Immutable hashed assets (JS/CSS bundles with content hash in filename)
-[[headers]]
-for = "/_nuxt/*"
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-# Static images and fonts — long cache
-[[headers]]
-for = "/images/*"
-[headers.values]
-Cache-Control = "public, max-age=2592000"
-
-# HTML files — always revalidate
-[[headers]]
-for = "/*.html"
-[headers.values]
-Cache-Control = "public, max-age=0, must-revalidate"
-
-# Special headers for API and data files
-[[headers]]
-for = "/api/*"
-[headers.values]
-Cache-Control = "public, max-age=300"
-
-[[headers]]
-for = "/*.json"
-[headers.values]
-Cache-Control = "public, max-age=300"
-
-[[headers]]
-for = "/*.yaml"
-[headers.values]
-Cache-Control = "public, max-age=300"
-
-[[headers]]
-for = "/*.csv"
-[headers.values]
-Cache-Control = "public, max-age=300"
-
-# Redirects
-[[redirects]]
-from = "https://vpp-2025.netlify.app/*"
-to = "https://vpp.icjia.illinois.gov/:splat"
-status = 301
-force = true
-
-
-[[redirects]]
-from = "/plan"
-to = "/plan/front-cover"
-status = 301
-
-
-# SPA fallback: rewrite all non-file requests to index.html so client router can handle routes
-# [[redirects]]
-# from = "/*"
-# to = "/index.html"
-# status = 200
-
-# Error pages (only match when the file truly does not exist and SPA fallback didn't apply)
-# Keep this block after the 200 rewrite so that existing deep links do not bounce to home
-[[redirects]]
-from = "/404"
-to = "/404.html"
-status = 200
-
-# --- Astro migration branch preview (feat/astro-migration only) ---
-# Production (main) is unaffected and keeps building the Nuxt app.
-[context."feat/astro-migration"]
   base = "astro/"
   command = "pnpm install && pnpm build"
   # publish is resolved RELATIVE TO base ("astro/"), so this is astro/dist.
-  # Do NOT write "astro/dist" here — base would double it to astro/astro/dist.
+  # Do NOT write "astro/dist" — base would double it to astro/astro/dist.
   publish = "dist"
 
-[context."feat/astro-migration".environment]
+[build.environment]
   NODE_VERSION = "22"
   PNPM_VERSION = "10.33.0"
 
-# NOTE: the /sitemap.xml → /sitemap-0.xml 200-rewrite lives in
-# astro/public/_redirects (ships in astro/dist), NOT here — context-scoped
-# [[context.*.redirects]] in netlify.toml did not apply on the branch deploy.
+# Canonicalize the Netlify default subdomain to the custom domain (production).
+# Does not match branch-deploy subdomains, so it's inert on previews.
+[[redirects]]
+  from = "https://vpp-2025.netlify.app/*"
+  to = "https://vpp.icjia.illinois.gov/:splat"
+  status = 301
+  force = true
+
+# NOTE: app-level routing/headers live with the build, not here:
+#   - /plan → /plan/front-cover/   → astro/src/pages/plan/index.astro (301)
+#   - /sitemap.xml → /sitemap-0.xml → astro/public/_redirects (200)
+#   - CSP + security + cache headers → astro/public/_headers
+#   - 404 → astro/dist/404.html (Netlify serves it automatically)
