@@ -8,15 +8,15 @@ All notable changes to the Violence Prevention Plan for Illinois: 2025-2029 web 
 
 This application is deployed as a **static site on Netlify** with no server-side code, which eliminates entire classes of vulnerabilities (SQL injection, SSRF, auth bypass, etc.). The following security measures are in place:
 
-- **Content Security Policy (CSP)**: Restrictive policy with `default-src 'self'`, `frame-ancestors 'none'`, `base-uri 'self'`, `form-action 'self'`. External sources limited to Plausible analytics, Google Fonts, and jsDelivr CDN.
+- **Content Security Policy (CSP)**: Restrictive policy with `default-src 'self'`, `object-src 'none'`, `frame-ancestors 'none'`, `base-uri 'self'`, `form-action 'self'`. The only external source is the self-hosted Plausible analytics endpoint; fonts, icons, and styles are self-hosted (no jsDelivr / Google Fonts dependency). Shipped via `astro/public/_headers`.
 - **HTTP Security Headers**: Full suite including HSTS (1 year + preload), X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy (camera/mic/geo/payment denied), Cross-Origin-Opener-Policy same-origin.
-- **Subresource Integrity (SRI)**: External stylesheets loaded with integrity hashes and crossorigin="anonymous".
-- **Input Sanitization**: Comprehensive XSS prevention in `sanitize.js` with multi-layer sanitization for search queries, content indexing, and result display. Search queries limited to 50 characters.
+- **No external scripts/styles**: Fonts (`@fontsource`), icons (astro-icon inline SVG), and CSS are self-hosted and bundled — the only third-party request is the deferred Plausible analytics script.
+- **Input Sanitization**: XSS prevention in the search-highlight module — query and content are HTML-escaped before any `<mark>` insertion; search queries limited to 50 characters.
 - **No Persistent Storage**: Only sessionStorage used for theme preference — no cookies, no user data stored.
 - **Domain Redirect**: Legacy `vpp-2025.netlify.app` redirects to `vpp.icjia.illinois.gov` with 301.
-- **Cache Strategy**: HTML files always revalidate (`max-age=0, must-revalidate`), hashed assets immutable for 1 year, data files cached for 5 minutes.
+- **Cache Strategy**: HTML files always revalidate (`max-age=0, must-revalidate`); hashed `/_astro/*` assets immutable for 1 year.
 
-**Known limitations**: CSP requires `'unsafe-inline'` and `'unsafe-eval'` for Vue/Nuxt framework compatibility. This is standard for Vue SSG applications and mitigated by the restrictive `default-src` and `connect-src` directives.
+**Known limitations**: CSP keeps `'unsafe-eval'` (required by Alpine.js's expression evaluator) and `'unsafe-inline'` (for the inline no-flash theme script + Alpine island handlers), mitigated by the restrictive `default-src`/`connect-src` and `object-src 'none'`.
 
 ---
 
@@ -32,7 +32,7 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 - **Reduced motion**: Global `prefers-reduced-motion` support disabling all animations, including page transitions
 - **Form accessibility**: Labels, aria-describedby, aria-required, live regions for validation feedback
 - **Heading hierarchy**: Proper semantic heading order (H1 > H2 > H3) verified across all pages
-- **Theme support**: Dark/light themes with cookie-based persistence preventing FOUC
+- **Theme support**: Dark/light themes (session-only, defaults dark) with a no-flash inline `<head>` script preventing FOUC
 - **Images**: Descriptive alt text on all content images, decorative elements marked `aria-hidden="true"`
 - **Focus indicators**: 3px outline with 2px offset on all focusable elements, visible in both themes
 
@@ -47,6 +47,34 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [2.0.0] - 2026-05-28 — Migration to Astro / Tailwind / Alpine
+
+Complete rebuild of the site from **Nuxt 4 + Vue 3 + Vuetify 3 + Nuxt Content** to **Astro 6.4 + Tailwind CSS 4 + Alpine.js 3**, pixel-matched to the prior site and verified against the production reference. No Vue/Vuetify ships.
+
+### Changed
+- **Framework**: Nuxt/Vue/Vuetify → Astro (static) + Tailwind 4 (utility-first, `@theme` design tokens lifted from the Vuetify palette) + Alpine 3 for the few interactive islands. Package manager yarn → pnpm 10.
+- **Content**: Nuxt Content → Astro content collections over the same local markdown/MDX (`astro/src/content/{plan,legal,news}` + top-level pages). Markdown via remark-gfm + rehype-external-links.
+- **Chrome**: header (nav, dropdowns, mobile drawer), footer, theme toggle, scroll-to-top rebuilt as native HTML + Tailwind + Alpine.
+- **Icons**: Material Design Icons via `astro-icon` (tree-shaken inline SVG) — replaces the `@mdi/font` webfont + jsDelivr CDN dependency.
+- **Fonts**: self-hosted via `@fontsource` (Roboto + Raleway, latin subset) — replaces Google Fonts.
+- **Images**: optimized with Astro `<Image>` (Sharp) — ~1.6 MB → ~232 KB across the seal, portraits, and lightbox images.
+- **Search**: Fuse.js + the defuddle-generated index preserved (same behavior); generators ported to `astro/scripts/`, run at prebuild.
+
+### Added
+- Self-hosted Plausible analytics (deferred).
+- Per-page SEO via `astro-seo` + JSON-LD (WebPage / GovernmentOrganization / WebSite / Article / BreadcrumbList); sitemap, `robots.txt`, `llms.txt`.
+- Tighter CSP shipped in `astro/public/_headers` (drops jsDelivr/Google Fonts, adds `object-src 'none'`).
+- Pop-up references/citations, footnote-free; the `/download` page rebuilt with working links + icons.
+
+### Preserved
+- Pixel-perfect visual parity, WCAG 2.1 AA / IITAA 2.1 compliance, dark-default session-only theme, the full plan content and routes.
+
+### Verification
+- Lighthouse (lightcap): A11y 100 / Best-Practices 100 / SEO 100 across all routes; Performance ~99 on the home page (LCP 3.7s → 2.0s after image + hero fixes).
+- Migration record + the ICJIA Astro conversion checklist live under `docs/`.
 
 ---
 
