@@ -403,6 +403,19 @@ a.skip-link:focus {
 :root.dark .section-primary { background: #1a2234; border-top: none; }
 :root.dark .section-secondary { background: #1e2a3a; border-top: none; }
 
+/* ---- Container matching the legacy Vuetify <v-container> max-widths ----
+   Vuetify 3 caps content width per breakpoint (md 900 / lg 1185 / xl 1785).
+   The home sections must use this (not Tailwind's full-width container) so the
+   hero/text columns wrap exactly like prod. Verified: 900px at a 1072 viewport. */
+.vpp-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (min-width: 960px)  { .vpp-container { max-width: 900px; } }
+@media (min-width: 1264px) { .vpp-container { max-width: 1185px; } }
+@media (min-width: 1904px) { .vpp-container { max-width: 1785px; } }
+
 /* ---- Smooth scrolling + offset for sticky nav (80px) ---- */
 html {
   scroll-behavior: smooth;
