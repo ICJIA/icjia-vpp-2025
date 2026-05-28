@@ -22,6 +22,15 @@ CSP: `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:
 - Module bundles `/_astro/*.js` — external, covered by `'self'`.
 - **Recommendation:** try `experimental.csp` (auto-hashes all of these); else keep `'unsafe-inline' 'unsafe-eval'` per checklist §11.
 
+## DECISION (P7.5): experimental.csp NOT enabled — keep `'unsafe-inline' 'unsafe-eval'`
+Evaluated Astro 6.4 `security.csp` (Context7). Rejected for VPP because:
+- It emits a **per-page `<meta http-equiv>` CSP, not HTTP headers** → would run as a SECOND CSP alongside our `_headers` CSP (both must agree; fragile dual-policy management).
+- **`'unsafe-inline'` is "incompatible with Astro's CSP" by design** (it auto-hashes bundled scripts; browsers reject unsafe-inline when a hash is present).
+- **External scripts "not supported out of the box"** → Plausible would need a manually-maintained hash.
+- **Alpine requires `'unsafe-eval'`** regardless (can't be hashed) → removing `'unsafe-inline'` is a marginal XSS-inline gain for significant fragility.
+- Checklist §11 explicitly says KEEP `'unsafe-inline' 'unsafe-eval'` for the Alpine/Astro stack.
+→ Ship the header-based `_headers` CSP with `'unsafe-inline' 'unsafe-eval'` (tighter than Nuxt: dropped jsdelivr/google-fonts, added object-src 'none'). Revisit experimental.csp portfolio-wide later if desired.
+
 ## 4. `_headers` — USE `astro/public/_headers` (NOT context netlify.toml)
 Same lesson as `_redirects`: context-scoped netlify.toml headers did NOT apply on the branch deploy. Ship `astro/public/_headers` (origin-layer, context-isolated to the Astro deploy). Include the CSP + all security headers + cache rules:
 ```
