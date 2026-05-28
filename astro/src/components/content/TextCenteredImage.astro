@@ -1,33 +1,194 @@
 ---
 /**
- * TextCenteredImage — Phase 3 implementation (inline only).
+ * TextCenteredImage — click-to-enlarge modal added in Phase 5.
  * Matches legacy TextCenteredImage.vue visual: centered figure, constrained image,
- * rounded corners, drop shadow, bold caption, muted secondary note.
+ * rounded corners, drop shadow, bold caption, muted secondary note, and a
+ * native <dialog> modal (95vw, full image max-h-[75vh], caption, close button).
  *
- * TODO(Phase 5): click-to-enlarge modal (legacy used a Vuetify v-dialog)
+ * Modal strategy: native <dialog> (free focus-trap + Escape + ::backdrop).
+ * Each instance gets a unique dialogId derived from the src path so multiple
+ * instances on one page are independently wired.
+ * A tiny inline <script> scopes open/close/backdrop-click to each instance.
  */
 interface Props {
   src: string;
   alt: string;
   caption?: string;
-  /** Override max-width of the image (e.g. "600px", "80%"). Defaults to 720px. */
+  /** Override max-width of the thumbnail (e.g. "600px", "80%"). Defaults to 720px. */
   maxWidth?: string;
 }
 
 const { src, alt, caption, maxWidth = "720px" } = Astro.props;
+
+// Derive a stable, DOM-safe id from the src filename (no collisions for different images).
+const dialogId =
+  "img-dlg-" +
+  src
+    .replace(/^.*\//, "")   // basename only
+    .replace(/\.[^.]+$/, "") // strip extension
+    .replace(/[^a-z0-9]/gi, "-") // non-alphanum → dash
+    .toLowerCase();
 ---
 
 <figure class="text-centered-image my-8 text-center">
+  <!-- Thumbnail — acts as the modal trigger -->
   <img
     src={src}
     alt={alt}
     style={`max-width: ${maxWidth};`}
-    class="mx-auto block w-full h-auto rounded shadow-md"
+    class="mx-auto block w-full h-auto rounded shadow-md cursor-pointer"
     loading="lazy"
+    role="button"
+    tabindex="0"
+    aria-label={`Enlarge image: ${alt}`}
+    data-dialog-id={dialogId}
   />
+
   {caption && (
     <figcaption class="mt-3 text-sm font-bold text-center text-on-surface/70 italic">
       {caption}
     </figcaption>
   )}
+
+  <!-- "Click image to enlarge" hint (matches legacy "Click Image to View") -->
+  <p class="mt-1 text-xs text-on-surface/50 select-none" aria-hidden="true">
+    Click image to enlarge
+  </p>
 </figure>
+
+<!-- Native <dialog> modal — one per component instance, keyed by dialogId -->
+<dialog
+  id={dialogId}
+  class="img-enlarge-dialog m-auto w-[95vw] max-w-[95vw] rounded-lg p-4 shadow-2xl bg-surface text-on-surface"
+  aria-label={`Enlarged view: ${alt}`}
+>
+  <!-- Close button (top-right) -->
+  <div class="flex justify-end mb-2">
+    <button
+      type="button"
+      class="img-dlg-close inline-flex items-center justify-center w-11 h-11 rounded-full text-on-surface hover:bg-on-surface/10 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 cursor-pointer"
+      aria-label="Close enlarged image"
+    >
+      <!-- ✕ drawn with SVG so no icon dep needed -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5"
+        aria-hidden="true"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Full-size image -->
+  <img
+    src={src}
+    alt={alt}
+    class="block mx-auto w-auto max-w-full max-h-[75vh] object-contain"
+  />
+
+  <!-- Caption in modal -->
+  {caption && (
+    <p class="mt-4 text-center text-sm font-bold text-on-surface">
+      {caption}
+    </p>
+  )}
+</dialog>
+
+<!--
+  Backdrop styling: Tailwind 4 does not generate backdrop utilities at build time
+  for <dialog>, so we use a minimal <style> block scoped to this component.
+  The selector is safe even with multiple instances because ::backdrop is per-element.
+-->
+<style>
+  .img-enlarge-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  /* Remove default UA dialog padding/border */
+  .img-enlarge-dialog {
+    border: none;
+  }
+</style>
+
+<!-- Per-instance script: scoped by dialogId, handles open/close/backdrop-click. -->
+<script is:inline define:vars={{ dialogId }}>
+  (function () {
+    // Wait for DOM ready (safe even if already loaded).
+    function init() {
+      var dialog = document.getElementById(dialogId);
+      if (!dialog) return;
+
+      // Find the trigger image (the thumbnail with data-dialog-id matching this dialog).
+      var trigger = document.querySelector('[data-dialog-id="' + dialogId + '"]');
+
+      function openDialog() {
+        dialog.showModal();
+        // Move focus into the dialog (close button) for keyboard users.
+        var closeBtn = dialog.querySelector(".img-dlg-close");
+        if (closeBtn) closeBtn.focus();
+      }
+
+      function closeDialog() {
+        dialog.close();
+        // Return focus to the trigger thumbnail.
+        if (trigger) trigger.focus();
+      }
+
+      if (trigger) {
+        // Click to open.
+        trigger.addEventListener("click", openDialog);
+        // Enter / Space to open (keyboard accessibility).
+        trigger.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openDialog();
+          }
+        });
+      }
+
+      // Close button inside dialog.
+      var closeBtn = dialog.querySelector(".img-dlg-close");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", closeDialog);
+      }
+
+      // Backdrop click: the dialog element fills the viewport when open;
+      // a click directly on the dialog (not on its children) is a backdrop click.
+      dialog.addEventListener("click", function (e) {
+        if (e.target === dialog) {
+          closeDialog();
+        }
+      });
+
+      // Escape is handled natively by <dialog> — no extra listener needed.
+      // But we still want to return focus to trigger on Escape.
+      dialog.addEventListener("close", function () {
+        if (trigger && document.activeElement !== trigger) {
+          // Only move focus back if no other element claimed it.
+          // Small delay to let native close finish.
+          setTimeout(function () {
+            if (
+              !document.activeElement ||
+              document.activeElement === document.body
+            ) {
+              trigger.focus();
+            }
+          }, 50);
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
