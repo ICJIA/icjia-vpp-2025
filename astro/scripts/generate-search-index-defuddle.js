@@ -24,10 +24,9 @@ import { Defuddle } from "defuddle/node";
 import { glob } from "glob";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// rootDir = astro/
+// rootDir = astro/ (the app is self-contained; fuse.config.json is vendored
+// into astro/config/ so the legacy repo-root config/ can be removed at teardown)
 const rootDir = path.resolve(__dirname, "..");
-// repoRoot = repo root (one level above astro/)
-const repoRoot = path.resolve(rootDir, "..");
 
 // Console logging utilities with color support
 const Logger = {
@@ -89,7 +88,7 @@ Logger.info(
 async function loadConfig() {
   try {
     // Config lives in the root repo's config/ directory
-    const configPath = path.join(repoRoot, "config", "fuse.config.json");
+    const configPath = path.join(rootDir, "config", "fuse.config.json");
     const configContent = fs.readFileSync(configPath, "utf8");
     const config = JSON.parse(configContent);
 
@@ -514,7 +513,7 @@ async function generateSearchIndex() {
       fs.mkdirSync(publicConfigDir, { recursive: true });
     }
 
-    const configSourcePath = path.join(repoRoot, "config", "fuse.config.json");
+    const configSourcePath = path.join(rootDir, "config", "fuse.config.json");
     const configDestPath = path.join(publicConfigDir, "fuse.config.json");
 
     if (fs.existsSync(configSourcePath)) {
