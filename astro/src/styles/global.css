@@ -403,6 +403,12 @@ a.skip-link:focus {
 :root.dark .section-primary { background: #1a2234; border-top: none; }
 :root.dark .section-secondary { background: #1e2a3a; border-top: none; }
 
+/* ---- Smooth scrolling + offset for sticky nav (80px) ---- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
 /* ---- Reduced-motion guard ---- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
