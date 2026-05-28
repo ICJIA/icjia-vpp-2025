@@ -1,0 +1,257 @@
+---
+/**
+ * Header — sticky app-bar matching the legacy Nuxt/Vuetify AppHeader.vue pixel-for-pixel.
+ *
+ * Structure mirrors AppHeader.vue:
+ * - Branding (seal + responsive text) → home link
+ * - Desktop nav ≥960px: "Read the Plan" dropdown, Download pill, "More" dropdown, ThemeToggle
+ * - Mobile <960px: hamburger icon (flips drawer boolean; drawer panel added Task 6)
+ *
+ * Breakpoints use Vuetify px values via Tailwind arbitrary variants (NOT Tailwind defaults):
+ *   sm=600, md=960, lg=1280, xl=1920
+ *
+ * Interactions: Alpine — one-open-at-a-time dropdowns, 150ms debounced close,
+ * hover-open + click-toggle + ESC + outside-click.
+ */
+import { Icon } from "astro-icon/components";
+import ThemeToggle from "./ThemeToggle.astro";
+import { branding, readThePlan, more } from "../../data/nav.js";
+
+const pathname = Astro.url.pathname;
+
+/** Normalize a path to always have a trailing slash for aria-current comparison */
+const normalize = (p: string) => (p.endsWith("/") ? p : p + "/");
+const currentPath = normalize(pathname);
+---
+
+<header
+  role="banner"
+  x-data="{ drawer: false }"
+  class="sticky top-0 z-50 bg-app-bar text-on-app-bar border-b border-on-surface/10 backdrop-blur-[10px]"
+>
+  <div
+    class="max-w-[1600px] mx-auto h-16 flex items-center px-4 min-[600px]:px-6 min-[960px]:px-8"
+  >
+    <!-- ── Branding ─────────────────────────────────────────────────── -->
+    <a
+      href={branding.href}
+      class="flex items-center group"
+      aria-label="Illinois Violence Prevention Plan — homepage"
+    >
+      <img
+        src={branding.seal}
+        width="40"
+        height="40"
+        alt=""
+        class="object-contain mr-2 min-[960px]:mr-3 h-8 w-8 min-[960px]:h-10 min-[960px]:w-10 transition-transform group-hover:scale-105"
+      />
+      <!-- xs: <600px -->
+      <span class="inline min-[600px]:hidden text-base text-primary font-bold">
+        {branding.xs}
+      </span>
+      <!-- sm: 600–1279px -->
+      <span
+        class="hidden min-[600px]:inline min-[1280px]:hidden text-base text-primary font-bold"
+      >
+        {branding.sm}
+      </span>
+      <!-- md: 1280–1919px -->
+      <span
+        class="hidden min-[1280px]:inline min-[1920px]:hidden text-xl text-primary font-bold"
+      >
+        {branding.md}
+      </span>
+      <!-- full: ≥1920px -->
+      <span class="hidden min-[1920px]:inline text-xl text-primary font-bold">
+        {branding.full}
+      </span>
+    </a>
+
+    <!-- ── Desktop nav ≥960px ──────────────────────────────────────── -->
+    <nav
+      id="site-navigation"
+      aria-label="Main Navigation"
+      class="hidden min-[960px]:flex items-center ml-auto"
+      x-data="{
+        open: null,
+        timer: null,
+        show(k) { clearTimeout(this.timer); this.open = k; },
+        hide()  { this.timer = setTimeout(() => this.open = null, 150); }
+      }"
+    >
+      <!-- "Read the Plan" dropdown -->
+      <div class="relative">
+        <button
+          type="button"
+          class="font-bold mx-2 px-2 py-1 inline-flex items-center nav-link"
+          aria-haspopup="true"
+          :aria-expanded="(open === 'plan').toString()"
+          @mouseenter="show('plan')"
+          @mouseleave="hide()"
+          @click="open = open === 'plan' ? null : 'plan'"
+          @keydown.escape="open = null"
+        >
+          Read the Plan
+          <Icon
+            name="mdi:chevron-down"
+            class="ml-1 w-5 h-5"
+            aria-hidden="true"
+          />
+        </button>
+
+        <div
+          x-show="open === 'plan'"
+          x-cloak
+          @mouseenter="show('plan')"
+          @mouseleave="hide()"
+          @click.outside="open = null"
+          class="absolute right-0 mt-1 min-w-[200px] w-max overflow-hidden rounded bg-surface shadow-lg border border-on-surface/10 z-50"
+        >
+          {
+            readThePlan.map((item) => {
+              const itemPath = normalize(item.to);
+              const isCurrent = currentPath === itemPath;
+              return (
+                <a
+                  href={item.to + "/"}
+                  aria-current={isCurrent ? "page" : undefined}
+                  class="block border-l-[3px] border-transparent pl-4 pr-6 py-2 min-h-[44px] flex items-center hover:bg-primary/10 hover:border-l-primary focus:outline-2 focus:outline-primary text-on-surface"
+                >
+                  {item.text}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Download pill -->
+      <a
+        href="/download/"
+        class="hidden min-[960px]:inline-flex items-center rounded-full font-bold px-4 py-2 ml-4 bg-white text-[#0747a6] border border-black/5 shadow-md transition hover:bg-[#f8f8f8] hover:text-[#053285] hover:-translate-y-px dark:bg-[#2a3441] dark:text-[#93c5fd] dark:border-white/5 dark:hover:bg-[#334155] dark:hover:text-[#bfdbfe]"
+      >
+        Download
+      </a>
+
+      <!-- "More" dropdown -->
+      <div class="relative">
+        <button
+          type="button"
+          class="font-bold mx-2 px-2 py-1 inline-flex items-center nav-link"
+          aria-haspopup="true"
+          :aria-expanded="(open === 'more').toString()"
+          @mouseenter="show('more')"
+          @mouseleave="hide()"
+          @click="open = open === 'more' ? null : 'more'"
+          @keydown.escape="open = null"
+        >
+          More
+          <Icon
+            name="mdi:chevron-down"
+            class="ml-1 w-5 h-5"
+            aria-hidden="true"
+          />
+        </button>
+
+        <div
+          x-show="open === 'more'"
+          x-cloak
+          @mouseenter="show('more')"
+          @mouseleave="hide()"
+          @click.outside="open = null"
+          class="absolute right-0 mt-1 min-w-[200px] w-max overflow-hidden rounded bg-surface shadow-lg border border-on-surface/10 z-50"
+        >
+          {
+            more.map((item) => {
+              if (item.divider) {
+                return (
+                  <hr class="my-2 opacity-30 border-on-surface/20" />
+                );
+              }
+              const itemPath = normalize(item.to!);
+              const isCurrent = currentPath === itemPath;
+              return (
+                <a
+                  href={item.to + "/"}
+                  aria-current={isCurrent ? "page" : undefined}
+                  class="block border-l-[3px] border-transparent pl-4 pr-6 py-2 min-h-[44px] flex items-center gap-2 hover:bg-primary/10 hover:border-l-primary focus:outline-2 focus:outline-primary text-on-surface"
+                >
+                  {item.icon && (
+                    <Icon
+                      name={item.icon}
+                      class="w-4 h-4 shrink-0"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {item.text}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      <ThemeToggle class="ml-8" />
+    </nav>
+
+    <!-- ── Hamburger (mobile <960px) ───────────────────────────────── -->
+    <button
+      id="mobile-menu-trigger"
+      type="button"
+      class="min-[960px]:hidden ml-auto p-2"
+      aria-label="Toggle navigation menu"
+      :aria-expanded="drawer.toString()"
+      aria-controls="mobile-drawer"
+      @click="drawer = !drawer"
+    >
+      <Icon
+        name="mdi:menu"
+        class="w-6 h-6"
+        x-show="!drawer"
+        aria-hidden="true"
+      />
+      <Icon
+        name="mdi:close"
+        class="w-6 h-6"
+        x-show="drawer"
+        x-cloak
+        aria-hidden="true"
+      />
+    </button>
+  </div>
+</header>
+
+<style>
+  /* x-cloak: hide Alpine-managed elements before Alpine loads to prevent FOUC */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /*
+   * Nav-link underline animation: 2px primary underline expands from center to 60%.
+   * Mirrors legacy AppHeader.vue .nav-link::after behavior.
+   * Using a scoped <style> because Tailwind utilities cannot express center-expand cleanly.
+   */
+  .nav-link {
+    position: relative;
+    overflow: visible;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    width: 60%;
+  }
+</style>
