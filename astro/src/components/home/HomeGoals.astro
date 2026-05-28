@@ -1,0 +1,111 @@
+---
+/**
+ * HomeGoals — 3-card grid section: Recommendations and Resources.
+ *
+ * Props: { goals } — array of { title, description, icon, url }
+ *   from astro/src/data/home.js → goals export.
+ *
+ * Source: app/components/content/HomeGoals.vue
+ *         app/components/content/HomeGoalCard.vue
+ *
+ * Section band: .section-secondary (full-bleed on <section>).
+ * Cards are whole-card <a> links — no Alpine needed.
+ * Entrance stagger: fadeSlideUp 0/0.2/0.4s per card,
+ *   gated to (prefers-reduced-motion: no-preference).
+ */
+import { Icon } from "astro-icon/components";
+
+const { goals } = Astro.props;
+---
+
+<section class="section-secondary py-16">
+  <div class="container mx-auto px-4 max-w-screen-xl">
+    <!-- Centered section header -->
+    <h2 class="text-center text-5xl min-[960px]:text-6xl font-bold mb-4">
+      Recommendations and Resources
+    </h2>
+    <p
+      class="text-center text-xl text-on-surface max-w-[800px] mx-auto mb-12"
+    >
+      Discover comprehensive violence prevention strategies, access valuable
+      resources, and explore organizational achievements that support
+      communities across Illinois.
+    </p>
+
+    <!-- 3-column goal card grid -->
+    <div
+      class="grid grid-cols-1 min-[768px]:grid-cols-3 gap-8 min-[768px]:gap-10"
+    >
+      {
+        goals.map((goal, index) => (
+          <a
+            href={goal.url}
+            class:list={[
+              "group goal-card",
+              `goal-card-${index}`,
+              "flex flex-col items-center text-center",
+              "min-h-[320px] min-[1024px]:min-h-[350px]",
+              "p-6 min-[1024px]:p-8",
+              "rounded-2xl bg-surface dark:bg-[#2a3441]",
+              "border border-black/5",
+              "shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]",
+              "no-underline",
+              "transition-transform hover:-translate-y-1 hover:shadow-lg",
+              "focus-visible:outline-2 focus-visible:outline-primary",
+            ]}
+          >
+            <Icon
+              name={goal.icon}
+              class="w-20 h-20 text-primary mb-4"
+              aria-hidden="true"
+            />
+            <h3 class="text-[1.375rem] font-bold text-on-surface mb-3">
+              {goal.title}
+            </h3>
+            <p class="text-[0.9375rem] leading-relaxed text-on-surface/87">
+              {goal.description}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /*
+   * Entrance stagger animation — gated to no-preference for reduced motion.
+   * Cards 0/1/2 get 0s / 0.2s / 0.4s delay respectively.
+   * Users who prefer reduced motion see the final state immediately
+   * (no opacity:0 / no keyframe applied).
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .goal-card {
+      opacity: 0;
+      animation: fadeSlideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    .goal-card-0 {
+      animation-delay: 0s;
+    }
+
+    .goal-card-1 {
+      animation-delay: 0.2s;
+    }
+
+    .goal-card-2 {
+      animation-delay: 0.4s;
+    }
+  }
+</style>
