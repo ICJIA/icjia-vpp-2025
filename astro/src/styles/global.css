@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: <html class="dark"> wins over OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Semantic color tokens (light = :root default, dark = .dark) ---- */
+/* Source of truth: app/plugins/vuetify.js light/dark theme colors. */
+:root {
+  --color-primary: #0747a6;
+  --color-secondary: #057a8c;
+  --color-accent: #5b21b6;
+  --color-success: #047857;
+  --color-warning: #b45309;
+  --color-error: #b91c1c;
+  --color-info: #1e40af;
+  --color-background: #fafafa;
+  --color-app-bar: #f2f2f2;
+  --color-surface: #f8f8f8;
+  --color-on-surface: #1e293b;
+  --color-on-background: #1e293b;
+  --color-on-app-bar: #1e293b;
+}
+
+:root.dark {
+  --color-primary: #93c5fd;
+  --color-secondary: #67e8f9;
+  --color-accent: #c4b5fd;
+  --color-success: #6ee7b7;
+  --color-warning: #fcd34d;
+  --color-error: #fca5a5;
+  --color-info: #bfdbfe;
+  --color-background: #0f172a;
+  --color-app-bar: #1a2234;
+  --color-surface: #1e293b;
+  --color-on-surface: #f1f5f9;
+  --color-on-background: #f1f5f9;
+  --color-on-app-bar: #f1f5f9;
+}
+
+/* ---- Expose tokens to Tailwind utilities ---- */
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+  --color-background: var(--color-background);
+  --color-app-bar: var(--color-app-bar);
+  --color-surface: var(--color-surface);
+  --color-on-surface: var(--color-on-surface);
+  --color-on-background: var(--color-on-background);
+  --color-on-app-bar: var(--color-on-app-bar);
+
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Raleway", ui-sans-serif, system-ui, sans-serif;
+
+  /* main.scss scale */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+/* ---- Base ---- */
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: var(--font-sans);
+  }
+}
+
+/* ---- Ported from app/layouts/default.vue <style> (utilities can't express) ---- */
+a.skip-link,
+a.skip-link:link,
+a.skip-link:visited {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000 !important;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-decoration: none;
+  z-index: 99999;
+  transition: top 0.3s ease;
+  border-radius: 4px;
+}
+a.skip-link:focus {
+  top: 0;
+  outline: 3px solid #fff !important;
+  outline-offset: 2px;
+}
+.skip-links-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  pointer-events: none;
+}
+.skip-links-nav .skip-link {
+  pointer-events: auto;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
