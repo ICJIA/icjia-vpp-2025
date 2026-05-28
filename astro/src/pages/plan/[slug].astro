@@ -31,6 +31,15 @@ const { Content, headings } = await render(entry);
 const showTOC = entry.data.showTOC ?? false;
 const tocHeadings = showTOC ? headings.filter((h) => h.depth === 2) : [];
 const hasTOC = tocHeadings.length > 0;
+
+// Match the legacy TOC truncation (app/pages/[...slug].vue truncateText, maxLength 70).
+const truncateText = (text: string, maxLength = 70): string => {
+  if (!text || text.length <= maxLength) return text;
+  const truncated = text.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+  if (lastSpaceIndex > 0) return truncated.substring(0, lastSpaceIndex) + "...";
+  return truncated + "...";
+};
 ---
 
 <BaseLayout
@@ -59,8 +68,8 @@ const hasTOC = tocHeadings.length > 0;
             aria-label="Table of contents"
             class="hidden min-[960px]:block self-start sticky top-20"
           >
-            <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-on-surface/60">
-              On this page
+            <p class="mb-3 text-base font-bold text-on-surface">
+              Jump To...
             </p>
             <ul class="border-l-2 border-on-surface/20 list-none p-0 m-0 space-y-0" role="list">
               {tocHeadings.map((h) => (
@@ -80,7 +89,7 @@ const hasTOC = tocHeadings.length > 0;
                              bg-[#1976d2] transition-all duration-200"
                       aria-hidden="true"
                     />
-                    {h.text}
+                    {truncateText(h.text)}
                   </a>
                 </li>
               ))}
