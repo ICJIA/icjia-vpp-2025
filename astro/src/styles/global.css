@@ -122,15 +122,11 @@ a.skip-link:focus {
    Uses CSS variables from :root / :root.dark above for theme-flipping.
    ============================================================================ */
 
-/* ---- Headings ---- */
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  scroll-margin-top: 80px; /* Offset for sticky navbar + anchor/TOC jumps */
-}
+/* ---- Headings ----
+   NOTE: no scroll-margin-top here — the sticky-navbar offset for anchor/TOC
+   jumps comes solely from `scroll-padding-top` on html (see bottom of file).
+   The two are ADDITIVE per the CSSOM spec; defining both made scroll targets
+   land 160px down instead of 80px. */
 
 .markdown-body h1 {
   font-size: 1.8rem;
@@ -416,7 +412,10 @@ a.skip-link:focus {
 @media (min-width: 1264px) { .vpp-container { max-width: 1185px; } }
 @media (min-width: 1904px) { .vpp-container { max-width: 1785px; } }
 
-/* ---- Scroll offset for sticky nav (80px) ---- */
+/* ---- Scroll offset for the sticky nav ----
+   Single source of truth for anchor/TOC/focus scroll offsets (navbar is 65px
+   tall; 80px leaves ~15px breathing room). Do NOT add scroll-margin-top on
+   headings — it stacks on top of this. */
 html {
   scroll-padding-top: 80px;
 }

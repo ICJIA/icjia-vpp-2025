@@ -40,8 +40,12 @@ const moreLinks = more.filter((i) => !i.divider);
 
 <!-- Wrapper holds the Alpine drawer state so the drawer can live OUTSIDE the
      <header> (the header's backdrop-filter would otherwise trap fixed children
-     and its z-50 stacking context would sit below the z-1000 scroll-top FAB). -->
-<div x-data="{ drawer: false }">
+     and its z-50 stacking context would sit below the z-1000 scroll-top FAB).
+     display:contents (.contents) removes the wrapper's box: without it the
+     wrapper is exactly header-height, which pins position:sticky in place —
+     the header could never stick. With it, the header's sticky containing
+     block is <body>, and drawer/backdrop keep root-level stacking. -->
+<div x-data="{ drawer: false }" class="contents">
   <header
     role="banner"
     class="sticky top-0 z-50 bg-app-bar text-on-app-bar border-b border-on-surface/10 backdrop-blur-[10px]"
