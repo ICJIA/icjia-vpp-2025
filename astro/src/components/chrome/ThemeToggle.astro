@@ -39,8 +39,10 @@ const { class: className } = Astro.props;
     "dark:bg-white/5 dark:hover:bg-white/10",
     // focus ring — 3px primary outline (legacy focus style)
     "focus-visible:outline-3 focus-visible:outline-primary focus-visible:outline-offset-2",
-    // remove default button chrome
-    "cursor-pointer select-none border-0 bg-transparent p-0",
+    // remove default button chrome (no bg-transparent/p-0 — they'd override the pill bg + padding above)
+    "cursor-pointer select-none border-0",
+    // 44px touch target: invisible ::after hit area, visual pill size unchanged
+    "relative after:absolute after:inset-x-0 after:top-1/2 after:h-11 after:-translate-y-1/2 after:content-['']",
     // transition
     "transition-colors duration-200",
     className,

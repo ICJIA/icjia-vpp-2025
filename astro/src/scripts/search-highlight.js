@@ -70,11 +70,9 @@ export function sanitizeSearchQuery(query, maxLength = 50) {
   // Strip leading/trailing punctuation
   s = s.replace(/^[.,?!\-']+|[.,?!\-']+$/g, '');
 
-  // Block injection keywords
-  const BLOCKED = [/script/gi, /javascript/gi, /vbscript/gi, /onload/gi,
-                   /onerror/gi, /onclick/gi, /eval/gi, /expression/gi,
-                   /import/gi, /require/gi];
-  for (const p of BLOCKED) s = s.replace(p, '');
+  // NOTE: no keyword blocklist. The query only ever reaches Fuse (plain text)
+  // and the escape-first highlighters below — a blocklist adds no safety and
+  // mangled legitimate domain terms ("evaluation" → "uation", "important" → "ant").
 
   return s.trim();
 }

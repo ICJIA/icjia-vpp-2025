@@ -13,16 +13,22 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageTitleSection from "../../components/content/PageTitleSection.astro";
 import NewsCard from "../../components/content/NewsCard.astro";
-import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 
-const allItems = await getCollection("news");
-
-const items = allItems.sort((a, b) => {
-  const da = a.data.date ? new Date(a.data.date).getTime() : 0;
-  const db = b.data.date ? new Date(b.data.date).getTime() : 0;
-  return db - da;
-});
+// News is dormant: no `news` collection is defined (an empty collection makes
+// every build warn), so this page always renders the empty state. To launch
+// News, follow the re-enable steps documented in src/content.config.ts —
+// including the /news/[slug] detail route the cards below link to.
+const items: Array<{
+  id: string;
+  data: {
+    title?: string;
+    summary?: string;
+    description?: string;
+    date?: Date;
+    image?: string;
+  };
+}> = [];
 ---
 
 <BaseLayout
@@ -45,7 +51,7 @@ const items = allItems.sort((a, b) => {
             aria-hidden="true"
           />
           <h2 class="text-xl font-semibold mb-2 text-on-surface/90">No News Available</h2>
-          <p class="text-sm text-on-surface/60">
+          <p class="text-sm text-on-surface/70 dark:text-on-surface/60">
             Check back soon for the latest updates and announcements.
           </p>
         </div>

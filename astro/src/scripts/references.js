@@ -127,7 +127,6 @@ function createTooltipElement(parent, text, tipId) {
     opacity: 0;
     transform: translateY(-8px);
     transition: opacity 0.2s ease, transform 0.2s ease;
-    pointer-events: none;
   `;
 
   parent.appendChild(tip);
@@ -187,15 +186,25 @@ function wireSpan(span, citationText) {
   span.setAttribute("tabindex", "0");
 
   let tip         = null;
-  let showTimer   = null;
-  let hideTimer   = null;
+  let showTimer   = null; // 50ms reveal delay
+  let hideTimer   = null; // grace period before hiding (WCAG 1.4.13 hoverable)
+  let removeTimer = null; // post-transition DOM removal
 
   // ---- show ----------------------------------------------------------------
   function showTooltip() {
-    if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+    if (hideTimer)   { clearTimeout(hideTimer);   hideTimer   = null; }
+    if (removeTimer) { clearTimeout(removeTimer); removeTimer = null; }
 
     if (!tip) {
       tip = createTooltipElement(parent, citationText, tipId);
+      // WCAG 1.4.13 "hoverable": the tooltip itself accepts the pointer, so
+      // users can move onto it to read/select long citations without it
+      // disappearing.
+      tip.addEventListener("mouseenter", () => {
+        if (hideTimer)   { clearTimeout(hideTimer);   hideTimer   = null; }
+        if (removeTimer) { clearTimeout(removeTimer); removeTimer = null; }
+      });
+      tip.addEventListener("mouseleave", scheduleHide);
     }
 
     positionTooltip(tip, span, parent);
@@ -211,8 +220,9 @@ function wireSpan(span, citationText) {
   }
 
   // ---- hide ----------------------------------------------------------------
-  function hideTooltip() {
+  function hideTooltipNow() {
     if (showTimer) { clearTimeout(showTimer); showTimer = null; }
+    if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
 
     if (tip) {
       tip.style.opacity   = "0";
@@ -221,35 +231,42 @@ function wireSpan(span, citationText) {
       // A11y: remove association when tooltip is hidden
       span.removeAttribute("aria-describedby");
 
-      hideTimer = setTimeout(() => {
+      removeTimer = setTimeout(() => {
         if (tip && tip.parentNode) {
           tip.parentNode.removeChild(tip);
           tip = null;
         }
-        hideTimer = null;
+        removeTimer = null;
       }, 200); // wait for CSS transition
     }
   }
 
+  /** Delayed hide — the grace period lets the pointer travel span → tooltip. */
+  function scheduleHide() {
+    if (showTimer) { clearTimeout(showTimer); showTimer = null; }
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(hideTooltipNow, 300);
+  }
+
   // ---- event listeners -----------------------------------------------------
   span.addEventListener("mouseenter", showTooltip);
-  span.addEventListener("mouseleave", hideTooltip);
+  span.addEventListener("mouseleave", scheduleHide);
   span.addEventListener("focus",      showTooltip);
-  span.addEventListener("blur",       hideTooltip);
+  span.addEventListener("blur",       hideTooltipNow);
 
   // Touch: show + auto-hide after 4 s
-  span.addEventListener("touchstart", (e) => {
+  span.addEventListener("touchstart", () => {
     showTooltip();
-    setTimeout(hideTooltip, 4000);
+    setTimeout(hideTooltipNow, 4000);
   }, { passive: true });
 
-  // Keyboard: Enter / Space show; Escape hide
+  // Keyboard: Enter / Space show; Escape hide (1.4.13 "dismissible")
   span.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       showTooltip();
     } else if (e.key === "Escape") {
-      hideTooltip();
+      hideTooltipNow();
     }
   });
 }

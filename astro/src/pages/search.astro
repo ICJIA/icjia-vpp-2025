@@ -68,7 +68,7 @@ import { Icon } from "astro-icon/components";
               aria-label="Search content"
               placeholder="Search the Violence Prevention Plan…"
               autofocus
-              class="flex-1 min-w-0 py-3 pr-4 bg-transparent text-on-surface placeholder:text-on-surface/40 outline-none"
+              class="flex-1 min-w-0 py-3 pr-4 bg-transparent text-on-surface placeholder:text-on-surface/70 outline-none"
               x-model="query"
               @input="handleInput()"
               @focus="initSearch()"
@@ -98,7 +98,7 @@ import { Icon } from "astro-icon/components";
         >
           <Icon name="mdi:magnify" class="w-16 h-16 mx-auto mb-4 text-primary opacity-70" aria-hidden="true" />
           <p class="text-xl font-semibold text-on-surface/80 mb-2">Ready to Search</p>
-          <p class="text-sm text-on-surface/55">
+          <p class="text-sm text-on-surface/70 dark:text-on-surface/55">
             Start typing to search through all content in the Violence Prevention Plan.
           </p>
         </div>
@@ -119,7 +119,7 @@ import { Icon } from "astro-icon/components";
             </svg>
           </div>
           <p class="text-xl font-semibold text-on-surface/80 mb-2">Initializing search…</p>
-          <p class="text-sm text-on-surface/55">Loading search functionality on demand for optimal performance.</p>
+          <p class="text-sm text-on-surface/70 dark:text-on-surface/55">Loading search functionality on demand for optimal performance.</p>
         </div>
 
         <!-- NO-QUERY: init done, input empty -->
@@ -131,7 +131,7 @@ import { Icon } from "astro-icon/components";
         >
           <Icon name="mdi:text-search" class="w-16 h-16 mx-auto mb-4 text-on-surface/30" aria-hidden="true" />
           <h2 class="text-xl font-semibold text-on-surface/80 mb-2">Search content</h2>
-          <p class="text-sm text-on-surface/55">Enter keywords above to search through all content.</p>
+          <p class="text-sm text-on-surface/70 dark:text-on-surface/55">Enter keywords above to search through all content.</p>
         </div>
 
         <!-- NO-RESULTS: query present, 0 hits -->
@@ -144,7 +144,7 @@ import { Icon } from "astro-icon/components";
         >
           <Icon name="mdi:file-search-outline" class="w-16 h-16 mx-auto mb-4 text-on-surface/30" aria-hidden="true" />
           <h2 class="text-xl font-semibold text-on-surface/80 mb-2">No results found</h2>
-          <p class="text-sm text-on-surface/55">
+          <p class="text-sm text-on-surface/70 dark:text-on-surface/55">
             No content matches your search for
             "<span class="font-medium" x-text="query"></span>".
             Try different keywords or check your spelling.
@@ -179,7 +179,7 @@ import { Icon } from "astro-icon/components";
 
                   <div class="px-5 py-3">
                     <!-- Path -->
-                    <p class="flex items-center gap-1 text-sm text-on-surface/55 mb-2">
+                    <p class="flex items-center gap-1 text-sm text-on-surface/70 dark:text-on-surface/55 mb-2">
                       <Icon name="mdi:link-variant" class="w-4 h-4 shrink-0" aria-hidden="true" />
                       <span class="sr-only">Path: </span>
                       <span x-text="result.path"></span>
@@ -197,7 +197,7 @@ import { Icon } from "astro-icon/components";
                   <!-- Action -->
                   <div class="flex justify-end px-5 pb-4">
                     <a
-                      :href="result.path + '/'"
+                      :href="result.path === '/' ? '/' : result.path + '/'"
                       class="inline-flex items-center gap-1 text-sm font-semibold text-primary
                              hover:underline min-h-[44px] focus:outline-2 focus:outline-primary"
                       :aria-label="'View content for ' + result.title"
@@ -284,9 +284,12 @@ function buildResult(fuseResult, safeQuery, ctxChars) {
   const _score = hasExact ? base : hasPartial ? 10 + base : 20 + base;
 
   return {
-    title:   escapeHtml(item.title   || ''),
-    path:    escapeHtml(item.path    || ''),
-    excerpt,   // already sanitised by search-highlight.js — only <mark> tags present
+    // title/path are bound via x-text / attribute bindings (textContent-safe);
+    // escaping here would render entities literally. excerpt is the only HTML
+    // sink and is already sanitised by search-highlight.js (only <mark> tags).
+    title:   item.title || '',
+    path:    item.path  || '',
+    excerpt,
     _score,
   };
 }
@@ -303,6 +306,15 @@ document.addEventListener('alpine:init', () => {
     fuse: null,
     config: null,
     debounceTimer: null,
+
+    // ---- deep link: honor ?q= (advertised by the WebSite SearchAction JSON-LD)
+    init() {
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q) {
+        this.query = q.slice(0, 50);
+        this.initSearch(); // runs the search once the index is ready
+      }
+    },
 
     // ---- lazy init: called on first focus or keystroke --------------------
     async initSearch() {

@@ -22,12 +22,12 @@ This application is deployed as a **static site on Netlify** with no server-side
 
 ## Accessibility Summary
 
-This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-04-13, **axe-core reports 0 violations across all 13 pages (AA)** and **Lighthouse reports A11y:100, Best Practices:100, SEO:100 on all 13 pages**.
+This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-06-11, **axe-core reports 0 violations across all 16 pages (AA)** and **Lighthouse reports A11y:100 on all 16 pages** (full Lighthouse on the home page: Performance 100, A11y 100, Best Practices 100, SEO 100 desktop; A11y 100 mobile).
 
 ### Accessibility Features
 - **Color contrast**: 8:1+ ratios in both light and dark themes (exceeds AA 4.5:1 requirement)
 - **Skip links**: Full keyboard navigation with visible skip-to-content links
-- **Screen reader support**: Aria-live regions via `useAnnouncer()` composable, proper landmark roles, aria-labels on all interactive elements
+- **Screen reader support**: `#announcer-polite` / `#announcer-assertive` aria-live regions in `BaseLayout.astro` (search announces result counts), proper landmark roles, aria-labels on all interactive elements
 - **Touch targets**: 44px minimum enforced on all interactive elements
 - **Reduced motion**: Global `prefers-reduced-motion` support disabling all animations, including page transitions
 - **Form accessibility**: Labels, aria-describedby, aria-required, live regions for validation feedback
@@ -39,6 +39,7 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 ### Audit History
 | Date | Tool | Result |
 |------|------|--------|
+| 2026-06-11 | axecap + lightcap (Astro) | axe AA: 0 violations / 16 pages; Lighthouse A11y:100 / 16 pages; home full audit 100×4 desktop + A11y:100 mobile |
 | 2026-04-13 | axecap + lightcap | axe AA: 0 violations / 13 pages; Lighthouse: A11y:100, BP:100, SEO:100 on all 13 pages |
 | 2026-04-11 | axe-core 4.11.2 | 0 violations / 13 pages (desktop AA, mobile AA, best practices — 39 audits total) |
 | 2026-04-08 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
@@ -47,6 +48,43 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [2.1.0] - 2026-06-11 — Pre-merge Review Fixes (a11y, search, SEO, dead links)
+
+Fixes from the pre-merge assessment of the Astro migration branch: a full code review plus runtime audits (axe-core, Lighthouse, functional browser testing) of every page.
+
+### Fixed
+- **Dead footer links on every page**: the legacy `/docs` TypeDoc portal (incl. `/docs/accessibility/`) was not migrated but the footer + README still linked it — links removed until a docs/accessibility page ships (`astro/src/data/nav.js`, `README.md`).
+- **Search query blocklist mangled legitimate terms**: "evaluation" became "uation", "important" became "ant" (the blocklist stripped `eval`, `import`, etc.). Removed — the query only ever reaches Fuse and escape-first highlighters, so the blocklist added no safety (`search-highlight.js`).
+- **Search**: home-page result rendered an invalid `href="//"`; titles/paths were double-escaped (a future `&`/`'` in a title would display as literal entities) (`search.astro`).
+- **Search index polluted with MDX code**: `import … from "….astro"` statements from `.mdx` content leaked into user-visible excerpts; the generator now strips ESM statements (`generate-search-index-defuddle.js`).
+- **TOC clicks**: URL hash never updated and the "move focus to heading" call silently failed (headings aren't focusable) — now sets `tabindex="-1"`, focuses the heading, and pushes the hash (`plan/[slug].astro`).
+- **Light-mode contrast (WCAG 1.4.3)**: `text-on-surface/55`–`/60` body text computed to 3.4–4.0:1 in light mode (search state panels, news empty state, image-modal hint) and the search input placeholder to ~2.6:1 — bumped to `/70` in light (≥5.3:1) while preserving the passing dark-mode values via `dark:` splits.
+- **ThemeToggle pill never rendered its background**: conflicting Tailwind utilities (`bg-transparent` vs `bg-on-surface/5`, `p-0` vs `px-2 py-1`) — conflict removed.
+- **Vuetify leftovers**: `rgb(var(--v-theme-primary))` (undefined in this build) on the resources / organizational-highlights placeholder headings → `var(--color-primary)`.
+- **hreflang alternates pointed every page at the homepage** — removed (single-language site; alternates were wrong for SEO).
+
+### Added
+- **Branded 404 page** (`src/pages/404.astro` → `dist/404.html`, served automatically by Netlify; previously users got Netlify's unbranded default despite `netlify.toml` claiming otherwise).
+- **Mobile drawer focus management** (`@alpinejs/focus`, `x-trap.noscroll`): focus trapped while open, body scroll locked, Escape closes and restores focus to the hamburger — the drawer was `aria-modal="true"` with none of that.
+- **44px touch targets**: hamburger now 44×44 (`p-2.5`); theme toggle gets a 44px-tall invisible `::after` hit area (visual pill unchanged).
+- **Reference tooltips meet WCAG 1.4.13**: pointer can move onto the tooltip to read/select long citations (was `pointer-events: none` + instant hide); 300ms hover grace, Escape dismisses, keyboard show/hide preserved.
+- **`/search?q=` deep links** — the WebSite SearchAction JSON-LD advertised `?q=` but the page never read it; now prefills and runs the search.
+
+### Changed
+- **Entrance animations are transform-only slide-ups (no opacity fades)** on HomeHero, HomeGoals, HomeAction, and PageTitleSection: automated a11y scanners (axe, SiteImprove) sample mid-fade and flag fading text as false-positive contrast failures — and skip `opacity:0` content entirely. Text is now fully opaque and machine-readable at every animation frame; stagger timing and reduced-motion gating unchanged. Also fixed `.hero-para:nth-child` selectors that never matched (second paragraph skipped its animation).
+- **`scroll-behavior: smooth` gated** behind `prefers-reduced-motion: no-preference` (CSS-initiated smooth scrolls ignored the user's motion preference; the global animation guard can't neutralize scroll-behavior).
+- **Sitemap excludes** `/news/` (built but unlinked empty placeholder — per direction, News stays dormant and out of any sitemap) and `/plan/` (noindexed meta-refresh redirect; a noindexed URL in a sitemap is contradictory). Now 13 URLs.
+- **News collection removed until the section launches**: an empty/missing collection made every build warn; `/news/` still renders its empty state, and re-enable steps (collection + detail route + sitemap) are documented in `content.config.ts`.
+- **robots.txt**: dropped stale Nuxt-era rules (`/documentation/`, `/debug-search.html`, `/*sandbox*` — none of these paths exist in the Astro build).
+
+### Verification (2026-06-11, local preview build)
+- **axe-core AA: 0 violations across all 16 pages** (every built page except the `/plan/` meta-refresh redirect).
+- **Lighthouse A11y: 100 on all 16 pages**; full Lighthouse on home: Performance 100 / A11y 100 / Best Practices 100 / SEO 100 (desktop) and A11y 100 (mobile).
+- Light-mode contrast verified by computed blend math (`/70` ≈ 5.3:1 light; preserved dark values ≥4.7:1).
+- Functional (real browser input): search results + `<mark>` highlighting + live-region announcements + `?q=` deep link; reference tooltips (hover-persist, focus, Escape); mobile drawer (trap cycles, scroll lock, Escape closes + restores focus); TOC click (hash + heading focus); clean build with zero warnings (17 pages).
 
 ---
 

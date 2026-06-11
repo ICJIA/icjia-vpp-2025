@@ -212,7 +212,7 @@ const moreLinks = more.filter((i) => !i.divider);
     <button
       id="mobile-menu-trigger"
       type="button"
-      class="min-[960px]:hidden ml-auto p-2"
+      class="min-[960px]:hidden ml-auto p-2.5"
       aria-label="Toggle navigation menu"
       :aria-expanded="drawer.toString()"
       aria-controls="mobile-drawer"
@@ -253,6 +253,7 @@ const moreLinks = more.filter((i) => !i.divider);
     id="mobile-drawer"
     x-show="drawer"
     x-cloak
+    x-trap.noscroll="drawer"
     @keydown.escape.window="drawer=false"
     class="fixed inset-y-0 right-0 z-[9999] w-[280px] overflow-y-auto bg-white dark:bg-surface shadow-xl min-[960px]:hidden"
     x-transition:enter="transition ease-out duration-200"

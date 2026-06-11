@@ -25,8 +25,8 @@ export const more = [
   { text: "Contact", to: "/contact", icon: "mdi:email-outline" },
 ];
 
+// NOTE: the legacy /docs TypeDoc portal (and /docs/accessibility) was not
+// migrated — do not link to it until a docs/accessibility page ships.
 export const footerLinks = [
   { text: "Privacy", href: "/legal/privacy-policy/" },
-  { text: "Documentation", href: "/docs/" },
-  { text: "Accessibility", href: "/docs/accessibility/" },
 ];

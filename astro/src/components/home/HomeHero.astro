@@ -93,46 +93,40 @@ const learnMoreBtn = hero.buttons.find((b) => b.variant === "outlined");
 
 <style>
   /*
-   * Entrance animation — staggered fadeSlideUp.
-   * Gated to (prefers-reduced-motion: no-preference).
-   * The global reduced-motion guard in global.css neutralizes these
-   * for users who prefer reduced motion (collapses duration to 0.001ms).
+   * Entrance animation — staggered slide-up settle, transform-only.
+   * Deliberately NO opacity fade: automated a11y scanners (axe, SiteImprove)
+   * sample mid-animation and flag fading text as contrast failures, and skip
+   * opacity:0 elements entirely. Transform affects neither contrast nor CLS,
+   * so text is fully opaque and machine-readable at every frame.
+   * Gated to (prefers-reduced-motion: no-preference); the global guard in
+   * global.css additionally collapses durations for reduced-motion users.
    */
   @media (prefers-reduced-motion: no-preference) {
-    @keyframes fadeSlideUp {
+    @keyframes slideUp {
       from {
-        opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(16px);
       }
       to {
-        opacity: 1;
         transform: translateY(0);
       }
     }
 
     .hero-title {
-      opacity: 0;
-      animation: fadeSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      transform: translateY(16px);
+      animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       animation-delay: 0.2s;
     }
 
-    /* First paragraph */
-    .hero-para:nth-child(1) {
-      opacity: 0;
-      animation: fadeSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-      animation-delay: 0.4s;
-    }
-
-    /* Second paragraph */
-    .hero-para:nth-child(2) {
-      opacity: 0;
-      animation: fadeSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    /* Both paragraphs share the 0.4s stagger slot */
+    .hero-para {
+      transform: translateY(16px);
+      animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       animation-delay: 0.4s;
     }
 
     .hero-buttons {
-      opacity: 0;
-      animation: fadeSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      transform: translateY(16px);
+      animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       animation-delay: 0.6s;
     }
 

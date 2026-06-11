@@ -376,6 +376,16 @@ async function processMarkdownContent(config) {
         }
       }
 
+      // MDX bodies open with ESM statements (import Component from "...") —
+      // they're code, not prose; strip them so they don't pollute search
+      // excerpts. Anchored to real statement shapes so prose lines that merely
+      // start with the word "import"/"export" survive.
+      if (file.endsWith(".mdx")) {
+        bodyContent = bodyContent
+          .replace(/^import\s+(?:[\w$*{},\s]+\s+from\s+)?["'][^"']+["'];?\s*$/gm, "")
+          .replace(/^export\s+(?:const|let|var|default|function|\{)[^\n]*$/gm, "");
+      }
+
       // Build simple HTML for Defuddle
       const htmlContent = `
         <!DOCTYPE html>

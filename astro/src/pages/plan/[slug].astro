@@ -154,7 +154,11 @@ const truncateText = (text: string, maxLength = 70): string => {
           const target = slug ? document.getElementById(slug) : null;
           if (!target) return;
           e.preventDefault();
+          // preventDefault suppresses the native hash update — restore it
+          history.pushState(null, "", "#" + slug);
           target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+          // Headings aren't natively focusable; tabindex=-1 makes focus() real
+          target.setAttribute("tabindex", "-1");
           target.focus({ preventScroll: true });
         });
       });

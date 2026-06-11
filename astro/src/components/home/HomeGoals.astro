@@ -74,26 +74,27 @@ const { goals } = Astro.props;
 
 <style>
   /*
-   * Entrance stagger animation — gated to no-preference for reduced motion.
+   * Entrance stagger animation — transform-only slide-up settle.
    * Cards 0/1/2 get 0s / 0.2s / 0.4s delay respectively.
+   * Deliberately NO opacity fade: a11y scanners (axe, SiteImprove) sample
+   * mid-animation and flag fading text as contrast failures; transform-only
+   * keeps text fully opaque at every frame (and transform does not cause CLS).
    * Users who prefer reduced motion see the final state immediately
-   * (no opacity:0 / no keyframe applied).
+   * (no offset / no keyframe applied).
    */
   @media (prefers-reduced-motion: no-preference) {
-    @keyframes fadeSlideUp {
+    @keyframes slideUp {
       from {
-        opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(16px);
       }
       to {
-        opacity: 1;
         transform: translateY(0);
       }
     }
 
     .goal-card {
-      opacity: 0;
-      animation: fadeSlideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      transform: translateY(16px);
+      animation: slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     .goal-card-0 {

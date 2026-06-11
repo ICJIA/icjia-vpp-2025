@@ -30,13 +30,18 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    alpinejs(),
+    alpinejs({ entrypoint: '/src/alpine' }),
     icon(),
     sitemap({
+      // Excluded: /news (built but unlinked placeholder — empty until the News
+      // section launches), /plan/ index (noindexed meta-refresh redirect to
+      // /plan/front-cover/), /search (noindex utility page).
       filter: (page) =>
         !page.includes('/sandbox') &&
         !page.includes('/404') &&
         !page.includes('/docs') &&
+        !page.includes('/news') &&
+        !page.endsWith('/plan/') &&
         !page.endsWith('/search/'),
       changefreq: 'weekly',
       priority: 0.5,

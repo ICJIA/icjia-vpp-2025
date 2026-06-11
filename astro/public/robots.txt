@@ -1,9 +1,4 @@
 User-agent: *
 Allow: /
 
-Disallow: /*sandbox*
-Disallow: /documentation/
-Disallow: /documentation/*
-Disallow: /debug-search.html
-
 Sitemap: https://vpp.icjia.illinois.gov/sitemap.xml

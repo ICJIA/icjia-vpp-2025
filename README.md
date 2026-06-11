@@ -31,7 +31,7 @@ This project serves as the official web presence for the Statewide Violence Prev
 - **astro-icon** (Material Design Icons, tree-shaken inline SVG)
 - Self-hosted fonts via **@fontsource** (Roboto + Raleway, latin subset)
 - Optimised images via Astro's built-in `<Image>` component (Sharp)
-- Lighthouse scores: Performance ~99 · Accessibility 100 · Best Practices 100 · SEO 100
+- Lighthouse scores: Performance 100 · Accessibility 100 · Best Practices 100 · SEO 100 (home, 2026-06-11); Accessibility 100 on every page
 
 ## Changelog
 
@@ -132,7 +132,7 @@ Edit markdown files in `astro/src/content/...`. The `prebuild` step (run automat
 
 ## Accessibility
 
-This application targets **WCAG 2.1 AA compliance** and meets **Illinois IITAA 2.1 Standards**. An automated accessibility audit using axe-core 4.10.2 on March 24, 2026 found **zero violations across all 23 pages** (20 application pages + 3 documentation pages).
+This application targets **WCAG 2.1 AA compliance** and meets **Illinois IITAA 2.1 Standards**. An automated accessibility audit using axe-core 4.11 on June 11, 2026 found **zero violations across all 16 pages**, and Lighthouse reports an **Accessibility score of 100 on every page**.
 
 ### What This Means
 
@@ -160,6 +160,7 @@ Every page on this site has been verified to meet the Web Content Accessibility 
 
 | Date | Tool | Result |
 |------|------|--------|
+| June 11, 2026 | axe-core 4.11 + Lighthouse (Astro build) | 0 violations / 16 pages (AA); Lighthouse A11y 100 on all pages; home 100×4 desktop + A11y 100 mobile |
 | April 8, 2026 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
 | March 24, 2026 | axe-core 4.10.2 | 0 violations across 23 pages |
 | December 22, 2025 | axe-core | 98.8% compliance (all issues subsequently fixed) |
@@ -167,7 +168,7 @@ Every page on this site has been verified to meet the Web Content Accessibility 
 | September 15, 2025 | Lighthouse | Skip link, footer, and dark mode fixes |
 | August 11, 2025 | Lighthouse | Accessibility and performance optimization |
 
-For detailed accessibility reports, see the [Accessibility Report](https://vpp.icjia.illinois.gov/docs/accessibility/).
+For detailed accessibility status, see the [Accessibility Summary](CHANGELOG.md#accessibility-summary) in the CHANGELOG.
 
 ## Security
 

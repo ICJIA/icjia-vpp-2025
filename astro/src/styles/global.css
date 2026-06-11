@@ -416,10 +416,17 @@ a.skip-link:focus {
 @media (min-width: 1264px) { .vpp-container { max-width: 1185px; } }
 @media (min-width: 1904px) { .vpp-container { max-width: 1785px; } }
 
-/* ---- Smooth scrolling + offset for sticky nav (80px) ---- */
+/* ---- Scroll offset for sticky nav (80px) ---- */
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 80px;
+}
+
+/* Smooth scrolling is motion — only for users who haven't opted out.
+   (The reduced-motion guard below can't neutralize scroll-behavior.) */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* ---- Reduced-motion guard ---- */
