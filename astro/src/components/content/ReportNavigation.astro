@@ -1,0 +1,248 @@
+---
+/**
+ * ReportNavigation — prev/next plan-page links + scroll-spy TOC.
+ *
+ * Props
+ *   currentSlug  {string}                         — bare slug or "plan/slug"
+ *   headings     {{depth:number;slug:string;text:string}[]=} — from entry.render()
+ *   showTOC      {boolean=false}                  — render TOC sidebar column
+ *
+ * Prev/Next: linear over planOrder; no wrapping; no prev on first, no next on last.
+ * TOC: depth===2 headings only; hidden on small screens (min-[960px]:block).
+ * Interactivity: IntersectionObserver scroll-spy; prefers-reduced-motion aware.
+ *
+ * @accessibility WCAG 2.1 AA — 44px touch targets, focus-visible rings, aria-labels.
+ */
+
+import { Icon } from "astro-icon/components";
+import { planOrder } from "../../data/planOrder.js";
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  currentSlug: string;
+  headings?: Heading[];
+  showTOC?: boolean;
+}
+
+const { currentSlug, headings = [], showTOC = false } = Astro.props;
+
+/** Normalise a slug that may arrive as "plan/executive-summary" → "executive-summary". */
+function normaliseSlug(raw: string): string {
+  return raw.replace(/^plan\//, "").replace(/\/$/, "");
+}
+
+const bare = normaliseSlug(currentSlug);
+const idx = planOrder.findIndex((p) => p.slug === bare);
+
+const prev = idx > 0 ? planOrder[idx - 1] : null;
+const next = idx !== -1 && idx < planOrder.length - 1 ? planOrder[idx + 1] : null;
+
+const tocHeadings = showTOC ? headings.filter((h) => h.depth === 2) : [];
+const hasTOC = tocHeadings.length > 0;
+---
+
+<nav
+  aria-label="Plan navigation"
+  class="report-nav mt-16 mb-8 font-sans"
+>
+  <!-- Prev / Next row -->
+  {(prev || next) && (
+    <div class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-6">
+
+      <!-- Previous -->
+      <div class="flex-1">
+        {prev ? (
+          <a
+            href={`/plan/${prev.slug}/`}
+            aria-label={`Previous section: ${prev.title}`}
+            class="nav-card group flex h-full min-h-[44px] flex-col gap-1
+                   rounded-md border border-on-surface/15 p-4
+                   text-on-surface no-underline
+                   transition-colors duration-200
+                   hover:border-primary/40 hover:bg-primary/5
+                   focus-visible:outline focus-visible:outline-2
+                   focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            <span class="flex items-center gap-1 text-xs font-semibold uppercase
+                          tracking-wide text-primary">
+              <Icon name="mdi:chevron-left" class="h-4 w-4 shrink-0" aria-hidden="true" />
+              Previous Section
+            </span>
+            <span class="text-base font-semibold leading-snug text-on-surface/87
+                          group-hover:text-on-surface">
+              {prev.title}
+            </span>
+          </a>
+        ) : (
+          /* Empty spacer so Next stays right-aligned when Prev is absent */
+          <div aria-hidden="true" />
+        )}
+      </div>
+
+      <!-- Next -->
+      <div class="flex-1">
+        {next ? (
+          <a
+            href={`/plan/${next.slug}/`}
+            aria-label={`Next section: ${next.title}`}
+            class="nav-card group flex h-full min-h-[44px] flex-col items-end gap-1
+                   rounded-md border border-on-surface/15 p-4
+                   text-on-surface no-underline
+                   transition-colors duration-200
+                   hover:border-primary/40 hover:bg-primary/5
+                   focus-visible:outline focus-visible:outline-2
+                   focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            <span class="flex items-center gap-1 text-xs font-semibold uppercase
+                          tracking-wide text-primary">
+              Next Section
+              <Icon name="mdi:chevron-right" class="h-4 w-4 shrink-0" aria-hidden="true" />
+            </span>
+            <span class="text-right text-base font-semibold leading-snug text-on-surface/87
+                          group-hover:text-on-surface">
+              {next.title}
+            </span>
+          </a>
+        ) : (
+          <div aria-hidden="true" />
+        )}
+      </div>
+
+    </div>
+  )}
+
+  <!-- TOC (md+ only, depth-2 headings, showTOC prop required) -->
+  {hasTOC && (
+    <aside
+      id="report-toc"
+      aria-label="Table of contents"
+      class="hidden min-[960px]:block mt-10"
+    >
+      <p class="mb-3 text-xs leading-normal font-semibold uppercase tracking-widest text-on-surface/75">
+        On this page
+      </p>
+      <ul
+        class="border-l-2 border-on-surface/20 list-none p-0 m-0 space-y-0"
+        role="list"
+      >
+        {tocHeadings.map((h) => (
+          <li>
+            <a
+              href={`#${h.slug}`}
+              data-toc-link={h.slug}
+              class="toc-link flex min-h-[44px] items-center gap-3 rounded-md
+                     pl-10 pr-3 py-1
+                     text-sm font-semibold text-on-surface/87
+                     no-underline transition-colors duration-150
+                     hover:bg-primary/8 hover:text-on-surface"
+            >
+              <!-- Dot indicator -->
+              <span
+                data-toc-dot={h.slug}
+                class="toc-dot inline-block h-3 w-3 shrink-0 rounded-full
+                       bg-[#1976d2] transition-all duration-200"
+                aria-hidden="true"
+              />
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )}
+</nav>
+
+{hasTOC && (
+  <script>
+    (function () {
+      "use strict";
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* ---- Smooth-scroll for TOC clicks ---- */
+      document.querySelectorAll("[data-toc-link]").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          const slug = (link as HTMLElement).dataset.tocLink;
+          const target = slug ? document.getElementById(slug) : null;
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+          /* Move focus to heading for accessibility */
+          target.focus({ preventScroll: true });
+        });
+      });
+
+      /* ---- IntersectionObserver scroll-spy ---- */
+      function setActive(slug: string | null) {
+        document.querySelectorAll("[data-toc-link]").forEach(function (link) {
+          const el = link as HTMLElement;
+          const dot = el.parentElement
+            ? (el.parentElement.querySelector("[data-toc-dot]") as HTMLElement | null)
+            : null;
+          const isActive = slug !== null && el.dataset.tocLink === slug;
+
+          if (isActive) {
+            el.classList.add("text-primary", "font-bold");
+            el.classList.remove("text-on-surface/87");
+            if (dot) {
+              dot.style.backgroundColor = "#00e676";
+              dot.style.transform = "scale(1.3)";
+              dot.style.boxShadow = "0 0 0 3px color-mix(in srgb, #00e676 30%, transparent)";
+            }
+          } else {
+            el.classList.remove("text-primary", "font-bold");
+            el.classList.add("text-on-surface/87");
+            if (dot) {
+              dot.style.backgroundColor = "#1976d2";
+              dot.style.transform = "";
+              dot.style.boxShadow = "";
+            }
+          }
+        });
+      }
+
+      const tocSlugs = Array.from(
+        document.querySelectorAll("[data-toc-link]")
+      ).map(function (el) {
+        return (el as HTMLElement).dataset.tocLink as string;
+      });
+
+      if (tocSlugs.length === 0) return;
+
+      /* Track the topmost visible heading */
+      const visible = new Set<string>();
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            const id = entry.target.id;
+            if (entry.isIntersecting) {
+              visible.add(id);
+            } else {
+              visible.delete(id);
+            }
+          });
+          /* Pick the first (topmost) currently visible heading */
+          const active = tocSlugs.find(function (s) { return visible.has(s); }) ?? null;
+          setActive(active);
+        },
+        {
+          /* rootMargin keeps headings "seen" while content is on screen.
+             A heading exits when it scrolls above the 10% line. */
+          rootMargin: "-10% 0px -70% 0px",
+          threshold: 0,
+        }
+      );
+
+      tocSlugs.forEach(function (slug) {
+        const el = document.getElementById(slug);
+        if (el) observer.observe(el);
+      });
+    })();
+  </script>
+)}

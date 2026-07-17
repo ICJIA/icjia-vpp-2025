@@ -2,34 +2,32 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Stack note:** This repo was migrated from Nuxt/Vue/Vuetify to **Astro/Tailwind/Alpine** (see `CHANGELOG.md` [2.0.0] and `docs/`). The app lives in `astro/`. All commands run from `astro/` unless noted.
+
 ## Development Commands
 
 ```bash
-yarn dev              # Dev server on http://localhost:8000
-yarn dev:fast         # Dev server (skips build scripts)
-yarn build            # Production build
-yarn generate         # Static site generation
-yarn test             # Run tests (vitest)
-yarn lint:fix         # Lint and auto-fix
-yarn clean            # Clean build artifacts and cache
-yarn dev:clean        # Clean + fresh dev start
+./start-dev-server            # (repo root) Astro dev on http://localhost:4321 (kills stale port, clears caches)
+cd astro && pnpm dev          # Astro dev server
+cd astro && pnpm build        # Production build (prebuild auto-generates references + search index)
+cd astro && pnpm preview      # Serve the production build locally
 ```
 
-Build scripts (`yarn create:search-index-defuddle`, `yarn create:site-config`, etc.) run automatically during `yarn dev` and `yarn build`. All support `--verbose` and `--quiet` flags. See `package.json` for the full list.
+Build scripts (`astro/scripts/generate-references.js`, `generate-search-index-defuddle.js`) run automatically via the `prebuild` step before `pnpm build`.
 
 ## Technology Stack
 
-- **Nuxt 4** (SSG) / **Vue 3** Composition API / **Vuetify 3** / **Nuxt Content v3**
-- **Fuse.js** for search / **Vitest** for testing / **Yarn** as package manager
-- JavaScript only (not TypeScript) — write concise, technical JS code
+- **Astro 6.4** (static output) / **Tailwind CSS 4** (utility-first + `@theme` tokens) / **Alpine.js 3** (interactive islands only)
+- Content via **Astro content collections** (local markdown/MDX); **Fuse.js** client-side search; **astro-icon** (MDI inline SVG); **@fontsource** self-hosted fonts; **Sharp** images; **astro-seo** + JSON-LD
+- **pnpm** as package manager
+- Prefer TypeScript-friendly `.astro`/`.ts`; concise, technical code
 
 ## Code Style & Naming
 
-- Use Vue 3 Composition API with `<script setup>` syntax
-- Follow mobile-first responsive design with Vuetify 3
-- **Directories**: lowercase-with-dashes (e.g., `components/auth-wizard`)
-- **Components**: PascalCase (e.g., `AuthWizard.vue`)
-- **Composables**: camelCase (e.g., `useAuthState.js`)
+- `.astro` components with `<script setup>`-style frontmatter; Alpine `x-data` only where real interactivity exists
+- Tailwind utilities first (esp. layout: `grid`/`flex`/`container`); reserve `global.css` custom rules for what utilities can't express (`.markdown-body`, skip-link, `sr-only`)
+- **Directories**: lowercase-with-dashes — `astro/src/components/{chrome,home,content,ui}`
+- **Components**: PascalCase `.astro` (e.g., `HomeHero.astro`)
 - **Variables**: Descriptive with auxiliary verbs (e.g., `isLoading`, `hasError`)
 
 ## Accessibility Requirements
@@ -42,29 +40,18 @@ Build scripts (`yarn create:search-index-defuddle`, `yarn create:site-config`, e
 - ARIA labels on all interactive elements without visible text
 - Focus states must match hover states
 - Semantic HTML, proper heading hierarchy, landmark regions
-- Screen reader announcements via `useAnnouncer()` composable
-- All accessibility changes must be documented in `audit-log-accessibility.md`
+- Screen reader announcements via the `#announcer-polite` / `#announcer-assertive` live regions in `BaseLayout.astro`
+- Verify accessibility with the `lightcap` (`run_a11y`) and `axecap` MCP tools; record notable a11y changes in `CHANGELOG.md` and/or under `docs/`
 
-## VueUse
+## Audit / change records
 
-Prefer VueUse composables (already installed) over custom implementations. Watch for Nuxt/Nitro naming conflicts — e.g., `useStorage()` from VueUse must be explicitly imported to avoid conflict with Nitro's built-in.
-
-## Audit Log Requirements
-
-Maintain chronological records in `audit-log-project.md` and `audit-log-accessibility.md`. Use Chicago date: `TZ='America/Chicago' date +"%Y-%m-%d"`
-
-Each entry must include:
-1. **Date and Title**: YYYY-MM-DD format with descriptive title
-2. **Summary**: 1-2 sentence overview of what changed and why
-3. **Files Modified/Created**: List with specific changes to each file
-4. **Technical Notes**: Implementation details helpful for developers
-
-Entries in reverse chronological order. Update after each significant change.
+Record notable changes in `CHANGELOG.md` (reverse chronological, newest first, grouped by date). Use Chicago date: `TZ='America/Chicago' date +"%Y-%m-%d"`. Migration specs/plans/audits live under `docs/superpowers/`.
 
 ## Key Patterns
 
-- Site configuration is driven by JSON files in `/config/` — access via `useSiteSettings()`
-- Content pages use `[...slug].vue` catch-all route with `useContentFetcher()`
-- Theme management via `useTheme()` (session-only, defaults to dark)
-- Adding new content: create markdown in `/content/`, then run `yarn create:site-config` and `yarn create:search-index-defuddle`
-- Tests are in `/test/` (not `/tests/`)
+- Nav + home content data are static JS in `astro/src/data/` (`nav.js`, `home.js`); SEO helpers + JSON-LD in `astro/src/lib/seo.ts`
+- Content collections defined in `astro/src/content.config.ts`; plan pages render via `astro/src/pages/plan/[slug].astro`, other markdown via `astro/src/pages/[...slug].astro`
+- Theme: dark-default, session-only — the no-flash inline script in `BaseLayout.astro` + the Alpine `ThemeToggle`
+- Adding content: create markdown in `astro/src/content/...`; `pnpm build` regenerates the search index automatically
+- Interactive bits (search, references popups, mobile drawer, image modal) are Alpine/vanilla islands in `astro/src/scripts/` + component `<script>` blocks
+- Markdown-bearing pages that need components use `.mdx`; raw Vue/Vuetify tags do NOT render in Astro (build custom `.astro` pages instead)

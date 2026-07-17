@@ -1,0 +1,126 @@
+---
+/**
+ * HomeLetter — Message-card section for executive letters.
+ *
+ * Used for both Adams (section-secondary, id="letters-section") and
+ * Stratton (section-primary, no id).
+ *
+ * Props:
+ *   letter   — { heading, photo:{src,alt,width,height?}, body, signature:[name,title] }
+ *   band     — "primary" | "secondary"  → section-{band} CSS class
+ *   sectionId — optional id on <section> (e.g. "letters-section" for Adams,
+ *               which is the Hero "Learn More" smooth-scroll target)
+ *
+ * Source: app/components/content/HomeLetters.vue
+ *         app/components/content/HomeLieutenantGovernor.vue
+ *
+ * Image optimization: photo.src is a public-path string (e.g. "/images/DirectorAdamsResized.jpg").
+ * We glob-resolve the basename to an imported asset in src/assets/images/ so
+ * Astro's built-in Sharp pipeline can resize/reformat + content-hash the file.
+ */
+import { Image } from "astro:assets";
+
+const { letter, band, sectionId } = Astro.props;
+
+// Eagerly import all optimizable portrait images from src/assets/images.
+const portraits = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/images/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+
+// Resolve the photo.src basename to the imported ImageMetadata module, if found.
+const photoBasename = letter.photo.src.replace(/^.*\//, ""); // "DirectorAdamsResized.jpg"
+const resolvedKey = Object.keys(portraits).find((k) =>
+  k.endsWith("/" + photoBasename)
+);
+const resolvedPhoto: ImageMetadata | null = resolvedKey
+  ? portraits[resolvedKey].default
+  : null;
+---
+
+<section
+  class:list={["py-16", `section-${band}`]}
+  id={sectionId}
+>
+  <div class="vpp-container">
+    <!-- Centered section heading -->
+    <h2 class="text-center text-5xl min-[960px]:text-6xl font-bold border-b border-on-surface/20 pb-3 mb-8">
+      {letter.heading}
+    </h2>
+
+    <!-- Message card -->
+    <div
+      class="mx-auto max-w-[900px] rounded-xl bg-surface border border-on-surface/8 shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-transform hover:-translate-y-0.5 p-8 min-[960px]:p-12"
+    >
+      <!--
+        overflow-hidden on this wrapper clears the float so the card
+        grows to contain both the floated image and the text.
+      -->
+      <div class="overflow-hidden">
+        <!-- Photo: floated left, text wraps around it -->
+        <!-- Use astro:assets <Image> when the portrait was resolved via glob (Sharp-optimized).
+             Fall back to plain <img> for any src not found in src/assets/images. -->
+        {resolvedPhoto ? (
+          <Image
+            src={resolvedPhoto}
+            alt={letter.photo.alt}
+            width={letter.photo.width}
+            height={letter.photo.height ?? letter.photo.width}
+            loading="lazy"
+            class="float-left w-[150px] h-auto mr-5 mb-2 mt-1 rounded-lg [shape-outside:margin-box]"
+          />
+        ) : (
+          <img
+            src={letter.photo.src}
+            alt={letter.photo.alt}
+            width={letter.photo.width}
+            height={letter.photo.height}
+            loading="lazy"
+            class="float-left w-[150px] h-auto mr-5 mb-2 mt-1 rounded-lg [shape-outside:margin-box]"
+          />
+        )}
+
+        <!-- Body copy -->
+        <p class="text-[1.1rem] leading-[1.7]">{letter.body}</p>
+
+        <!--
+          Signature: clear-left ensures it always sits below the floated
+          photo even when the body text is shorter than the image height.
+        -->
+        <p class="clear-left mt-8 font-semibold signature-text">
+          {letter.signature[0]}<br />{letter.signature[1]}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /*
+   * Signature contrast rules.
+   * Light theme: force pure black (#000) for maximum contrast per
+   *   legacy rule (:root:not([data-theme="dark"]) .signature { color: #000 }).
+   * Dark theme: inherit on-surface token (light text on dark card).
+   */
+  :root:not(.dark) .signature-text {
+    color: #000000;
+  }
+
+  :root.dark .signature-text {
+    color: var(--color-on-surface);
+  }
+
+  /*
+   * Card hover: slightly deeper shadow on hover (matches legacy
+   * .message-card-inner:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.15) }).
+   * The translate is handled by the Tailwind hover:-translate-y-0.5 utility;
+   * only the shadow override needs scoped CSS.
+   */
+  :root:not(.dark) .message-card-hover:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  :root.dark .message-card-hover:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
+</style>

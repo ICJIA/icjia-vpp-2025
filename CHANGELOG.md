@@ -8,37 +8,39 @@ All notable changes to the Violence Prevention Plan for Illinois: 2025-2029 web 
 
 This application is deployed as a **static site on Netlify** with no server-side code, which eliminates entire classes of vulnerabilities (SQL injection, SSRF, auth bypass, etc.). The following security measures are in place:
 
-- **Content Security Policy (CSP)**: Restrictive policy with `default-src 'self'`, `frame-ancestors 'none'`, `base-uri 'self'`, `form-action 'self'`. External sources limited to Plausible analytics, Google Fonts, and jsDelivr CDN.
+- **Content Security Policy (CSP)**: Restrictive policy with `default-src 'self'`, `object-src 'none'`, `frame-ancestors 'none'`, `base-uri 'self'`, `form-action 'self'`. The only external source is the self-hosted Plausible analytics endpoint; fonts, icons, and styles are self-hosted (no jsDelivr / Google Fonts dependency). Shipped via `astro/public/_headers`.
 - **HTTP Security Headers**: Full suite including HSTS (1 year + preload), X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy (camera/mic/geo/payment denied), Cross-Origin-Opener-Policy same-origin.
-- **Subresource Integrity (SRI)**: External stylesheets loaded with integrity hashes and crossorigin="anonymous".
-- **Input Sanitization**: Comprehensive XSS prevention in `sanitize.js` with multi-layer sanitization for search queries, content indexing, and result display. Search queries limited to 50 characters.
+- **No external scripts/styles**: Fonts (`@fontsource`), icons (astro-icon inline SVG), and CSS are self-hosted and bundled — the only third-party request is the deferred Plausible analytics script.
+- **Input Sanitization**: XSS prevention in the search-highlight module — query and content are HTML-escaped before any `<mark>` insertion; search queries limited to 50 characters.
 - **No Persistent Storage**: Only sessionStorage used for theme preference — no cookies, no user data stored.
 - **Domain Redirect**: Legacy `vpp-2025.netlify.app` redirects to `vpp.icjia.illinois.gov` with 301.
-- **Cache Strategy**: HTML files always revalidate (`max-age=0, must-revalidate`), hashed assets immutable for 1 year, data files cached for 5 minutes.
+- **Cache Strategy**: HTML files always revalidate (`max-age=0, must-revalidate`); hashed `/_astro/*` assets immutable for 1 year.
 
-**Known limitations**: CSP requires `'unsafe-inline'` and `'unsafe-eval'` for Vue/Nuxt framework compatibility. This is standard for Vue SSG applications and mitigated by the restrictive `default-src` and `connect-src` directives.
+**Known limitations**: CSP keeps `'unsafe-eval'` (required by Alpine.js's expression evaluator) and `'unsafe-inline'` (for the inline no-flash theme script + Alpine island handlers), mitigated by the restrictive `default-src`/`connect-src` and `object-src 'none'`.
 
 ---
 
 ## Accessibility Summary
 
-This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-04-13, **axe-core reports 0 violations across all 13 pages (AA)** and **Lighthouse reports A11y:100, Best Practices:100, SEO:100 on all 13 pages**.
+This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Standards**. As of 2026-06-11, **axe-core reports 0 violations across all 16 pages (AA)** and **Lighthouse reports A11y:100 on all 16 pages** (full Lighthouse on the home page: Performance 100, A11y 100, Best Practices 100, SEO 100 desktop; A11y 100 mobile).
 
 ### Accessibility Features
 - **Color contrast**: 8:1+ ratios in both light and dark themes (exceeds AA 4.5:1 requirement)
 - **Skip links**: Full keyboard navigation with visible skip-to-content links
-- **Screen reader support**: Aria-live regions via `useAnnouncer()` composable, proper landmark roles, aria-labels on all interactive elements
+- **Screen reader support**: `#announcer-polite` / `#announcer-assertive` aria-live regions in `BaseLayout.astro` (search announces result counts), proper landmark roles, aria-labels on all interactive elements
 - **Touch targets**: 44px minimum enforced on all interactive elements
 - **Reduced motion**: Global `prefers-reduced-motion` support disabling all animations, including page transitions
 - **Form accessibility**: Labels, aria-describedby, aria-required, live regions for validation feedback
 - **Heading hierarchy**: Proper semantic heading order (H1 > H2 > H3) verified across all pages
-- **Theme support**: Dark/light themes with cookie-based persistence preventing FOUC
+- **Theme support**: Dark/light themes (session-only, defaults dark) with a no-flash inline `<head>` script preventing FOUC
 - **Images**: Descriptive alt text on all content images, decorative elements marked `aria-hidden="true"`
 - **Focus indicators**: 3px outline with 2px offset on all focusable elements, visible in both themes
 
 ### Audit History
 | Date | Tool | Result |
 |------|------|--------|
+| 2026-07-17 | SiteImprove (production = pre-migration Nuxt site) | All 38 Level A + all 11 Level AA rules 100/100; only sub-100 items are 3 AAA rules + 1 editorial check. Branch-only light-mode AA fixes applied in [2.1.1] |
+| 2026-06-11 | axecap + lightcap (Astro) | axe AA: 0 violations / 16 pages; Lighthouse A11y:100 / 16 pages; home full audit 100×4 desktop + A11y:100 mobile |
 | 2026-04-13 | axecap + lightcap | axe AA: 0 violations / 13 pages; Lighthouse: A11y:100, BP:100, SEO:100 on all 13 pages |
 | 2026-04-11 | axe-core 4.11.2 | 0 violations / 13 pages (desktop AA, mobile AA, best practices — 39 audits total) |
 | 2026-04-08 | Google Lighthouse | CLS eliminated on all pages; avg perf 77→93; a11y 100 on all pages |
@@ -47,6 +49,93 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [2.1.1] - 2026-07-17 — SiteImprove follow-up: light-mode AA fixes + AAA improvements
+
+Driven by the 2026-07-17 SiteImprove score breakdown of production (still the pre-migration Nuxt site): every Level A (38/38) and Level AA (11/11) rule already scores 100/100 — the four sub-100 items are WCAG AAA (1.4.6 enhanced contrast, 2.5.5 enhanced target size, 1.4.8 line height) or SiteImprove editorial ("overuse of italics"), none required for ADA Title II / IITAA 2.1. Reviewing the Astro branch against those findings surfaced two light-mode AA regressions (invisible to prior axe scans, which audit the dark-default theme); both are fixed here along with the low-risk AAA improvements.
+
+### Fixed
+- **Light-mode AA contrast (WCAG 1.4.3)**: plan-page TOC "On this page" label was `text-on-surface/60` = 4.00:1 → now `/75` = 6.34:1 (`ReportNavigation.astro`); image-enlarge hint's dark variant was `dark:text-on-surface/50` = 4.48:1 on surface → now `dark:…/60` ≥ 5.78:1 (`TextCenteredImage.astro`).
+- **`.footnotes` light-mode trap**: hardcoded GitHub-dark gray `#8b949e` = 2.95:1 on light backgrounds. Dormant (no content uses footnotes yet) but now theme-split: `#57606a` light (6.12:1) / `#8b949e` dark (6.15:1), matching border colors (`global.css`).
+- **Search clear-button icon at the 1.4.11 knife edge**: the ✕ control's `text-on-surface/50` computed to exactly 3.00:1 in light mode — the UI-component minimum with zero margin. Now `/70` (5.36:1 light / 7.31:1 dark); hover unchanged (`search.astro`).
+
+### Changed
+- **Line height ≥ 1.5 on all small-text paragraphs (WCAG 1.4.8 AAA)**: `leading-relaxed`/`leading-normal` added to the nine `text-sm`/`text-xs` `<p>` elements that computed to 1.33–1.43 — search state panels + result paths (`search.astro`), news empty state (`news/index.astro`), TOC label (`ReportNavigation.astro`), image caption + hint (`TextCenteredImage.astro`).
+- **44×44px pointer targets on the last small controls (WCAG 2.5.5 AAA)**: desktop navbar dropdown buttons and footer bottom-row links get the invisible pseudo-element hit area already used by ThemeToggle — visual size, layout, and the nav underline animation are unchanged. Scanners that measure raw element boxes may not credit these, but the actual pointer target is 44px.
+- **Reference citation markers to AAA contrast (WCAG 1.4.6)**: light `#00695c` (6.34:1) → `#00594e` (7.92:1); dark `#4db6ac` (5.99:1 on surface) → `#66c9bf` (7.43:1 on surface, 9.62:1 on plan pages) (`global.css`).
+
+### Not changed (documented decisions)
+- **Blockquote italics stay** (`global.css` `font-style: italic`): SiteImprove's "overuse of italics" is an editorial best-practice check, not WCAG — removing italics is a design decision deferred to the team.
+- **Muted-text hierarchy stays at `/70`–`/75`** (5.4–6.3:1): passes AA everywhere; pushing all secondary text to 7:1 (AAA) would flatten the visual hierarchy for no compliance gain.
+
+---
+
+## [2.1.0] - 2026-06-11 — Pre-merge Review Fixes (a11y, search, SEO, dead links)
+
+Fixes from the pre-merge assessment of the Astro migration branch: a full code review plus runtime audits (axe-core, Lighthouse, functional browser testing) of every page.
+
+### Fixed
+- **Dead footer links on every page**: the legacy `/docs` TypeDoc portal (incl. `/docs/accessibility/`) was not migrated but the footer + README still linked it — links removed until a docs/accessibility page ships (`astro/src/data/nav.js`, `README.md`).
+- **Search query blocklist mangled legitimate terms**: "evaluation" became "uation", "important" became "ant" (the blocklist stripped `eval`, `import`, etc.). Removed — the query only ever reaches Fuse and escape-first highlighters, so the blocklist added no safety (`search-highlight.js`).
+- **Search**: home-page result rendered an invalid `href="//"`; titles/paths were double-escaped (a future `&`/`'` in a title would display as literal entities) (`search.astro`).
+- **Search index polluted with MDX code**: `import … from "….astro"` statements from `.mdx` content leaked into user-visible excerpts; the generator now strips ESM statements (`generate-search-index-defuddle.js`).
+- **TOC clicks**: URL hash never updated and the "move focus to heading" call silently failed (headings aren't focusable) — now sets `tabindex="-1"`, focuses the heading, and pushes the hash (`plan/[slug].astro`).
+- **Sticky navbar never actually stuck**: the header's `position: sticky` was confined inside the header-height Alpine wrapper div (zero room to travel), so the navbar scrolled off-screen. The wrapper is now `display: contents`, making `<body>` the sticky containing block — the navbar stays pinned while drawer/backdrop keep their root-level z-stacking above the scroll-top FAB (`Header.astro`).
+- **Anchor/TOC scroll offset doubled**: `scroll-padding-top: 80px` on `html` and `scroll-margin-top: 80px` on markdown headings are additive per the CSSOM spec, so scroll targets landed 160px down (with no pinned navbar above them, see previous item). Removed the heading `scroll-margin-top`; the single 80px `scroll-padding-top` now lands clicked/linked headings ~15px below the pinned 65px navbar — verified for both TOC clicks and direct `#hash` page loads (`global.css`).
+- **Light-mode contrast (WCAG 1.4.3)**: `text-on-surface/55`–`/60` body text computed to 3.4–4.0:1 in light mode (search state panels, news empty state, image-modal hint) and the search input placeholder to ~2.6:1 — bumped to `/70` in light (≥5.3:1) while preserving the passing dark-mode values via `dark:` splits.
+- **ThemeToggle pill never rendered its background**: conflicting Tailwind utilities (`bg-transparent` vs `bg-on-surface/5`, `p-0` vs `px-2 py-1`) — conflict removed.
+- **Vuetify leftovers**: `rgb(var(--v-theme-primary))` (undefined in this build) on the resources / organizational-highlights placeholder headings → `var(--color-primary)`.
+- **hreflang alternates pointed every page at the homepage** — removed (single-language site; alternates were wrong for SEO).
+
+### Added
+- **Branded 404 page** (`src/pages/404.astro` → `dist/404.html`, served automatically by Netlify; previously users got Netlify's unbranded default despite `netlify.toml` claiming otherwise).
+- **Mobile drawer focus management** (`@alpinejs/focus`, `x-trap.noscroll`): focus trapped while open, body scroll locked, Escape closes and restores focus to the hamburger — the drawer was `aria-modal="true"` with none of that.
+- **44px touch targets**: hamburger now 44×44 (`p-2.5`); theme toggle gets a 44px-tall invisible `::after` hit area (visual pill unchanged).
+- **Reference tooltips meet WCAG 1.4.13**: pointer can move onto the tooltip to read/select long citations (was `pointer-events: none` + instant hide); 300ms hover grace, Escape dismisses, keyboard show/hide preserved.
+- **`/search?q=` deep links** — the WebSite SearchAction JSON-LD advertised `?q=` but the page never read it; now prefills and runs the search.
+
+### Changed
+- **Entrance animations are transform-only slide-ups (no opacity fades)** on HomeHero, HomeGoals, HomeAction, and PageTitleSection: automated a11y scanners (axe, SiteImprove) sample mid-fade and flag fading text as false-positive contrast failures — and skip `opacity:0` content entirely. Text is now fully opaque and machine-readable at every animation frame; stagger timing and reduced-motion gating unchanged. Also fixed `.hero-para:nth-child` selectors that never matched (second paragraph skipped its animation).
+- **`scroll-behavior: smooth` gated** behind `prefers-reduced-motion: no-preference` (CSS-initiated smooth scrolls ignored the user's motion preference; the global animation guard can't neutralize scroll-behavior).
+- **Sitemap excludes** `/news/` (built but unlinked empty placeholder — per direction, News stays dormant and out of any sitemap) and `/plan/` (noindexed meta-refresh redirect; a noindexed URL in a sitemap is contradictory). Now 13 URLs.
+- **News collection removed until the section launches**: an empty/missing collection made every build warn; `/news/` still renders its empty state, and re-enable steps (collection + detail route + sitemap) are documented in `content.config.ts`.
+- **robots.txt**: dropped stale Nuxt-era rules (`/documentation/`, `/debug-search.html`, `/*sandbox*` — none of these paths exist in the Astro build).
+
+### Verification (2026-06-11, local preview build)
+- **axe-core AA: 0 violations across all 16 pages** (every built page except the `/plan/` meta-refresh redirect).
+- **Lighthouse A11y: 100 on all 16 pages**; full Lighthouse on home: Performance 100 / A11y 100 / Best Practices 100 / SEO 100 (desktop) and A11y 100 (mobile).
+- Light-mode contrast verified by computed blend math (`/70` ≈ 5.3:1 light; preserved dark values ≥4.7:1).
+- Functional (real browser input): search results + `<mark>` highlighting + live-region announcements + `?q=` deep link; reference tooltips (hover-persist, focus, Escape); mobile drawer (trap cycles, scroll lock, Escape closes + restores focus); TOC click (hash + heading focus); clean build with zero warnings (17 pages).
+
+---
+
+## [2.0.0] - 2026-05-28 — Migration to Astro / Tailwind / Alpine
+
+Complete rebuild of the site from **Nuxt 4 + Vue 3 + Vuetify 3 + Nuxt Content** to **Astro 6.4 + Tailwind CSS 4 + Alpine.js 3**, pixel-matched to the prior site and verified against the production reference. No Vue/Vuetify ships.
+
+### Changed
+- **Framework**: Nuxt/Vue/Vuetify → Astro (static) + Tailwind 4 (utility-first, `@theme` design tokens lifted from the Vuetify palette) + Alpine 3 for the few interactive islands. Package manager yarn → pnpm 10.
+- **Content**: Nuxt Content → Astro content collections over the same local markdown/MDX (`astro/src/content/{plan,legal,news}` + top-level pages). Markdown via remark-gfm + rehype-external-links.
+- **Chrome**: header (nav, dropdowns, mobile drawer), footer, theme toggle, scroll-to-top rebuilt as native HTML + Tailwind + Alpine.
+- **Icons**: Material Design Icons via `astro-icon` (tree-shaken inline SVG) — replaces the `@mdi/font` webfont + jsDelivr CDN dependency.
+- **Fonts**: self-hosted via `@fontsource` (Roboto + Raleway, latin subset) — replaces Google Fonts.
+- **Images**: optimized with Astro `<Image>` (Sharp) — ~1.6 MB → ~232 KB across the seal, portraits, and lightbox images.
+- **Search**: Fuse.js + the defuddle-generated index preserved (same behavior); generators ported to `astro/scripts/`, run at prebuild.
+
+### Added
+- Self-hosted Plausible analytics (deferred).
+- Per-page SEO via `astro-seo` + JSON-LD (WebPage / GovernmentOrganization / WebSite / Article / BreadcrumbList); sitemap, `robots.txt`, `llms.txt`.
+- Tighter CSP shipped in `astro/public/_headers` (drops jsDelivr/Google Fonts, adds `object-src 'none'`).
+- Pop-up references/citations, footnote-free; the `/download` page rebuilt with working links + icons.
+
+### Preserved
+- Pixel-perfect visual parity, WCAG 2.1 AA / IITAA 2.1 compliance, dark-default session-only theme, the full plan content and routes.
+
+### Verification
+- Lighthouse (lightcap): A11y 100 / Best-Practices 100 / SEO 100 across all routes; Performance ~99 on the home page (LCP 3.7s → 2.0s after image + hero fixes).
+- Migration record + the ICJIA Astro conversion checklist live under `docs/`.
 
 ---
 

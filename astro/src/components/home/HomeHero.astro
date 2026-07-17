@@ -1,0 +1,137 @@
+---
+/**
+ * HomeHero — LCP-critical hero section for the home page.
+ *
+ * Props: { hero } from astro/src/data/home.js
+ *   hero.titleHighlight  — colored span text
+ *   hero.titleSuffix     — plain text after highlight
+ *   hero.paragraphs[]    — body copy (2 items)
+ *   hero.buttons[]       — { label, url?, scrollTarget?, variant, ariaLabel }
+ *   hero.image           — { src, alt, caption, linkUrl }
+ *
+ * LCP NOTE: image is loading="eager" fetchpriority="high" — do NOT change.
+ */
+const { hero } = Astro.props;
+
+const downloadBtn = hero.buttons.find((b) => b.variant === "filled");
+const learnMoreBtn = hero.buttons.find((b) => b.variant === "outlined");
+---
+
+<section class="section-primary py-16">
+  <div class="vpp-container">
+    <div
+      class="grid grid-cols-1 gap-8 items-center min-[960px]:grid-cols-2"
+    >
+      <!-- ── Left: text column ── -->
+      <div class="min-[960px]:pr-12">
+        <h1
+          class="hero-title font-sans font-semibold leading-[1.2] text-[36px] min-[960px]:text-[54px] min-[1200px]:text-[60px] mb-6"
+          style="letter-spacing:-0.02em"
+        >
+          <span class="text-primary">{hero.titleHighlight}</span>{hero.titleSuffix}
+        </h1>
+
+        {
+          hero.paragraphs.map((para, i) => (
+            <p
+              class={`hero-para text-base leading-relaxed mb-6${i > 0 ? " opacity-90" : ""}`}
+            >
+              {para}
+            </p>
+          ))
+        }
+
+        <!-- Buttons row -->
+        <div class="hero-buttons flex flex-col sm:flex-row gap-5 mt-8">
+          {
+            downloadBtn && (
+              <a
+                href={downloadBtn.url}
+                class="rounded-full px-8 py-3 bg-primary text-white dark:text-[#0f172a] font-semibold inline-flex items-center justify-center shadow-md transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                aria-label={downloadBtn.ariaLabel}
+              >
+                {downloadBtn.label}
+              </a>
+            )
+          }
+
+          {
+            learnMoreBtn && (
+              <a
+                href={learnMoreBtn.scrollTarget ?? learnMoreBtn.url}
+                class="rounded-full px-8 py-3 border-2 border-primary text-primary font-semibold inline-flex items-center justify-center transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                aria-label={learnMoreBtn.ariaLabel}
+              >
+                {learnMoreBtn.label}
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      <!-- ── Right: image column ── -->
+      <div class="mt-8 min-[960px]:mt-0 hero-image-col">
+        <a href={hero.image.linkUrl} aria-label={hero.image.alt}>
+          <img
+            src={hero.image.src}
+            alt={hero.image.alt}
+            width="612"
+            height="792"
+            loading="eager"
+            fetchpriority="high"
+            class="block mx-auto w-full h-auto max-w-[580px] min-[1200px]:max-w-[620px] rounded shadow-lg transition-transform hover:-translate-y-1"
+            style="aspect-ratio:612/792"
+          />
+        </a>
+        <span class="block text-center text-sm text-on-surface/70 mt-2">
+          {hero.image.caption}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /*
+   * Entrance animation — staggered slide-up settle, transform-only.
+   * Deliberately NO opacity fade: automated a11y scanners (axe, SiteImprove)
+   * sample mid-animation and flag fading text as contrast failures, and skip
+   * opacity:0 elements entirely. Transform affects neither contrast nor CLS,
+   * so text is fully opaque and machine-readable at every frame.
+   * Gated to (prefers-reduced-motion: no-preference); the global guard in
+   * global.css additionally collapses durations for reduced-motion users.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes slideUp {
+      from {
+        transform: translateY(16px);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title {
+      transform: translateY(16px);
+      animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: 0.2s;
+    }
+
+    /* Both paragraphs share the 0.4s stagger slot */
+    .hero-para {
+      transform: translateY(16px);
+      animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: 0.4s;
+    }
+
+    .hero-buttons {
+      transform: translateY(16px);
+      animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: 0.6s;
+    }
+
+    /* NOTE: the hero image column is intentionally NOT animated — it is the LCP
+       element (loading=eager fetchpriority=high). Hiding it with opacity:0 +
+       animation-delay delayed LCP ~800ms; it must paint immediately. */
+  }
+</style>

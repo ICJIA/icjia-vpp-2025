@@ -1,0 +1,230 @@
+---
+/**
+ * Plan page template — renders the 7 plan collection entries.
+ *
+ * Layout:
+ *   - PageTitleSection (always)
+ *   - Content area (.content-page.is-plan-page):
+ *       When showTOC=true (md+): two-column grid — content left, TOC aside right
+ *       Below grid (always): prev/next navigation via ReportNavigation (showTOC=false)
+ *   - TOC aside is rendered in-template from headings to avoid a double
+ *     ReportNavigation render (which would duplicate the prev/next links).
+ */
+
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageTitleSection from "../../components/content/PageTitleSection.astro";
+import ReportNavigation from "../../components/content/ReportNavigation.astro";
+import { articleJsonLd, breadcrumbJsonLd, SITE_ORIGIN } from "../../lib/seo.ts";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("plan");
+  return entries.map((entry) => ({
+    // entry.id is already bare (e.g. "front-cover") because the glob base is ./src/content/plan
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const showTOC = entry.data.showTOC ?? false;
+const tocHeadings = showTOC ? headings.filter((h) => h.depth === 2) : [];
+const hasTOC = tocHeadings.length > 0;
+
+// Dates: z.coerce.date() gives Date objects; convert to ISO strings for SEO.
+const datePublished = entry.data.date instanceof Date
+  ? entry.data.date.toISOString().split("T")[0]
+  : (entry.data.date as string | undefined);
+const dateModified = entry.data.lastModified instanceof Date
+  ? entry.data.lastModified.toISOString().split("T")[0]
+  : (entry.data.lastModified as string | undefined) ?? datePublished;
+const keywordsStr = Array.isArray(entry.data.keywords)
+  ? entry.data.keywords.join(", ")
+  : entry.data.keywords;
+
+const pageUrl = SITE_ORIGIN + Astro.url.pathname;
+const articleLd = articleJsonLd({
+  title: entry.data.title ?? "",
+  description: entry.data.description ?? "",
+  url: pageUrl,
+  datePublished,
+  dateModified,
+  keywords: keywordsStr,
+});
+const breadcrumbLd = breadcrumbJsonLd(Astro.url.pathname);
+
+// Match the legacy TOC truncation (app/pages/[...slug].vue truncateText, maxLength 70).
+const truncateText = (text: string, maxLength = 70): string => {
+  if (!text || text.length <= maxLength) return text;
+  const truncated = text.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+  if (lastSpaceIndex > 0) return truncated.substring(0, lastSpaceIndex) + "...";
+  return truncated + "...";
+};
+---
+
+<BaseLayout
+  title={entry.data.title ?? ""}
+  description={entry.data.description}
+  ogImage={entry.data.ogImage}
+  ogType="article"
+  publishedAt={datePublished}
+  updatedAt={dateModified}
+  keywords={keywordsStr}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  <PageTitleSection
+    title={entry.data.title ?? ""}
+    description={entry.data.description}
+    showBorder={true}
+  />
+
+  <div class="content-page is-plan-page">
+    <div class="container mx-auto px-4 py-8 max-w-[1100px]">
+
+      {hasTOC ? (
+        /* Two-column grid: content left, TOC aside right (md+ only) */
+        <div class="min-[960px]:grid min-[960px]:grid-cols-[1fr_280px] min-[960px]:gap-8">
+          <div class="markdown-body min-w-0">
+            <Content />
+          </div>
+
+          {/* TOC aside — visible only at md+ (matches ReportNavigation TOC behaviour) */}
+          <aside
+            id="report-toc"
+            aria-label="Table of contents"
+            class="hidden min-[960px]:block self-start sticky top-20"
+          >
+            <p class="mb-3 text-base font-bold text-on-surface">
+              Jump To...
+            </p>
+            <ul class="border-l-2 border-on-surface/20 list-none p-0 m-0 space-y-0" role="list">
+              {tocHeadings.map((h) => (
+                <li>
+                  <a
+                    href={`#${h.slug}`}
+                    data-toc-link={h.slug}
+                    class="toc-link flex min-h-[44px] items-center gap-3 rounded-md
+                           pl-10 pr-3 py-1
+                           text-sm font-semibold text-on-surface/87
+                           no-underline transition-colors duration-150
+                           hover:bg-primary/8 hover:text-on-surface"
+                  >
+                    <span
+                      data-toc-dot={h.slug}
+                      class="toc-dot inline-block h-3 w-3 shrink-0 rounded-full
+                             bg-[#1976d2] transition-all duration-200"
+                      aria-hidden="true"
+                    />
+                    {truncateText(h.text)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      ) : (
+        /* No TOC: single-column content */
+        <div class="markdown-body">
+          <Content />
+        </div>
+      )}
+
+      {/* Prev/Next navigation — always full-width, rendered once */}
+      <ReportNavigation currentSlug={entry.id} headings={headings} showTOC={false} />
+
+    </div>
+  </div>
+</BaseLayout>
+
+{hasTOC && (
+  <script>
+    (function () {
+      "use strict";
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* ---- Smooth-scroll for TOC clicks ---- */
+      document.querySelectorAll("[data-toc-link]").forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          const slug = (link as HTMLElement).dataset.tocLink;
+          const target = slug ? document.getElementById(slug) : null;
+          if (!target) return;
+          e.preventDefault();
+          // preventDefault suppresses the native hash update — restore it
+          history.pushState(null, "", "#" + slug);
+          target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+          // Headings aren't natively focusable; tabindex=-1 makes focus() real
+          target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
+        });
+      });
+
+      /* ---- IntersectionObserver scroll-spy ---- */
+      function setActive(slug: string | null) {
+        document.querySelectorAll("[data-toc-link]").forEach(function (link) {
+          const el = link as HTMLElement;
+          const dot = el.parentElement
+            ? (el.parentElement.querySelector("[data-toc-dot]") as HTMLElement | null)
+            : null;
+          const isActive = slug !== null && el.dataset.tocLink === slug;
+
+          if (isActive) {
+            el.classList.add("text-primary", "font-bold");
+            el.classList.remove("text-on-surface/87");
+            if (dot) {
+              dot.style.backgroundColor = "#00e676";
+              dot.style.transform = "scale(1.3)";
+              dot.style.boxShadow = "0 0 0 3px color-mix(in srgb, #00e676 30%, transparent)";
+            }
+          } else {
+            el.classList.remove("text-primary", "font-bold");
+            el.classList.add("text-on-surface/87");
+            if (dot) {
+              dot.style.backgroundColor = "#1976d2";
+              dot.style.transform = "";
+              dot.style.boxShadow = "";
+            }
+          }
+        });
+      }
+
+      const tocSlugs = Array.from(
+        document.querySelectorAll("[data-toc-link]")
+      ).map(function (el) {
+        return (el as HTMLElement).dataset.tocLink as string;
+      });
+
+      if (tocSlugs.length === 0) return;
+
+      const visible = new Set<string>();
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            const id = entry.target.id;
+            if (entry.isIntersecting) {
+              visible.add(id);
+            } else {
+              visible.delete(id);
+            }
+          });
+          const active = tocSlugs.find(function (s) { return visible.has(s); }) ?? null;
+          setActive(active);
+        },
+        {
+          rootMargin: "-10% 0px -70% 0px",
+          threshold: 0,
+        }
+      );
+
+      tocSlugs.forEach(function (slug) {
+        const el = document.getElementById(slug);
+        if (el) observer.observe(el);
+      });
+    })();
+  </script>
+)}

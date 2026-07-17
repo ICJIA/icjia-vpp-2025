@@ -1,0 +1,95 @@
+---
+/**
+ * Catch-all page template — renders top-level `pages` and `legal` collections.
+ *
+ * Pages collection exclusions:
+ *   - index    → home page (separate template)
+ *   - sandbox  → dev-only page
+ *   - download → dedicated download.astro (custom UI; the .md's Vuetify markup
+ *                didn't render in Astro — <v-btn>/<v-icon>/<nuxt-link> are
+ *                treated as inert unknown elements)
+ *
+ * `contact` renders here as a static page — its ::FeedbackForm is commented
+ * out in the markdown (disabled on prod), so the catch-all handles it fine.
+ *
+ * Legal pages map to /legal/<id>/ routes.
+ */
+
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageTitleSection from "../components/content/PageTitleSection.astro";
+import { articleJsonLd, breadcrumbJsonLd, SITE_ORIGIN } from "../lib/seo.ts";
+
+export async function getStaticPaths() {
+  const EXCLUDED_PAGE_IDS = new Set(["index", "sandbox", "download"]);
+  const [pageEntries, legalEntries] = await Promise.all([
+    getCollection("pages"),
+    getCollection("legal"),
+  ]);
+
+  const pageRoutes = pageEntries
+    .filter((entry) => !EXCLUDED_PAGE_IDS.has(entry.id))
+    .map((entry) => ({
+      params: { slug: entry.id },   // e.g. "resources" → /resources/
+      props: { entry },
+    }));
+
+  const legalRoutes = legalEntries.map((entry) => ({
+    params: { slug: `legal/${entry.id}` },  // e.g. "privacy-policy" → /legal/privacy-policy/
+    props: { entry },
+  }));
+
+  return [...pageRoutes, ...legalRoutes];
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Dates: z.coerce.date() gives Date objects; convert to ISO strings for SEO.
+const datePublished = entry.data.date instanceof Date
+  ? entry.data.date.toISOString().split("T")[0]
+  : (entry.data.date as string | undefined);
+const dateModified = entry.data.lastModified instanceof Date
+  ? entry.data.lastModified.toISOString().split("T")[0]
+  : (entry.data.lastModified as string | undefined) ?? datePublished;
+const keywordsStr = Array.isArray(entry.data.keywords)
+  ? entry.data.keywords.join(", ")
+  : entry.data.keywords;
+
+const pageUrl = SITE_ORIGIN + Astro.url.pathname;
+const articleLd = articleJsonLd({
+  title: entry.data.title ?? "",
+  description: entry.data.description ?? "",
+  url: pageUrl,
+  datePublished,
+  dateModified,
+  keywords: keywordsStr,
+});
+const breadcrumbLd = breadcrumbJsonLd(Astro.url.pathname);
+---
+
+<BaseLayout
+  title={entry.data.title ?? ""}
+  description={entry.data.description}
+  ogImage={entry.data.ogImage}
+  ogType="article"
+  publishedAt={datePublished}
+  updatedAt={dateModified}
+  keywords={keywordsStr}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  <PageTitleSection
+    title={entry.data.title ?? ""}
+    description={entry.data.description}
+    showBorder={true}
+  />
+
+  <div class="content-page">
+    <div class="container mx-auto px-4 py-8 max-w-[900px]">
+      <div class="markdown-body">
+        <Content />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

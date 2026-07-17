@@ -1,0 +1,428 @@
+---
+/**
+ * search.astro
+ *
+ * Fuse.js search page — Alpine x-data lazy-init island.
+ * Ported from app/pages/search.vue (5-state UI) + app/utils/sanitize.js
+ * (highlight/excerpt helpers, now in astro/src/scripts/search-highlight.js).
+ *
+ * States:
+ *   idle         — pre-init, no query: mdi:magnify + "Ready to Search"
+ *   initializing — spinner while fuse.js + index + config are loading
+ *   no-query     — after init, empty input: mdi:text-search + prompt
+ *   no-results   — query present, 0 results: mdi:file-search-outline
+ *   results      — list with title / path / highlighted excerpt + link
+ *
+ * Security: excerpt HTML is produced by search-highlight.js which only allows
+ * <mark> tags in its output (all content is HTML-escaped before <mark> insertion).
+ * x-html is used only for that sanitised snippet.
+ *
+ * A11y: WCAG 2.1 AA — aria-live on state containers, role=region on results,
+ * sr-only path labels, autofocus input, 44px touch targets, mark contrast AA.
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageTitleSection from "../components/content/PageTitleSection.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<BaseLayout
+  title="Search"
+  noindex={true}
+>
+  <PageTitleSection title="Search" />
+
+  <!-- Search island ---------------------------------------------------------->
+  <div class="page-content">
+    <div class="container mx-auto px-4 py-12 max-w-[900px]">
+
+      <!--
+        Alpine component registered via Alpine.data('search') in the bundled
+        module script below — so Vite resolves import('fuse.js') at build time.
+        State vars:
+          query         {string}   current input value
+          results       {Array}    processed search results
+          initializing  {boolean}  true while loading fuse+index+config
+          initialized   {boolean}  true once ready to search
+          fuse          {object}   Fuse instance
+          config        {object}   parsed fuse.config.json
+          debounceTimer {number}   setTimeout handle
+      -->
+      <div
+        x-data="search"
+        @keydown.escape.window="clearSearch()"
+      >
+
+        <!-- ── Search input ──────────────────────────────────────────────── -->
+        <div class="relative mb-8">
+          <label for="search-input" class="sr-only">Search content</label>
+          <div class="flex items-center rounded-lg border border-on-surface/20 bg-surface shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 transition">
+            <span class="pl-4 pr-2 text-on-surface/50 shrink-0" aria-hidden="true">
+              <Icon name="mdi:magnify" class="w-5 h-5" />
+            </span>
+            <input
+              id="search-input"
+              type="search"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search content"
+              placeholder="Search the Violence Prevention Plan…"
+              autofocus
+              class="flex-1 min-w-0 py-3 pr-4 bg-transparent text-on-surface placeholder:text-on-surface/70 outline-none"
+              x-model="query"
+              @input="handleInput()"
+              @focus="initSearch()"
+              :aria-busy="initializing.toString()"
+            />
+            <!-- Clear button — visible when there is a query -->
+            <button
+              type="button"
+              class="pr-3 pl-1 text-on-surface/70 hover:text-on-surface min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Clear search"
+              x-show="query.length > 0"
+              x-cloak
+              @click="clearSearch()"
+            >
+              <Icon name="mdi:close" class="w-5 h-5" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+
+        <!-- ── State panels ──────────────────────────────────────────────── -->
+
+        <!-- IDLE: before init, no query -->
+        <div
+          x-show="isIdle"
+          class="text-center py-16"
+          role="status"
+        >
+          <Icon name="mdi:magnify" class="w-16 h-16 mx-auto mb-4 text-primary opacity-70" aria-hidden="true" />
+          <p class="text-xl font-semibold text-on-surface/80 mb-2">Ready to Search</p>
+          <p class="text-sm leading-relaxed text-on-surface/70 dark:text-on-surface/55">
+            Start typing to search through all content in the Violence Prevention Plan.
+          </p>
+        </div>
+
+        <!-- INITIALIZING: loading fuse + index -->
+        <div
+          x-show="isInitializing"
+          x-cloak
+          class="text-center py-16"
+          role="status"
+          aria-live="polite"
+          aria-label="Initializing search"
+        >
+          <div class="inline-block w-16 h-16 mb-4 relative" aria-hidden="true">
+            <svg class="animate-spin w-16 h-16 text-primary" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+            </svg>
+          </div>
+          <p class="text-xl font-semibold text-on-surface/80 mb-2">Initializing search…</p>
+          <p class="text-sm leading-relaxed text-on-surface/70 dark:text-on-surface/55">Loading search functionality on demand for optimal performance.</p>
+        </div>
+
+        <!-- NO-QUERY: init done, input empty -->
+        <div
+          x-show="isNoQuery"
+          x-cloak
+          class="text-center py-16"
+          role="status"
+        >
+          <Icon name="mdi:text-search" class="w-16 h-16 mx-auto mb-4 text-on-surface/30" aria-hidden="true" />
+          <h2 class="text-xl font-semibold text-on-surface/80 mb-2">Search content</h2>
+          <p class="text-sm leading-relaxed text-on-surface/70 dark:text-on-surface/55">Enter keywords above to search through all content.</p>
+        </div>
+
+        <!-- NO-RESULTS: query present, 0 hits -->
+        <div
+          x-show="isNoResults"
+          x-cloak
+          class="text-center py-16"
+          role="status"
+          aria-live="polite"
+        >
+          <Icon name="mdi:file-search-outline" class="w-16 h-16 mx-auto mb-4 text-on-surface/30" aria-hidden="true" />
+          <h2 class="text-xl font-semibold text-on-surface/80 mb-2">No results found</h2>
+          <p class="text-sm leading-relaxed text-on-surface/70 dark:text-on-surface/55">
+            No content matches your search for
+            "<span class="font-medium" x-text="query"></span>".
+            Try different keywords or check your spelling.
+          </p>
+        </div>
+
+        <!-- RESULTS -->
+        <div
+          x-show="hasResults"
+          x-cloak
+          role="region"
+          aria-label="Search results"
+        >
+          <!-- Result count (live) -->
+          <p
+            class="mb-4 text-sm font-medium text-on-surface/70"
+            aria-live="polite"
+            x-text="results.length + ' ' + (results.length === 1 ? 'result' : 'results') + ' found'"
+          ></p>
+
+          <!-- Result list -->
+          <ul class="space-y-4 list-none p-0" aria-label="Search results list">
+            <template x-for="(result, idx) in results" :key="idx">
+              <li>
+                <article
+                  class="rounded-lg border border-on-surface/10 bg-surface shadow-sm
+                         hover:-translate-y-0.5 hover:shadow-md transition-all duration-200
+                         focus-within:ring-2 focus-within:ring-primary/40"
+                >
+                  <!-- Title -->
+                  <div class="px-5 pt-4 pb-0 font-bold text-base text-on-surface" x-text="result.title"></div>
+
+                  <div class="px-5 py-3">
+                    <!-- Path -->
+                    <p class="flex items-center gap-1 text-sm leading-relaxed text-on-surface/70 dark:text-on-surface/55 mb-2">
+                      <Icon name="mdi:link-variant" class="w-4 h-4 shrink-0" aria-hidden="true" />
+                      <span class="sr-only">Path: </span>
+                      <span x-text="result.path"></span>
+                    </p>
+
+                    <!-- Excerpt — x-html is safe: search-highlight.js only emits <mark> tags;
+                         all content text is HTML-escaped before <mark> insertion. -->
+                    <div
+                      x-html="result.excerpt"
+                      class="search-result-excerpt text-sm text-on-surface/75 leading-relaxed"
+                      aria-label="Result excerpt with highlighted search terms"
+                    ></div>
+                  </div>
+
+                  <!-- Action -->
+                  <div class="flex justify-end px-5 pb-4">
+                    <a
+                      :href="result.path === '/' ? '/' : result.path + '/'"
+                      class="inline-flex items-center gap-1 text-sm font-semibold text-primary
+                             hover:underline min-h-[44px] focus:outline-2 focus:outline-primary"
+                      :aria-label="'View content for ' + result.title"
+                    >
+                      View content
+                      <Icon name="mdi:arrow-right" class="w-4 h-4" aria-hidden="true" />
+                    </a>
+                  </div>
+                </article>
+              </li>
+            </template>
+          </ul>
+        </div>
+
+      </div>
+      <!-- /x-data="search" -->
+
+    </div>
+  </div>
+</BaseLayout>
+
+<!--
+  Search support scripts.
+  Plain <script> (no type="module" attribute) so Astro hoists and processes
+  this through Vite — which resolves the bare 'fuse.js' specifier and the
+  relative search-highlight.js import, bundling/code-splitting them.
+  Astro adds type="module" automatically to hoisted scripts.
+  The Alpine component is registered via Alpine.data() so the x-data="search"
+  attribute above works — and so import('fuse.js') is Vite-resolved rather
+  than evaluated at runtime inside a new Function() string.
+-->
+<script>
+import {
+  escapeHtml,
+  sanitizeSearchQuery,
+  safeHighlightMatches,
+  createHighlightedSnippets,
+  createFallbackExcerpt,
+} from '../scripts/search-highlight.js';
+
+// ---------------------------------------------------------------------------
+// buildResult — formerly window.__buildResult; now a local module function
+// ---------------------------------------------------------------------------
+function buildResult(fuseResult, safeQuery, ctxChars) {
+  const item = fuseResult.item;
+
+  // Build excerpt: try content matches first, then title, then description
+  let excerpt = '';
+  if (fuseResult.matches && fuseResult.matches.length > 0) {
+    excerpt = createHighlightedSnippets(fuseResult, 'content', ctxChars, 2, safeQuery);
+    if (!excerpt) excerpt = createHighlightedSnippets(fuseResult, 'title', ctxChars, 1, safeQuery);
+    if (!excerpt) excerpt = createHighlightedSnippets(fuseResult, 'description', ctxChars, 1, safeQuery);
+  }
+  if (!excerpt) {
+    excerpt = createFallbackExcerpt(item, 'content', ctxChars * 2);
+    if (!excerpt) excerpt = createFallbackExcerpt(item, 'description', ctxChars * 2);
+  }
+
+  // 3-tier scoring: exact match (0–1) / partial (10–11) / fuzzy (20–21)
+  const terms = safeQuery.toLowerCase().split(/\s+/).filter((t) => t.length >= 2);
+  const textBlob = [item.title || '', item.content || '', item.description || '']
+    .join(' ')
+    .toLowerCase();
+
+  let hasExact = false;
+  let hasPartial = false;
+  if (fuseResult.matches && fuseResult.matches.length > 0) {
+    for (const term of terms) {
+      if (term.length < 2) continue;
+      const wb = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+      hasExact = fuseResult.matches.some((m) => wb.test(m.value));
+      if (hasExact) break;
+    }
+    if (!hasExact) {
+      for (const term of terms) {
+        if (term.length < 2) continue;
+        hasPartial = fuseResult.matches.some((m) => m.value.toLowerCase().includes(term));
+        if (hasPartial) break;
+      }
+    }
+  }
+
+  const base = typeof fuseResult.score === 'number' ? fuseResult.score : 1;
+  const _score = hasExact ? base : hasPartial ? 10 + base : 20 + base;
+
+  return {
+    // title/path are bound via x-text / attribute bindings (textContent-safe);
+    // escaping here would render entities literally. excerpt is the only HTML
+    // sink and is already sanitised by search-highlight.js (only <mark> tags).
+    title:   item.title || '',
+    path:    item.path  || '',
+    excerpt,
+    _score,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Register Alpine component — runs before Alpine initialises the DOM
+// ---------------------------------------------------------------------------
+document.addEventListener('alpine:init', () => {
+  window.Alpine.data('search', () => ({
+    query: '',
+    results: [],
+    initializing: false,
+    initialized: false,
+    fuse: null,
+    config: null,
+    debounceTimer: null,
+
+    // ---- deep link: honor ?q= (advertised by the WebSite SearchAction JSON-LD)
+    init() {
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q) {
+        this.query = q.slice(0, 50);
+        this.initSearch(); // runs the search once the index is ready
+      }
+    },
+
+    // ---- lazy init: called on first focus or keystroke --------------------
+    async initSearch() {
+      if (this.initialized || this.initializing) return;
+      this.initializing = true;
+      try {
+        const [{ default: Fuse }, indexRes, configRes] = await Promise.all([
+          import('fuse.js'),                        // Vite resolves + code-splits this
+          fetch('/data/search-index.json'),
+          fetch('/config/fuse.config.json'),
+        ]);
+        if (!indexRes.ok)  throw new Error('search-index fetch failed: ' + indexRes.status);
+        if (!configRes.ok) throw new Error('fuse.config fetch failed: ' + configRes.status);
+        const [index, cfg] = await Promise.all([indexRes.json(), configRes.json()]);
+        this.config = cfg.search;
+        this.fuse = new Fuse(index, cfg.search.fuseOptions);
+        this.initialized = true;
+        // If the user typed something while we were initialising, run it now
+        if (this.query.trim().length >= (this.config.minTermLength ?? 2)) {
+          this.runSearch();
+        }
+      } catch (err) {
+        console.error('[search] init error:', err);
+      } finally {
+        this.initializing = false;
+      }
+    },
+
+    // ---- debounced search trigger -----------------------------------------
+    handleInput() {
+      if (!this.initialized && !this.initializing) {
+        this.initSearch();
+        return;
+      }
+      clearTimeout(this.debounceTimer);
+      const ms = this.config?.debounceMs ?? 300;
+      this.debounceTimer = setTimeout(() => this.runSearch(), ms);
+    },
+
+    // ---- core search -------------------------------------------------------
+    runSearch() {
+      if (!this.fuse || !this.initialized) return;
+      const minLen  = this.config?.minTermLength ?? 2;
+      const ctxChars = this.config?.excerptContextChars ?? 50;
+      const safeQuery = sanitizeSearchQuery(this.query, 50);
+      if (!safeQuery || safeQuery.length < minLen) {
+        this.results = [];
+        return;
+      }
+      const raw = this.fuse.search(safeQuery);
+      this.results = raw.map((r) => buildResult(r, safeQuery, ctxChars));
+      // Sort: exact matches first (tier 1), partial (tier 2), fuzzy (tier 3)
+      this.results.sort((a, b) => a._score - b._score);
+      // Announce result count to screen readers
+      const el = document.getElementById('announcer-polite');
+      if (el) {
+        el.textContent = '';
+        requestAnimationFrame(() => {
+          el.textContent =
+            this.results.length + ' ' +
+            (this.results.length === 1 ? 'result' : 'results') + ' found';
+        });
+      }
+    },
+
+    // ---- clear -------------------------------------------------------------
+    clearSearch() {
+      this.query = '';
+      this.results = [];
+    },
+
+    // ---- derived state predicates ------------------------------------------
+    get isIdle()         { return !this.initialized && !this.initializing && !this.query; },
+    get isInitializing() { return this.initializing; },
+    get isNoQuery()      { return this.initialized && !this.query.trim(); },
+    get isNoResults()    { return this.initialized && !!this.query.trim() && this.results.length === 0; },
+    get hasResults()     { return this.initialized && this.results.length > 0; },
+  }));
+});
+</script>
+
+<style>
+  /* Suppress Alpine x-cloak until Alpine initialises */
+  [x-cloak] { display: none !important; }
+
+  /*
+   * Mark highlight — AA contrast: #ffeb3b on white (#000 text) = 14.7:1
+   * Matches legacy search.vue mark styling exactly.
+   */
+  .search-result-excerpt :global(mark.search-highlight),
+  .search-result-excerpt :global(mark) {
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 1px 3px;
+    border-radius: 2px;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Dark-mode mark: brighter yellow still passes AA (#ffd600 on dark) */
+  :global(.dark) .search-result-excerpt :global(mark.search-highlight),
+  :global(.dark) .search-result-excerpt :global(mark) {
+    background-color: #ffd600;
+    color: #000;
+  }
+
+  /* Prevent reduced-motion from animating spinner */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-spin { animation: none; }
+  }
+</style>

@@ -1,0 +1,365 @@
+---
+/**
+ * Header — sticky app-bar matching the legacy Nuxt/Vuetify AppHeader.vue pixel-for-pixel.
+ *
+ * Structure mirrors AppHeader.vue:
+ * - Branding (seal + responsive text) → home link
+ * - Desktop nav ≥960px: "Read the Plan" dropdown, Download pill, "More" dropdown, ThemeToggle
+ * - Mobile <960px: hamburger icon (flips drawer boolean; drawer panel added Task 6)
+ *
+ * Breakpoints use Vuetify px values via Tailwind arbitrary variants (NOT Tailwind defaults):
+ *   sm=600, md=960, lg=1280, xl=1920
+ *
+ * Interactions: Alpine — one-open-at-a-time dropdowns, 150ms debounced close,
+ * hover-open + click-toggle + ESC + outside-click.
+ */
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import ThemeToggle from "./ThemeToggle.astro";
+import { branding, readThePlan, more } from "../../data/nav.js";
+import sealImg from "../../assets/images/illinois-seal.webp";
+
+const pathname = Astro.url.pathname;
+
+/** Normalize a path to always have a trailing slash for aria-current comparison */
+const normalize = (p: string) => (p.endsWith("/") ? p : p + "/");
+const currentPath = normalize(pathname);
+
+/** Middle-truncate a string to at most n characters, inserting "…" in the middle. */
+function truncateMiddle(s: string, n: number): string {
+  if (s.length <= n) return s;
+  const keep = n - 1;
+  const front = Math.ceil(keep / 2);
+  const back = Math.floor(keep / 2);
+  return s.slice(0, front) + "…" + s.slice(s.length - back);
+}
+
+/** more items without the divider sentinel */
+const moreLinks = more.filter((i) => !i.divider);
+---
+
+<!-- Wrapper holds the Alpine drawer state so the drawer can live OUTSIDE the
+     <header> (the header's backdrop-filter would otherwise trap fixed children
+     and its z-50 stacking context would sit below the z-1000 scroll-top FAB).
+     display:contents (.contents) removes the wrapper's box: without it the
+     wrapper is exactly header-height, which pins position:sticky in place —
+     the header could never stick. With it, the header's sticky containing
+     block is <body>, and drawer/backdrop keep root-level stacking. -->
+<div x-data="{ drawer: false }" class="contents">
+  <header
+    role="banner"
+    class="sticky top-0 z-50 bg-app-bar text-on-app-bar border-b border-on-surface/10 backdrop-blur-[10px]"
+  >
+    <div
+      class="max-w-[1600px] mx-auto h-16 flex items-center px-4 min-[600px]:px-6 min-[960px]:px-8"
+    >
+    <!-- ── Branding ─────────────────────────────────────────────────── -->
+    <a href={branding.href} class="flex items-center group">
+      <Image
+        src={sealImg}
+        width={40}
+        height={40}
+        alt=""
+        class="object-contain mr-2 min-[960px]:mr-3 h-8 w-8 min-[960px]:h-10 min-[960px]:w-10 transition-transform group-hover:scale-105"
+      />
+      <!-- xs: <600px -->
+      <span class="inline min-[600px]:hidden text-base text-primary font-bold">
+        {branding.xs}
+      </span>
+      <!-- sm: 600–1279px -->
+      <span
+        class="hidden min-[600px]:inline min-[1280px]:hidden text-base text-primary font-bold"
+      >
+        {branding.sm}
+      </span>
+      <!-- md: 1280–1919px -->
+      <span
+        class="hidden min-[1280px]:inline min-[1920px]:hidden text-xl text-primary font-bold"
+      >
+        {branding.md}
+      </span>
+      <!-- full: ≥1920px -->
+      <span class="hidden min-[1920px]:inline text-xl text-primary font-bold">
+        {branding.full}
+      </span>
+    </a>
+
+    <!-- ── Desktop nav ≥960px ──────────────────────────────────────── -->
+    <nav
+      id="site-navigation"
+      aria-label="Main Navigation"
+      class="hidden min-[960px]:flex items-center ml-auto"
+      x-data="{
+        open: null,
+        timer: null,
+        show(k) { clearTimeout(this.timer); this.open = k; },
+        hide()  { this.timer = setTimeout(() => this.open = null, 150); }
+      }"
+      @click.outside="open = null"
+      @keydown.escape.window="open = null"
+    >
+      <!-- "Read the Plan" dropdown -->
+      <div class="relative">
+        <button
+          type="button"
+          class="font-bold uppercase tracking-[0.0892857143em] mx-2 px-2 py-1 inline-flex items-center nav-link"
+          aria-haspopup="true"
+          :aria-expanded="(open === 'plan').toString()"
+          @mouseenter="show('plan')"
+          @mouseleave="hide()"
+          @click="open = open === 'plan' ? null : 'plan'"
+          @keydown.escape="open = null"
+        >
+          Read the Plan
+          <Icon
+            name="mdi:chevron-down"
+            class="ml-1 w-5 h-5"
+            aria-hidden="true"
+          />
+        </button>
+
+        <div
+          x-show="open === 'plan'"
+          x-cloak
+          @mouseenter="show('plan')"
+          @mouseleave="hide()"
+          class="absolute right-0 mt-1 min-w-[200px] w-max overflow-hidden rounded bg-surface shadow-lg border border-on-surface/10 z-50"
+        >
+          {
+            readThePlan.map((item) => {
+              const itemPath = normalize(item.to);
+              const isCurrent = currentPath === itemPath;
+              return (
+                <a
+                  href={item.to + "/"}
+                  aria-current={isCurrent ? "page" : undefined}
+                  class="block border-l-[3px] border-transparent pl-4 pr-6 py-2 min-h-[44px] flex items-center hover:bg-primary/10 hover:border-l-primary focus:outline-2 focus:outline-primary text-on-surface"
+                >
+                  {item.text}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Download pill -->
+      <a
+        href="/download/"
+        class="hidden min-[960px]:inline-flex items-center rounded-full font-bold uppercase tracking-[0.0892857143em] px-4 py-2 ml-4 bg-white text-[#0747a6] border border-black/5 shadow-md transition hover:bg-[#f8f8f8] hover:text-[#053285] hover:-translate-y-px dark:bg-[#2a3441] dark:text-[#93c5fd] dark:border-white/5 dark:hover:bg-[#334155] dark:hover:text-[#bfdbfe]"
+      >
+        Download
+      </a>
+
+      <!-- "More" dropdown -->
+      <div class="relative">
+        <button
+          type="button"
+          class="font-bold uppercase tracking-[0.0892857143em] mx-2 px-2 py-1 inline-flex items-center nav-link"
+          aria-haspopup="true"
+          :aria-expanded="(open === 'more').toString()"
+          @mouseenter="show('more')"
+          @mouseleave="hide()"
+          @click="open = open === 'more' ? null : 'more'"
+          @keydown.escape="open = null"
+        >
+          More
+          <Icon
+            name="mdi:chevron-down"
+            class="ml-1 w-5 h-5"
+            aria-hidden="true"
+          />
+        </button>
+
+        <div
+          x-show="open === 'more'"
+          x-cloak
+          @mouseenter="show('more')"
+          @mouseleave="hide()"
+          class="absolute right-0 mt-1 min-w-[200px] w-max overflow-hidden rounded bg-surface shadow-lg border border-on-surface/10 z-50"
+        >
+          {
+            more.map((item) => {
+              if (item.divider) {
+                return (
+                  <hr class="my-2 opacity-30 border-on-surface/20" />
+                );
+              }
+              const itemPath = normalize(item.to!);
+              const isCurrent = currentPath === itemPath;
+              return (
+                <a
+                  href={item.to + "/"}
+                  aria-current={isCurrent ? "page" : undefined}
+                  class="block border-l-[3px] border-transparent pl-4 pr-6 py-2 min-h-[44px] flex items-center gap-2 hover:bg-primary/10 hover:border-l-primary focus:outline-2 focus:outline-primary text-on-surface"
+                >
+                  {item.icon && (
+                    <Icon
+                      name={item.icon}
+                      class="w-4 h-4 shrink-0"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {item.text}
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      <ThemeToggle class="ml-8" />
+    </nav>
+
+    <!-- ── Hamburger (mobile <960px) ───────────────────────────────── -->
+    <button
+      id="mobile-menu-trigger"
+      type="button"
+      class="min-[960px]:hidden ml-auto p-2.5"
+      aria-label="Toggle navigation menu"
+      :aria-expanded="drawer.toString()"
+      aria-controls="mobile-drawer"
+      @click="drawer = !drawer"
+    >
+      <Icon
+        name="mdi:menu"
+        class="w-6 h-6"
+        x-show="!drawer"
+        aria-hidden="true"
+      />
+      <Icon
+        name="mdi:close"
+        class="w-6 h-6"
+        x-show="drawer"
+        x-cloak
+        aria-hidden="true"
+      />
+    </button>
+  </div>
+  </header>
+
+  <!-- Mobile drawer + backdrop: siblings of <header> inside the Alpine wrapper.
+       position:fixed now resolves to the viewport, and z-[9999] sits above the
+       z-1000 scroll-top FAB. -->
+  <!-- ── Mobile drawer backdrop ──────────────────────────────────── -->
+  <div
+    x-show="drawer"
+    x-cloak
+    x-transition.opacity
+    @click="drawer=false"
+    class="fixed inset-0 z-[9998] bg-black/40 min-[960px]:hidden"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ── Mobile drawer panel (right-side off-canvas) ─────────────── -->
+  <div
+    id="mobile-drawer"
+    x-show="drawer"
+    x-cloak
+    x-trap.noscroll="drawer"
+    @keydown.escape.window="drawer=false"
+    class="fixed inset-y-0 right-0 z-[9999] w-[280px] overflow-y-auto bg-white dark:bg-surface shadow-xl min-[960px]:hidden"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="translate-x-full"
+    x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="translate-x-full"
+    role="dialog"
+    aria-label="Mobile Navigation Menu"
+    aria-modal="true"
+  >
+    <!-- Theme toggle centered at top -->
+    <div class="flex justify-center py-4 mb-4">
+      <ThemeToggle />
+    </div>
+
+    <!-- Section: READ THE PLAN -->
+    <div
+      role="heading"
+      aria-level="2"
+      class="border-l-4 border-primary text-primary uppercase font-black text-[0.9rem] tracking-wide pl-3 py-2 pointer-events-none"
+    >
+      READ THE PLAN
+    </div>
+    {
+      readThePlan.map((item) => (
+        <a
+          href={item.to + "/"}
+          @click="drawer=false"
+          class="block border-l-2 border-primary/20 ml-4 pl-8 pr-2 py-2 min-h-[44px] hover:bg-primary/10 hover:border-l-primary/40 text-on-surface"
+        >
+          {truncateMiddle(item.text, 35)}
+        </a>
+      ))
+    }
+
+    <!-- Section: MORE -->
+    <div
+      role="heading"
+      aria-level="2"
+      class="border-l-4 border-primary text-primary uppercase font-black text-[0.9rem] tracking-wide pl-3 py-2 pointer-events-none mt-2"
+    >
+      MORE
+    </div>
+    {
+      moreLinks.map((item) => (
+        <a
+          href={item.to + "/"}
+          @click="drawer=false"
+          class="flex items-center gap-2 border-l-2 border-primary/20 ml-4 pl-8 pr-2 py-2 min-h-[44px] hover:bg-primary/10 text-on-surface"
+        >
+          <Icon name={item.icon} class="shrink-0" aria-hidden="true" />
+          {truncateMiddle(item.text, 30)}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  /* x-cloak: hide Alpine-managed elements before Alpine loads to prevent FOUC */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /*
+   * Nav-link underline animation: 2px primary underline expands from center to 60%.
+   * Mirrors legacy AppHeader.vue .nav-link::after behavior.
+   * Using a scoped <style> because Tailwind utilities cannot express center-expand cleanly.
+   */
+  .nav-link {
+    position: relative;
+    overflow: visible;
+  }
+
+  /* 44px hit-area (WCAG 2.5.5) as an invisible overlay — the box itself must
+     stay py-1 because the ::after underline anchors to the box bottom edge. */
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    width: 60%;
+  }
+</style>

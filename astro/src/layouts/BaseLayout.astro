@@ -1,0 +1,186 @@
+---
+import "@fontsource/roboto/latin-400.css";
+import "@fontsource/roboto/latin-700.css";
+import "@fontsource/raleway/latin-400.css";
+import "@fontsource/raleway/latin-700.css";
+import "../styles/global.css";
+import Header from "../components/chrome/Header.astro";
+import Footer from "../components/chrome/Footer.astro";
+import ScrollToTop from "../components/chrome/ScrollToTop.astro";
+import { SEO } from "astro-seo";
+import {
+  SITE_ORIGIN,
+  SITE_NAME,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_KEYWORDS,
+  truncateTitle,
+  truncateDescription,
+  webPageJsonLd,
+} from "../lib/seo.ts";
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  publishedAt?: string;
+  updatedAt?: string;
+  keywords?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogType = "website",
+  noindex = false,
+  publishedAt,
+  updatedAt,
+  keywords,
+} = Astro.props;
+
+const pageTitle = truncateTitle(title);
+const metaDesc = truncateDescription(description);
+const canonicalUrl = canonical ??
+  new URL(
+    Astro.url.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, ""),
+    SITE_ORIGIN
+  ).toString();
+const socialImage = ogImage ?? DEFAULT_OG_IMAGE;
+
+const ld = webPageJsonLd({
+  title: pageTitle,
+  description: metaDesc,
+  url: canonicalUrl,
+  image: socialImage,
+  publishedAt,
+  updatedAt,
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- No-flash theme: default dark, session-only (matches current behavior). -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = sessionStorage.getItem("theme") || "dark";
+          if (t === "dark") document.documentElement.classList.add("dark");
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.classList.add("dark");
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <SEO
+      title={pageTitle}
+      description={metaDesc}
+      canonical={canonicalUrl}
+      noindex={noindex}
+      openGraph={{
+        basic: {
+          title: ogTitle ?? pageTitle,
+          type: ogType,
+          image: socialImage,
+          url: canonicalUrl,
+        },
+        image: {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: SITE_NAME,
+        },
+        optional: {
+          description: ogDescription ?? metaDesc,
+          locale: "en_US",
+          siteName: SITE_NAME,
+        },
+        article: publishedAt
+          ? {
+              publishedTime: publishedAt,
+              modifiedTime: updatedAt ?? publishedAt,
+            }
+          : undefined,
+      }}
+      twitter={{
+        card: "summary_large_image",
+        site: "@ICJIA_Illinois",
+        creator: "@ICJIA_Illinois",
+        title: ogTitle ?? pageTitle,
+        description: ogDescription ?? metaDesc,
+        image: socialImage,
+        imageAlt: SITE_NAME,
+      }}
+      extend={{
+        meta: [
+          { name: "author", content: "Illinois Criminal Justice Information Authority" },
+          { name: "keywords", content: keywords ?? DEFAULT_KEYWORDS },
+          { name: "theme-color", content: "#1976d2" },
+          { name: "application-name", content: SITE_NAME },
+          { name: "format-detection", content: "telephone=no, email=no, address=no" },
+          { name: "generator", content: "Astro" },
+          { name: "mobile-web-app-capable", content: "yes" },
+          { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+          { name: "msapplication-TileColor", content: "#1976d2" },
+          ...(publishedAt
+            ? [
+                { property: "article:published_time", content: publishedAt },
+                { property: "article:modified_time", content: updatedAt ?? publishedAt },
+              ]
+            : []),
+        ],
+        link: [
+          { rel: "icon", type: "image/png", href: "/favicon.png" },
+          { rel: "apple-touch-icon", href: "/images/illinois-seal.png" },
+        ],
+      }}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <!-- Plausible analytics (self-hosted). No preconnect (checklist §9); deferred. -->
+    <script
+      is:inline
+      defer
+      data-domain="vpp.icjia.illinois.gov"
+      src="https://plausible.icjia.cloud/js/script.js"></script>
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <nav aria-label="Skip links" class="skip-links-nav">
+      <a href="#main-content" class="skip-link">Skip to main content</a>
+      <a href="#site-navigation" class="skip-link">Skip to navigation</a>
+    </nav>
+
+    <Header />
+
+    <main role="main" class="flex-1">
+      <div id="main-content" tabindex="-1">
+        <slot />
+      </div>
+    </main>
+
+    <Footer />
+
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="announcer-polite"></div>
+    <div aria-live="assertive" aria-atomic="true" class="sr-only" id="announcer-assertive"></div>
+    <ScrollToTop />
+
+    <script>
+      import { initReferences } from "../scripts/references.js";
+      if (document.readyState !== "loading") {
+        initReferences();
+      } else {
+        document.addEventListener("DOMContentLoaded", initReferences);
+      }
+    </script>
+  </body>
+</html>

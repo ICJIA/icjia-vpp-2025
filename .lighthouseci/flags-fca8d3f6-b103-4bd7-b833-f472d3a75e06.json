@@ -1,1 +1,0 @@
-{"emulatedFormFactor":"mobile","throttling":{"rttMs":150,"throughputKbps":1638.4,"cpuSlowdownMultiplier":4},"chromeFlags":"--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--disable-web-security,--disable-features=VizDisplayCompositor,--headless --headless=new","skipAudits":["uses-http2","canonical"]}

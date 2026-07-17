@@ -1,0 +1,443 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: <html class="dark"> wins over OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Semantic color tokens (light = :root default, dark = .dark) ---- */
+/* Source of truth: app/plugins/vuetify.js light/dark theme colors. */
+:root {
+  --color-primary: #0747a6;
+  --color-secondary: #057a8c;
+  --color-accent: #5b21b6;
+  --color-success: #047857;
+  --color-warning: #b45309;
+  --color-error: #b91c1c;
+  --color-info: #1e40af;
+  --color-background: #fafafa;
+  --color-app-bar: #f2f2f2;
+  --color-surface: #f8f8f8;
+  --color-on-surface: #1e293b;
+  --color-on-background: #1e293b;
+  --color-on-app-bar: #1e293b;
+}
+
+:root.dark {
+  --color-primary: #93c5fd;
+  --color-secondary: #67e8f9;
+  --color-accent: #c4b5fd;
+  --color-success: #6ee7b7;
+  --color-warning: #fcd34d;
+  --color-error: #fca5a5;
+  --color-info: #bfdbfe;
+  --color-background: #0f172a;
+  --color-app-bar: #1a2234;
+  --color-surface: #1e293b;
+  --color-on-surface: #f1f5f9;
+  --color-on-background: #f1f5f9;
+  --color-on-app-bar: #f1f5f9;
+}
+
+/* ---- Expose tokens to Tailwind utilities ---- */
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+  --color-background: var(--color-background);
+  --color-app-bar: var(--color-app-bar);
+  --color-surface: var(--color-surface);
+  --color-on-surface: var(--color-on-surface);
+  --color-on-background: var(--color-on-background);
+  --color-on-app-bar: var(--color-on-app-bar);
+
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Raleway", ui-sans-serif, system-ui, sans-serif;
+
+  /* main.scss scale */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+/* ---- Base ---- */
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: var(--font-sans);
+  }
+}
+
+/* ---- Ported from app/layouts/default.vue <style> (utilities can't express) ---- */
+a.skip-link,
+a.skip-link:link,
+a.skip-link:visited {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000 !important;
+  color: #fff !important;
+  padding: 12px 20px;
+  text-decoration: none;
+  z-index: 99999;
+  transition: top 0.3s ease;
+  border-radius: 4px;
+}
+a.skip-link:focus {
+  top: 0;
+  outline: 3px solid #fff !important;
+  outline-offset: 2px;
+}
+.skip-links-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99998;
+  pointer-events: none;
+}
+.skip-links-nav .skip-link {
+  pointer-events: auto;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================================================
+   .markdown-body — Content typography
+   Ported from app/assets/css/main.scss (537-810, 1084-1316) and
+   app/pages/[...slug].vue scoped styles (1398-1703).
+   Uses CSS variables from :root / :root.dark above for theme-flipping.
+   ============================================================================ */
+
+/* ---- Headings ----
+   NOTE: no scroll-margin-top here — the sticky-navbar offset for anchor/TOC
+   jumps comes solely from `scroll-padding-top` on html (see bottom of file).
+   The two are ADDITIVE per the CSSOM spec; defining both made scroll targets
+   land 160px down instead of 80px. */
+
+.markdown-body h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+/* Hide the duplicated page title rendered inside markdown body */
+.markdown-body h1:first-of-type {
+  display: none;
+}
+
+.markdown-body h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  margin-left: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-on-surface) 20%, transparent);
+}
+
+.markdown-body h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+/* ---- Indent system: content following H2 is indented ---- */
+/* All siblings after an h2 get a left indent */
+.markdown-body h2 ~ * {
+  margin-left: 2rem;
+}
+
+/* H2 headings themselves stay flush left */
+.markdown-body h2 ~ h2 {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .markdown-body h2 ~ * {
+    margin-left: 1.5rem;
+  }
+  .markdown-body h2 ~ h2 {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .markdown-body h2 ~ * {
+    margin-left: 1rem;
+  }
+  .markdown-body h2 ~ h2 {
+    margin-left: 0;
+  }
+}
+
+/* ---- Paragraphs & lists ---- */
+.markdown-body p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* ---- Links ---- */
+.markdown-body a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.markdown-body a:hover {
+  text-decoration: none;
+}
+
+.markdown-body a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Light-mode link overrides (higher-contrast blue) */
+:root:not(.dark) .markdown-body a:link,
+:root:not(.dark) .markdown-body a:visited {
+  color: #0747a6;
+}
+
+:root:not(.dark) .markdown-body a:hover,
+:root:not(.dark) .markdown-body a:focus {
+  color: #0b3d91;
+}
+
+/* ---- Blockquote ---- */
+.markdown-body blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 2rem;
+  border-radius: 0.5rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+:root:not(.dark) .markdown-body blockquote {
+  background-color: #f1f3f4;
+  color: #000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:root.dark .markdown-body blockquote {
+  background-color: #2d3748;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Code blocks ---- */
+.markdown-body pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  border: 1px solid #e1e4e8;
+}
+
+.markdown-body code:not(pre code) {
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+
+/* Light theme code */
+:root:not(.dark) .markdown-body pre {
+  background-color: #f6f7f8;
+  color: #24292f;
+  border-color: #e1e4e8;
+}
+
+:root:not(.dark) .markdown-body code:not(pre code) {
+  background-color: #f1f2f4;
+  color: #24292f;
+}
+
+/* Dark theme code */
+:root.dark .markdown-body pre {
+  background-color: #0d1117;
+  color: #fff;
+  border-color: #30363d;
+}
+
+:root.dark .markdown-body code:not(pre code) {
+  background-color: #21262d;
+  color: #fff;
+}
+
+/* Mobile: extend pre to edges */
+@media (max-width: 768px) {
+  .markdown-body pre {
+    margin: 1rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+/* ---- Images ---- */
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+:root.dark .markdown-body img {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- [data-ref] citation markers (visual only — interactivity is Phase 5) ---- */
+.markdown-body [data-ref] {
+  cursor: help;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  border-bottom: 1px dotted currentColor;
+}
+
+:root:not(.dark) .markdown-body [data-ref] {
+  color: #00594e; /* 7.92:1 on #fafafa — AAA (was #00695c at 6.34:1) */
+}
+
+:root.dark .markdown-body [data-ref] {
+  color: #66c9bf; /* 7.43:1 on surface, 9.62:1 on plan bg — AAA (was #4db6ac at 5.99:1 on surface) */
+}
+
+/* ---- Footnotes ---- */
+.markdown-body .footnotes {
+  font-size: small;
+  color: #57606a; /* #8b949e was 2.95:1 on light bg — AA fail if footnotes ever render */
+  border-top: 1px solid #d0d7de;
+}
+
+:root.dark .markdown-body .footnotes {
+  color: #8b949e;
+  border-top-color: #30363d;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+/* ---- References list (ported from content/plan/references.md <style scoped>) ---- */
+/* Hanging-indent style for academic bibliography entries */
+.markdown-body .references-list {
+  margin-top: 2rem;
+}
+
+.markdown-body .reference-item {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+  text-indent: -2rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.markdown-body .reference-item p {
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================================
+   Page background wrappers
+   Ported from app/pages/[...slug].vue scoped styles (1408-1430).
+   Class name changed to .content-page (Astro templates use this, not
+   .dynamic-content-page which was Nuxt-specific).
+   ============================================================================ */
+
+.content-page {
+  background: #fafafa;
+}
+
+:root.dark .content-page {
+  background: var(--color-surface);
+}
+
+/* Plan pages get the darker GitHub-dark base for strong readability */
+:root.dark .content-page.is-plan-page {
+  background: #0d1117;
+}
+
+/* Light theme: enforce pure black content text for contrast */
+:root:not(.dark) .content-page {
+  color: #000;
+}
+
+/* ---- Home section bands (alternating) ---- */
+.section-primary { background: #fafafa; border-top: 1px solid #e0e0e0; }
+.section-secondary { background: #e5e5e5; border-top: 1px solid #e0e0e0; }
+:root.dark .section-primary { background: #1a2234; border-top: none; }
+:root.dark .section-secondary { background: #1e2a3a; border-top: none; }
+
+/* ---- Container matching the legacy Vuetify <v-container> max-widths ----
+   Vuetify 3 caps content width per breakpoint (md 900 / lg 1185 / xl 1785).
+   The home sections must use this (not Tailwind's full-width container) so the
+   hero/text columns wrap exactly like prod. Verified: 900px at a 1072 viewport. */
+.vpp-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (min-width: 960px)  { .vpp-container { max-width: 900px; } }
+@media (min-width: 1264px) { .vpp-container { max-width: 1185px; } }
+@media (min-width: 1904px) { .vpp-container { max-width: 1785px; } }
+
+/* ---- Scroll offset for the sticky nav ----
+   Single source of truth for anchor/TOC/focus scroll offsets (navbar is 65px
+   tall; 80px leaves ~15px breathing room). Do NOT add scroll-margin-top on
+   headings — it stacks on top of this. */
+html {
+  scroll-padding-top: 80px;
+}
+
+/* Smooth scrolling is motion — only for users who haven't opted out.
+   (The reduced-motion guard below can't neutralize scroll-behavior.) */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---- Reduced-motion guard ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

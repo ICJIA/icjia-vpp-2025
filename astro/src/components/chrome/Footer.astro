@@ -1,0 +1,111 @@
+---
+import { footerLinks, branding } from "../../data/nav.js";
+
+const year = new Date().getFullYear();
+---
+
+<footer role="contentinfo" class="bg-[#d1d5db] dark:bg-background py-12 max-[768px]:py-8">
+  <div class="max-w-[1200px] mx-auto px-6 min-[1200px]:px-8 max-[768px]:px-4">
+
+    <!-- Main footer section -->
+    <div class="flex flex-col items-center text-center mb-10">
+
+      <!-- ICJIA Logo — hidden below 960px -->
+      <div class="hidden min-[960px]:block mb-2">
+        <a
+          href="https://icjia.illinois.gov"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Illinois Criminal Justice Information Authority website"
+          class="inline-block p-1 rounded-lg"
+        >
+          <img
+            src="/images/icjia-logo.webp"
+            alt="Illinois Criminal Justice Information Authority Logo"
+            width="250"
+            height="175"
+            class="h-[100px] w-auto object-contain"
+          />
+        </a>
+      </div>
+
+      <!-- Brand link -->
+      <div class="mb-4">
+        <a
+          href={branding.href}
+          class="inline-flex items-center gap-3 px-3 py-2 rounded-xl min-h-[44px] hover:bg-primary/5 no-underline"
+        >
+          <span class="text-primary font-semibold text-base leading-snug">
+            <!-- xs / sm: below 960px -->
+            <span class="inline max-[959px]:inline min-[960px]:hidden">{branding.sm}</span>
+            <!-- md: 960–1279px -->
+            <span class="hidden min-[960px]:inline min-[1280px]:hidden">{branding.md}</span>
+            <!-- full: ≥1280px -->
+            <span class="hidden min-[1280px]:inline">{branding.full}</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Description -->
+      <p class="max-w-[700px] min-[1200px]:max-w-[800px] mx-auto text-[0.95rem] leading-relaxed text-black/80 dark:text-on-background/90 m-0">
+        The
+        <a
+          href="https://icjia.illinois.gov"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Illinois Criminal Justice Information Authority website"
+          class="text-primary border-b border-primary/30 hover:border-primary no-underline font-medium"
+        >
+          Illinois Criminal Justice Information Authority
+        </a>
+        (ICJIA) aims to continue funding and supporting violence prevention
+        efforts across Illinois. This report was written to inform ICJIA's
+        violence prevention planning for 2025-2029, but also with the intent
+        to be utilized by any state or community group interested in
+        violence prevention efforts or in developing their own localized
+        plan.
+      </p>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-on-background/10 pt-6 text-center">
+      <div class="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 max-[480px]:flex-col text-sm">
+
+        <!-- Copyright -->
+        <span class="text-sm font-medium text-black/80 dark:text-on-background/90 px-1 whitespace-nowrap">
+          &copy; {year}
+          <a
+            href="https://icjia.illinois.gov"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Illinois Criminal Justice Information Authority website"
+            class="text-sm font-medium text-black/80 dark:text-on-background/90 hover:text-primary px-1 no-underline relative before:content-[''] before:absolute before:inset-x-0 before:top-1/2 before:-translate-y-1/2 before:h-11"
+          >
+            Illinois Criminal Justice Information Authority
+          </a>
+        </span>
+
+        <!-- Footer nav links -->
+        {footerLinks.map((link) => (
+          <>
+            <span class="hidden min-[960px]:inline opacity-60 select-none" aria-hidden="true">|</span>
+            <a
+              href={link.href}
+              class="text-sm font-medium text-black/80 dark:text-on-background/90 hover:text-primary px-1 no-underline relative before:content-[''] before:absolute before:inset-x-0 before:top-1/2 before:-translate-y-1/2 before:h-11"
+              aria-label={
+                link.text === "Privacy" ? "View Privacy Policy" :
+                link.text === "Documentation" ? "View Developer Documentation Portal" :
+                link.text === "Accessibility" ? "View Accessibility Audit Report" :
+                link.text
+              }
+            >
+              {link.text}
+            </a>
+          </>
+        ))}
+
+      </div>
+    </div>
+
+  </div>
+</footer>

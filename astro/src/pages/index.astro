@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HomeHero from "../components/home/HomeHero.astro";
+import HomeLetter from "../components/home/HomeLetter.astro";
+import HomeGoals from "../components/home/HomeGoals.astro";
+import HomeAction from "../components/home/HomeAction.astro";
+import { hero, letters, goals, action } from "../data/home.js";
+import { organizationJsonLd, webSiteJsonLd } from "../lib/seo.ts";
+
+const orgLd = organizationJsonLd();
+const siteLd = webSiteJsonLd();
+---
+
+<BaseLayout
+  title=""
+  description="The official web presence for the Statewide Violence Prevention Plan for Illinois: 2025-2029, featuring comprehensive violence prevention strategies and community resources."
+  publishedAt="2025-07-24"
+  updatedAt="2026-04-08"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
+  <HomeHero hero={hero} />
+  <HomeLetter letter={letters.adams} band="secondary" sectionId="letters-section" />
+  <HomeLetter letter={letters.stratton} band="primary" />
+  <HomeGoals goals={goals} />
+  <HomeAction action={action} />
+</BaseLayout>

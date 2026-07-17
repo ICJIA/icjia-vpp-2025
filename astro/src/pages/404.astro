@@ -1,0 +1,54 @@
+---
+/**
+ * 404 — branded not-found page.
+ * Astro emits this as dist/404.html; Netlify serves it automatically for any
+ * unknown path (no _redirects rule needed). Excluded from the sitemap via the
+ * filter in astro.config.ts.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageTitleSection from "../components/content/PageTitleSection.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you are looking for could not be found."
+  noindex={true}
+>
+  <PageTitleSection title="Page Not Found" />
+
+  <div class="content-page">
+    <div class="container mx-auto px-4 py-12 max-w-[700px] text-center">
+      <Icon
+        name="mdi:compass-off-outline"
+        class="w-16 h-16 mx-auto mb-6 text-primary"
+        aria-hidden="true"
+      />
+      <p class="text-lg text-on-surface/80 mb-8">
+        The page you are looking for doesn't exist or may have moved.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 min-h-[44px] px-5 rounded-lg
+                 bg-primary text-white dark:text-[#0f172a] font-semibold no-underline
+                 hover:opacity-90 focus-visible:outline-3
+                 focus-visible:outline-primary focus-visible:outline-offset-2"
+        >
+          <Icon name="mdi:home" class="w-5 h-5" aria-hidden="true" />
+          Go to the homepage
+        </a>
+        <a
+          href="/search/"
+          class="inline-flex items-center gap-2 min-h-[44px] px-5 rounded-lg
+                 border border-on-surface/30 text-on-surface font-semibold no-underline
+                 hover:bg-on-surface/5 focus-visible:outline-3
+                 focus-visible:outline-primary focus-visible:outline-offset-2"
+        >
+          <Icon name="mdi:magnify" class="w-5 h-5" aria-hidden="true" />
+          Search the plan
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
