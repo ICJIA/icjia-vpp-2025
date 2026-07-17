@@ -327,18 +327,23 @@ a.skip-link:focus {
 }
 
 :root:not(.dark) .markdown-body [data-ref] {
-  color: #00695c;
+  color: #00594e; /* 7.92:1 on #fafafa — AAA (was #00695c at 6.34:1) */
 }
 
 :root.dark .markdown-body [data-ref] {
-  color: #4db6ac;
+  color: #66c9bf; /* 7.43:1 on surface, 9.62:1 on plan bg — AAA (was #4db6ac at 5.99:1 on surface) */
 }
 
 /* ---- Footnotes ---- */
 .markdown-body .footnotes {
   font-size: small;
+  color: #57606a; /* #8b949e was 2.95:1 on light bg — AA fail if footnotes ever render */
+  border-top: 1px solid #d0d7de;
+}
+
+:root.dark .markdown-body .footnotes {
   color: #8b949e;
-  border-top: 1px solid #30363d;
+  border-top-color: #30363d;
 }
 
 .markdown-body [data-footnote-ref]::before {

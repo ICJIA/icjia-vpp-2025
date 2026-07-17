@@ -79,7 +79,7 @@ const year = new Date().getFullYear();
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit Illinois Criminal Justice Information Authority website"
-            class="text-sm font-medium text-black/80 dark:text-on-background/90 hover:text-primary px-1 no-underline"
+            class="text-sm font-medium text-black/80 dark:text-on-background/90 hover:text-primary px-1 no-underline relative before:content-[''] before:absolute before:inset-x-0 before:top-1/2 before:-translate-y-1/2 before:h-11"
           >
             Illinois Criminal Justice Information Authority
           </a>
@@ -91,7 +91,7 @@ const year = new Date().getFullYear();
             <span class="hidden min-[960px]:inline opacity-60 select-none" aria-hidden="true">|</span>
             <a
               href={link.href}
-              class="text-sm font-medium text-black/80 dark:text-on-background/90 hover:text-primary px-1 no-underline"
+              class="text-sm font-medium text-black/80 dark:text-on-background/90 hover:text-primary px-1 no-underline relative before:content-[''] before:absolute before:inset-x-0 before:top-1/2 before:-translate-y-1/2 before:h-11"
               aria-label={
                 link.text === "Privacy" ? "View Privacy Policy" :
                 link.text === "Documentation" ? "View Developer Documentation Portal" :

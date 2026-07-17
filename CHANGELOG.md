@@ -39,6 +39,7 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 ### Audit History
 | Date | Tool | Result |
 |------|------|--------|
+| 2026-07-17 | SiteImprove (production = pre-migration Nuxt site) | All 38 Level A + all 11 Level AA rules 100/100; only sub-100 items are 3 AAA rules + 1 editorial check. Branch-only light-mode AA fixes applied in [2.1.1] |
 | 2026-06-11 | axecap + lightcap (Astro) | axe AA: 0 violations / 16 pages; Lighthouse A11y:100 / 16 pages; home full audit 100×4 desktop + A11y:100 mobile |
 | 2026-04-13 | axecap + lightcap | axe AA: 0 violations / 13 pages; Lighthouse: A11y:100, BP:100, SEO:100 on all 13 pages |
 | 2026-04-11 | axe-core 4.11.2 | 0 violations / 13 pages (desktop AA, mobile AA, best practices — 39 audits total) |
@@ -48,6 +49,26 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 | 2025-10-29 | Google Lighthouse + axe | Full audit, all issues resolved |
 | 2025-09-15 | Lighthouse | Skip link audit, footer fixes, dark mode fixes |
 | 2025-08-11 | Lighthouse | Accessibility + performance optimization |
+
+---
+
+## [2.1.1] - 2026-07-17 — SiteImprove follow-up: light-mode AA fixes + AAA improvements
+
+Driven by the 2026-07-17 SiteImprove score breakdown of production (still the pre-migration Nuxt site): every Level A (38/38) and Level AA (11/11) rule already scores 100/100 — the four sub-100 items are WCAG AAA (1.4.6 enhanced contrast, 2.5.5 enhanced target size, 1.4.8 line height) or SiteImprove editorial ("overuse of italics"), none required for ADA Title II / IITAA 2.1. Reviewing the Astro branch against those findings surfaced two light-mode AA regressions (invisible to prior axe scans, which audit the dark-default theme); both are fixed here along with the low-risk AAA improvements.
+
+### Fixed
+- **Light-mode AA contrast (WCAG 1.4.3)**: plan-page TOC "On this page" label was `text-on-surface/60` = 4.00:1 → now `/75` = 6.34:1 (`ReportNavigation.astro`); image-enlarge hint's dark variant was `dark:text-on-surface/50` = 4.48:1 on surface → now `dark:…/60` ≥ 5.78:1 (`TextCenteredImage.astro`).
+- **`.footnotes` light-mode trap**: hardcoded GitHub-dark gray `#8b949e` = 2.95:1 on light backgrounds. Dormant (no content uses footnotes yet) but now theme-split: `#57606a` light (6.12:1) / `#8b949e` dark (6.15:1), matching border colors (`global.css`).
+- **Search clear-button icon at the 1.4.11 knife edge**: the ✕ control's `text-on-surface/50` computed to exactly 3.00:1 in light mode — the UI-component minimum with zero margin. Now `/70` (5.36:1 light / 7.31:1 dark); hover unchanged (`search.astro`).
+
+### Changed
+- **Line height ≥ 1.5 on all small-text paragraphs (WCAG 1.4.8 AAA)**: `leading-relaxed`/`leading-normal` added to the nine `text-sm`/`text-xs` `<p>` elements that computed to 1.33–1.43 — search state panels + result paths (`search.astro`), news empty state (`news/index.astro`), TOC label (`ReportNavigation.astro`), image caption + hint (`TextCenteredImage.astro`).
+- **44×44px pointer targets on the last small controls (WCAG 2.5.5 AAA)**: desktop navbar dropdown buttons and footer bottom-row links get the invisible pseudo-element hit area already used by ThemeToggle — visual size, layout, and the nav underline animation are unchanged. Scanners that measure raw element boxes may not credit these, but the actual pointer target is 44px.
+- **Reference citation markers to AAA contrast (WCAG 1.4.6)**: light `#00695c` (6.34:1) → `#00594e` (7.92:1); dark `#4db6ac` (5.99:1 on surface) → `#66c9bf` (7.43:1 on surface, 9.62:1 on plan pages) (`global.css`).
+
+### Not changed (documented decisions)
+- **Blockquote italics stay** (`global.css` `font-style: italic`): SiteImprove's "overuse of italics" is an editorial best-practice check, not WCAG — removing italics is a design decision deferred to the team.
+- **Muted-text hierarchy stays at `/70`–`/75`** (5.4–6.3:1): passes AA everywhere; pushing all secondary text to 7:1 (AAA) would flatten the visual hierarchy for no compliance gain.
 
 ---
 

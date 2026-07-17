@@ -99,7 +99,7 @@ const modalSrc = optimizedModal ? optimizedModal.src : src;
   )}
 
   <!-- "Click image to enlarge" hint (matches legacy "Click Image to View") -->
-  <p class="mt-1 text-xs text-on-surface/70 dark:text-on-surface/50 select-none" aria-hidden="true">
+  <p class="mt-1 text-xs leading-normal text-on-surface/70 dark:text-on-surface/60 select-none" aria-hidden="true">
     Click image to enlarge
   </p>
 </figure>
@@ -144,7 +144,7 @@ const modalSrc = optimizedModal ? optimizedModal.src : src;
 
   <!-- Caption in modal -->
   {caption && (
-    <p class="mt-4 text-center text-sm font-bold text-on-surface">
+    <p class="mt-4 text-center text-sm leading-relaxed font-bold text-on-surface">
       {caption}
     </p>
   )}

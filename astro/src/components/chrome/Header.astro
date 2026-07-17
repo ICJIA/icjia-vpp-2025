@@ -334,6 +334,18 @@ const moreLinks = more.filter((i) => !i.divider);
     overflow: visible;
   }
 
+  /* 44px hit-area (WCAG 2.5.5) as an invisible overlay — the box itself must
+     stay py-1 because the ::after underline anchors to the box bottom edge. */
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+
   .nav-link::after {
     content: "";
     position: absolute;
