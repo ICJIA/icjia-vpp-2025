@@ -45,8 +45,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(prettier@3.8.3)(typescript@6.0.3)
       defuddle:
-        specifier: ^0.6.6
-        version: 0.6.6(jsdom@28.1.0)
+        specifier: ^0.8.0
+        version: 0.8.0(jsdom@28.1.0)
       fuse.js:
         specifier: ^7.1.0
         version: 7.3.0
@@ -981,9 +981,9 @@ packages:
   '@vue/shared@3.1.5':
     resolution: {integrity: sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==}
 
-  '@xmldom/xmldom@0.8.13':
-    resolution: {integrity: sha512-KRYzxepc14G/CEpEGc3Yn+JKaAeT63smlDr+vjB8jRfgTBBI9wRj/nkQEO+ucV8p8I9bfKLWp37uHgFrbntPvw==}
-    engines: {node: '>=10.0.0'}
+  '@xmldom/xmldom@0.9.10':
+    resolution: {integrity: sha512-A9gOqLdi6cV4ibazAjcQufGj0B1y/vDqYrcuP6d/6x8P27gRS8643Dj9o1dEKtB6O7fwxb2FgBmJS2mX7gpvdw==}
+    engines: {node: '>=14.6'}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1140,6 +1140,10 @@ packages:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
 
+  commander@12.1.0:
+    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+    engines: {node: '>=18'}
+
   commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
@@ -1217,8 +1221,9 @@ packages:
   defu@6.1.7:
     resolution: {integrity: sha512-7z22QmUWiQ/2d0KkdYmANbRUVABpZ9SNYyH5vx6PZ+nE5bcC0l7uFvEfHlyld/HcGBFTL536ClDt3DEcSlEJAQ==}
 
-  defuddle@0.6.6:
-    resolution: {integrity: sha512-cexePkdZCwg8g1DHCV3xfE6DGTBeldtJct4/fOumYE/kx+sgoDg8yxjCxlC/Pss0v11G5CUFSUmf7fGJg249AA==}
+  defuddle@0.8.0:
+    resolution: {integrity: sha512-bnjhHS1mLt39GR4frAyLL94RPqeRyflwC5mbjt7RDpqCMYcemEzuBy+AIE6CYayvv/viAea3jGgyaakI3p1K5Q==}
+    hasBin: true
     peerDependencies:
       jsdom: ^24.0.0
 
@@ -1691,8 +1696,8 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
-  mathml-to-latex@1.5.0:
-    resolution: {integrity: sha512-rrWn0eEvcEcdMM4xfHcSGIy+i01DX9byOdXTLWg+w1iJ6O6ohP5UXY1dVzNUZLhzfl3EGcRekWLhY7JT5Omaew==}
+  mathml-to-latex@1.8.0:
+    resolution: {integrity: sha512-gQ0uK3zqB8HwlfaXJkEL5rgaZNbKUiBMmBP/B/W+b+t6KcseLSuYb1b0BjLgS9ZiQa24ePkqTX8/6FaQuDL7wQ==}
 
   mdast-util-definitions@6.0.0:
     resolution: {integrity: sha512-scTllyX6pnYNZH/AIp/0ePz6s4cZtARxImwoPJ7kS42n+MnVsI4XbnG6d4ibehRIldYMWM2LD7ImQblVhUejVQ==}
@@ -3477,7 +3482,7 @@ snapshots:
 
   '@vue/shared@3.1.5': {}
 
-  '@xmldom/xmldom@0.8.13':
+  '@xmldom/xmldom@0.9.10':
     optional: true
 
   acorn-jsx@5.3.2(acorn@8.16.0):
@@ -3716,6 +3721,8 @@ snapshots:
 
   commander@11.1.0: {}
 
+  commander@12.1.0: {}
+
   commander@7.2.0: {}
 
   common-ancestor-path@2.0.0: {}
@@ -3793,11 +3800,12 @@ snapshots:
 
   defu@6.1.7: {}
 
-  defuddle@0.6.6(jsdom@28.1.0):
+  defuddle@0.8.0(jsdom@28.1.0):
     dependencies:
+      commander: 12.1.0
       jsdom: 28.1.0
     optionalDependencies:
-      mathml-to-latex: 1.5.0
+      mathml-to-latex: 1.8.0
       temml: 0.11.11
       turndown: 7.2.4
 
@@ -4369,9 +4377,9 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  mathml-to-latex@1.5.0:
+  mathml-to-latex@1.8.0:
     dependencies:
-      '@xmldom/xmldom': 0.8.13
+      '@xmldom/xmldom': 0.9.10
     optional: true
 
   mdast-util-definitions@6.0.0:
