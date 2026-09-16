@@ -18,9 +18,11 @@ The Illinois Criminal Justice Information Authority (ICJIA) is committed to maki
 
 ## Conformance status
 
-The web pages of this site **substantially conform** to the [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/) at **Level AA**. "Substantially conform" means the pages meet the WCAG 2.1 Level AA success criteria, with the understanding that some content may occasionally fall short despite our efforts.
+The Statewide Violence Prevention Plan for Illinois: 2025-2029 website is **fully conformant** with the [Web Content Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/) at **Level AA**. Fully conformant means that the content fully conforms to the accessibility standard without any exceptions.
 
-Meeting WCAG 2.1 Level AA also addresses the obligations of these pages under:
+This status covers every web page at vpp.icjia.illinois.gov, in both of the site's color themes. It is based on our own evaluation of each page against every WCAG 2.1 Level A and Level AA success criterion, completed on September 16, 2026. The downloadable PDF of the plan is described under "Limitations and alternatives" below.
+
+WCAG 2.1 Level AA is also the standard named by:
 
 - the **[Illinois Information Technology Accessibility Act (IITAA) 2.1](https://doit.illinois.gov/initiatives/accessibility/iitaa.html)**, the standard for State of Illinois agency websites, which is based on WCAG 2.1 Level AA; and
 - **Title II of the Americans with Disabilities Act (ADA)**, which requires state and local government web content to meet WCAG 2.1 Level AA.
@@ -41,7 +43,8 @@ Accessibility is built into how this site is designed and developed. Among other
 
 We evaluate accessibility ourselves throughout development rather than relying on a single point-in-time review. Testing includes:
 
-- automated checks with **axe-core** and **Lighthouse** during development; and
+- automated checks with **axe-core** and **Lighthouse** during development;
+- evaluation by hand of every page, in both color themes, against every WCAG 2.1 Level A and Level AA success criterion, including keyboard use, visible focus, color contrast, text alternatives for figures, and layout at narrow widths and high zoom; and
 - ongoing site-wide monitoring with **Siteimprove**.
 
 This is a self-evaluation and is not a third-party certification. Automated tools cannot catch every barrier, which is why feedback from people who use the site is important to us.
@@ -49,6 +52,10 @@ This is a self-evaluation and is not a third-party certification. Automated tool
 ## Technical specifications
 
 Accessibility of this site relies on the following technologies: **HTML**, **WAI-ARIA**, **CSS**, and **JavaScript**. These are used in ways that conform to the standards above. Pages are generated ahead of time and delivered as static HTML, so their content remains readable if JavaScript is turned off or unsupported; JavaScript is used for interactive features such as site search and the drop-down and mobile navigation menus.
+
+## Limitations and alternatives
+
+The downloadable PDF of the plan has not yet been made accessible. The complete plan is published on this website as web pages, which are its accessible version. If you need the plan in another format, including an accessible PDF, contact us using the details below.
 
 ## Feedback and contact
 

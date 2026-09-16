@@ -53,6 +53,12 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2.3.2] - 2026-09-16 — The accessibility statement uses W3C's conformance label
+
+- **"Substantially conform" is gone.** It is not a W3C term. Following the W3C Accessibility Statement Generator, the website is now described as **fully conformant** with WCAG 2.1 at Level AA — "the content fully conforms to the accessibility standard without any exceptions".
+- **The claim rests on evidence.** On September 16, 2026 every page was evaluated by hand, in both color themes, against every WCAG 2.1 Level A and AA success criterion. The eleven failures it found were fixed in 2.3.1 and confirmed on the live site: axe-core reports 0 violations in 32 runs across all 16 pages in both themes, no page scrolls sideways at 320px even with a citation tooltip open, and `/plan/` answers with a real 301.
+- **Scope is stated.** The status covers every web page, in both themes. A new "Limitations and alternatives" section says the downloadable PDF of the plan has not yet been made accessible, names the site's web pages as the plan's accessible version, and offers the plan in another format, including an accessible PDF, on request. The testing section adds the evaluation by hand.
+
 ## [2.3.1] - 2026-09-16 — The eleven failures from the WCAG 2.1 AA evaluation, fixed
 
 The September 16, 2026 WCAG 2.1 Level AA evaluation of the live 2.3.0 site (WCAG-EM, all 50 success criteria, every page in both themes and at phone and desktop widths) found the web pages partially conformant: 11 failures across 9 success criteria. This release fixes all eleven. Each fix was re-measured with the method the evaluation used to find it, on the unmodified 2.3.0 build and on this one, both served locally with the headers from `public/_headers` (CSP enforced), in both themes. The numbers below are before → after.
