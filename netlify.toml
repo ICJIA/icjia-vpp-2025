@@ -28,7 +28,7 @@
   force = true
 
 # NOTE: app-level routing/headers live with the build, not here:
-#   - /plan → /plan/front-cover/   → astro/src/pages/plan/index.astro (301)
+#   - /plan → /plan/front-cover/   → astro/public/_redirects (301)
 #   - /sitemap.xml → /sitemap-0.xml → astro/public/_redirects (200)
 #   - CSP + security + cache headers → astro/public/_headers
 #   - 404 → astro/dist/404.html (Netlify serves it automatically)

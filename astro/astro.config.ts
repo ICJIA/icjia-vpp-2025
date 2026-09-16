@@ -34,8 +34,9 @@ export default defineConfig({
     icon(),
     sitemap({
       // Excluded: /news (built but unlinked placeholder — empty until the News
-      // section launches), /plan/ index (noindexed meta-refresh redirect to
-      // /plan/front-cover/), /search (noindex utility page).
+      // section launches), /plan/ (now a 301 to /plan/front-cover/ in
+      // public/_redirects, so no page is built; kept as a guard), /search
+      // (noindex utility page).
       filter: (page) =>
         !page.includes('/sandbox') &&
         !page.includes('/404') &&

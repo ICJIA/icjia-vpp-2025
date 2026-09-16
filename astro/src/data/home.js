@@ -38,7 +38,10 @@ export const hero = {
   ],
   image: {
     src: "/images/vpp-cover.webp",
-    alt: "Youth violence prevention summit participants collaborating on community safety initiatives",
+    // The image is the plan's front cover and the only content of a link to
+    // /download/, so its alt text is the link's name: say what it shows and
+    // where it goes (WCAG 1.1.1, 2.4.4).
+    alt: "Front cover of the Statewide Violence Prevention Plan for Illinois: 2025-2029. Opens the download page.",
     caption: "Click image to download",
     linkUrl: "/download/",
   },

@@ -46,7 +46,9 @@ const year = new Date().getFullYear();
         </a>
       </div>
 
-      <!-- Description -->
+      <!-- Description. The inline link is set apart from the text by a solid
+           underline in the link colour (9.90:1 dark, 5.79:1 light), not by colour
+           alone; it thickens on hover and focus (WCAG 1.4.11). -->
       <p class="max-w-[700px] min-[1200px]:max-w-[800px] mx-auto text-[0.95rem] leading-relaxed text-black/80 dark:text-on-background/90 m-0">
         The
         <a
@@ -54,7 +56,7 @@ const year = new Date().getFullYear();
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit Illinois Criminal Justice Information Authority website"
-          class="text-primary border-b border-primary/30 hover:border-primary no-underline font-medium"
+          class="text-primary border-b border-primary hover:border-b-2 focus-visible:border-b-2 no-underline font-medium"
         >
           Illinois Criminal Justice Information Authority
         </a>

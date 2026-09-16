@@ -7,15 +7,15 @@ planInfo:
   version: 2025-2029
   organization: Illinois Criminal Justice Information Authority (ICJIA)
   baseUrl: https://vpp.icjia.illinois.gov
-  generatedAt: '2026-09-16T01:42:32.200Z'
+  generatedAt: '2026-09-16T22:16:28.681Z'
   totalPages: 7
 generationStats:
   totalPages: 7
   processedPages: 7
   skippedPages: 0
-  totalContentLength: 39515
+  totalContentLength: 41246
   totalMetadataFields: 41
-  averageContentLength: 5645
+  averageContentLength: 5892
   averageMetadataFields: 5.86
 pages:
   - slug: front-cover
@@ -562,7 +562,7 @@ pages:
       ogImage: /images/og-image-vpp-2025.png
       twitterCard: summary_large_image
       showTOC: true
-    contentLength: 13655
+    contentLength: 15386
     content: >-
       import TextCenteredImage from "../../components/content/TextCenteredImage.astro";
 
@@ -657,8 +657,36 @@ pages:
       model whenever possible.
 
 
-      <TextCenteredImage src="/images/PPT_circles.webp" alt="Image: Where Violence Prevention Efforts Occur"
-      caption="Figure 1. Social-ecological model" />
+      <TextCenteredImage src="/images/PPT_circles.webp" alt="Where Violence Prevention Efforts Occur: the
+      social-ecological model (text version below)" caption="Figure 1. Social-ecological model" />
+
+
+      <details id="figure-1-text-version" class="figure-text-version">
+
+      <summary>Text version of Figure 1</summary>
+
+
+      **WHERE** Violence Prevention Efforts Occur:
+
+
+      - **Societal Level**
+        - The role of the economy, cultural norms, media, policies, and laws (e.g., policies that create or maintain inequities or cultural norms that encourage violence)
+        - Prevention efforts aim to address norms/attitudes, offer equitable services and opportunities, or focus on policy proposals/changes
+      - **Community Level**
+        - The role of places (e.g., school, work, neighborhood) and conditions that contribute to violence (e.g., poverty, residential segregation)
+        - Prevention efforts aim to improve physical or social aspects of a setting, strengthen setting characteristics, climates, or connections, or address structural conditions
+      - **Relational Level**
+        - The role of interactions with peers, partners, family members, etc. (e.g., a family member may encourage or promote violence)
+        - Prevention efforts involve strengthening or improving relationships (e.g., a family-based program that focuses on strengthening parent-child communication) and can involve mentoring
+      - **Individual Level**
+        - The role of personal characteristics, behaviors, and experiences that may protect and/or increase the risk for violence victimization or perpetration (e.g., history of experiencing abuse, age)
+        - Prevention efforts teach individual skills, behaviors, and awareness (e.g., social-emotional skills, conflict management, healthy relationship skills, or safe dating)
+
+      The figure draws the four levels as nested circles, from outermost to innermost: Society, Community,
+      Relationships, Individual.
+
+
+      </details>
 
 
       For additional resources regarding the socio-ecological model and coordinated and comprehensive violence

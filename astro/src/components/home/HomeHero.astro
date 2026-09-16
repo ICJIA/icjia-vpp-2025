@@ -71,7 +71,8 @@ const learnMoreBtn = hero.buttons.find((b) => b.variant === "outlined");
 
       <!-- ── Right: image column ── -->
       <div class="mt-8 min-[960px]:mt-0 hero-image-col">
-        <a href={hero.image.linkUrl} aria-label={hero.image.alt}>
+        <!-- No aria-label: the image's alt text names the link (hero.image.alt). -->
+        <a href={hero.image.linkUrl}>
           <img
             src={hero.image.src}
             alt={hero.image.alt}

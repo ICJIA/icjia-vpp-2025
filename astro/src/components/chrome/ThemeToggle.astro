@@ -10,6 +10,14 @@
  *  - sessionStorage ONLY — no localStorage, no cookies (#11)
  *  - No ripple/Material effects (#7)
  *  - Thumb transition respects prefers-reduced-motion
+ *  - WCAG 2.5.3: the accessible name must contain the visible label. The label
+ *    is always "Dark" and the name "Dark mode"; on/off is carried by
+ *    aria-checked, the thumb and the icon. A label that flipped to "Light" was
+ *    not in the name, so "click Light" did nothing for voice-control users.
+ *    ("Dark mode" as the visible label wraps the header nav at 960-1010px.)
+ *  - WCAG 1.4.11: track, thumb and icon each keep >= 3:1 against what they
+ *    sit on, in both themes and at every width (the text label is hidden at
+ *    480px and narrower, so the graphics alone must identify the switch).
  */
 import { Icon } from "astro-icon/components";
 
@@ -22,7 +30,7 @@ const { class: className } = Astro.props;
 <button
   type="button"
   role="switch"
-  aria-label="Toggle dark mode"
+  aria-label="Dark mode"
   x-data="{ dark: true }"
   x-init="dark = document.documentElement.classList.contains('dark')"
   :aria-checked="dark.toString()"
@@ -59,34 +67,35 @@ const { class: className } = Astro.props;
   <!-- Sun: shown when light -->
   <Icon
     name="mdi:white-balance-sunny"
-    class="h-4 w-4 shrink-0 text-orange-500 transition-colors duration-200"
+    class="h-4 w-4 shrink-0 text-[#c2410c] transition-colors duration-200"
     aria-hidden="true"
     x-show="!dark"
   />
 
   <!-- CSS pill track + thumb (legacy: 2rem × 1rem track, 0.75rem thumb) -->
   <!--
-    Track uses bg-primary when dark (on), muted (on-surface/20) when light (off).
-    Thumb is white; translates right when dark/on.
+    Track uses bg-primary when dark (on), on-surface/70 when light (off): >= 4.5:1
+    against the pill (on-surface/20 was 1.47:1). Thumb is white on the light-theme
+    track and background-dark on the light-blue dark-theme track (white was 1.8:1);
+    it translates right when dark/on.
   -->
   <span
     :class="dark
       ? 'bg-primary'
-      : 'bg-on-surface/20 dark:bg-on-surface/30'"
+      : 'bg-on-surface/70 dark:bg-on-surface/50'"
     class="relative inline-flex h-4 w-8 shrink-0 items-center rounded-full transition-colors duration-200 motion-reduce:transition-none"
     aria-hidden="true"
   >
     <span
       :class="dark ? 'translate-x-[18px]' : 'translate-x-[2px]'"
-      class="inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform duration-200 motion-reduce:transition-none"
+      class="inline-block h-3 w-3 rounded-full bg-white dark:bg-background shadow-sm transition-transform duration-200 motion-reduce:transition-none"
     ></span>
   </span>
 
-  <!-- Visible label: "Dark" or "Light" — hidden below 480px -->
+  <!-- Visible label: always "Dark", the start of the name "Dark mode" — hidden below 480px -->
   <span
     class="max-[480px]:hidden text-sm font-medium text-on-surface dark:text-on-surface whitespace-nowrap"
-    x-text="dark ? 'Dark' : 'Light'"
-  ></span>
+  >Dark</span>
 
   <!-- Screen reader live region: announces theme change -->
   <span

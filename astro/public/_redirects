@@ -4,3 +4,10 @@
 # Astro deploy — the legacy Nuxt production build is unaffected.
 /sitemap.xml    /sitemap-0.xml    200
 /sitemap.xml/   /sitemap-0.xml    200
+
+# /plan/ has no page of its own: send it to the first chapter with a real 301.
+# (It was src/pages/plan/index.astro, but Astro.redirect() in a static build can
+# only emit a meta-refresh stub, which had no <html lang> (WCAG 3.1.1) and made
+# /plan cost two hops. Both slash forms, as for the sitemap rule above.)
+/plan           /plan/front-cover/    301
+/plan/          /plan/front-cover/    301

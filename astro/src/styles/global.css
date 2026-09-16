@@ -373,6 +373,34 @@ a.skip-link:focus {
   padding: 0;
 }
 
+/* Long URLs used as link text are single unbreakable words: at 320px the WHO
+   fact-sheet URL made the page 868px wide (WCAG 1.4.10). `anywhere` breaks a
+   link only when it cannot fit on its line, so short links are unchanged. */
+.markdown-body .reference-item a {
+  overflow-wrap: anywhere;
+}
+
+/* ---- Text version of a figure (WCAG 1.1.1) ----
+   A <details> directly after a figure whose image holds text that appears
+   nowhere else (Goals and Recommendations, Figure 1). The summary is the
+   control: pointer cursor, 44px target, and a visible author focus ring. */
+.markdown-body .figure-text-version {
+  margin-bottom: 1.5rem;
+}
+
+.markdown-body .figure-text-version > summary {
+  display: list-item;
+  min-height: 44px;
+  padding: 0.625rem 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.markdown-body .figure-text-version > summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* ============================================================================
    Page background wrappers
    Ported from app/pages/[...slug].vue scoped styles (1408-1430).
