@@ -52,6 +52,39 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2.3.0] - 2026-09-16 — An accessibility statement, linked from every page
+
+The site had no accessibility statement: no page naming the standard it meets, and no route for a visitor who hits a barrier to report it. The 2026-09-16 Accessibility Check in the ICJIA documentation index flagged this as the site's one gap. The new page follows the agency's existing statement for Safe From the Start (`sfs.icjia.illinois.gov/accessibility.html`) section for section. Every claim in it was checked against this site, and claims that did not hold here were left out.
+
+### Added
+- **`/accessibility/`** (`src/content/accessibility.md`), rendered by the existing `[...slug].astro` catch-all, so no route changes were needed; the sitemap picks it up automatically. Sections: conformance status (substantially conforms to WCAG 2.1 AA, tied to IITAA 2.1 and ADA Title II), measures to support accessibility, how the site is tested (axe-core, Lighthouse, Siteimprove; a self-evaluation, not a certification), technical specifications, and feedback via `cja.info@illinois.gov`. Last reviewed September 16, 2026.
+- **"Accessibility" footer link** beside "Privacy" (`src/data/nav.js`). The comment above `footerLinks` no longer reads as a reason not to link an accessibility page: the unmigrated legacy `/docs/accessibility` was an audit report, not a statement.
+
+### Fixed
+- **The footer's "Accessibility" aria-label said "View Accessibility Audit Report"**, a Nuxt-era mapping in `Footer.astro` that sat dormant until a link used it. On a link to a statement it would have announced the wrong page to screen-reader users and failed WCAG 2.5.3 Label in Name. It is now "View Accessibility Statement".
+
+### How each claim in the statement was verified
+- **Landmark regions** (header, navigation, main, footer): live DOM.
+- **Keyboard use and visible focus**: every tab stop on the live home page (22) and executive summary showed an author outline or the browser focus ring; the search box shows a border and ring on focus; "Read the Plan" opens with Enter, Tab moves into it, Escape closes it; on the local build at phone width the drawer opens with Enter with focus inside, and Escape closes it and returns focus to the menu button.
+- **Skip to main content**: the first tab stop; Enter moves focus to `#main-content`.
+- **AA text contrast in both themes**: dark (default) from the 2026-09-16 audit, 162/162; light by running axe-core 4.11.2 WCAG 2.1 A/AA with `sessionStorage.theme = "light"` on six live pages: 0 violations, 296 contrast nodes passing.
+- **Reduced motion**: the served CSS gates entrance animations and smooth scrolling behind `prefers-reduced-motion`, and the scroll-to-top and TOC scripts check `matchMedia`.
+- **Search result announcements**: `search.astro` writes the result count to the `#announcer-polite` live region.
+- **Content readable without JavaScript**: the live executive summary's served HTML carries 5,597 characters of plan text inside `<main>`.
+
+### Fixed
+- **Page content reflows at 320 CSS px (WCAG 1.4.10).** At a true 320px viewport the page scrolled sideways by 102px. Two causes, both fixed:
+  - The homepage section headings used `text-5xl` (48px) at every mobile width, and "Recommendations" is a single word that cannot wrap — it overflowed its 288px box by 117px. The three section headings (`HomeLetter`, `HomeAction`, `HomeGoals`) are now `text-3xl min-[480px]:text-5xl min-[960px]:text-6xl`, so they drop to 30px only below 480px and keep their original 48px and 60px everywhere else, plus `[overflow-wrap:anywhere]` as a safety net. Two of the three take their text from data, so a longer word could arrive without anyone touching this code.
+  - The footer copyright line was `whitespace-nowrap` at 346px; it now wraps inside its already `flex-wrap` container.
+
+  `hyphens: auto` was tried and does not break "Recommendations" in Chrome, so it is not used. Verified in a browser with device emulation (Chrome clamps a real window to 500px, where the fault does not appear): page overflow 0 at 320px, 480px and 1280px, with headings at 30, 48 and 60px respectively.
+- **"Skip to navigation" no longer points at nothing on phones.** Below 960px `#site-navigation` is `display: none`, so the link moved focus nowhere. It now carries `max-[960px]:hidden`, appearing exactly when its target does — verified hidden at 320px and 480px, visible with the navigation present at 1280px.
+
+### Scope
+- **Downloadable files.** The conformance claim covers the site's web pages; the plan PDF was not assessed. The feedback section invites requests for the plan in a different format.
+
+Verified: `pnpm build` clean (18 pages; `dist/accessibility/index.html` present and in `sitemap-0.xml`); axe-core WCAG 2.1 A/AA on the built `/accessibility/` page returned 0 violations in both themes, and 0 on the home page with the new footer link; the built footer link carries `aria-label="View Accessibility Statement"`, and the old label appears nowhere in `dist/`.
+
 ## [2.2.0] - 2026-09-15 — The JSON and YAML downloads carry the plan again
 
 `/download/` and the README have offered `vpp-plan-2025-2029.json` and `.yaml` as "the plan data in machine-readable formats" since April. Both were empty: `pages: []`, `totalPages: 0`, `pageCount: 0`. They were written once on 2026-04-13 by a generator that produced nothing and did not survive into this repository, and nothing rebuilt them afterwards — so anyone who followed those links got a 900-byte envelope with no plan inside it. Verified empty on production before the fix.

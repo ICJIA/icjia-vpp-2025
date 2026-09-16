@@ -157,7 +157,9 @@ const ld = webPageJsonLd({
   <body class="flex min-h-dvh flex-col">
     <nav aria-label="Skip links" class="skip-links-nav">
       <a href="#main-content" class="skip-link">Skip to main content</a>
-      <a href="#site-navigation" class="skip-link">Skip to navigation</a>
+      <!-- Hidden below 960px because #site-navigation is (hidden min-[960px]:flex):
+           on phones there is no desktop nav for this link to move focus to. -->
+      <a href="#site-navigation" class="skip-link max-[960px]:hidden">Skip to navigation</a>
     </nav>
 
     <Header />

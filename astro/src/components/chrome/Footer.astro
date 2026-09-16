@@ -72,7 +72,7 @@ const year = new Date().getFullYear();
       <div class="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 max-[480px]:flex-col text-sm">
 
         <!-- Copyright -->
-        <span class="text-sm font-medium text-black/80 dark:text-on-background/90 px-1 whitespace-nowrap">
+        <span class="text-sm font-medium text-black/80 dark:text-on-background/90 px-1">
           &copy; {year}
           <a
             href="https://icjia.illinois.gov"
@@ -95,7 +95,7 @@ const year = new Date().getFullYear();
               aria-label={
                 link.text === "Privacy" ? "View Privacy Policy" :
                 link.text === "Documentation" ? "View Developer Documentation Portal" :
-                link.text === "Accessibility" ? "View Accessibility Audit Report" :
+                link.text === "Accessibility" ? "View Accessibility Statement" :
                 link.text
               }
             >
