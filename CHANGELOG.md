@@ -52,6 +52,20 @@ This application targets **WCAG 2.1 AA compliance** and **Illinois IITAA 2.1 Sta
 
 ---
 
+## [2.2.0] - 2026-09-15 — The JSON and YAML downloads carry the plan again
+
+`/download/` and the README have offered `vpp-plan-2025-2029.json` and `.yaml` as "the plan data in machine-readable formats" since April. Both were empty: `pages: []`, `totalPages: 0`, `pageCount: 0`. They were written once on 2026-04-13 by a generator that produced nothing and did not survive into this repository, and nothing rebuilt them afterwards — so anyone who followed those links got a 900-byte envelope with no plan inside it. Verified empty on production before the fix.
+
+### Fixed
+- **The exports contain the plan.** Both files now carry all seven plan documents — 39,515 characters of content — with frontmatter, per-page metadata, route paths and absolute URLs. JSON and YAML are generated from the same object, so they cannot disagree.
+
+### Added
+- **`astro/scripts/generate-plan-export.js`**, wired into `prebuild` alongside the references and search-index generators. The exports are now rebuilt from `src/content/plan/` on every build, which is what stops this from recurring — a stale artifact committed once was the original defect, not a one-off mistake in its contents.
+  - Page order comes from `src/data/planOrder.js`, the array the navigation already uses, so the export reads in plan order (front cover → references) rather than alphabetically. There is deliberately no second list of slugs to drift.
+  - The script **fails the build rather than writing an empty export**. An empty file that `/download/` links is worse than a missing one, and silence is how this went unnoticed for five months.
+  - Frontmatter is parsed with js-yaml rather than a line-wise regex, so quoted strings and keyword arrays survive (the sibling search-index generator's regex drops them).
+- **`js-yaml`** as a devDependency — build-time only, and the serializer the original export was evidently produced with (its `.nan` float encoding is a js-yaml signature).
+
 ## [2.1.1] - 2026-07-17 — SiteImprove follow-up: light-mode AA fixes + AAA improvements
 
 Driven by the 2026-07-17 SiteImprove score breakdown of production (still the pre-migration Nuxt site): every Level A (38/38) and Level AA (11/11) rule already scores 100/100 — the four sub-100 items are WCAG AAA (1.4.6 enhanced contrast, 2.5.5 enhanced target size, 1.4.8 line height) or SiteImprove editorial ("overuse of italics"), none required for ADA Title II / IITAA 2.1. Reviewing the Astro branch against those findings surfaced two light-mode AA regressions (invisible to prior axe scans, which audit the dark-default theme); both are fixed here along with the low-risk AAA improvements.
